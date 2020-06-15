@@ -304,6 +304,14 @@ StartBattle:	;joedebug - start of the battle
 	db "@"
 
 .playerSendOutFirstMon
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;joenote - do shiny animation check for a wild pokemon
+	ld a, [wIsInBattle]
+	cp $01 ; is it a wild battle?
+	jr nz, .playerSendOutFirstMon_cont
+	callba ShinyEnemyAnimation
+.playerSendOutFirstMon_cont
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	xor a
 	ld [wWhichPokemon], a
 .findFirstAliveMonLoop
@@ -371,10 +379,6 @@ EnemyRanText:
 	db "@"
 
 MainInBattleLoop:
-;joenote - check for player shiny & play animation
-	callba ShinyPlayerAnimation
-;joenote - check for enemy shiny & play animation
-	callba ShinyEnemyAnimation
 ;joenote - zero the damage from last round if not using a trapping move
 	ld a, [wEnemyBattleStatus1]
 	bit USING_TRAPPING_MOVE, a
@@ -1626,6 +1630,8 @@ EnemySendOutFirstMon:
 	ld a, [wEnemyMonSpecies2]
 	call PlayCry
 	call DrawEnemyHUDAndHPBar
+	;joenote - see if enemy's sent out mon is shiny
+	callba ShinyEnemyAnimation
 	ld a, [wCurrentMenuItem]
 	and a
 	ret nz
@@ -1959,6 +1965,8 @@ SendOutMon:
 	ld a, [wcf91]
 	call PlayCry
 	call PrintEmptyString
+	;joenote - check for player shiny & play animation on send-out
+	callba ShinyPlayerAnimation
 	jp SaveScreenTilesToBuffer1
 
 ; show 2 stages of the player mon getting smaller before disappearing

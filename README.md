@@ -38,7 +38,7 @@ TMs in Marts
 ![Marts](/screenshots/bgb00016.bmp?raw=true)
 
 Shiny Animation  
-![Shiny Animation](/screenshots/bgb00012.bmp?raw=true)
+![Shiny Animation](/screenshots/bgb00019.bmp?raw=true)
 
 Girl Trainer  
 ![Girl Trainer](/screenshots/bgb00015.bmp?raw=true)
@@ -140,6 +140,8 @@ Girl Trainer
 - *v1.14 beta* Fixed list-type mismatch when machines and items share the same menu
 - *v1.14 beta* Applied a fix for skipping moves on level up that relies on pokemon levels at the start of battle
 - *v1.14 beta* Trainer scaling is now based on the strongest member of your party
+- *v1.14 beta* Tweaked when the shiny animations play
+- *v1.14 beta* Changed the shiny animation to be easier on the eyes
 
 
 #New features & adjustments since last version:

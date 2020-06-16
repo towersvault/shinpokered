@@ -78,7 +78,7 @@ ShinyPlayerAnimation:
 	jr z, .noPlayerShiny
 	push de
 	ld d, $00
-	ld e, REFLECT
+	ld e, $B6	;select an unused power-up animation	
 	callba PlaySelectedAnimation
 	pop de
 	call SkipPlayerShinybit
@@ -97,7 +97,7 @@ ShinyEnemyAnimation:
 	jr z, .noEnemyShiny
 	push de
 	ld d, $01
-	ld e, REFLECT
+	ld e, $B6	;select an unused power-up animation	
 	callba PlaySelectedAnimation
 	pop de
 	call SkipEnemyShinybit

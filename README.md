@@ -17,12 +17,8 @@ Always apply patches to a fresh USA ROM or else strange glitches will occur.
 Important Note: If you are using a save file from a previous version, you might be blocked by invisible walls upon loading the game.
 To fix this, you must use the Softlock Warp detailed below to teleport back to Palette Town.
 
-Notice: V1.11 and 1.12 have a memory leak with the Select button.
-		Please update either of these to version 1.13 or later to fix the problem and prevent data corruption.
-
-Notice: V1.14 beta might crash upon loading a save from a previous patch.
+Notice: New patches might crash upon loading a save from a previous patch.
 		To prevent this from happening, save outside in Palette Town.
-		This is an optional patch for now as it currently fixes miniscule game oddities
 
 		
 Title Screen  
@@ -109,28 +105,6 @@ Girl Trainer
 
 #Hack-Induced Bugfixes & Adjustments since last version:
 -----------
-- Found a fixed a major memory leak that would occur every time SELECT is pressed on the overworld
-	- Fixing the leak also stops the issue with the exp bar acting really strange after long play sessions
-	- Band-aide fixed the game corner crashing upon entry (caused by memory leak)
-	- Implemented a function that repairs glitched pokemon names to a stable nickname format (fixes glitch-name boxed mons caused by memory leak)
-- Can no longer use quick-keys to get on/off the bike if on cycling road
-- Switched around the shiny palettes in how they correspond to the usual pokemon palettes
-- Random enemy team generator is more forgiving with level scaling for regular trainers: increases 0-1 levels per mon instead of 0-3
-- Route 12 fisher given some magikarp to match his trainer text
-- TMs and HMs now use a separate string list to determine their item names, so function GetMachineName has been removed
-- Tm & HM name list takes the #3 list table spot and replaces the Unused Names list
-- Pay Day switch to 5x multiplier and fixed an overflow glitch
-- Hotel Coin Guy now does BCD conversion correctly and his payout has been increased
-- The function that handles BCD coin score can now do multiple selectable stats
-- Moved and separated out CryIfOwned function
-- The teams generated for opponents in the SS Anne tournament will now exclude mew and mewtwo
-- Tweaked dialogue for Seiga to give better hints at finding mew
-- Tweaked Fuji's battle dialogue to be less dramatic and rectify a plot hole
-- Function PlayShinyAnimation now genericized as PlaySelectedAnimation and works with a given animation value
-- *hotfix* enter celadon city to clear the corrupted map script number for rocket hideout floor 3
-- *hotfix 2* female trainer hall of fame graphics are no longer glitched
-- included tutorial for adding female trainer graphics
-- *hotfix 3* added some checks to make ghost marowak flag-checking more robust
 - *v1.14 beta* fixed an problem with doubling sprite animation speed on certain maps
 - *v1.14 beta* minimum sleep counter value increased by +1 since attacks can now happen on wakeup
 - *v1.14 beta* cerulean badge-house guy now gives correct information about the thunder and soul badges
@@ -147,12 +121,6 @@ Girl Trainer
 
 #New features & adjustments since last version:
 -----------
-- If playing on super gameboy, hold select when loading a pokedex entry to see that pokemon's shiny palette
-- DVs of trainer pokemon are set back to vanilla default levels if using the "shift" battle style
-- TMs and HMs now have their attacks (albeit abbreviated) appended to the item names
-- The game corner chief will buy pokemon from you post-e4
-- The bookcase in the ship tileset has been replaced with a ship's navigational pc
-- A ship's PC has been added to the ss. anne's kitchen and made functional
 - *v1.14 beta* The transitional frame when turning 180 degrees now shows correctly
 - *v1.14 beta* The lower right corner tile of the mon back pic is no longer blanked
 - *v1.14 beta* Fixed the flipped text for a girl in Saffron and the letter she is writing

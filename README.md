@@ -142,6 +142,7 @@ Girl Trainer
 - *v1.14 beta* Trainer scaling is now based on the strongest member of your party
 - *v1.14 beta* Tweaked when the shiny animations play
 - *v1.14 beta* Changed the shiny animation to be easier on the eyes
+- *v1.14 beta* minor AI tweak to prevent the odd instance of spamming of buff/debuff moves
 
 
 #New features & adjustments since last version:
@@ -163,6 +164,8 @@ Girl Trainer
 - *v1.14 beta* Each of the two boulder puzzles in seafoam islands will fully reset until completed
 - *v1.14 beta* The boulder switches never reset while inside victory road and they will always reset upon leaving
 - *v1.14 beta* While inside victory road, boulders placed on switches will stay there between floor transitions
+- *v1.14 beta* A previously unused sfx plays for getting a badge
+- *v1.14 beta* corrected some wrong gym leader TM sfx
 
 
 #Bugfixes:
@@ -280,6 +283,15 @@ Girl Trainer
   - Full Restore when used in battle to heal HP now undoes the stat changes of brn/par
   - Pokedoll is disallowed during ghost marowak battle
 
+- Audio fixes
+  - Fuschia gym plays the correct sfx when getting the TM from Koga
+  - Vermilion gym plays the correct sfx when getting the TM from Surge
+  - Restored sfx for getting a badge
+    - A sfx is supposed to play when getting a badge, but not for all gym leaders and the sfx used is inconsistent
+	- Looks like the idea was dropped in development due to issues with having separate audio banks
+	- However, there is a unique unused sfx in the battle audio bank that signifies getting some kind of important item
+	- This is likely what was going to be used for getting a badge at some point, and it has been restored
+	
 
 - Misc. fixes
   - Cinnabar/seafoam islands coast glitch fixed (no more missingo or artificially loading pokemon data)

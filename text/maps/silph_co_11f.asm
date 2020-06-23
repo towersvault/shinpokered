@@ -136,8 +136,8 @@ _SilphCo10Text_6237b::
 ;;;;;;;;;;;;;;;;;;;;;;joenote - adding text for Chief battle
 _ChiefText_challenge::
 	text "Do you challenge"
-	line "him to to a"
-	cont "#MON battle?"
+	line "him to a #MON"
+	cont "battle?"
 	done
 
 _ChiefText_prebattle::

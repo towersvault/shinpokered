@@ -105,35 +105,43 @@ Girl Trainer
 
 #Hack-Induced Bugfixes & Adjustments since last version:
 -----------
-- *v1.14 beta* fixed an problem with doubling sprite animation speed on certain maps
-- *v1.14 beta* minimum sleep counter value increased by +1 since attacks can now happen on wakeup
-- *v1.14 beta* cerulean badge-house guy now gives correct information about the thunder and soul badges
-- *v1.14 beta* exp all has a fix for applying roster flags in reverse order
-- *v1.14 beta* exp all handles exp correctly when all your battle participants are knocked out
-- *v1.14 beta* The message about fast current now displays when using the surf hotkey
-- *v1.14 beta* Fixed list-type mismatch when machines and items share the same menu
-- *v1.14 beta* Applied a fix for skipping moves on level up that relies on pokemon levels at the start of battle
-- *v1.14 beta* Trainer scaling is now based on the strongest member of your party
-- *v1.14 beta* Tweaked when the shiny animations play
-- *v1.14 beta* Changed the shiny animation to be easier on the eyes
-- *v1.14 beta* minor AI tweak to prevent the odd instance of spamming of buff/debuff moves
+- fixed an problem with doubling sprite animation speed on certain maps
+- minimum sleep counter value increased by +1 since attacks can now happen on wakeup
+- cerulean badge-house guy now gives correct information about the thunder and soul badges
+- exp all has a fix for applying roster flags in reverse order
+- exp all handles exp correctly when all your battle participants are knocked out
+- The message about fast current now displays when using the surf hotkey
+- Fixed list-type mismatch when machines and items share the same menu
+- Applied a fix for skipping moves on level up that relies on pokemon levels at the start of battle
+- Trainer scaling is now based on the strongest member of your party
+- Tweaked when the shiny animations play
+- Changed the shiny animation to be easier on the eyes
+- minor AI tweak to prevent the odd instance of spamming of buff/debuff moves 
 
 
 #New features & adjustments since last version:
 -----------
-- *v1.14 beta* The transitional frame when turning 180 degrees now shows correctly
-- *v1.14 beta* The lower right corner tile of the mon back pic is no longer blanked
-- *v1.14 beta* Fixed the flipped text for a girl in Saffron and the letter she is writing
-- *v1.14 beta* Fixed-damage moves now ignore effectiveness text & sfx
-- *v1.14 beta* glitched sprites can no longer cause a buffer overflow that corrupts the hall of fame
-- *v1.14 beta* Seafoam islands fast current applied to the right steps on floor B3
-- *v1.14 beta* Amazing man glitch fixed
-- *v1.14 beta* The rival encounters on route 22 now show an exclamation bubble that never showed up originally
-- *v1.14 beta* Each of the two boulder puzzles in seafoam islands will fully reset until completed
-- *v1.14 beta* The boulder switches never reset while inside victory road and they will always reset upon leaving
-- *v1.14 beta* While inside victory road, boulders placed on switches will stay there between floor transitions
-- *v1.14 beta* A previously unused sfx plays for getting a badge
-- *v1.14 beta* corrected some wrong gym leader TM sfx
+- The transitional frame when turning 180 degrees now shows correctly
+- The lower right corner tile of the mon back pic is no longer blanked
+- Fixed the flipped text for a girl in Saffron and the letter she is writing
+- Fixed-damage moves now ignore effectiveness text & sfx
+- glitched sprites can no longer cause a buffer overflow that corrupts the hall of fame
+- Seafoam islands fast current applied to the right steps on floor B3
+- Amazing man glitch fixed
+- The rival encounters on route 22 now show an exclamation bubble that never showed up originally
+- Each of the two boulder puzzles in seafoam islands will fully reset until completed
+- The boulder switches never reset while inside victory road and they will always reset upon leaving
+- While inside victory road, boulders placed on switches will stay there between floor transitions
+- A previously unused sfx plays for getting a badge
+- corrected some wrong gym leader TM sfx
+
+
+#Changes not yet in the ips patch files:
+-----------
+- Fixed typo when challenging the silph chief to a battle
+- Major expansion to how the AI handles switching
+  - AI routine 4 now scores each mon in its party every turn
+  - These scores are taken into account when deciding to switch or picking a mon to send out
 
 
 #Bugfixes:

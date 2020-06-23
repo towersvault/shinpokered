@@ -602,6 +602,18 @@ AIMoveChoiceModification3:
 	pop de
 	pop hl
 	jp c, .skipout	;carry flag means the move was found in the list
+	;don't use a status move against a status'd target
+	ld a, [wEnemyMoveEffect]
+	push hl
+	push de
+	push bc
+	ld hl, StatusAilmentMoveEffects
+	ld de, $0001
+	call IsInArray
+	pop bc
+	pop de
+	pop hl
+	jr z, .heavydiscourage2
 	ld a, [wEnemyMoveEffect]
 	cp POISON_EFFECT
 	jr nz, .notpoisoneffect

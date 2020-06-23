@@ -476,7 +476,7 @@ Girl Trainer
 - You can now play as a girl when starting a new game
   - Has front, back, walking, and cycling sprites
   - Has unique default names when starting a new game
-- If a pkmn has DVs that would make it shiny in Gen 2, the Reflect animation plays when it enters battle
+- If a pkmn has DVs that would make it shiny in Gen 2, an unused "power up" style of animation plays when it enters battle
 - If playing on a super gameboy, shiny pkmn will have a palette swap on the status screen and also change color in battle
 - If playing on super gameboy, hold select when loading a pokedex entry to see that pokemon's shiny palette
 - Added an exp bar using code by Danny-E 33 

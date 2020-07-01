@@ -27,8 +27,8 @@ Title Screen
 Rematches  
 ![Rematches](/screenshots/bgb00003.bmp?raw=true)
 
-Trainer AI  
-![TrainerAI, Shiny SGB palette, & Exp Bar](/screenshots/bgb00013.bmp?raw=true)
+Trainer AI, Shiny SGB palette, & Exp Bar  
+![TrainerAI, Shiny SGB palette, & Exp Bar](/screenshots/bgb00020.bmp?raw=true)
 
 TMs in Marts  
 ![Marts](/screenshots/bgb00016.bmp?raw=true)
@@ -142,6 +142,7 @@ Girl Trainer
 - Major expansion to how the AI handles switching
   - AI routine 4 now scores each mon in its party every turn
   - These scores are taken into account when deciding to switch or picking a mon to send out
+- Slightly adjusted the style of the exp bar for flush lines and better visibility in grayscale
 
 
 #Bugfixes:

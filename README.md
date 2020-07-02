@@ -143,6 +143,11 @@ Girl Trainer
   - AI routine 4 now scores each mon in its party every turn
   - These scores are taken into account when deciding to switch or picking a mon to send out
 - Slightly adjusted the style of the exp bar for flush lines and better visibility in grayscale
+- The mind battle with trainer RED can only be initiated after beating Oak, Fuji, Silph Chief, and Green
+- Beating the RED mind battle will respawn mewtwo and the legendary birds
+- You must re-beat the four special trainers to challenge the RED mind battle again after each win
+- Mewtwo and legendary birds removed from cerulean cave wild battle tables
+- Static mewtwo encounter set back to level 70
 
 
 #Bugfixes:
@@ -382,6 +387,9 @@ Girl Trainer
   - 25% chance to switch if opponent is using a trapping move
   - 25% chance to switch if active pkmn is confused
   - on the lowest stat mod, 12.5% chance to switch per lowered stage
+  - Additionally, every pokemon in the enemy roster is scored 
+    - based on various criteria to determine which mon gets sent out
+	- score might dictate that the current mon is the best choice and abort switching
   
 - Trainer ai routine #3 added to the following trainer classes
   - jr trainer M, jr trainer F, hiker, supernerd, engineer, lass, chief, bruno, brock, gentleman, agatha
@@ -515,10 +523,13 @@ Girl Trainer
 - New item M.GENE: re-randomizes a pkmn's DVs to values of 9,8,8,8 or more.
   - Win 5 matches in a row against the random team NPC to get M.GENE items (leaving the area resets the win streak)
 - Talking to prof oak after beating the elite 4 let's you challenge him to a battle
-- Trainer Green (named Seiga) can be battled next to the ss anne dock truck after beating the elite 4
 - Can battle Mr. Fuji after beating the elite 4
 - Can battle the Silph Chief after beating the elite 4
+- Trainer Green (named Seiga) can be battled next to the ss anne dock truck after beating the elite 4
 - Mind battle with future Trainer RED after beating the elite 4 via the new girl outside Bill's villa
+  - Must have beaten Oak, Fuji, Silph Chief, and Green (the order doesn't matter)
+  - After winning, must re-defeat the four extra trainers in order to challenge again.
+  - A win will respawn Mewtwo and the legendary birds
 
 
 #Tricks and Secrets
@@ -563,13 +574,9 @@ Girl Trainer
 - unknown dungeon changes
   - encounter rates between pokemon slightly re-balanced
   - chansey is rarer
-  - articuno is rare on 1f
-  - zapdos is rare on 2f
-  - moltres is rare on b1
   - mew is very rare on b1 and will only show up after getting the pokedex diploma
   - dittos are rare and only on 2f & b1
-  - scripted mewtwo is now at lvl 74
-  - super rod in the unknown dungeon basement will yield either a lvl 70 mewtwo clone or glitch-level experiment dittos (a trap encounter)
+  - super rod in the unknown dungeon basement will yield glitch-level experiment dittos (a trap encounter)
 - route 22 super rod data has changed to give psyduck & polywag
 - hitmonchan & hitmonlee in victory road 3f
 - lickitung in safari zone 1

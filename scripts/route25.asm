@@ -39,6 +39,7 @@ Route25ScriptPointers:
 	dw CheckFightingMapTrainers
 	dw DisplayEnemyTrainerTextAndStartBattle
 	dw EndTrainerBattle
+	dw Route25Script3
 
 Route25TextPointers:
 	dw Route25Text1
@@ -137,6 +138,53 @@ Route25TrainerHeader8:
 
 	db $ff
 
+Route25Script3:	;joenote - adding this function to respawn the legendaries if future red is beaten
+	xor a
+	ld [wJoyIgnore], a
+	ld [wRoute25CurScript], a
+	ld [wCurMapScript], a
+	ld a, [wIsInBattle]
+	cp $ff
+	ret z
+;reset the special trainer flags
+	ld a, [wBeatGymFlags]
+	and $F0
+	ld [wBeatGymFlags], a
+;reset articuno's seafoam islands puzzles
+	ld a, HS_SEAFOAM_ISLANDS_4_BOULDER_1
+	call .showstuff
+	ld a, HS_SEAFOAM_ISLANDS_4_BOULDER_2
+	call .showstuff
+	ld a, HS_SEAFOAM_ISLANDS_5_BOULDER_1
+	call .hidestuff
+	ld a, HS_SEAFOAM_ISLANDS_5_BOULDER_2
+	call .hidestuff
+	ResetEvents EVENT_SEAFOAM4_BOULDER1_DOWN_HOLE, EVENT_SEAFOAM4_BOULDER2_DOWN_HOLE
+;reset mewtwo
+	ld a, HS_MEWTWO
+	call .showstuff
+	ResetEvent EVENT_BEAT_MEWTWO
+;reset moltres
+	ld a, HS_MOLTRES
+	call .showstuff
+	ResetEvent EVENT_BEAT_MOLTRES
+;reset zapdos
+	ld a, HS_ZAPDOS
+	call .showstuff
+	ResetEvent EVENT_BEAT_ZAPDOS	
+;reset articuno and its specific puzzle
+	ld a, HS_ARTICUNO
+	call .showstuff
+	ResetEvent EVENT_BEAT_ARTICUNO
+;return now
+	ret
+.showstuff
+	ld [wMissableObjectIndex], a
+	predef_jump ShowObject
+.hidestuff
+	ld [wMissableObjectIndex], a
+	predef_jump HideObject
+	
 Route25Text1:
 	TX_ASM
 	ld hl, Route25TrainerHeader0
@@ -196,14 +244,16 @@ Route25TextRed:
 	TX_ASM
 	ld hl, Route25PrintText12
 	call PrintText
-	CheckEvent EVENT_908	;has elite 4 been beaten?
-	jr z, .no_e4_beaten
+	ld a,[wBeatGymFlags]	;has the other special battles been beaten?
+	and $0F
+	sub $0F
+	jr nz, .specials_not_beaten
 	ld hl, RedText_challenge	;else ask if you want to challenge
 	call PrintText	;print the challenge text
 	call YesNoChoice	;prompt a yes/no choice
 	ld a, [wCurrentMenuItem]	;load the player choice
 	and a	;check the player choice
-	jr nz, .no_e4_beaten	;kick out if no chosen
+	jr nz, .specials_not_beaten	;kick out if no chosen
 	;otherwise begin loading battle
 	ld hl, RedText_prebattle	;load pre battle text
 	call PrintText	;print the pre battle text
@@ -221,8 +271,11 @@ Route25TextRed:
 	ld [wTrainerNo], a
 	xor a
 	ld [hJoyHeld], a
+	ld a, $3
+	ld [wRoute25CurScript], a
+	ld [wCurMapScript], a
 	jp TextScriptEnd
-.no_e4_beaten
+.specials_not_beaten
 	ld hl, RedTextVictorySpeech
 	call PrintText
 	jp TextScriptEnd

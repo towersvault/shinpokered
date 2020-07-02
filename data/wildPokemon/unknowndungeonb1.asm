@@ -1,4 +1,4 @@
-DungeonMonsB1:;joenote - added moltres & default mewtwo
+DungeonMonsB1:;joenote - added mew
 	db $19
 	db 55,RHYDON
 	db 55,MAROWAK
@@ -11,8 +11,8 @@ DungeonMonsB1:;joenote - added moltres & default mewtwo
 	ENDC
 	db 64,PARASECT
 	db 64,RAICHU
-	db 65,CHANSEY
-	db 66,DITTO
-	db 67,MOLTRES
+	db 64,CHANSEY
+	db 65,DITTO
+	db 67,DITTO
 	db 70,MEW
 	db $00

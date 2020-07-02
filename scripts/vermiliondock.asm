@@ -28,7 +28,7 @@ VermilionDockScript:
 	ret
 .asm_1db8d
 	CheckEventAfterBranchReuseHL EVENT_WALKED_OUT_OF_DOCK, EVENT_STARTED_WALKING_OUT_OF_DOCK
-	ret nz
+	jp nz, VermilionDockPostActions
 	ld a, [wSimulatedJoypadStatesIndex]
 	and a
 	ret nz
@@ -36,6 +36,25 @@ VermilionDockScript:
 	SetEventReuseHL EVENT_WALKED_OUT_OF_DOCK
 	ret
 
+VermilionDockPostActions:	;joenote - for handling things that happen after the SS Anne leaves and you come back later
+	ld a, [wCurMapScript]
+	cp $AA
+	jp z, VermilionDockScriptAA
+	ret
+	
+VermilionDockScriptAA:
+	xor a
+	ld [wJoyIgnore], a
+	ld [wCurMapScript], a
+	ld a, [wIsInBattle]
+	cp $ff
+	ret z
+;set the special trainer flag
+	ld a, [wBeatGymFlags]
+	set 3, a
+	ld [wBeatGymFlags], a
+	ret
+	
 VermilionDock_1db9b:
 	SetEventForceReuseHL EVENT_SS_ANNE_LEFT
 	ld a, $ff

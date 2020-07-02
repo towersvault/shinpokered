@@ -169,4 +169,12 @@ _ChiefTextVictorySpeech::
 	para "Nothing like a"
 	line "#MON battle"
 	cont "to unwind, eh?"
+	
+	para "I heard another"
+	line "CHAMP was at the"
+	cont "VERMILION dock."
+	
+	para "She might want"
+	line "to have a battle"
+	cont "with you."
 	prompt

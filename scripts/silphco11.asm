@@ -161,6 +161,7 @@ SilphCo11ScriptPointers:
 	dw SilphCo11Script3
 	dw SilphCo11Script4
 	dw SilphCo11Script5
+	dw SilphCo11Script6
 
 SilphCo11Script0:
 	CheckEvent EVENT_BEAT_SILPH_CO_GIOVANNI
@@ -272,6 +273,20 @@ SilphCo11Script4:
 	ld a, $5
 	jp SilphCo11Script_621c8
 
+SilphCo11Script6:	;joenote - adding this function to set a flag if you beat the special trainer
+	xor a
+	ld [wJoyIgnore], a
+	ld [wSilphCo11CurScript], a
+	ld [wCurMapScript], a
+	ld a, [wIsInBattle]
+	cp $ff
+	ret z
+;set the special trainer flag
+	ld a, [wBeatGymFlags]
+	set 2, a
+	ld [wBeatGymFlags], a
+	ret
+	
 SilphCo11TextPointers:
 	dw SilphCo11Text1
 	dw SilphCo11Text2
@@ -345,6 +360,9 @@ SilphCo11Text1:
 	ld [wTrainerNo], a
 	xor a
 	ld [hJoyHeld], a
+	ld a, $6
+	ld [wSilphCo11CurScript], a
+	ld [wCurMapScript], a
 	jp TextScriptEnd
 .no_e4_beaten
 ;;;;;;;;;;;;;;;;;;;;;;;;

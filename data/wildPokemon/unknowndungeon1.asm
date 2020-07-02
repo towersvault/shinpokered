@@ -13,6 +13,6 @@ DungeonMons1:;joenote - swapped sandslash/arbok
 		db 52,ARBOK
 	ENDC
 	db 52,PARASECT
-	db 67,ARTICUNO
+	db 53,DITTO
 	db 53,RAICHU
 	db $00

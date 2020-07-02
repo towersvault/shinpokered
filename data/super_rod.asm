@@ -1,6 +1,6 @@
 ; super rod data
 ; format: map, pointer to fishing group
-;joenote - mewtwo re-encounter set in fishing group 2 (route 22 set to group 1)
+;joenote - Ditto encounters set in fishing group 2 (route 22 set to group 1)
 SuperRodData:
 	dbw PALLET_TOWN, FishingGroup1
 	dbw VIRIDIAN_CITY, FishingGroup1
@@ -46,11 +46,11 @@ FishingGroup1:
 
 FishingGroup2:
 	db 4
+	db 120,DITTO
 	db 160,DITTO
 	db 200,DITTO
 	db 240,DITTO
-	db 70,MEWTWO
-
+	
 FishingGroup3:
 	db 3
 	db 15,PSYDUCK

@@ -1,4 +1,4 @@
-DungeonMons2:;joenote - added mew
+DungeonMons2:
 	db $0F
 	db 51,DODRIO
 	db 51,VENOMOTH
@@ -8,6 +8,6 @@ DungeonMons2:;joenote - added mew
 	db 52,ELECTRODE
 	db 54,WIGGLYTUFF
 	db 55,DITTO
-	db 67,ZAPDOS
+	db 60,DITTO
 	db 56,CHANSEY
 	db $00

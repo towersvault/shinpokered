@@ -1,5 +1,21 @@
 LavenderHouse1Script:
 	call EnableAutoTextBoxDrawing
+	ld a, [wCurMapScript]
+	cp $AA
+	jp z, LavenderHouse1ScriptAA
+	ret
+
+LavenderHouse1ScriptAA:	;joenote - adding this function to set a flag if you beat the special trainer
+	xor a
+	ld [wJoyIgnore], a
+	ld [wCurMapScript], a
+	ld a, [wIsInBattle]
+	cp $ff
+	ret z
+;set the special trainer flag
+	ld a, [wBeatGymFlags]
+	set 1, a
+	ld [wBeatGymFlags], a
 	ret
 
 LavenderHouse1TextPointers:
@@ -111,6 +127,8 @@ LavenderHouse1Text5:
 	ld [wTrainerNo], a
 	xor a
 	ld [hJoyHeld], a
+	ld a, $AA
+	ld [wCurMapScript], a
 	jp TextScriptEnd
 .no_e4_beaten
 ;;;;;;;;;;;;;;;;;;;;;;;;

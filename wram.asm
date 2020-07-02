@@ -3079,7 +3079,11 @@ wd728:: ; d728
 wBeatGymFlags:: ; d72a
 ; redundant because it matches wObtainedBadges
 ; used to determine whether to show name on statue and in two NPC text scripts
-;joenote - now made into unused space
+;joenote - now repurposed to track post-game special battles
+	;bit 0 - prof. oak
+	;bit 1 - mr. fuji
+	;bit 2 - silph chief
+	;bit 3 - trainer green
 	ds 1
 
 	ds 1

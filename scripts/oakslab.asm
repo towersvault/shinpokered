@@ -29,6 +29,7 @@ OaksLabScriptPointers:
 	dw OaksLabScript16
 	dw OaksLabScript17
 	dw OaksLabScript18
+	dw OaksLabScript19
 
 OaksLabScript0:
 	CheckEvent EVENT_OAK_APPEARED_IN_PALLET
@@ -653,6 +654,22 @@ OaksLabScript17:
 OaksLabScript18:
 	ret
 
+OaksLabScript19:	;joenote - adding this function to set a flag if you beat the special trainer
+	xor a
+	ld [wJoyIgnore], a
+	ld a, $12
+	ld [wOaksLabCurScript], a
+	ld [wCurMapScript], a
+	ld a, [wIsInBattle]
+	cp $ff
+	ret z
+;set the special trainer flag
+	ld a, [wBeatGymFlags]
+	set 0, a
+	ld [wBeatGymFlags], a
+	ret
+
+
 OaksLabScript_RemoveParcel:
 	ld hl, wBagItems
 	ld bc, $0000
@@ -973,9 +990,9 @@ OaksLabText5:
 	call CountSetBits
 	ld a, [wNumSetBits]
 	cp 2
-	jr c, .asm_1d279
+	jp c, .asm_1d279
 	CheckEvent EVENT_GOT_POKEDEX
-	jr z, .asm_1d279
+	jp z, .asm_1d279
 .asm_1d266
 	ld hl, OaksLabText_1d31d
 	call PrintText
@@ -1023,6 +1040,9 @@ OaksLabText5:
 	ld [wTrainerNo], a	;load oak's team
 	xor a
 	ld [hJoyHeld], a
+	ld a, $13
+	ld [wOaksLabCurScript], a
+	ld [wCurMapScript], a
 	jp TextScriptEnd
 .dexcheck
 ;;;;;;;;;;;;;;;;;;;;;;;;

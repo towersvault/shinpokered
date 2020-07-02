@@ -178,3 +178,4 @@ _ChiefTextVictorySpeech::
 	line "to have a battle"
 	cont "with you."
 	prompt
+	

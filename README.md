@@ -1,6 +1,6 @@
 # Shin Pokémon Red and Blue
 
-Version 1.14 beta
+Version 1.14 beta 2
 
 This is a rom hack of pokemon red & blue based on the Pret team's disassembly.  
 It's a mostly-vanilla hack that focuses on fixing game engine bugs and oversights from the original game.  
@@ -117,6 +117,9 @@ Girl Trainer
 - Tweaked when the shiny animations play
 - Changed the shiny animation to be easier on the eyes
 - minor AI tweak to prevent the odd instance of spamming of buff/debuff moves 
+- Fixed typo when challenging the silph chief to a battle
+- Slightly adjusted the style of the exp bar for flush lines and better visibility in grayscale
+- Fixed a crash caused by the key item text sfx
 
 
 #New features & adjustments since last version:
@@ -134,20 +137,19 @@ Girl Trainer
 - While inside victory road, boulders placed on switches will stay there between floor transitions
 - A previously unused sfx plays for getting a badge
 - corrected some wrong gym leader TM sfx
-
-
-#Changes not yet in the ips patch files:
------------
-- Fixed typo when challenging the silph chief to a battle
 - Major expansion to how the AI handles switching
   - AI routine 4 now scores each mon in its party every turn
   - These scores are taken into account when deciding to switch or picking a mon to send out
-- Slightly adjusted the style of the exp bar for flush lines and better visibility in grayscale
 - The mind battle with trainer RED can only be initiated after beating Oak, Fuji, Silph Chief, and Green
 - Beating the RED mind battle will respawn mewtwo and the legendary birds
 - You must re-beat the four special trainers to challenge the RED mind battle again after each win
 - Mewtwo and legendary birds removed from cerulean cave wild battle tables
 - Static mewtwo encounter set back to level 70
+
+
+#Changes not yet in the ips patch files:
+-----------
+-
 
 
 #Bugfixes:

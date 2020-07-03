@@ -2273,7 +2273,7 @@ DisplayBattleMenu:
 	ld [hli], a ; wMaxMenuItem
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;joenote - adding SELECT.
-;Aim is to play enemy pokemon's cry if it hasn't been caught yet when select is pressed
+;Aim is to play enemy pokemon's cry if it has been already caught when select is pressed
 	ld [hl], D_RIGHT | A_BUTTON | SELECT ; wMenuWatchedKeys	
 	call HandleMenuInput
 	bit 4, a ; check if right was pressed
@@ -2281,7 +2281,11 @@ DisplayBattleMenu:
 	bit 0, a ;check if A was pressed
 	;jr .AButtonPressed 
 	jr nz, .AButtonPressed 
+	push bc
+	push hl
 	callba CryIfOwned
+	pop hl
+	pop bc
 	jp .leftColumn
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 .rightColumn ; put cursor in right column of menu

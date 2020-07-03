@@ -378,6 +378,8 @@ PokedexMenuItemsText:
 ; INPUT:
 ; [wd11e] = pokedex number
 ; hl = address of bit field
+IsPokemonOwnedBitSet:
+	ld hl, wPokedexOwned
 IsPokemonBitSet:
 	ld a, [wd11e]
 	dec a

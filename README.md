@@ -151,7 +151,7 @@ Girl Trainer
 
 #Changes not yet in the ips patch files:
 -----------
--
+- Pressing select now correctly plays the enemy mon's cry if it's owned in the pokedex
 
 
 #Bugfixes:

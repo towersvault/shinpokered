@@ -276,7 +276,7 @@ Route25TextRed:
 	ld [wCurMapScript], a
 	jp TextScriptEnd
 .specials_not_beaten
-	ld hl, RedTextVictorySpeech
+	ld hl, RedText_decline
 	call PrintText
 	jp TextScriptEnd
 
@@ -405,3 +405,6 @@ RedText_prebattle:
 RedTextVictorySpeech:
 	TX_FAR _RedTextVictorySpeech
 	db "@"	
+RedText_decline:
+	TX_FAR _RedText_decline
+	db "@"

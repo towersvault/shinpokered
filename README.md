@@ -1,6 +1,6 @@
 # Shin Pokémon Red and Blue
 
-Version 1.14 beta 2
+Version 1.14 beta 3
 
 This is a rom hack of pokemon red & blue based on the Pret team's disassembly.  
 It's a mostly-vanilla hack that focuses on fixing game engine bugs and oversights from the original game.  
@@ -120,6 +120,8 @@ Girl Trainer
 - Fixed typo when challenging the silph chief to a battle
 - Slightly adjusted the style of the exp bar for flush lines and better visibility in grayscale
 - Fixed a crash caused by the key item text sfx
+- Fixed GREEN not setting a flag when beaten
+- Minor OC-related text adjustments.
 
 
 #New features & adjustments since last version:

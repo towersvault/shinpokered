@@ -71,7 +71,7 @@ _VermilionDockSeigaVictory::
 	cont "than my locater."
 	
 	para "Maybe the #MON"
-	cont "will appear when"
+	line "will appear when"
 	cont "it's upgraded with"
 	cont "a diploma."
 	prompt

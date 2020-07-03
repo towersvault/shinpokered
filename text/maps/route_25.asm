@@ -183,3 +183,12 @@ _RedText_prebattle::
 _RedTextVictorySpeech::
 	text "..."
 	prompt
+
+_RedText_decline::
+	text "Who then is the"
+	line "worthy chosen?"
+	
+	para "Four challenges"
+	line "await whoever so"
+	cont "conquers INDIGO."
+	done

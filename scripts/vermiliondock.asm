@@ -265,6 +265,8 @@ VermilionDockText2:
 	ld [wGymLeaderNo], a
 	xor a
 	ld [hJoyHeld], a
+	ld a, $AA
+	ld [wCurMapScript], a
 	jr .text2end
 .seigagoodbye
 	ld hl, VermilionDockSeigaBye

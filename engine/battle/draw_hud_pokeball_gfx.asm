@@ -136,9 +136,25 @@ PlaceEnemyHUDTiles:
 	ld de, wHUDGraphicsTiles
 	ld bc, $3
 	call CopyData
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;joenote - let's draw a pokeball to indicate an owned mon
+	ld a, [wIsInBattle]
+	cp 1
+	jr nz, .noDraw	;don't draw the indicator for non-wild battles
+	push bc
+	callba IsEnemyMonOwned
+	pop bc
+	jr z, .noDraw
+	;load the indicator tiles to be drawn
+	coord hl, 1, 1
+	ld [hl], $7D 
+	coord hl, 2, 1
+	ld [hl], $6C
+.noDraw
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	coord hl, 1, 2
 	ld de, $1
-	jr PlaceHUDTiles
+	jp PlaceHUDTiles
 
 EnemyBattleHUDGraphicsTiles:
 ; The tile numbers for specific parts of the battle display for the enemy

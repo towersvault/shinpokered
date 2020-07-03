@@ -75,3 +75,4 @@ _VermilionDockSeigaVictory::
 	cont "it's upgraded with"
 	cont "a diploma."
 	prompt
+	

@@ -158,7 +158,8 @@ Girl Trainer
   - single-gender and nongendered species have no symbol since it is not in question
   - The symbol is displayed for a party mon in its status screen
   - The symbol is displayed in the battle hud only for wild enemy mon (the only time it matters)
-
+- Oak's aid at the bottom-left toggles the caught & gender symbols after obtaining the pokedex
+  
 
 #Bugfixes:
 -----------

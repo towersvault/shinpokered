@@ -138,9 +138,31 @@ PlaceEnemyHUDTiles:
 	call CopyData
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;joenote - let's draw a pokeball to indicate an owned mon
+;also let's handle a gender symbol
 	ld a, [wIsInBattle]
 	cp 1
-	jr nz, .noDraw	;don't draw the indicator for non-wild battles
+	jr nz, .noDraw	;don't draw anything for non-wild battles
+	
+	push de
+	push bc
+	;get attack DV
+	ld a, [wEnemyMonDVs]
+	swap a
+	and $0F
+	ld e, a
+	;get species
+	ld a, [wEnemyMonSpecies]
+	ld d, a
+	callba DetermineMonGender
+	ld a, d
+	and a
+	jr z, .nosymbol
+	coord hl, 3, 1
+	ld [hl], a
+.nosymbol
+	pop bc
+	pop de
+
 	push bc
 	callba IsEnemyMonOwned
 	pop bc

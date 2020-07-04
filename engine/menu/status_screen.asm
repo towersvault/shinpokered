@@ -142,7 +142,7 @@ StatusScreen:
 	coord hl, 11, 3
 	predef DrawHP
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;print gender symbol here
+;joenote - print gender symbol here
 	push de
 	ld a, [wLoadedMonSpecies]
 	ld d, a

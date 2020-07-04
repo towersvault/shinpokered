@@ -151,8 +151,13 @@ Girl Trainer
 
 #Changes not yet in the ips patch files:
 -----------
+- Re-worked list of real pokemon to make sure none are missing
 - Pressing select now correctly plays the enemy mon's cry if it's owned in the pokedex
 - Pokeball caught indicator for wild battles
+- A gender symbol is displayed for pkmn species that have a chance of being male or female
+  - single-gender and nongendered species have no symbol since it is not in question
+  - The symbol is displayed for a party mon in its status screen
+  - The symbol is displayed in the battle hud only for wild enemy mon (the only time it matters)
 
 
 #Bugfixes:

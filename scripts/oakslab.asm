@@ -1305,9 +1305,22 @@ OaksLabText11:
 	call PrintText
 	jp TextScriptEnd
 
-OaksLabText10:
+OaksLabText10:	;joenote - setting up caught and gender symbol toggle
 	TX_ASM
+	CheckEvent EVENT_GOT_POKEDEX
+	jr z, .nodex
+	CheckEvent EVENT_90E
+	jr nz, .toggleoff
+	SetEvent EVENT_90E
+	ld hl, OaksLabText_symbolsON
+	jr .print
+.toggleoff
+	ResetEvent EVENT_90E
+	ld hl, OaksLabText_symbolsOFF
+	jr .print
+.nodex
 	ld hl, OaksLabText_1d405
+.print
 	call PrintText
 	jp TextScriptEnd
 
@@ -1334,4 +1347,11 @@ OaksLabText_scalingON:
 	db "@"
 OaksLabText_scalingOFF:
 	TX_FAR _OaksLabText_scalingOFF
+	db "@"
+	
+OaksLabText_symbolsON
+	TX_FAR _OaksLabText_symbolsON
+	db "@"
+OaksLabText_symbolsOFF
+	TX_FAR _OaksLabText_symbolsOFF
 	db "@"

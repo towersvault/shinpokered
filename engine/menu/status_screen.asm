@@ -143,6 +143,8 @@ StatusScreen:
 	predef DrawHP
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;joenote - print gender symbol here
+	CheckEvent EVENT_90E
+	jr z, .nosymbol
 	push de
 	ld a, [wLoadedMonSpecies]
 	ld d, a

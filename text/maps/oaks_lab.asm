@@ -524,3 +524,31 @@ _OaksLabText_scalingOFF::
 	cont "trainers back to"
 	cont "normal for you."
 	done
+
+_OaksLabText_symbolsON::
+	text "I study #MON as"
+	line "PROF.OAK's AIDE."
+	
+	para "Did you know"
+	line "many #MON can"
+	cont "be either male"
+	cont "or female?"
+	
+	para "I modded your"
+	line "#DEX to show a"
+	cont "marker for hard-"
+	cont "to-tell species"
+	cont "in wild battles."
+	
+	para "It will also put"
+	line "a mark in wild"
+	cont "battles if you"
+	cont "registered it in"
+	cont "your #DEX."
+	done
+	
+_OaksLabText_symbolsOFF::
+	text "Don't like the"
+	line "symbols? I set"
+	cont "it back for you."
+	done

@@ -143,6 +143,9 @@ PlaceEnemyHUDTiles:
 	cp 1
 	jr nz, .noDraw	;don't draw anything for non-wild battles
 	
+	CheckEvent EVENT_90E
+	jr z, .noDraw
+	
 	push de
 	push bc
 	;get attack DV

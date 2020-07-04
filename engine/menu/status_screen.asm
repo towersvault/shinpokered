@@ -141,6 +141,22 @@ StatusScreen:
 	call PlaceString ; "TYPE1/"
 	coord hl, 11, 3
 	predef DrawHP
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;print gender symbol here
+	push de
+	ld a, [wLoadedMonSpecies]
+	ld d, a
+	ld a, [wUnusedD722]
+	ld e, a
+	callba DetermineMonGender
+	ld a, d
+	and a
+	jr z, .nosymbol
+	coord hl, 9, 3
+	ld [hl], a
+	pop de
+.nosymbol
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	ld hl, wStatusScreenHPBarColor
 	call GetHealthBarColor
 	ld b, SET_PAL_STATUS_SCREEN

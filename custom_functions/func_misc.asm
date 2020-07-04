@@ -212,3 +212,39 @@ StorePKMNLevels:
 	pop hl
 	ret
 
+
+;determine if the mon should have a gender symbol
+;mons that are genderless or a single gender do not get a symbol
+;takes a pokemon index in d
+;takes its atk dv in e
+;symbol is returned in d --> ;$F5 for female and $EF for male
+DetermineMonGender:
+	xor a
+	ld b, a
+	ld hl, ListByGenderRatio
+.loop
+	ld a, [hli]
+	and a
+	jr z, .nosymbol
+	cp d
+	jr z, .foundmon
+	inc b
+	jr .loop
+.foundmon
+	ld a, b
+	call GetGenderRatioTarget
+	ld a, e
+	cp b
+.male
+	ld d, $EF
+	ret nc
+.female
+	ld d, $F5
+	ret c
+.nosymbol
+	ld d, $00
+	ret
+
+
+
+

@@ -586,7 +586,7 @@ Girl Trainer
   - encounter rates between pokemon slightly re-balanced
   - chansey is rarer
   - mew is very rare on b1 and will only show up after getting the pokedex diploma
-  - dittos are rare and only on 2f & b1
+  - dittos are rare 
   - super rod in the unknown dungeon basement will yield glitch-level experiment dittos (a trap encounter)
 - route 22 super rod data has changed to give psyduck & polywag
 - hitmonchan & hitmonlee in victory road 3f

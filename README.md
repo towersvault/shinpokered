@@ -1,6 +1,6 @@
 # Shin Pokémon Red and Blue
 
-Version 1.14 beta 3
+Version 1.14 final
 
 This is a rom hack of pokemon red & blue based on the Pret team's disassembly.  
 It's a mostly-vanilla hack that focuses on fixing game engine bugs and oversights from the original game.  
@@ -51,6 +51,7 @@ Girl Trainer
   - Trainers of a smart-enough trainer class will make use of basic pkmn switching
   - Badge boosts are not applied in trainer battles (only in "Set" style)
 - One of OAK's aides will toggle on/off scaling of trainer rosters to your level (evolving them if applicable)
+- One of OAK's aides toggles pokeball-caught & gender symbols after obtaining the pokedex
 - All 151 pkmn are available in one version
   - Though difficult for a select few, each pkmn can be obtained multiple times
   - The uniqueness between red & blue is still preserved in encounter rarity
@@ -122,6 +123,8 @@ Girl Trainer
 - Fixed a crash caused by the key item text sfx
 - Fixed GREEN not setting a flag when beaten
 - Minor OC-related text adjustments.
+- Re-worked list of real pokemon to make sure none are missing
+- Pressing select now correctly plays the enemy mon's cry if it's owned in the pokedex
 
 
 #New features & adjustments since last version:
@@ -147,18 +150,17 @@ Girl Trainer
 - You must re-beat the four special trainers to challenge the RED mind battle again after each win
 - Mewtwo and legendary birds removed from cerulean cave wild battle tables
 - Static mewtwo encounter set back to level 70
-
-
-#Changes not yet in the ips patch files:
------------
-- Re-worked list of real pokemon to make sure none are missing
-- Pressing select now correctly plays the enemy mon's cry if it's owned in the pokedex
 - Pokeball caught indicator for wild battles
 - A gender symbol is displayed for pkmn species that have a chance of being male or female
   - single-gender and nongendered species have no symbol since it is not in question
   - The symbol is displayed for a party mon in its status screen
   - The symbol is displayed in the battle hud only for wild enemy mon (the only time it matters)
 - Oak's aid at the bottom-left toggles the caught & gender symbols after obtaining the pokedex
+
+
+#Changes not yet in the ips patch files:
+-----------
+-
   
 
 #Bugfixes:
@@ -462,7 +464,7 @@ Girl Trainer
 
 #Difficulty and scalable trainers
 - There is an option to scale trainer rosters to the level of your strongest roster pkmn
-  - Talk to the right aide in Oak's lab to toggle on/off
+  - Talk to the right-side aide in Oak's lab to toggle on/off
   - Enemy pkmn will evolve by level if applicable
   - Gym leaders and the E4 scale slightly higher than normal trainers
 - Playing on "Shift" style sets trainer stat exp back to zero, DVs back to fixed average, and re-enables badge boosts during trainer battles
@@ -500,6 +502,12 @@ Girl Trainer
 - If playing on a super gameboy, shiny pkmn will have a palette swap on the status screen and also change color in battle
 - If playing on super gameboy, hold select when loading a pokedex entry to see that pokemon's shiny palette
 - Added an exp bar using code by Danny-E 33 
+- Pokeball caught indicator for wild battles
+- A gender symbol is displayed for pkmn species that have a chance of being male or female
+  - single-gender and nongendered species have no symbol since it is not in question
+  - The symbol is displayed for a party mon in its status screen
+  - The symbol is displayed in the battle hud only for wild enemy mon (the only time it matters)
+- Oak's aid at the bottom-left toggles the caught & gender symbols after obtaining the pokedex
 
 
 #Pre-E4 NPCs
@@ -539,7 +547,7 @@ Girl Trainer
 - Trainer Green (named Seiga) can be battled next to the ss anne dock truck after beating the elite 4
 - Mind battle with future Trainer RED after beating the elite 4 via the new girl outside Bill's villa
   - Must have beaten Oak, Fuji, Silph Chief, and Green (the order doesn't matter)
-  - After winning, must re-defeat the four extra trainers in order to challenge again.
+  - After winning, must re-defeat the four extra trainers before you can challenge again.
   - A win will respawn Mewtwo and the legendary birds
 
 

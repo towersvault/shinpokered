@@ -1,6 +1,6 @@
 # Shin Pokémon Red and Blue
 
-Version 1.14 final
+Version 1.15
 
 This is a rom hack of pokemon red & blue based on the Pret team's disassembly.  
 It's a mostly-vanilla hack that focuses on fixing game engine bugs and oversights from the original game.  
@@ -18,7 +18,7 @@ Important Note: If you are using a save file from a previous version, you might 
 To fix this, you must use the Softlock Warp detailed below to teleport back to Palette Town.
 
 Notice: New patches might crash upon loading a save from a previous patch.
-		To prevent this from happening, save outside in Palette Town.
+		To prevent this from happening, save outside in Pallet Town.
 
 		
 Title Screen  
@@ -106,61 +106,17 @@ Girl Trainer
 
 #Hack-Induced Bugfixes & Adjustments since last version:
 -----------
-- fixed an problem with doubling sprite animation speed on certain maps
-- minimum sleep counter value increased by +1 since attacks can now happen on wakeup
-- cerulean badge-house guy now gives correct information about the thunder and soul badges
-- exp all has a fix for applying roster flags in reverse order
-- exp all handles exp correctly when all your battle participants are knocked out
-- The message about fast current now displays when using the surf hotkey
-- Fixed list-type mismatch when machines and items share the same menu
-- Applied a fix for skipping moves on level up that relies on pokemon levels at the start of battle
-- Trainer scaling is now based on the strongest member of your party
-- Tweaked when the shiny animations play
-- Changed the shiny animation to be easier on the eyes
-- minor AI tweak to prevent the odd instance of spamming of buff/debuff moves 
-- Fixed typo when challenging the silph chief to a battle
-- Slightly adjusted the style of the exp bar for flush lines and better visibility in grayscale
-- Fixed a crash caused by the key item text sfx
-- Fixed GREEN not setting a flag when beaten
-- Minor OC-related text adjustments.
-- Re-worked list of real pokemon to make sure none are missing
-- Pressing select now correctly plays the enemy mon's cry if it's owned in the pokedex
+- 
 
 
 #New features & adjustments since last version:
 -----------
-- The transitional frame when turning 180 degrees now shows correctly
-- The lower right corner tile of the mon back pic is no longer blanked
-- Fixed the flipped text for a girl in Saffron and the letter she is writing
-- Fixed-damage moves now ignore effectiveness text & sfx
-- glitched sprites can no longer cause a buffer overflow that corrupts the hall of fame
-- Seafoam islands fast current applied to the right steps on floor B3
-- Amazing man glitch fixed
-- The rival encounters on route 22 now show an exclamation bubble that never showed up originally
-- Each of the two boulder puzzles in seafoam islands will fully reset until completed
-- The boulder switches never reset while inside victory road and they will always reset upon leaving
-- While inside victory road, boulders placed on switches will stay there between floor transitions
-- A previously unused sfx plays for getting a badge
-- corrected some wrong gym leader TM sfx
-- Major expansion to how the AI handles switching
-  - AI routine 4 now scores each mon in its party every turn
-  - These scores are taken into account when deciding to switch or picking a mon to send out
-- The mind battle with trainer RED can only be initiated after beating Oak, Fuji, Silph Chief, and Green
-- Beating the RED mind battle will respawn mewtwo and the legendary birds
-- You must re-beat the four special trainers to challenge the RED mind battle again after each win
-- Mewtwo and legendary birds removed from cerulean cave wild battle tables
-- Static mewtwo encounter set back to level 70
-- Pokeball caught indicator for wild battles
-- A gender symbol is displayed for pkmn species that have a chance of being male or female
-  - single-gender and nongendered species have no symbol since it is not in question
-  - The symbol is displayed for a party mon in its status screen
-  - The symbol is displayed in the battle hud only for wild enemy mon (the only time it matters)
-- Oak's aid at the bottom-left toggles the caught & gender symbols after obtaining the pokedex
+- 
 
 
 #Changes not yet in the ips patch files:
 -----------
--
+- GBC color palettes have been back-ported from Yellow-version.
   
 
 #Bugfixes:

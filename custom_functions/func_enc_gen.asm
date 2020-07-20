@@ -113,6 +113,7 @@ GetRandRosterLoop:
 	ld b, a
 	ld a, [wCurEnemyLVL]
 	add b
+	call PreventARegOverflow
 	ld [wCurEnemyLVL], a
 	pop hl
 	
@@ -151,6 +152,7 @@ ScaleTrainer:
 	jr z, .notboss
 	ld a, [wCurEnemyLVL]
 	add b
+	call PreventARegOverflow
 	ld [wCurEnemyLVL], a
 	call Random
 	and $03
@@ -158,6 +160,7 @@ ScaleTrainer:
 .notboss
 	ld a, [wCurEnemyLVL]
 	add b
+	call PreventARegOverflow
 	ld [wCurEnemyLVL], a
 .nolvlincrease
 	pop bc
@@ -248,5 +251,13 @@ GetSafariList:
 	ld hl, ListMostEvolvedPkmn
 	ret
 	
-	
-	
+
+;this will prevent an overflow of the A register
+;typically for custom functions that increase enemy levels
+;defaulted to 255 on an overflow
+;call after a value was just added to register A
+PreventARegOverflow:
+	ret nc	;return if there was no overflow
+	;else set A to the max
+	ld a, $FF
+	ret

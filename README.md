@@ -122,6 +122,7 @@ Girl Trainer
 - In the blue version intro, jigglypuff has it's own palette loaded on the GBC. 
 - AI routine #3 favorability for 0 bp moves has been corrected.
 
+
 #Bugfixes:
 -----------
 

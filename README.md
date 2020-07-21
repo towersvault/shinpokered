@@ -120,7 +120,7 @@ Girl Trainer
 - GBC color palettes have been back-ported from Yellow-version.
 - Scrolling mons on the title screen have their own palettes loaded on the GBC.
 - In the blue version intro, jigglypuff has it's own palette loaded on the GBC. 
-  
+- AI routine #3 favorability for 0 bp moves has been corrected.
 
 #Bugfixes:
 -----------

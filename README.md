@@ -44,6 +44,7 @@ Girl Trainer
 -----------
 
 - Tons of bugs, glitches, and oversights fixed
+- The Gameboy Color palette functionality from pokemon Yellow has been back-ported into the game
 - Trainers are made more difficult not by increasing their team levels, but by doing the following:
   - Vastly improving the default ai routines
   - Giving them access to stat experience (only in "Set" style)
@@ -117,6 +118,8 @@ Girl Trainer
 #Changes not yet in the ips patch files:
 -----------
 - GBC color palettes have been back-ported from Yellow-version.
+- Scrolling mons on the title screen have their own palettes loaded on the GBC.
+- In the blue version intro, jigglypuff has it's own palette loaded on the GBC. 
   
 
 #Bugfixes:

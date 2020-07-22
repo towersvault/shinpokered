@@ -3325,7 +3325,11 @@ wEXPBarBaseEXP::      ds 3
 wEXPBarCurEXP::       ds 3
 wEXPBarNeededEXP::    ds 3
 wEXPBarKeepFullFlag:: ds 1
-; deed
+
+wdeed::
+ds 1
+
+; deee
 
 
 SECTION "Stack", WRAM0[$df00]

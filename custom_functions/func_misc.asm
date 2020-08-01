@@ -246,6 +246,59 @@ DetermineMonGender:
 	ret
 
 
+ResetRandomHiddenItem:
+	;get a random hidden item flag byte
+	call Random
+	and $0F
+	ld hl, wObtainedHiddenItemsFlags
+	ld b, 0
+	ld c, a
+	add hl, bc
+	;get a random bit
+	call Random
+	and $07
+	ld b, a
+	;make sure it's not the surf board
+	call .checksurfboard
+	ret c
+	;clear the flag
+	ld a, [hl]
+	res b, a
+	;all done
+	ret
+.checksurfboard
+;do not reset getting the surf board
+	ld a, c
+	cp 6
+	jr nz, .returnNC
+	ld a, b
+	cp 6
+	jr nz, .returnNC
+	scf
+	ret
+.returnNC
+	ccf
+	ret
 
-
+ResetRandomShowItem:
+	push de
+	call GetRandHideShowItem
+	predef ShowObject d 
+	pop de
+	ret
+GetRandHideShowItem:
+	ld hl, ListGameItems
+	call Random
+	ld b, a
+.loop
+	ld a, [hli]
+	and a
+	jr z, .reloadHL
+	ld d, a
+	dec b
+	ret c
+	jr .loop
+.reloadHL
+	ld hl, ListGameItems
+	jr .loop
 

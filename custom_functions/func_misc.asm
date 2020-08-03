@@ -262,8 +262,15 @@ ResetRandomHiddenItem:
 	call .checksurfboard
 	ret c
 	;clear the flag
+	inc b
+	ld a, %01111111
+.loop
+	rlca
+	dec b
+	jr nz, .loop
+	ld b, a
 	ld a, [hl]
-	res b, a
+	and b
 	;all done
 	ret
 .checksurfboard
@@ -281,10 +288,9 @@ ResetRandomHiddenItem:
 	ret
 
 ResetRandomShowItem:
-	push de
 	call GetRandHideShowItem
-	predef ShowObject d 
-	pop de
+	ld [wMissableObjectIndex], a
+	predef ShowObject 
 	ret
 GetRandHideShowItem:
 	ld hl, ListGameItems
@@ -294,7 +300,6 @@ GetRandHideShowItem:
 	ld a, [hli]
 	and a
 	jr z, .reloadHL
-	ld d, a
 	dec b
 	ret c
 	jr .loop

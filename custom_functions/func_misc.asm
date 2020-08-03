@@ -307,3 +307,9 @@ GetRandHideShowItem:
 	ld hl, ListGameItems
 	jr .loop
 
+ResetRandItemsOnInterval:
+	CheckEvent EVENT_908	;has elite 4 been beaten?
+	ret z
+	call ResetRandomShowItem
+	call ResetRandomHiddenItem
+	ret

@@ -18,6 +18,21 @@ TrackPlayTime:
 	ld [wPlayTimeSeconds], a
 	cp 60
 	ret nz
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;joenote - every 1 game minute, respawn both 1 missible and 1 hidden item if E4 have been beaten
+	push af
+	push bc
+	push de
+	push hl
+	CheckEvent EVENT_908	;has elite 4 been beaten?
+	jr z, .no_item_respawn
+	callba ResetRandItemsOnInterval
+	pop hl
+	pop de
+	pop bc
+	pop af
+.no_item_respawn
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;	
 	xor a
 	ld [wPlayTimeSeconds], a
 	ld a, [wPlayTimeMinutes]

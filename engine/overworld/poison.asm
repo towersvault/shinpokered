@@ -12,7 +12,7 @@ ApplyOutOfBattlePoisonDamage:
 	CheckEvent EVENT_908	;has elite 4 been beaten?
 	jr z, .no_item_respawn
 	ld a, [wStepCounter]
-	and 64 ; is the counter a multiple of 64?
+	and $3F ; is the counter a multiple of 64?
 	jp nz, .no_item_respawn
 	callba ResetRandItemsOnInterval
 .no_item_respawn

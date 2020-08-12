@@ -14,7 +14,7 @@ ApplyOutOfBattlePoisonDamage:
 	ld a, [wStepCounter]
 	and $3F ; is the counter a multiple of 64?
 	jp nz, .no_item_respawn
-	callba ResetRandItemsOnInterval
+;	callba ResetRandItemsOnInterval
 .no_item_respawn
 	pop bc
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;	

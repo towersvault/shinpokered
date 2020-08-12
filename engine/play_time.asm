@@ -27,11 +27,11 @@ TrackPlayTime:
 	CheckEvent EVENT_908	;has elite 4 been beaten?
 	jr z, .no_item_respawn
 	callba ResetRandItemsOnInterval
+.no_item_respawn
 	pop hl
 	pop de
 	pop bc
 	pop af
-.no_item_respawn
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;	
 	xor a
 	ld [wPlayTimeSeconds], a

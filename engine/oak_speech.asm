@@ -156,9 +156,18 @@ OakSpeech:
 	ld [MBC1RomBank], a
 	ld c, 4
 	call DelayFrames
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+	;joenote - support female trainer
+	ld de, RedFSprite
+	lb bc, BANK(RedFSprite), $0C
+	ld a, [wUnusedD721]
+	bit 0, a	;check if girl
+	jr nz, .donefemale_sprite
 	ld de, RedSprite
-	ld hl, vSprites
 	lb bc, BANK(RedSprite), $0C
+.donefemale_sprite
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+	ld hl, vSprites
 	call CopyVideoData
 	ld de, ShrinkPic1
 	lb bc, BANK(ShrinkPic1), $00

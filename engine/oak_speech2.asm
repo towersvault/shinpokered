@@ -211,7 +211,7 @@ DisplayIntroNameTextBox:
 ;joenote - set female trainer names
 DefaultNamesPlayerF:
 	db   "NEW NAME"
-	next "YELLOW"
+	next "VIOLET"
 	next "CLAIRE"
 	next "JILL"
 	db   "@"
@@ -275,7 +275,7 @@ GetDefaultName:
 ;joenote - set female trainer names
 DefaultNamesPlayerListF:
 	db "NEW NAME@"
-	db "YELLOW@"
+	db "VIOLET@"
 	db "CLAIRE@"
 	db "JILL@"
 

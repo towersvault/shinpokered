@@ -2143,6 +2143,9 @@ RedFishingTilesFront: INCBIN "gfx/red_fishing_tile_front.2bpp"
 RedFishingTilesBack:  INCBIN "gfx/red_fishing_tile_back.2bpp"
 RedFishingTilesSide:  INCBIN "gfx/red_fishing_tile_side.2bpp"
 RedFishingRodTiles:   INCBIN "gfx/red_fishingrod_tiles.2bpp"
+RedFFishingTilesFront: INCBIN "gfx/redF_fishing_tile_front.2bpp"
+RedFFishingTilesBack:  INCBIN "gfx/redF_fishing_tile_back.2bpp"
+RedFFishingTilesSide:  INCBIN "gfx/redF_fishing_tile_side.2bpp"
 
 INCLUDE "engine/items/tm_prices.asm"
 

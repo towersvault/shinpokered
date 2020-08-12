@@ -6,6 +6,18 @@ ApplyOutOfBattlePoisonDamage:
 	and a
 	jp z, .noBlackOut
 	call IncrementDayCareMonExp
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;joenote - every interval of steps, have a chance to respawn both 1 missible and 1 hidden item if E4 have been beaten
+	push bc
+	CheckEvent EVENT_908	;has elite 4 been beaten?
+	jr z, .no_item_respawn
+	ld a, [wStepCounter]
+	and 64 ; is the counter a multiple of 64?
+	jp nz, .no_item_respawn
+	callba ResetRandItemsOnInterval
+.no_item_respawn
+	pop bc
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;	
 	ld a, [wStepCounter]
 	and $3 ; is the counter a multiple of 4?
 	jp nz, .noBlackOut ; only apply poison damage every fourth step

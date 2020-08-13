@@ -123,6 +123,12 @@ Girl Trainer
 - Oak-speech nidorino has its color palette on the GBC.
 - AI routine #3 favorability for 0 bp moves has been corrected.
 - The formula functions for exp now have underflow protection.
+- General RNG improved to the one used by Prism and Polished Crystal
+- Female trainer default name changed from YELLOW to VIOLET
+- Female trainer has correct overworld sprite in intro
+- Female trainer now has her own fishing sprites
+- Fixed an issue where enabling gender symbols could cause a status screen crash
+- More graphical fixes to the route 22 rival
 
 
 #Bugfixes:
@@ -586,6 +592,7 @@ Girl Trainer
 - The Pret team for the pokered and pokeyellow disassemblies and all the code comments that came with them.
 - Rangi for the tool Polished Map
 - Exp bar coded by Danny-E 33
+- The Pokemon Prism team for the improved RNG
 - Move deleter/relearner coded by TheFakeMateo for Pokemon Red++
 - Code contributions and bugfixing by wisp92
 - The following folks for their great tutorials, glitch videos, and explanations across the internet

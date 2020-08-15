@@ -107,28 +107,27 @@ Girl Trainer
 
 #Hack-Induced Bugfixes & Adjustments since last version:
 -----------
-- 
+- Female trainer default name changed from YELLOW to VIOLET
+- AI routine #3 favorability for 0 bp moves has been corrected.
+- Fixed an issue where enabling gender symbols could cause a status screen crash
+- More graphical fixes to the route 22 rival
+- Female trainer has correct overworld sprite in intro
 
 
 #New features & adjustments since last version:
------------
-- 
-
-
-#Changes not yet in the ips patch files:
 -----------
 - GBC color palettes have been back-ported from Yellow-version.
 - Scrolling mons on the title screen have their own palettes loaded on the GBC.
 - In the blue version intro, jigglypuff has it's own palette loaded on the GBC.
 - Oak-speech nidorino has its color palette on the GBC.
-- AI routine #3 favorability for 0 bp moves has been corrected.
 - The formula functions for exp now have underflow protection.
 - General RNG improved to the one used by Prism and Polished Crystal
-- Female trainer default name changed from YELLOW to VIOLET
-- Female trainer has correct overworld sprite in intro
 - Female trainer now has her own fishing sprites
-- Fixed an issue where enabling gender symbols could cause a status screen crash
-- More graphical fixes to the route 22 rival
+
+
+#Changes not yet in the ips patch files:
+-----------
+-
 
 
 #Bugfixes:
@@ -245,6 +244,7 @@ Girl Trainer
     - Full restore at max hp undoes the stat changes of brn/par
   - Full Restore when used in battle to heal HP now undoes the stat changes of brn/par
   - Pokedoll is disallowed during ghost marowak battle
+  
 
 - Audio fixes
   - Fuschia gym plays the correct sfx when getting the TM from Koga
@@ -273,7 +273,9 @@ Girl Trainer
   - Each of the two boulder puzzles in seafoam islands will fully reset until completed
   - The boulder switches never reset while inside victory road and they will always reset upon leaving
   - While inside victory road, boulders placed on switches will stay there between floor transitions
-
+  - The formula functions for exp now have underflow protection.
+  - General RNG improved to the one used by Prism and Polished Crystal (allows for all possible DVs naturally)
+  
 
 #TWEAKS:
 -----------
@@ -463,8 +465,13 @@ Girl Trainer
 
  
 #Graphics
+- GBC color palettes have been back-ported from Yellow-version.
+- Additional GBC color additions
+  - Scrolling mons on the title screen have their own palettes loaded on the GBC.
+  - In the blue version intro, jigglypuff has it's own palette loaded on the GBC.
+  - Oak-speech nidorino has its color palette on the GBC.
 - You can now play as a girl when starting a new game
-  - Has front, back, walking, and cycling sprites
+  - Has front, back, walking, fishing, and cycling sprites
   - Has unique default names when starting a new game
 - If a pkmn has DVs that would make it shiny in Gen 2, an unused "power up" style of animation plays when it enters battle
 - If playing on a super gameboy, shiny pkmn will have a palette swap on the status screen and also change color in battle

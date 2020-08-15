@@ -152,11 +152,11 @@ StatusScreen:
 	ld e, a
 	callba DetermineMonGender
 	ld a, d
+	pop de
 	and a
 	jr z, .nosymbol
 	coord hl, 9, 3
 	ld [hl], a
-	pop de
 .nosymbol
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	ld hl, wStatusScreenHPBarColor

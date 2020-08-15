@@ -36,6 +36,7 @@ OakSpeech:
 	call LoadTextBoxTilePatterns
 	call SetDefaultNames
 	predef InitPlayerData2
+	call RunDefaultPaletteCommand	;gbcnote - reinitialize the default palette in case the pointers got cleared
 ;joenote - give option to play as a female trainer here
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	ld hl, AskIfGirlText
@@ -80,7 +81,27 @@ OakSpeech:
 	call GetMonHeader
 	coord hl, 6, 4
 	call LoadFlippedFrontSpriteByMonIndex
-	call MovePicLeft
+	;call MovePicLeft
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;gbcnote - Nidorino needs its pal
+	ld a, %11100100
+	ld [rBGP], a
+	call UpdateGBCPal_BGP
+	
+	push af
+	push bc
+	push hl
+	push de
+	ld d, CONVERT_BGP
+	ld e, 0
+	callba TransferMonPal 
+	pop de
+	pop hl
+	pop bc
+	pop af
+	
+	call MovePicLeft_NoPalUpdate
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	ld hl, OakSpeechText2
 	call PrintText
 	call GBFadeOutToWhite
@@ -135,9 +156,18 @@ OakSpeech:
 	ld [MBC1RomBank], a
 	ld c, 4
 	call DelayFrames
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+	;joenote - support female trainer
+	ld de, RedFSprite
+	lb bc, BANK(RedFSprite), $0C
+	ld a, [wUnusedD721]
+	bit 0, a	;check if girl
+	jr nz, .donefemale_sprite
 	ld de, RedSprite
-	ld hl, vSprites
 	lb bc, BANK(RedSprite), $0C
+.donefemale_sprite
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+	ld hl, vSprites
 	call CopyVideoData
 	ld de, ShrinkPic1
 	lb bc, BANK(ShrinkPic1), $00
@@ -198,6 +228,7 @@ FadeInIntroPic:
 .next
 	ld a, [hli]
 	ld [rBGP], a
+	call UpdateGBCPal_BGP
 	ld c, 10
 	call DelayFrames
 	dec b
@@ -213,12 +244,13 @@ IntroFadePalettes:
 	db %11100100
 
 MovePicLeft:
+	ld a, %11100100
+	ld [rBGP], a
+	call UpdateGBCPal_BGP
+MovePicLeft_NoPalUpdate: ;gbcnote - need the option to skip updating if needed
 	ld a, 119
 	ld [rWX], a
 	call DelayFrame
-
-	ld a, %11100100
-	ld [rBGP], a
 .next
 	call DelayFrame
 	ld a, [rWX]

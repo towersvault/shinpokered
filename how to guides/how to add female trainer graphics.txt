@@ -1,3 +1,7 @@
+Outdated - please see the following commits for additional changes:
+1) 2e290d4f20dfe7c88686b6b1fa6e8ab89a237308
+2) 76a380cdf93ff82c1effe2c1084b9fc49795e540
+
 
 Bit 0 of wram location $D721 (called wUnusedD721) determines the sex of the player. 
 A 0 makes for a boy and 1 makes for a girl.

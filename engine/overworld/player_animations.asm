@@ -402,7 +402,15 @@ FishingAnim:
 	ld hl, vNPCSprites
 	call CopyVideoData
 	ld a, $4
+;joenote - support female trainer sprite when fishing
+	push af
+	ld hl, RedFFishingTiles
+	ld a, [wUnusedD721]
+	bit 0, a	;check if girl
+	jr nz, .donefemale2
 	ld hl, RedFishingTiles
+.donefemale2
+	pop af
 	call LoadAnimSpriteGfx
 	ld a, [wSpriteStateData1 + 2]
 	ld c, a
@@ -507,6 +515,23 @@ RedFishingTiles:
 
 	dw RedFishingTilesSide
 	db 2, BANK(RedFishingTilesSide)
+	dw vNPCSprites + $a0
+
+	dw RedFishingRodTiles
+	db 3, BANK(RedFishingRodTiles)
+	dw vNPCSprites2 + $7d0
+	
+RedFFishingTiles:
+	dw RedFFishingTilesFront
+	db 2, BANK(RedFFishingTilesFront)
+	dw vNPCSprites + $20
+
+	dw RedFFishingTilesBack
+	db 2, BANK(RedFFishingTilesBack)
+	dw vNPCSprites + $60
+
+	dw RedFFishingTilesSide
+	db 2, BANK(RedFFishingTilesSide)
 	dw vNPCSprites + $a0
 
 	dw RedFishingRodTiles

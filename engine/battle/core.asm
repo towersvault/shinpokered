@@ -158,6 +158,9 @@ SlidePlayerAndEnemySilhouettesOnScreen:
 	ld [rBGP], a
 	ld [rOBP0], a
 	ld [rOBP1], a
+	call UpdateGBCPal_BGP
+	call UpdateGBCPal_OBP0
+	call UpdateGBCPal_OBP1
 .slideSilhouettesLoop ; slide silhouettes of the player's pic and the enemy's pic onto the screen
 	ld h, b
 	ld l, $40
@@ -1079,6 +1082,11 @@ ReplaceFaintedEnemyMon:
 	ld hl, wEnemyHPBarColor
 	ld e, $30
 	call GetBattleHealthBarColor
+	ldPal a, BLACK, DARK_GRAY, LIGHT_GRAY, WHITE
+	ld [rOBP0], a
+	ld [rOBP1], a
+	call UpdateGBCPal_OBP0
+	call UpdateGBCPal_OBP1
 	callab DrawEnemyPokeballs
 	ld a, [wLinkState]
 	cp LINK_STATE_BATTLING
@@ -6847,7 +6855,7 @@ LoadEnemyMonData:
 	
 ;the pkmn is out for the first time, so give it some statExp
 	push de	;preserve de
-	call CalcEnemyStatEXP	;based on the enemy pkmn level, get a stat exp amount into de 
+	callba CalcEnemyStatEXP	;based on the enemy pkmn level, get a stat exp amount into de 
 	inc hl ; move hl forward one position to MSB of first stat exp
 	ld b, $05	;load loops into b to loop through the five stats
 .writeStatExp_loop
@@ -7119,6 +7127,9 @@ LoadPlayerBackPic:
 	ld [hli], a ; OAM tile number
 	inc a ; increment tile number
 	ld [hOAMTile], a
+	;gbcnote - load correct palette for hat object
+	ld a, $2
+	ld [hl], a
 	inc hl
 	dec c
 	jr nz, .innerLoop
@@ -7552,8 +7563,10 @@ HandleExplodingAnimation:
 PlayMoveAnimation:
 	ld [wAnimationID], a
 	call Delay3
-	predef_jump MoveAnimation
-
+	predef MoveAnimation
+	callab Func_78e98
+	ret
+	
 InitBattle:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	xor a
@@ -9547,71 +9560,12 @@ PlayBattleAnimationGotID:
 	push de
 	push bc
 	predef MoveAnimation
+	callab Func_78e98
 	pop bc
 	pop de
 	pop hl
 	ret
 
-
-;joenote - this function puts statexp per enemy pkmn level into de
-;requires a, b, de, and wCurEnemyLVL
-CalcEnemyStatEXP:
-	ld a, [wOptions]	;load game options
-	bit 6, a			;check battle style
-	jr z, .loadzero		;load zero stat exp if on shift style
-	;This loads 648 stat exp per level. Note that 648 in hex is the two-byte $0288
-	ld a, $02
-	ld [H_MULTIPLICAND], a
-	ld a, $88
-	ld [H_MULTIPLICAND + 1], a
-	xor a
-	ld [H_MULTIPLICAND + 2], a
-	ld a, [wCurEnemyLVL]
-	ld [H_MULTIPLIER], a
-	call Multiply
-	ld a, [H_MULTIPLICAND]
-	ld d, a
-	ld a, [H_MULTIPLICAND+1]
-	ld e, a
-	ret
-.loadzero
-	xor a
-	ld d, a
-	ld e, a
-	ret
-	
-;	;Alternative algorithm: adds (12 stat exp * current level) per level.
-;	ld a, [wCurEnemyLVL]
-;	ld b, a	;put the enemy's level into b. it will be used as a loop counter
-;	xor a	;make a = 0
-;	ld d, a	;clear d (use for MSB)
-;	ld e, a ;clear e (use for LSB)
-;.loop
-;	ld a, d
-;	cp a, $FF	;see if the current value of de is 65280 or more
-;	jr z, .skipadder
-;	push hl
-;	push bc
-;	xor a
-;	ld [H_MULTIPLICAND], a
-;	ld a, [wCurEnemyLVL]
-;	ld [H_MULTIPLICAND + 1], a
-;	ld a, $C
-;	ld [H_MULTIPLIER], a
-;	call Multiply
-;	ld a, e
-;	add l
-;	ld e, a
-;	ld a, d
-;	adc h
-;	ld d, a
-;	pop bc
-;	pop hl
-;.skipadder
-;	dec b; decrement b 
-;	jr nz, .loop	;loop back if b is not zero
-;	ret
-	
 
 ;joenote - function for checking and reseting the AI's already-acted bit
 CheckandResetEnemyActedBit:

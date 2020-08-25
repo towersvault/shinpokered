@@ -14,8 +14,16 @@ InitPlayerData2:
 
 	ld hl, wPartyCount
 	call InitializeEmptyList
+	
+;joenote - check if doing NG+
+;Don't write box terminator if so
+	ld a, [hJoyHeld]
+	and SELECT
+	jr nz, .newgameplus
 	ld hl, wNumInBox
 	call InitializeEmptyList
+.newgameplus
+
 	ld hl, wNumBagItems
 	call InitializeEmptyList
 	ld hl, wNumBoxItems

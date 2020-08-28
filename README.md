@@ -65,7 +65,7 @@ Girl Trainer
 - You can play as a boy or a girl
 - You can hunt for shiny pokemon
   - DVs are checked to see if a pokemon would be shiny in the gen 2 games
-  - If a pokemon has shiny DVs, then it will play the Reflect animation when entering battle
+  - If a pokemon has shiny DVs, then it will play a previously-unused animation when entering battle
   - If playing on a super gameboy, shiny pkmn will have a palette swap on the status screen and also change color in battle
   - If playing on super gameboy, hold select when loading a pokedex entry to see that pokemon's shiny palette
 - Minor quality-of-life improvements during battle
@@ -107,7 +107,7 @@ Girl Trainer
 - Compatible with original Gameboy hardware (DMG, Super, Pocket, Color, Advance, SP)
 - Potentially compatible with Pokemon Stadium 1 & 2
 - Might be possible to use a save from vanilla USA red/blue with this rom hack 
-	- Save outside in Palette Town before transferring over
+	- Save outside in Pallet Town before transferring over
 	- Use the Softlock Warp to clear any invisible walls
 
 
@@ -133,7 +133,18 @@ Girl Trainer
 
 #Changes not yet in the ips patch files:
 -----------
--
+- New Game Plus has been added
+  - Activated under these conditions:
+    - Must have an existing non-corrupt game save on-file
+	- Must have beaten the elite 4 in the on-file save
+	- Press and hold SELECT while choosing the New Game option
+	- A jingle will play to indicate NG+ has activated and the SELECT button can now be released
+  - Preserves ONLY the following information:
+    - Boxed pokemon
+	- Play clock
+	- Pokedex seen/owned registry
+	- Hall of Fame (experimental)
+  - A new trainer ID and hash is generated, so boxed pokemon are permanently treated as traded pokemon
 
 
 #Bugfixes:

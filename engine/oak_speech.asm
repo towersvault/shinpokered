@@ -344,5 +344,3 @@ DoNewGamePlus: ;joenote - selective wram clearing for new game plus
 AskIfGirlText::	;joenote - text to ask if female trainer
 	TX_FAR _AskIfGirlText
 	db "@"
-
-	

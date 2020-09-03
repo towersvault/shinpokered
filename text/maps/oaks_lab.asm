@@ -356,6 +356,11 @@ _OaksLabText27::
 _OaksLabText_1d405::
 	text "I study #MON as"
 	line "PROF.OAK's AIDE."
+;joenote - extra text
+	para "Please come by"
+	line "and see me when"
+	cont "you have gained"
+	cont "a #DEX."
 	done
 
 _OaksLabText_441cc::
@@ -513,14 +518,14 @@ _OakVictorySpeech::
 ;;;;;;;;;;;;;;;;;;;;;;joenote - adding text for lvl scaling
 _OaksLabText_scalingON::
 	text "Need a challenge?"
-	line "I've set it up so"
+	line "I can make it so"
 	cont "weaker trainers"
 	cont "scale up to you."
 	done
 	
 _OaksLabText_scalingOFF::
 	text "Too hard? I see..."
-	line "I've set weaker"
+	line "I can set weaker"
 	cont "trainers back to"
 	cont "normal for you."
 	done
@@ -534,7 +539,7 @@ _OaksLabText_symbolsON::
 	cont "be either male"
 	cont "or female?"
 	
-	para "I modded your"
+	para "I can modify the"
 	line "#DEX to show a"
 	cont "marker for hard-"
 	cont "to-tell species"
@@ -549,6 +554,17 @@ _OaksLabText_symbolsON::
 	
 _OaksLabText_symbolsOFF::
 	text "Don't like the"
-	line "symbols? I set"
-	cont "it back for you."
+	line "symbols? I can"
+	cont "set it back" 
+	cont "for you."
+	done
+
+_OaksLabText_AideQ_done::
+	text "Okay, it's done."
+	done
+	
+_OaksLabText_AideQ_reject::
+	text "See me again if"
+	line "you change your"
+	cont "mind later."
 	done

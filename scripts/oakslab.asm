@@ -1295,15 +1295,31 @@ OaksLabText11:
 	TX_ASM
 	CheckEvent EVENT_90C
 	jr z, .scaleOn
-	ResetEvent EVENT_90C
 	ld hl, OaksLabText_scalingOFF 
-	jr .end
+	call PrintText
+	call .choose
+	ld hl, OaksLabText_AideQ_reject
+	jr z, .end
+	ResetEvent EVENT_90C
+	jr .print_done
 .scaleOn
-	SetEvent EVENT_90C
 	ld hl, OaksLabText_scalingON
+	call PrintText
+	call .choose
+	ld hl, OaksLabText_AideQ_reject
+	jr z, .end
+	SetEvent EVENT_90C
+.print_done
+	ld hl, OaksLabText_AideQ_done
 .end
 	call PrintText
 	jp TextScriptEnd
+.choose
+	call NoYesChoice
+	ld a, [wCurrentMenuItem]
+	and a
+	ret
+	
 
 OaksLabText10:	;joenote - setting up caught and gender symbol toggle
 	TX_ASM
@@ -1311,18 +1327,33 @@ OaksLabText10:	;joenote - setting up caught and gender symbol toggle
 	jr z, .nodex
 	CheckEvent EVENT_90E
 	jr nz, .toggleoff
-	SetEvent EVENT_90E
 	ld hl, OaksLabText_symbolsON
-	jr .print
+	call PrintText
+	call .choose
+	ld hl, OaksLabText_AideQ_reject
+	jr z, .print 
+	SetEvent EVENT_90E
+	jr .print_done
 .toggleoff
-	ResetEvent EVENT_90E
 	ld hl, OaksLabText_symbolsOFF
+	call PrintText
+	call .choose
+	ld hl, OaksLabText_AideQ_reject
+	jr z, .print
+	ResetEvent EVENT_90E
+.print_done
+	ld hl, OaksLabText_AideQ_done
 	jr .print
 .nodex
 	ld hl, OaksLabText_1d405
 .print
 	call PrintText
 	jp TextScriptEnd
+.choose
+	call NoYesChoice
+	ld a, [wCurrentMenuItem]
+	and a
+	ret
 
 OaksLabText_1d405:
 	TX_FAR _OaksLabText_1d405
@@ -1349,9 +1380,16 @@ OaksLabText_scalingOFF:
 	TX_FAR _OaksLabText_scalingOFF
 	db "@"
 	
-OaksLabText_symbolsON
+OaksLabText_symbolsON:
 	TX_FAR _OaksLabText_symbolsON
 	db "@"
-OaksLabText_symbolsOFF
+OaksLabText_symbolsOFF:
 	TX_FAR _OaksLabText_symbolsOFF
+	db "@"
+
+OaksLabText_AideQ_done:
+	TX_FAR _OaksLabText_AideQ_done
+	db "@"
+OaksLabText_AideQ_reject:
+	TX_FAR _OaksLabText_AideQ_reject
 	db "@"

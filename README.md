@@ -144,7 +144,16 @@ Girl Trainer
 	- Play clock
 	- Pokedex seen/owned registry
 	- Hall of Fame (experimental)
+	- Option screen selections
   - A new trainer ID and hash is generated, so boxed pokemon are permanently treated as traded pokemon
+- A regular New Game will default the battle style to SET
+- The aides in Oak's lab that activate features now have a no/yes prompt
+- More AI tweaking
+  - AI scoring for switching puts a heavier penalty on potentially switching in a bad type matchup
+  - AI scoring imposes a very heavy penalty for potentially switching in pokemon with less than 1/4 HP
+  - AI layer 3 changes that affect most 0-power moves (with only a few exceptions like heal effects)
+    - now has a hard stop on using 0-power moves on consecutive turns
+	- heavily discourages 0-power moves if below 1/3 hp
 
 
 #Bugfixes:

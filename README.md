@@ -154,6 +154,7 @@ Girl Trainer
   - AI layer 3 changes that affect most 0-power moves (with only a few exceptions like heal effects)
     - now has a hard stop on using 0-power moves on consecutive turns
 	- heavily discourages 0-power moves if below 1/3 hp
+- Type immunity prevents trapping moves from taking hold at all
 
 
 #Bugfixes:

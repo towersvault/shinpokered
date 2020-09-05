@@ -246,72 +246,72 @@ DetermineMonGender:
 	ret
 
 
-ResetRandomHiddenItem:
-	;get a random hidden item flag byte
-	call Random
-	and $0F
-	ld hl, wObtainedHiddenItemsFlags
-	ld b, 0
-	ld c, a
-	add hl, bc
-	;get a random bit
-	call Random
-	and $07
-	ld b, a
-	;make sure it's not the surf board
-	call .checksurfboard
-	ret c
-	;clear the flag
-	inc b
-	ld a, %01111111
-.loop
-	rlca
-	dec b
-	jr nz, .loop
-	ld b, a
-	ld a, [hl]
-	and b
-	;all done
-	ret
-.checksurfboard
+;ResetRandomHiddenItem:
+;	;get a random hidden item flag byte
+;	call Random
+;	and $0F
+;	ld hl, wObtainedHiddenItemsFlags
+;	ld b, 0
+;	ld c, a
+;	add hl, bc
+;	;get a random bit
+;	call Random
+;	and $07
+;	ld b, a
+;	;make sure it's not the surf board
+;	call .checksurfboard
+;	ret c
+;	;clear the flag
+;	inc b
+;	ld a, %01111111
+;.loop
+;	rlca
+;	dec b
+;	jr nz, .loop
+;	ld b, a
+;	ld a, [hl]
+;	and b
+;	;all done
+;	ret
+;.checksurfboard
 ;do not reset getting the surf board
-	ld a, c
-	cp 6
-	jr nz, .returnNC
-	ld a, b
-	cp 6
-	jr nz, .returnNC
-	scf	;set the carry flag
-	ret
-.returnNC
-	and a	;clear the carry flag
-	ret
+;	ld a, c
+;	cp 6
+;	jr nz, .returnNC
+;	ld a, b
+;	cp 6
+;	jr nz, .returnNC
+;	scf	;set the carry flag
+;	ret
+;.returnNC
+;	and a	;clear the carry flag
+;	ret
 
-ResetRandomShowItem:
-	call GetRandHideShowItem
-	ld [wMissableObjectIndex], a
-	predef ShowObject 
-	ret
-GetRandHideShowItem:
-	ld hl, ListGameItems
-	call Random
-	ld b, a
-.loop
-	ld a, [hli]
-	and a
-	jr z, .reloadHL
-	ld c, a
-	ld a, b
-	sub 1
-	ld b, a
-	ld a, c
-	ret c
-	jr .loop
-.reloadHL
-	ld hl, ListGameItems
-	jr .loop
+;ResetRandomShowItem:
+;	call GetRandHideShowItem
+;	ld [wMissableObjectIndex], a
+;	predef ShowObject 
+;	ret
+;GetRandHideShowItem:
+;	ld hl, ListGameItems
+;	call Random
+;	ld b, a
+;.loop
+;	ld a, [hli]
+;	and a
+;	jr z, .reloadHL
+;	ld c, a
+;	ld a, b
+;	sub 1
+;	ld b, a
+;	ld a, c
+;	ret c
+;	jr .loop
+;.reloadHL
+;	ld hl, ListGameItems
+;	jr .loop
 
-ResetRandItemsOnInterval:
-	call ResetRandomShowItem
-	call ResetRandomHiddenItem
-	ret
+;ResetRandItemsOnInterval:
+;	call ResetRandomShowItem
+;	call ResetRandomHiddenItem
+;	ret

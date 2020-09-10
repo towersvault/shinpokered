@@ -1275,10 +1275,17 @@ JigglypuffEvosMoves:
 	db 39, DOUBLE_EDGE
 	db 0
 
-WigglytuffEvosMoves:
+WigglytuffEvosMoves:	;joenote - modified for level-up moves
 ; Evolutions
 	db 0
 ; Learnset
+	db 9, POUND
+	db 14, DISABLE
+	db 19, DEFENSE_CURL
+	db 24, SING
+	db 29, DOUBLESLAP
+	db 34, DISABLE
+	db 39, BODY_SLAM
 	db 0
 
 EeveeEvosMoves:
@@ -1699,10 +1706,14 @@ ElectrodeEvosMoves:
 	db 50, EXPLOSION
 	db 0
 
-ClefableEvosMoves:
+ClefableEvosMoves:	;joenote - modified to gain level up moves
 ; Evolutions
 	db 0
 ; Learnset
+	db 13, SING
+	db 18, DOUBLESLAP
+	db 24, MINIMIZE
+	db 31, METRONOME
 	db 0
 
 WeezingEvosMoves:

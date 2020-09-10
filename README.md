@@ -434,6 +434,8 @@ Girl Trainer
   - Exeggcutor gains some attacks back via level
   - Vileplume gains some attacks back via level
   - Victreebel gains some attacks back via level
+  - Clefable gains some attacks back via level
+  - Wigglytuff gains some attacks back via level
   - Mewtwo can learn Swift by TM 
   - Kakuna and Metapod learn harden by level-up
   - pikachu and kadabra have their catch rates adjusted to yellow version

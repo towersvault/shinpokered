@@ -137,3 +137,8 @@ _Route12Text11::
 _Route12Text12::
 	text "SPORT FISHING AREA"
 	done
+
+_Route12TextUsePokeflute::
+	text "Play the #"
+	line "FLUTE?"
+	done

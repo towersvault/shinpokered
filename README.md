@@ -155,6 +155,9 @@ Girl Trainer
     - now has a hard stop on using 0-power moves on consecutive turns
 	- heavily discourages 0-power moves if below 1/3 hp
 - Type immunity prevents trapping moves from taking hold at all
+- Fixed text overflow into window border on the celadon mart roof
+- Clefable and Wigglytuff get some moves back via level-up
+- Yes/No prompt for flute use has been added to blocking snorlax
 
 
 #Bugfixes:

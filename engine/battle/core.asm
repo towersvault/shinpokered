@@ -9180,7 +9180,7 @@ TrappingEffect:
 .setTrappingCounter
 	inc a
 	ld [de], a
-;joenote - have the trapping effect user get its speed halved until stats get recalculated
+;joenote - have the trapping effect user get its speed temporarily reduced until stats get recalculated
 	callba ReduceSpeed
 	ret
 

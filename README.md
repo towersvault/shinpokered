@@ -158,6 +158,8 @@ Girl Trainer
 - Fixed text overflow into window border on the celadon mart roof
 - Clefable and Wigglytuff get some moves back via level-up
 - Yes/No prompt for flute use has been added to blocking snorlax
+- Fixed the Missingno battle not triggering
+- Encountering Missingno will not give 128 of the item in the sixth bag slot
 
 
 #Bugfixes:
@@ -573,11 +575,13 @@ Girl Trainer
 - You can now battle missingno on the infamous cinnabar shoreline
   - You must have gotten the pokedex diploma first
   - Activated the traditional way via the "old man in viridian" method
+  - The battle will trigger randomly while surfing on the shore even if you are not moving
   - Uses trainer battle routines (different music, uses AI, and uncatchable)
   - Uses fossil kabutops graphics and has its own defined base stats data
     - Prevents terrible glitches
 	- Won't mess up your hall of fame
-  - Upon encountering, it still gives 128 of the item in the 6th slot
+  - If defeated, it will set a non-key item in the sixth bag slot to a quantity of 99
+  - Win or lose, you must do the "Old Man" process again to reactivate the encounter
 
 
 #Added Encounter Locations for the following pokemon (rare if not normally in the chosen version):

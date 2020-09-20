@@ -25,17 +25,15 @@ MissingnoShore:
 	jr nc, .return	;leave if the carry flag is not set
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;everything checks out, so do stuff
+	ld a, [hRandomAdd]
+	and a 
+	jr nz, .return
+	ld a, [hRandomSub]
+	cp $F0
+	jr c, .return
 	ld a, [wUnusedD721]
 	res 1, a
 	ld [wUnusedD721], a	;clear cinnabar shore activation
-	call Random
-	and a 
-	jr nz, .return
-	call Random
-	nop
-	cp $0C
-	jr nc, .return
-	nop
 	ld hl, wd72d;set the bits for triggering battle
 	set 6, [hl]	;
 	set 7, [hl]	;
@@ -48,12 +46,38 @@ MissingnoShore:
 	ld [wCurOpponent], a	;set as the current opponent
 	ld a, 2	;get the right roster
 	ld [wTrainerNo], a
+	ld a, 3
+	ld [wRoute20CurScript], a
 	xor a
 	ld [hJoyHeld], a
 	jp TextScriptEnd
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 .return
 	ret
+	
+EndMissingnoBattle:
+	xor a
+	ld [wRoute20CurScript], a
+	;return of battle was a loss or draw
+	ld a, [wBattleResult]
+	and a
+	ret nz
+	;return if less than 6 items in bag
+	ld a, [wNumBagItems]
+	cp 6
+	ret c
+	;return if 6th item is a key item
+	ld a, [wBagItems + 10]
+	ld [wcf91], a
+	call IsKeyItem ; check if item is unsellable
+	ld a, [wIsKeyItem]
+	and a ; is the item unsellable?
+	ret nz
+	;6th item is not key item, so set its quantity to 99 and return
+	ld a, 99
+	ld [wBagItems + 11], a
+	ret
+	
 	
 MissingnoCoordsData:
 		;Y,X
@@ -126,6 +150,7 @@ Route20ScriptPointers:
 	dw CheckFightingMapTrainers
 	dw DisplayEnemyTrainerTextAndStartBattle
 	dw EndTrainerBattle
+	dw EndMissingnoBattle
 
 Route20TextPointers:
 	dw Route20Text1

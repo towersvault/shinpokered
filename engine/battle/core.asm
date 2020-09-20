@@ -7006,11 +7006,13 @@ LoadEnemyMonData:
 	ld [wd11e], a
 	predef IndexToPokedex
 	ld a, [wd11e]
-	dec a
+	sub 1;dec a
+	jr c, .skip_seen	;joenote - check for missingno. do not mark as seen to prevent item duplication
 	ld c, a
 	ld b, FLAG_SET
 	ld hl, wPokedexSeen
 	predef FlagActionPredef ; mark this mon as seen in the pokedex
+.skip_seen
 	ld hl, wEnemyMonLevel
 	ld de, wEnemyMonUnmodifiedLevel
 	ld bc, 1 + NUM_STATS * 2

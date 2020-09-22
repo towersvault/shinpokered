@@ -160,6 +160,7 @@ Girl Trainer
 - Yes/No prompt for flute use has been added to blocking snorlax
 - Fixed the Missingno battle not triggering
 - Encountering Missingno will not give 128 of the item in the sixth bag slot
+- Re-worked the front and back pics for the female trainer
 
 
 #Bugfixes:

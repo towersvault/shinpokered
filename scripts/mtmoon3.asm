@@ -231,6 +231,18 @@ MtMoon3Text1:
 	ld [wCurMapScript], a
 	jr .asm_49ebe
 .asm_49eb8
+;;;;;;;joenote - have a rematch?
+	ld hl, RematchTrainerText
+	call PrintText
+	call NoYesChoice
+	ld a, [wCurrentMenuItem]
+	and a
+	jr z, .norematch
+	ld hl, wd72e
+	res 4, [hl]
+	jr .asm_49e8d
+.norematch
+;;;;;;;
 	ld hl, MtMoon3Text_49f94
 	call PrintText
 .asm_49ebe

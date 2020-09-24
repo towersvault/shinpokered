@@ -161,6 +161,8 @@ Girl Trainer
 - Fixed the Missingno battle not triggering
 - Encountering Missingno will not give 128 of the item in the sixth bag slot
 - Re-worked the front and back pics for the female trainer
+- Erika uses her pic from yellow version which alters her funerary clothes to a proper kimono
+- Fossil guy in mt moon can be rematched
 
 
 #Bugfixes:
@@ -195,6 +197,7 @@ Girl Trainer
     - undoing paralysis is accurate to within 0 to -3 points
     - undoing burn is accurate to within 0 to -1 point
   - PP-up uses are disregarded when determining to use STRUGGLE if one or more moves are disabled
+  - Fixed some text overpal with Oak giving you pokeballs
 
 	
 - Move fixes

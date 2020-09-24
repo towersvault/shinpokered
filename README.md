@@ -198,6 +198,7 @@ Girl Trainer
     - undoing burn is accurate to within 0 to -1 point
   - PP-up uses are disregarded when determining to use STRUGGLE if one or more moves are disabled
   - Fixed some text overpal with Oak giving you pokeballs
+  - Diglett & Dugtrio can learn cut like in yellow version
 
 	
 - Move fixes

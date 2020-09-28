@@ -165,6 +165,7 @@ Girl Trainer
 - Fossil guy in mt moon can be rematched
 - Fixed text overlap with Oak giving you pokeballs
 - Diglett & Dugtrio can learn cut like in yellow version
+- In SET batle mode, X-stat items have double the effect
 
 
 #Bugfixes:

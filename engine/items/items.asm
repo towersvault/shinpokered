@@ -1799,8 +1799,20 @@ ItemUseXStat:
 	ld a, [hl]
 	push af ; save [wPlayerMoveEffect]
 	push hl
-	ld a, [wcf91]
-	sub X_ATTACK - ATTACK_UP1_EFFECT
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;joenote - ;double the effect if using SET battle
+	ld a, [wOptions]	;load game options
+	bit 6, a			;check battle style (bit set if SET battle)
+	ld a, [wcf91]	;load item#
+	jr nz, .double_effect
+	
+	sub X_ATTACK - ATTACK_UP1_EFFECT ;this is the normal 1x effect
+	jr .storeX_ItemEffect
+	
+.double_effect
+	sub X_ATTACK - ATTACK_UP2_EFFECT ;this is the 2x effect
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+.storeX_ItemEffect
 	ld [hl], a ; store player move effect
 	call PrintItemUseTextAndRemoveItem
 	ld a, XSTATITEM_ANIM ; X stat item animation ID

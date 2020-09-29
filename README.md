@@ -166,6 +166,7 @@ Girl Trainer
 - Fixed text overlap with Oak giving you pokeballs
 - Diglett & Dugtrio can learn cut like in yellow version
 - In SET batle mode, X-stat items have double the effect
+- Cannot bypass Brock's gym via the start menu
 
 
 #Bugfixes:
@@ -418,13 +419,13 @@ Girl Trainer
   -lass, jr trainer m/f, pokemaniac, supernerd, hiker, engineer, beauty, psychic, rocker, tamer, birdkeeper, cooltrainer m/f, gentleman
   -prof.oak, chief, gym leaders, e4
   
-- Trainer stat DVs are now randomly generated to a degree
+- Trainer stat DVs are now randomly generated to a degree (only in "Set" style)
   - Attack DV is between 9 and 15 and always odd-numbered
   - Defense, special, and speed DVs are between 8 and 15
   - HP DV is a minimum of 8 since attack DV is always odd-numbered
 - Trainer AI battles now track which enemy pkmn have already been sent out, so allows for new functionality:
   - Trainer pkmn DVs are remembered between switching, and new ones won't be generated on every send-out
-  - Trainer pkmn now have stat experience assigned to them that is scaled to their level
+  - Trainer pkmn now have stat experience assigned to them that is scaled to their level (only in "Set" style)
   - These are real DVs and statEXP values that utilize the existing enemy party_struct which is normally unused by trainer AI
 - Special trainers, e4, and gym leaders are slightly adjusted in their item use
 - Agatha & cooltrainers will not randomly switch since they now have ai routine 4
@@ -477,7 +478,11 @@ Girl Trainer
   - Talk to the right-side aide in Oak's lab to toggle on/off
   - Enemy pkmn will evolve by level if applicable
   - Gym leaders and the E4 scale slightly higher than normal trainers
-- Playing on "Shift" style sets trainer stat exp back to zero, DVs back to fixed average, and re-enables badge boosts during trainer battles
+- Playing on "Set" style provides increased difficulty
+  - Enemy trainer pokemon are assigned level-appropriate stat exp
+  - Enemy trainer pokemon have randomized DVs that are all 8 or better (on a scale of 1 to 15)
+  - Badge-granted stat boosts are disabled in trainer battles
+  - X-stat items have double the effect like in more recent generations
 
 
 #Quick Keys

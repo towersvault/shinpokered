@@ -26,7 +26,9 @@ PewterCityScript_1925e:
 	ld hl, CoordsData_19277
 	call ArePlayerCoordsInArray
 	ret nc
-	ld a, $f0
+	;ld a, $f0
+	;joenote - deactivate start and select as well to prevent bypassing brock's gym
+	ld a, $fc
 	ld [wJoyIgnore], a
 	ld a, $5
 	ld [hSpriteIndexOrTextID], a

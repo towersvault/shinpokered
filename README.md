@@ -1,6 +1,6 @@
 # Shin Pokémon Red and Blue
 
-Version 1.15
+Version 1.16
 
 This is a rom hack of pokemon red & blue based on the Pret team's disassembly.  
 It's a mostly-vanilla hack that focuses on fixing game engine bugs and oversights from the original game.  
@@ -113,40 +113,6 @@ Girl Trainer
 
 #Hack-Induced Bugfixes & Adjustments since last version:
 -----------
-- Female trainer default name changed from YELLOW to VIOLET
-- AI routine #3 favorability for 0 bp moves has been corrected.
-- Fixed an issue where enabling gender symbols could cause a status screen crash
-- More graphical fixes to the route 22 rival
-- Female trainer has correct overworld sprite in intro
-
-
-#New features & adjustments since last version:
------------
-- GBC color palettes have been back-ported from Yellow-version.
-- Scrolling mons on the title screen have their own palettes loaded on the GBC.
-- In the blue version intro, jigglypuff has it's own palette loaded on the GBC.
-- Oak-speech nidorino has its color palette on the GBC.
-- The formula functions for exp now have underflow protection.
-- General RNG improved to the one used by Prism and Polished Crystal
-- Female trainer now has her own fishing sprites
-
-
-#Changes not yet in the ips patch files:
------------
-- New Game Plus has been added
-  - Activated under these conditions:
-    - Must have an existing non-corrupt game save on-file
-	- Must have beaten the elite 4 in the on-file save
-	- Press and hold SELECT while choosing the New Game option
-	- A jingle will play to indicate NG+ has activated and the SELECT button can now be released
-  - Preserves ONLY the following information:
-    - Boxed pokemon
-	- Play clock
-	- Pokedex seen/owned registry
-	- Hall of Fame (experimental)
-	- Option screen selections
-  - A new trainer ID and hash is generated, so boxed pokemon are permanently treated as traded pokemon
-- A regular New Game will default the battle style to SET
 - The aides in Oak's lab that activate features now have a no/yes prompt
 - More AI tweaking
   - AI scoring for switching puts a heavier penalty on potentially switching in a bad type matchup
@@ -154,19 +120,43 @@ Girl Trainer
   - AI layer 3 changes that affect most 0-power moves (with only a few exceptions like heal effects)
     - now has a hard stop on using 0-power moves on consecutive turns
 	- heavily discourages 0-power moves if below 1/3 hp
-- Type immunity prevents trapping moves from taking hold at all
 - Fixed text overflow into window border on the celadon mart roof
-- Clefable and Wigglytuff get some moves back via level-up
-- Yes/No prompt for flute use has been added to blocking snorlax
 - Fixed the Missingno battle not triggering
+- Missingno sets a non-key item in bag slot 6 to 99 if beaten
+
+
+#New features & adjustments since last version:
+-----------
+- A regular New Game will default the battle style to SET
+- New Game Plus has been added (still experimental)
+  - Activated under these conditions:
+    - Must have an existing non-corrupt game save on-file
+	- Must have beaten the elite 4 in the on-file save
+	- Press and hold SELECT while choosing the New Game option
+	- A jingle will play to indicate NG+ has activated and the SELECT button can now be released
+  - Preserves ONLY the following information (your current party will be lost):
+    - Boxed pokemon
+	- Play clock
+	- Pokedex seen/owned registry
+	- Hall of Fame (experimental)
+	- Option screen selections
+  - A new trainer ID and hash is generated, so boxed pokemon are permanently treated as traded pokemon
+- Type immunity prevents trapping moves from taking hold at all
+- Yes/No prompt for flute use has been added to blocking snorlax
+- Clefable and Wigglytuff get some moves back via level-up
 - Encountering Missingno will not give 128 of the item in the sixth bag slot
 - Re-worked the front and back pics for the female trainer
 - Erika uses her pic from yellow version which alters her funerary clothes to a proper kimono
 - Fossil guy in mt moon can be rematched
 - Fixed text overlap with Oak giving you pokeballs
+- Cannot bypass Brock's gym via the start menu
 - Diglett & Dugtrio can learn cut like in yellow version
 - In SET batle mode, X-stat items have double the effect
-- Cannot bypass Brock's gym via the start menu
+
+
+#Changes not yet in the ips patch files:
+-----------
+-
 
 
 #Bugfixes:
@@ -261,6 +251,7 @@ Girl Trainer
   - The lower right corner tile of the mon back pic is no longer blanked
   - Amazing man can no longer be triggered by text boxes or the start menu (via a code tweak from Yellow-version)
   - The rival encounters on route 22 now show an exclamation bubble that never showed up originally
+  - Erika uses her pic from yellow version which alters her funerary clothes to a proper kimono
   
 
 - Item Fixes  
@@ -283,6 +274,7 @@ Girl Trainer
     - Full restore at max hp undoes the stat changes of brn/par
   - Full Restore when used in battle to heal HP now undoes the stat changes of brn/par
   - Pokedoll is disallowed during ghost marowak battle
+  - Encountering Missingno will not give 128 of the item in the sixth bag slot
   
 
 - Audio fixes
@@ -314,6 +306,7 @@ Girl Trainer
   - While inside victory road, boulders placed on switches will stay there between floor transitions
   - The formula functions for exp now have underflow protection.
   - General RNG improved to the one used by Prism and Polished Crystal (allows for all possible DVs naturally)
+  - Cannot bypass Brock's gym via the start menu
   
 
 #TWEAKS:
@@ -341,6 +334,7 @@ Girl Trainer
   - Exp.all now prints one message when splitting exp instead of for each party member
   - TMs and HMs now have their attacks (albeit abbreviated) appended to the item names
   - Fixed the flipped text for a girl in Saffron and the letter she is writing
+  - Fixed text overlap with Oak giving you pokeballs
 
 - Adjustments to moves  
   - Stat-down moves no longer have a 25% miss chance in AI matches
@@ -358,6 +352,7 @@ Girl Trainer
   - Rest's sleep condition increased to 3 turns since attacking on wakeup is now allowed.
   - Acid armor's animation changed so that does not make its user disappear
   - Metronome now classified as a Typeless special damage move to play better with the AI
+  - Type immunity prevents trapping moves from taking hold at all
 
 - Adjustment to stat mods, conditions, and items
   - Sleep does not prevent choosing a move
@@ -369,6 +364,7 @@ Girl Trainer
   - Pkmn added to the player's party (either as a gift or in-game trade) have at the least DVs of 9,8,8,8
   - Upped the power of safari balls
   - Escaping in the safari zone is now based on level instead of speed
+  - In "Set" style, X-stat items have double the effect
   
 - Trainer ai routine #1 (recognition of stats, hp, and conditions) has been modified
   - using a move with a dream eater effect is heavily discouraged against non-sleeping opponents
@@ -399,6 +395,9 @@ Girl Trainer
   - Static damage moves are randomly preferenced 25% of the time to spice things up
   - Thunder Wave is not used against immune types
   - Poisoning moves discouraged against poison types
+  - AI layer 3 changes that affect most 0-power moves (with only a few exceptions like heal effects)
+    - now has a hard stop on using 0-power moves on consecutive turns
+	- heavily discourages 0-power moves if below 1/3 hp
 
 - Trainer ai routine #4 is no longer unused. It now does rudimentary trainer switching.
   - 25% chance to switch if active pkmn is below 1/3 HP
@@ -412,6 +411,8 @@ Girl Trainer
   - Additionally, every pokemon in the enemy roster is scored 
     - based on various criteria to determine which mon gets sent out
 	- score might dictate that the current mon is the best choice and abort switching
+  - AI scoring for switching puts a heavier penalty on potentially switching in a bad type matchup
+  - AI scoring imposes a very heavy penalty for potentially switching in pokemon with less than 1/4 HP
   
 - Trainer ai routine #3 added to the following trainer classes
   - jr trainer M, jr trainer F, hiker, supernerd, engineer, lass, chief, bruno, brock, gentleman, agatha
@@ -453,7 +454,11 @@ Girl Trainer
   - pikachu and kadabra have their catch rates adjusted to yellow version
   - Give haunter/machoke/kadabra/graveler an evo by level option (level 45 to 48)
   - Butterfree and Beedrill have their prior evolutions' moves added to their level-0 move list
+  - Clefable and Wigglytuff get some moves back via level-up
+  - Diglett & Dugtrio can learn cut like in yellow version
 
+- A regular New Game will default the battle style to SET
+- Yes/No prompt for flute use has been added to blocking snorlax
 - Game corner prize costs re-balanced
 - Slightly increased slot odds
 - Slot machine coin counter runs twice as fast
@@ -593,6 +598,19 @@ Girl Trainer
 	- Won't mess up your hall of fame
   - If defeated, it will set a non-key item in the sixth bag slot to a quantity of 99
   - Win or lose, you must do the "Old Man" process again to reactivate the encounter
+- New Game Plus has been added (still experimental)
+  - Activated under these conditions:
+    - Must have an existing non-corrupt game save on-file
+	- Must have beaten the elite 4 in the on-file save
+	- Press and hold SELECT while choosing the New Game option
+	- A jingle will play to indicate NG+ has activated and the SELECT button can now be released
+  - Preserves ONLY the following information (your current party will be lost):
+    - Boxed pokemon
+	- Play clock
+	- Pokedex seen/owned registry
+	- Hall of Fame (experimental)
+	- Option screen selections
+  - A new trainer ID and hash is generated, so boxed pokemon are permanently treated as traded pokemon
 
 
 #Added Encounter Locations for the following pokemon (rare if not normally in the chosen version):

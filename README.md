@@ -43,7 +43,8 @@ Shiny Animation
 ![Shiny Animation](/screenshots/bgb00019.bmp?raw=true)
 
 Girl Trainer  
-![Girl Trainer](/screenshots/bgb00023.bmp?raw=true)
+![Girl Trainer 1](/screenshots/bgb00026.bmp?raw=true) 
+![Girl Trainer 2](/screenshots/bgb00025.bmp?raw=true)
 
 
 #Summary

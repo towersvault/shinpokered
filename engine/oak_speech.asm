@@ -34,8 +34,33 @@ SetDefaultNames:
 OakSpeech:
 	call ClearScreen
 	call LoadTextBoxTilePatterns
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;joenote - do a new game plus when choosing New Game from main menu
+;must have an intact save file detected
+;must have beaten the elite 4
+;must be holding down the select button
+;a jingle will play if successful and the select button can be released
+	ld a, [wSaveFileStatus]
+	cp 2
+	jr nz, .normalnewgame
+	CheckEvent EVENT_908
+	jr z, .normalnewgame
+	ld a, [hJoyHeld]
+	and SELECT
+	jr z, .normalnewgame
+	call DoNewGamePlus
+	predef InitPlayerData2
+	ld a, $FF
+	call PlaySound ; stop music
+	ld a, SFX_GET_ITEM_1
+	call PlaySound
+	call WaitForSoundToFinish
+	jr .newgamedone
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+.normalnewgame
 	call SetDefaultNames
 	predef InitPlayerData2
+.newgamedone
 	call RunDefaultPaletteCommand	;gbcnote - reinitialize the default palette in case the pointers got cleared
 ;joenote - give option to play as a female trainer here
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -47,6 +72,8 @@ OakSpeech:
 	ld [wUnusedD721], a
 	call ClearScreen
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+	ld hl, wOptions
+	set 6, [hl] ;joenote - make a new game default into SET battle style
 	ld a, $FF
 	call PlaySound ; stop music
 	ld a, BANK(Music_Routes2)
@@ -209,7 +236,7 @@ OakSpeechText1:
 	db "@"
 OakSpeechText2:
 	TX_FAR _OakSpeechText2A
-	TX_CRY_NIDORINA
+	TX_CRY_NIDORINO
 	TX_FAR _OakSpeechText2B
 	db "@"
 IntroducePlayerText:
@@ -285,6 +312,34 @@ IntroDisplayPicCenteredOrUpperRight:
 	xor a
 	ld [hStartTileID], a
 	predef_jump CopyUncompressedPicToTilemap
+
+
+DoNewGamePlus: ;joenote - selective wram clearing for new game plus
+	;preserve pokedex
+	ld hl, wPlayerName
+	ld bc, wMainDataStart - wPlayerName
+	xor a
+	call FillMemory
+	
+	;preserve #of HoF teams as well as current box number
+	ld hl, wNumBagItems
+	ld bc, wCurrentBoxNum - wNumBagItems
+	xor a
+	call FillMemory
+
+	;preserve game time
+	ld hl, wUnusedD5A3
+	ld bc, wPlayTimeHours - wUnusedD5A3
+	xor a
+	call FillMemory
+	
+	;preserve box pkmn data
+	ld hl, wSafariZoneGameOver
+	ld bc, wMainDataEnd - wSafariZoneGameOver
+	xor a
+	call FillMemory
+
+	ret
 
 AskIfGirlText::	;joenote - text to ask if female trainer
 	TX_FAR _AskIfGirlText

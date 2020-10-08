@@ -3506,7 +3506,7 @@ MirrorMoveCheck:
 	cp EXPLODE_EFFECT ; even if Explosion or Selfdestruct missed, its effect still needs to be activated
 	jr z, .notDone
 	;cp HYPER_BEAM_EFFECT ;joenote - makes hyperbeam effect happen if it misses
-	jr z, .notDone
+	;jr z, .notDone
 	jp ExecutePlayerMoveDone ; otherwise, we're done if the move missed
 .moveDidNotMiss
 	call ApplyAttackToEnemyPokemon
@@ -3514,7 +3514,7 @@ MirrorMoveCheck:
 	callab DisplayEffectiveness
 	ld a, 1
 	ld [wMoveDidntMiss], a
-	call EnemyBideAccum	;joedebug - accumulating bide damage here now
+	callab EnemyBideAccum	;joedebug - accumulating bide damage here now
 .notDone
 	ld a, [wPlayerMoveEffect]
 	ld hl, AlwaysHappenSideEffects
@@ -4982,12 +4982,12 @@ JumpToOHKOMoveEffect:
 	ret
 
 
-UnusedHighCriticalMoves:
-	db KARATE_CHOP
-	db RAZOR_LEAF
-	db CRABHAMMER
-	db SLASH
-	db $FF
+;UnusedHighCriticalMoves:
+;	db KARATE_CHOP
+;	db RAZOR_LEAF
+;	db CRABHAMMER
+;	db SLASH
+;	db $FF
 
 ; determines if attack is a critical hit
 ; azure heights claims "the fastest pokémon (who are,not coincidentally,
@@ -6344,7 +6344,7 @@ EnemyCheckIfMirrorMoveEffect:
 	call ApplyAttackToPlayerPokemon
 	call PrintCriticalOHKOText
 	callab DisplayEffectiveness
-	call PlayerBideAccum
+	callab PlayerBideAccum
 	ld a, 1
 	ld [wMoveDidntMiss], a
 .handleExplosionMiss
@@ -7006,11 +7006,13 @@ LoadEnemyMonData:
 	ld [wd11e], a
 	predef IndexToPokedex
 	ld a, [wd11e]
-	dec a
+	sub 1;dec a
+	jr c, .skip_seen	;joenote - check for missingno. do not mark as seen to prevent item duplication
 	ld c, a
 	ld b, FLAG_SET
 	ld hl, wPokedexSeen
 	predef FlagActionPredef ; mark this mon as seen in the pokedex
+.skip_seen
 	ld hl, wEnemyMonLevel
 	ld de, wEnemyMonUnmodifiedLevel
 	ld bc, 1 + NUM_STATS * 2
@@ -9140,16 +9142,33 @@ DugAHoleText:
 	db "@"
 
 TrappingEffect:
+;joenote - make it so the effect won't take hold if target has type immunity
+	ld hl, wUnusedC000
+	set 3, [hl]
 	ld hl, wPlayerBattleStatus1
 	ld de, wPlayerNumAttacksLeft
 	ld a, [H_WHOSETURN]
 	and a
 	jr z, .trappingEffect
+	ld hl, wUnusedC000
+	res 3, [hl]
 	ld hl, wEnemyBattleStatus1
 	ld de, wEnemyNumAttacksLeft
 .trappingEffect
 	bit USING_TRAPPING_MOVE, [hl]
 	ret nz
+	
+	push hl
+	push bc
+	push de
+	call AIGetTypeEffectiveness
+	pop de
+	pop bc
+	pop hl
+	ld a, [wTypeEffectiveness]
+	and a
+	ret z
+	
 	;call ClearHyperBeam ; since this effect is called before testing whether the move will hit,
                         ; the target won't need to recharge even if the trapping move missed
 						;joenote - will do this later under ApplyAttackToEnemy/Player functions
@@ -9163,7 +9182,7 @@ TrappingEffect:
 .setTrappingCounter
 	inc a
 	ld [de], a
-;joenote - have the trapping effect user get its speed halved until stats get recalculated
+;joenote - have the trapping effect user get its speed temporarily reduced until stats get recalculated
 	callba ReduceSpeed
 	ret
 
@@ -9611,44 +9630,6 @@ PlaySelectedAnimation:
 	ld [H_WHOSETURN], a
 	ret 
 
-
-EnemyBideAccum:
-	ld hl, wEnemyBattleStatus1
-	bit STORING_ENERGY, [hl] ; is mon using bide?
-	ret z
-	xor a
-	ld [wEnemyMoveNum], a
-	ld hl, wDamage
-	ld a, [hli]
-	ld b, a
-	ld c, [hl]
-	ld hl, wEnemyBideAccumulatedDamage + 1
-	ld a, [hl]
-	add c ; accumulate damage taken
-	ld [hld], a
-	ld a, [hl]
-	adc b
-	ld [hl], a
-	ret
-
-PlayerBideAccum:
-	ld hl, wPlayerBattleStatus1
-	bit STORING_ENERGY, [hl] ; is mon using bide?
-	ret z
-	xor a
-	ld [wPlayerMoveNum], a
-	ld hl, wDamage
-	ld a, [hli]
-	ld b, a
-	ld c, [hl]
-	ld hl, wPlayerBideAccumulatedDamage + 1
-	ld a, [hl]
-	add c ; accumulate damage taken
-	ld [hld], a
-	ld a, [hl]
-	adc b
-	ld [hl], a
-	ret
 
 ;joenote - function to play cry with stack pushing
 CryFunc:

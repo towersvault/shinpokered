@@ -157,7 +157,7 @@ Girl Trainer
 
 #Changes not yet in the ips patch files:
 -----------
--
+- Fixed a transformed pokemon having the wrong palette
 
 
 #Bugfixes:

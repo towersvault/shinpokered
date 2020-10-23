@@ -158,6 +158,7 @@ Girl Trainer
 #Changes not yet in the ips patch files:
 -----------
 - Fixed a transformed pokemon having the wrong palette
+- Fixed the cable club text boarders having the wrong GBC palette
 
 
 #Bugfixes:

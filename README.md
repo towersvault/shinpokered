@@ -159,6 +159,7 @@ Girl Trainer
 -----------
 - Fixed a transformed pokemon having the wrong palette
 - Fixed the cable club text borders having the wrong GBC palette
+- Fixed music not changing properly after beating final rival as a random trainer battle
 
 
 #Bugfixes:

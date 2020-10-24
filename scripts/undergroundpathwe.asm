@@ -22,6 +22,10 @@ CheckLostRandBattle:
 	ret
 
 CheckWinstreak:
+	;make sure to reset the flag that prevents music from changing
+	;victory music will still play, but return to normal when changing maps
+	ld hl, wFlags_D733
+	res 1, [hl]
 	ld a, [wUnusedD5A3]
 	cp $5
 	ret c

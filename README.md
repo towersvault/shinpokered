@@ -124,6 +124,9 @@ Girl Trainer
 - Fixed text overflow into window border on the celadon mart roof
 - Fixed the Missingno battle not triggering
 - Missingno sets a non-key item in bag slot 6 to 99 if beaten
+- Choosing the cable club colosseum initiates a version control handshake
+  - Will hang and cancel the link if the other game is incompatible with battles
+  - Master branch only supports battles with other similar master branch builds
 
 
 #New features & adjustments since last version:

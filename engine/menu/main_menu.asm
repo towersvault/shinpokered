@@ -265,7 +265,8 @@ LinkMenu:
 	ld a, [wCurrentMenuItem]
 	and a
 	ld a, COLOSSEUM
-	jp nz, ShinPokemonHandshake ;jr nz, .next
+	;jr nz, .next
+	jp nz, ShinPokemonHandshake	;joenote - do a version control check before going to the colosseum
 	ld a, TRADE_CENTER
 .next
 	ld [wd72d], a
@@ -300,33 +301,46 @@ LinkMenu:
 
 ShinPokemonHandshake:
 ;joenote - do a security handshake that checks the version of the other linked game.
-;The other game must be the same version and branch as this one.
+;The other game must send back the same sequence of numbers given under HandshakeList.
 ;Otherwise the handshake fails and the connection is cancelled.
-	push af
+	push af	
 	push hl
+	;wUnknownSerialCounter is two bytes. Write the default of 03 00 to it.
+	;This acts as a timeout counter for when two linked gameboys are trying to sync up.
+	;We set it to its default because if it is left as zero then the syncing can get stuck in an infinite loop.
 	ld hl, wUnknownSerialCounter
 	ld a, $3
 	ld [hli], a
 	xor a
 	ld [hl], a
+	;wSerialExchangeNybbleSendData holds the nybble (a half-byte of 0 to f) to send to the other game.
+	;Let's send a 0 across the link to make sure the other game can communicate.
 	ld [wSerialExchangeNybbleSendData], a
 	call Serial_PrintWaitingTextAndSyncAndExchangeNybble
+	;wSerialExchangeNybbleReceiveData holds the nybble recieved from the other game.
+	;This defaults to FF to indicate that no information was recieved.
 	ld a, [wSerialExchangeNybbleReceiveData]
 	and a
+	;Since a 0 was sent, a 0 should also be recieved if communicating with a game that supports this handshake check.
+	;If zero is not recieved, then there is a communication error and the handshake fails.
 	jr nz, .fail
+	;Else we have proper communication. Time to check to make sure the version control passcode matches.
 	ld hl, HandshakeList
 .loop
-	ld a, [hl]
-	cp $ff
-	jr z, .pass
-	ld [wSerialExchangeNybbleSendData], a
+	ld a, [hl]	;load a digit of the version control passcode
+	cp $ff	;has the end been reached?
+	jr z, .pass	;handshake check passes if the end has been reached
+	ld [wSerialExchangeNybbleSendData], a	;load the digit to be sent over link
 	ld a, $ff
-	ld [wSerialExchangeNybbleReceiveData], a
+	ld [wSerialExchangeNybbleReceiveData], a	;default the recieved data to FF
+	;This function syncs up with the other game.
+	;The nybble in wSerialExchangeNybbleSendData is sent to the other game's wSerialExchangeNybbleReceiveData.
+	;And the nybble in the other game's wSerialExchangeNybbleSendData is sent to your wSerialExchangeNybbleReceiveData.
 	call Serial_SyncAndExchangeNybble
 	ld a, [wSerialExchangeNybbleReceiveData]
-	cp [hl]
-	jr nz, .fail
-	inc hl
+	cp [hl]	
+	jr nz, .fail	;the handshake fails if the digit recieved does not match the digit sent
+	inc hl	;otherwise increment to the next digit and loop.
 	jr .loop	
 .fail
 	pop hl
@@ -336,7 +350,10 @@ ShinPokemonHandshake:
 	pop hl
 	pop af
 	jp LinkMenu.next
-HandshakeList:	;this serves as a version control passcode with FF as an end-of-list marker
+HandshakeList:	
+;This serves as a version control passcode.
+;Each digit of the passcode is one nybble.
+;FF is used as an end-of-list marker.
 	db $1
 	db $1
 	db $7

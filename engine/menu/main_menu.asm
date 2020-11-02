@@ -339,7 +339,7 @@ ShinPokemonHandshake:
 HandshakeList:	;this serves as a version control passcode with FF as an end-of-list marker
 	db $1
 	db $1
-	db $6
+	db $7
 	db $a
 	db $ff
 

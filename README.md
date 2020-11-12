@@ -1,6 +1,6 @@
 # Shin Pokémon Red and Blue
 
-Version 1.16
+Version 1.17
 
 This is a rom hack of pokemon red & blue based on the Pret team's disassembly.  
 It's a mostly-vanilla hack that focuses on fixing game engine bugs and oversights from the original game.  
@@ -52,6 +52,7 @@ Girl Trainer
 
 - Tons of bugs, glitches, and oversights fixed
 - The Gameboy Color palette functionality from pokemon Yellow has been back-ported into the game
+- The audio engine from Yellow version and its sound options have been back-ported into the game
 - Trainers are made more difficult not by increasing their team levels, but by doing the following:
   - Vastly improving the default ai routines
   - Giving them access to stat experience (only in "Set" style)
@@ -125,7 +126,7 @@ Girl Trainer
   - Link battling between a master branch build and any other non-master branch build
   - Link battling between a lite branch build and any other non-lite branch build
   - Link battling between builds of dissimilar revisions
-- A revision control function is being added that will cancel unsupported cable links
+- A revision control function has been added that will cancel unsupported cable links
 
 
 #Hack-Induced Bugfixes & Adjustments since last version:
@@ -179,6 +180,11 @@ Girl Trainer
 - Fixed a transformed pokemon having the wrong palette
 - Fixed the cable club text borders having the wrong GBC palette
 - Fixed music not changing properly after beating final rival as a random trainer battle
+- Audio engine has been back-ported from Yellow version
+  - Fixes some channel conflicts between cries and the low-health alarm
+  - Fixes some audio hiccups with Yellow's color palettes on the GBC
+  - Press SELECT on the option menu to change the audio mixing option
+- A revision control function has been added that will cancel unsupported cable links
 
 
 #Bugfixes:
@@ -300,6 +306,10 @@ Girl Trainer
   
 
 - Audio fixes
+  - Audio engine has been back-ported from Yellow version
+    - Fixes some channel conflicts between cries and the low-health alarm
+    - Fixes some audio hiccups with Yellow's color palettes on the GBC
+    - Press SELECT on the option menu to change the audio mixing option
   - Fuschia gym plays the correct sfx when getting the TM from Koga
   - Vermilion gym plays the correct sfx when getting the TM from Surge
   - Restored sfx for getting a badge

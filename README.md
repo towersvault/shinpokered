@@ -131,60 +131,26 @@ Girl Trainer
 
 #Hack-Induced Bugfixes & Adjustments since last version:
 -----------
-- The aides in Oak's lab that activate features now have a no/yes prompt
-- More AI tweaking
-  - AI scoring for switching puts a heavier penalty on potentially switching in a bad type matchup
-  - AI scoring imposes a very heavy penalty for potentially switching in pokemon with less than 1/4 HP
-  - AI layer 3 changes that affect most 0-power moves (with only a few exceptions like heal effects)
-    - now has a hard stop on using 0-power moves on consecutive turns
-	- heavily discourages 0-power moves if below 1/3 hp
-- Fixed text overflow into window border on the celadon mart roof
-- Fixed the Missingno battle not triggering
-- Missingno sets a non-key item in bag slot 6 to 99 if beaten
-- Choosing the cable club colosseum initiates a version control handshake
-  - Will hang and cancel the link if the other game is incompatible with battles
-  - Master branch only supports battles with other similar master branch builds
+- Fixed a transformed pokemon having the wrong palette
+- Fixed the cable club text borders having the wrong GBC palette
+- Fixed music not changing properly after beating final rival as a random trainer battle
 
 
 #New features & adjustments since last version:
 -----------
-- A regular New Game will default the battle style to SET
-- New Game Plus has been added (still experimental)
-  - Activated under these conditions:
-    - Must have an existing non-corrupt game save on-file
-	- Must have beaten the elite 4 in the on-file save
-	- Press and hold SELECT while choosing the New Game option
-	- A jingle will play to indicate NG+ has activated and the SELECT button can now be released
-  - Preserves ONLY the following information (your current party will be lost):
-    - Boxed pokemon
-	- Play clock
-	- Pokedex seen/owned registry
-	- Hall of Fame (experimental)
-	- Option screen selections
-  - A new trainer ID and hash is generated, so boxed pokemon are permanently treated as traded pokemon
-- Type immunity prevents trapping moves from taking hold at all
-- Yes/No prompt for flute use has been added to blocking snorlax
-- Clefable and Wigglytuff get some moves back via level-up
-- Encountering Missingno will not give 128 of the item in the sixth bag slot
-- Re-worked the front and back pics for the female trainer
-- Erika uses her pic from yellow version which alters her funerary clothes to a proper kimono
-- Fossil guy in mt moon can be rematched
-- Fixed text overlap with Oak giving you pokeballs
-- Cannot bypass Brock's gym via the start menu
-- Diglett & Dugtrio can learn cut like in yellow version
-- In SET batle mode, X-stat items have double the effect
-
-
-#Changes not yet in the ips patch files:
------------
-- Fixed a transformed pokemon having the wrong palette
-- Fixed the cable club text borders having the wrong GBC palette
-- Fixed music not changing properly after beating final rival as a random trainer battle
+- A revision control function has been added that will cancel unsupported cable links
+- Choosing the cable club colosseum initiates a version control handshake
+  - Will hang and cancel the link if the other game is incompatible with battles
+  - Master branch only supports battles with other similar master branch builds
 - Audio engine has been back-ported from Yellow version
   - Fixes some channel conflicts between cries and the low-health alarm
   - Fixes some audio hiccups with Yellow's color palettes on the GBC
   - Press SELECT on the option menu to change the audio mixing option
-- A revision control function has been added that will cancel unsupported cable links
+
+
+#Changes not yet in the ips patch files:
+-----------
+-
 
 
 #Bugfixes:
@@ -523,6 +489,7 @@ Girl Trainer
 
 
 #Quick Keys
+- Press SELECT on the option screen to change the audio type
 - Softlock Warp 
   - instantly teleport back to your mom's house if you get stuck or are unable to move after updating to a new patch
   - Intructions to perform:

@@ -1,6 +1,6 @@
 # Shin Pokémon Red and Blue
 
-Version 1.16
+Version 1.17
 
 This is a rom hack of pokemon red & blue based on the Pret team's disassembly.  
 It's a mostly-vanilla hack that focuses on fixing game engine bugs and oversights from the original game.  
@@ -52,6 +52,7 @@ Girl Trainer
 
 - Tons of bugs, glitches, and oversights fixed
 - The Gameboy Color palette functionality from pokemon Yellow has been back-ported into the game
+- The audio engine from Yellow version and its sound options have been back-ported into the game
 - Trainers are made more difficult not by increasing their team levels, but by doing the following:
   - Vastly improving the default ai routines
   - Giving them access to stat experience (only in "Set" style)
@@ -105,54 +106,46 @@ Girl Trainer
   - Adjustment to the sleep condition
     - Sleep does not prevent choosing a move
 	- Waking up from sleep does not waste the turn and the chosen move is used
+
+
+#Compatibility Notes
+-----------
+
 - Compatible with original Gameboy hardware (DMG, Super, Pocket, Color, Advance, SP)
-- Potentially compatible with Pokemon Stadium 1 & 2
+- Potentially compatible with Pokemon Stadium 1 & 2 (using original Nintendo hardware)
 - Might be possible to use a save from vanilla USA red/blue with this rom hack 
-	- Save outside in Pallet Town before transferring over
-	- Use the Softlock Warp to clear any invisible walls
+  - Save outside in Pallet Town before transferring over
+  - Use the Softlock Warp to clear any invisible walls
+- New builds are tested and debugged with the BGB 1.5.8 emulator and verified using original hardware
+- Certain emulators are known to cause bugs due to inaccuracies in replicating the original hardware
+  - Goomba in particular is known to be problematic
+  - Due to the number of emulators in existence, BGB will be used as the supported standard
+- Link trading with an original retail cartridge appears to work properly on real hardware
+- Link trading between the lite and master branches appears to work properly on real hardware
+- Link battles are still largely untested, and they are unsupported in the following ways:
+  - Link battling between a master branch build and any other non-master branch build
+  - Link battling between a lite branch build and any other non-lite branch build
+  - Link battling between builds of dissimilar revisions
+- A revision control function has been added that will cancel unsupported cable links
 
 
 #Hack-Induced Bugfixes & Adjustments since last version:
 -----------
-- The aides in Oak's lab that activate features now have a no/yes prompt
-- More AI tweaking
-  - AI scoring for switching puts a heavier penalty on potentially switching in a bad type matchup
-  - AI scoring imposes a very heavy penalty for potentially switching in pokemon with less than 1/4 HP
-  - AI layer 3 changes that affect most 0-power moves (with only a few exceptions like heal effects)
-    - now has a hard stop on using 0-power moves on consecutive turns
-	- heavily discourages 0-power moves if below 1/3 hp
-- Fixed text overflow into window border on the celadon mart roof
-- Fixed the Missingno battle not triggering
-- Missingno sets a non-key item in bag slot 6 to 99 if beaten
+- Fixed a transformed pokemon having the wrong palette
+- Fixed the cable club text borders having the wrong GBC palette
+- Fixed music not changing properly after beating final rival as a random trainer battle
 
 
 #New features & adjustments since last version:
 -----------
-- A regular New Game will default the battle style to SET
-- New Game Plus has been added (still experimental)
-  - Activated under these conditions:
-    - Must have an existing non-corrupt game save on-file
-	- Must have beaten the elite 4 in the on-file save
-	- Press and hold SELECT while choosing the New Game option
-	- A jingle will play to indicate NG+ has activated and the SELECT button can now be released
-  - Preserves ONLY the following information (your current party will be lost):
-    - Boxed pokemon
-	- Play clock
-	- Pokedex seen/owned registry
-	- Hall of Fame (experimental)
-	- Option screen selections
-  - A new trainer ID and hash is generated, so boxed pokemon are permanently treated as traded pokemon
-- Type immunity prevents trapping moves from taking hold at all
-- Yes/No prompt for flute use has been added to blocking snorlax
-- Clefable and Wigglytuff get some moves back via level-up
-- Encountering Missingno will not give 128 of the item in the sixth bag slot
-- Re-worked the front and back pics for the female trainer
-- Erika uses her pic from yellow version which alters her funerary clothes to a proper kimono
-- Fossil guy in mt moon can be rematched
-- Fixed text overlap with Oak giving you pokeballs
-- Cannot bypass Brock's gym via the start menu
-- Diglett & Dugtrio can learn cut like in yellow version
-- In SET batle mode, X-stat items have double the effect
+- A revision control function has been added that will cancel unsupported cable links
+- Choosing the cable club colosseum initiates a version control handshake
+  - Will hang and cancel the link if the other game is incompatible with battles
+  - Master branch only supports battles with other similar master branch builds
+- Audio engine has been back-ported from Yellow version
+  - Fixes some channel conflicts between cries and the low-health alarm
+  - Fixes some audio hiccups with Yellow's color palettes on the GBC
+  - Press SELECT on the option menu to change the audio mixing option
 
 
 #Changes not yet in the ips patch files:
@@ -279,6 +272,10 @@ Girl Trainer
   
 
 - Audio fixes
+  - Audio engine has been back-ported from Yellow version
+    - Fixes some channel conflicts between cries and the low-health alarm
+    - Fixes some audio hiccups with Yellow's color palettes on the GBC
+    - Press SELECT on the option menu to change the audio mixing option
   - Fuschia gym plays the correct sfx when getting the TM from Koga
   - Vermilion gym plays the correct sfx when getting the TM from Surge
   - Restored sfx for getting a badge
@@ -492,6 +489,7 @@ Girl Trainer
 
 
 #Quick Keys
+- Press SELECT on the option screen to change the audio type
 - Softlock Warp 
   - instantly teleport back to your mom's house if you get stuck or are unable to move after updating to a new patch
   - Intructions to perform:

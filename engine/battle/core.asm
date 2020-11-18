@@ -1119,13 +1119,17 @@ TrainerBattleVictory:
 	and a
 	jr nz, .gymleader
 	ld b, MUSIC_DEFEATED_TRAINER
-.gymleader
-	ld a, [wTrainerClass]
-	cp SONY3 ; final battle against rival
-	jr nz, .notrival
-	ld b, MUSIC_DEFEATED_GYM_LEADER
+.gymleader	;joenote - use a flag to determine final battle instead
+	;ld a, [wTrainerClass]
+	;cp SONY3 ; final battle against rival
+	;jr nz, .notrival
 	ld hl, wFlags_D733
+	bit 5, [hl]
+	jr z, .notrival
+	ld b, MUSIC_DEFEATED_GYM_LEADER
+	;ld hl, wFlags_D733
 	set 1, [hl]
+	res 5, [hl]
 .notrival
 	ld a, [wLinkState]
 	cp LINK_STATE_BATTLING

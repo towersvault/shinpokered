@@ -12,7 +12,7 @@ Route24Mons:;joenote - added oddish/bellsprout
 		db 12,ABRA
 		db 12,BELLSPROUT
 	ENDC
-	IF DEF(_BLUE)
+	IF (DEF(_BLUE) || DEF(_GREEN))
 		db 7,CATERPIE
 		db 8,METAPOD
 		db 12,PIDGEY

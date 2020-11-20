@@ -12,7 +12,7 @@ Route12Mons:;joenote - added farfetchd
 		db 30,GLOOM
 		db 22,FARFETCHD
 	ENDC
-	IF DEF(_BLUE)
+	IF (DEF(_BLUE) || DEF(_GREEN))
 		db 24,BELLSPROUT
 		db 25,PIDGEY
 		db 24,VENONAT

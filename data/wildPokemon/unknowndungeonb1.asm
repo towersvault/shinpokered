@@ -6,7 +6,7 @@ DungeonMonsB1:;joenote - added mew
 	IF DEF(_RED)
 		db 64,ARBOK
 	ENDC
-	IF DEF(_BLUE)
+	IF (DEF(_BLUE) || DEF(_GREEN))
 		db 64,SANDSLASH
 	ENDC
 	db 64,PARASECT

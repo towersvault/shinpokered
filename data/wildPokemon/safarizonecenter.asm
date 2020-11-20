@@ -12,7 +12,7 @@ ZoneMonsCenter:;joenote - swapped pinser/scyther
 		db 23,PINSIR
 		db 23,CHANSEY
 	ENDC
-	IF DEF(_BLUE)
+	IF (DEF(_BLUE) || DEF(_GREEN))
 		db 22,NIDORAN_F
 		db 25,RHYHORN
 		db 22,VENONAT

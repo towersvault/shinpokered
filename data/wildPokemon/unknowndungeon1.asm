@@ -9,7 +9,7 @@ DungeonMons1:;joenote - swapped sandslash/arbok
 	IF DEF(_RED)
 		db 52,SANDSLASH
 	ENDC
-	IF DEF(_BLUE)
+	IF (DEF(_BLUE) || DEF(_GREEN))
 		db 52,ARBOK
 	ENDC
 	db 52,PARASECT

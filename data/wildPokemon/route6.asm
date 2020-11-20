@@ -12,7 +12,7 @@ Route6Mons:;joenote - added squirtle
 		db 16,MANKEY
 		db 10,SQUIRTLE
 	ENDC
-	IF DEF(_BLUE)
+	IF (DEF(_BLUE) || DEF(_GREEN))
 		db 13,BELLSPROUT
 		db 13,PIDGEY
 		db 15,PIDGEY

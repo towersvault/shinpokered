@@ -12,7 +12,7 @@ ZoneMons1:;joenote - added lickitung & tweaked encounter tables
 		db 25,KANGASKHAN
 		db 25,PARASECT
 	ENDC
-	IF DEF(_BLUE)
+	IF (DEF(_BLUE) || DEF(_GREEN))
 		db 24,NIDORAN_F
 		db 26,DODUO
 		db 22,PARAS

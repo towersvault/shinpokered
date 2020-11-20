@@ -12,7 +12,7 @@ Route4Mons:;joenote - added bubasaur
 		db 12,EKANS
 		db 10,BULBASAUR
 	ENDC
-	IF DEF(_BLUE)
+	IF (DEF(_BLUE) || DEF(_GREEN))
 		db 10,RATTATA
 		db 10,SPEAROW
 		db 8,RATTATA

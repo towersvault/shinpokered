@@ -12,7 +12,7 @@ MansionMonsB1:;joenote - magmar in both versions
 		db 38,MAGMAR
 		db 42,MUK
 	ENDC
-	IF DEF(_BLUE)
+	IF (DEF(_BLUE) || DEF(_GREEN))
 		db 33,GRIMER
 		db 31,GRIMER
 		db 35,VULPIX

@@ -248,6 +248,22 @@ DefaultNamesRival:
 	db   "@"
 ENDC
 
+IF DEF(_GREEN)
+DefaultNamesPlayer:
+	db   "NEW NAME"
+	next "GREEN"
+	next "GARY"
+	next "JOHN"
+	db   "@"
+
+DefaultNamesRival:
+	db   "NEW NAME"
+	next "RED"
+	next "ASH"
+	next "JACK"
+	db   "@"
+ENDC
+
 GetDefaultName:
 ; a = name index
 ; hl = name list
@@ -295,6 +311,18 @@ IF DEF(_BLUE)
 DefaultNamesPlayerList:
 	db "NEW NAME@"
 	db "BLUE@"
+	db "GARY@"
+	db "JOHN@"
+DefaultNamesRivalList:
+	db "NEW NAME@"
+	db "RED@"
+	db "ASH@"
+	db "JACK@"
+ENDC
+IF DEF(_GREEN)
+DefaultNamesPlayerList:
+	db "NEW NAME@"
+	db "GREEN@"
 	db "GARY@"
 	db "JOHN@"
 DefaultNamesRivalList:

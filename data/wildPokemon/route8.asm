@@ -12,7 +12,7 @@ Route8Mons:;joenote - added growlithe/vulpix
 		db 18,GROWLITHE
 		db 15,VULPIX
 	ENDC
-	IF DEF(_BLUE)
+	IF (DEF(_BLUE) || DEF(_GREEN))
 		db 18,PIDGEY
 		db 18,MEOWTH
 		db 17,SANDSHREW

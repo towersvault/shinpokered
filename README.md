@@ -14,6 +14,10 @@ Then the [Lite branch](https://github.com/jojobear13/shinpokered/tree/lite) is w
 Download the IPS patch file of the version you want and apply it to its respective USA rom.  
 Always apply patches to a fresh USA ROM or else strange glitches will occur.  
 
+***Now includes Pokemon Green!***
+-The compiler primarily builds the graphics and cerulean cave layout back to what green version had.
+-Apply the ips patch to a USA Blue rom.
+
 Important Note: If you are using a save file from a previous version, you might be blocked by invisible walls upon loading the game.
 To fix this, you must use the Softlock Warp detailed below to teleport back to Palette Town.
 
@@ -660,7 +664,8 @@ Girl Trainer
 
 #CREDITS / SPECIAL THANKS:
 -----------
-- The Pret team for the pokered and pokeyellow disassemblies and all the code comments that came with them.
+- The Pret team for the pokered and pokeyellow disassemblies and all the code comments that came with them
+- MoriyaFath's pokejp project for green version assets and code referencing
 - Rangi for the tool Polished Map
 - Exp bar coded by Danny-E 33
 - The Pokemon Prism team for the improved RNG

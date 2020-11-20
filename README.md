@@ -664,7 +664,8 @@ Girl Trainer
 
 #CREDITS / SPECIAL THANKS:
 -----------
-- The Pret team for the pokered and pokeyellow disassemblies and all the code comments that came with them.
+- The Pret team for the pokered and pokeyellow disassemblies and all the code comments that came with them
+- MoriyaFath's pokejp project for green version assets and code referencing
 - Rangi for the tool Polished Map
 - Exp bar coded by Danny-E 33
 - The Pokemon Prism team for the improved RNG

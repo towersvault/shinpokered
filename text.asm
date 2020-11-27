@@ -1028,10 +1028,17 @@ _PokemonBooksText::
 	line "#MON books!"
 	done
 
+IF DEF(_GREEN)
+_DiglettSculptureText::
+	text "It's a statue of"
+	line "a fat Buddha."
+	done
+ELSE
 _DiglettSculptureText::
 	text "It's a sculpture"
 	line "of DIGLETT."
 	done
+ENDC
 
 _ElevatorText::
 	text "This is an"

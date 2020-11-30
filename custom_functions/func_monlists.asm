@@ -1,5 +1,6 @@
 ListRealPkmn:
 	db MEW          ; $15
+ListNonMythPkmn:
 	db MEWTWO       ; $83
 ListNonMewPkmn:
 	db MOLTRES      ; $49

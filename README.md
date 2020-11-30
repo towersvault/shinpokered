@@ -155,6 +155,9 @@ Girl Trainer
 #Changes not yet in the ips patch files:
 -----------
 - Incredibly minor text edits in Green to match the japanese script
+- Palette & sound edits in Green
+- Fixed Mew appearing with glitched graphics
+- Mew's encounter rate reduced
 
 
 #Bugfixes:
@@ -636,7 +639,7 @@ Girl Trainer
 - unknown dungeon changes
   - encounter rates between pokemon slightly re-balanced
   - chansey is rarer
-  - mew is very rare on b1 and will only show up after getting the pokedex diploma
+  - mew is on b1, is the rarest encounter in the game, and only shows up after getting the pokedex diploma
   - dittos are rare 
   - super rod in the unknown dungeon basement will yield glitch-level experiment dittos (a trap encounter)
 - route 22 super rod data has changed to give psyduck & polywag

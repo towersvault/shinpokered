@@ -1,16 +1,21 @@
 ;replace random mew encounters with ditto if dex diploma not attained
-DisallowMew:
+DisallowWildMew:
 	CheckEvent EVENT_90B
-	ret nz	;if event 90B is set, then diploma has been granted so return from this function. mew is allowed.
+	jr nz, .mew_allowed	;if event 90B is set, then diploma has been granted. mew is allowed.
 	ld a, [wcf91]	;else get the current pokemon in question
 	cp MEW	;is it mew? zet zero flag if true
 	ret nz	;if not mew, then return
-	ld a, [wIsInBattle]	;else we have a mew. now load the battle type (1 is wild battle, 2+ is trainer battle)
-	dec a	;zero flag set here if in wild battle
+.replace_mew
 	ld a, DITTO	;load the ditto constant
 	ld [wcf91], a	;overwrite mew with ditto
-	ret nz	
 	ld [wEnemyMonSpecies2], a
+	ret
+.mew_allowed
+	;the slot that triggered the mew encounter has it's likelihood of a mew cut in half
+	;idea is to give mew a 0.6% encounter rate (lowest in the game)
+	ld a, [hRandomSub]
+	bit 0, a
+	jr nz, .replace_mew
 	ret
 
 	
@@ -77,15 +82,17 @@ GetRandMon:
 	pop bc
 	pop hl
 	ld [wcf91], a
-	call DisallowMew
 	ret
 	
 ;generates a randomized 6-party enemy trainer roster
 GetRandRoster:
 	push bc
 	push de
-	ld de, ListRealPkmn
 	ld b, 6
+	ld de, ListNonMythPkmn
+	CheckEvent EVENT_90B	;check for diploma
+	jp z, GetRandRosterLoop	;no mew if no diploma
+	ld de, ListRealPkmn
 	jp GetRandRosterLoop
 GetRandRoster3:	;3-mon party
 	push bc
@@ -234,7 +241,6 @@ GetRandMonSafari:
 	pop hl
 	ld [wcf91], a
 	ld [wEnemyMonSpecies2], a
-	call DisallowMew
 	ret	
 
 GetSafariList:	

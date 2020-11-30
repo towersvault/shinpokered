@@ -80,7 +80,7 @@ TryDoWildEncounter:
 	ld [wEnemyMonSpecies2], a
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;joenote - disallow mew if pokedex not complete
-	callba DisallowMew
+	callba DisallowWildMew
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;joenote - expand the safari zone random encounters
 	callba GetRandMonSafari

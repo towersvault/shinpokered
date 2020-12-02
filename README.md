@@ -157,7 +157,12 @@ Girl Trainer
 - Incredibly minor text edits in Green to match the japanese script
 - Palette & sound edits in Green
 - Fixed Mew appearing with glitched graphics
-- Mew's encounter rate reduced
+- Mew's encounter has been changed a bit
+  - It's wild encounter rate has been reduced
+  - You will get a message about a "tingling feeling" if mew is encounterable
+  - You can only find it in the wild once 
+  - Mew won't appear again after encountering; a message says the tingling feeling goes away
+- Beating the future red fight now also resets Mew's encounter
 
 
 #Bugfixes:
@@ -578,8 +583,8 @@ Girl Trainer
 - Trainer Green (named Seiga) can be battled next to the ss anne dock truck after beating the elite 4
 - Mind battle with future Trainer RED after beating the elite 4 via the new girl outside Bill's villa
   - Must have beaten Oak, Fuji, Silph Chief, and Green (the order doesn't matter)
-  - After winning, must re-defeat the four extra trainers before you can challenge again.
-  - A win will respawn Mewtwo and the legendary birds
+  - After winning, must re-defeat the four extra trainers before you can challenge again
+  - A win will respawn Mewtwo, the legendary birds, and allow Mew to be found again
 
 
 #Tricks and Secrets
@@ -639,7 +644,10 @@ Girl Trainer
 - unknown dungeon changes
   - encounter rates between pokemon slightly re-balanced
   - chansey is rarer
-  - mew is on b1, is the rarest encounter in the game, and only shows up after getting the pokedex diploma
+  - mew is on b1
+    - it is the rarest encounter in the game
+	- only shows up after getting the pokedex diploma
+	- can only be encountered once like static legendaries
   - dittos are rare 
   - super rod in the unknown dungeon basement will yield glitch-level experiment dittos (a trap encounter)
 - route 22 super rod data has changed to give psyduck & polywag

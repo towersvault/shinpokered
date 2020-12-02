@@ -1,10 +1,13 @@
 ;replace random mew encounters with ditto if dex diploma not attained
 DisallowWildMew:
-	CheckEvent EVENT_90B
-	jr nz, .mew_allowed	;if event 90B is set, then diploma has been granted. mew is allowed.
-	ld a, [wcf91]	;else get the current pokemon in question
+	ld a, [wcf91]	;get the current pokemon in question
 	cp MEW	;is it mew? zet zero flag if true
 	ret nz	;if not mew, then return
+	;else we have a potential mew encounter on our hands
+	CheckEvent EVENT_90B
+	jr z, .replace_mew	;if event 90B is zero, then diploma has not been granted. mew is not allowed.
+	CheckEvent EVENT_8C0
+	jr z, .mew_allowed	;mew can appear if not already encountered
 .replace_mew
 	ld a, DITTO	;load the ditto constant
 	ld [wcf91], a	;overwrite mew with ditto
@@ -16,6 +19,9 @@ DisallowWildMew:
 	ld a, [hRandomSub]
 	bit 0, a
 	jr nz, .replace_mew
+	;going to encounter mew now
+	SetEvent EVENT_8C0 ;mew has been encountered now
+	ResetEvent EVENT_8C2 ;turn on mew notification
 	ret
 
 	

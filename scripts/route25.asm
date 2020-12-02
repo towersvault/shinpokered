@@ -150,6 +150,9 @@ Route25Script3:	;joenote - adding this function to respawn the legendaries if fu
 	ld a, [wBeatGymFlags]
 	and $F0
 	ld [wBeatGymFlags], a
+;reset Mew events
+	ResetEvent EVENT_8C0
+	ResetEvent EVENT_8C2
 ;reset articuno's seafoam islands puzzles
 	ld a, HS_SEAFOAM_ISLANDS_4_BOULDER_1
 	call .showstuff

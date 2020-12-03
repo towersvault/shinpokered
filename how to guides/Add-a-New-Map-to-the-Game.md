@@ -14,7 +14,7 @@ For this tutorial, I am replacing 'UNUSED_MAP_F4' with my custom map.
 
 Replace that line with a line like so:
 
-```
+```diff
 -	mapconst UNUSED_MAP_F4,                  0,  0 ; $F4
 +	mapconst TEST_MAP_1,                     6,  5 ; $F4
 ```
@@ -88,7 +88,7 @@ TestMap1Object:
 
 Remember that line I told you to remember earlier? You need to find that line in this file, and then replace it:
 
-```
+```diff
 -	db $11 ; UNUSED_MAP_F4
 +	db BANK(TestMap1_h)
 ```
@@ -99,7 +99,7 @@ You don't have to use 'UNUSED_MAP_F4', you can replace any map including maps th
 
 Just like the last file, find the corresponding line and then replace it:
 
-```
+```diff
 -	dw SilphCo2F_h ; UNUSED_MAP_F4
 +	dw TestMap1_h
 ```
@@ -120,7 +120,7 @@ As far as I can tell, these two parts are required, even if you have no scripts 
 
 We need to include our map's files in this list somewhere. I decided to add mine after the last map in the file, which is Agataha's Room. Look for the line *AgathaBlocks: INCBIN "maps/agatha.blk"* and add the following underneath:
 
-```
+```diff
 INCLUDE "data/mapHeaders/agatha.asm"
 INCLUDE "scripts/agatha.asm"
 INCLUDE "data/mapObjects/agatha.asm"

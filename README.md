@@ -163,6 +163,7 @@ Girl Trainer
   - You can only find it in the wild once 
   - Mew won't appear again after encountering; a message says the tingling feeling goes away
 - Beating the future red fight now also resets Mew's encounter
+- PP usage is now tracked for both wild and AI trainer pokemon
 
 
 #Bugfixes:

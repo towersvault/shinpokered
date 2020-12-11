@@ -1529,7 +1529,10 @@ EnemySendOutFirstMon:
 ;AI trainer switching & sendout is handled in this block
 .next
 	callba AISelectWhichMonSendOut
+	push de
+	ld de, wWhichPokemon
 	callba SetAISwitched ;joenote - flag the pokemon being sent out
+	pop de
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 .next3
 	ld a, [wWhichPokemon]

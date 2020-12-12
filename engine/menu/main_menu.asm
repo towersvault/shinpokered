@@ -50,6 +50,11 @@ MainMenu:
 	ld de, NewGameText
 	call PlaceString
 .next2
+;joenote - print the game version
+	coord hl, $00, $11
+	ld de, VersionText
+	call PlaceString
+	
 	ld hl, wd730
 	res 6, [hl]
 	call UpdateSprites
@@ -356,10 +361,11 @@ HandshakeList:
 ;FF is used as an end-of-list marker.
 	db $1
 	db $1
-	db $7
+	db $8
 	db $a
 	db $ff
-
+VersionText:
+	db "v1.18M@"
 
 WhereWouldYouLikeText:
 	TX_FAR _WhereWouldYouLikeText

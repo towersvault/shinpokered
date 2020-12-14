@@ -9,8 +9,8 @@ db BIRD ; species type 1
 db NORMAL ; species type 2
 db 1 ; catch rate
 db 255 ; base exp yield
-INCBIN "pic/other/fossilkabutops.pic",0,1 ; $66, sprite dimensions
-dw FossilKabutopsPic
+INCBIN "pic/other/missingno.pic",0,1 ; $77, sprite dimensions
+dw MissingnoPic
 dw KabutopsPicBack
 ; attacks known at lvl 0
 db WATER_GUN

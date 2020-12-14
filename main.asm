@@ -1217,6 +1217,7 @@ VictreebelPicBack::    INCBIN "pic/monback/victreebelb.pic"
 MewPicFront:: 		   INCBIN "pic/bmon/mew.pic"
 MewPicBack::  		   INCBIN "pic/monback/mewb.pic"
 ENDC
+MissingnoPic::         INCBIN "pic/other/missingno.pic"
 RedPicBack::           INCBIN "pic/trainer/redb.pic"
 OldManPic::            INCBIN "pic/trainer/oldman.pic"
 

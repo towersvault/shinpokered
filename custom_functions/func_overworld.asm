@@ -34,7 +34,7 @@ TrainerRematch:
 
 
 		
-;this function handles tracking of how bast to go on or off a bike
+;this function handles tracking of how fast to go on or off a bike
 ;biking ORs with $2
 ;running by holding B ORs with $1
 TrackRunBikeSpeed:

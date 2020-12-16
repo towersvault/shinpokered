@@ -25,7 +25,6 @@ INCLUDE "engine/black_out.asm"
 ;MewPicFront:: INCBIN "pic/bmon/mew.pic"	;moved to a proper rom bank
 ;MewPicBack::  INCBIN "pic/monback/mewb.pic"
 ;INCLUDE "data/baseStats/mew.asm"	;this has been moved to be with the other pokemon base stat files
-INCLUDE "data/baseStats/missingno.asm"	;joenote - added basestats for missingno
 
 INCLUDE "engine/battle/safari_zone.asm"
 

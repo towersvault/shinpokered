@@ -54,62 +54,89 @@ Girl Trainer
 #Summary
 -----------
 
-- Tons of bugs, glitches, and oversights fixed
-- The Gameboy Color palette functionality from pokemon Yellow has been back-ported into the game
-- The audio engine from Yellow version and its sound options have been back-ported into the game
-- Trainers are made more difficult not by increasing their team levels, but by doing the following:
-  - Vastly improving the default ai routines
-  - Giving them access to stat experience (only in "Set" style)
-  - Giving them above-average random DVs (only in "Set" style)
-  - Trainers of a smart-enough trainer class will make use of basic pkmn switching
-  - Badge boosts are not applied in trainer battles (only in "Set" style)
-- One of OAK's aides will toggle on/off scaling of trainer rosters to your level (evolving them if applicable)
-- One of OAK's aides toggles pokeball-caught & gender symbols after obtaining the pokedex
-- All 151 pkmn are available in one version
-  - Though difficult for a select few, each pkmn can be obtained multiple times
-  - The uniqueness between red & blue is still preserved in encounter rarity
-- You can play as a boy or a girl
-- You can hunt for shiny pokemon
-  - DVs are checked to see if a pokemon would be shiny in the gen 2 games
-  - If a pokemon has shiny DVs, then it will play a previously-unused animation when entering battle
-  - If playing on a super gameboy, shiny pkmn will have a palette swap on the status screen and also change color in battle
-  - If playing on super gameboy, hold select when loading a pokedex entry to see that pokemon's shiny palette
-- Minor quality-of-life improvements during battle
-  - When a when a box is filled (either via catching or depositing a pokemon), notification text is displayed
-  - Exp bar in battle
-  - A pkmn plays its cry to signal the last turn of using a trapping move like wrap/clamp/etc
-  - The safari zone mechanics run off level instead of speed and safari balls have a boosted catch rate
-  - Press Select to play a mon's cry if it's already listed as owned in the pokedex
-- Minor quality-of-life improvements outside of battle
-  - Softlock Warp: instantly teleport back to your mom's house if you get stuck (see instructions in detailed changes below)
-  - Running Shoes: Hold B to double your speed when walking, surfing, and biking
-  - Press SELECT to use HMs based on proper context (must have the right badge and the move on one of your pkmn)
-  - Press Select while holding A to automatically get on/off your bike or use the best rod in your inventory 
-  - Move relearner and deleter
-  - Nearly all trainers can be rematched just by talking to them a 2nd time after their most recent defeat
-  - Due to on-demand rematches, you could do a pseudo-"new game+" by boxing your pkmn and rematching everyone in order
-  - All TMs can be repurchased as they are strategically scattered across all the Kanto pokemarts
-  - Hold select and enter the status screen to print a 'mons stat exp
-  - Hold start and enter the status screen to print a 'mons DVs
-  - Slot machine bugs and oversights fixed so now you can actually win big
-  - A pokemon having Pay Day will tip you off to the lucky slot machine and when it's in a special payout mode
-  - An NPC will pay COINS for showing him pokemon as an alternative to slots
-  - After the elite-4, a new vendor opens up in celadon allowing the purchase of normally unique items
-  - After the elite-4, there is an NPC that generates a trainer battle with a randomized 6-pkmn roster
-  - There's a tournament being held in the SS Anne's kitchen after the elite 4 are beaten
-  - CUT not needed to get to Lt. Surge and Erika (a blocking event replaces the Vermilion shrub)
-  - Added some special trainer battles as fun little easter eggs
-- Minor learnset changes that make things more convenient while still staying gen-1 legal
-  - Stone evolutions regain some level-up moves
-  - Yellow-version move lists have been integrated
-- Minimal changes to battle mechanics necessitated by AI improvements
-  - Trapping move mechanics nerfed to prevent PP underflow glitch as well as stopping merciless, unwinnable abuse by AI trainers
-	- They now end, ending the turn with no further attack, if the target switches pkmn
-	- Upon hitting, user's speed reduced 25% until recalculated through other mechanics
-	- The user's Cry is played on the final turn of a trapping move to signal its end
-  - Adjustment to the sleep condition
-    - Sleep does not prevent choosing a move
-	- Waking up from sleep does not waste the turn and the chosen move is used
+***Lite features for a cleaned-up purist experience***
+
+A huge number of bugs, glitches, oversights, and text errors of all sorts have been fixed. 
+There are too many to enumerate here, and some of them are very obscure or previoiusly undiscovered.
+
+Includes an english Green version. 
+It swaps the graphics, Cerulean Cave layout, and a few lines of text to replicate the original Green version.
+Apply the patch to a USA blue rom to use it.
+
+Engine features from USA Yellow version have been backported.
+Super Gameboy palettes get converted to display on the Gameboy Color. No more monochrome!
+The audio engine is backported. Hit SELECT on the options screen to cycle through the output types.
+
+Trainer AI has been improved and greatly expanded. 
+Some trainers will even try to switch pokemon intelligently.
+
+You get notified when a box is filled (either via catching or depositing a pokemon).
+
+Noting a compromise - Switching out of a trapping move wastes the trapper's turn. 
+This prevents unbeatable AI scenarios as well as a PP underflow glitch.
+
+Sleep does not prevent choosing a move, and the move is used upon waking up.
+To maintain sleep move accuracy, sleep starts with a counter of at least 2.
+And Rest now sets the sleep counter to 3.
+
+
+***Additional Master features that go beyond engine modifications and fixes***
+
+An experimental New Game+ has been added.
+
+All 151 pkmn are available in one version.
+
+You can play as a boy or a girl.
+
+There's an EXP bar in battle.
+
+You can hunt for shiny pokemon, and they are valid with Gen 2 games.
+
+No more grinding wild pokemon. Nearly all trainers can be rematched just by talking to them once or twice.
+
+The "SET" battle style gives increased difficulty by making the stats of trainer pokemon more on your level.
+It also doubles the effect of X-stat items that trainers love to use.
+
+One of OAK's aides toggles scaling of trainer rosters to your level (evolving them if applicable).
+
+Another of OAK's aides toggles a pokeball-caught symbol in battle after obtaining the pokedex.
+To aide with to Gen 2 interaction, this also applies a gender symbol to species that can be male or female.
+
+Lots of quick-keys features.
+-->Place the cursor over FIGHT and press Select to play the enemy 'mon cry if it's already owned.
+-->Softlock Warp - instantly teleport back to your mom's house if you get stuck.
+-->Running Shoes - Hold B to double your speed when walking, surfing, and biking. Includes proper animation speed-up!
+-->Press SELECT to use HMs based on proper context.
+-->Press SELECT while holding A to automatically get on/off your bike or use the best rod in your inventory.
+-->Hold SELECT and enter the status screen to print a 'mons stat exp.
+-->Hold START and enter the status screen to print a 'mons DVs.
+-->When playing in color, hold SELECT when choosing a 'dex entry to load the shiny palette.
+  
+New NPCs!
+-->The move relearner and deleter are in Saffron City.
+-->An NPC in the Celadon Hotel will pay COINS for showing him pokemon as an alternative to slots.
+-->After the elite-4, a new vendor opens up in celadon allowing the purchase of normally unique items.
+-->After the elite-4, there is an NPC in the underground path that generates random trainer battles.
+-->The game corner chief will buy pokemon from the player post-e4.
+-->There's a tournament being held in the SS Anne's kitchen after the elite 4 are beaten. Yes, the ship returns!
+-->Added some special post-game trainer battles as fun little easter eggs. Can you find and defeat all five?
+
+Other minor changes to lessen annoyance.
+-->TMs and HMs now have their attacks (albeit abbreviated) appended to the item names
+-->All TMs can be repurchased as they are strategically scattered across all the Kanto pokemarts.
+-->The safari zone mechanics run off level instead of speed and safari balls have a boosted catch rate.
+-->Slot machines are a little more lucky so now you can actually win big
+-->CUT is not needed to get to Lt. Surge and Erika (a blocking event replaces the Vermilion shrub).
+-->Yellow version learnsets have been integrated and stone evolutions gain back some level-up moves.
+-->Hitting with a trapping move reduces its user's speed by 25% until recalculated via some other effect.
+-->Trapping move users play their cry on the move's final turn.
+
+Cheats and Secrets!
+-->A pokemon with Pay Day in your top slot will tip you off to a lucky slot machine and when it's in a special payout mode.
+-->New item, M.GENE, re-randomizes a pkmn's DVs to values of 9,8,8,8 or more.
+-->Defeat all five post-game special trainers to reactivate the legendary pokemon.
+-->To find shiny pokemon better, put a level-100 Chansey at the top of your roster. Use a repel if you wish!
+-->Do you dare to activate Missingno at the cinnabar shore? Only if you got your 'dex diploma.
 
 
 #Compatibility Notes
@@ -691,7 +718,7 @@ Girl Trainer
 #CREDITS / SPECIAL THANKS:
 -----------
 - The Pret team for the pokered and pokeyellow disassemblies and all the code comments that came with them
-- MoriyaFath's pokejp project for green version assets and code referencing
+- MoriyaFaith's pokejp project for green version assets and code referencing
 - Rangi for the tool Polished Map
 - Exp bar coded by Danny-E 33
 - The Pokemon Prism team for the improved RNG

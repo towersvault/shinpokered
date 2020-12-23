@@ -15,8 +15,8 @@ Download the IPS patch file of the version you want and apply it to its respecti
 Always apply patches to a fresh USA ROM or else strange glitches will occur.  
 
 ***Now includes Pokemon Green!***
--The compiler primarily builds the graphics and cerulean cave layout back to what green version had.
--Apply the ips patch to a USA Blue rom.
+- The compiler primarily builds the graphics and cerulean cave layout back to what green version had.
+- Apply the ips patch to a USA Blue rom.
 
 Important Note: If you are using a save file from a previous version, you might be blocked by invisible walls upon loading the game.
 To fix this, you must use the Softlock Warp detailed below to teleport back to Palette Town.
@@ -103,40 +103,40 @@ Another of OAK's aides toggles a pokeball-caught symbol in battle after obtainin
 To aide with to Gen 2 interaction, this also applies a gender symbol to species that can be male or female.
 
 Lots of quick-keys features.
--Place the cursor over FIGHT and press Select to play the enemy 'mon cry if it's already owned.
--Softlock Warp - instantly teleport back to your mom's house if you get stuck.
--Running Shoes - Hold B to double your speed when walking, surfing, and biking. Includes proper animation speed-up!
--Press SELECT to use HMs based on proper context.
--Press SELECT while holding A to automatically get on/off your bike or use the best rod in your inventory.
--Hold SELECT and enter the status screen to print a 'mons stat exp.
--Hold START and enter the status screen to print a 'mons DVs.
--When playing in color, hold SELECT when choosing a 'dex entry to load the shiny palette.
+- Place the cursor over FIGHT and press Select to play the enemy 'mon cry if it's already owned.
+- Softlock Warp - instantly teleport back to your mom's house if you get stuck.
+- Running Shoes - Hold B to double your speed when walking, surfing, and biking. Includes proper animation speed-up!
+- Press SELECT to use HMs based on proper context.
+- Press SELECT while holding A to automatically get on/off your bike or use the best rod in your inventory.
+- Hold SELECT and enter the status screen to print a 'mons stat exp.
+- Hold START and enter the status screen to print a 'mons DVs.
+- When playing in color, hold SELECT when choosing a 'dex entry to load the shiny palette.
   
 New NPCs!
--The move relearner and deleter are in Saffron City.
--An NPC in the Celadon Hotel will pay COINS for showing him pokemon as an alternative to slots.
--After the elite-4, a new vendor opens up in celadon allowing the purchase of normally unique items.
--After the elite-4, there is an NPC in the underground path that generates random trainer battles.
--The game corner chief will buy pokemon from the player post-e4.
--There's a tournament being held in the SS Anne's kitchen after the elite 4 are beaten. Yes, the ship returns!
--Added some special post-game trainer battles as fun little easter eggs. Can you find and defeat all five?
+- The move relearner and deleter are in Saffron City.
+- An NPC in the Celadon Hotel will pay COINS for showing him pokemon as an alternative to slots.
+- After the elite-4, a new vendor opens up in celadon allowing the purchase of normally unique items.
+- After the elite-4, there is an NPC in the underground path that generates random trainer battles.
+- The game corner chief will buy pokemon from the player post-e4.
+- There's a tournament being held in the SS Anne's kitchen after the elite 4 are beaten. Yes, the ship returns!
+- Added some special post-game trainer battles as fun little easter eggs. Can you find and defeat all five?
 
 Other minor changes to lessen annoyance.
--TMs and HMs now have their attacks (albeit abbreviated) appended to the item names
--All TMs can be repurchased as they are strategically scattered across all the Kanto pokemarts.
--The safari zone mechanics run off level instead of speed and safari balls have a boosted catch rate.
--Slot machines are a little more lucky so now you can actually win big
--CUT is not needed to get to Lt. Surge and Erika (a blocking event replaces the Vermilion shrub).
--Yellow version learnsets have been integrated and stone evolutions gain back some level-up moves.
--Hitting with a trapping move reduces its user's speed by 25% until recalculated via some other effect.
--Trapping move users play their cry on the move's final turn.
+- TMs and HMs now have their attacks (albeit abbreviated) appended to the item names
+- All TMs can be repurchased as they are strategically scattered across all the Kanto pokemarts.
+- The safari zone mechanics run off level instead of speed and safari balls have a boosted catch rate.
+- Slot machines are a little more lucky so now you can actually win big
+- CUT is not needed to get to Lt. Surge and Erika (a blocking event replaces the Vermilion shrub).
+- Yellow version learnsets have been integrated and stone evolutions gain back some level-up moves.
+- Hitting with a trapping move reduces its user's speed by 25% until recalculated via some other effect.
+- Trapping move users play their cry on the move's final turn.
 
 Cheats and Secrets!
--A pokemon with Pay Day in your top slot will tip you off to a lucky slot machine and when it's in a special payout mode.
--New item, M.GENE, re-randomizes a pkmn's DVs to values of 9,8,8,8 or more.
--Defeat all five post-game special trainers to reactivate the legendary pokemon.
--To find shiny pokemon better, put a level-100 Chansey at the top of your roster. Use a repel if you wish!
--Do you dare to activate Missingno at the cinnabar shore? Only if you got your 'dex diploma.
+- A pokemon with Pay Day in your top slot will tip you off to a lucky slot machine and when it's in a special payout mode.
+- New item, M.GENE, re-randomizes a pkmn's DVs to values of 9,8,8,8 or more.
+- Defeat all five post-game special trainers to reactivate the legendary pokemon.
+- To find shiny pokemon better, put a level-100 Chansey at the top of your roster. Use a repel if you wish!
+- Do you dare to activate Missingno at the cinnabar shore? Only if you got your 'dex diploma.
 
 
 #Compatibility Notes

@@ -77,9 +77,9 @@ This prevents unbeatable AI scenarios as well as a PP underflow glitch.
 
 Sleep does not prevent choosing a move, and the move is used upon waking up.
 To maintain sleep move accuracy, sleep starts with a counter of at least 2.
-And Rest now sets the sleep counter to 3.
-
-
+And Rest now sets the sleep counter to 3.   
+   
+   
 ***Additional Master features that go beyond engine modifications and fixes***
 
 An experimental New Game+ has been added.

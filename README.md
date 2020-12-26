@@ -57,7 +57,7 @@ Girl Trainer
 ***Lite features for a cleaned-up purist experience***
 
 A huge number of bugs, glitches, oversights, and text errors of all sorts have been fixed. 
-There are too many to enumerate here, and some of them are very obscure or previoiusly undiscovered.
+There are too many to enumerate in a simple summary, and some of them are very obscure or previously undiscovered.
 
 Includes an english Green version. 
 It swaps the graphics, Cerulean Cave layout, and a few lines of text to replicate the original Green version.
@@ -162,25 +162,6 @@ Cheats and Secrets!
 
 #Hack-Induced Bugfixes & Adjustments since last version:
 -----------
-- Fixed a transformed pokemon having the wrong palette
-- Fixed the cable club text borders having the wrong GBC palette
-- Fixed music not changing properly after beating final rival as a random trainer battle
-
-
-#New features & adjustments since last version:
------------
-- A revision control function has been added that will cancel unsupported cable links
-- Choosing the cable club colosseum initiates a version control handshake
-  - Will hang and cancel the link if the other game is incompatible with battles
-  - Master branch only supports battles with other similar master branch builds
-- Audio engine has been back-ported from Yellow version
-  - Fixes some channel conflicts between cries and the low-health alarm
-  - Fixes some audio hiccups with Yellow's color palettes on the GBC
-  - Press SELECT on the option menu to change the audio mixing option
-
-
-#Changes not yet in the ips patch files:
------------
 - Incredibly minor text edits in Green to match the japanese script
 - Palette & sound edits in Green
 - Fixed Mew appearing with glitched graphics
@@ -190,7 +171,6 @@ Cheats and Secrets!
   - You can only find it in the wild once 
   - Mew won't appear again after encountering; a message says the tingling feeling goes away
 - Beating the future red fight now also resets Mew's encounter
-- PP usage is now tracked for both wild and AI trainer pokemon
 - There is a chance for the AI to switch a sleeping pokemon based on the sleep counter
   -chance is 0% if counter <= 3
   -chance is 12.5% if counter > 3
@@ -202,15 +182,26 @@ Cheats and Secrets!
   - enemy mon that is recalled back due to a super effective move is flagged; it is demerited from being switched-in
   - switch flags are all cleared when player sends out a new mon since the situation is now different
 - Patch version now shows on main menu
-- Missingno now has its iconic "L-block" appearance
+- Secret missingno battle now has its iconic "L-block" appearance
+
+
+#New features & adjustments since last version:
+-----------
 - When holding B to go faster, the player animation is sped-up by 50% to avoid the "ice skating" appearance
+- PP usage is now tracked for both wild and AI trainer pokemon
 - Fixed a scrolling text artifact in the credits when running in GBC-mode
+
+
+#Changes not yet in the ips patch files:
+-----------
+-
 
 
 #Bugfixes:
 -----------
 
 - Battle engine fixes
+  - PP usage is now tracked for both wild and AI trainer pokemon
   - Moves no longer have a default 1/256 chance to miss
   - Fixed freeze that occurs in defense stat scaling (def < 4 glitch)
   - Enemy ai ignores type effectiveness for moves that have zero power
@@ -300,7 +291,8 @@ Cheats and Secrets!
   - Amazing man can no longer be triggered by text boxes or the start menu (via a code tweak from Yellow-version)
   - The rival encounters on route 22 now show an exclamation bubble that never showed up originally
   - Erika uses her pic from yellow version which alters her funerary clothes to a proper kimono
-  
+  - Fixed a scrolling text artifact in the credits when running in GBC-mode
+
 
 - Item Fixes  
   - Great ball has a ball factor of 12 now

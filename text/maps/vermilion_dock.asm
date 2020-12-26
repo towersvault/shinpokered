@@ -5,7 +5,11 @@ _VermilionDockText1::
 _VermilionDockSeigaIntro::
 	text "My name is Seiga."
 	line "Though my friends"
+IF DEF(_GREEN)
+	cont "call me BLUE."
+ELSE
 	cont "call me GREEN."
+ENDC
 	
 	para "I'm CHAMP of the"
 	line "Orange Islands"

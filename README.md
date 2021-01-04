@@ -194,7 +194,7 @@ Cheats and Secrets!
 
 #Changes not yet in the ips patch files:
 -----------
--
+- Fixed a minor bug where the first byte of pokedex "owned" gets cleared on a new game+
 
 
 #Bugfixes:

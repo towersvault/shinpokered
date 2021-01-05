@@ -47,6 +47,7 @@ TrainerDataPointers:
 	dw AgathaData
 	dw LanceData
 
+RosterLabelStart::
 ; if first byte != FF, then
 	; first byte is level (of all pokemon on this team)
 	; all the next bytes are pokemon species
@@ -55,7 +56,6 @@ TrainerDataPointers:
 	; first byte is FF (obviously)
 	; every next two bytes are a level and species
 	; null-terminated
-
 YoungsterData:
 ; Route 3
 	db 11,RATTATA,EKANS,0
@@ -687,3 +687,4 @@ AgathaData:
 	db $FF,55,HAUNTER,56,GENGAR,56,GOLBAT,58,ARBOK,60,GENGAR,0
 LanceData:
 	db $FF,58,GYARADOS,56,DRAGONAIR,56,DRAGONAIR,60,AERODACTYL,62,DRAGONITE,0
+RosterLabelEnd::

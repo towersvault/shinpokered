@@ -195,6 +195,9 @@ Cheats and Secrets!
 #Changes not yet in the ips patch files:
 -----------
 - Fixed a minor bug where the first byte of pokedex "owned" gets cleared on a new game+
+- fixed minor desync with abbreviated rival music
+- fixed poison/burn/leechseed damage sometimes being applied twice
+- minor changes to support external randomizer
 
 
 #Bugfixes:

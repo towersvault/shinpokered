@@ -37,6 +37,7 @@ SuperRodData:
 	dbw UNKNOWN_DUNGEON_1, FishingGroup9
 	db $FF
 
+SuperRodLabelStart::
 ; fishing groups
 ; number of monsters, followed by level/monster pairs
 FishingGroup1:
@@ -101,3 +102,5 @@ FishingGroup10:
 	db 15,KRABBY
 	db 15,GOLDEEN
 	db 15,MAGIKARP
+
+SuperRodLabelEnd::

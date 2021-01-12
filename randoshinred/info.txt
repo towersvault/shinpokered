@@ -17,6 +17,7 @@ Then you just have to follow the instructions in the terminal.
 
 You will need to reference the .sym file for the rom version you are using.
 This is a glossary of all the labels in the source code with their banks and addresses.
+You may have to compile the rom to generate the .sym files.
 The script will ask you to manually enter banks and addresses so as to 
 start searching and replacing data at the correct spots in the rom file.
 

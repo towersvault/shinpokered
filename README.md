@@ -1,6 +1,6 @@
 # Shin Pokémon Red and Blue
 
-Version 1.18
+Version 1.18 to 1.19 developement
 
 This is a rom hack of pokemon red & blue based on the Pret team's disassembly.  
 It's a mostly-vanilla hack that focuses on fixing game engine bugs and oversights from the original game.  
@@ -195,9 +195,15 @@ Cheats and Secrets!
 #Changes not yet in the ips patch files:
 -----------
 - Fixed a minor bug where the first byte of pokedex "owned" gets cleared on a new game+
-- fixed minor desync with abbreviated rival music
-- fixed poison/burn/leechseed damage sometimes being applied twice
-- minor changes to support external randomizer
+- Fixed minor desync with abbreviated rival music
+- Fixed poison/burn/leechseed damage sometimes being applied twice
+- Minor changes to support external randomizer
+- Improved exp calculation for developers who want a level cap between 101 and 255
+  - EXP calculation routine now does math in 4 bytes instead of 3 bytes
+  - Exp calculation result is still capped to 3 bytes regardless of level cap to prevent overflow
+  - The byte cap on the exp result means that certain growth rates may have a level cap
+  - For example, the "slow" growth rate is theorized to cap at level 237
+- Trainer battle prize money uses 3 bytes instead of 2, lifting the 9999 cap on winnings.
 
 
 #Bugfixes:
@@ -624,6 +630,10 @@ Cheats and Secrets!
   - A win will respawn Mewtwo, the legendary birds, and allow Mew to be found again
 
 
+#Engine Changes for Developers
+- The surfboard, a nugget, and TM 15 are hidden items added to the vermilion dock
+  
+  
 #Tricks and Secrets
 - The surfboard, a nugget, and TM 15 are hidden items added to the vermilion dock
 - A pkmn with Pay Day in the 1st party slot will play its cry when interacting with a lucky slot machine

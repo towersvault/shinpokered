@@ -509,6 +509,15 @@ Cheats and Secrets!
   - Butterfree and Beedrill have their prior evolutions' moves added to their level-0 move list
   - Clefable and Wigglytuff get some moves back via level-up
   - Diglett & Dugtrio can learn cut like in yellow version
+  
+- Engine changes just for developers
+  - The trainer move engine has been backported from Yellow version; trainer movesets can now be fully customized
+  - Improved exp calculation for developers who want a level cap between 101 and 255
+    - EXP calculation routine now does math in 4 bytes instead of 3 bytes
+	- Exp calculation result is still capped to 3 bytes regardless of level cap to prevent overflow
+	- The byte cap on the exp result means that certain growth rates may have a level cap
+	- For example, the "slow" growth rate is theorized to cap at level 237
+  - Trainer battle prize money uses 3 bytes instead of 2, lifting the 9999 cap on winnings
 
 - A regular New Game will default the battle style to SET
 - Yes/No prompt for flute use has been added to blocking snorlax
@@ -630,10 +639,6 @@ Cheats and Secrets!
   - A win will respawn Mewtwo, the legendary birds, and allow Mew to be found again
 
 
-#Engine Changes for Developers
-- The surfboard, a nugget, and TM 15 are hidden items added to the vermilion dock
-  
-  
 #Tricks and Secrets
 - The surfboard, a nugget, and TM 15 are hidden items added to the vermilion dock
 - A pkmn with Pay Day in the 1st party slot will play its cry when interacting with a lucky slot machine

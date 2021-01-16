@@ -2477,8 +2477,7 @@ UseBagItem:
 	ld a, [wPlayerBattleStatus1]
 	bit USING_TRAPPING_MOVE, a ; is the player using a multi-turn move like wrap?
 	jr z, .checkIfMonCaptured
-	ld hl, wPlayerNumAttacksLeft
-	dec [hl]
+	call DecAttackPlayer
 	jr nz, .checkIfMonCaptured
 	ld hl, wPlayerBattleStatus1
 	res USING_TRAPPING_MOVE, [hl] ; not using multi-turn move any more
@@ -3562,9 +3561,7 @@ MirrorMoveCheck:
 	ld hl, wPlayerBattleStatus1
 	bit ATTACKING_MULTIPLE_TIMES, [hl]
 	jr z, .executeOtherEffects
-	ld a, [wPlayerNumAttacksLeft]
-	dec a
-	ld [wPlayerNumAttacksLeft], a
+	call DecAttackPlayer
 	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	;joenote - multi-hit attacks like twineedle, double-kick, and fury attack should check damage each time
 	push af	
@@ -3832,8 +3829,7 @@ CheckPlayerStatusConditions:
 ;	ld a, [hl]
 ;	adc b
 ;	ld [hl], a
-	ld hl, wPlayerNumAttacksLeft
-	dec [hl] ; did Bide counter hit 0?
+	call DecAttackPlayer; did Bide counter hit 0?
 	jr z, .UnleashEnergy
 	ld hl, ExecutePlayerMoveDone
 	jp .returnToHL ; unless mon unleashes energy, can't move this turn
@@ -3872,8 +3868,7 @@ CheckPlayerStatusConditions:
 	ld [wPlayerMoveNum], a
 	ld hl, ThrashingAboutText
 	call PrintText
-	ld hl, wPlayerNumAttacksLeft
-	dec [hl] ; did Thrashing About counter hit 0?
+	call DecAttackPlayer; did Thrashing About counter hit 0?
 	ld hl, PlayerCalcMoveDamage ; skip DecrementPP
 	jp nz, .returnToHL
 	push hl
@@ -3893,9 +3888,7 @@ CheckPlayerStatusConditions:
 	jp z, .RageCheck
 	ld hl, AttackContinuesText
 	call PrintText
-	ld a, [wPlayerNumAttacksLeft]
-	dec a ; did multi-turn move end?
-	ld [wPlayerNumAttacksLeft], a
+	call DecAttackPlayer; did multi-turn move end?
 	ld hl, getPlayerAnimationType ; if it didn't, skip damage calculation (deal damage equal to last hit),
 	                ; DecrementPP and MoveHitTest
 	jp nz, .returnToHL
@@ -6393,10 +6386,7 @@ EnemyCheckIfMirrorMoveEffect:
 	ld hl, wEnemyBattleStatus1
 	bit ATTACKING_MULTIPLE_TIMES, [hl] ; is mon hitting multiple times? (example: double kick)
 	jr z, .notMultiHitMove
-	push hl
-	ld hl, wEnemyNumAttacksLeft
-	dec [hl]
-	pop hl
+	call DecAttackEnemy
 	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	;joenote - multi-hit attacks like twineedle, double-kick, and fury attack should check damage each time
 	push af	
@@ -6646,8 +6636,7 @@ CheckEnemyStatusConditions:
 ;	ld a, [hl]
 ;	adc b
 ;	ld [hl], a
-	ld hl, wEnemyNumAttacksLeft
-	dec [hl] ; did Bide counter hit 0?
+	call DecAttackEnemy ; did Bide counter hit 0?
 	jr z, .unleashEnergy
 	ld hl, ExecuteEnemyMoveDone
 	jp .enemyReturnToHL ; unless mon unleashes energy, can't move this turn
@@ -6686,8 +6675,7 @@ CheckEnemyStatusConditions:
 	ld [wEnemyMoveNum], a
 	ld hl, ThrashingAboutText
 	call PrintText
-	ld hl, wEnemyNumAttacksLeft
-	dec [hl] ; did Thrashing About counter hit 0?
+	call DecAttackEnemy ; did Thrashing About counter hit 0?
 	ld hl, EnemyCalcMoveDamage ; skip DecrementPP
 	jp nz, .enemyReturnToHL
 	push hl
@@ -6706,8 +6694,7 @@ CheckEnemyStatusConditions:
 	jp z, .checkIfUsingRage
 	ld hl, AttackContinuesText
 	call PrintText
-	ld hl, wEnemyNumAttacksLeft
-	dec [hl] ; did multi-turn move end?
+	call DecAttackEnemy ; did multi-turn move end?
 	ld hl, GetEnemyAnimationType ; if it didn't, skip damage calculation (deal damage equal to last hit),
 	                             ; DecrementPP and MoveHitTest
 	jp nz, .enemyReturnToHL
@@ -9582,4 +9569,18 @@ BC999cap:
 	ld c, a ;and store it as the low byte
 	;now registers b & c together contain $03E7 for a capped stat value of 999
 .donecapping
+	ret
+
+;joenote - consolidate this to save a bit of space
+DecAttackPlayer:
+	push hl
+	ld hl, wPlayerNumAttacksLeft
+	jr DecAttack
+DecAttackEnemy:
+	push hl
+	ld hl, wEnemyNumAttacksLeft
+	;fall through
+DecAttack:
+	dec [hl]
+	pop hl
 	ret

@@ -72,8 +72,11 @@ Some trainers will even try to switch pokemon intelligently.
 
 You get notified when a box is filled (either via catching or depositing a pokemon).
 
-Noting a compromise - Switching out of a trapping move wastes the trapper's turn. 
+Switching out of a trapping move wastes the trapper's turn. 
 This prevents unbeatable AI scenarios as well as a PP underflow glitch.
+
+Rage is limited to 2-3 turns but attack boosts are kept.
+This is primarily to prevent infinite battle loops.
 
 Sleep does not prevent choosing a move, and the move is used upon waking up.
 To maintain sleep move accuracy, sleep starts with a counter of at least 2.

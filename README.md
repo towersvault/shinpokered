@@ -193,6 +193,7 @@ Cheats and Secrets!
 - When holding B to go faster, the player animation is sped-up by 50% to avoid the "ice skating" appearance
 - PP usage is now tracked for both wild and AI trainer pokemon
 - Fixed a scrolling text artifact in the credits when running in GBC-mode
+- Softlock teleport sets money to at least if player has less than that
 
 
 #Changes not yet in the ips patch files:
@@ -568,6 +569,7 @@ Cheats and Secrets!
 - Press SELECT on the option screen to change the audio type
 - Softlock Warp 
   - instantly teleport back to your mom's house if you get stuck or are unable to move after updating to a new patch
+  - sets money to at least 1000 if you have less than that
   - Intructions to perform:
     - go to the start menu and put the cursor on OPTION
 	- press and hold DOWN on the d-pad (the cursor will now be on EXIT)

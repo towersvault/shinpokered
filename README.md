@@ -193,7 +193,7 @@ Cheats and Secrets!
 - When holding B to go faster, the player animation is sped-up by 50% to avoid the "ice skating" appearance
 - PP usage is now tracked for both wild and AI trainer pokemon
 - Fixed a scrolling text artifact in the credits when running in GBC-mode
-- Softlock teleport sets money to at least if player has less than that
+- Softlock teleport sets money to at least 1000 if player has less than that
 
 
 #Changes not yet in the ips patch files:

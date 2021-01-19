@@ -25,11 +25,8 @@ Notice: New patches might crash upon loading a save from a previous patch.
 		To prevent this from happening, save outside in Pallet Town.
 
 		
-GBC Title Screen  
-![Title Screen 2](/screenshots/bgb00021.bmp?raw=true)
-
-SGB Title Screen  
-![Title Screen](/screenshots/bgb00001.bmp?raw=true)
+Title Screen  (GBC Palettes)
+![Title Screen 2](/screenshots/bgb00028.bmp?raw=true)
 
 Pokemon Yellow Backported Palettes  
 ![Backported Palettes](/screenshots/bgb00022.bmp?raw=true)
@@ -47,8 +44,7 @@ Shiny Animation
 ![Shiny Animation](/screenshots/bgb00019.bmp?raw=true)
 
 Girl Trainer  
-![Girl Trainer 1](/screenshots/bgb00026.bmp?raw=true) 
-![Girl Trainer 2](/screenshots/bgb00025.bmp?raw=true)
+![Girl Trainer 1](/screenshots/bgb00026.bmp?raw=true) ![Girl Trainer 2](/screenshots/bgb00025.bmp?raw=true)
 
 
 #Summary

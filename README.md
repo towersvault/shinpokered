@@ -209,6 +209,7 @@ Cheats and Secrets!
   - For example, the "slow" growth rate is theorized to cap at level 237
 - Trainer battle prize money uses 3 bytes instead of 2, lifting the 9999 cap on winnings
 - To prevent infinite loops, Rage ends after 2 to 3 turns (attack boosts are kept)
+- Updated title screen to use kanji instead of katakana
 
 
 #Bugfixes:

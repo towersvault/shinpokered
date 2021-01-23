@@ -415,9 +415,11 @@ MainInBattleLoop:
 	ld a, [wPlayerBattleStatus2]
 	bit USING_RAGE, a
 	jr z, .not_player_raging
+	call DecAttackPlayer
+	call DeactivateRageInA
+	ld [wPlayerBattleStatus2], a
 	ld a, $FF
 	ld [wPlayerMoveAccuracy], a
-	call DecAttackPlayer
 .not_player_raging
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -3192,9 +3194,11 @@ SelectEnemyMove:
 	ld a, [wEnemyBattleStatus2]
 	bit USING_RAGE, a
 	jr z, .not_enemy_raging
+	call DecAttackEnemy
+	call DeactivateRageInA
+	ld [wEnemyBattleStatus2], a	
 	ld a, $FF
 	ld [wEnemyMoveAccuracy], a
-	call DecAttackEnemy
 .not_enemy_raging
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -9594,4 +9598,11 @@ DecAttackEnemy:
 DecAttack:
 	dec [hl]
 	pop hl
+	ret
+
+;Battle status2 in "a"
+;resets the rage bit in "a" if zero flag is set
+DeactivateRageInA:
+	ret nz
+	res USING_RAGE, a
 	ret

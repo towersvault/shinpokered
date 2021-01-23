@@ -209,6 +209,7 @@ Cheats and Secrets!
 - Fixed an artifact when title screen 'mons scroll left in GBC-mode
 - Fixed a bug in AI roster scoring when evaluating type matchups for switching
 - AI will not do actions during Rage or when recharging
+- Tweaked item usage for cooltrainers and Giovanni
 
 
 #Bugfixes:

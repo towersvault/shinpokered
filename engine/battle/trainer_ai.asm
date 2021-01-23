@@ -1220,23 +1220,40 @@ BlackbeltAI:
 	cp $20
 	jp c, AIUseXAttack	
 	ret
-	
-GiovanniAI:
-	cp $20 
-	jp c, AIUseDireHit
-	;cp $40
-	;jp c, AIUseGuardSpec
-	ret
 
-CooltrainerMAI:	;joenote - changed item to x-special
+GiovanniAI:	;joenote - uses dire hit now, but only if it's not active
 	cp $20
-	jp c, AIUseXSpecial
-	ret
+	ret nc
+	ld a, [wEnemyBattleStatus2]
+	and %00000100
+	ret z
+	jp AIUseDireHit
+
+CooltrainerMAI:	;joenote - changed item to x-special and guard spec
+	cp $20
+	ret nc
+	cp $10
+	jr c, .xspec
+	ld a, [wEnemyBattleStatus2]
+	and %00000010
+	jr nz, .gspec
+.xspec
+	jp AIUseXSpecial
+.gspec
+	jp AIUseGuardSpec
 	
-CooltrainerFAI:
+CooltrainerFAI: ;joenote - uses x-special and x-accuracy now
 	cp $20
-	jp c, AIUseXAccuracy	;uses x accuracy now
-	ret
+	ret nc
+	cp $10
+	jr c, .xspec
+	ld a, [wEnemyBattleStatus2]
+	and %00000001
+	jr nz, .xaccy
+.xspec
+	jp AIUseXSpecial
+.xaccy
+	jp AIUseXAccuracy
 	
 BrockAI:
 ; if his active monster has a status condition, use a full heal

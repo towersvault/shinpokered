@@ -207,7 +207,8 @@ Cheats and Secrets!
 - To prevent infinite loops, Rage ends after 2 to 3 turns (attack boosts are kept)
 - Updated title screen to use kanji instead of katakana
 - Fixed an artifact when title screen 'mons scroll left in GBC-mode
-- fixed a bug in AI roster scoring when evaluating type matchups for switching
+- Fixed a bug in AI roster scoring when evaluating type matchups for switching
+- AI will not do actions during Rage or when recharging
 
 
 #Bugfixes:

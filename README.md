@@ -161,43 +161,23 @@ Cheats and Secrets!
 
 #Hack-Induced Bugfixes & Adjustments since last version:
 -----------
-- Incredibly minor text edits in Green to match the japanese script
-- Palette & sound edits in Green
-- Fixed Mew appearing with glitched graphics
-- Mew's encounter has been changed a bit
-  - It's wild encounter rate has been reduced
-  - You will get a message about a "tingling feeling" if mew is encounterable
-  - You can only find it in the wild once 
-  - Mew won't appear again after encountering; a message says the tingling feeling goes away
-- Beating the future red fight now also resets Mew's encounter
-- There is a chance for the AI to switch a sleeping pokemon based on the sleep counter
-  -chance is 0% if counter <= 3
-  -chance is 12.5% if counter > 3
-- Chances to switch have been reduced:
-  - toxic poison - changed probability from 50% to 34%
-  - super effective moves - probability weight reduced by 25%
-  - only switch out from low HP if player outspeeds enemy (gives the enemy one last shot at dealing damage)
-  - an enemy mon is flagged when sent out; non-volatile (except sleeping) status or low hp cannot initiate switching
-  - enemy mon that is recalled back due to a super effective move is flagged; it is demerited from being switched-in
-  - switch flags are all cleared when player sends out a new mon since the situation is now different
-- Patch version now shows on main menu
-- Secret missingno battle now has its iconic "L-block" appearance
-
-
-#New features & adjustments since last version:
------------
-- When holding B to go faster, the player animation is sped-up by 50% to avoid the "ice skating" appearance
-- PP usage is now tracked for both wild and AI trainer pokemon
-- Fixed a scrolling text artifact in the credits when running in GBC-mode
-- Softlock teleport sets money to at least 1000 if player has less than that
-
-
-#Changes not yet in the ips patch files:
------------
 - Fixed a minor bug where the first byte of pokedex "owned" gets cleared on a new game+
 - Fixed minor desync with abbreviated rival music
 - Fixed poison/burn/leechseed damage sometimes being applied twice
 - Minor changes to support external randomizer
+- Updated title screen to use kanji instead of katakana
+- Fixed an artifact when title screen 'mons scroll left in GBC-mode
+- Fixed a bug in AI roster scoring when evaluating type matchups for switching
+- Tweaked item usage for cooltrainers and Giovanni
+- Increased encounter rate from 3/256 to 11/256 for the following pokemon
+  - charmander, bulbasaur, squirtle, eevee
+  - bellsprout (red), oddish (blue), vulpix (red), oddish (blue)
+  - farfetch'd (route 12)
+- Increased mew's encounter rate from 1.5/256 to 3/256
+
+
+#New features & adjustments since last version:
+-----------
 - Improved exp calculation for developers who want a level cap between 101 and 255
   - EXP calculation routine now does math in 4 bytes instead of 3 bytes
   - Exp calculation result is still capped to 3 bytes regardless of level cap to prevent overflow
@@ -205,16 +185,12 @@ Cheats and Secrets!
   - For example, the "slow" growth rate is theorized to cap at level 237
 - Trainer battle prize money uses 3 bytes instead of 2, lifting the 9999 cap on winnings
 - To prevent infinite loops, Rage ends after 2 to 3 turns (attack boosts are kept)
-- Updated title screen to use kanji instead of katakana
-- Fixed an artifact when title screen 'mons scroll left in GBC-mode
-- Fixed a bug in AI roster scoring when evaluating type matchups for switching
 - AI will not do actions during Rage or when recharging
-- Tweaked item usage for cooltrainers and Giovanni
-- Increased encounter rate from 3/256 to 11/256 for the following pokemon
-  - charmander, bulbasaur, squirtle, eevee
-  - bellsprout (red), oddish (blue), vulpix (red), oddish (blue)
-  - farfetch'd (route 12)
-- Increased mew's encounter rate from 1.5/256 to 3/256
+
+
+#Changes not yet in the ips patch files:
+-----------
+
 
 #Bugfixes:
 -----------
@@ -249,6 +225,7 @@ Cheats and Secrets!
     - undoing paralysis is accurate to within 0 to -3 points
     - undoing burn is accurate to within 0 to -1 point
   - PP-up uses are disregarded when determining to use STRUGGLE if one or more moves are disabled
+  - AI will not do actions during Rage or when recharging
 
 	
 - Move fixes
@@ -295,8 +272,9 @@ Cheats and Secrets!
 	  - it's the start of the round without a trapping move active (fixes most issues since Counter always goes second)
 	  - player/enemy pkmn is fully paralyzed or after hurting itself in confusion
     - Crash damage from jump kicks and pkmn hurting itself cannot be Countered
+  - To prevent infinite loops, Rage ends after 2 to 3 turns (attack boosts are kept)
 
-	
+  
 - Graphical Fixes
   - Glitched sprites can no longer cause a buffer overflow that corrupts the hall of fame
   - Returning from the status screen when an opponent is in substitute/minimize no longer glitches the graphics

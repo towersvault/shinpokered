@@ -210,6 +210,10 @@ Cheats and Secrets!
 - Fixed a bug in AI roster scoring when evaluating type matchups for switching
 - AI will not do actions during Rage or when recharging
 - Tweaked item usage for cooltrainers and Giovanni
+- Increased encounter rate from 3/256 to 11/256 for the following pokemon
+  - charmander, bulbasaur, squirtle, eevee
+  - bellsprout (red), oddish (blue), vulpix (red), oddish (blue)
+  - farfetch'd (route 12)
 
 
 #Bugfixes:

@@ -14,11 +14,11 @@ DisallowWildMew:
 	ld [wEnemyMonSpecies2], a
 	ret
 .mew_allowed
-	;the slot that triggered the mew encounter has it's likelihood of a mew cut in half
-	;idea is to give mew a 0.6% encounter rate (lowest in the game)
-	ld a, [hRandomSub]
-	bit 0, a
-	jr nz, .replace_mew
+;	;the slot that triggered the mew encounter has it's likelihood of a mew cut in half
+;	;idea is to give mew a 0.6% encounter rate (lowest in the game)
+;	ld a, [hRandomSub]
+;	bit 0, a
+;	jr nz, .replace_mew
 	;going to encounter mew now
 	SetEvent EVENT_8C0 ;mew has been encountered now
 	ResetEvent EVENT_8C2 ;turn on mew notification

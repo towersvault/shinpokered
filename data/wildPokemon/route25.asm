@@ -9,8 +9,8 @@ Route25Mons:;joenote - added charmander
 		db 14,ODDISH
 		db 10,ABRA
 		db 7,METAPOD
-		db 8,CATERPIE
 		db 10,CHARMANDER
+		db 8,CATERPIE
 	ENDC
 	IF (DEF(_BLUE) || DEF(_GREEN))
 		db 8,CATERPIE
@@ -21,7 +21,7 @@ Route25Mons:;joenote - added charmander
 		db 14,BELLSPROUT
 		db 10,ABRA
 		db 7,KAKUNA
-		db 8,WEEDLE
 		db 10,CHARMANDER
+		db 8,WEEDLE
 	ENDC
 	db $00

@@ -9,8 +9,8 @@ Route12Mons:;joenote - added farfetchd
 		db 26,ODDISH
 		db 27,PIDGEY
 		db 28,GLOOM
-		db 30,GLOOM
 		db 22,FARFETCHD
+		db 30,GLOOM
 	ENDC
 	IF (DEF(_BLUE) || DEF(_GREEN))
 		db 24,BELLSPROUT
@@ -21,7 +21,7 @@ Route12Mons:;joenote - added farfetchd
 		db 26,BELLSPROUT
 		db 27,PIDGEY
 		db 28,WEEPINBELL
-		db 30,WEEPINBELL
 		db 22,FARFETCHD
+		db 30,WEEPINBELL
 	ENDC
 	db $00

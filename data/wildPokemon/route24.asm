@@ -9,8 +9,8 @@ Route24Mons:;joenote - added oddish/bellsprout
 		db 14,ODDISH
 		db 13,PIDGEY
 		db 8,ABRA
-		db 12,ABRA
 		db 12,BELLSPROUT
+		db 12,ABRA
 	ENDC
 	IF (DEF(_BLUE) || DEF(_GREEN))
 		db 7,CATERPIE
@@ -21,7 +21,7 @@ Route24Mons:;joenote - added oddish/bellsprout
 		db 14,BELLSPROUT
 		db 13,PIDGEY
 		db 8,ABRA
-		db 12,ABRA
 		db 12,ODDISH
+		db 12,ABRA
 	ENDC
 	db $00

@@ -25,7 +25,7 @@ Notice: New patches might crash upon loading a save from a previous patch.
 		To prevent this from happening, save outside in Pallet Town.
 
 		
-Title Screen  (GBC Palettes)
+Title Screen  (GBC Palettes)  
 ![Title Screen 2](/screenshots/bgb00028.bmp?raw=true)
 
 Pokemon Yellow Backported Palettes  

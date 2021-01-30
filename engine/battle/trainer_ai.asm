@@ -144,8 +144,8 @@ AIMoveChoiceModification1:
 	cp SWITCH_AND_TELEPORT_EFFECT	;see if it is a battle-ending effect
 	jp z, .heavydiscourage	;heavily discourage if so
 ;and dont try to use rage either
-	cp RAGE_EFFECT	
-	jp z, .heavydiscourage
+;	cp RAGE_EFFECT	
+;	jp z, .heavydiscourage
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;joenote - do not use haze if user has no status or neutral stat mods
@@ -1120,8 +1120,11 @@ TrainerAI:
 	ret z
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;joenote - AI should not use actions if in a move that prevents such a thing
+	ld a, [wEnemyBattleStatus2]
+	and %01100000 
+	ret nz
 	ld a, [wEnemyBattleStatus1]
-	and $73
+	and %01110011 
 	ret nz
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;joenote - switch if the switch bit is set	
@@ -1217,23 +1220,40 @@ BlackbeltAI:
 	cp $20
 	jp c, AIUseXAttack	
 	ret
-	
-GiovanniAI:
-	cp $20 
-	jp c, AIUseDireHit
-	;cp $40
-	;jp c, AIUseGuardSpec
-	ret
 
-CooltrainerMAI:	;joenote - changed item to x-special
+GiovanniAI:	;joenote - uses dire hit now, but only if it's not active
 	cp $20
-	jp c, AIUseXSpecial
-	ret
+	ret nc
+	ld a, [wEnemyBattleStatus2]
+	and %00000100
+	ret z
+	jp AIUseDireHit
+
+CooltrainerMAI:	;joenote - changed item to x-special and guard spec
+	cp $20
+	ret nc
+	cp $10
+	jr c, .xspec
+	ld a, [wEnemyBattleStatus2]
+	and %00000010
+	jr nz, .gspec
+.xspec
+	jp AIUseXSpecial
+.gspec
+	jp AIUseGuardSpec
 	
-CooltrainerFAI:
+CooltrainerFAI: ;joenote - uses x-special and x-accuracy now
 	cp $20
-	jp c, AIUseXAccuracy	;uses x accuracy now
-	ret
+	ret nc
+	cp $10
+	jr c, .xspec
+	ld a, [wEnemyBattleStatus2]
+	and %00000001
+	jr nz, .xaccy
+.xspec
+	jp AIUseXSpecial
+.xaccy
+	jp AIUseXAccuracy
 	
 BrockAI:
 ; if his active monster has a status condition, use a full heal
@@ -1549,6 +1569,9 @@ SwitchEnemyMon:
 	ld a, [wLinkState]
 	cp LINK_STATE_BATTLING
 	ret z
+	;joenote - the act of switching clears H_WHOSETURN, so it needs to be set back to 1
+	ld a, $1
+	ld [H_WHOSETURN], a
 	scf
 	ret
 

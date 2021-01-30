@@ -1,6 +1,6 @@
 # Shin Pokémon Red and Blue
 
-Version 1.18
+Version 1.19
 
 This is a rom hack of pokemon red & blue based on the Pret team's disassembly.  
 It's a mostly-vanilla hack that focuses on fixing game engine bugs and oversights from the original game.  
@@ -25,11 +25,8 @@ Notice: New patches might crash upon loading a save from a previous patch.
 		To prevent this from happening, save outside in Pallet Town.
 
 		
-GBC Title Screen  
-![Title Screen 2](/screenshots/bgb00021.bmp?raw=true)
-
-SGB Title Screen  
-![Title Screen](/screenshots/bgb00001.bmp?raw=true)
+Title Screen  (GBC Palettes)
+![Title Screen 2](/screenshots/bgb00028.bmp?raw=true)
 
 Pokemon Yellow Backported Palettes  
 ![Backported Palettes](/screenshots/bgb00022.bmp?raw=true)
@@ -47,8 +44,7 @@ Shiny Animation
 ![Shiny Animation](/screenshots/bgb00019.bmp?raw=true)
 
 Girl Trainer  
-![Girl Trainer 1](/screenshots/bgb00026.bmp?raw=true) 
-![Girl Trainer 2](/screenshots/bgb00025.bmp?raw=true)
+![Girl Trainer 1](/screenshots/bgb00026.bmp?raw=true) ![Girl Trainer 2](/screenshots/bgb00025.bmp?raw=true)
 
 
 #Summary
@@ -72,8 +68,11 @@ Some trainers will even try to switch pokemon intelligently.
 
 You get notified when a box is filled (either via catching or depositing a pokemon).
 
-Noting a compromise - Switching out of a trapping move wastes the trapper's turn. 
+Switching out of a trapping move wastes the trapper's turn. 
 This prevents unbeatable AI scenarios as well as a PP underflow glitch.
+
+Rage is limited to 2-3 turns but attack boosts are kept.
+This is primarily to prevent infinite battle loops.
 
 Sleep does not prevent choosing a move, and the move is used upon waking up.
 To maintain sleep move accuracy, sleep starts with a counter of at least 2.
@@ -162,39 +161,35 @@ Cheats and Secrets!
 
 #Hack-Induced Bugfixes & Adjustments since last version:
 -----------
-- Incredibly minor text edits in Green to match the japanese script
-- Palette & sound edits in Green
-- Fixed Mew appearing with glitched graphics
-- Mew's encounter has been changed a bit
-  - It's wild encounter rate has been reduced
-  - You will get a message about a "tingling feeling" if mew is encounterable
-  - You can only find it in the wild once 
-  - Mew won't appear again after encountering; a message says the tingling feeling goes away
-- Beating the future red fight now also resets Mew's encounter
-- There is a chance for the AI to switch a sleeping pokemon based on the sleep counter
-  -chance is 0% if counter <= 3
-  -chance is 12.5% if counter > 3
-- Chances to switch have been reduced:
-  - toxic poison - changed probability from 50% to 34%
-  - super effective moves - probability weight reduced by 25%
-  - only switch out from low HP if player outspeeds enemy (gives the enemy one last shot at dealing damage)
-  - an enemy mon is flagged when sent out; non-volatile (except sleeping) status or low hp cannot initiate switching
-  - enemy mon that is recalled back due to a super effective move is flagged; it is demerited from being switched-in
-  - switch flags are all cleared when player sends out a new mon since the situation is now different
-- Patch version now shows on main menu
-- Secret missingno battle now has its iconic "L-block" appearance
+- Fixed a minor bug where the first byte of pokedex "owned" gets cleared on a new game+
+- Fixed minor desync with abbreviated rival music
+- Fixed poison/burn/leechseed damage sometimes being applied twice
+- Minor changes to support external randomizer
+- Updated title screen to use kanji instead of katakana
+- Fixed an artifact when title screen 'mons scroll left in GBC-mode
+- Fixed a bug in AI roster scoring when evaluating type matchups for switching
+- Tweaked item usage for cooltrainers and Giovanni
+- Increased encounter rate from 3/256 to 11/256 for the following pokemon
+  - charmander, bulbasaur, squirtle, eevee
+  - bellsprout (red), oddish (blue), vulpix (red), oddish (blue)
+  - farfetch'd (route 12)
+- Increased mew's encounter rate from 1.5/256 to 3/256
 
 
 #New features & adjustments since last version:
 -----------
-- When holding B to go faster, the player animation is sped-up by 50% to avoid the "ice skating" appearance
-- PP usage is now tracked for both wild and AI trainer pokemon
-- Fixed a scrolling text artifact in the credits when running in GBC-mode
+- Improved exp calculation for developers who want a level cap between 101 and 255
+  - EXP calculation routine now does math in 4 bytes instead of 3 bytes
+  - Exp calculation result is still capped to 3 bytes regardless of level cap to prevent overflow
+  - The byte cap on the exp result means that certain growth rates may have a level cap
+  - For example, the "slow" growth rate is theorized to cap at level 237
+- Trainer battle prize money uses 3 bytes instead of 2, lifting the 9999 cap on winnings
+- To prevent infinite loops, Rage ends after 2 to 3 turns (attack boosts are kept)
+- AI will not do actions during Rage or when recharging
 
 
 #Changes not yet in the ips patch files:
 -----------
--
 
 
 #Bugfixes:
@@ -230,6 +225,7 @@ Cheats and Secrets!
     - undoing paralysis is accurate to within 0 to -3 points
     - undoing burn is accurate to within 0 to -1 point
   - PP-up uses are disregarded when determining to use STRUGGLE if one or more moves are disabled
+  - AI will not do actions during Rage or when recharging
 
 	
 - Move fixes
@@ -276,8 +272,9 @@ Cheats and Secrets!
 	  - it's the start of the round without a trapping move active (fixes most issues since Counter always goes second)
 	  - player/enemy pkmn is fully paralyzed or after hurting itself in confusion
     - Crash damage from jump kicks and pkmn hurting itself cannot be Countered
+  - To prevent infinite loops, Rage ends after 2 to 3 turns (attack boosts are kept)
 
-	
+  
 - Graphical Fixes
   - Glitched sprites can no longer cause a buffer overflow that corrupts the hall of fame
   - Returning from the status screen when an opponent is in substitute/minimize no longer glitches the graphics
@@ -397,6 +394,9 @@ Cheats and Secrets!
   - Acid armor's animation changed so that does not make its user disappear
   - Metronome now classified as a Typeless special damage move to play better with the AI
   - Type immunity prevents trapping moves from taking hold at all
+  - Changes to Rage
+	- Now only lasts 2 to 3 moves like Bide in order to prevent an infinite loop
+	- As a tradeoff, attack boosts from rage are kept when it ends
 
 - Adjustment to stat mods, conditions, and items
   - Sleep does not prevent choosing a move
@@ -427,7 +427,6 @@ Cheats and Secrets!
   - heavily discourage roar, teleport, & whirlwind
   - heavily discourage disable against a pkmn already disabled
   - Substitute discouraged if less that 1/4 hp remains
-  - Rage is heavily discouraged
   - Will discourage using Haze if unstatus'd or has net-neutral or better stat mods
   - Will heavily discourage boosting defense against special, OHKO, or static-damaging attacks
 
@@ -444,17 +443,23 @@ Cheats and Secrets!
 	- heavily discourages 0-power moves if below 1/3 hp
 
 - Trainer ai routine #4 is no longer unused. It now does rudimentary trainer switching.
-  - 25% chance to switch if active pkmn is below 1/3 HP
+  - 25% chance to switch if active pkmn is below 1/3 HP and player also outspeeds AI
   - chance to switch based on power of incoming supereffective move
   - 12.5% chance to switch if a move is disabled
   - 12.5% chance to switch if afflicted with leech seed
-  - 50% chance to switch if afflicted with toxic poison
+  - 34% chance to switch if afflicted with toxic poison
   - 25% chance to switch if opponent is using a trapping move
   - 25% chance to switch if active pkmn is confused
   - on the lowest stat mod, 12.5% chance to switch per lowered stage
+  - There is a chance for the AI to switch a sleeping pokemon based on the sleep counter
+    -chance is 0% if counter <= 3
+	-chance is 12.5% if counter > 3
   - Additionally, every pokemon in the enemy roster is scored 
     - based on various criteria to determine which mon gets sent out
 	- score might dictate that the current mon is the best choice and abort switching
+	- an enemy mon is flagged when sent out; non-volatile (except sleeping) status or low hp cannot initiate switching
+	- enemy mon that is recalled back due to a super effective move is flagged; it is demerited from being switched-in
+	- switch flags are all cleared when player sends out a new mon since the situation is now different
   - AI scoring for switching puts a heavier penalty on potentially switching in a bad type matchup
   - AI scoring imposes a very heavy penalty for potentially switching in pokemon with less than 1/4 HP
   
@@ -500,6 +505,15 @@ Cheats and Secrets!
   - Butterfree and Beedrill have their prior evolutions' moves added to their level-0 move list
   - Clefable and Wigglytuff get some moves back via level-up
   - Diglett & Dugtrio can learn cut like in yellow version
+  
+- Engine changes just for developers
+  - The trainer move engine has been backported from Yellow version; trainer movesets can now be fully customized
+  - Improved exp calculation for developers who want a level cap between 101 and 255
+    - EXP calculation routine now does math in 4 bytes instead of 3 bytes
+	- Exp calculation result is still capped to 3 bytes regardless of level cap to prevent overflow
+	- The byte cap on the exp result means that certain growth rates may have a level cap
+	- For example, the "slow" growth rate is theorized to cap at level 237
+  - Trainer battle prize money uses 3 bytes instead of 2, lifting the 9999 cap on winnings
 
 - A regular New Game will default the battle style to SET
 - Yes/No prompt for flute use has been added to blocking snorlax
@@ -538,6 +552,7 @@ Cheats and Secrets!
 - Press SELECT on the option screen to change the audio type
 - Softlock Warp 
   - instantly teleport back to your mom's house if you get stuck or are unable to move after updating to a new patch
+  - sets money to at least 1000 if you have less than that
   - Intructions to perform:
     - go to the start menu and put the cursor on OPTION
 	- press and hold DOWN on the d-pad (the cursor will now be on EXIT)

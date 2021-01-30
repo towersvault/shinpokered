@@ -214,7 +214,7 @@ Cheats and Secrets!
   - charmander, bulbasaur, squirtle, eevee
   - bellsprout (red), oddish (blue), vulpix (red), oddish (blue)
   - farfetch'd (route 12)
-
+- Increased mew's encounter rate from 1.5/256 to 3/256
 
 #Bugfixes:
 -----------

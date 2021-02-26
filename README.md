@@ -1,6 +1,6 @@
 # Shin Pokémon Red and Blue
 
-Version 1.19.2 development
+Version 1.19.3 development
 
 This is a rom hack of pokemon red & blue based on the Pret team's disassembly.  
 It's a mostly-vanilla hack that focuses on fixing game engine bugs and oversights from the original game.  
@@ -200,6 +200,8 @@ Cheats and Secrets!
 - Fixed infinite loop at 100+ level softcaps
 - Fix exp bar divide by zero at 100+ level softcaps
 - Allow up to 8 digits when displaying experience on the status screen
+- L: block doesn't disappear when level hits three digits
+- Fixed bugged npc movement constraints
 
 
 #Bugfixes:

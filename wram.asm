@@ -272,7 +272,7 @@ endm
 	spritestatedata1 Sprite12
 	spritestatedata1 Sprite13
 	spritestatedata1 Sprite14
-	spritestatedata1 Sprite15
+	spritestatedata1 Sprite15	;use for follower pokemon
 	; ds $10 * $10
 
 
@@ -330,7 +330,7 @@ endm
 	spritestatedata2 Sprite12
 	spritestatedata2 Sprite13
 	spritestatedata2 Sprite14
-	spritestatedata2 Sprite15
+	spritestatedata2 Sprite15	;use for follower pokemon
 	; ds $10 * $10
 
 wSpriteDataEnd::

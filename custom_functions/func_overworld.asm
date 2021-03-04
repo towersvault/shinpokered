@@ -189,9 +189,7 @@ CheckForSmartHMuse:
 .storeSimulatedButtonPress
 	ld a, b
 	ld [wSimulatedJoypadStatesEnd], a
-	xor a
-	ld [wWastedByteCD39], a
-	inc a
+	ld a, 1
 	ld [wSimulatedJoypadStatesIndex], a
 	jp .return
 .nosurf

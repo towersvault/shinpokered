@@ -3250,9 +3250,10 @@ SelectEnemyMove:
 	ld a, STRUGGLE ; struggle if the only move is disabled
 	jr nz, .done
 .atLeastTwoMovesAvailable
-	ld a, [wIsInBattle]
-	dec a
-	jr z, .chooseRandomMove ; wild encounter
+;joenote - made redundant; will do this in AIEnemyTrainerChooseMoves
+;	ld a, [wIsInBattle]
+;	dec a
+;	jr z, .chooseRandomMove ; wild encounter
 	xor a	;joenote - zero out a
 	callab AIEnemyTrainerChooseMoves
 .chooseRandomMove

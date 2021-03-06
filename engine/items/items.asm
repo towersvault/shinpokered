@@ -191,8 +191,21 @@ ItemUseBall:
 	ld a, [hl]
 
 ; The Master Ball always succeeds.
+;joenote - Adding an exception for Mewtwo! This is now the ultimate test of the player's catching skills.
+;		It will play its cry and keep the ball from having any effect.
+;		The ball is not wasted. Mewtwo's mental might prevents you from throwing it.
+;		This added difficulty is only available in SET battle.
 	cp MASTER_BALL
-	jp z, .captured
+	jr nz, .not_mball
+	ld a, [wOptions]
+	bit 6, a ;0=SHIFT and 1=SET battle style
+	jp z, .captured	;works as normal in shift battle
+	ld a, [wEnemyMon]
+	cp MEWTWO
+	jp nz, .captured ;works as normal if not mewtwo
+	call PlayCry
+	jp ItemUseNoEffect
+.not_mball
 
 ; Anything will do for the basic Poké Ball.
 	cp POKE_BALL

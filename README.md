@@ -202,6 +202,10 @@ Cheats and Secrets!
 - Allow up to 8 digits when displaying experience on the status screen
 - L: block doesn't disappear when level hits three digits
 - Fixed bugged npc movement constraints
+- Fixed an issue where overworld sprites won't load after scripted movement during map scrolling
+- Attempt at fixing issues where NPCs face the wrong way during scripted events
+- Reactivated lost text that was meant to play when you lose to your rival
+- In SET battle mode, Mewtwo has AI when picking moves and prevents you from using master balls
 
 
 #Bugfixes:

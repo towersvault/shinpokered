@@ -206,6 +206,7 @@ Cheats and Secrets!
 - Attempt at fixing issues where NPCs face the wrong way during scripted events
 - Reactivated lost text that was meant to play when you lose to your rival
 - In SET battle mode, Mewtwo has AI when picking moves and prevents you from using master balls
+- Fixed an issue where catching a transformed ditto gives it 0 DVs
 
 
 #Bugfixes:

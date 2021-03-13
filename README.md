@@ -207,6 +207,7 @@ Cheats and Secrets!
 - Reactivated lost text that was meant to play when you lose to your rival
 - In SET battle mode, Mewtwo has AI when picking moves and prevents you from using master balls
 - Fixed an issue where catching a transformed ditto gives it 0 DVs
+- Fixed the instant-text glitch that can happen in the bike shop
 
 
 #Bugfixes:

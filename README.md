@@ -208,6 +208,7 @@ Cheats and Secrets!
 - In SET battle mode, Mewtwo has AI when picking moves and prevents you from using master balls
 - Fixed an issue where catching a transformed ditto gives it 0 DVs
 - Fixed the instant-text glitch that can happen in the bike shop
+- Fixed using escape rope in bill's house and the fan club
 
 
 #Bugfixes:

@@ -209,6 +209,7 @@ Cheats and Secrets!
 - Fixed an issue where catching a transformed ditto gives it 0 DVs
 - Fixed the instant-text glitch that can happen in the bike shop
 - Fixed using escape rope in bill's house and the fan club
+- Fixed Ditto showing up in the gener ratio list
 
 
 #Bugfixes:

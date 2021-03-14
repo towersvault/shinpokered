@@ -200,7 +200,7 @@ ListByGenderRatio:
 	db MACHOKE      ; $29
 	db MACHOP       ; $6A
 	db MAGMAR       ; $33
-;35 to 126 are 1-1 ratio --> atk dv >= 8 is male
+;35 to 125 are 1-1 ratio --> atk dv >= 8 is male
 	db ARBOK        ; $2D
 	db BEEDRILL     ; $72
 	db BELLSPROUT   ; $BC
@@ -210,7 +210,6 @@ ListByGenderRatio:
 	db CUBONE       ; $11
 	db DEWGONG      ; $78
 	db DIGLETT      ; $3B
-	db DITTO        ; $4C
 	db DODRIO       ; $74
 	db DODUO        ; $46
 	db DRAGONAIR    ; $59
@@ -293,14 +292,14 @@ ListByGenderRatio:
 	db WEEPINBELL   ; $BD
 	db WEEZING      ; $8F
 	db ZUBAT        ; $6B
-;127 to 132 are 3-1 ratio --> atk dv >= 12 is male
+;126 to 131 are 3-1 ratio --> atk dv >= 12 is male
 	db CLEFABLE     ; $8E
 	db CLEFAIRY     ; $04
 	db JIGGLYPUFF   ; $64
 	db NINETALES    ; $53
 	db VULPIX       ; $52
 	db WIGGLYTUFF   ; $65
-;133 to 138 are female only --> atk dv >= 16 (not possible) is male
+;132 to 137 are female only --> atk dv >= 16 (not possible) is male
 	db NIDORAN_F
 	db NIDORINA
 	db NIDOQUEEN
@@ -320,10 +319,10 @@ GetGenderRatioTarget:
 	cp 35
 	ld b, 4
 	ret c
-	cp 127
+	cp 126
 	ld b, 8
 	ret c
-	cp 133
+	cp 132
 	ld b, 12
 	ret c
 	ld b, 16

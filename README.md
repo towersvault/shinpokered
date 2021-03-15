@@ -212,6 +212,7 @@ Cheats and Secrets!
 - Fixed Ditto showing up in the gender ratio list
 - Fixed amazing man glitch when triggered by a hidden object
 - Fixed holding left to force past the cycling road guards
+- Fixed amazing man glitch in the route 16 gate
 
 
 #Bugfixes:

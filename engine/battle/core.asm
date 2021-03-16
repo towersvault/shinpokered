@@ -3649,7 +3649,10 @@ GetOutText:
 	TX_FAR _GetOutText
 	db "@"
 
-IsGhostBattle:
+IsGhostBattle:	;sets z flag if this is a ghost battle
+	ld a, [wFlags_D733]
+	res 6, a
+	ld [wFlags_D733], a
 	ld a, [wIsInBattle]
 	dec a
 	ret nz
@@ -3660,7 +3663,11 @@ IsGhostBattle:
 	jr nc, .next
 	ld b, SILPH_SCOPE
 	call IsItemInBag
-	ret z
+	ret nz
+	ld a, [wFlags_D733]
+	set 6, a
+	ld [wFlags_D733], a
+	ret
 .next
 	ld a, 1
 	and a

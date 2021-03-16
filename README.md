@@ -213,6 +213,7 @@ Cheats and Secrets!
 - Fixed amazing man glitch when triggered by a hidden object
 - Fixed holding left to force past the cycling road guards
 - Fixed amazing man glitch in the route 16 gate
+- Tower ghosts no longer display a gender or caught symbol
 
 
 #Bugfixes:

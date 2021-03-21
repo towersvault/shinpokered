@@ -216,6 +216,7 @@ Cheats and Secrets!
 - Tower ghosts no longer display a gender or caught symbol
 - Fixed tower ghost pic not loading after exiting status screen
 - Fixed being able to leave the safari zone without clearing the event
+- Fixed bumping into invisible shrub
 
 
 #Bugfixes:

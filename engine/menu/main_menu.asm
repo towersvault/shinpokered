@@ -360,8 +360,8 @@ HandshakeList:
 ;Each digit of the passcode is one nybble.
 ;FF is used as an end-of-list marker.
 	db $1
-	db $1
 	db $2
+	db $0
 	db $a
 	db $ff
 VersionText:

@@ -221,6 +221,7 @@ Cheats and Secrets!
 - Minor tweak to Pallet Town object data for Prof Oak
 - Added ledge to route 25 to prevent softlock
 - Fixed menu not clearing if A is held after saving
+- Minor tweaks to the Rival's object data in various maps
 
 
 #Bugfixes:

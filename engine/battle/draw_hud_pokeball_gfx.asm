@@ -146,6 +146,9 @@ PlaceEnemyHUDTiles:
 	ld a, [wIsInBattle]
 	cp 1
 	jr nz, .noDraw	;don't draw anything for non-wild battles
+	ld a, [wFlags_D733]
+	bit 6, a
+	jr nz, .noDraw ;don't draw anything for ghost battles
 	
 	CheckEvent EVENT_90E
 	jr z, .noDraw

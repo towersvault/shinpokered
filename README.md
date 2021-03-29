@@ -1,6 +1,6 @@
 # Shin Pokémon Red and Blue
 
-Version 1.19.1 (hotfix)
+Version 1.20
 
 This is a rom hack of pokemon red & blue based on the Pret team's disassembly.  
 It's a mostly-vanilla hack that focuses on fixing game engine bugs and oversights from the original game.  
@@ -161,35 +161,47 @@ Cheats and Secrets!
 
 #Hack-Induced Bugfixes & Adjustments since last version:
 -----------
-- Fixed a minor bug where the first byte of pokedex "owned" gets cleared on a new game+
-- Fixed minor desync with abbreviated rival music
-- Fixed poison/burn/leechseed damage sometimes being applied twice
-- Minor changes to support external randomizer
-- Updated title screen to use kanji instead of katakana
-- Fixed an artifact when title screen 'mons scroll left in GBC-mode
-- Fixed a bug in AI roster scoring when evaluating type matchups for switching
-- Tweaked item usage for cooltrainers and Giovanni
-- Increased encounter rate from 3/256 to 11/256 for the following pokemon
-  - charmander, bulbasaur, squirtle, eevee
-  - bellsprout (red), oddish (blue), vulpix (red), oddish (blue)
-  - farfetch'd (route 12)
-- Increased mew's encounter rate from 1.5/256 to 3/256
+- Prevent infinite loop for 'mons hitting level softcap when maxl_level is set greater than 237
+- Fixed water tile strangeness during vblank
+- Prevent vblank from running twice in a row during direct-SCX scrolling; fixes scroll artifacting
+- Fixed a problem where lack of a move terminator on one NPC was causing writes to the shadow ram
+- Fixed rare candies to recognize a level softcap when maxl_level is set greater than 237
+- Fixed infinite loop at 100+ level softcaps
+- Fix exp bar divide by zero at 100+ level softcaps
+- Fixed an issue where overworld sprites won't load after scripted movement during map scrolling
+- Attempt at fixing issues where NPCs face the wrong way during scripted events
+- Fixed an issue where catching a transformed ditto gives it 0 DVs
+- Softlock teleport will now say it cannot be used if you don't have the pokedex yet
+- Fixed Ditto showing up in the gender ratio list
+- Tower ghosts no longer display a gender or caught symbol
 
 
 #New features & adjustments since last version:
 -----------
-- Improved exp calculation for developers who want a level cap between 101 and 255
-  - EXP calculation routine now does math in 4 bytes instead of 3 bytes
-  - Exp calculation result is still capped to 3 bytes regardless of level cap to prevent overflow
-  - The byte cap on the exp result means that certain growth rates may have a level cap
-  - For example, the "slow" growth rate is theorized to cap at level 237
-- Trainer battle prize money uses 3 bytes instead of 2, lifting the 9999 cap on winnings
-- To prevent infinite loops, Rage ends after 2 to 3 turns (attack boosts are kept)
-- AI will not do actions during Rage or when recharging
+- Adjusted daycare to allow exp values over $500000
+- Allow up to 8 digits when displaying experience on the status screen
+- L: block doesn't disappear when level hits three digits
+- Fixed bugged npc movement constraints
+- Reactivated lost text that was meant to play when you lose to your rival
+- Fixed the instant-text glitch that can happen in the bike shop
+- Fixed using escape rope in bill's house and the fan club
+- Fixed amazing man glitch when triggered by a hidden object
+- Fixed amazing man glitch in the route 16 gate
+- Fixed holding left to force past the cycling road guards
+- Fixed tower ghost pic not loading after exiting status screen
+- Fixed being able to leave the safari zone without clearing the event
+- Fixed bumping into invisible shrub
+- Minor tweak to Pallet Town object data for Prof Oak
+- Added ledge to route 25 to prevent softlock
+- Fixed menu not clearing if A is held after saving
+- Minor tweaks to the Rival's object data in various maps
+- In SET battle mode, Mewtwo has AI when picking moves and prevents you from using master balls
+- Male-only and female-only pokemon will show a gender symbol if the feature is active
 
 
 #Changes not yet in the ips patch files:
 -----------
+- 
 
 
 #Bugfixes:
@@ -281,6 +293,7 @@ Cheats and Secrets!
   - PC graphic restored to celadon hotel
   - A tile in cinnabar mansion 3f is slightly modified to prevent getting permanently stuck
   - A tile in cerulean cave 1f adjusted so there isn't a walkable cliff tile
+  - Added ledge to route 25 to prevent softlock
   - After defeating the cerulean burglar rocket, the guard itself always moves to prevent getting stuck in the front door
   - No more ABCD glitched sprites when using teleport without a super gameboy
   - The transitional frame when turning 180 degrees now shows correctly
@@ -289,6 +302,15 @@ Cheats and Secrets!
   - The rival encounters on route 22 now show an exclamation bubble that never showed up originally
   - Erika uses her pic from yellow version which alters her funerary clothes to a proper kimono
   - Fixed a scrolling text artifact in the credits when running in GBC-mode
+  - Fixed amazing man glitch when triggered by a hidden object
+  - Fixed amazing man glitch in the route 16 gate
+  - Fixed tower ghost pic not loading after exiting status screen
+  - Fixed bumping into invisible shrub
+  - Fixed holding left to force past the cycling road guards
+  - Fixed being able to leave the safari zone without clearing the event
+  - Minor tweak to Pallet Town object data for Prof Oak
+  - Minor tweaks to the Rival's object data in various maps
+  - Fixed menu not clearing if A is held after saving
 
 
 - Item Fixes  
@@ -348,7 +370,10 @@ Cheats and Secrets!
   - The formula functions for exp now have underflow protection.
   - General RNG improved to the one used by Prism and Polished Crystal (allows for all possible DVs naturally)
   - Cannot bypass Brock's gym via the start menu
-  
+  - Fixed bugged npc movement constraints
+  - Fixed the instant-text glitch that can happen in the bike shop
+  - Fixed using escape rope in bill's house and the fan club
+
 
 #TWEAKS:
 -----------
@@ -376,6 +401,7 @@ Cheats and Secrets!
   - TMs and HMs now have their attacks (albeit abbreviated) appended to the item names
   - Fixed the flipped text for a girl in Saffron and the letter she is writing
   - Fixed text overlap with Oak giving you pokeballs
+  - Reactivated lost text that was meant to play when you lose to your rival
 
 - Adjustments to moves  
   - Stat-down moves no longer have a 25% miss chance in AI matches
@@ -514,6 +540,8 @@ Cheats and Secrets!
 	- The byte cap on the exp result means that certain growth rates may have a level cap
 	- For example, the "slow" growth rate is theorized to cap at level 237
   - Trainer battle prize money uses 3 bytes instead of 2, lifting the 9999 cap on winnings
+  - Adjusted daycare to allow exp values over $500000
+  - Allow up to 8 digits when displaying experience on the status screen
 
 - A regular New Game will default the battle style to SET
 - Yes/No prompt for flute use has been added to blocking snorlax
@@ -531,6 +559,7 @@ Cheats and Secrets!
 - The juggler rosters, especially in fuchsia gym, have been slightly altered for flavor
 - Just for fun, the last juggler in the fuchsia gym is replaced with a cameo of Janine
   - Though at this point she's still just a cooltrainer and doesn't have a unique battle sprite
+- The L: block doesn't disappear when level hits three digits
 
   
 #Additions:
@@ -546,6 +575,7 @@ Cheats and Secrets!
   - Enemy trainer pokemon have randomized DVs that are all 8 or better (on a scale of 1 to 15)
   - Badge-granted stat boosts are disabled in trainer battles
   - X-stat items have double the effect like in more recent generations
+  - Mewtwo will prevent you from using a master ball on it
 
 
 #Quick Keys
@@ -588,8 +618,8 @@ Cheats and Secrets!
 - If playing on super gameboy, hold select when loading a pokedex entry to see that pokemon's shiny palette
 - Added an exp bar using code by Danny-E 33 
 - Pokeball caught indicator for wild battles
-- A gender symbol is displayed for pkmn species that have a chance of being male or female
-  - single-gender and nongendered species have no symbol since it is not in question
+- A gender symbol is displayed for pkmn species that are sexed
+  - non-sexed species have no symbol
   - The symbol is displayed for a party mon in its status screen
   - The symbol is displayed in the battle hud only for wild enemy mon (the only time it matters)
 - Oak's aid at the bottom-left toggles the caught & gender symbols after obtaining the pokedex

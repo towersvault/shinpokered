@@ -162,7 +162,14 @@ ListMostEvolvedPkmn:
 ;list pokemon separated out by gener ratio
 ;leave out pokemon with a set gender or are genderless
 ListByGenderRatio:
-;0 to 18 are 1-7 ratio --> atk dv >= 2 is male
+;0 to 5 are male only --> atk dv >= 0 is male
+	db NIDORAN_M
+	db NIDORINO
+	db NIDOKING
+	db HITMONCHAN
+	db HITMONLEE
+	db TAUROS
+;6 to 24 are 1-7 ratio --> atk dv >= 2 is male
 	db AERODACTYL   ; $AB
 	db BLASTOISE    ; $1C
 	db BULBASAUR    ; $99
@@ -182,7 +189,7 @@ ListByGenderRatio:
 	db VAPOREON     ; $69
 	db VENUSAUR     ; $9A
 	db WARTORTLE    ; $B3
-;19 to 28 are 1-3 ratio  --> atk dv >= 4 is male
+;25 to 34 are 1-3 ratio  --> atk dv >= 4 is male
 	db ABRA         ; $94
 	db ALAKAZAM     ; $95
 	db ARCANINE     ; $14
@@ -193,7 +200,7 @@ ListByGenderRatio:
 	db MACHOKE      ; $29
 	db MACHOP       ; $6A
 	db MAGMAR       ; $33
-;29 to 120 are 1-1 ratio --> atk dv >= 8 is male
+;35 to 125 are 1-1 ratio --> atk dv >= 8 is male
 	db ARBOK        ; $2D
 	db BEEDRILL     ; $72
 	db BELLSPROUT   ; $BC
@@ -203,7 +210,6 @@ ListByGenderRatio:
 	db CUBONE       ; $11
 	db DEWGONG      ; $78
 	db DIGLETT      ; $3B
-	db DITTO        ; $4C
 	db DODRIO       ; $74
 	db DODUO        ; $46
 	db DRAGONAIR    ; $59
@@ -286,26 +292,40 @@ ListByGenderRatio:
 	db WEEPINBELL   ; $BD
 	db WEEZING      ; $8F
 	db ZUBAT        ; $6B
-;121 to 126 are 3-1 ratio --> atk dv >= 12 is male
+;126 to 131 are 3-1 ratio --> atk dv >= 12 is male
 	db CLEFABLE     ; $8E
 	db CLEFAIRY     ; $04
 	db JIGGLYPUFF   ; $64
 	db NINETALES    ; $53
 	db VULPIX       ; $52
 	db WIGGLYTUFF   ; $65
+;132 to 137 are female only --> atk dv >= 16 (not possible) is male
+	db NIDORAN_F
+	db NIDORINA
+	db NIDOQUEEN
+	db JYNX
+	db CHANSEY
+	db KANGASKHAN
+;otherwise a pokemon not on this list is unsexed
 	db $00
 
 GetGenderRatioTarget:
-	cp 19
+	cp 6
+	ld b, 0
+	ret c
+	cp 25
 	ld b, 2
 	ret c
-	cp 29
+	cp 35
 	ld b, 4
 	ret c
-	cp 121
+	cp 126
 	ld b, 8
 	ret c
+	cp 132
 	ld b, 12
+	ret c
+	ld b, 16
 	ret
 
 

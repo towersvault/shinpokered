@@ -329,5 +329,6 @@ SpecialTrainerMoves:
 	db 6,2,THUNDER_WAVE
 	db 6,3,SURF
 	db 6,4,DOUBLE_TEAM
+	db 0
 	
 	db $ff

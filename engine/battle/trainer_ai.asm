@@ -1,6 +1,28 @@
 ; creates a set of moves that may be used and returns its address in hl
 ; unused slots are filled with 0, all used slots may be chosen with equal probability
 AIEnemyTrainerChooseMoves:
+;joenote - let's make wild pokemon have some AI in choosing moves
+	ld a, [wIsInBattle]
+	dec a
+	jr nz, .notwildbattle
+	;wild battle confirmed at this point
+	ld hl, wEnemyMonMoves	;restore this address which was clobbered by callba
+	;ret z ; wild encounter	;uncomment this line to restore default wildmon behavior
+	;but let's do a little something else
+	;only do wildmon AI move choice for Mewtwo while in SET mode
+	;after all, it is still a cunning foe even as a wild pokemon
+	ld a, [wOptions]
+	bit 6, a ;0=SHIFT and 1=SET battle style
+	ret z ;wild AI as normal in shift battle
+	ld a, [wEnemyMon]	
+	cp MEWTWO
+	ret nz
+	;load the Sailor class since it only uses AI routines 1 and 3
+	ld a, SAILOR
+	ld [wTrainerClass], a
+	;should be fine to let AIEnemyTrainerChooseMoves run at this point
+.notwildbattle
+	
 	ld a, $a
 	ld hl, wBuffer ; init temporary move selection array. Only the moves with the lowest numbers are chosen in the end
 	ld [hli], a   ; move 1

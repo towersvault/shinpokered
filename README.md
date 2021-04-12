@@ -201,7 +201,10 @@ Cheats and Secrets!
 
 #Changes not yet in the ips patch files:
 -----------
-- 
+(b1)
+- Added built-in gamma shader for backlit LCD screens (press SELECT at the copyright screen)
+- Fixed the fossil kabutops image not appearing properly
+- On battle load, stopped the GBC GBPal from updating before graphics are in the right position
 
 
 #Bugfixes:

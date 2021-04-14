@@ -205,6 +205,8 @@ Cheats and Secrets!
 - Added built-in gamma shader for backlit LCD screens (press SELECT at the copyright screen)
 - Fixed the fossil kabutops image not appearing properly
 - On battle load, stopped the GBC GBPal from updating before graphics are in the right position
+(b2)
+- Fixed some issues where npcs that appear on screen are looking down for 1 frame
 
 
 #Bugfixes:

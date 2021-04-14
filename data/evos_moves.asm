@@ -630,7 +630,7 @@ SlowpokeEvosMoves:
 KadabraEvosMoves:
 ; Evolutions
 	db EV_TRADE, 1, ALAKAZAM
-	db EV_LEVEL, 46, ALAKAZAM
+	db EV_LEVEL, 45, ALAKAZAM
 	db 0
 ; Learnset
 	db 16, CONFUSION
@@ -671,7 +671,7 @@ ChanseyEvosMoves:
 MachokeEvosMoves:
 ; Evolutions
 	db EV_TRADE, 1, MACHAMP
-	db EV_LEVEL, 48, MACHAMP
+	db EV_LEVEL, 45, MACHAMP
 	db 0
 ; Learnset
 	db 20, LOW_KICK

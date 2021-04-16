@@ -329,6 +329,12 @@ UpdateSpriteInWalkingAnimation:
 	ld l, a
 	ld a, [hl]                       ; c1x7 (counter until next walk animation frame)
 	inc a
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;	
+;60fps - updated xy every other tick
+	call npc60fps	
+	push bc
+	sub b
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;		
 	ld [hl], a                       ; c1x7 += 1
 	cp $4
 	jr nz, .noNextAnimationFrame
@@ -343,6 +349,14 @@ UpdateSpriteInWalkingAnimation:
 	ld a, [H_CURRENTSPRITEOFFSET]
 	add $3
 	ld l, a
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;60fps - updated xy every other tick
+	pop bc
+	push bc
+	ld a, b
+	and a 
+	jr nz, .xydone
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;	
 	ld a, [hli]                      ; c1x3 (movement Y delta)
 	ld b, a
 	ld a, [hl]                       ; c1x4 (screen Y position)
@@ -353,10 +367,16 @@ UpdateSpriteInWalkingAnimation:
 	ld a, [hl]                       ; c1x6 (screen X position)
 	add b
 	ld [hl], a                       ; update screen X position
+.xydone
 	ld a, [H_CURRENTSPRITEOFFSET]
 	ld l, a
 	inc h
 	ld a, [hl]                       ; c2x0 (walk animation counter)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;60fps - make the delay decounter update every other tick	
+	pop bc
+	add b	;60fps
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	dec a
 	ld [hl], a                       ; update walk animation counter
 	ret nz
@@ -395,6 +415,29 @@ UpdateSpriteInWalkingAnimation:
 	ld [hl], a                       ; reset movement X delta
 	ret
 
+npc60fps:
+	push hl
+	push af
+	ld h, $c2
+	ld l, $0a
+	ld a, [H_CURRENTSPRITEOFFSET]
+	add l
+	ld l, a
+	ld a, [wUnusedD721]
+	bit 4, a
+	ld a, [hl]
+	jr nz, .is60fps
+	xor a
+	jr .end
+.is60fps
+	xor $01
+.end
+	ld [hl], a
+	ld b, a
+	pop af
+	pop hl
+	ret
+
 ; update delay value (c2x8) for sprites in the delayed state (c1x1)
 UpdateSpriteMovementDelay:
 	ld h, $c2
@@ -409,6 +452,13 @@ UpdateSpriteMovementDelay:
 	ld [hl], $0
 	jr .moving
 .tickMoveCounter
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;60fps - make the delay decounter update every other tick
+	ld a, [hl]
+	call npc60fps
+	add b
+	ld [hl], a
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	dec [hl]                ; c2x8: frame counter until next movement
 	jr nz, notYetMoving
 .moving

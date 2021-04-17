@@ -66,6 +66,11 @@ UpdatePlayerSprite:
 	ld l, a
 	ld a, [hl]
 	inc a
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;60fps - only update every other tick	
+	call sprite60fps
+	sub b
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;	
 	ld [hl], a
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;joenote - If B is being held to go faster and full joypad is enabled (i.e. not in a cutscene),
@@ -331,7 +336,7 @@ UpdateSpriteInWalkingAnimation:
 	inc a
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;	
 ;60fps - updated xy every other tick
-	call npc60fps	
+	call sprite60fps	
 	push bc
 	sub b
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;		
@@ -415,7 +420,7 @@ UpdateSpriteInWalkingAnimation:
 	ld [hl], a                       ; reset movement X delta
 	ret
 
-npc60fps:
+sprite60fps:
 	push hl
 	push af
 	ld h, $c2
@@ -455,7 +460,7 @@ UpdateSpriteMovementDelay:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;60fps - make the delay decounter update every other tick
 	ld a, [hl]
-	call npc60fps
+	call sprite60fps
 	add b
 	ld [hl], a
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

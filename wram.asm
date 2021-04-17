@@ -2417,6 +2417,11 @@ wOptions:: ; d355
 ; bit 6 = battle style
 ; 0: Shift
 ; 1: Set
+; bit 4-5 = sound setting
+; 0: mono
+; 1: earphone 1
+; 2: earphone 2
+; 3: earphone 3
 ; bits 0-3 = text speed (number of frames to delay after printing a letter)
 ; 1: Fast
 ; 3: Medium
@@ -3079,7 +3084,7 @@ wUnusedD721:: ; d721	;joenote - use to set various wram flags
 	;bit 1 - activate cinnabar shore if set
 	;bit 2 - override bit 0 for specific bank switching instances
 	;bit 3 - ghost marowak battle if set
-	;bit 4 - 60fps testing flag
+	;bit 4 - 60fps option flag
 ;;;;;;;;;;;;;;joenote - use these unused locations for debugging and parsing DV scores
 wUnusedD722:: 
 	ds 4

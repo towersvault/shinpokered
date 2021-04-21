@@ -215,6 +215,8 @@ Cheats and Secrets!
 - Fixed issue where paralyzed enemies might move first
 - (b4)
 - Rearranged some stuff with trainer AI
+- Gave AI some guidance on explosion effects 
+- Slight additions to explodo-mon movesets to play nicer with AI at higer levels
 
 
 #Bugfixes:

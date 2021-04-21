@@ -214,6 +214,7 @@ Cheats and Secrets!
 - (b3)
 - Fixed issue where paralyzed enemies might move first
 - (b4)
+- Rearranged some stuff with trainer AI
 
 
 #Bugfixes:

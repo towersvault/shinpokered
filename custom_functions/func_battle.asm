@@ -67,13 +67,16 @@ DetermineWildMonDVs:
 	or $0A	;set the lower nyble to $A
 	jr .load
 .do_random
+	CheckEvent EVENT_90F	;special safari zone active?
+	jr z, .notsafari	
 	call IsInSafariZone
-	jr nz, .do_random_safari	;safari zone pokemon have better DVs
+	jr nz, .do_random_safari
+.notsafari
 	call Random
 	ld b, a
 	call Random
 	jr .load
-.do_random_safari
+.do_random_safari	;special safari zone pokemon have better DVs
 	call Random
 	or $88
 	ld b, a

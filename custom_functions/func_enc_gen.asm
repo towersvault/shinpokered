@@ -215,8 +215,8 @@ IsInSafariZone:
 
 ;Generate a random mon for an expanded safari zone roster
 GetRandMonSafari:
-	;return if e4 not yet beaten
-	CheckEvent EVENT_908
+	;return if special safari zone not activated
+	CheckEvent EVENT_90F
 	ret z	
 	;return if not in safari zone
 	call IsInSafariZone

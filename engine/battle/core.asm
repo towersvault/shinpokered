@@ -279,7 +279,14 @@ StartBattle:	;joedebug - start of the battle
 .notOutOfSafariBalls
 	callab PrintSafariZoneBattleText
 	;ld a, [wEnemyMonSpeed + 1]
-	ld a, [wEnemyMonLevel]		;joenote - make escaping pokemon based on level instead of speed
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;joenote - make escaping pokemon based on level instead of speed
+	ld a, [wEnemyMonLevel]		
+; using a stat would be about 1.5x more than using level, so accout for this
+	ld b, a
+	srl b
+	add b
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	add a
 	ld b, a ; init b (which is later compared with random value) to (enemy speed % 256) * 2
 	jp c, EnemyRan ; if (enemy speed % 256) > 127, the enemy runs

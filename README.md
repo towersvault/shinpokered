@@ -1,6 +1,6 @@
 # Shin Pokémon Red and Blue
 
-Version 1.20
+Version 1.21 beta
 
 This is a rom hack of pokemon red & blue based on the Pret team's disassembly.  
 It's a mostly-vanilla hack that focuses on fixing game engine bugs and oversights from the original game.  
@@ -217,6 +217,13 @@ Cheats and Secrets!
 - Rearranged some stuff with trainer AI
 - Gave AI some guidance on explosion effects 
 - Slight additions to explodo-mon movesets to play nicer with AI at higer levels
+- (b5)
+- Rearranged trainer AI and moved more agressive move use to AI layer 1 (all trainers except Cueball and Youngster)
+- Streamlined how the ghost marowak battle is triggered (now allows for non-ghost marowaks in pokemon tower)
+- Fixed a coordinate typo in pokemon tower left by gamefreak
+- If SS Anne is skipped and the pokemon tower rival battle is initiated, the SS Anne rival battle is deactivated
+- Safari zone "ran away" math is adjusted to be more accurate (level*1 changes to level*1.5 as the base value used)
+- Trainer AI layer settings have been completely redone
 
 
 #Bugfixes:
@@ -470,6 +477,9 @@ Cheats and Secrets!
   - Substitute discouraged if less that 1/4 hp remains
   - Will discourage using Haze if unstatus'd or has net-neutral or better stat mods
   - Will heavily discourage boosting defense against special, OHKO, or static-damaging attacks
+  - AI layer changes that affect most 0-power moves (with only a few exceptions like heal effects)
+    - now has a hard stop on using 0-power moves on consecutive turns
+	- heavily discourages 0-power moves if below 1/3 hp
 
 - Trainer ai routine #3 (choosing effective moves) has been modified
   - It now heavily discourages moves that would have no effect due to type immunity
@@ -479,9 +489,6 @@ Cheats and Secrets!
   - Static damage moves are randomly preferenced 25% of the time to spice things up
   - Thunder Wave is not used against immune types
   - Poisoning moves discouraged against poison types
-  - AI layer 3 changes that affect most 0-power moves (with only a few exceptions like heal effects)
-    - now has a hard stop on using 0-power moves on consecutive turns
-	- heavily discourages 0-power moves if below 1/3 hp
 
 - Trainer ai routine #4 is no longer unused. It now does rudimentary trainer switching.
   - 25% chance to switch if active pkmn is below 1/3 HP and player also outspeeds AI
@@ -668,6 +675,9 @@ Cheats and Secrets!
 - Vendor added to Celadon Dept. Store 3F
   - Sells moon stones, amber, fossils, exp all, master balls, and rare candy
   - Only opens up after beating elite 4
+- In the safari zone gate, a new NPC can toggle on and off a special safari event after the elite 4
+  - All pokemon in the safari zone will have above-average DVs
+  - Also makes it so there is a rare chance for any pokemon to be encountered in the safari zone (depends on location)
 - The game corner chief will buy pokemon from the player post-e4
 - There is a new NPC in the west-east underground path that generates random battles after beating the elite 4
 - New item M.GENE: re-randomizes a pkmn's DVs to values of 9,8,8,8 or more.
@@ -756,8 +766,6 @@ Cheats and Secrets!
 - ponyta on route 7
 - tentacruel to routes 19, 20, and 21
 - seaking to routes 19, 20, and 21
-- After beating the elite 4, there is a rare chance for any pokemon to be encountered in the safari zone (depends on location)
-- All pokemon in the safari zone have above-average DVs
 
 
 #Changes to pokemart inventories:

@@ -505,10 +505,11 @@ Cheats and Secrets!
   - AI scoring imposes a very heavy penalty for potentially switching in pokemon with less than 1/4 HP
   
 - Trainer ai routine #3 added to the following trainer classes
-  - jr trainer M, jr trainer F, hiker, supernerd, engineer, lass, chief, bruno, brock, gentleman, agatha
+  - jr trainer M/F, tamer, scientist, lass, gentleman, black belt, bird keeper, engineer, 
+  - chief, bruno, brock, agatha
 - Trainer ai routine #4 added to the following trainer classes
-  -lass, jr trainer m/f, pokemaniac, supernerd, hiker, engineer, beauty, psychic, rocker, tamer, birdkeeper, cooltrainer m/f, gentleman
-  -prof.oak, chief, gym leaders, e4
+  -cueball, psychic, hiker, rocket, black belt, tamer, lass, jr trainer M/F, cooltrainer M/F, gentleman, pokemaniac 
+  -all rival phases, prof.oak, chief, gym leaders, elite-4
   
 - Trainer stat DVs are now randomly generated to a degree (only in "Set" style)
   - Attack DV is between 9 and 15 and always odd-numbered

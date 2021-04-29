@@ -225,7 +225,7 @@ Cheats and Secrets!
 - Safari zone "ran away" math is adjusted to be more accurate (level*1 changes to level*1.5 as the base value used)
 - Trainer AI layer settings have been completely redone
 - (b6)
-- 
+- Only set gamma shader flag if in GBC mode
 
 
 #Bugfixes:

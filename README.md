@@ -224,6 +224,8 @@ Cheats and Secrets!
 - If SS Anne is skipped and the pokemon tower rival battle is initiated, the SS Anne rival battle is deactivated
 - Safari zone "ran away" math is adjusted to be more accurate (level*1 changes to level*1.5 as the base value used)
 - Trainer AI layer settings have been completely redone
+- (b6)
+- 
 
 
 #Bugfixes:

@@ -4,6 +4,9 @@ CanLearnTM:
 	ld [wd0b5], a
 	call GetMonHeader
 	ld hl, wMonHLearnset
+
+	call SurfingPikachu ;joenote - handle a pikachu that can learn surf
+	
 	push hl
 	ld a, [wMoveNum]
 	ld b, a
@@ -33,4 +36,26 @@ TMToMove:
 	ld [wd11e], a
 	ret
 
+SurfingPikachu:
+	ld a, [wcf91]
+	cp PIKACHU
+	ret nz
+
+	push bc
+	push hl
+	ld a, [wWhichPokemon]
+	ld hl, wPartyMon1CatchRate
+	ld bc, wPartyMon2 - wPartyMon1
+	call AddNTimes
+	ld a, [hl]
+	cp 168
+	pop hl
+	pop bc
+	ret nz
+
+	ld a, [wMonHLearnset + 6]
+	or $10
+	ld [wMonHLearnset + 6], a
+	ret
+	
 INCLUDE "data/tms.asm"

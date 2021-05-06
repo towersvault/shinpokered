@@ -226,8 +226,13 @@ Cheats and Secrets!
 - Trainer AI layer settings have been completely redone
 - (b6)
 - Only set gamma shader flag if in GBC mode
+- Switching AI now scores against all player mon moves
+- Winning the SS Anne tournament with a pikachu in the party will set its catch rate to 168
+  - In this rom hack, a pikachu with this catch rate can be taught Surf via HM
+  - This catch rate makes it hold a gorgeous box if transferred to Gen 2
+  - If case of multiple pikachus, only the first in the roster will be affected
 
-
+  
 #Bugfixes:
 -----------
 

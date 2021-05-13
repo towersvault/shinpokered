@@ -231,6 +231,7 @@ Cheats and Secrets!
   - In this rom hack, a pikachu with this catch rate can be taught Surf via HM
   - This catch rate makes it hold a gorgeous box if transferred to Gen 2
   - If case of multiple pikachus, only the first in the roster will be affected
+  - Likewise, a pikachu holding a gorgeous box can learn surf if transferred into this rom hack
 
   
 #Bugfixes:

@@ -2706,6 +2706,13 @@ AlreadyOutText:
 
 BattleMenu_RunWasSelected:
 	call LoadScreenTilesFromBuffer1
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;joenote - this allows for trainer battles to be forfeited and force a blackout
+	push bc
+	callba ForfeitTrainerMatch
+	pop bc
+	jp nz, StartBattle.checkAnyPartyAlive
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;	
 	ld a, $3
 	ld [wCurrentMenuItem], a
 	ld hl, wBattleMonSpeed

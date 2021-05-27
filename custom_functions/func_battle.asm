@@ -218,3 +218,46 @@ PlayerBideAccum:
 	ret
 
 
+ForfeitTrainerMatch:
+	ld a, [wLinkState]
+	cp LINK_STATE_BATTLING
+	ret z	;return if in a link battle
+	ld a, [wIsInBattle]
+	cp 0	
+	ret z	;return if not in battle
+	cp 1	
+	ret z	;return if in wild battle
+	ld a, [hJoyHeld]
+	and SELECT
+	ret z	;return if select is not being held
+	ld hl, ForfeitTrainerMatchText
+	call PrintText 
+	call NoYesChoice
+	ld a, [wCurrentMenuItem]
+	and a
+	call nz, FaintAllMons
+	ret
+ForfeitTrainerMatchText:
+	TX_FAR _ForfeitTrainerMatchText
+	db "@"
+_ForfeitTrainerMatchText::
+	text "Forfeit?"
+	done
+
+FaintAllMons:	
+	ld a, $00
+	ld [wBattleMonHP], a
+	ld [wBattleMonHP + 1], a
+	ld [wPartyMon1HP], a
+	ld [wPartyMon1HP + 1], a
+	ld [wPartyMon2HP], a
+	ld [wPartyMon2HP + 1], a
+	ld [wPartyMon3HP], a
+	ld [wPartyMon3HP + 1], a
+	ld [wPartyMon4HP], a
+	ld [wPartyMon4HP + 1], a
+	ld [wPartyMon5HP], a
+	ld [wPartyMon5HP + 1], a
+	ld [wPartyMon6HP], a
+	ld [wPartyMon6HP + 1], a
+	ret

@@ -232,6 +232,9 @@ Cheats and Secrets!
   - This catch rate makes it hold a gorgeous box if transferred to Gen 2
   - If case of multiple pikachus, only the first in the roster will be affected
   - Likewise, a pikachu holding a gorgeous box can learn surf if transferred into this rom hack
+- (b7)
+- Fixed wrong crit damage for lvl > 127
+- Added ability to forfeit trainer battles
 
   
 #Bugfixes:

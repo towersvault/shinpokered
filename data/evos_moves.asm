@@ -263,6 +263,7 @@ VoltorbEvosMoves:
 	db 17, SONICBOOM
 	db 22, SELFDESTRUCT
 	db 29, LIGHT_SCREEN
+	db 29, REFLECT	;joenote - added for late-game trainers
 	db 36, SWIFT
 	db 43, EXPLOSION
 	db 0
@@ -630,7 +631,7 @@ SlowpokeEvosMoves:
 KadabraEvosMoves:
 ; Evolutions
 	db EV_TRADE, 1, ALAKAZAM
-	db EV_LEVEL, 46, ALAKAZAM
+	db EV_LEVEL, 45, ALAKAZAM
 	db 0
 ; Learnset
 	db 16, CONFUSION
@@ -650,6 +651,7 @@ GravelerEvosMoves:
 	db 11, DEFENSE_CURL
 	db 16, ROCK_THROW
 	db 21, SELFDESTRUCT
+	db 29, BODY_SLAM	;joenote - added for late-game trainers
 	db 29, HARDEN
 	db 36, EARTHQUAKE
 	db 43, EXPLOSION
@@ -671,7 +673,7 @@ ChanseyEvosMoves:
 MachokeEvosMoves:
 ; Evolutions
 	db EV_TRADE, 1, MACHAMP
-	db EV_LEVEL, 48, MACHAMP
+	db EV_LEVEL, 45, MACHAMP
 	db 0
 ; Learnset
 	db 20, LOW_KICK
@@ -768,6 +770,7 @@ GolemEvosMoves:
 	db 11, DEFENSE_CURL
 	db 16, ROCK_THROW
 	db 21, SELFDESTRUCT
+	db 29, BODY_SLAM	;joenote - added for late-game trainers
 	db 29, HARDEN
 	db 36, EARTHQUAKE
 	db 43, EXPLOSION
@@ -828,6 +831,8 @@ KoffingEvosMoves:
 	db 32, SLUDGE
 	db 37, SMOKESCREEN
 	db 40, SELFDESTRUCT
+	db 42, MIMIC	;joenote - added for late-game trainers
+	db 42, SLUDGE	;joenote - added for late-game trainers
 	db 45, HAZE
 	db 48, EXPLOSION
 	db 0
@@ -1702,6 +1707,7 @@ ElectrodeEvosMoves:
 	db 17, SONICBOOM
 	db 22, SELFDESTRUCT
 	db 29, LIGHT_SCREEN
+	db 29, REFLECT	;joenote - added for late-game trainers
 	db 40, SWIFT
 	db 50, EXPLOSION
 	db 0
@@ -1723,6 +1729,8 @@ WeezingEvosMoves:
 	db 32, SLUDGE
 	db 39, SMOKESCREEN
 	db 43, SELFDESTRUCT
+	db 45, MIMIC	;joenote - added for late-game trainers
+	db 47, SLUDGE	;joenote - added for late-game trainers
 	db 49, HAZE
 	db 53, EXPLOSION
 	db 0
@@ -2000,6 +2008,7 @@ GeodudeEvosMoves:
 	db 11, DEFENSE_CURL
 	db 16, ROCK_THROW
 	db 21, SELFDESTRUCT
+	db 26, BODY_SLAM	;joenote - added for late-game trainers
 	db 26, HARDEN
 	db 31, EARTHQUAKE
 	db 36, EXPLOSION

@@ -81,6 +81,7 @@ SSAnne6Text8: ;joenote - gym guy for post-game tournament
 	pop bc
 	ld hl, SSAnne6Text_GymGuy_win
 	call PrintText
+	call SetSurfingPikachu
 	jr .endtournament
 .notyet
 
@@ -159,7 +160,35 @@ ContinueTournament:
 	ld [hSpriteIndexOrTextID], a
 	jp DisplayTextID
 	
-
+SetSurfingPikachu:
+	push bc
+	push hl
+	ld hl, wPartyMon1Species
+	ld bc, wPartyMon2 - wPartyMon1
+	ld a, [hl]
+	cp PIKACHU
+	jr z, .set
+	add hl, bc
+	ld a, [hl]
+	cp PIKACHU
+	jr z, .set
+	add hl, bc
+	ld a, [hl]
+	cp PIKACHU
+	jr nz, .return
+.set
+	ld bc, $0007
+	add hl, bc
+	ld a, 168
+	ld [hl], a
+	ld hl, SSAnne6Text_GymGuy_pikachu
+	call PrintText
+.return
+	pop hl
+	pop bc
+	ret
+	
+	
 SSAnne6Text_61807:
 	TX_FAR _SSAnne6Text_61807
 	db "@"
@@ -204,4 +233,6 @@ SSAnne6Text_GymGuy_win:
 	TX_FAR _SSAnne6Text_GymGuy_win
 	TX_SFX_ITEM_1
 	db "@"
-	
+SSAnne6Text_GymGuy_pikachu:
+	TX_FAR _SSAnne6Text_GymGuy_pikachu
+	db "@"

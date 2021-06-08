@@ -159,7 +159,6 @@ SlidePlayerAndEnemySilhouettesOnScreen:
 	ld [rBGP], a
 	ld [rOBP0], a
 	ld [rOBP1], a
-	call UpdateGBCPal_BGP
 	call UpdateGBCPal_OBP0
 	call UpdateGBCPal_OBP1
 .slideSilhouettesLoop ; slide silhouettes of the player's pic and the enemy's pic onto the screen
@@ -171,6 +170,14 @@ SlidePlayerAndEnemySilhouettesOnScreen:
 	ld h, $0
 	ld l, $60
 	call SetScrollXForSlidingPlayerBodyLeft ; end background scrolling on line $60
+	
+	;gbcnote - update BGP here so screen isn't revealed when scrolling is out of place
+	push af
+	ld a, b
+	cp $72
+	call z, UpdateGBCPal_BGP
+	pop af
+	
 	call SlidePlayerHeadLeft
 	ld a, c
 	ld [hSCX], a
@@ -272,7 +279,14 @@ StartBattle:	;joedebug - start of the battle
 .notOutOfSafariBalls
 	callab PrintSafariZoneBattleText
 	;ld a, [wEnemyMonSpeed + 1]
-	ld a, [wEnemyMonLevel]		;joenote - make escaping pokemon based on level instead of speed
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;joenote - make escaping pokemon based on level instead of speed
+	ld a, [wEnemyMonLevel]		
+; using a stat would be about 1.5x more than using level, so accout for this
+	ld b, a
+	srl b
+	add b
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	add a
 	ld b, a ; init b (which is later compared with random value) to (enemy speed % 256) * 2
 	jp c, EnemyRan ; if (enemy speed % 256) > 127, the enemy runs
@@ -2692,6 +2706,13 @@ AlreadyOutText:
 
 BattleMenu_RunWasSelected:
 	call LoadScreenTilesFromBuffer1
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;joenote - this allows for trainer battles to be forfeited and force a blackout
+	push bc
+	callba ForfeitTrainerMatch
+	pop bc
+	jp nz, StartBattle.checkAnyPartyAlive
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;	
 	ld a, $3
 	ld [wCurrentMenuItem], a
 	ld hl, wBattleMonSpeed
@@ -4667,7 +4688,8 @@ GetDamageVarsForPlayerAttack:
 	ld a, [wCriticalHitOrOHKO]
 	and a ; check for critical hit
 	jr z, .done
-	sla e ; double level if it was a critical hit
+	;joenote - do this in damage calculation
+	;sla e ; double level if it was a critical hit
 .done
 	ld a, 1
 	and a
@@ -4795,7 +4817,8 @@ GetDamageVarsForEnemyAttack:
 	ld a, [wCriticalHitOrOHKO]
 	and a ; check for critical hit
 	jr z, .done
-	sla e ; double level if it was a critical hit
+	;joenote - do this in damage calculation
+	;sla e ; double level if it was a critical hit
 .done
 	ld a, $1
 	and a
@@ -4906,14 +4929,28 @@ CalculateDamage:
 	ld [hl], a
 
 ; Multiply level by 2
+;joenote - made this more efficient by using shifts and rotates
 	ld a, e ; level
-	add a
-	jr nc, .nc
-	push af
-	ld a, 1
-	ld [hl], a
-	pop af
-.nc
+;	add a
+;	jr nc, .nc
+;	push af
+;	ld a, 1
+;	ld [hl], a
+;	pop af
+;.nc
+	sla a
+	rl [hl]
+;joenote - double the effective level here if critical hit instead of GetDamageVars functions
+	push bc
+	ld b, a
+	ld a, [wCriticalHitOrOHKO]
+	cp 1
+	ld a, b
+	pop bc
+	jr c, .nocrit
+	sla a
+	rl [hl]
+.nocrit
 	inc hl
 	ldi [hl], a
 
@@ -7628,8 +7665,6 @@ InitWildBattle:
 	;joenote - use a bit to determine if this is a ghost marowak battle
 	ld a, [wUnusedD721]
 	bit 3, a
-	res 3, a	;reset after done checking it
-	ld [wUnusedD721], a
 	jr nz, .isGhost
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;	ld a, [wCurOpponent]

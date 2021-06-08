@@ -155,3 +155,12 @@ _SSAnne6Text_GymGuy_win::
 	
 	para "<PLAYER> won a"
 	line "MASTER BALL!@@"
+	
+_SSAnne6Text_GymGuy_pikachu::
+	text "Your PIKACHU is"
+	line "really special!"
+	
+	para "In recongnition,"
+	line "I've made it able"
+	cont "to learn SURF!"
+	prompt

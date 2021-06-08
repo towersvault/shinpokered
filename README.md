@@ -1,6 +1,6 @@
 # Shin Pokémon Red and Blue
 
-Version 1.20
+Version 1.21
 
 This is a rom hack of pokemon red & blue based on the Pret team's disassembly.  
 It's a mostly-vanilla hack that focuses on fixing game engine bugs and oversights from the original game.  
@@ -62,6 +62,9 @@ Apply the patch to a USA blue rom to use it.
 Engine features from USA Yellow version have been backported.
 Super Gameboy palettes get converted to display on the Gameboy Color. No more monochrome!
 The audio engine is backported. Hit SELECT on the options screen to cycle through the output types.
+Playing in GBC mode on a backlit LCD screen? Press SELECT at the copyright screen to activate color correction.
+
+Experimental 60FPS Mode: Place the cursor over CANCEL in the options screen and toggle by pressing left or right.
 
 Trainer AI has been improved and greatly expanded. 
 Some trainers will even try to switch pokemon intelligently.
@@ -88,6 +91,8 @@ All 151 pkmn are available in one version.
 You can play as a boy or a girl.
 
 There's an EXP bar in battle.
+
+You can select RUN in trainer battles to forfeit the match and black yourself out.
 
 You can hunt for shiny pokemon, and they are valid with Gen 2 games.
 
@@ -136,6 +141,7 @@ Cheats and Secrets!
 - Defeat all five post-game special trainers to reactivate the legendary pokemon.
 - To find shiny pokemon better, put a level-100 Chansey at the top of your roster. Use a repel if you wish!
 - Do you dare to activate Missingno at the cinnabar shore? Only if you got your 'dex diploma.
+- Win the SS Anne's tournament with a pikachu in your party, and the Surf HM can be used on that particular pikachu.
 
 
 #Compatibility Notes
@@ -161,49 +167,44 @@ Cheats and Secrets!
 
 #Hack-Induced Bugfixes & Adjustments since last version:
 -----------
-- Prevent infinite loop for 'mons hitting level softcap when maxl_level is set greater than 237
-- Fixed water tile strangeness during vblank
-- Prevent vblank from running twice in a row during direct-SCX scrolling; fixes scroll artifacting
-- Fixed a problem where lack of a move terminator on one NPC was causing writes to the shadow ram
-- Fixed rare candies to recognize a level softcap when maxl_level is set greater than 237
-- Fixed infinite loop at 100+ level softcaps
-- Fix exp bar divide by zero at 100+ level softcaps
-- Fixed an issue where overworld sprites won't load after scripted movement during map scrolling
-- Attempt at fixing issues where NPCs face the wrong way during scripted events
-- Fixed an issue where catching a transformed ditto gives it 0 DVs
-- Softlock teleport will now say it cannot be used if you don't have the pokedex yet
-- Fixed Ditto showing up in the gender ratio list
-- Tower ghosts no longer display a gender or caught symbol
+- Fixed the fossil kabutops image not appearing properly
+- On battle load, stopped the GBC GBPal from updating before graphics are in the right position
+- Fixed some issues where npcs that appear on screen are looking down for 1 frame
+- Fixed some menu screen flicker
+- All four trade evolutions are now standardized to evolve at level 45
+- Fixed issue where paralyzed enemies might move first
+- Safari zone "ran away" math is adjusted to be more accurate (level*1 changes to level*1.5 as the base value used)
 
 
 #New features & adjustments since last version:
 -----------
-- Adjusted daycare to allow exp values over $500000
-- Allow up to 8 digits when displaying experience on the status screen
-- L: block doesn't disappear when level hits three digits
-- Fixed bugged npc movement constraints
-- Reactivated lost text that was meant to play when you lose to your rival
-- Fixed the instant-text glitch that can happen in the bike shop
-- Fixed using escape rope in bill's house and the fan club
-- Fixed amazing man glitch when triggered by a hidden object
-- Fixed amazing man glitch in the route 16 gate
-- Fixed holding left to force past the cycling road guards
-- Fixed tower ghost pic not loading after exiting status screen
-- Fixed being able to leave the safari zone without clearing the event
-- Fixed bumping into invisible shrub
-- Minor tweak to Pallet Town object data for Prof Oak
-- Added ledge to route 25 to prevent softlock
-- Fixed menu not clearing if A is held after saving
-- Minor tweaks to the Rival's object data in various maps
-- In SET battle mode, Mewtwo has AI when picking moves and prevents you from using master balls
-- Male-only and female-only pokemon will show a gender symbol if the feature is active
+- Added built-in gamma shader for backlit LCD screens (press SELECT at the copyright screen)
+- Added nop after halt commands (safety prevention for a rare processor bug)
+- Added an option to make the overworld run in 60fps (feature is still a bit rusty)
+- Streamlined how the ghost marowak battle is triggered (now allows for non-ghost marowaks in pokemon tower)
+- Fixed a coordinate typo in pokemon tower left by gamefreak
+- Fixed wrong crit damage for lvl > 127
+- Rearranged some stuff with trainer AI
+- Trainer AI layer settings have been completely redone
+- Gave AI some guidance on explosion effects 
+- Slight additions to explodo-mon movesets to play nicer with AI at higer levels
+- Rearranged trainer AI and moved more agressive move use to AI layer 1 (all trainers except Cueball and Youngster)
+- If SS Anne is skipped and the pokemon tower rival battle is initiated, the SS Anne rival battle is deactivated
+- Switching AI now scores against all player mon moves
+- Winning the SS Anne tournament with a pikachu in the party will set its catch rate to 168
+  - In this rom hack, a pikachu with this catch rate can be taught Surf via HM
+  - This catch rate makes it hold a gorgeous box if transferred to Gen 2
+  - If case of multiple pikachus, only the first in the roster will be affected
+  - Likewise, a pikachu holding a gorgeous box can learn surf if transferred into this rom hack
+- Added ability to forfeit trainer battles
+- The RNG state when the game is booted is initialized to a random number 
 
 
 #Changes not yet in the ips patch files:
 -----------
-- 
+-
 
-
+  
 #Bugfixes:
 -----------
 
@@ -238,6 +239,7 @@ Cheats and Secrets!
     - undoing burn is accurate to within 0 to -1 point
   - PP-up uses are disregarded when determining to use STRUGGLE if one or more moves are disabled
   - AI will not do actions during Rage or when recharging
+  - Fixed wrong crit damage for lvl > 127
 
 	
 - Move fixes
@@ -373,6 +375,9 @@ Cheats and Secrets!
   - Fixed bugged npc movement constraints
   - Fixed the instant-text glitch that can happen in the bike shop
   - Fixed using escape rope in bill's house and the fan club
+  - Added nop after halt commands (safety prevention for a rare processor bug)
+  - Streamlined how the ghost marowak battle is triggered (now allows for non-ghost marowaks in pokemon tower)
+  - Fixed a coordinate typo in pokemon tower left by gamefreak
 
 
 #TWEAKS:
@@ -454,19 +459,18 @@ Cheats and Secrets!
   - heavily discourage disable against a pkmn already disabled
   - Substitute discouraged if less that 1/4 hp remains
   - Will discourage using Haze if unstatus'd or has net-neutral or better stat mods
+  - Discourages explosion moves in proportion to HP remaining
   - Will heavily discourage boosting defense against special, OHKO, or static-damaging attacks
+  - AI layer changes that affect most 0-power moves (with only a few exceptions like heal effects)
+    - now has a hard stop on using 0-power moves on consecutive turns with a few effect exceptions
+	- heavily discourages 0-power moves if below 1/3 hp
 
 - Trainer ai routine #3 (choosing effective moves) has been modified
   - It now heavily discourages moves that would have no effect due to type immunity
-  - zero-power buffing/debuffing moves are randomly preferenced 12.5% of the time to spice things up
-  - zero-power buffing/debuffing moves are randomly discouraged 50% of the time to let ai always have a damage option
   - OHKO moves are heavily discouraged if the ai pkmn is slower than the player pkmn (they would never hit)
   - Static damage moves are randomly preferenced 25% of the time to spice things up
   - Thunder Wave is not used against immune types
   - Poisoning moves discouraged against poison types
-  - AI layer 3 changes that affect most 0-power moves (with only a few exceptions like heal effects)
-    - now has a hard stop on using 0-power moves on consecutive turns
-	- heavily discourages 0-power moves if below 1/3 hp
 
 - Trainer ai routine #4 is no longer unused. It now does rudimentary trainer switching.
   - 25% chance to switch if active pkmn is below 1/3 HP and player also outspeeds AI
@@ -490,10 +494,11 @@ Cheats and Secrets!
   - AI scoring imposes a very heavy penalty for potentially switching in pokemon with less than 1/4 HP
   
 - Trainer ai routine #3 added to the following trainer classes
-  - jr trainer M, jr trainer F, hiker, supernerd, engineer, lass, chief, bruno, brock, gentleman, agatha
+  - jr trainer M/F, tamer, scientist, lass, gentleman, black belt, bird keeper, engineer, 
+  - chief, bruno, brock, agatha
 - Trainer ai routine #4 added to the following trainer classes
-  -lass, jr trainer m/f, pokemaniac, supernerd, hiker, engineer, beauty, psychic, rocker, tamer, birdkeeper, cooltrainer m/f, gentleman
-  -prof.oak, chief, gym leaders, e4
+  -cueball, psychic, hiker, rocket, black belt, tamer, lass, jr trainer M/F, cooltrainer M/F, gentleman, pokemaniac 
+  -all rival phases, prof.oak, chief, gym leaders, elite-4
   
 - Trainer stat DVs are now randomly generated to a degree (only in "Set" style)
   - Attack DV is between 9 and 15 and always odd-numbered
@@ -511,6 +516,7 @@ Cheats and Secrets!
   - Changed based on user feedback since many trainers now try to switch
   
 - Adjustments to learnsets and base stats
+  - Slight additions to explodo-mon movesets to play nicer with AI at higer levels
   - Pokemon have gained their TMs and Moves from yellow
   - Kadabra & Alakazam can access Kinesis via the move relearner
   - Raichu gains some attacks back via level
@@ -560,6 +566,7 @@ Cheats and Secrets!
 - Just for fun, the last juggler in the fuchsia gym is replaced with a cameo of Janine
   - Though at this point she's still just a cooltrainer and doesn't have a unique battle sprite
 - The L: block doesn't disappear when level hits three digits
+- If SS Anne is skipped and the pokemon tower rival battle is initiated, the SS Anne rival battle is deactivated
 
   
 #Additions:
@@ -580,6 +587,10 @@ Cheats and Secrets!
 
 #Quick Keys
 - Press SELECT on the option screen to change the audio type
+- Added built-in gamma shader for backlit LCD screens (press SELECT at the copyright screen)
+- Added an option to make the overworld run in 60fps
+  - Place the cursor over CANCEL in the options screen and toggle by pressing left or right
+  - This feature is more of a proof-of-concept and is still kinda rusty
 - Softlock Warp 
   - instantly teleport back to your mom's house if you get stuck or are unable to move after updating to a new patch
   - sets money to at least 1000 if you have less than that
@@ -602,6 +613,7 @@ Cheats and Secrets!
   - On the main battle menu, place the cursor over an option in the left column
   - Press the Select button
   - The enemy pokemon will play its cry if registered as owned
+- Added ability to forfeit trainer battles by selecting RUN in battle
 
  
 #Graphics
@@ -652,6 +664,9 @@ Cheats and Secrets!
 - Vendor added to Celadon Dept. Store 3F
   - Sells moon stones, amber, fossils, exp all, master balls, and rare candy
   - Only opens up after beating elite 4
+- In the safari zone gate, a new NPC can toggle on and off a special safari event after the elite 4
+  - All pokemon in the safari zone will have above-average DVs
+  - Also makes it so there is a rare chance for any pokemon to be encountered in the safari zone (depends on location)
 - The game corner chief will buy pokemon from the player post-e4
 - There is a new NPC in the west-east underground path that generates random battles after beating the elite 4
 - New item M.GENE: re-randomizes a pkmn's DVs to values of 9,8,8,8 or more.
@@ -701,6 +716,11 @@ Cheats and Secrets!
 	- Hall of Fame (experimental)
 	- Option screen selections
   - A new trainer ID and hash is generated, so boxed pokemon are permanently treated as traded pokemon
+- Winning the SS Anne tournament with a pikachu in the party will set its catch rate to 168
+  - In this rom hack, a pikachu with this catch rate can be taught Surf via HM
+  - This catch rate makes it hold a gorgeous box if transferred to Gen 2
+  - If case of multiple pikachus, only the first in the roster will be affected
+  - Likewise, a pikachu holding a gorgeous box can learn surf if transferred into this rom hack
 
 
 #Added Encounter Locations for the following pokemon (rare if not normally in the chosen version):
@@ -740,8 +760,6 @@ Cheats and Secrets!
 - ponyta on route 7
 - tentacruel to routes 19, 20, and 21
 - seaking to routes 19, 20, and 21
-- After beating the elite 4, there is a rare chance for any pokemon to be encountered in the safari zone (depends on location)
-- All pokemon in the safari zone have above-average DVs
 
 
 #Changes to pokemart inventories:

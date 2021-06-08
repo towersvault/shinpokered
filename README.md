@@ -1,6 +1,6 @@
 # Shin Pokémon Red and Blue
 
-Version 1.21 beta
+Version 1.21
 
 This is a rom hack of pokemon red & blue based on the Pret team's disassembly.  
 It's a mostly-vanilla hack that focuses on fixing game engine bugs and oversights from the original game.  

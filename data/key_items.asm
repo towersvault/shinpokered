@@ -16,6 +16,7 @@ IF _bit > 0
 ENDC
 ENDM
 
+;joenote - amber and fossils are not key items anymore
 KeyItemBitfield:
 	key_item_bits \
 	FALSE, \ ; MASTER_BALL
@@ -48,7 +49,7 @@ KeyItemBitfield:
 	TRUE,  \ ; EARTHBADGE
 	FALSE, \ ; ESCAPE_ROPE
 	FALSE, \ ; REPEL
-	TRUE,  \ ; OLD_AMBER
+	FALSE,  \ ; OLD_AMBER
 	FALSE, \ ; FIRE_STONE
 	FALSE, \ ; THUNDER_STONE
 	FALSE, \ ; WATER_STONE
@@ -58,8 +59,8 @@ KeyItemBitfield:
 	FALSE, \ ; CARBOS
 	FALSE, \ ; CALCIUM
 	FALSE, \ ; RARE_CANDY
-	TRUE,  \ ; DOME_FOSSIL
-	TRUE,  \ ; HELIX_FOSSIL
+	FALSE,  \ ; DOME_FOSSIL
+	FALSE,  \ ; HELIX_FOSSIL
 	TRUE,  \ ; SECRET_KEY
 	TRUE,  \ ; UNUSED_ITEM
 	TRUE,  \ ; BIKE_VOUCHER
@@ -67,7 +68,7 @@ KeyItemBitfield:
 	FALSE, \ ; LEAF_STONE
 	TRUE,  \ ; CARD_KEY
 	FALSE, \ ; NUGGET
-	FALSE, \ ; PP_UP_2
+	FALSE, \ ; PP_UP_2	;joenote - used for the M_GENE
 	FALSE, \ ; POKE_DOLL
 	FALSE, \ ; FULL_HEAL
 	FALSE, \ ; REVIVE

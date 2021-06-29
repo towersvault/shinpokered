@@ -214,6 +214,77 @@ StorePKMNLevels:
 
 	
 
+;joenote - This function swaps the primary bag data with a second set of stored bag data
+SwapBagData:
+	ld a, [wListMenuID]
+	cp ITEMLISTMENU
+	ret nz
+	
+	ld a, [wFlags_0xcd60]
+	bit 4, a
+	ret nz
+	
+	push bc
+	push de
+	push hl
+	
+	;format the terminator at the end
+	ld a, $FF
+	ld [wBagItemsTerminator], a
+
+	;format the list terminator given the number of items
+	ld a, [wBagNumBackup]
+	ld b, $00
+	ld c, a
+	ld hl, wBagItemsBackup
+	add hl, bc
+	add hl, bc
+	ld [hl], $FF
+	
+	;swap out the items
+	ld c, wGameProgressFlagsEnd - wBagBackupSpace
+	ld de, wBagBackupSpace
+	ld hl, wNumBagItems
+	call SwapDataSmall
+		
+	; update menu info
+	xor a
+	ld [wListScrollOffset], a
+	ld [wCurrentMenuItem], a
+	ld [wBagSavedMenuItem], a
+	ld [wSavedListScrollOffset], a
+
+	ld a, [wNumBagItems]
+	ld [wListCount], a
+	cp 2 ; does the list have less than 2 entries?
+	jr c, .setMenuVariables
+	ld a, 2 ; max menu item ID is 2 if the list has at least 2 entries
+.setMenuVariables
+	ld [wMaxMenuItem], a
+	
+	ld a, SFX_START_MENU
+	call PlaySound
+	
+	pop hl
+	pop de
+	pop bc
+	ret
+SwapDataSmall:
+; Swap c bytes from hl to de using a and b.
+	ld a, [hl]
+	ld b, a
+	ld a, [de]
+	ld [hl], a
+	ld a, b
+	ld [de], a
+	inc de
+	inc hl
+	dec c
+	jr nz, SwapDataSmall
+	ret
+
+
+
 ;joenote - Consolidate horizontal scrolling that uses SCX (such as title screen mons scrolling)
 ;this is prevents two vblanks from happening when waiting on scrolling to update
 ;prevents some artifacts when 'mons are panning across the screen

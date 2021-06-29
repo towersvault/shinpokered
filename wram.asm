@@ -1236,6 +1236,7 @@ wFlags_0xcd60:: ; cd60
 ; bit 0: is player engaged by trainer (to avoid being engaged by multiple trainers simultaneously)
 ; bit 1: boulder dust animation (from using Strength) pending
 ; bit 3: using generic PC
+; bit 4: withdrawing boxed item's from pc ;joenote - added this
 ; bit 5: don't play sound when A or B is pressed in menu
 ; bit 6: tried pushing against boulder once (you need to push twice before it will move)
 	ds 1
@@ -2977,9 +2978,17 @@ wSeafoamIslands5CurScript:: ; d668
 	ds 1
 wRoute18GateCurScript:: ; d669
 	ds 1
-
-	ds 78
+;usused space
+	ds 36
+wBagBackupSpace::	;joenote - added to expand the bag space (42 bytes long)
+wBagNumBackup::
+	ds 1
+wBagItemsBackup::
+	ds 40
+wBagItemsTerminator::
+	ds 1
 wGameProgressFlagsEnd::
+
 
 wGBCBasePalPointers:: 
 	ds NUM_ACTIVE_PALS * 2 ; 8 bytes

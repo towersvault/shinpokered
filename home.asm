@@ -1442,7 +1442,7 @@ DisplayListMenuID::
 	ld [wTopMenuItemY], a
 	ld a, 5
 	ld [wTopMenuItemX], a
-	ld a, A_BUTTON | B_BUTTON | SELECT
+	ld a, A_BUTTON | B_BUTTON | SELECT | START ;joenote - added start for added functionality
 	ld [wMenuWatchedKeys], a
 	homecall PrepareOAMData	;joenote - makes mart menus cleaner by updating the OAM sprite table ahead of vblank
 	;ld c, 10
@@ -1566,11 +1566,13 @@ DisplayListMenuIDLoop::
 	ld hl, wd730
 	res 6, [hl] ; turn on letter printing delay
 	jp BankswitchBack
-.checkOtherKeys ; check B, SELECT, Up, and Down keys
+.checkOtherKeys ; check B, SELECT, Up, and Down keys, and START key
 	bit 1, a ; was the B button pressed?
 	jp nz, ExitListMenu ; if so, exit the menu
 	bit 2, a ; was the select button pressed?
 	jp nz, HandleItemListSwapping ; if so, allow the player to swap menu entries
+	bit 3, a ; joenote - was the start button pressed?
+	jr nz, .startPressed
 	ld b, a
 	bit 7, b ; was Down pressed?
 	ld hl, wListScrollOffset
@@ -1589,6 +1591,9 @@ DisplayListMenuIDLoop::
 	and a
 	jp z, DisplayListMenuIDLoop
 	dec [hl]
+	jp DisplayListMenuIDLoop
+.startPressed	
+	homecall SwapBagData	;joenote - adding swappable bag space
 	jp DisplayListMenuIDLoop
 
 DisplayChooseQuantityMenu::

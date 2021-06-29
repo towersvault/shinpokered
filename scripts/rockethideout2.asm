@@ -314,6 +314,38 @@ RocketHideout2Script3:
 	ret
 
 LoadSpinnerArrowTiles:
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;joenote - This ties the spin frame update to an external counter.
+;			It will only get updated every 4 overworld updates (half that if in 60fps mode).
+;			CopyVideoData only gets run 1 time as well, and it supplants 1 DelayFrame in OverworldLoop.
+;			Now there are no wasted frames when this runs, and spin movement is now at full speed.
+	push bc
+	ld b, 2
+	ld a, [wUnusedD721]
+	bit 4, a
+	jr z, .no60fps
+	sla b
+.no60fps
+	ld c, b
+	inc c
+	ld a, [wSpinnerTileFrameCount]
+	cp c
+	jr c, .notgreater
+	ld a, b
+	ld [wSpinnerTileFrameCount], a
+	jr .noadjust
+.notgreater
+	cp 1
+	jr nc, .noadjust
+	ld a, b
+	ld [wSpinnerTileFrameCount], a
+.noadjust
+	pop bc
+	ld a, [wSpinnerTileFrameCount]
+	dec a
+	ld [wSpinnerTileFrameCount], a
+	ret nz
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	ld a, [wSpriteStateData1 + 2]
 	srl a
 	srl a
@@ -335,7 +367,7 @@ LoadSpinnerArrowTiles:
 	ld de, $18
 	add hl, de
 .asm_45001
-	ld a, $4
+	ld a, $1	;joenote - only do one loop
 	ld bc, $0
 .asm_45006
 	push af

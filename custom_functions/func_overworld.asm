@@ -63,6 +63,9 @@ TrackRunBikeSpeed:
 	ld a, [hJoyHeld]
 	and B_BUTTON	;holding B to speed up? (non-zero value = TRUE)
 	call nz, IsRunning
+	ld a, [wd736]
+	bit 7, a
+	call nz, IsSpinArrow	;player sprite spinning due to spin tiles (Rocket hideout / Viridian Gym)
 	ld a, [wUnusedD119]
 	cp 2	;is biking without speedup being done?
 	jr z, .skip	;if not make the states a value from 1 to 4 (excluding biking without speedup, which needs to be 2)
@@ -76,10 +79,12 @@ IsRidingBike:
 	ld[wUnusedD119], a
 	ret
 IsRunning:
+IsSpinArrow:
 	ld a, [wUnusedD119]
 	or $1
 	ld[wUnusedD119], a
 	ret
+
 	
 
 ;joenote - allows for using HMs on the overworld with just a button press

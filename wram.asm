@@ -3076,8 +3076,11 @@ wWhichDungeonWarp:: ; d71e
 ; which dungeon warp within the source map was used
 	ds 1
 
-wUnusedD71F:: ; d71f	;joenote - used as a backup address for the wDamage value
-	ds 2
+wUnusedD71F:: ; d71f	;joenote - used as a backup address for the wDamage value (2 bytes)
+	ds 1
+wSpinnerTileFrameCount::	;d720	;joenote - used as a counter for the spinner tiles out of battle
+	ds 1
+
 wUnusedD721:: ; d721	;joenote - use to set various wram flags
 	ds 1
 	;bit 0 - player is female trainer if set

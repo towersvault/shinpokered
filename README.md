@@ -1,6 +1,6 @@
 # Shin Pokémon Red and Blue
 
-Version 1.21
+Version 1.22 beta
 
 This is a rom hack of pokemon red & blue based on the Pret team's disassembly.  
 It's a mostly-vanilla hack that focuses on fixing game engine bugs and oversights from the original game.  
@@ -202,7 +202,12 @@ Cheats and Secrets!
 
 #Changes not yet in the ips patch files:
 -----------
--
+(b1)
+- Fixed scripted NPC-following movement in 60fps mode
+- Applied Rangi's reformatting to key item bit fields
+- Amber and fossils are now non-key items
+- Fixed some NPC ghosting in mart menus in GBC mode
+- Greatly increased the speed and performance of spin tiles
 
   
 #Bugfixes:

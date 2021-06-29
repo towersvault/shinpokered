@@ -200,14 +200,15 @@ Cheats and Secrets!
 - The RNG state when the game is booted is initialized to a random number 
 
 
-#Changes not yet in the ips patch files:
+#Changes not yet in the release branch:
 -----------
-(b1)
+(b1)  
 - Fixed scripted NPC-following movement in 60fps mode
 - Applied Rangi's reformatting to key item bit fields
 - Amber and fossils are now non-key items
 - Fixed some NPC ghosting in mart menus in GBC mode
-- Greatly increased the speed and performance of spin tiles
+- Greatly increased the speed and performance of spin tiles  
+
 (b2)
 - The bag now supports an additional item list for an extra 20 slots of space
   - Press START on the bag menu to hot-swap the item list that populates the active bag

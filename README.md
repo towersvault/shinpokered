@@ -208,8 +208,16 @@ Cheats and Secrets!
 - Amber and fossils are now non-key items
 - Fixed some NPC ghosting in mart menus in GBC mode
 - Greatly increased the speed and performance of spin tiles
+(b2)
+- The bag now supports an additional item list for an extra 20 slots of space
+  - Press START on the bag menu to hot-swap the item list that populates the active bag
+    - Also works in battle
+	- Also works when depositing items in the PC
+  - Only the active bag's item list is recognized by the game's systems
+    - For example, you cannot enter the Cinnabar Gym if the Secret Key is not in the active bag
+	- Same for Stadium compatibility, detecting only the bag list that was active when last saved
 
-  
+ 
 #Bugfixes:
 -----------
 

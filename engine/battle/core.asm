@@ -2711,7 +2711,11 @@ BattleMenu_RunWasSelected:
 	push bc
 	callba ForfeitTrainerMatch
 	pop bc
-	jp nz, StartBattle.checkAnyPartyAlive
+	jr z, .no_forfeit
+	call HandlePlayerMonFainted
+	scf
+	jr .retc_menu
+.no_forfeit
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;	
 	ld a, $3
 	ld [wCurrentMenuItem], a
@@ -2720,6 +2724,7 @@ BattleMenu_RunWasSelected:
 	call TryRunningFromBattle
 	ld a, 0
 	ld [wForcePlayerToChooseMon], a
+.retc_menu
 	ret c
 	ld a, [wActionResultOrTookBattleTurn]
 	and a

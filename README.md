@@ -216,7 +216,10 @@ Cheats and Secrets!
 	- Also works when depositing items in the PC
   - Only the active bag's item list is recognized by the game's systems
     - For example, you cannot enter the Cinnabar Gym if the Secret Key is not in the active bag
-	- Same for Stadium compatibility, detecting only the bag list that was active when last saved
+	- Same for Stadium compatibility, detecting only the bag list that was active when last saved  
+
+(b3)
+- Fixed a menu return issue when forfeiting fights (particularly against the rival)
 
  
 #Bugfixes:

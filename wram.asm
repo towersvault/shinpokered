@@ -3088,7 +3088,8 @@ wWhichDungeonWarp:: ; d71e
 wUnusedD71F:: ; d71f	;joenote - used as a backup address for the wDamage value (2 bytes)
 	ds 1
 wSpinnerTileFrameCount::	;d720	;joenote - used as a counter for the spinner tiles out of battle
-	ds 1
+wLowHealthTonePairs::				;in battle, used as a counter for low hp alarm tone pairs
+	ds 1							
 
 wUnusedD721:: ; d721	;joenote - use to set various wram flags
 	ds 1

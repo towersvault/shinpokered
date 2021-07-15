@@ -253,6 +253,7 @@ SwapBagData:
 	ld [wCurrentMenuItem], a
 	ld [wBagSavedMenuItem], a
 	ld [wSavedListScrollOffset], a
+	ld [wMenuItemToSwap], a
 
 	ld a, [wNumBagItems]
 	ld [wListCount], a

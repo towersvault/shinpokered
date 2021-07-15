@@ -221,6 +221,7 @@ Cheats and Secrets!
 (b3)
 - Fixed a menu return issue when forfeiting fights (particularly against the rival)
 - Low HP alarm only plays three times then turns itself off
+- Swapping the bag space now resets things if you do it in the middle of item swapping
 - There is an Aide NPC in the viridian pokemon center that can toggle regular trainer randomization
   - Only affects regular trainers that use one level for all 'mons and have no custom movesets
   - Will replace their roster 'mons with random non-evolved 'mons (legendaries are excluded)

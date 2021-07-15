@@ -220,6 +220,12 @@ Cheats and Secrets!
 
 (b3)
 - Fixed a menu return issue when forfeiting fights (particularly against the rival)
+- Low HP alarm only plays three times then turns itself off
+- There is an Aide NPC in the viridian pokemon center that can toggle regular trainer randomization
+  - Only affects regular trainers that use one level for all 'mons and have no custom movesets
+  - Will replace their roster 'mons with random non-evolved 'mons (legendaries are excluded)
+  - The new mons will be swapped with their evolved forms if at a high enough level
+  - This feature was added with the intent of spicing-up subsequent Gen-1 playthroughs
 
  
 #Bugfixes:

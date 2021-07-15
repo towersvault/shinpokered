@@ -2320,7 +2320,7 @@ const_value = 0
 	const EVENT_90D    ;3-mon random trainer         ; 90D, (D868, bit 5)
 	const EVENT_90E	   ;gender/caught indicators	 ; 90E, (D868, bit 6)
 	const EVENT_90F    ;special safari zone          ; 90F, (D868, bit 7)
-	const EVENT_910                                  ; 910, (D869, bit 0)
+	const EVENT_910    ;randomize normal trainers    ; 910, (D869, bit 0)
 	const EVENT_BEAT_VICTORY_ROAD_1_TRAINER_0        ; 911, (D869, bit 1)
 	const EVENT_BEAT_VICTORY_ROAD_1_TRAINER_1        ; 912, (D869, bit 2)
 	const EVENT_913                                  ; 913, (D869, bit 3)

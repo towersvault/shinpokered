@@ -79,6 +79,7 @@ ReadTrainer:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;adding a custom function here
 	push hl
+	callba RandomizeRegularTrainerMons
 	callba ScaleTrainer
 	pop hl
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

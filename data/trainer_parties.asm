@@ -474,7 +474,7 @@ ChiefData:
 ; none
 ;joenote - special fight with the silph chief
 	db $FF,72,KANGASKHAN,73,RHYDON,73,GOLDUCK,74,PINSIR,74,SCYTHER,76,TAUROS,0
-	db 128,MISSINGNO_B5,0	;joenote - fight with missingno
+	db $FF,128,MISSINGNO_B5,0	;joenote - fight with missingno
 ScientistData:
 ; Silph Co. 2F
 	db 26,GRIMER,WEEZING,KOFFING,WEEZING,0

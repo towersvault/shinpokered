@@ -229,7 +229,8 @@ Cheats and Secrets!
   - This feature was added with the intent of spicing-up subsequent Gen-1 playthroughs
 
 (b4)
-- Slightly increased the possible coin payout for the gentleman in the celadon hotel
+- Removed the redundant overflow check on the celadon hotel coin guy
+- Slightly increased the possible coin payout for the the celadon hotel coin guy
 - Added a level-based multiplier to greatly increase the money offered to sell 'mons
   - Interestingly, this makes it so you no longer need to grind battles to train a post-game team
   - Catch pokemon, sell them for money, then spend it on vitamins and rare candy in the Celadon mart

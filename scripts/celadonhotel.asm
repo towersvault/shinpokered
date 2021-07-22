@@ -29,8 +29,6 @@ CeladonHotelCoinGuy:
 	ld b, COIN_CASE
 	call IsItemInBag
 	jr z, .need_coincase
-	call HastTooManyCoins
-	jr nc, .too_many_coins
 	
 	ld a, [wPartyMon1Species]
 	ld b, a
@@ -67,9 +65,6 @@ CeladonHotelCoinGuy:
 	xor a
 	ld [wUnusedD5A3], a
 	jr .endscript
-.too_many_coins
-	ld hl, CeladonHotelCoinGuyText_toomuch
-	jr .endscript_print
 .need_coincase
 	ld hl, CeladonHotelCoinGuyText_needcase	
 .endscript_print
@@ -103,10 +98,6 @@ CeladonHotelCoinGuyText_intro:
 
 CeladonHotelCoinGuyText_needcase:
 	TX_FAR _CeladonHotelCoinGuyText_needcase
-	db "@"
-
-CeladonHotelCoinGuyText_toomuch: 
-	TX_FAR _CeladonHotelCoinGuyText_toomuch
 	db "@"
 
 CeladonHotelCoinGuyText_recieved:

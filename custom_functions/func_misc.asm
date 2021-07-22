@@ -11,33 +11,36 @@ Mon1BCDScore:
 
 	cp 2
 	jr nz, .next1
+	;make a = 1 * wPartyMon1Level
 	ld a, [wPartyMon1Level]
-	ld b, a
-	srl a
-	add b
-	add b
-	jr .next
+	jr .AddToTotal
 
 .next1
 	cp 1
 	jr nz, .default
+	;calculate a = $FF - wPartyMon1CatchRate
 	ld a, [wPartyMon1CatchRate]
 	ld b, a
 	ld a, $FF
 	sub b
-	jr .next
+	jr .AddToTotal
 
 .default
+	;calculate a = $00 to $FF based on average of DVs
 	ld a, [wPartyMon1DVs]	;load first two nybbles of DVs
-	srl a	;shift all bits to the right one time
-	and $F7	; clear the highest bit of the low nybble in case the high nybble overflowed into the low nybble
-	ld b, a
+	call .add_nybbles
+	push bc
 	ld a, [wPartyMon1DVs + 1]	;load second two nybbles of DVs
-	srl a	;shift all bits to the right one time
-	and $F7	; clear the highest bit of the low nybble in case the high nybble overflowed into the low nybble
+	call .add_nybbles
+	ld a, b
+	srl a
+	swap a
+	pop bc
+	srl b
 	add b
 
-.next
+.AddToTotal
+	;double the score and return it
 	ld b, a
 	xor a
 	ld [hCoins], a
@@ -67,7 +70,20 @@ Mon1BCDScore:
 	pop hl
 	pop de
 	ret
-
+.add_nybbles
+	;get first nybble
+	push af
+	and $F0
+	swap a
+	ld b, a
+	pop af
+	;add second nybble
+	push af
+	and $0F
+	add b
+	ld b, a
+	pop af
+	ret
 
 	
 ;play cry if the 1st pokemon has payday in its move set

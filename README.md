@@ -228,7 +228,14 @@ Cheats and Secrets!
   - The new mons will be swapped with their evolved forms if at a high enough level
   - This feature was added with the intent of spicing-up subsequent Gen-1 playthroughs
 
- 
+(b4)
+- Slightly increased the possible coin payout for the gentleman in the celadon hotel
+- Added a level-based multiplier to greatly increase the money offered to sell 'mons
+  - Interestingly, this makes it so you no longer need to grind battles to train a post-game team
+  - Catch pokemon, sell them for money, then spend it on vitamins and rare candy in the Celadon mart
+  - Since vitamins have no limit in the post-game, you can max levels and stat exp via this funding method
+
+
 #Bugfixes:
 -----------
 

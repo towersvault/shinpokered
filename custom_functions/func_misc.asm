@@ -33,11 +33,14 @@ Mon1BCDScore:
 	ld a, [wPartyMon1DVs + 1]	;load second two nybbles of DVs
 	call .add_nybbles
 	ld a, b
-	srl a
-	swap a
+	srl a	;a = mean of first two nybbles
 	pop bc
-	srl b
+	srl b	;b = mean of second two nybbles
 	add b
+	srl a	;a = mean of all four nybbles
+	ld b, a
+	swap a
+	add b	;use mean to make a byte of 00,11,22...,EE,FF
 
 .AddToTotal
 	;double the score and return it

@@ -12,10 +12,12 @@ INCBIN NIDOQUEEN_FR,0,1 ; 77, sprite dimensions
 dw NidoqueenPicFront
 dw NidoqueenPicBack
 ; attacks known at lvl 0
+db GROWL
 db TACKLE
-db SCRATCH
-db TAIL_WHIP
-db BODY_SLAM
+;db SCRATCH
+;db TAIL_WHIP
+db 0
+db 0
 db 3 ; growth rate
 ; learnset
 	tmlearn 1,5,6,7,8

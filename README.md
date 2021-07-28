@@ -236,6 +236,12 @@ Cheats and Secrets!
   - Catch pokemon, sell them for money, then spend it on vitamins and rare candy in the Celadon mart
   - Since vitamins have no limit in the post-game, you can max levels and stat exp via this funding method
 
+(b5)
+- adjusted the level 0 moves of stone evolutions to play nicer with the move relearner
+- Made adjustments to critical hit damage
+  - Damage factor is now 2*(2*level)/5 + 4 instead of 2*(2*level)/5 + 2 to simplify some algebra
+  - If non-crit damage would be >= crit damage, the regular modified stat values are applied instead
+
 
 #Bugfixes:
 -----------

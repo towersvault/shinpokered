@@ -12,10 +12,12 @@ INCBIN NIDOKING_FR,0,1 ; 77, sprite dimensions
 dw NidokingPicFront
 dw NidokingPicBack
 ; attacks known at lvl 0
+db LEER
 db TACKLE
-db HORN_ATTACK
-db POISON_STING
-db THRASH
+;db HORN_ATTACK
+;db POISON_STING
+db 0
+db 0
 db 3 ; growth rate
 ; learnset
 	tmlearn 1,5,6,7,8

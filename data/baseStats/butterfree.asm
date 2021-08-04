@@ -24,5 +24,5 @@ db 0 ; growth rate
 	tmlearn 29,30,31,32
 	tmlearn 33,34,39
 	tmlearn 44,46
-	tmlearn 50,54;joenote - learns strength in yellow
+	tmlearn 50,55;joenote - learns flash in yellow
 db 0 ; padding

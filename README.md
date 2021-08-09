@@ -1,6 +1,6 @@
 # Shin Pokémon Red and Blue
 
-Version 1.22 beta
+Version 1.22
 
 This is a rom hack of pokemon red & blue based on the Pret team's disassembly.  
 It's a mostly-vanilla hack that focuses on fixing game engine bugs and oversights from the original game.  
@@ -57,14 +57,16 @@ There are too many to enumerate in a simple summary, and some of them are very o
 
 Includes an english Green version. 
 It swaps the graphics, Cerulean Cave layout, and a few lines of text to replicate the original Green version.
-Apply the patch to a USA blue rom to use it.
+Apply the patch to a USA Blue rom to use it.
 
 Engine features from USA Yellow version have been backported.
 Super Gameboy palettes get converted to display on the Gameboy Color. No more monochrome!
-The audio engine is backported. Hit SELECT on the options screen to cycle through the output types.
-Playing in GBC mode on a backlit LCD screen? Press SELECT at the copyright screen to activate color correction.
+The audio engine is backported for stereo sound support. 
 
-Experimental 60FPS Mode: Place the cursor over CANCEL in the options screen and toggle by pressing left or right.
+New options that can be toggled!
+- Hit SELECT on the options screen to cycle through the audio output types.
+- Playing in GBC mode on a backlit LCD screen? Press SELECT at the copyright screen to activate color correction.
+- Experimental 60FPS Mode: Place the cursor over CANCEL in the options screen and toggle by pressing left or right.
 
 Trainer AI has been improved and greatly expanded. 
 Some trainers will even try to switch pokemon intelligently.
@@ -101,20 +103,26 @@ No more grinding wild pokemon. Nearly all trainers can be rematched just by talk
 The "SET" battle style gives increased difficulty by making the stats of trainer pokemon more on your level.
 It also doubles the effect of X-stat items that trainers love to use.
 
-One of OAK's aides toggles scaling of trainer rosters to your level (evolving them if applicable).
+One of the aides in Oak's lab toggles scaling of trainer rosters to your level (evolving them if applicable).
 
-Another of OAK's aides toggles a pokeball-caught symbol in battle after obtaining the pokedex.
-To aide with to Gen 2 interaction, this also applies a gender symbol to species that can be male or female.
+The other aide in Oak's lab toggles a pokeball-caught symbol in battle after obtaining the pokedex.
+To help with Gen 2 interaction, this also applies a gender symbol to species that can be male or female.
 
-Lots of quick-keys features.
-- Place the cursor over FIGHT and press Select to play the enemy 'mon cry if it's already owned.
+Another aide npc is in the viridian pokemon center. He will toggle on/off randomization of non-special trainers.
+
+The bag now supports an additional item list for an extra 20 slots of space!
+Press START on the bag menu to hot-swap the item list that populates the active bag.
+Only the active bag's item list is recognized by the game's systems.
+
+Lots of quick-key features.
+- Quick 'Owned' Check - Place the cursor over FIGHT and press Select to play the enemy 'mon cry if it's already owned.
 - Softlock Warp - instantly teleport back to your mom's house if you get stuck.
 - Running Shoes - Hold B to double your speed when walking, surfing, and biking. Includes proper animation speed-up!
-- Press SELECT to use HMs based on proper context.
-- Press SELECT while holding A to automatically get on/off your bike or use the best rod in your inventory.
-- Hold SELECT and enter the status screen to print a 'mons stat exp.
-- Hold START and enter the status screen to print a 'mons DVs.
-- When playing in color, hold SELECT when choosing a 'dex entry to load the shiny palette.
+- Quick HM Use - Press SELECT to use HMs based on proper context.
+- Quick Bike/Rod - Press SELECT while holding A to automatically get on/off your bike or use the best rod in your inventory.
+- View Stat EXP - Hold SELECT and enter the status screen to print a 'mons stat exp.
+- View DVs - Hold START and enter the status screen to print a 'mons DVs.
+- View Shiny Palette - When playing in color, hold SELECT when choosing a 'dex entry to load the shiny palette.
   
 New NPCs!
 - The move relearner and deleter are in Saffron City.
@@ -126,6 +134,7 @@ New NPCs!
 - Added some special post-game trainer battles as fun little easter eggs. Can you find and defeat all five?
 
 Other minor changes to lessen annoyance.
+- Low HP alarm only plays three times then turns itself off
 - TMs and HMs now have their attacks (albeit abbreviated) appended to the item names
 - All TMs can be repurchased as they are strategically scattered across all the Kanto pokemarts.
 - The safari zone mechanics run off level instead of speed and safari balls have a boosted catch rate.
@@ -167,49 +176,25 @@ Cheats and Secrets!
 
 #Hack-Induced Bugfixes & Adjustments since last version:
 -----------
-- Fixed the fossil kabutops image not appearing properly
-- On battle load, stopped the GBC GBPal from updating before graphics are in the right position
-- Fixed some issues where npcs that appear on screen are looking down for 1 frame
-- Fixed some menu screen flicker
-- All four trade evolutions are now standardized to evolve at level 45
-- Fixed issue where paralyzed enemies might move first
-- Safari zone "ran away" math is adjusted to be more accurate (level*1 changes to level*1.5 as the base value used)
+- Fixed scripted NPC-following movement in 60fps mode
+- Fixed some NPC ghosting in mart menus in GBC mode
+- Applied Rangi's reformatting to key item bit fields
+- Fixed a menu return issue when forfeiting fights (particularly against the rival)
+- Removed the redundant overflow check on the celadon hotel coin guy
+- Slightly increased the possible coin payout for the the celadon hotel coin guy
+- Added a level-based multiplier to greatly increase the money offered to sell 'mons
+  - Interestingly, this makes it so you no longer need to grind battles to train a post-game team
+  - Catch pokemon, sell them for money, then spend it on vitamins and rare candy in the Celadon mart
+  - Since vitamins have no limit in the post-game, you can max levels and stat exp via this funding method
+- Adjusted the level 0 moves of stone evolutions to play nicer with the move relearner
+- Butterfree, Venonat, and Venomoth can all learn HM05 instead of HM04 (oops, my bad)
+- Consolidated the code used for stat scaling
 
 
 #New features & adjustments since last version:
 -----------
-- Added built-in gamma shader for backlit LCD screens (press SELECT at the copyright screen)
-- Added nop after halt commands (safety prevention for a rare processor bug)
-- Added an option to make the overworld run in 60fps (feature is still a bit rusty)
-- Streamlined how the ghost marowak battle is triggered (now allows for non-ghost marowaks in pokemon tower)
-- Fixed a coordinate typo in pokemon tower left by gamefreak
-- Fixed wrong crit damage for lvl > 127
-- Rearranged some stuff with trainer AI
-- Trainer AI layer settings have been completely redone
-- Gave AI some guidance on explosion effects 
-- Slight additions to explodo-mon movesets to play nicer with AI at higer levels
-- Rearranged trainer AI and moved more agressive move use to AI layer 1 (all trainers except Cueball and Youngster)
-- If SS Anne is skipped and the pokemon tower rival battle is initiated, the SS Anne rival battle is deactivated
-- Switching AI now scores against all player mon moves
-- Winning the SS Anne tournament with a pikachu in the party will set its catch rate to 168
-  - In this rom hack, a pikachu with this catch rate can be taught Surf via HM
-  - This catch rate makes it hold a gorgeous box if transferred to Gen 2
-  - If case of multiple pikachus, only the first in the roster will be affected
-  - Likewise, a pikachu holding a gorgeous box can learn surf if transferred into this rom hack
-- Added ability to forfeit trainer battles
-- The RNG state when the game is booted is initialized to a random number 
-
-
-#Changes not yet in the release branch:
------------
-(b1)  
-- Fixed scripted NPC-following movement in 60fps mode
-- Applied Rangi's reformatting to key item bit fields
 - Amber and fossils are now non-key items
-- Fixed some NPC ghosting in mart menus in GBC mode
 - Greatly increased the speed and performance of spin tiles  
-
-(b2)
 - The bag now supports an additional item list for an extra 20 slots of space
   - Press START on the bag menu to hot-swap the item list that populates the active bag
     - Also works in battle
@@ -217,45 +202,33 @@ Cheats and Secrets!
   - Only the active bag's item list is recognized by the game's systems
     - For example, you cannot enter the Cinnabar Gym if the Secret Key is not in the active bag
 	- Same for Stadium compatibility, detecting only the bag list that was active when last saved  
-
-(b3)
-- Fixed a menu return issue when forfeiting fights (particularly against the rival)
 - Low HP alarm only plays three times then turns itself off
-- Swapping the bag space now resets things if you do it in the middle of item swapping
 - There is an Aide NPC in the viridian pokemon center that can toggle regular trainer randomization
   - Only affects regular trainers that use one level for all 'mons and have no custom movesets
   - Will replace their roster 'mons with random non-evolved 'mons (legendaries are excluded)
   - The new mons will be swapped with their evolved forms if at a high enough level
   - This feature was added with the intent of spicing-up subsequent Gen-1 playthroughs
-
-(b4)
-- Removed the redundant overflow check on the celadon hotel coin guy
-- Slightly increased the possible coin payout for the the celadon hotel coin guy
-- Added a level-based multiplier to greatly increase the money offered to sell 'mons
-  - Interestingly, this makes it so you no longer need to grind battles to train a post-game team
-  - Catch pokemon, sell them for money, then spend it on vitamins and rare candy in the Celadon mart
-  - Since vitamins have no limit in the post-game, you can max levels and stat exp via this funding method
-
-(b5)
-- Adjusted the level 0 moves of stone evolutions to play nicer with the move relearner
 - Made adjustments to critical hit damage
   - Damage factor is now 2*(2*level)/5 + 4 instead of 2*(2*level)/5 + 2 to simplify some algebra
   - If non-crit damage would be >= crit damage, the regular modified stat values are applied instead
- 
-(b6)
-- GF bug: Fixed a conflict where transforming while disabled can leave the new moves disabled
-- Butterfree, Venonat, and Venomoth can all learn HM05 instead of HM04 (oops, my bad)
-- Non-link enemy mons now have PP, so always run checks for 0 PP during disable effect
-- GF bug: Fixed an issue with the silph co 11f elevator doors
-- GF bug: Bike music stops playing now when going down a hole
-- GF bug: Can no longer walk up to 4 steps with a fainted team
-- Special damage effect now uses 2 bytes for damage instead of 1
+- Fixed a conflict where transforming while disabled can leave the new moves disabled
+- Fixed transformed 'mons reseting their moves when learning a level-up move
+- Fixed a typo so now transformed 'mons retain their original palette
+- PP-restoring items no longer affect transformed moves and only restore the original moves
+- Fixed-damage move effects now use 2 bytes for damage instead of 1
 - Fixed Psywave underflow/overflow with levels of 0, 1, and above 170
-- GF bug: Fixed a typo so now transformed 'mons retain their original palette
-- Consolidated the code used for stat scaling
-- GF bug: fixed transformed 'mons reseting their moves when learning a level-up move
-- GF bug: pp-restoring items no longer affect transformed moves and only restore the original moves
+- Non-link enemy mons now have PP, so always run checks for 0 PP during disable effect
+- Fixed an issue with the silph co 11f elevator doors
+- Bike music stops playing now when going down a hole
+- Can no longer walk up to 4 steps with a fainted team
 
+
+#Changes not yet in the release branch:
+-----------
+- Removed the word "only" from NPC on Silph Co 5f who talks about trade evos
+
+- Fixed a missed increment that makes a map's 15th object not update its facing properly
+- Fixed rival facing in silph co after battle
 
 #Bugfixes:
 -----------
@@ -291,17 +264,24 @@ Cheats and Secrets!
   - PP-up uses are disregarded when determining to use STRUGGLE if one or more moves are disabled
   - AI will not do actions during Rage or when recharging
   - Fixed wrong crit damage for lvl > 127
+  - Made adjustments to critical hit damage
+    - Damage factor is now 2*(2*level)/5 + 4 instead of 2*(2*level)/5 + 2 to simplify some algebra
+    - If non-crit damage would be >= crit damage, the regular modified stat values are applied instead
 
 	
 - Move fixes
   - Transform-related fixes:
-      - Move slots cannot be rearranged when transformed (prevents acquiring glitch moves).
-      - Transform will no longer copy the opponent's Transform move. It's swapped-out for Struggle
+      - Move slots cannot be rearranged when transformed (prevents acquiring glitch moves)
+      - Transform will no longer copy the opponent's Transform move. It's swapped-out for Struggle.
       - Enemy DVs can no longer be manipulated by having it use transform multiple times
+	  - Fixed a conflict where transforming while disabled can leave the new moves disabled
+	  - Fixed transformed 'mons reseting their moves when learning a level-up move
+	  - Fixed a typo so now transformed 'mons retain their original palette
   - dire hit/focus energy now quadruples crit rate instead of quarters
   - sleep now normal-chance hits a pkmn recharging from hyperbeam, but has no effect if it's already status-effected
   - the fly/dig invulnerability bit is cleared when a pkmn hurts itself from confusion or is fully paralyzed
   - psywave damage is always min 1 be it an opponent or yourself (prevents desync)
+  - Fixed Psywave underflow/overflow with levels of 0, 1, and above 170
   - Substitute-related fixes:
     - all hp drain moves (including dream eater and leech seed) miss against substitute
     - substitute will not work if it would bring you to exactly 0 hp
@@ -317,9 +297,11 @@ Cheats and Secrets!
   - Rest now does the following:
      - clears the toxic bit and toxic counter
      - undoes the stat changes of burn and paralysis
-  - fixed-damage moves (seismic toss, dragon rage, etc) can no longer critically hit
-  - fixed-damage moves now obey type immunities
-  - fixed-damage moves now ignore effectiveness text & sfx
+  - fixed-damage move fixes (seismic toss, dragon rage, etc):
+    - can no longer critically hit
+    - obey type immunities
+	- ignore effectiveness text & sfx
+	- use 2 bytes for damage instead of 1
   - Struggle is now TYPELESS so that it can always neutrally damage something
   - Metronome & mirror move will not increment PP if the user is transformed
      - This prevents adding PP to hidden dummy moves that prevent a pkmn from going into Struggle
@@ -341,6 +323,7 @@ Cheats and Secrets!
 	  - player/enemy pkmn is fully paralyzed or after hurting itself in confusion
     - Crash damage from jump kicks and pkmn hurting itself cannot be Countered
   - To prevent infinite loops, Rage ends after 2 to 3 turns (attack boosts are kept)
+  - Non-link enemy mons now have PP, so always run checks for 0 PP during the disable effect
 
   
 - Graphical Fixes
@@ -373,6 +356,7 @@ Cheats and Secrets!
   - Great ball has a ball factor of 12 now
   - Stone evolutions cannot be triggered via level-up anymore
   - Ether and elixer now account for PP-ups used when determining if move is at full PP
+  - PP-restoring items no longer affect transformed moves and only restore the original moves
   - EXP ALL fixes
     - should now dispense the correct exp if multiple pokemon take place in a battle
 	- no longer counts fainted pokemon when dividing exp
@@ -404,7 +388,8 @@ Cheats and Secrets!
 	- Looks like the idea was dropped in development due to issues with having separate audio banks
 	- However, there is a unique unused sfx in the battle audio bank that signifies getting some kind of important item
 	- This is likely what was going to be used for getting a badge at some point, and it has been restored
-	
+  - Bike music stops playing now when going down a hole
+
 
 - Misc. fixes
   - Cinnabar/seafoam islands coast glitch fixed (no more missingo or artificially loading pokemon data)
@@ -431,6 +416,8 @@ Cheats and Secrets!
   - Added nop after halt commands (safety prevention for a rare processor bug)
   - Streamlined how the ghost marowak battle is triggered (now allows for non-ghost marowaks in pokemon tower)
   - Fixed a coordinate typo in pokemon tower left by gamefreak
+  - Fixed an issue with the silph co 11f elevator doors
+  - Can no longer walk up to 4 steps with a fainted team
 
 
 #TWEAKS:
@@ -620,6 +607,9 @@ Cheats and Secrets!
   - Though at this point she's still just a cooltrainer and doesn't have a unique battle sprite
 - The L: block doesn't disappear when level hits three digits
 - If SS Anne is skipped and the pokemon tower rival battle is initiated, the SS Anne rival battle is deactivated
+- Greatly increased the speed and performance of spin tiles  
+- Amber and fossils are now non-key items
+- Low HP alarm only plays three times then turns itself off
 
   
 #Additions:
@@ -667,6 +657,13 @@ Cheats and Secrets!
   - Press the Select button
   - The enemy pokemon will play its cry if registered as owned
 - Added ability to forfeit trainer battles by selecting RUN in battle
+- The bag now supports an additional item list for an extra 20 slots of space
+  - Press START on the bag menu to hot-swap the item list that populates the active bag
+    - Also works in battle
+	- Also works when depositing items in the PC
+  - Only the active bag's item list is recognized by the game's systems
+    - For example, you cannot enter the Cinnabar Gym if the Secret Key is not in the active bag
+	- Same for Stadium compatibility, detecting only the bag list that was active when last saved  
 
  
 #Graphics
@@ -691,6 +688,11 @@ Cheats and Secrets!
 
 
 #Pre-E4 NPCs
+- There is an Aide NPC in the viridian pokemon center that can toggle regular trainer randomization
+  - Only affects regular trainers that use one level for all 'mons and have no custom movesets
+  - Will replace their roster 'mons with random non-evolved 'mons (legendaries are excluded)
+  - The new mons will be swapped with their evolved forms if at a high enough level
+  - This feature was added with the intent of spicing-up subsequent Gen-1 playthroughs
 - New NPC in celadon hotel will reward coins for showing him requested pkmn
 - Move deleter/relearner added to the saffron house below COPYCAT's house
   - Code comes from Mateo's Red++ hack. It's simply the best gen-1 implementation and I cannot come up with something better.

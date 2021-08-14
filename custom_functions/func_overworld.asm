@@ -226,15 +226,20 @@ CheckForSmartHMuse:
 .noflash
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;else check for strength and enable it
+	ld a, [wd728]
+	bit 0, a ;check the usingStrength bit
+	jr nz, .nostrength	;do nothing if already active
+
 	ld a, [wObtainedBadges]
 	bit 3, a ; does the player have the Rainbow Badge?
 	jr z, .nostrength
+
 	;check if a party member has strength
 	ld c, STRENGTH
 	call PartyMoveTest
 	jr z, .nostrength
 	
-	;Play cry of the 'mon that has strength to signify its activation
+	;Play cry of the 'mon that has strength to signify its activation as well as a visual cue
 	push hl
 	push bc
 	push af

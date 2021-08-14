@@ -233,6 +233,21 @@ CheckForSmartHMuse:
 	ld c, STRENGTH
 	call PartyMoveTest
 	jr z, .nostrength
+	
+	;Play cry of the 'mon that has strength to signify its activation
+	push hl
+	push bc
+	push af
+	predef ChangeBGPalColor0_4Frames
+	pop af
+	ld bc, wPartyMon2 - wPartyMon1
+	ld hl, wPartyMon1Species
+	call AddNTimes
+	ld a, [hl]
+	call PlayCry
+	pop bc
+	pop hl
+	
 	;set the usingStrength bit
 	ld a, [wd728]
 	set 0, a
@@ -248,6 +263,7 @@ CheckForSmartHMuse:
 ;move ID should be in 'c'
 ;set zero flag if move not found
 ;clear zero flag if move found
+;if move found, return party position in A (zero offset)
 PartyMoveTest:
 	push hl
 	push bc
@@ -255,6 +271,7 @@ PartyMoveTest:
 	ld hl, wPartyMon1Moves
 	ld b, NUM_MOVES + 1
 	call MoveTestLoop
+	ld a, 0
 	jr nz, .return_1
 	;;;;;
 	ld a, [wPartyCount]
@@ -263,6 +280,7 @@ PartyMoveTest:
 	ld hl, wPartyMon2Moves
 	ld b, NUM_MOVES + 1
 	call MoveTestLoop
+	ld a, 1
 	jr nz, .return_1
 	;;;;;
 	ld a, [wPartyCount]
@@ -271,6 +289,7 @@ PartyMoveTest:
 	ld hl, wPartyMon3Moves
 	ld b, NUM_MOVES + 1
 	call MoveTestLoop
+	ld a, 2
 	jr nz, .return_1
 	;;;;;
 	ld a, [wPartyCount]
@@ -279,6 +298,7 @@ PartyMoveTest:
 	ld hl, wPartyMon4Moves
 	ld b, NUM_MOVES + 1
 	call MoveTestLoop
+	ld a, 3
 	jr nz, .return_1
 	;;;;;
 	ld a, [wPartyCount]
@@ -287,6 +307,7 @@ PartyMoveTest:
 	ld hl, wPartyMon5Moves
 	ld b, NUM_MOVES + 1
 	call MoveTestLoop
+	ld a, 4
 	jr nz, .return_1
 	;;;;;
 	ld a, [wPartyCount]
@@ -295,6 +316,7 @@ PartyMoveTest:
 	ld hl, wPartyMon6Moves
 	ld b, NUM_MOVES + 1
 	call MoveTestLoop
+	ld a, 5
 	jr nz, .return_1
 .return_0
 	xor a

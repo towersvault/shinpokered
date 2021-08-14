@@ -3945,9 +3945,9 @@ CheckPlayerStatusConditions:
 	                ; DecrementPP and MoveHitTest
 	jp nz, .returnToHL
 	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-	;joenote - play cry to signal end of trapping move
+	;joenote - play poof animation to signal end of trapping move
 	ld a, [wBattleMonSpecies]
-	call CryFunc
+	call PlayEndTrappingMove
 	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	jp .returnToHL
 
@@ -6775,9 +6775,9 @@ CheckEnemyStatusConditions:
 	                             ; DecrementPP and MoveHitTest
 	jp nz, .enemyReturnToHL
 	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-	;joenote - play cry to signal end of trapping move
+	;joenote - play poof animation to signal end of trapping move
 	ld a, [wEnemyMonSpecies]
-	call CryFunc
+	call PlayEndTrappingMove
 	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	jp .enemyReturnToHL
 .checkIfUsingRage
@@ -9628,11 +9628,17 @@ PlaySelectedAnimation:
 	ret 
 
 
-;joenote - function to play cry with stack pushing
-CryFunc:
+;joenote - function to play an animation to signify the last attack of a trapping move
+PlayEndTrappingMove:
 	push hl
 	push bc
-	call PlayCry
+	push de
+	ld e, POOF_ANIM
+	ld a, [H_WHOSETURN]
+	xor $01
+	ld d, a
+	call PlaySelectedAnimation
+	pop de
 	pop bc
 	pop hl
 	ret

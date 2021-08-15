@@ -1,4 +1,4 @@
-;Convert a value from the 1st party pkmn into a normalized BCD-value score stored in wcd6d
+;Convert a value from the 1st party pkmn into a normalized BCD-value score stored in wcd6d+1 & wcd6d+2
 ;takes a number loaded into wcd6d to determine value:
 ;	1 is catch rate
 ;	2 is level
@@ -56,11 +56,11 @@ Mon1BCDScore:
 	ld hl, hCoins
 	call Hex2BCD
 	
-	ld de, wcd6d + 1
+	ld de, wcd6d + 2
 	ld hl, hCoins + 1
 	ld c, $2
 	predef AddBCDPredef	;add value in hl location to value in de location
-	ld de, wcd6d + 1
+	ld de, wcd6d + 2
 	ld hl, hCoins + 1
 	ld c, $2
 	predef AddBCDPredef	;add value in hl location to value in de location

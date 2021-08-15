@@ -50,7 +50,7 @@ CeladonHotelCoinGuy:
 	
 	;add normalized BCD DV score to current coin payout
 	ld de, hCoins + 1
-	ld hl, wcd6d + 1
+	ld hl, wcd6d + 2
 	ld c, $2	;make the addition 2 bytes long
 	predef AddBCDPredef	;add value in hl location to value in de location
 	

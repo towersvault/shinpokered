@@ -142,7 +142,7 @@ Other minor changes to lessen annoyance.
 - CUT is not needed to get to Lt. Surge and Erika (a blocking event replaces the Vermilion shrub).
 - Yellow version learnsets have been integrated and stone evolutions gain back some level-up moves.
 - Hitting with a trapping move reduces its user's speed by 25% until recalculated via some other effect.
-- Trapping move users play their cry on the move's final turn.
+- Trapping moves play a 'poof' animation on the move's final turn.
 
 Cheats and Secrets!
 - A pokemon with Pay Day in your top slot will tip you off to a lucky slot machine and when it's in a special payout mode.
@@ -225,10 +225,30 @@ Cheats and Secrets!
 
 #Changes not yet in the release branch:
 -----------
+master
 - Removed the word "only" from NPC on Silph Co 5f who talks about trade evos
+- Getting max base exp for enemies > lvl 100 is now based on level cap instead
+- Gave the strength quick-key a visual cue and sfx
+- Trapping moves play a 'poof' animation on the final turn instead of a cry (for the hearing impared)
+- Fixed some BCD payout wierdness
+- Text tweak to route 14 trainer with regards to forgetting HMs
 
-- Fixed a missed increment that makes a map's 15th object not update its facing properly
+both
+- gf Fixed a missed increment that makes a map's 15th object not update its facing properly
 - Fixed rival facing in silph co after battle
+- gf Adjusted two spin-stop tiles in Viridian Gym
+- gf Adjusted some of Giovanni's final lines for clarity
+- Swapped AI layers of Burglar and Juggler
+- AI layer 1: discourage exploding effects if faster than a player in fly/dig state
+- Fixed issue with route 22 phantom rival appearing if the first battle was skipped
+- Stopped AI from decrementing PP on item usage and switching
+- Stopped AI from decrementing PP when it doesn't wake up from sleep
+- gf Made Agility's animation more apparent
+- AI layer 3: added some strategy to handle when the player uses fly/dig
+- AI layer 1: randomly discourage usage of 2-turn moves when confused/paralyzed
+- gf Water warps in seafoam island 4 & 5 are now scripted movement
+- AI layer 3: slightly preference regular effectiveness moves if STAB exists
+
 
 #Bugfixes:
 -----------
@@ -454,7 +474,7 @@ Cheats and Secrets!
   - Trapping moves nerfed big time to prevent the new AI from cheesing them:
     - Switching out of a trapping move ends it immediately and wastes its user's turn (prevents PP underflow glitch too)
 	- Each time a trapping move is used and hits, user's speed reduced 25% until recalculated through other mechanics
-    - A pkmn plays its cry to signal the last turn of the trapping move
+    - A 'poof' animation plays to signal the last turn of the trapping move
   - Ghost moves (i.e. just Lick) do 2x against psychic as was always intended
   - Pay Day upped to 5x multiplier of later generations
   - Changes to Bide
@@ -743,9 +763,9 @@ Cheats and Secrets!
   - 1 cry for a normal payout on the next pull
   - 2 cries to signal the possibility of all 7s/bars on the next pull
   - 3 cries to signal that super payout mode had been entered
-- Pkmn with levels > 100 give 255 stat exp for each stat
-- Pkmn with levels > 100 have 255 base exp yield
-- If a level 100 chansey is first in your roster:
+- Pkmn with levels > level cap give 255 stat exp for each stat
+- Pkmn with levels > level cap have 255 base exp yield
+- If a chansey >= level 100 is first in your roster:
   - Shiny wild random encounters are much more common (1 in 256)
   - Repel effects will not block shiny encounters
 - You can now battle missingno on the infamous cinnabar shoreline

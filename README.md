@@ -224,6 +224,7 @@ Cheats and Secrets!
 
 - AI layer 1: discourage exploding effects if faster than a player in fly/dig state
 - AI layer 1: randomly discourage usage of 2-turn moves when confused/paralyzed
+- AI Layer 1: 50% chance that the AI is blind to a player switching ir using an item
 - AI layer 3: added some strategy to handle when the player uses fly/dig
 - AI layer 3: slightly preference regular effectiveness moves if STAB exists
 - Greatly increased the speed and performance of spin tiles  
@@ -246,6 +247,7 @@ Cheats and Secrets!
 - Adjusted two spin-stop tiles in Viridian Gym
 - Made Agility's animation more apparent
 - Water warps in seafoam island 4 & 5 are now scripted movement
+- Forest tileset is now treated as an outside area
 
 
 #Changes not yet in the release branch:
@@ -445,8 +447,9 @@ Cheats and Secrets!
   - Fixed an issue with the silph co 11f elevator doors
   - Can no longer walk up to 4 steps with a fainted team
   - Water warps in seafoam island 4 & 5 are now scripted movement
-
-
+  - Forest tileset is now treated as an outside area
+  
+  
 #TWEAKS:
 -----------
 
@@ -536,6 +539,7 @@ Cheats and Secrets!
 	- heavily discourages 0-power moves if below 1/3 hp
   - Discourage exploding effects if faster than a player in fly/dig state
   - Randomly discourage usage of 2-turn moves when confused/paralyzed
+  - 50% chance that the AI is blind to a player switching ir using an item
 
 - Trainer ai routine #3 (choosing effective moves) has been modified
   - It now heavily discourages moves that would have no effect due to type immunity

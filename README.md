@@ -176,25 +176,38 @@ Cheats and Secrets!
 
 #Hack-Induced Bugfixes & Adjustments since last version:
 -----------
-- Fixed scripted NPC-following movement in 60fps mode
-- Fixed some NPC ghosting in mart menus in GBC mode
-- Applied Rangi's reformatting to key item bit fields
-- Fixed a menu return issue when forfeiting fights (particularly against the rival)
-- Removed the redundant overflow check on the celadon hotel coin guy
 - Slightly increased the possible coin payout for the the celadon hotel coin guy
 - Added a level-based multiplier to greatly increase the money offered to sell 'mons
   - Interestingly, this makes it so you no longer need to grind battles to train a post-game team
   - Catch pokemon, sell them for money, then spend it on vitamins and rare candy in the Celadon mart
   - Since vitamins have no limit in the post-game, you can max levels and stat exp via this funding method
 - Adjusted the level 0 moves of stone evolutions to play nicer with the move relearner
-- Butterfree, Venonat, and Venomoth can all learn HM05 instead of HM04 (oops, my bad)
+
+- Butterfree, Venonat, and Venomoth can all learn HM05 instead of HM04
+- Fixed a menu return issue when forfeiting fights (particularly against the rival)
+- Fixed some BCD payout wierdness
+- Getting max base exp for enemies > lvl 100 is now based on level cap instead
+
+- Fixed scripted NPC-following movement in 60fps mode
+- Fixed some NPC ghosting in mart menus in GBC mode
+- Applied Rangi's reformatting to key item bit fields
+- Removed the redundant overflow check on the celadon hotel coin guy
 - Consolidated the code used for stat scaling
+- Fixed rival facing in silph co after battle
+- Fixed issue with route 22 phantom rival appearing if the first battle was skipped
+- Stopped AI from decrementing PP on item usage and switching
+- Stopped AI from decrementing PP when it doesn't wake up from sleep
 
 
 #New features & adjustments since last version:
 -----------
 - Amber and fossils are now non-key items
-- Greatly increased the speed and performance of spin tiles  
+- Trapping moves play a 'poof' animation on the final turn instead of a cry (changed for the hearing impared)
+- Gave the strength quick-key a visual cue and sfx
+- Removed the word "only" from NPC on Silph Co 5f who talks about trade evos
+- Text tweak to route 14 trainer with regards to forgetting HMs
+- Gave AI layer 3 to Juggler
+
 - The bag now supports an additional item list for an extra 20 slots of space
   - Press START on the bag menu to hot-swap the item list that populates the active bag
     - Also works in battle
@@ -208,46 +221,36 @@ Cheats and Secrets!
   - Will replace their roster 'mons with random non-evolved 'mons (legendaries are excluded)
   - The new mons will be swapped with their evolved forms if at a high enough level
   - This feature was added with the intent of spicing-up subsequent Gen-1 playthroughs
+
+- AI layer 1: discourage exploding effects if faster than a player in fly/dig state
+- AI layer 1: randomly discourage usage of 2-turn moves when confused/paralyzed
+- AI layer 3: added some strategy to handle when the player uses fly/dig
+- AI layer 3: slightly preference regular effectiveness moves if STAB exists
+- Greatly increased the speed and performance of spin tiles  
+- Adjusted some of Giovanni's final lines for clarity
+
 - Made adjustments to critical hit damage
   - Damage factor is now 2*(2*level)/5 + 4 instead of 2*(2*level)/5 + 2 to simplify some algebra
   - If non-crit damage would be >= crit damage, the regular modified stat values are applied instead
+- Bike music stops playing now when going down a hole
+- Can no longer walk up to 4 steps with a fainted team
 - Fixed a conflict where transforming while disabled can leave the new moves disabled
 - Fixed transformed 'mons reseting their moves when learning a level-up move
 - Fixed a typo so now transformed 'mons retain their original palette
 - PP-restoring items no longer affect transformed moves and only restore the original moves
 - Fixed-damage move effects now use 2 bytes for damage instead of 1
 - Fixed Psywave underflow/overflow with levels of 0, 1, and above 170
-- Non-link enemy mons now have PP, so always run checks for 0 PP during disable effect
 - Fixed an issue with the silph co 11f elevator doors
-- Bike music stops playing now when going down a hole
-- Can no longer walk up to 4 steps with a fainted team
+- Non-link enemy mons now have PP, so always run checks for 0 PP during disable effect
+- Fixed a missed increment that makes a map's 15th object not update its facing properly
+- Adjusted two spin-stop tiles in Viridian Gym
+- Made Agility's animation more apparent
+- Water warps in seafoam island 4 & 5 are now scripted movement
 
 
 #Changes not yet in the release branch:
 -----------
-master
-- Removed the word "only" from NPC on Silph Co 5f who talks about trade evos
-- Getting max base exp for enemies > lvl 100 is now based on level cap instead
-- Gave the strength quick-key a visual cue and sfx
-- Trapping moves play a 'poof' animation on the final turn instead of a cry (for the hearing impared)
-- Fixed some BCD payout wierdness
-- Text tweak to route 14 trainer with regards to forgetting HMs
-
-both
-- gf Fixed a missed increment that makes a map's 15th object not update its facing properly
-- Fixed rival facing in silph co after battle
-- gf Adjusted two spin-stop tiles in Viridian Gym
-- gf Adjusted some of Giovanni's final lines for clarity
-- Swapped AI layers of Burglar and Juggler
-- AI layer 1: discourage exploding effects if faster than a player in fly/dig state
-- Fixed issue with route 22 phantom rival appearing if the first battle was skipped
-- Stopped AI from decrementing PP on item usage and switching
-- Stopped AI from decrementing PP when it doesn't wake up from sleep
-- gf Made Agility's animation more apparent
-- AI layer 3: added some strategy to handle when the player uses fly/dig
-- AI layer 1: randomly discourage usage of 2-turn moves when confused/paralyzed
-- gf Water warps in seafoam island 4 & 5 are now scripted movement
-- AI layer 3: slightly preference regular effectiveness moves if STAB exists
+-
 
 
 #Bugfixes:
@@ -370,6 +373,9 @@ both
   - Minor tweak to Pallet Town object data for Prof Oak
   - Minor tweaks to the Rival's object data in various maps
   - Fixed menu not clearing if A is held after saving
+  - Fixed a missed increment that makes a map's 15th object not update its facing properly
+  - Adjusted two spin-stop tiles in Viridian Gym
+  - Made Agility's animation more apparent
 
 
 - Item Fixes  
@@ -438,6 +444,7 @@ both
   - Fixed a coordinate typo in pokemon tower left by gamefreak
   - Fixed an issue with the silph co 11f elevator doors
   - Can no longer walk up to 4 steps with a fainted team
+  - Water warps in seafoam island 4 & 5 are now scripted movement
 
 
 #TWEAKS:
@@ -467,6 +474,9 @@ both
   - Fixed the flipped text for a girl in Saffron and the letter she is writing
   - Fixed text overlap with Oak giving you pokeballs
   - Reactivated lost text that was meant to play when you lose to your rival
+  - Removed the word "only" from NPC on Silph Co 5f who talks about trade evos
+  - Text tweak to route 14 trainer with regards to forgetting HMs
+  - Adjusted some of Giovanni's final lines for clarity
 
 - Adjustments to moves  
   - Stat-down moves no longer have a 25% miss chance in AI matches
@@ -524,6 +534,8 @@ both
   - AI layer changes that affect most 0-power moves (with only a few exceptions like heal effects)
     - now has a hard stop on using 0-power moves on consecutive turns with a few effect exceptions
 	- heavily discourages 0-power moves if below 1/3 hp
+  - Discourage exploding effects if faster than a player in fly/dig state
+  - Randomly discourage usage of 2-turn moves when confused/paralyzed
 
 - Trainer ai routine #3 (choosing effective moves) has been modified
   - It now heavily discourages moves that would have no effect due to type immunity
@@ -531,6 +543,8 @@ both
   - Static damage moves are randomly preferenced 25% of the time to spice things up
   - Thunder Wave is not used against immune types
   - Poisoning moves discouraged against poison types
+  - Added some strategy to handle when the player uses fly/dig
+  - Slightly preference regular effectiveness moves if STAB exists
 
 - Trainer ai routine #4 is no longer unused. It now does rudimentary trainer switching.
   - 25% chance to switch if active pkmn is below 1/3 HP and player also outspeeds AI
@@ -555,7 +569,7 @@ both
   
 - Trainer ai routine #3 added to the following trainer classes
   - jr trainer M/F, tamer, scientist, lass, gentleman, black belt, bird keeper, engineer, 
-  - chief, bruno, brock, agatha
+  - chief, bruno, brock, agatha, juggler
 - Trainer ai routine #4 added to the following trainer classes
   -cueball, psychic, hiker, rocket, black belt, tamer, lass, jr trainer M/F, cooltrainer M/F, gentleman, pokemaniac 
   -all rival phases, prof.oak, chief, gym leaders, elite-4

@@ -3422,14 +3422,24 @@ GetName::
 ; returns pointer to name in de
 	ld a, [wd0b5]
 	ld [wd11e], a
+
 	; TM names are separate from item names.
 	; BUG: This applies to all names instead of just items.
+	;joenote - fixing the aforementioned bug
+	push bc
+	ld b, a
+	ld a, [wNameListType]
+	cp ITEM_NAME
+	ld a, b
+	pop bc
+	jr nz, .notMachine	;if the list type is not items, then A cannot be referring to a machine
+	;At this line, definitely working with an item list. So see if it's a machine or item
 	cp HM_01
 	;jp nc, GetMachineName	;joenote - function removed. Handle list-based tm & hm names here.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;joenote - do some stuff if the item is a machine
 	jr c, .notMachine
-	sub $C3	;need to shift things because tm and hm constants are offset by +$C3 from the first item constant
+	sub (HM_01 - 1)	;need to shift things because tm and hm constants are offset by +$C3 from the first item constant
 	ld [wd0b5], a
 	ld a, TMHM_NAME	
 	ld [wNameListType], a

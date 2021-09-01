@@ -229,6 +229,9 @@ Cheats and Secrets!
 - AI layer 3: slightly preference regular effectiveness moves if STAB exists
 - Greatly increased the speed and performance of spin tiles  
 - Adjusted some of Giovanni's final lines for clarity
+- Added some underflow and overflow protection to switch scoring
+- AI switch scoring now penalizes bad match-ups between player and enemy 'mon types
+- Minor adjustments to switch scoring
 
 - Made adjustments to critical hit damage
   - Damage factor is now 2*(2*level)/5 + 4 instead of 2*(2*level)/5 + 2 to simplify some algebra
@@ -241,6 +244,7 @@ Cheats and Secrets!
 - PP-restoring items no longer affect transformed moves and only restore the original moves
 - Fixed-damage move effects now use 2 bytes for damage instead of 1
 - Fixed Psywave underflow/overflow with levels of 0, 1, and above 170
+- Fixed an issue with Disable's counter on slower 'mons
 - Fixed an issue with the silph co 11f elevator doors
 - Non-link enemy mons now have PP, so always run checks for 0 PP during disable effect
 - Fixed a missed increment that makes a map's 15th object not update its facing properly
@@ -248,11 +252,12 @@ Cheats and Secrets!
 - Made Agility's animation more apparent
 - Water warps in seafoam island 4 & 5 are now scripted movement
 - Forest tileset is now treated as an outside area
+- Fixed a bug in the GetName: function that treated lists over 195 entries as item lists
 
 
 #Changes not yet in the release branch:
 -----------
--
+- 
 
 
 #Bugfixes:
@@ -349,6 +354,7 @@ Cheats and Secrets!
     - Crash damage from jump kicks and pkmn hurting itself cannot be Countered
   - To prevent infinite loops, Rage ends after 2 to 3 turns (attack boosts are kept)
   - Non-link enemy mons now have PP, so always run checks for 0 PP during the disable effect
+  - Fixed an issue with Disable's counter on slower 'mons
 
   
 - Graphical Fixes
@@ -448,6 +454,7 @@ Cheats and Secrets!
   - Can no longer walk up to 4 steps with a fainted team
   - Water warps in seafoam island 4 & 5 are now scripted movement
   - Forest tileset is now treated as an outside area
+  - Fixed a bug in the GetName: function that treated lists over 195 entries as item lists
   
   
 #TWEAKS:
@@ -570,6 +577,7 @@ Cheats and Secrets!
 	- switch flags are all cleared when player sends out a new mon since the situation is now different
   - AI scoring for switching puts a heavier penalty on potentially switching in a bad type matchup
   - AI scoring imposes a very heavy penalty for potentially switching in pokemon with less than 1/4 HP
+  - AI switch scoring now penalizes bad match-ups between player and enemy 'mon types
   
 - Trainer ai routine #3 added to the following trainer classes
   - jr trainer M/F, tamer, scientist, lass, gentleman, black belt, bird keeper, engineer, 

@@ -224,9 +224,9 @@ Cheats and Secrets!
 
 - AI layer 1: discourage exploding effects if faster than a player in fly/dig state
 - AI layer 1: randomly discourage usage of 2-turn moves when confused/paralyzed
-- AI Layer 1: 50% chance that the AI is blind to a player switching ir using an item
+- AI Layer 1: 50% chance that the AI is blind to a player switching or using an item
 - AI layer 3: added some strategy to handle when the player uses fly/dig
-- AI layer 3: slightly preference regular effectiveness moves if STAB exists
+- AI layer 3: slightly preference regular effectiveness moves if STAB exists (25% chance per move)
 - Greatly increased the speed and performance of spin tiles  
 - Adjusted some of Giovanni's final lines for clarity
 - Added some underflow and overflow protection to switch scoring
@@ -546,7 +546,7 @@ Cheats and Secrets!
 	- heavily discourages 0-power moves if below 1/3 hp
   - Discourage exploding effects if faster than a player in fly/dig state
   - Randomly discourage usage of 2-turn moves when confused/paralyzed
-  - 50% chance that the AI is blind to a player switching ir using an item
+  - 50% chance that the AI is blind to a player switching or using an item
 
 - Trainer ai routine #3 (choosing effective moves) has been modified
   - It now heavily discourages moves that would have no effect due to type immunity
@@ -555,7 +555,7 @@ Cheats and Secrets!
   - Thunder Wave is not used against immune types
   - Poisoning moves discouraged against poison types
   - Added some strategy to handle when the player uses fly/dig
-  - Slightly preference regular effectiveness moves if STAB exists
+  - Slightly preference regular effectiveness moves if STAB exists (25% chance per move)
 
 - Trainer ai routine #4 is no longer unused. It now does rudimentary trainer switching.
   - 25% chance to switch if active pkmn is below 1/3 HP and player also outspeeds AI

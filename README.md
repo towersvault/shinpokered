@@ -94,7 +94,7 @@ You can play as a boy or a girl.
 
 There's an EXP bar in battle.
 
-You can select RUN in trainer battles to forfeit the match and black yourself out.
+You can choose RUN while holding SELECT in trainer battles to forfeit the match and black yourself out.
 
 You can hunt for shiny pokemon, and they are valid with Gen 2 games.
 
@@ -116,7 +116,7 @@ Only the active bag's item list is recognized by the game's systems.
 
 Lots of quick-key features.
 - Quick 'Owned' Check - Place the cursor over FIGHT and press Select to play the enemy 'mon cry if it's already owned.
-- Softlock Warp - instantly teleport back to your mom's house if you get stuck.
+- Softlock Warp - Instantly teleport back to your mom's house if you get stuck.
 - Running Shoes - Hold B to double your speed when walking, surfing, and biking. Includes proper animation speed-up!
 - Quick HM Use - Press SELECT to use HMs based on proper context.
 - Quick Bike/Rod - Press SELECT while holding A to automatically get on/off your bike or use the best rod in your inventory.
@@ -125,20 +125,20 @@ Lots of quick-key features.
 - View Shiny Palette - When playing in color, hold SELECT when choosing a 'dex entry to load the shiny palette.
   
 New NPCs!
-- The move relearner and deleter are in Saffron City.
+- The move relearner and deleter is in Saffron City.
 - An NPC in the Celadon Hotel will pay COINS for showing him pokemon as an alternative to slots.
-- After the elite-4, a new vendor opens up in celadon allowing the purchase of normally unique items.
-- After the elite-4, there is an NPC in the underground path that generates random trainer battles.
+- After the elite-4, a new vendor opens up in Celadon allowing the purchase of normally unique items.
+- After the elite-4, there is an NPC in the east-west underground path that generates random trainer battles.
 - The game corner chief will buy pokemon from the player post-e4.
 - There's a tournament being held in the SS Anne's kitchen after the elite 4 are beaten. Yes, the ship returns!
 - Added some special post-game trainer battles as fun little easter eggs. Can you find and defeat all five?
 
 Other minor changes to lessen annoyance.
-- Low HP alarm only plays three times then turns itself off
-- TMs and HMs now have their attacks (albeit abbreviated) appended to the item names
+- Low HP alarm only plays three times then turns itself off.
+- TMs and HMs now have their attacks (albeit abbreviated) appended to the item names.
 - All TMs can be repurchased as they are strategically scattered across all the Kanto pokemarts.
 - The safari zone mechanics run off level instead of speed and safari balls have a boosted catch rate.
-- Slot machines are a little more lucky so now you can actually win big
+- Slot machines are a little more lucky, so now you can actually win big.
 - CUT is not needed to get to Lt. Surge and Erika (a blocking event replaces the Vermilion shrub).
 - Yellow version learnsets have been integrated and stone evolutions gain back some level-up moves.
 - Hitting with a trapping move reduces its user's speed by 25% until recalculated via some other effect.
@@ -148,9 +148,9 @@ Cheats and Secrets!
 - A pokemon with Pay Day in your top slot will tip you off to a lucky slot machine and when it's in a special payout mode.
 - New item, M.GENE, re-randomizes a pkmn's DVs to values of 9,8,8,8 or more.
 - Defeat all five post-game special trainers to reactivate the legendary pokemon.
-- To find shiny pokemon better, put a level-100 Chansey at the top of your roster. Use a repel if you wish!
-- Do you dare to activate Missingno at the cinnabar shore? Only if you got your 'dex diploma.
-- Win the SS Anne's tournament with a pikachu in your party, and the Surf HM can be used on that particular pikachu.
+- To more easily find shiny pokemon, put a level-100 Chansey at the top of your roster. Use a repel if you wish!
+- Do you dare to activate Missingno at the Cinnabar shore? Only if you got your 'dex diploma.
+- Winning the SS Anne's tournament with a pikachu in your party makes that pikachu eligible for the SURF HM.
 
 
 #Compatibility Notes
@@ -681,28 +681,28 @@ Cheats and Secrets!
   - Place the cursor over CANCEL in the options screen and toggle by pressing left or right
   - This feature is more of a proof-of-concept and is still kinda rusty
 - Softlock Warp 
-  - instantly teleport back to your mom's house if you get stuck or are unable to move after updating to a new patch
-  - sets money to at least 1000 if you have less than that
-  - Intructions to perform:
+  - Instantly teleport back to your mom's house if you get stuck or are unable to move after updating to a new patch
+  - Sets money to at least 1000 if you have less than that
+  - Instructions to perform:
     - go to the start menu and put the cursor on OPTION
 	- press and hold DOWN on the d-pad (the cursor will now be on EXIT)
 	- while continuing to hold DOWN, press and hold SELECT
 	- while continuing to hold those two buttons, press B
 	- the start menu should close and you will warp back to your mom's house
-- Context-sensitive SELECT button for using HMs (must have the right badge and the move on one of your pkmn)
-  - press select against a shore to surf
-  - press select when facing a shrub or grass tile to use cut
-  - press select in a dark area to light it with flash
+- Context-sensitive SELECT button for using HMs (must have the correct badge and the move on one of your pkmn)
+  - press SELECT against a shore to surf
+  - press SELECT when facing a shrub or grass tile to use cut
+  - press SELECT in a dark area to light it with flash
   - in all other instances, pressing select activates strength
-- Press Select while holding A to automatically get on/off your bike or use the best rod in your inventory
+- Press SELECT while holding A to automatically get on/off your bike or use the best rod in your inventory
 - You can now check DVs or stat exp by holding down a button and entering the status screen
   - hold SELECT for stat exp
   - hold START for DVs
 - In-battle way to check if enemy pokemon is owned in the pokedex
   - On the main battle menu, place the cursor over an option in the left column
-  - Press the Select button
+  - Press the SELECT button
   - The enemy pokemon will play its cry if registered as owned
-- Added ability to forfeit trainer battles by selecting RUN in battle
+- Added ability to forfeit trainer battles by choosing RUN in battle while holding SELECT
 - The bag now supports an additional item list for an extra 20 slots of space
   - Press START on the bag menu to hot-swap the item list that populates the active bag
     - Also works in battle
@@ -758,9 +758,9 @@ Cheats and Secrets!
   - win 7 matches in a row for a master ball
   - Battles use teams of 3 pokemon
   - Your team is healed before battles
-  - Enemy pokemon levels are based on the level of your 1st party pokemon
+  - Enemy pokemon levels are based on the level of your strongest party pokemon
   - You must have an open item slot to claim your prize
-  - Any trainer can appear with any three pokemon
+  - Any trainer can appear with any three pokemon (excluding mew and mewtwo)
   - No breaks allowed in-between battles
 - Vendor added to Celadon Dept. Store 3F
   - Sells moon stones, amber, fossils, exp all, master balls, and rare candy
@@ -799,9 +799,7 @@ Cheats and Secrets!
   - Activated the traditional way via the "old man in viridian" method
   - The battle will trigger randomly while surfing on the shore even if you are not moving
   - Uses trainer battle routines (different music, uses AI, and uncatchable)
-  - Uses fossil kabutops graphics and has its own defined base stats data
-    - Prevents terrible glitches
-	- Won't mess up your hall of fame
+  - Uses its L-block appearance remade as a proper image and has its own defined base stats data
   - If defeated, it will set a non-key item in the sixth bag slot to a quantity of 99
   - Win or lose, you must do the "Old Man" process again to reactivate the encounter
 - New Game Plus has been added (still experimental)

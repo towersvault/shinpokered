@@ -1,6 +1,16 @@
 UseItem_:
 	ld a, 1
 	ld [wActionResultOrTookBattleTurn], a ; initialise to success value
+	
+;joenote - check for item clause
+	ld a, [wIsInBattle]
+	cp 2
+	jr nz, .nottrainerbattle
+	ld a, [wUnusedD721]
+	bit 5, a
+	jp nz, UnusableItem	;done if item clause active
+.nottrainerbattle
+
 	ld a, [wcf91] ;contains item_ID
 	cp HM_01
 	jp nc, ItemUseTMHM

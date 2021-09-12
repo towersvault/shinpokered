@@ -3098,6 +3098,9 @@ wUnusedD721:: ; d721	;joenote - use to set various wram flags
 	;bit 2 - override bit 0 for specific bank switching instances
 	;bit 3 - ghost marowak battle if set
 	;bit 4 - 60fps option flag
+	;bit 5 - set for item clause
+	;bit 6 - set for sleep clause
+	;bit 7 - set for freeze clause
 ;;;;;;;;;;;;;;joenote - use these unused locations for debugging and parsing DV scores
 wUnusedD722:: 
 	ds 4

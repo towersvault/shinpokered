@@ -1327,6 +1327,17 @@ TrainerAI:
 	add hl, bc
 	add hl, bc
 	add hl, bc
+
+;joenote - check for item clause
+	;there's an exception for the juggler so he can switch randomly
+	ld a, [wTrainerClass]
+	cp JUGGLER
+	jr z, .checkAIcount
+	ld a, [wUnusedD721]
+	bit 5, a
+	ret nz	;done if item clause active
+.checkAIcount
+
 	ld a, [wAICount]
 	and a
 	ret z ; if no AI uses left, we're done here

@@ -540,11 +540,7 @@ AIMoveChoiceModification1:
 	ld a, [wEnemyMoveEffect]
 	cp SLEEP_EFFECT
 	jr nz, .nosleepclause
-	push bc
-	push hl
-	callba HandleSlpFrzClause
-	pop hl
-	pop bc
+	call HandleSlpFrzClause
 	jp nz, .heavydiscourage
 .nosleepclause
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

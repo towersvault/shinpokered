@@ -26,11 +26,24 @@ Predef::
 	push de
 	jp hl
 .done
-
-	pop af
+	;SP target is at xxxx-2 to start with
+	pop af	;SP now points to target at xxxx
 	ld [H_LOADEDROMBANK], a
 	ld [MBC1RomBank], a
 	ret
+
+;joenote - rewrite this to preserve the f flag register
+;	;SP target is at xxxx-2 to start with
+;	push af		;SP target is at xxxx-4 and flags are saved there
+;	add sp, $0002	;SP target is at xxxx-2
+;	pop af ;SP now points to target at xxxx
+;	ld [H_LOADEDROMBANK], a
+;	ld [MBC1RomBank], a
+;	add sp, ($FFFF - 3)		;SP target is at xxxx-4
+;	pop af	;SP target is at xxxx-2
+;	inc sp	;SP target is at xxxx-1
+;	inc sp	;SP now points to target at xxxx
+;	ret
 
 GetPredefRegisters::
 ; Restore the contents of register pairs

@@ -46,17 +46,17 @@ _ClauseBrother_SleepDesc::
 	cont "trainer matches."
 	done
 	
-;_ClauseBrother_FreezeIntro::
-;	text "Freeze CLAUSE BRO"
-;	line "at your service."
-;	done
-;_ClauseBrother_FreezeDesc::
-;	text "With my stamp,"
-;	line "only one #MON"
-;	cont "FRZ per team is"
-;	cont "allowed during"
-;	cont "trainer matches."
-;	done
+_ClauseBrother_FreezeIntro::
+	text "Freeze CLAUSE BRO"
+	line "at your service."
+	prompt
+_ClauseBrother_FreezeDesc::
+	text "With my stamp,"
+	line "only one #MON"
+	cont "FRZ per team is"
+	cont "allowed during"
+	cont "trainer matches."
+	done
 	
 _ClauseBrother_OFF::
 	text "Do you no longer"

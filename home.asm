@@ -4664,6 +4664,14 @@ SetMapTextPointer::
 	ld [wMapTextPtr + 1], a
 	ret
 	
+HandleSlpFrzClause::	;joenote - move to the main function
+	push bc
+	push hl
+	callba _HandleSlpFrzClause
+	pop hl
+	pop bc
+	ret
+	
 StatModifierRatios:
 ; first byte is numerator, second byte is denominator
 	db 25, 100  ; 0.25

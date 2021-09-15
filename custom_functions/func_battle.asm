@@ -339,7 +339,7 @@ EnemyDisableHandler:
 ;return nz for sleep detected
 ;return c for  freeze detected
 ;link battles unsupported
-HandleSlpFrzClause:	
+_HandleSlpFrzClause:	
 ;	call GetPredefRegisters
 	
 	ld a, [wLinkState]

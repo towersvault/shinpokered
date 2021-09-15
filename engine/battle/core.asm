@@ -8016,13 +8016,6 @@ SleepEffect:
 	;joenote - should not be able to sleep an opponent with substitute up
 	call CheckTargetSubstitute
 	jr nz, .didntAffect
-	;joenote - check for sleep clause
-	push bc
-	push hl
-	callba HandleSlpFrzClause
-	pop hl
-	pop bc
-	jr nz, .didntAffect
 ;joenote: moved later to avoid recharge+sleep glitch. the opponent should not have a status effect
 ;	ld a, [bc]
 ;	bit NEEDS_TO_RECHARGE, a ; does the target need to recharge? (hyper beam)
@@ -8047,6 +8040,9 @@ SleepEffect:
 	pop de
 	ld a, [wMoveMissed]
 	and a
+	jr nz, .didntAffect
+	;joenote - check for sleep clause
+	call HandleSlpFrzClause
 	jr nz, .didntAffect
 ;;;;;joenote: recharge hyper beam if fallen asleep
 	ld a, [bc]
@@ -8244,6 +8240,9 @@ FreezeBurnParalyzeEffect:
 	ld hl, BurnedText
 	jp PrintText
 .freeze
+	;joenote - check for freeze clause
+	call HandleSlpFrzClause
+	ret c	;no effect if opposing team has a frozen 'mon
 	call ClearHyperBeam ; resets hyper beam (recharge) condition from target
 	ld a, 1 << FRZ
 	ld [wEnemyMonStatus], a
@@ -8291,6 +8290,9 @@ opponentAttacker:
 	ld hl, BurnedText
 	jp PrintText
 .freeze
+	;joenote - check for freeze clause
+	call HandleSlpFrzClause
+	ret c	;no effect if opposing team has a frozen 'mon
 ; hyper beam bits aren't reset for opponent's side
 	call ClearHyperBeam ; joenote - adding this to prevent an infinite loop if frozen before recharging
 	ld a, 1 << FRZ

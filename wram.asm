@@ -3256,7 +3256,7 @@ wGrassMons:: ; d888
 wSerialEnemyDataBlock:: ; d893
 	ds 9
 
-wEnemyPartyCount:: ds 1     ; d89c
+wEnemyPartyCount:: ds 1     ; d89c	;value of 1 to 6
 wEnemyPartyMons::  ds PARTY_LENGTH + 1 ; d89d
 
 ; Overload enemy party data

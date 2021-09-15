@@ -8016,6 +8016,13 @@ SleepEffect:
 	;joenote - should not be able to sleep an opponent with substitute up
 	call CheckTargetSubstitute
 	jr nz, .didntAffect
+	;joenote - check for sleep clause
+	push bc
+	push hl
+	callba HandleSlpFrzClause
+	pop hl
+	pop bc
+	jr nz, .didntAffect
 ;joenote: moved later to avoid recharge+sleep glitch. the opponent should not have a status effect
 ;	ld a, [bc]
 ;	bit NEEDS_TO_RECHARGE, a ; does the target need to recharge? (hyper beam)

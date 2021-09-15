@@ -332,3 +332,133 @@ EnemyDisableHandler:
 	ld [hl], a
 .return
 	ret
+
+
+
+;return z and nc if nothing detected
+;return nz for sleep detected
+;return c for  freeze detected
+;link battles unsupported
+HandleSlpFrzClause:	
+;	call GetPredefRegisters
+	
+	ld a, [wLinkState]
+	cp LINK_STATE_BATTLING
+	jp z, .returnshort ;do not enforce for link battles
+	
+	ld a, [wIsInBattle]
+	cp 2
+	jr z, .next0 ;continue for trainer battles only
+	ld a, 0
+	and a
+	jp .returnshort
+.next0	
+	ld a, [wUnusedD721]
+	and %11000000
+	jp z, .returnshort	;return if neither sleep nor freeze clause bits are set
+	
+	push de
+	
+	ld hl, .return
+	bit 7, a
+	jr nz, .next1
+	ld hl, .nofreeze
+.next1
+	push hl
+	ld hl, .next3
+	bit 6, a
+	jr nz, .next2
+	ld hl, .nosleep
+.next2
+	push hl
+	
+	ld a, [H_WHOSETURN]
+	and a
+	jr nz, .playerdata
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;	
+.enemydata
+	;copy hp, position, and status of the active pokemon to its roster position
+	ld a, [wEnemyMonPartyPos]
+	ld hl, wEnemyMon1HP
+	ld bc, wEnemyMon2 - wEnemyMon1
+	call AddNTimes
+	ld d, h
+	ld e, l
+	ld hl, wEnemyMonHP
+	ld bc, 4
+	call CopyData
+	
+	;now set up to start looping through the party
+	ld a, [wEnemyPartyCount]	;1 to 6
+	dec a	;0 to 5
+	ld d, a
+	ld bc, wEnemyMon2 - wEnemyMon1
+	ld hl, wEnemyMon1Status
+	jr .initialize
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;	
+.playerdata
+	;copy hp, position, and status of the active pokemon to its roster position
+	ld a, [wBattleMonPartyPos]
+	ld hl, wPartyMon1HP
+	ld bc, wPartyMon2 - wPartyMon1
+	call AddNTimes
+	ld d, h
+	ld e, l
+	ld hl, wBattleMonHP
+	ld bc, 4
+	call CopyData
+	
+	;now set up to start looping through the party
+	ld a, [wPartyCount]	;1 to 6
+	dec a	;0 to 5
+	ld d, a
+	ld bc, wPartyMon2 - wPartyMon1
+	ld hl, wPartyMon1Status
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+.initialize
+	xor a
+	push af
+.loop	
+	pop af
+	or [hl]
+	push af
+	ld a, d
+	and a
+	jr z, .doneloop
+	dec d
+	add hl, bc
+	jr .loop
+.doneloop
+
+	pop af	
+	rlca
+	rlca
+	rlca	;frz bit is now the carry bit and z flag is cleared
+	;A is now rotated to be bits 4,3,2,1,0,5,6,7
+	;Sleep counter is in bits 2,1,0
+	res 7, a
+	res 6, a
+	res 2, a
+	res 1, a
+	res 0, a
+	inc a
+	dec a	;set z flag based zero state of sleep counter
+	
+	pop hl
+	jp hl
+.next3
+	pop hl 
+	jp hl
+.return
+	pop de
+.returnshort
+	ret
+.nofreeze
+	and a
+	jp .return
+.nosleep
+	ld a, 0
+	inc a
+	dec a
+	jp .next3

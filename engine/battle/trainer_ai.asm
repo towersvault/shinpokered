@@ -536,6 +536,19 @@ AIMoveChoiceModification1:
 .notconfuse
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;obey the sleep clause
+	ld a, [wEnemyMoveEffect]
+	cp SLEEP_EFFECT
+	jr nz, .nosleepclause
+	push bc
+	push hl
+	callba HandleSlpFrzClause
+	pop hl
+	pop bc
+	jp nz, .heavydiscourage
+.nosleepclause
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;don't use a status move against a status'd target
 	ld a, [wEnemyMoveEffect]
 	push hl

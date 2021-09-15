@@ -7,6 +7,7 @@ ViridianHouseTextPointers:
 	dw ViridianHouseText3
 	dw ViridianHouseText4
 	dw ClauseBrother_Item
+	dw ClauseBrother_Sleep
 
 ViridianHouseText1:
 	TX_FAR _ViridianHouseText1
@@ -73,6 +74,46 @@ ClauseBrother_Item:
 	ld a, [wCurrentMenuItem]
 	and a
 	ret
+
+ClauseBrother_Sleep:
+	TX_ASM
+	ld hl, ClauseBrother_SleepIntro
+	call PrintText
+
+	ld a, [wUnusedD721]
+	bit 6, a
+	jr z, .ask_turn_on
+	
+	ld hl, ClauseBrother_OFF
+	call PrintText
+	call .choose
+	ld hl, ClauseBrother_REJECT
+	jr z, .end
+	ld a, [wUnusedD721]
+	res 6, a
+	ld [wUnusedD721], a
+	jr .print_done
+
+.ask_turn_on
+	ld hl, ClauseBrother_SleepDesc
+	call PrintText
+	call .choose
+	ld hl, ClauseBrother_REJECT
+	jr z, .end
+	ld a, [wUnusedD721]
+	set 6, a
+	ld [wUnusedD721], a
+	
+.print_done
+	ld hl, ClauseBrother_DONE
+.end
+	call PrintText
+	jp TextScriptEnd
+.choose
+	call NoYesChoice
+	ld a, [wCurrentMenuItem]
+	and a
+	ret
 	
 ClauseBrother_OFF:
 	TX_FAR _ClauseBrother_OFF
@@ -88,4 +129,10 @@ ClauseBrother_ItemIntro:
 	db "@"
 ClauseBrother_ItemDesc:
 	TX_FAR _ClauseBrother_ItemDesc
+	db "@"
+ClauseBrother_SleepIntro:
+	TX_FAR _ClauseBrother_SleepIntro
+	db "@"
+ClauseBrother_SleepDesc:
+	TX_FAR _ClauseBrother_SleepDesc
 	db "@"

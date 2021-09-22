@@ -4307,6 +4307,7 @@ PrintMoveFailureText:
 	rr b
 	srl a
 	rr b
+	ld hl, wDamage+1
 	ld [hl], b
 	dec hl
 	ld [hli], a

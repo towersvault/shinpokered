@@ -889,3 +889,6 @@ Cheats and Secrets!
   - krazsen
   - kmalove
   - zycain
+
+  
+The shinpokered repository was branched from pret/pokered at merge pull request #185 committed on Jul 2, 2018

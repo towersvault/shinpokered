@@ -994,6 +994,14 @@ ItemUseMedicine:
 	ld a, [wIsInBattle]
 	and a
 	jr z, .compareCurrentHPToMaxHP
+;joenote - at this point, trying to revive a fainted 'mon in battle
+;disallow this in SET battle style
+	ld a, [wOptions]
+	bit 6, a
+	jr z, .can_revive
+	call ItemUseNotTime
+	jp .done
+.can_revive	
 	push hl
 	push de
 	push bc

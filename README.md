@@ -86,33 +86,39 @@ And Rest now sets the sleep counter to 3.
    
 ***Additional Master features that go beyond engine modifications and fixes***
 
-An experimental New Game+ has been added.
-
-All 151 pkmn are available in one version.
+All 151 pkmn are available in one version (rarities may vary per version).
 
 You can play as a boy or a girl.
 
 There's an EXP bar in battle.
-
-You can choose RUN while holding SELECT in trainer battles to forfeit the match and black yourself out.
 
 You can hunt for shiny pokemon, and they are valid with Gen 2 games.
 
 No more grinding wild pokemon. Nearly all trainers can be rematched just by talking to them once or twice.
 
 The "SET" battle style gives increased difficulty by making the stats of trainer pokemon more on your level.
-It also doubles the effect of X-stat items that trainers love to use.
+It also doubles the effect of the X-stat items that AI trainers are fond of.
+And it disallows the use of Revive items in battle.
+Finally, it makes catching a wild Mewtwo more challenging.
+
+You can choose RUN while holding SELECT in trainer battles to forfeit the match and black yourself out.
 
 One of the aides in Oak's lab toggles scaling of trainer rosters to your level (evolving them if applicable).
 
 The other aide in Oak's lab toggles a pokeball-caught symbol in battle after obtaining the pokedex.
 To help with Gen 2 interaction, this also applies a gender symbol to species that can be male or female.
 
-Another aide npc is in the viridian pokemon center. He will toggle on/off randomization of non-special trainers.
+Another aide npc is in the Viridian pokemon center. He will toggle on/off randomization of non-special trainers.
 
+Item, Sleep, and Freeze clauses can each be toggled by the Clause Brothers in Viridian City.
+ 
 The bag now supports an additional item list for an extra 20 slots of space!
 Press START on the bag menu to hot-swap the item list that populates the active bag.
 Only the active bag's item list is recognized by the game's systems.
+
+An experimental New Game+ has been added.
+It can be enabled if you have an uncorrupt save file wherein the Elite 4 have been beaten.
+Press and hold SELECT while choosing New Game; a jingle confirms activation.
 
 Lots of quick-key features.
 - Quick 'Owned' Check - Place the cursor over FIGHT and press Select to play the enemy 'mon cry if it's already owned.
@@ -127,10 +133,10 @@ Lots of quick-key features.
 New NPCs!
 - The move relearner and deleter is in Saffron City.
 - An NPC in the Celadon Hotel will pay COINS for showing him pokemon as an alternative to slots.
-- After the elite-4, a new vendor opens up in Celadon allowing the purchase of normally unique items.
-- After the elite-4, there is an NPC in the east-west underground path that generates random trainer battles.
-- The game corner chief will buy pokemon from the player post-e4.
-- There's a tournament being held in the SS Anne's kitchen after the elite 4 are beaten. Yes, the ship returns!
+- After the Elite-4, a new vendor opens up in Celadon allowing the purchase of normally unique items.
+- After the Elite-4, there is an NPC in the east-west underground path that generates random trainer battles.
+- After the Elite-4, the game corner chief will buy pokemon from the player.
+- There's a tournament being held in the SS Anne's kitchen after the Elite-4 are beaten. Yes, the ship returns!
 - Added some special post-game trainer battles as fun little easter eggs. Can you find and defeat all five?
 
 Other minor changes to lessen annoyance.
@@ -142,7 +148,7 @@ Other minor changes to lessen annoyance.
 - CUT is not needed to get to Lt. Surge and Erika (a blocking event replaces the Vermilion shrub).
 - Yellow version learnsets have been integrated and stone evolutions gain back some level-up moves.
 - Hitting with a trapping move reduces its user's speed by 25% until recalculated via some other effect.
-- Trapping moves play a 'poof' animation on the move's final turn.
+- Trapping moves play a 'poof' animation on the move's final turn in order to inform the player.
 
 Cheats and Secrets!
 - A pokemon with Pay Day in your top slot will tip you off to a lucky slot machine and when it's in a special payout mode.
@@ -197,6 +203,8 @@ Cheats and Secrets!
 - Fixed issue with route 22 phantom rival appearing if the first battle was skipped
 - Stopped AI from decrementing PP on item usage and switching
 - Stopped AI from decrementing PP when it doesn't wake up from sleep
+- Bank $13 is now solely used for trainer pics
+- Fixed crash damage being zeroed for the jump kick effects
 
 
 #New features & adjustments since last version:
@@ -221,7 +229,12 @@ Cheats and Secrets!
   - Will replace their roster 'mons with random non-evolved 'mons (legendaries are excluded)
   - The new mons will be swapped with their evolved forms if at a high enough level
   - This feature was added with the intent of spicing-up subsequent Gen-1 playthroughs
-
+- Added the Clause Brothers to Viridian City
+  - They toggle enforcement of the item, sleep, and/or freeze clauses
+  - The clauses apply to the player and AI equally, and only apply during non-link trainer battles
+  - Sleep and freeze clauses work like they do in Pokemon Stadium
+- Revive items cannot be used in battle on SET style
+  
 - AI layer 1: discourage exploding effects if faster than a player in fly/dig state
 - AI layer 1: randomly discourage usage of 2-turn moves when confused/paralyzed
 - AI Layer 1: 50% chance that the AI is blind to a player switching or using an item
@@ -513,13 +526,13 @@ Cheats and Secrets!
   - Sleep does not prevent choosing a move
   - Waking up from sleep does not waste the turn and the chosen move is used
     - The sleep counter's minimum value is increased by +1 to maintain accuracy of sleep moves
-  - Badge stat-ups are now only applied in wild pokemon battles to give parity to enemy trainers (only in "Set" style)
+  - Badge stat-ups are now only applied in wild pokemon battles to give parity to enemy trainers (only in "SET" style)
   - The effect of X Accuracy is no longer applied to one-hit K.O. moves (it originally made them auto-hit)
   - The limiter on vitamins is raised to a max of 62720 stat exp after the elite 4 have been beaten
   - Pkmn added to the player's party (either as a gift or in-game trade) have at the least DVs of 9,8,8,8
   - Upped the power of safari balls
   - Escaping in the safari zone is now based on level instead of speed
-  - In "Set" style, X-stat items have double the effect
+  - In "SET" style, X-stat items have double the effect
   
 - Trainer ai routine #1 (recognition of stats, hp, and conditions) has been modified
   - using a move with a dream eater effect is heavily discouraged against non-sleeping opponents
@@ -586,13 +599,13 @@ Cheats and Secrets!
   -cueball, psychic, hiker, rocket, black belt, tamer, lass, jr trainer M/F, cooltrainer M/F, gentleman, pokemaniac 
   -all rival phases, prof.oak, chief, gym leaders, elite-4
   
-- Trainer stat DVs are now randomly generated to a degree (only in "Set" style)
+- Trainer stat DVs are now randomly generated to a degree (only in "SET" style)
   - Attack DV is between 9 and 15 and always odd-numbered
   - Defense, special, and speed DVs are between 8 and 15
   - HP DV is a minimum of 8 since attack DV is always odd-numbered
 - Trainer AI battles now track which enemy pkmn have already been sent out, so allows for new functionality:
   - Trainer pkmn DVs are remembered between switching, and new ones won't be generated on every send-out
-  - Trainer pkmn now have stat experience assigned to them that is scaled to their level (only in "Set" style)
+  - Trainer pkmn now have stat experience assigned to them that is scaled to their level (only in "SET" style)
   - These are real DVs and statEXP values that utilize the existing enemy party_struct which is normally unused by trainer AI
 - Special trainers, e4, and gym leaders are slightly adjusted in their item use
 - Agatha & cooltrainers will not randomly switch since they now have ai routine 4
@@ -666,12 +679,17 @@ Cheats and Secrets!
   - Talk to the right-side aide in Oak's lab to toggle on/off
   - Enemy pkmn will evolve by level if applicable
   - Gym leaders and the E4 scale slightly higher than normal trainers
-- Playing on "Set" style provides increased difficulty
+- Playing on "SET" style provides increased difficulty
   - Enemy trainer pokemon are assigned level-appropriate stat exp
-  - Enemy trainer pokemon have randomized DVs that are all 8 or better (on a scale of 1 to 15)
+  - Enemy trainer pokemon have randomized DVs that are all 8 or better (on a scale of 0 to 15)
   - Badge-granted stat boosts are disabled in trainer battles
   - X-stat items have double the effect like in more recent generations
-  - Mewtwo will prevent you from using a master ball on it
+  - Revive items cannot be used in battles
+  - Mewtwo will prevent you from using a master ball on it and use AI to choose moves
+- Added the Clause Brothers to Viridian City
+  - They toggle enforcement of the item, sleep, and/or freeze clauses
+  - The clauses apply to the player and AI equally, and only apply during non-link trainer battles
+  - Sleep and freeze clauses work like they do in Pokemon Stadium
 
 
 #Quick Keys
@@ -694,7 +712,7 @@ Cheats and Secrets!
   - press SELECT when facing a shrub or grass tile to use cut
   - press SELECT in a dark area to light it with flash
   - in all other instances, pressing select activates strength
-- Press SELECT while holding A to automatically get on/off your bike or use the best rod in your inventory
+- Press and hold A then press SELECT to automatically get on/off your bike or use the best rod in your inventory
 - You can now check DVs or stat exp by holding down a button and entering the status screen
   - hold SELECT for stat exp
   - hold START for DVs
@@ -730,7 +748,7 @@ Cheats and Secrets!
   - non-sexed species have no symbol
   - The symbol is displayed for a party mon in its status screen
   - The symbol is displayed in the battle hud only for wild enemy mon (the only time it matters)
-- Oak's aid at the bottom-left toggles the caught & gender symbols after obtaining the pokedex
+- Oak's aid at the bottom-left of the lab toggles the caught & gender symbols after obtaining the pokedex
 
 
 #Pre-E4 NPCs
@@ -818,7 +836,7 @@ Cheats and Secrets!
 - Winning the SS Anne tournament with a pikachu in the party will set its catch rate to 168
   - In this rom hack, a pikachu with this catch rate can be taught Surf via HM
   - This catch rate makes it hold a gorgeous box if transferred to Gen 2
-  - If case of multiple pikachus, only the first in the roster will be affected
+  - In case of multiple pikachus, only the first in the roster will be affected
   - Likewise, a pikachu holding a gorgeous box can learn surf if transferred into this rom hack
 
 

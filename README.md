@@ -266,6 +266,7 @@ Cheats and Secrets!
 - Water warps in seafoam island 4 & 5 are now scripted movement
 - Forest tileset is now treated as an outside area
 - Fixed a bug in the GetName: function that treated lists over 195 entries as item lists
+- You can now cut the grass in the plateau tileset
 
 
 #Changes not yet in the release branch:
@@ -669,6 +670,7 @@ Cheats and Secrets!
 - Greatly increased the speed and performance of spin tiles  
 - Amber and fossils are now non-key items
 - Low HP alarm only plays three times then turns itself off
+- You can now cut the grass in the plateau tileset
 
   
 #Additions:

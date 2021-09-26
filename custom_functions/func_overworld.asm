@@ -104,26 +104,10 @@ CheckForSmartHMuse:
 	ld c, CUT
 	call PartyMoveTest
 	jr z, .nocut
-	;which tileset is being used?
-	ld a, [wCurMapTileset]
-	and a ; OVERWORLD
-	jr z, .overworld
-	;check gym tileset
-	cp GYM
-	jr nz, .nocut
-	ld a, [wTileInFrontOfPlayer]
-	cp $50 ; gym cuttable tree
+	callba CheckCutTile
 	jr nz, .nocut
 	jr .canCut
-.overworld
-	dec a
-	ld a, [wTileInFrontOfPlayer]
-	cp $3d ; cuttable tree
-	jr z, .canCut
-	cp $52 ; grass
-	jr nz, .nocut
 .canCut
-	ld [wCutTile], a
 	ld a, $ff
 	ld [wUpdateSpritesEnabled], a
 	callba InitCutAnimOAM

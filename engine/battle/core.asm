@@ -6937,14 +6937,14 @@ LoadEnemyMonData:
 ;is this a trainer battle? Wild pkmn do not have statexp
 	ld a, [wIsInBattle]
 	cp $2 ; is it a trainer battle?
-	jr nz, .nottrainer2
+	jr nz, .nottrainer2	;not a trainer battle, so hl will continue to point to wEnemyMonHP and b=0 for CalcStats
 	
-;this is a trainer battle, so find and save the location of HPStatExp - 1
-	ld hl, wEnemyMon1HPExp	;make hl point to HP statExp
+;this is a trainer battle, so point hl to the HP statExp address of the correct mon in the enemy party data
+	ld hl, wEnemyMon1HPExp	;make hl point to HP statExp of the first enemy party mon
 	ld a, [wWhichPokemon]	;get the party position
 	ld bc, wEnemyMon2 - wEnemyMon1	;get the size to advance between party positions
 	call AddNTimes	;advance the pointer to the correct party position
-	dec hl	;move the pointer back one position
+	dec hl	;move the pointer back one position so it points at party data wEnemyMon<x>HPExp - 1
 	;save this position to recall it later
 	ld a, h
 	ld [wUnusedD153], a
@@ -6952,7 +6952,6 @@ LoadEnemyMonData:
 	ld [wUnusedD153 + 1], a
 	
 ;has this pkmn been sent out before? If so, then it already has statExp values
-	
 	push hl
 	callba CheckAISentOut
 	pop hl
@@ -6963,7 +6962,7 @@ LoadEnemyMonData:
 	push hl
 	callba CalcEnemyStatEXP	;based on the enemy pkmn level, get a stat exp amount into de 
 	pop hl
-	push hl	;saved position for HPExp - 1
+	push hl	;save position for party data wEnemyMon<x>HPExp - 1
 	inc hl ; move hl forward one position to MSB of first stat exp
 	ld b, $05	;load loops into b to loop through the five stats
 .writeStatExp_loop
@@ -6974,10 +6973,10 @@ LoadEnemyMonData:
 	dec b
 	jr nz, .writeStatExp_loop
 	
-	pop hl	;point hl back to the saved position for HPExp - 1
+	pop hl	;point hl back to the saved position for party data wEnemyMon<x>HPExp - 1
 	pop de	;restore the prior de
 .noloops
-	ld b, $1	;make CalcStats take statExp into account
+	ld b, $1	;make CalcStats account for statExp and recognize that hl points to wEnemyMon<x>HPExp - 1
 .nottrainer2
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	call CalcStats

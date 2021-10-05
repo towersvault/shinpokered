@@ -205,6 +205,8 @@ Cheats and Secrets!
 - Stopped AI from decrementing PP when it doesn't wake up from sleep
 - Bank $13 is now solely used for trainer pics
 - Fixed crash damage being zeroed for the jump kick effects
+- Fixed stat exp not being applied properly
+- Fixed blackouts not applying when defeated by Prof Oak
 
 
 #New features & adjustments since last version:

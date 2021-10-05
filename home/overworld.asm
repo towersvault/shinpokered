@@ -334,8 +334,10 @@ OverworldLoopLessDelay::
 .notCinnabarGym
 	ld hl, wd72e
 	set 5, [hl]
-	ld a, [wCurMap]
-	cp OAKS_LAB
+	;ld a, [wCurMap]	;joenote - check the OaksLab map script number instead
+	;cp OAKS_LAB					;script $0C is the default for just after the rival battle
+	ld a, [wOaksLabCurScript]
+	cp $C
 	jp z, .noFaintCheck ; no blacking out if the player lost to the rival in Oak's lab
 	callab AnyPartyAlive
 	ld a, d

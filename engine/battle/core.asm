@@ -6953,16 +6953,17 @@ LoadEnemyMonData:
 	
 ;has this pkmn been sent out before? If so, then it already has statExp values
 	
-	push bc
 	push hl
 	callba CheckAISentOut
 	pop hl
-	pop bc
 	jr nz, .noloops
 	
 ;the pkmn is out for the first time, so give it some statExp
 	push de	;preserve de
+	push hl
 	callba CalcEnemyStatEXP	;based on the enemy pkmn level, get a stat exp amount into de 
+	pop hl
+	push hl	;saved position for HPExp - 1
 	inc hl ; move hl forward one position to MSB of first stat exp
 	ld b, $05	;load loops into b to loop through the five stats
 .writeStatExp_loop
@@ -6972,14 +6973,9 @@ LoadEnemyMonData:
 	ld [hli], a		;load LSB and point hl to MSB of next statexp location
 	dec b
 	jr nz, .writeStatExp_loop
+	
+	pop hl	;point hl back to the saved position for HPExp - 1
 	pop de	;restore the prior de
-	
-;point hl back to the saved position for HPExp - 1
-	ld a, [wUnusedD153]
-	ld h, a
-	ld a, [wUnusedD153 + 1]
-	ld l, a
-	
 .noloops
 	ld b, $1	;make CalcStats take statExp into account
 .nottrainer2

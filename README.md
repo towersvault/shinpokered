@@ -237,6 +237,7 @@ Cheats and Secrets!
   - Sleep and freeze clauses work like they do in Pokemon Stadium
 - Revive items cannot be used in battle on SET style
 - When playing in GBC-mode, move animations are colored based on their type
+- Red & Blue versions use the backsprites from spaceworld 97 so as to be cohesive with the front sprites
   
 - AI layer 1: discourage exploding effects if faster than a player in fly/dig state
 - AI layer 1: randomly discourage usage of 2-turn moves when confused/paralyzed
@@ -755,6 +756,7 @@ Cheats and Secrets!
   - The symbol is displayed in the battle hud only for wild enemy mon (the only time it matters)
 - Oak's aid at the bottom-left of the lab toggles the caught & gender symbols after obtaining the pokedex
 - When playing in GBC-mode, move animations are colored based on their type
+- Red & Blue versions use the backsprites from spaceworld 97 so as to be cohesive with the front sprites
 
 
 #Pre-E4 NPCs

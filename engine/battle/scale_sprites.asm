@@ -77,6 +77,13 @@ ScalePixelsByTwo:
 	add hl, bc   ; add offset
 	ret
 
+;joenote - needed for loading the 48x48 spaceworld back sprites
+LoadUncompressedBackPics:
+	ld a, $66
+	ld c, a
+	ld de, vBackPic
+	jp LoadUncompressedSpriteData
+
 ; repeats each input bit twice
 DuplicateBitsTable:
 	db $00, $03, $0c, $0f

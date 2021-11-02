@@ -5,7 +5,9 @@ Version 1.22
 This is a rom hack of pokemon red & blue based on the Pret team's disassembly.  
 It's a mostly-vanilla hack that focuses on fixing game engine bugs and oversights from the original game.  
 Additionally, trainer AI routines are improved and multiple quality-of-life improvements have been added.  
-Think of it as what the Nintendo Virtual Console re-release of red & blue might have been (plus a few extra goodies).  
+Think of it as what the Nintendo Virtual Console re-release of red & blue might have been (plus a few extra goodies). 
+
+Read the "Guide to New Player Functions" for instructions on all the new stuff the player can do.
 
 Don't like the non-vanilla changes? Prefer only the bugfixes and AI improvements? Want a codebase from which to launch your own rom hack?
 Then the [Lite branch](https://github.com/jojobear13/shinpokered/tree/lite) is what you want. Head on over and start compiling.
@@ -237,7 +239,7 @@ Cheats and Secrets!
   - Sleep and freeze clauses work like they do in Pokemon Stadium
 - Revive items cannot be used in battle on SET style
 - When playing in GBC-mode, move animations are colored based on their type
-- Red & Blue versions use the backsprites from spaceworld 97 so as to be cohesive with the front sprites
+- Red & Blue versions use the back sprites from spaceworld 97 so as to be cohesive with the front sprites
   
 - AI layer 1: discourage exploding effects if faster than a player in fly/dig state
 - AI layer 1: randomly discourage usage of 2-turn moves when confused/paralyzed
@@ -756,7 +758,7 @@ Cheats and Secrets!
   - The symbol is displayed in the battle hud only for wild enemy mon (the only time it matters)
 - Oak's aid at the bottom-left of the lab toggles the caught & gender symbols after obtaining the pokedex
 - When playing in GBC-mode, move animations are colored based on their type
-- Red & Blue versions use the backsprites from spaceworld 97 so as to be cohesive with the front sprites
+- Red & Blue versions use the back sprites from spaceworld 97 so as to be cohesive with the front sprites
 
 
 #Pre-E4 NPCs

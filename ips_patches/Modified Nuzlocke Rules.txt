@@ -8,13 +8,13 @@ Corollaries are mandatory clarifications of existing rules, and Modifications ar
 
 Core Rules:
 -----------
-1 -	Any pokemon that faints is considered dead, and it must be released or permenantly put in storage.
+1 -	Any pokemon that faints is considered dead, and it must be released or permanently put in storage.
 	Corollary A - 		Pokemon that faint purely due to forfeiting a trainer battle are exempt from this rule.
 	Modification A -	A pokemon is only considered dead if it faints from poison, a OHKO move, or a critical hit.
 	Modification B -	If you black out, the earliest pokemon in your party to faint that is still living is now dead.
 						
 	
-2 -	You may only catch the first pokemon encountered in each area even if it faints or flees
+2 -	You may only catch the first pokemon encountered in each area even if it faints or flees.
 	Static encounters with wild pokemon, as well as any shiny pokemon, may be freely caught and used. They do not count towards this rule.
 	Corollary A - 		This rule is not in effect until the player first recieves the pokedex and obtains pokeballs.
 	Corollary B -		Pokemon caught purely for using HM moves are exempt from this rule. They may never be used in battle.

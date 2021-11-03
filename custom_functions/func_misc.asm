@@ -1,4 +1,4 @@
-;Convert a value from the 1st party pkmn into a normalized BCD-value score stored in wcd6d
+;Convert a value from the 1st party pkmn into a normalized BCD-value score stored in wcd6d+1 & wcd6d+2
 ;takes a number loaded into wcd6d to determine value:
 ;	1 is catch rate
 ;	2 is level
@@ -11,33 +11,39 @@ Mon1BCDScore:
 
 	cp 2
 	jr nz, .next1
+	;make a = 1 * wPartyMon1Level
 	ld a, [wPartyMon1Level]
-	ld b, a
-	srl a
-	add b
-	add b
-	jr .next
+	jr .AddToTotal
 
 .next1
 	cp 1
 	jr nz, .default
+	;calculate a = $FF - wPartyMon1CatchRate
 	ld a, [wPartyMon1CatchRate]
 	ld b, a
 	ld a, $FF
 	sub b
-	jr .next
+	jr .AddToTotal
 
 .default
+	;calculate a = $00 to $FF based on average of DVs
 	ld a, [wPartyMon1DVs]	;load first two nybbles of DVs
-	srl a	;shift all bits to the right one time
-	and $F7	; clear the highest bit of the low nybble in case the high nybble overflowed into the low nybble
-	ld b, a
+	call .add_nybbles
+	push bc
 	ld a, [wPartyMon1DVs + 1]	;load second two nybbles of DVs
-	srl a	;shift all bits to the right one time
-	and $F7	; clear the highest bit of the low nybble in case the high nybble overflowed into the low nybble
+	call .add_nybbles
+	ld a, b
+	srl a	;a = mean of first two nybbles
+	pop bc
+	srl b	;b = mean of second two nybbles
 	add b
+	srl a	;a = mean of all four nybbles
+	ld b, a
+	swap a
+	add b	;use mean to make a byte of 00,11,22...,EE,FF
 
-.next
+.AddToTotal
+	;double the score and return it
 	ld b, a
 	xor a
 	ld [hCoins], a
@@ -50,11 +56,11 @@ Mon1BCDScore:
 	ld hl, hCoins
 	call Hex2BCD
 	
-	ld de, wcd6d + 1
+	ld de, wcd6d + 2
 	ld hl, hCoins + 1
 	ld c, $2
 	predef AddBCDPredef	;add value in hl location to value in de location
-	ld de, wcd6d + 1
+	ld de, wcd6d + 2
 	ld hl, hCoins + 1
 	ld c, $2
 	predef AddBCDPredef	;add value in hl location to value in de location
@@ -67,7 +73,20 @@ Mon1BCDScore:
 	pop hl
 	pop de
 	ret
-
+.add_nybbles
+	;get first nybble
+	push af
+	and $F0
+	swap a
+	ld b, a
+	pop af
+	;add second nybble
+	push af
+	and $0F
+	add b
+	ld b, a
+	pop af
+	ret
 
 	
 ;play cry if the 1st pokemon has payday in its move set
@@ -213,6 +232,78 @@ StorePKMNLevels:
 	ret
 
 	
+
+;joenote - This function swaps the primary bag data with a second set of stored bag data
+SwapBagData:
+	ld a, [wListMenuID]
+	cp ITEMLISTMENU
+	ret nz
+	
+	ld a, [wFlags_0xcd60]
+	bit 4, a
+	ret nz
+	
+	push bc
+	push de
+	push hl
+	
+	;format the terminator at the end
+	ld a, $FF
+	ld [wBagItemsTerminator], a
+
+	;format the list terminator given the number of items
+	ld a, [wBagNumBackup]
+	ld b, $00
+	ld c, a
+	ld hl, wBagItemsBackup
+	add hl, bc
+	add hl, bc
+	ld [hl], $FF
+	
+	;swap out the items
+	ld c, wGameProgressFlagsEnd - wBagBackupSpace
+	ld de, wBagBackupSpace
+	ld hl, wNumBagItems
+	call SwapDataSmall
+		
+	; update menu info
+	xor a
+	ld [wListScrollOffset], a
+	ld [wCurrentMenuItem], a
+	ld [wBagSavedMenuItem], a
+	ld [wSavedListScrollOffset], a
+	ld [wMenuItemToSwap], a
+
+	ld a, [wNumBagItems]
+	ld [wListCount], a
+	cp 2 ; does the list have less than 2 entries?
+	jr c, .setMenuVariables
+	ld a, 2 ; max menu item ID is 2 if the list has at least 2 entries
+.setMenuVariables
+	ld [wMaxMenuItem], a
+	
+	ld a, SFX_START_MENU
+	call PlaySound
+	
+	pop hl
+	pop de
+	pop bc
+	ret
+SwapDataSmall:
+; Swap c bytes from hl to de using a and b.
+	ld a, [hl]
+	ld b, a
+	ld a, [de]
+	ld [hl], a
+	ld a, b
+	ld [de], a
+	inc de
+	inc hl
+	dec c
+	jr nz, SwapDataSmall
+	ret
+
+
 
 ;joenote - Consolidate horizontal scrolling that uses SCX (such as title screen mons scrolling)
 ;this is prevents two vblanks from happening when waiting on scrolling to update

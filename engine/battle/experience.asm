@@ -43,11 +43,12 @@ GainExperience:
 	ld a, [de] ; stat exp
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;joenote - bonus statexp
-	;if enemy level > 100, give 255 stat exp instead of enemy mon's base stat
+	;if enemy level > level cap, give 255 stat exp instead of enemy mon's base stat
 	push af
 	ld a, [wEnemyMonLevel]
-	cp 101
+	cp MAX_LEVEL
 	jr c, .nobonus1
+	jr z, .nobonus1
 	ld b, $FF
 .nobonus1
 	pop af
@@ -81,14 +82,15 @@ GainExperience:
 	ld a, [wEnemyMonBaseExp]
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;joenote - bonus exp
-	;if enemy level > 100, it has a base exp yield of 255
+	;if enemy level > level cap, it has a base exp yield of 255
 	push bc
 	ld c, a
 	ld a, [wEnemyMonLevel]
-	cp 101
+	cp MAX_LEVEL
 	ld a, c
 	pop bc
 	jr c, .nobonus3
+	jr z, .nobonus3
 	ld a, $FF
 .nobonus3
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

@@ -43,7 +43,8 @@ OverworldLoop::
 	call Check60fps
 	call z, DelayFrame
 OverworldLoopLessDelay::
-	call DelayFrame
+	;call DelayFrame
+	call CheckForSpinAndDelay
 	call LoadGBPal
 	ld a, [wd736]
 	bit 6, a ; jumping down a ledge?
@@ -333,8 +334,10 @@ OverworldLoopLessDelay::
 .notCinnabarGym
 	ld hl, wd72e
 	set 5, [hl]
-	ld a, [wCurMap]
-	cp OAKS_LAB
+	;ld a, [wCurMap]	;joenote - check the OaksLab map script number instead
+	;cp OAKS_LAB					;script $0C is the default for just after the rival battle
+	ld a, [wOaksLabCurScript]
+	cp $C
 	jp z, .noFaintCheck ; no blacking out if the player lost to the rival in Oak's lab
 	callab AnyPartyAlive
 	ld a, d
@@ -585,6 +588,8 @@ CheckIfInOutsideMap::
 ; If the player is in an outside map (a town or route), set the z flag
 	ld a, [wCurMapTileset]
 	and a ; most towns/routes have tileset 0 (OVERWORLD)
+	ret z
+	cp FOREST	;joenote - don't forget viridian forest
 	ret z
 	cp PLATEAU ; Route 23 / Indigo Plateau
 	ret
@@ -2336,4 +2341,17 @@ ForceBikeOrSurf::
 Check60fps:
 	ld a, [wUnusedD721]
 	bit 4, a
+	ret
+
+;joenote - This functions checks if the spin frame is going to update for the spinning arrow tile state.
+;			If so, do not delay a frame because this will happen during LoadSpinnerArrowTiles.
+CheckForSpinAndDelay:
+	ld a, [wd736]
+	bit 7, a
+	jr z, .noSpinning
+	ld a, [wSpinnerTileFrameCount]
+	dec a
+	ret z	
+.noSpinning
+	call DelayFrame
 	ret

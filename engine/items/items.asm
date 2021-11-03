@@ -1,6 +1,16 @@
 UseItem_:
 	ld a, 1
 	ld [wActionResultOrTookBattleTurn], a ; initialise to success value
+	
+;joenote - check for item clause
+	ld a, [wIsInBattle]
+	cp 2
+	jr nz, .nottrainerbattle
+	ld a, [wUnusedD721]
+	bit 5, a
+	jp nz, UnusableItem	;done if item clause active
+.nottrainerbattle
+
 	ld a, [wcf91] ;contains item_ID
 	cp HM_01
 	jp nc, ItemUseTMHM
@@ -984,6 +994,14 @@ ItemUseMedicine:
 	ld a, [wIsInBattle]
 	and a
 	jr z, .compareCurrentHPToMaxHP
+;joenote - at this point, trying to revive a fainted 'mon in battle
+;disallow this in SET battle style
+	ld a, [wOptions]
+	bit 6, a
+	jr z, .can_revive
+	call ItemUseNotTime
+	jp .done
+.can_revive	
 	push hl
 	push de
 	push bc
@@ -2245,6 +2263,12 @@ ItemUsePPRestore:
 	ld a, [wPlayerMonNumber]
 	cp b ; is the pokemon whose PP was restored active in battle?
 	jr nz, .skipUpdatingInBattleData
+	
+	;joenote - do not update active mon if it is transformed
+	ld a, [wPlayerBattleStatus3]
+	bit 3, a ; is the mon transformed?
+	jp nz, .skipUpdatingInBattleData
+	
 	ld hl, wPartyMon1PP
 	ld bc, wPartyMon2 - wPartyMon1
 	call AddNTimes

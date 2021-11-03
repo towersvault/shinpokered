@@ -232,6 +232,7 @@ StartBattle:	;joedebug - start of the battle
 	ld [wPartyGainExpFlags], a
 	ld [wPartyFoughtCurrentEnemyFlags], a
 	ld [wActionResultOrTookBattleTurn], a
+	ld [wLowHealthTonePairs], a ; joenote - clear low health tone tracker
 	inc a
 	ld [wFirstMonsNotOutYet], a
 	ld hl, wEnemyMon1HP
@@ -567,6 +568,7 @@ MainInBattleLoop:
 .enemyMovesFirst
 	ld a, $1
 	ld [H_WHOSETURN], a
+	ld [H_WHOFIRST], a	;joenote - let's track this for general problem solving
 	callab TrainerAI
 	jr c, .AIActionUsedEnemyFirst
 	call ExecuteEnemyMove
@@ -594,6 +596,8 @@ MainInBattleLoop:
 	jp MainInBattleLoop
 .playerMovesFirst	;joenote - reorganizing this so enemy AI item use and switching has priority over player moves
 ;#1 - handle enemy switching or using an item
+	xor a
+	ld [H_WHOFIRST], a	;joenote - let's track this for general problem solving
 	ld a, $1
 	ld [H_WHOSETURN], a
 	callab TrainerAI
@@ -2561,6 +2565,7 @@ PartyMenuOrRockOrRun:
 	call LoadHudTilePatterns
 	call LoadScreenTilesFromBuffer2
 	call RunDefaultPaletteCommand
+	call PrintEmptyString	;joenote - added to prevent a 1-frame menu flicker
 	call GBPalNormal
 	jp DisplayBattleMenu
 .partyMonDeselected
@@ -2711,7 +2716,11 @@ BattleMenu_RunWasSelected:
 	push bc
 	callba ForfeitTrainerMatch
 	pop bc
-	jp nz, StartBattle.checkAnyPartyAlive
+	jr z, .no_forfeit
+	call HandlePlayerMonFainted
+	scf
+	jr .retc_menu
+.no_forfeit
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;	
 	ld a, $3
 	ld [wCurrentMenuItem], a
@@ -2720,6 +2729,7 @@ BattleMenu_RunWasSelected:
 	call TryRunningFromBattle
 	ld a, 0
 	ld [wForcePlayerToChooseMon], a
+.retc_menu
 	ret c
 	ld a, [wActionResultOrTookBattleTurn]
 	and a
@@ -3247,8 +3257,9 @@ SelectEnemyMove:
 	and (1 << CHARGING_UP) | (1 << THRASHING_ABOUT) ; using a charging move or thrash/petal dance
 	ret nz
 	ld a, [wEnemyMonStatus]
-	;and SLP | 1 << FRZ ; sleeping or frozen
-	and (1 << FRZ)	;joedebug - sleep won't waste turn
+	;and SLP | 1 << FRZ ; sleeping or frozen	
+	;joedebug - sleep won't waste turn on wakeup, but it will if wakeup won't occur	(prevents PP decrementing with AI)	
+	and (1 << FRZ) | SLP_NOMOVE  ; is mon frozen or won't wake up?							
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	call nz, NoAttackAICall	;joenote - get ai routines. flag register is preserved
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -3772,6 +3783,10 @@ CheckPlayerStatusConditions:
 	ld a, [hl]
 	and a
 	jr z, .ConfusedCheck
+	
+	predef PlayerDisableHandler	;joenote - fix a rare oversight with Disable
+	ld a, [hl]
+	
 	dec a
 	ld [hl], a
 	and $f ; did Disable counter hit 0?
@@ -3938,9 +3953,9 @@ CheckPlayerStatusConditions:
 	                ; DecrementPP and MoveHitTest
 	jp nz, .returnToHL
 	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-	;joenote - play cry to signal end of trapping move
+	;joenote - play poof animation to signal end of trapping move
 	ld a, [wBattleMonSpecies]
-	call CryFunc
+	call PlayEndTrappingMove
 	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	jp .returnToHL
 
@@ -4293,6 +4308,7 @@ PrintMoveFailureText:
 	rr b
 	srl a
 	rr b
+	ld hl, wDamage+1
 	ld [hl], b
 	dec hl
 	ld [hli], a
@@ -4594,7 +4610,7 @@ GetDamageVarsForPlayerAttack:
 ; reflect and light screen boosts do not cap the stat at 999, so weird things will happen during stats scaling if
 ; a Pokemon with 512 or more Defense has used Reflect, or if a Pokemon with 512 or more Special has used Light Screen
 ;;;;;joenote - adding in a 999 cap
-	call BC999cap
+	predef BC999cap
 ;;;
 .physicalAttackCritCheck
 	ld hl, wBattleMonAttack
@@ -4614,6 +4630,7 @@ GetDamageVarsForPlayerAttack:
 	ld bc, wPartyMon2 - wPartyMon1
 	call AddNTimes
 	pop bc
+	predef CritHitStatsPlayerPhysical	;joenote - adjust stats for critical hits
 	jr .scaleStats
 .specialAttack
 	ld hl, wEnemyMonSpecial
@@ -4629,7 +4646,7 @@ GetDamageVarsForPlayerAttack:
 ; reflect and light screen boosts do not cap the stat at 999, so weird things will happen during stats scaling if
 ; a Pokemon with 512 or more Defense has used Reflect, or if a Pokemon with 512 or more Special has used Light Screen
 ;;;;;joenote - adding in a 999 cap
-	call BC999cap
+	predef BC999cap
 ;;;
 .specialAttackCritCheck
 	ld hl, wBattleMonSpecial
@@ -4649,38 +4666,12 @@ GetDamageVarsForPlayerAttack:
 	ld bc, wPartyMon2 - wPartyMon1
 	call AddNTimes
 	pop bc
+	predef CritHitStatsPlayerSpecial	;joenote - adjust stats for critical hits
 ; if either the offensive or defensive stat is too large to store in a byte, scale both stats by dividing them by 4
 ; this allows values with up to 10 bits (values up to 1023) to be handled
 ; anything larger will wrap around
 .scaleStats
-	ld a, [hli]
-	ld l, [hl]
-	ld h, a ; hl = player's offensive stat
-	or b ; is either high byte nonzero?
-	jr z, .next ; if not, we don't need to scale
-; bc /= 4 (scale enemy's defensive stat)
-	srl b
-	rr c
-	srl b
-	rr c
-; defensive stat can actually end up as 0, leading to a division by 0 freeze during damage calculation
-; hl /= 4 (scale player's offensive stat)
-	srl h
-	rr l
-	srl h
-	rr l
-	ld a, l
-	or h ; is the player's offensive stat 0?
-	jr nz, .next_0;joenote - move to custom section for fixing freeze
-	inc l ; if the player's offensive stat is 0, bump it up to 1
-;;;;;;;joenote fix aforementioned freeze
-.next_0
-	ld a, c	;load lo defense byte into 'a'
-	or b 	;OR 'a' with hi defense byte 'b'
-	jr nz, .next	;if defense not zero, then move on
-	inc c	;otherwise increment the low defense byte by 1
-;;;;;;;
-.next
+	call GetDamageVarsScaleStats
 	ld b, l ; b = player's offensive stat (possibly scaled)
 	        ; (c already contains enemy's defensive stat (possibly scaled))
 	ld a, [wBattleMonLevel]
@@ -4723,7 +4714,7 @@ GetDamageVarsForEnemyAttack:
 ; reflect and light screen boosts do not cap the stat at 999, so weird things will happen during stats scaling if
 ; a Pokemon with 512 or more Defense has used Reflect, or if a Pokemon with 512 or more Special has used Light Screen
 ;;;;;joenote - adding in a 999 cap
-	call BC999cap
+	predef BC999cap
 ;;;
 .physicalAttackCritCheck
 	ld hl, wEnemyMonAttack
@@ -4743,6 +4734,7 @@ GetDamageVarsForEnemyAttack:
 	call GetEnemyMonStat
 	ld hl, H_PRODUCT + 2
 	pop bc
+	predef CritHitStatsEnemyPhysical	;joenote - adjust stats for critical hits
 	jr .scaleStats
 .specialAttack
 	ld hl, wBattleMonSpecial
@@ -4758,7 +4750,7 @@ GetDamageVarsForEnemyAttack:
 ; reflect and light screen boosts do not cap the stat at 999, so weird things will happen during stats scaling if
 ; a Pokemon with 512 or more Defense has used Reflect, or if a Pokemon with 512 or more Special has used Light Screen
 ;;;;;joenote - adding in a 999 cap
-	call BC999cap
+	predef BC999cap
 ;;;
 .specialAttackCritCheck
 	ld hl, wEnemyMonSpecial
@@ -4778,38 +4770,12 @@ GetDamageVarsForEnemyAttack:
 	call GetEnemyMonStat
 	ld hl, H_PRODUCT + 2
 	pop bc
+	predef CritHitStatsEnemySpecial	;joenote - adjust stats for critical hits
 ; if either the offensive or defensive stat is too large to store in a byte, scale both stats by dividing them by 4
 ; this allows values with up to 10 bits (values up to 1023) to be handled
 ; anything larger will wrap around
 .scaleStats
-	ld a, [hli]
-	ld l, [hl]
-	ld h, a ; hl = enemy's offensive stat
-	or b ; is either high byte nonzero?
-	jr z, .next ; if not, we don't need to scale
-; bc /= 4 (scale player's defensive stat)
-	srl b
-	rr c
-	srl b
-	rr c
-; defensive stat can actually end up as 0, leading to a division by 0 freeze during damage calculation
-; hl /= 4 (scale enemy's offensive stat)
-	srl h
-	rr l
-	srl h
-	rr l
-	ld a, l
-	or h ; is the enemy's offensive stat 0?
-	jr nz, .next_0;joenote - move to custom section for fixing freeze
-	inc l ; if the player's offensive stat is 0, bump it up to 1
-;;;;;;;joenote fix aforementioned freeze
-.next_0
-	ld a, c	;load lo defense byte into 'a'
-	or b 	;OR 'a' with hi defense byte 'b'
-	jr nz, .next	;if defense not zero, then move on
-	inc c	;otherwise increment the low defense byte by 1
-;;;;;;;
-.next
+	call GetDamageVarsScaleStats
 	ld b, l ; b = enemy's offensive stat (possibly scaled)
 	        ; (c already contains player's defensive stat (possibly scaled))
 	ld a, [wEnemyMonLevel]
@@ -4823,6 +4789,37 @@ GetDamageVarsForEnemyAttack:
 	ld a, $1
 	and a
 	and a
+	ret
+	
+GetDamageVarsScaleStats:	;joenote - consolidated into its own function to save space
+	ld a, [hli]
+	ld l, [hl]
+	ld h, a ; hl = offensive stat
+	or b ; is either high byte nonzero?
+	jr z, .next ; if not, we don't need to scale
+; bc /= 4 (scale defensive stat)
+	srl b
+	rr c
+	srl b
+	rr c
+; defensive stat can actually end up as 0, leading to a division by 0 freeze during damage calculation
+; hl /= 4 (scale offensive stat)
+	srl h
+	rr l
+	srl h
+	rr l
+	ld a, l
+	or h ; is the offensive stat 0?
+	jr nz, .next_0;joenote - move to custom section for fixing freeze
+	inc l ; if the offensive stat is 0, bump it up to 1
+;;;;;;;joenote fix aforementioned freeze
+.next_0
+	ld a, c	;load lo defense byte into 'a'
+	or b 	;OR 'a' with hi defense byte 'b'
+	jr nz, .next	;if defense not zero, then move on
+	inc c	;otherwise increment the low defense byte by 1
+;;;;;;;
+.next
 	ret
 
 ; get stat c of enemy mon
@@ -4965,6 +4962,16 @@ CalculateDamage:
 ; Add 2
 	inc [hl]
 	inc [hl]
+	
+;joenote - ; Add 2 more if critical hit (very slight crit damage increase but greatly simplifies some algebra)
+	push af
+	ld a, [wCriticalHitOrOHKO]
+	cp 1
+	jr c, .nocrit2
+	inc [hl]
+	inc [hl]
+.nocrit2
+	pop af
 
 	inc hl ; multiplier
 
@@ -5276,40 +5283,57 @@ ApplyAttackToEnemyPokemon:
 	ld [de], a
 	jr ApplyDamageToEnemyPokemon
 .specialDamage
+	push bc	;joenote - set up special damage to use 2 bytes BC in order to account for psywave
+	ld bc, $0000
 	ld hl, wBattleMonLevel
 	ld a, [hl]
-	ld b, a ; Seismic Toss deals damage equal to the user's level
+	ld c, a ; Seismic Toss deals damage equal to the user's level
 	ld a, [wPlayerMoveNum]
 	cp SEISMIC_TOSS
 	jr z, .storeDamage
 	cp NIGHT_SHADE
 	jr z, .storeDamage
-	ld b, SONICBOOM_DAMAGE ; 20
+	ld c, SONICBOOM_DAMAGE ; 20
 	cp SONICBOOM
 	jr z, .storeDamage
-	ld b, DRAGON_RAGE_DAMAGE ; 40
+	ld c, DRAGON_RAGE_DAMAGE ; 40
 	cp DRAGON_RAGE
 	jr z, .storeDamage
-; Psywave
+; Psywave	;joenote - adjusted to account for underflow/overflow
 	ld a, [hl]
-	ld b, a
+	ld c, a
 	srl a
-	add b
-	ld b, a ; b = level * 1.5
+	add c
+	ld c, a 
+	ld a, b	
+	adc $00
+	ld b, a; bc = level * 1.5
+	;joenote - make the level at least 1 for psywave
+	or c
+	jr nz, .loop
+	inc c
 ; loop until a random number in the range [1, b) is found
+;joenote - adjusted for 2 bytes bc
 .loop
 	call BattleRandom
-	and a
-	jr z, .loop
-	cp b
-	jr nc, .loop
+	;and a
+	;jr z, .loop
+	;cp b
+	;jr nc, .loop
+	;ld b, a
+	and b
 	ld b, a
-.storeDamage ; store damage value at b
+	call BattleRandom
+	cp c
+	jr nc, .loop
+	ld c, a
+.storeDamage ; store damage value at b ;joenote - changed to bc
 	ld hl, wDamage
-	xor a
+	ld a, b ;xor a
 	ld [hli], a
-	ld a, b
+	ld a, c
 	ld [hl], a
+	pop bc
 
 ApplyDamageToEnemyPokemon:
 	ld hl, wDamage
@@ -6557,6 +6581,10 @@ CheckEnemyStatusConditions:
 	ld a, [hl]
 	and a
 	jr z, .checkIfConfused
+	
+	predef EnemyDisableHandler	;joenote - fix a rare oversight with Disable
+	ld a, [hl]
+	
 	dec a ; decrement disable counter
 	ld [hl], a
 	and $f ; did disable counter hit 0?
@@ -6760,9 +6788,9 @@ CheckEnemyStatusConditions:
 	                             ; DecrementPP and MoveHitTest
 	jp nz, .enemyReturnToHL
 	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-	;joenote - play cry to signal end of trapping move
+	;joenote - play poof animation to signal end of trapping move
 	ld a, [wEnemyMonSpecies]
-	call CryFunc
+	call PlayEndTrappingMove
 	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	jp .enemyReturnToHL
 .checkIfUsingRage
@@ -6909,14 +6937,14 @@ LoadEnemyMonData:
 ;is this a trainer battle? Wild pkmn do not have statexp
 	ld a, [wIsInBattle]
 	cp $2 ; is it a trainer battle?
-	jr nz, .nottrainer2
+	jr nz, .nottrainer2	;not a trainer battle, so hl will continue to point to wEnemyMonHP and b=0 for CalcStats
 	
-;this is a trainer battle, so find and save the location of HPStatExp - 1
-	ld hl, wEnemyMon1HPExp	;make hl point to HP statExp
+;this is a trainer battle, so point hl to the HP statExp address of the correct mon in the enemy party data
+	ld hl, wEnemyMon1HPExp	;make hl point to HP statExp of the first enemy party mon
 	ld a, [wWhichPokemon]	;get the party position
 	ld bc, wEnemyMon2 - wEnemyMon1	;get the size to advance between party positions
 	call AddNTimes	;advance the pointer to the correct party position
-	dec hl	;move the pointer back one position
+	dec hl	;move the pointer back one position so it points at party data wEnemyMon<x>HPExp - 1
 	;save this position to recall it later
 	ld a, h
 	ld [wUnusedD153], a
@@ -6924,17 +6952,17 @@ LoadEnemyMonData:
 	ld [wUnusedD153 + 1], a
 	
 ;has this pkmn been sent out before? If so, then it already has statExp values
-	
-	push bc
 	push hl
 	callba CheckAISentOut
 	pop hl
-	pop bc
 	jr nz, .noloops
 	
 ;the pkmn is out for the first time, so give it some statExp
 	push de	;preserve de
+	push hl
 	callba CalcEnemyStatEXP	;based on the enemy pkmn level, get a stat exp amount into de 
+	pop hl
+	push hl	;save position for party data wEnemyMon<x>HPExp - 1
 	inc hl ; move hl forward one position to MSB of first stat exp
 	ld b, $05	;load loops into b to loop through the five stats
 .writeStatExp_loop
@@ -6944,16 +6972,11 @@ LoadEnemyMonData:
 	ld [hli], a		;load LSB and point hl to MSB of next statexp location
 	dec b
 	jr nz, .writeStatExp_loop
+	
+	pop hl	;point hl back to the saved position for party data wEnemyMon<x>HPExp - 1
 	pop de	;restore the prior de
-	
-;point hl back to the saved position for HPExp - 1
-	ld a, [wUnusedD153]
-	ld h, a
-	ld a, [wUnusedD153 + 1]
-	ld l, a
-	
 .noloops
-	ld b, $1	;make CalcStats take statExp into account
+	ld b, $1	;make CalcStats account for statExp and recognize that hl points to wEnemyMon<x>HPExp - 1
 .nottrainer2
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	call CalcStats
@@ -7857,9 +7880,13 @@ LoadMonBackPic:
 	call ClearScreenArea
 	ld hl,  wMonHBackSprite - wMonHeader
 	call UncompressMonSprite
-	predef ScaleSpriteByTwo
-	ld de, vBackPic
-	call InterlaceMergeSpriteBuffers ; combine the two buffers to a single 2bpp sprite
+
+;joenote - needed for loading the 48x48 spaceworld back sprites
+;	predef ScaleSpriteByTwo
+;	ld de, vBackPic
+;	call InterlaceMergeSpriteBuffers ; combine the two buffers to a single 2bpp sprite
+	callba LoadUncompressedBackPics
+
 	ld hl, vSprites
 	ld de, vBackPic
 	ld c, (2*SPRITEBUFFERSIZE)/16 ; count of 16-byte chunks to be copied
@@ -8014,6 +8041,9 @@ SleepEffect:
 	pop de
 	ld a, [wMoveMissed]
 	and a
+	jr nz, .didntAffect
+	;joenote - check for sleep clause
+	call HandleSlpFrzClause
 	jr nz, .didntAffect
 ;;;;;joenote: recharge hyper beam if fallen asleep
 	ld a, [bc]
@@ -8211,6 +8241,9 @@ FreezeBurnParalyzeEffect:
 	ld hl, BurnedText
 	jp PrintText
 .freeze
+	;joenote - check for freeze clause
+	call HandleSlpFrzClause
+	ret c	;no effect if opposing team has a frozen 'mon
 	call ClearHyperBeam ; resets hyper beam (recharge) condition from target
 	ld a, 1 << FRZ
 	ld [wEnemyMonStatus], a
@@ -8258,6 +8291,9 @@ opponentAttacker:
 	ld hl, BurnedText
 	jp PrintText
 .freeze
+	;joenote - check for freeze clause
+	call HandleSlpFrzClause
+	ret c	;no effect if opposing team has a frozen 'mon
 ; hyper beam bits aren't reset for opponent's side
 	call ClearHyperBeam ; joenote - adding this to prevent an infinite loop if frozen before recharging
 	ld a, 1 << FRZ
@@ -9385,10 +9421,10 @@ DisableEffect:
 	and a
 	ld hl, wBattleMonPP
 	jr nz, .enemyTurn
-	ld a, [wLinkState]
-	cp LINK_STATE_BATTLING
+;	ld a, [wLinkState]	;joenote - non-link enemy mons now have PP, so always run checks during disable effect
+;	cp LINK_STATE_BATTLING
 	pop hl ; wEnemyMonMoves
-	jr nz, .playerTurnNotLinkBattle
+;	jr nz, .playerTurnNotLinkBattle
 ; .playerTurnLinkBattle
 	push hl
 	ld hl, wEnemyMonPP
@@ -9408,11 +9444,12 @@ DisableEffect:
 	pop hl
 	and a
 	jr z, .pickMoveToDisable ; pick another move if this one had 0 PP
-.playerTurnNotLinkBattle
+;.playerTurnNotLinkBattle
 ; non-link battle enemies have unlimited PP so the previous checks aren't needed
 	call BattleRandom
 	and $7
-	inc a ; 1-8 turns disabled
+	;inc a ; 1-8 turns disabled
+	set 3, a ;joenote - will handle this a different way (0-7 turns with bit 3 initialized)
 	inc c ; move 1-4 will be disabled
 	swap c
 	add c ; map disabled move to high nibble of wEnemyDisabledMove / wPlayerDisabledMove
@@ -9613,33 +9650,19 @@ PlaySelectedAnimation:
 	ret 
 
 
-;joenote - function to play cry with stack pushing
-CryFunc:
+;joenote - function to play an animation to signify the last attack of a trapping move
+PlayEndTrappingMove:
 	push hl
 	push bc
-	call PlayCry
+	push de
+	ld e, POOF_ANIM
+	ld a, [H_WHOSETURN]
+	xor $01
+	ld d, a
+	call PlaySelectedAnimation
+	pop de
 	pop bc
 	pop hl
-	ret
-
-;joenote - caps the stat in bc to 999
-BC999cap:
-	;b register contains high byte & c register contains low byte
-	ld a, c ;let's work on low byte first. Note that decimal 999 is $03E7 in hex.
-	sub 999 % $100 ;a = a - ($03E7 % $100). Gives a = a - $E7. A byte % $100 always gives the lesser nibble.
-	;Note that if a < $E7 then the carry bit 'c' in the flag register gets set due to overflowing with a negative result.
-	ld a, b ;now let's work on the high byte
-	sbc 999 / $100 ;a = a - ($03E7 / $100 + c_flag). Gives a = a - ($03 + c_flag). A byte / $100 always gives the greater nibble.
-	;Note again that if a < $03 then the carry bit remains set. 
-	;If the bit is already set from the lesser nibble, then its addition here can still make it remain set if a is low enough.
-	jr c, .donecapping ;jump to next marker if the c_flag is set. This only remains set if BC <  the cap of $03E7.
-	;else let's continue and set the 999 cap
-	ld a, 999 / $100 ; else load $03 into a
-	ld b, a ;and store it as the high byte
-	ld a, 999 % $100 ; else load $E7 into a
-	ld c, a ;and store it as the low byte
-	;now registers b & c together contain $03E7 for a capped stat value of 999
-.donecapping
 	ret
 
 ;joenote - consolidate this to save a bit of space

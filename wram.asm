@@ -1236,6 +1236,7 @@ wFlags_0xcd60:: ; cd60
 ; bit 0: is player engaged by trainer (to avoid being engaged by multiple trainers simultaneously)
 ; bit 1: boulder dust animation (from using Strength) pending
 ; bit 3: using generic PC
+; bit 4: withdrawing boxed item's from pc ;joenote - added this
 ; bit 5: don't play sound when A or B is pressed in menu
 ; bit 6: tried pushing against boulder once (you need to push twice before it will move)
 	ds 1
@@ -2977,9 +2978,17 @@ wSeafoamIslands5CurScript:: ; d668
 	ds 1
 wRoute18GateCurScript:: ; d669
 	ds 1
-
-	ds 78
+;usused space
+	ds 36
+wBagBackupSpace::	;joenote - added to expand the bag space (42 bytes long)
+wBagNumBackup::
+	ds 1
+wBagItemsBackup::
+	ds 40
+wBagItemsTerminator::
+	ds 1
 wGameProgressFlagsEnd::
+
 
 wGBCBasePalPointers:: 
 	ds NUM_ACTIVE_PALS * 2 ; 8 bytes
@@ -3076,8 +3085,11 @@ wWhichDungeonWarp:: ; d71e
 ; which dungeon warp within the source map was used
 	ds 1
 
-wUnusedD71F:: ; d71f	;joenote - used as a backup address for the wDamage value
-	ds 2
+wUnusedD71F:: ; d71f	;joenote - used as a backup address for the wDamage value (2 bytes)
+	ds 1
+wSpinnerTileFrameCount::	;d720	;joenote - used as a counter for the spinner tiles out of battle
+	ds 1							
+
 wUnusedD721:: ; d721	;joenote - use to set various wram flags
 	ds 1
 	;bit 0 - player is female trainer if set
@@ -3085,6 +3097,9 @@ wUnusedD721:: ; d721	;joenote - use to set various wram flags
 	;bit 2 - override bit 0 for specific bank switching instances
 	;bit 3 - ghost marowak battle if set
 	;bit 4 - 60fps option flag
+	;bit 5 - set for item clause
+	;bit 6 - set for sleep clause
+	;bit 7 - set for freeze clause
 ;;;;;;;;;;;;;;joenote - use these unused locations for debugging and parsing DV scores
 wUnusedD722:: 
 	ds 4
@@ -3101,7 +3116,7 @@ wd728:: ; d728
 ; bit 7: set by ItemUseCardKey, which is leftover code from a previous implementation of the Card Key
 			;joenote - repurposed for exp all message now
 	ds 1
-
+wLowHealthTonePairs::	;d729			;in battle, used as a counter for low hp alarm tone pairs
 	ds 1
 
 wBeatGymFlags:: ; d72a
@@ -3240,7 +3255,7 @@ wGrassMons:: ; d888
 wSerialEnemyDataBlock:: ; d893
 	ds 9
 
-wEnemyPartyCount:: ds 1     ; d89c
+wEnemyPartyCount:: ds 1     ; d89c	;value of 1 to 6
 wEnemyPartyMons::  ds PARTY_LENGTH + 1 ; d89d
 
 ; Overload enemy party data

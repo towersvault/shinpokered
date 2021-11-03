@@ -41,12 +41,6 @@ _CeladonHotelCoinGuyText_needcase::
 	line "bring a COIN CASE."
 	done
 
-_CeladonHotelCoinGuyText_toomuch::
-	text "Too bad your COIN"
-	line "CASE is almost"
-	cont "bursting as well."
-	done
-
 _CeladonHotelCoinGuyText_recieved::
 	text "Oh, I see that you"
 	line "have one!"

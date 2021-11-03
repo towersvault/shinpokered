@@ -273,3 +273,39 @@ PreventARegOverflow:
 	;else set A to the max
 	ld a, $FF
 	ret
+
+
+;randomizes the 'mon in wcf91 to an unevolved 'mon then tries to evolve it	
+RandomizeRegularTrainerMons:
+	CheckEvent EVENT_910
+	ret z
+	push de
+	ld de, ListNonLegendUnEvoPkmn
+	call GetRandMon
+	callba EnemyMonEvolve
+	ld a, [wcf91]
+	cp EEVEE
+	call z, .handleeevee
+	pop de
+	ret
+.handleeevee
+	call Random
+	and $0F
+	cp $0A
+	ret c	;eevee
+	push af
+	ld a, FLAREON
+	ld [wcf91], a
+	pop af
+	cp $0C
+	ret c ;flareon
+	push af
+	ld a, VAPOREON
+	ld [wcf91], a
+	pop af
+	cp $0E
+	ret c ;vaporeon
+	;else jolteon
+	ld a, JOLTEON
+	ld [wcf91], a
+	ret

@@ -1442,10 +1442,11 @@ DisplayListMenuID::
 	ld [wTopMenuItemY], a
 	ld a, 5
 	ld [wTopMenuItemX], a
-	ld a, A_BUTTON | B_BUTTON | SELECT
+	ld a, A_BUTTON | B_BUTTON | SELECT | START ;joenote - added start for added functionality
 	ld [wMenuWatchedKeys], a
-	ld c, 10
-	call DelayFrames
+	homecall PrepareOAMData	;joenote - makes mart menus cleaner by updating the OAM sprite table ahead of vblank
+	;ld c, 10
+	;call DelayFrames
 
 DisplayListMenuIDLoop::	
 	xor a
@@ -1565,11 +1566,13 @@ DisplayListMenuIDLoop::
 	ld hl, wd730
 	res 6, [hl] ; turn on letter printing delay
 	jp BankswitchBack
-.checkOtherKeys ; check B, SELECT, Up, and Down keys
+.checkOtherKeys ; check B, SELECT, Up, and Down keys, and START key
 	bit 1, a ; was the B button pressed?
 	jp nz, ExitListMenu ; if so, exit the menu
 	bit 2, a ; was the select button pressed?
 	jp nz, HandleItemListSwapping ; if so, allow the player to swap menu entries
+	bit 3, a ; joenote - was the start button pressed?
+	jr nz, .startPressed
 	ld b, a
 	bit 7, b ; was Down pressed?
 	ld hl, wListScrollOffset
@@ -1588,6 +1591,9 @@ DisplayListMenuIDLoop::
 	and a
 	jp z, DisplayListMenuIDLoop
 	dec [hl]
+	jp DisplayListMenuIDLoop
+.startPressed	
+	homecall SwapBagData	;joenote - adding swappable bag space
 	jp DisplayListMenuIDLoop
 
 DisplayChooseQuantityMenu::
@@ -3416,14 +3422,24 @@ GetName::
 ; returns pointer to name in de
 	ld a, [wd0b5]
 	ld [wd11e], a
+
 	; TM names are separate from item names.
 	; BUG: This applies to all names instead of just items.
+	;joenote - fixing the aforementioned bug
+	push bc
+	ld b, a
+	ld a, [wNameListType]
+	cp ITEM_NAME
+	ld a, b
+	pop bc
+	jr nz, .notMachine	;if the list type is not items, then A cannot be referring to a machine
+	;At this line, definitely working with an item list. So see if it's a machine or item
 	cp HM_01
 	;jp nc, GetMachineName	;joenote - function removed. Handle list-based tm & hm names here.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;joenote - do some stuff if the item is a machine
 	jr c, .notMachine
-	sub $C3	;need to shift things because tm and hm constants are offset by +$C3 from the first item constant
+	sub (HM_01 - 1)	;need to shift things because tm and hm constants are offset by +$C3 from the first item constant
 	ld [wd0b5], a
 	ld a, TMHM_NAME	
 	ld [wNameListType], a
@@ -4646,6 +4662,14 @@ SetMapTextPointer::
 	ld [wMapTextPtr], a
 	ld a, h
 	ld [wMapTextPtr + 1], a
+	ret
+	
+HandleSlpFrzClause::	;joenote - move to the main function
+	push bc
+	push hl
+	callba _HandleSlpFrzClause
+	pop hl
+	pop bc
 	ret
 	
 StatModifierRatios:

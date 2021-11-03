@@ -24,7 +24,7 @@ CeladonHouseText1:	;joenote - adding offer to buy pokemon
 	ld [wcd6d], a
 	callba Mon1BCDScore
 	ld de, hItemPrice + 2
-	ld hl, wcd6d + 1
+	ld hl, wcd6d + 2
 	ld c, $3
 	predef AddBCDPredef	;add value in hl location to value in de location
 	
@@ -32,7 +32,7 @@ CeladonHouseText1:	;joenote - adding offer to buy pokemon
 	ld [wcd6d], a
 	callba Mon1BCDScore
 	ld de, hItemPrice + 2
-	ld hl, wcd6d + 1
+	ld hl, wcd6d + 2
 	ld c, $3
 	predef AddBCDPredef	;add value in hl location to value in de location
 	
@@ -40,9 +40,31 @@ CeladonHouseText1:	;joenote - adding offer to buy pokemon
 	ld [wcd6d], a
 	callba Mon1BCDScore
 	ld de, hItemPrice + 2
-	ld hl, wcd6d + 1
+	ld hl, wcd6d + 2
 	ld c, $3
 	predef AddBCDPredef	;add value in hl location to value in de location
+	
+	
+;multiply the amount paid by the 'mons level
+	ld a, [hItemPrice + 2]
+	ld [wcd6d + 2], a
+	ld a, [hItemPrice + 1]
+	ld [wcd6d + 1], a
+	ld a, [hItemPrice + 0]
+	ld [wcd6d + 0], a
+	
+	ld a, [wPartyMon1Level]
+	ld b, a
+.adder_loop
+	push bc
+	ld de, hItemPrice + 2
+	ld hl, wcd6d + 2
+	ld c, $3
+	predef AddBCDPredef
+	pop bc
+	dec b
+	jr nz, .adder_loop
+	
 	
 	ld a, [wPartyMon1Species]
 	ld [wd11e], a
@@ -69,6 +91,9 @@ CeladonHouseText1:	;joenote - adding offer to buy pokemon
 	
 	ld a, SFX_GET_ITEM_1
 	call PlaySound
+	
+	xor a 
+	ld [wPartyAndBillsPCSavedMenuItem], a	;reset the cursor
 	
 .nodeal	
 	ld hl, CeladonHouseTextChiefDone

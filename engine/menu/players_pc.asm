@@ -21,6 +21,7 @@ PlayerPCMenu:
 	ld [wCurrentMenuItem], a
 	ld hl, wFlags_0xcd60
 	set 5, [hl]
+	res 4, [hl]	;joenote - assigned this bit to track if withdrawing items
 	call LoadScreenTilesFromBuffer2
 	coord hl, 0, 0
 	ld b, $8
@@ -141,6 +142,10 @@ PlayerPCWithdraw:
 	xor a
 	ld [wCurrentMenuItem], a
 	ld [wListScrollOffset], a
+	
+	ld hl, wFlags_0xcd60
+	set 4, [hl]	;joenote - assigned this bit to track if withdrawing items
+	
 	ld a, [wNumBoxItems]
 	and a
 	jr nz, .loop

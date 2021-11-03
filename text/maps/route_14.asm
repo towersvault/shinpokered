@@ -12,8 +12,9 @@ _Route14EndBattleText1::
 _Route14AfterBattleText1::
 	text "You have some HMs"
 	line "right? #MON"
-	cont "can't ever forget"
-	cont "those moves."
+	cont "normally can't"
+	cont "ever forget those"
+	cont "moves."
 	done
 
 _Route14BattleText2::

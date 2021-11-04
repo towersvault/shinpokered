@@ -13,7 +13,8 @@ Don't like the non-vanilla changes? Prefer only the bugfixes and AI improvements
 Then the [Lite branch](https://github.com/jojobear13/shinpokered/tree/lite) is what you want. Head on over and start compiling.
 
 
-Download the IPS patch file of the version you want and apply it to its respective USA rom.  
+Download the IPS patch file of the version you want and apply it to its respective USA rom. 
+The "_origback" ips patches are alternatives for red & blue that keep the original back sprites. 
 Always apply patches to a fresh USA ROM or else strange glitches will occur.  
 
 ***Now includes Pokemon Green!***

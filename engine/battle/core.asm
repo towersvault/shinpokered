@@ -7882,10 +7882,13 @@ LoadMonBackPic:
 	call UncompressMonSprite
 
 ;joenote - needed for loading the 48x48 spaceworld back sprites
-;	predef ScaleSpriteByTwo
-;	ld de, vBackPic
-;	call InterlaceMergeSpriteBuffers ; combine the two buffers to a single 2bpp sprite
+IF DEF(_GREEN)
+	predef ScaleSpriteByTwo
+	ld de, vBackPic
+	call InterlaceMergeSpriteBuffers ; combine the two buffers to a single 2bpp sprite
+ELSE
 	callba LoadUncompressedBackPics
+ENDC
 
 	ld hl, vSprites
 	ld de, vBackPic

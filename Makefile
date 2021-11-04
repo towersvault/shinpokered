@@ -3,26 +3,30 @@ MD5 := md5sum -c
 pokered_obj := audio_red.o main_red.o text_red.o wram_red.o
 pokeblue_obj := audio_blue.o main_blue.o text_blue.o wram_blue.o
 pokegreen_obj := audio_green.o main_green.o text_green.o wram_green.o
+pokered_origback_obj := audio_red_origback.o main_red_origback.o text_red_origback.o wram_red_origback.o
+pokeblue_origback_obj := audio_blue_origback.o main_blue_origback.o text_blue_origback.o wram_blue_origback.o
 
 .SUFFIXES:
 .SECONDEXPANSION:
 .PRECIOUS:
 .SECONDARY:
-.PHONY: all clean red blue green compare tools
+.PHONY: all clean red blue green red_origback blue_origback compare tools
 
-roms := pokered.gbc pokeblue.gbc pokegreen.gbc
+roms := pokered.gbc pokeblue.gbc pokegreen.gbc pokered_origback.gbc pokeblue_origback.gbc
 
 all: $(roms)
 red: pokered.gbc
 blue: pokeblue.gbc
 green: pokegreen.gbc
+red_origback: pokered_origback.gbc
+blue_origback: pokeblue_origback.gbc
 
 # For contributors to make sure a change didn't affect the contents of the rom.
-compare: red blue green
+compare: red blue green red_origback blue_origback
 	@$(MD5) roms.md5
 
 clean:
-	rm -f $(roms) $(pokered_obj) $(pokeblue_obj) $(pokegreen_obj) $(roms:.gbc=.sym)
+	rm -f $(roms) $(pokered_obj) $(pokeblue_obj) $(pokegreen_obj) $(pokered_origback_obj) $(pokeblue_origback_obj) $(roms:.gbc=.sym)
 	find . \( -iname '*.1bpp' -o -iname '*.2bpp' -o -iname '*.pic' \) -exec rm {} +
 	$(MAKE) clean -C tools/
 
@@ -50,11 +54,21 @@ $(pokeblue_obj): %_blue.o: %.asm $$(dep)
 %_green.o: dep = $(shell tools/scan_includes $(@D)/$*.asm)
 $(pokegreen_obj): %_green.o: %.asm $$(dep)
 	rgbasm -D _GREEN -h -o $@ $*.asm
+	
+%_red_origback.o: dep = $(shell tools/scan_includes $(@D)/$*.asm)
+$(pokered_origback_obj): %_red_origback.o: %.asm $$(dep)
+	rgbasm -D _RED -D _ORIGBACK -h -o $@ $*.asm
+
+%_blue_origback.o: dep = $(shell tools/scan_includes $(@D)/$*.asm)
+$(pokeblue_origback_obj): %_blue_origback.o: %.asm $$(dep)
+	rgbasm -D _BLUE -D _ORIGBACK -h -o $@ $*.asm
 
 #gbcnote - use cjsv to compile as GBC+DMG rom
 pokered_opt  = -cjsv -k 01 -l 0x33 -m 0x13 -p 0 -r 03 -t "POKEMON RED"
 pokeblue_opt = -cjsv -k 01 -l 0x33 -m 0x13 -p 0 -r 03 -t "POKEMON BLUE"
 pokegreen_opt = -cjsv -k 01 -l 0x33 -m 0x13 -p 0 -r 03 -t "POKEMON GREEN"
+pokered_origback_opt  = -cjsv -k 01 -l 0x33 -m 0x13 -p 0 -r 03 -t "POKEMON RED"
+pokeblue_origback_opt = -cjsv -k 01 -l 0x33 -m 0x13 -p 0 -r 03 -t "POKEMON BLUE"
 
 %.gbc: $$(%_obj)
 	rgblink -d -n $*.sym -l pokered.link -o $@ $^

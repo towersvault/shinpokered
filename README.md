@@ -271,7 +271,6 @@ Cheats and Secrets!
 - Adjusted two spin-stop tiles in Viridian Gym
 - Made Agility's animation more apparent
 - Water warps in seafoam island 4 & 5 are now scripted movement
-- Forest tileset is now treated as an outside area
 - Fixed a bug in the GetName: function that treated lists over 195 entries as item lists
 - You can now cut the grass in the plateau tileset
 
@@ -474,7 +473,6 @@ Cheats and Secrets!
   - Fixed an issue with the silph co 11f elevator doors
   - Can no longer walk up to 4 steps with a fainted team
   - Water warps in seafoam island 4 & 5 are now scripted movement
-  - Forest tileset is now treated as an outside area
   - Fixed a bug in the GetName: function that treated lists over 195 entries as item lists
   
   

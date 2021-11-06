@@ -273,6 +273,7 @@ Cheats and Secrets!
 - Water warps in seafoam island 4 & 5 are now scripted movement
 - Fixed a bug in the GetName: function that treated lists over 195 entries as item lists
 - You can now cut the grass in the plateau tileset
+- You can Fly and Teleport out of maps with the forest tileset
 
 
 #Changes not yet in the release branch:
@@ -474,6 +475,7 @@ Cheats and Secrets!
   - Can no longer walk up to 4 steps with a fainted team
   - Water warps in seafoam island 4 & 5 are now scripted movement
   - Fixed a bug in the GetName: function that treated lists over 195 entries as item lists
+  - You can Fly and Teleport out of maps with the forest tileset
   
   
 #TWEAKS:

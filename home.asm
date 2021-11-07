@@ -1962,24 +1962,19 @@ GetItemName::
 ;joenote - rewriting this function for list of tm & hm names
 	push hl
 	push bc
-	ld a, [wd11e]
-	cp HM_01 ; is this a TM/HM?
-	jr nc, .Machine
-	ld [wd0b5], a
 	ld a, ITEM_NAME
 	ld [wNameListType], a
+	ld a, [wd11e]
+	ld [wd0b5], a
+	cp HM_01 ; is this a TM/HM?
+	jr nc, .Machine
 	ld a, BANK(ItemNames)
-	ld [wPredefBank], a
-	call GetName
 	jr .Finish
 .Machine
-	ld [wd0b5], a
-	;ld a, TMHM_NAME	;this will be done within GetName since it has a tm/hm check
-	;ld [wNameListType], a
 	ld a, BANK(tmhmNames)
+.Finish
 	ld [wPredefBank], a
 	call GetName
-.Finish
 	ld de, wcd6d ; pointer to where item name is stored in RAM
 	pop bc
 	pop hl

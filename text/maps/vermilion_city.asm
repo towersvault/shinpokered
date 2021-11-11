@@ -139,7 +139,7 @@ _VermilionPKMNText::
 	text "A lazy #MON"
 	line "is sunbathing."
 	
-	para "It's gaze falls"
-	line "on a ship moored"
-	cont "in the harbor."
+	para "Its gaze falls on"
+	line "a ship moored in"
+	cont "the harbor."
 	done

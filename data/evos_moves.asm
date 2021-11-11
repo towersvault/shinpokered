@@ -1301,10 +1301,11 @@ EeveeEvosMoves:
 	db EV_ITEM, WATER_STONE, 1, VAPOREON
 	db 0
 ; Learnset
-	db 8, TAIL_WHIP
+	db 8, SAND_ATTACK
 	db 16, GROWL
 	db 23, QUICK_ATTACK
 	db 30, BITE
+	db 31, TAIL_WHIP
 	db 36, FOCUS_ENERGY
 	db 42, TAKE_DOWN
 	db 0
@@ -1313,13 +1314,17 @@ FlareonEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db 8, TAIL_WHIP
+	db 8, SAND_ATTACK
 	db 16, EMBER
 	db 23, QUICK_ATTACK
 	db 30, BITE
+	db 31, EMBER
 	db 36, FIRE_SPIN
-	db 42, SMOG
-	db 47, LEER
+	db 37, TAIL_WHIP
+	db 40, BITE
+	db 42, LEER
+	db 44, FIRE_SPIN
+	db 47, SMOG
 	db 48, RAGE
 	db 52, FLAMETHROWER
 	db 0
@@ -1328,13 +1333,17 @@ JolteonEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db 8, TAIL_WHIP
-	db 16, THUNDERSHOCK
+	db 8, SAND_ATTACK
+	db 16, GROWL
 	db 23, QUICK_ATTACK
 	db 30, DOUBLE_KICK
+	db 31, THUNDERSHOCK
 	db 36, PIN_MISSILE
+	db 37, TAIL_WHIP
+	db 40, DOUBLE_KICK
 	db 42, THUNDER_WAVE
-	db 47, AGILITY
+	db 44, AGILITY
+	db 48, PIN_MISSILE
 	db 52, THUNDER
 	db 0
 
@@ -1342,13 +1351,17 @@ VaporeonEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db 8, TAIL_WHIP
-	db 16, WATER_GUN
+	db 8, SAND_ATTACK
+	db 16, EMBER
 	db 23, QUICK_ATTACK
 	db 30, BITE
+	db 31, WATER_GUN
 	db 36, AURORA_BEAM
-	db 42, HAZE
-	db 47, ACID_ARMOR
+	db 37, TAIL_WHIP
+	db 40, BITE
+	db 42, ACID_ARMOR
+	db 44, HAZE
+	db 47, AURORA_BEAM
 	db 48, MIST
 	db 52, HYDRO_PUMP
 	db 0

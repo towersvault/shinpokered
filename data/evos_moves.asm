@@ -1315,7 +1315,7 @@ FlareonEvosMoves:
 	db 0
 ; Learnset
 	db 8, SAND_ATTACK
-	db 16, EMBER
+	db 16, GROWL
 	db 23, QUICK_ATTACK
 	db 30, BITE
 	db 31, EMBER
@@ -1352,7 +1352,7 @@ VaporeonEvosMoves:
 	db 0
 ; Learnset
 	db 8, SAND_ATTACK
-	db 16, EMBER
+	db 16, GROWL
 	db 23, QUICK_ATTACK
 	db 30, BITE
 	db 31, WATER_GUN

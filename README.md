@@ -274,6 +274,7 @@ Cheats and Secrets!
 - Fixed a bug in the GetName: function that treated lists over 195 entries as item lists
 - You can now cut the grass in the plateau tileset
 - You can Fly and Teleport out of maps with the forest tileset
+- Pokemon can now learn more than 1 more per level
 
 
 #Changes not yet in the release branch:
@@ -655,6 +656,7 @@ Cheats and Secrets!
   - Trainer battle prize money uses 3 bytes instead of 2, lifting the 9999 cap on winnings
   - Adjusted daycare to allow exp values over $500000
   - Allow up to 8 digits when displaying experience on the status screen
+  - Pokemon can now learn more than 1 more per level
 
 - A regular New Game will default the battle style to SET
 - Yes/No prompt for flute use has been added to blocking snorlax

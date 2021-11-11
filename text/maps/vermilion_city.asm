@@ -138,4 +138,8 @@ _VermilionCityText13::
 _VermilionPKMNText::
 	text "A lazy #MON"
 	line "is sunbathing."
+	
+	para "It's gaze falls"
+	line "on a ship moored"
+	cont "in the harbor."
 	done

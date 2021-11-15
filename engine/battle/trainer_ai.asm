@@ -1344,7 +1344,10 @@ TrainerAI:
 	jr z, .checkAIcount
 	ld a, [wUnusedD721]
 	bit 5, a
-	ret nz	;done if item clause active
+	jr z, .checkAIcount	
+	;done if item clause active
+	xor a	;make sure to clear the A register and flags before returning
+	ret
 .checkAIcount
 
 	ld a, [wAICount]

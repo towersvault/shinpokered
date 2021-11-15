@@ -1,6 +1,6 @@
 # Shin Pokémon Red and Blue
 
-Version 1.22
+Version 1.22.1
 
 This is a rom hack of pokemon red & blue based on the Pret team's disassembly.  
 It's a mostly-vanilla hack that focuses on fixing game engine bugs and oversights from the original game.  
@@ -185,95 +185,21 @@ Cheats and Secrets!
 
 #Hack-Induced Bugfixes & Adjustments since last version:
 -----------
-- Slightly increased the possible coin payout for the the celadon hotel coin guy
-- Added a level-based multiplier to greatly increase the money offered to sell 'mons
-  - Interestingly, this makes it so you no longer need to grind battles to train a post-game team
-  - Catch pokemon, sell them for money, then spend it on vitamins and rare candy in the Celadon mart
-  - Since vitamins have no limit in the post-game, you can max levels and stat exp via this funding method
-- Adjusted the level 0 moves of stone evolutions to play nicer with the move relearner
-
-- Butterfree, Venonat, and Venomoth can all learn HM05 instead of HM04
-- Fixed a menu return issue when forfeiting fights (particularly against the rival)
-- Fixed some BCD payout wierdness
-- Getting max base exp for enemies > lvl 100 is now based on level cap instead
-
-- Fixed scripted NPC-following movement in 60fps mode
-- Fixed some NPC ghosting in mart menus in GBC mode
-- Applied Rangi's reformatting to key item bit fields
-- Removed the redundant overflow check on the celadon hotel coin guy
-- Consolidated the code used for stat scaling
-- Fixed rival facing in silph co after battle
-- Fixed issue with route 22 phantom rival appearing if the first battle was skipped
-- Stopped AI from decrementing PP on item usage and switching
-- Stopped AI from decrementing PP when it doesn't wake up from sleep
-- Bank $13 is now solely used for trainer pics
-- Fixed crash damage being zeroed for the jump kick effects
-- Fixed stat exp not being applied properly
-- Fixed blackouts not applying when defeated by Prof Oak
+- Fixed Flying and Teleporting out of maps with the forest tileset
+- Fixed messed-up warps dealing with the forest tileset
+- Fixed incorrect animation colors
+- Fixed bugged TH/HM names within text boxes
+- Reworked the level-up movelist for all four 'mons in the Eevee family
+- Readjusted the vertical positioning of some spaceworld back sprites
+- Fixed typos
+- Slightly adjusted some Cinnabar Mansion notes to match the Japanese text
+- Fixed the item clause breaking the AI choosing moves
+- Fixed some minor color errors in non-move battle animations
+- Clarified text of the blocking 'mon in Vermilion city
 
 
 #New features & adjustments since last version:
 -----------
-- Amber and fossils are now non-key items
-- Trapping moves play a 'poof' animation on the final turn instead of a cry (changed for the hearing impared)
-- Gave the strength quick-key a visual cue and sfx
-- Removed the word "only" from NPC on Silph Co 5f who talks about trade evos
-- Text tweak to route 14 trainer with regards to forgetting HMs
-- Gave AI layer 3 to Juggler
-
-- The bag now supports an additional item list for an extra 20 slots of space
-  - Press START on the bag menu to hot-swap the item list that populates the active bag
-    - Also works in battle
-	- Also works when depositing items in the PC
-  - Only the active bag's item list is recognized by the game's systems
-    - For example, you cannot enter the Cinnabar Gym if the Secret Key is not in the active bag
-	- Same for Stadium compatibility, detecting only the bag list that was active when last saved  
-- Low HP alarm only plays three times then turns itself off
-- There is an Aide NPC in the viridian pokemon center that can toggle regular trainer randomization
-  - Only affects regular trainers that use one level for all 'mons and have no custom movesets
-  - Will replace their roster 'mons with random non-evolved 'mons (legendaries are excluded)
-  - The new mons will be swapped with their evolved forms if at a high enough level
-  - This feature was added with the intent of spicing-up subsequent Gen-1 playthroughs
-- Added the Clause Brothers to Viridian City
-  - They toggle enforcement of the item, sleep, and/or freeze clauses
-  - The clauses apply to the player and AI equally, and only apply during non-link trainer battles
-  - Sleep and freeze clauses work like they do in Pokemon Stadium
-- Revive items cannot be used in battle on SET style
-- When playing in GBC-mode, move animations are colored based on their type
-- Red & Blue versions use the back sprites from spaceworld 97 so as to be cohesive with the front sprites
-  
-- AI layer 1: discourage exploding effects if faster than a player in fly/dig state
-- AI layer 1: randomly discourage usage of 2-turn moves when confused/paralyzed
-- AI Layer 1: 50% chance that the AI is blind to a player switching or using an item
-- AI layer 3: added some strategy to handle when the player uses fly/dig
-- AI layer 3: slightly preference regular effectiveness moves if STAB exists (25% chance per move)
-- Greatly increased the speed and performance of spin tiles  
-- Adjusted some of Giovanni's final lines for clarity
-- Added some underflow and overflow protection to switch scoring
-- AI switch scoring now penalizes bad match-ups between player and enemy 'mon types
-- Minor adjustments to switch scoring
-
-- Made adjustments to critical hit damage
-  - Damage factor is now 2*(2*level)/5 + 4 instead of 2*(2*level)/5 + 2 to simplify some algebra
-  - If non-crit damage would be >= crit damage, the regular modified stat values are applied instead
-- Bike music stops playing now when going down a hole
-- Can no longer walk up to 4 steps with a fainted team
-- Fixed a conflict where transforming while disabled can leave the new moves disabled
-- Fixed transformed 'mons reseting their moves when learning a level-up move
-- Fixed a typo so now transformed 'mons retain their original palette
-- PP-restoring items no longer affect transformed moves and only restore the original moves
-- Fixed-damage move effects now use 2 bytes for damage instead of 1
-- Fixed Psywave underflow/overflow with levels of 0, 1, and above 170
-- Fixed an issue with Disable's counter on slower 'mons
-- Fixed an issue with the silph co 11f elevator doors
-- Non-link enemy mons now have PP, so always run checks for 0 PP during disable effect
-- Fixed a missed increment that makes a map's 15th object not update its facing properly
-- Adjusted two spin-stop tiles in Viridian Gym
-- Made Agility's animation more apparent
-- Water warps in seafoam island 4 & 5 are now scripted movement
-- Fixed a bug in the GetName: function that treated lists over 195 entries as item lists
-- You can now cut the grass in the plateau tileset
-- You can Fly and Teleport out of maps with the forest tileset
 - Pokemon can now learn more than 1 more per level
 
 
@@ -451,7 +377,7 @@ Cheats and Secrets!
   - Cinnabar/seafoam islands coast glitch fixed (no more missingo or artificially loading pokemon data)
   - Catching a transformed pokemon no longer defaults to catching a ditto
   - Vending machine now checks for the correct amount of money
-  - Prevented byte overflow when determining the trash can with 2nd switch in vermillion gym
+  - Prevented byte overflow when determining the trash can with 2nd switch in vermilion gym
   - Hidden nugget in safari entrance now obtainable
   - Slot machine reel bug fixed
   - Fixed oversights in reel functionality to better match Gamfreak's intent

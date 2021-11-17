@@ -259,74 +259,48 @@ CheckForSmartHMuse:
 ;clear zero flag if move found
 ;if move found, return party position in A (zero offset)
 PartyMoveTest:
+	ld a, [wPartyCount]
+	and a
+	ret z	;treat as not finding a move is the party count is 0
+	
+	push de
 	push hl
 	push bc
-	;;;;;
+	ld b, a	;B will track the loops for party members
+.loop	
+	ld a, b
+	dec a
+	ld d, a
 	ld hl, wPartyMon1Moves
-	ld b, NUM_MOVES + 1
-	call MoveTestLoop
-	ld a, 0
-	jr nz, .return_1
-	;;;;;
-	ld a, [wPartyCount]
-	cp 2
-	jr c, .return_0
-	ld hl, wPartyMon2Moves
-	ld b, NUM_MOVES + 1
-	call MoveTestLoop
-	ld a, 1
-	jr nz, .return_1
-	;;;;;
-	ld a, [wPartyCount]
-	cp 3
-	jr c, .return_0
-	ld hl, wPartyMon3Moves
-	ld b, NUM_MOVES + 1
-	call MoveTestLoop
-	ld a, 2
-	jr nz, .return_1
-	;;;;;
-	ld a, [wPartyCount]
-	cp 4
-	jr c, .return_0
-	ld hl, wPartyMon4Moves
-	ld b, NUM_MOVES + 1
-	call MoveTestLoop
-	ld a, 3
-	jr nz, .return_1
-	;;;;;
-	ld a, [wPartyCount]
-	cp 5
-	jr c, .return_0
-	ld hl, wPartyMon5Moves
-	ld b, NUM_MOVES + 1
-	call MoveTestLoop
-	ld a, 4
-	jr nz, .return_1
-	;;;;;
-	ld a, [wPartyCount]
-	cp 6
-	jr c, .return_0
-	ld hl, wPartyMon6Moves
-	ld b, NUM_MOVES + 1
-	call MoveTestLoop
-	ld a, 5
-	jr nz, .return_1
-.return_0
-	xor a
-.return_1
+	push bc
+	ld bc, wPartyMon2Moves - wPartyMon1Moves
+	call AddNTimes
 	pop bc
-	pop hl
-	ret
 	
-MoveTestLoop:
-	dec b
-	jr z, .return
+	push bc
+	ld b, NUM_MOVES
+.loop2
 	ld a, [hli]
 	cp c
-	jr nz, MoveTestLoop
+	jr z, .loop2exit
+	dec b
+	jr nz, .loop2
+.loop2exit
+	cp c
+	pop bc
+	ld a, d
+	jr z, .return_nz
+
+	dec b
+	jr nz, .loop
+	jr .return
+.return_nz
+	ld b, 0
 	inc b
 .return
+	pop bc
+	pop hl
+	pop de
 	ret
 	
 	

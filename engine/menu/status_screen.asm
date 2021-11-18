@@ -314,6 +314,8 @@ PrintStatsBox:
 	ld a, [hJoyHeld]
 	bit 2, a
 	jr z, .checkstart
+	dec l	;shift alignment 2 tiles to the left
+	dec l
 	ld de, wLoadedMonAttackExp
 	lb bc, 2, 5
 	call PrintStat

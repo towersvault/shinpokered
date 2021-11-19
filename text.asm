@@ -1028,7 +1028,7 @@ _PokemonBooksText::
 	line "#MON books!"
 	done
 
-IF DEF(_GREEN)
+IF DEF(_JPTXT)
 _DiglettSculptureText::
 	text "It's a statue of"
 	line "a fat Buddha."

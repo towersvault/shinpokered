@@ -53,7 +53,7 @@ $(pokeblue_obj): %_blue.o: %.asm $$(dep)
 
 %_green.o: dep = $(shell tools/scan_includes $(@D)/$*.asm)
 $(pokegreen_obj): %_green.o: %.asm $$(dep)
-	rgbasm -D _GREEN -h -o $@ $*.asm
+	rgbasm -D _GREEN -D _REDGREENJP -D _JPTXT -h -o $@ $*.asm
 	
 %_red_origback.o: dep = $(shell tools/scan_includes $(@D)/$*.asm)
 $(pokered_origback_obj): %_red_origback.o: %.asm $$(dep)

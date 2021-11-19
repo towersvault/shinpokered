@@ -2054,6 +2054,11 @@ CoinCaseNumCoinsText:
 	db "@"
 
 ItemUseOldRod:
+	;joenote - give 50% chance to use the Good Rod functionality when using the Old Rod
+	call Random
+	srl a
+	jr c, ItemUseGoodRod
+	
 	call FishingInit
 	jp c, ItemUseNotTime
 	lb bc, 5, MAGIKARP
@@ -2067,8 +2072,11 @@ ItemUseGoodRod:
 	call Random
 	srl a
 	jr c, .SetBite
-	and %11
-	cp 2
+	;and %11
+	;cp 2
+	;joenote - use the expanded list
+	and %1111
+	cp 8
 	jr nc, .RandomLoop
 	; choose which monster appears
 	ld hl, GoodRodMons
@@ -2077,6 +2085,15 @@ ItemUseGoodRod:
 	ld b, 0
 	add hl, bc
 	ld b, [hl]
+	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+	;joenote - increase levels by 0 to 7
+	push af
+	call Random
+	and %111
+	add b
+	ld b, a
+	pop af
+	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	inc hl
 	ld c, [hl]
 	and a

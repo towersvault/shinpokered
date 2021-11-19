@@ -18,7 +18,8 @@ FuchsiaHouse3Text1:
 	and a
 	jr nz, .refused
 
-	lb bc, GOOD_ROD, 1
+	;joenote - swap super and good rod locations
+	lb bc, SUPER_ROD, 1
 	call GiveItem
 	jr nc, .full
 

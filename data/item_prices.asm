@@ -1,4 +1,4 @@
-ItemPrices:;joenote - added prices for amber/fossils/moon stone/pp_up/exp all/master ball
+ItemPrices:;joenote - added prices for amber/fossils/moon stone/pp_up/exp all/master ball/old rod
 	money 50000     ; MASTER_BALL
 	money 1200  ; ULTRA_BALL
 	money 600   ; GREAT_BALL
@@ -75,7 +75,7 @@ ItemPrices:;joenote - added prices for amber/fossils/moon stone/pp_up/exp all/ma
 	money 0     ; POKE_FLUTE
 	money 0     ; LIFT_KEY
 	money 20000     ; EXP_ALL
-	money 0     ; OLD_ROD
+	money 10000     ; OLD_ROD
 	money 0     ; GOOD_ROD
 	money 0     ; SUPER_ROD
 	money 9800  ; PP_UP

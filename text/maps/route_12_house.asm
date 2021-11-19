@@ -37,18 +37,22 @@ _Route12HouseText_564cf::
 	line "disappointing..."
 	done
 
+;joenote - swap super and good rod locations
 _Route12HouseText_564d4::
 	text "Hello there,"
 	line "<PLAYER>!"
 
-	para "Use the SUPER ROD"
-	line "in any water!"
-	cont "You can catch"
-	cont "different kinds"
-	cont "of #MON."
+;	para "Use the SUPER ROD"
+;	line "in any water!"
+;	cont "You can catch"
+;	cont "different kinds"
+;	cont "of #MON."
 
-	para "Try fishing"
-	line "wherever you can!"
+;	para "Try fishing"
+;	line "wherever you can!"
+;	done
+	para "How are the fish"
+	line "biting?"
 	done
 
 _Route12HouseText_564d9::

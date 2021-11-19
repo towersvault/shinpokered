@@ -15,7 +15,8 @@ Route12HouseText1:
 	ld a, [wCurrentMenuItem]
 	and a
 	jr nz, .asm_a2d76
-	lb bc, SUPER_ROD, 1
+	;joenote - swap super and good rod locations
+	lb bc, GOOD_ROD, 1
 	call GiveItem
 	jr nc, .BagFull
 	ld hl, wd728

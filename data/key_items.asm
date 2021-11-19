@@ -16,7 +16,7 @@ IF _bit > 0
 ENDC
 ENDM
 
-;joenote - amber and fossils are not key items anymore
+;joenote - amber, fossils, and old rod are not key items anymore
 KeyItemBitfield:
 	key_item_bits \
 	FALSE, \ ; MASTER_BALL
@@ -94,7 +94,7 @@ KeyItemBitfield:
 	TRUE,  \ ; POKE_FLUTE
 	TRUE,  \ ; LIFT_KEY
 	FALSE, \ ; EXP_ALL
-	TRUE,  \ ; OLD_ROD
+	FALSE,  \ ; OLD_ROD
 	TRUE,  \ ; GOOD_ROD
 	TRUE,  \ ; SUPER_ROD
 	FALSE, \ ; PP_UP

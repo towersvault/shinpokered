@@ -6,14 +6,15 @@ pokegreen_obj := audio_green.o main_green.o text_green.o wram_green.o
 pokered_origback_obj := audio_red_origback.o main_red_origback.o text_red_origback.o wram_red_origback.o
 pokeblue_origback_obj := audio_blue_origback.o main_blue_origback.o text_blue_origback.o wram_blue_origback.o
 pokebluejp_obj := audio_bluejp.o main_bluejp.o text_bluejp.o wram_bluejp.o
+pokeredjp_obj := audio_redjp.o main_redjp.o text_redjp.o wram_redjp.o
 
 .SUFFIXES:
 .SECONDEXPANSION:
 .PRECIOUS:
 .SECONDARY:
-.PHONY: all clean red blue green red_origback blue_origback bluejp compare tools
+.PHONY: all clean red blue green red_origback blue_origback bluejp redjp compare tools
 
-roms := pokered.gbc pokeblue.gbc pokegreen.gbc pokered_origback.gbc pokeblue_origback.gbc pokebluejp.gbc
+roms := pokered.gbc pokeblue.gbc pokegreen.gbc pokered_origback.gbc pokeblue_origback.gbc pokebluejp.gbc pokeredjp.gbc
 
 all: $(roms)
 red: pokered.gbc
@@ -22,13 +23,14 @@ green: pokegreen.gbc
 red_origback: pokered_origback.gbc
 blue_origback: pokeblue_origback.gbc
 bluejp: pokebluejp.gbc
+redjp: pokeredjp.gbc
 
 # For contributors to make sure a change didn't affect the contents of the rom.
-compare: red blue green red_origback blue_origback bluejp
+compare: red blue green red_origback blue_origback bluejp redjp
 	@$(MD5) roms.md5
 
 clean:
-	rm -f $(roms) $(pokered_obj) $(pokeblue_obj) $(pokegreen_obj) $(pokered_origback_obj) $(pokeblue_origback_obj) $(pokebluejp_obj) $(roms:.gbc=.sym)
+	rm -f $(roms) $(pokered_obj) $(pokeblue_obj) $(pokegreen_obj) $(pokered_origback_obj) $(pokeblue_origback_obj) $(pokebluejp_obj) $(pokeredjp_obj) $(roms:.gbc=.sym)
 	find . \( -iname '*.1bpp' -o -iname '*.2bpp' -o -iname '*.pic' \) -exec rm {} +
 	$(MAKE) clean -C tools/
 
@@ -49,6 +51,7 @@ endif
 # _JPTXT modifies any base rom. It restores some japanese text translations that were censored in english.
 # _REDGREENJP modifies _RED or _GREEN. It reverts back certain aspects that were shared between japanese red & green.
 # _BLUEJP modifies _BLUE. It reverts back certain aspects that were unique to japanese blue.
+# _ORIGBACK modifies any base rom but cannot be used with _REDGREENJP. It sets the front and back sprites to red/blue vanilla.
 
 %_red.o: dep = $(shell tools/scan_includes $(@D)/$*.asm)
 $(pokered_obj): %_red.o: %.asm $$(dep)
@@ -74,6 +77,10 @@ $(pokeblue_origback_obj): %_blue_origback.o: %.asm $$(dep)
 $(pokebluejp_obj): %_bluejp.o: %.asm $$(dep)
 	rgbasm -D _BLUE -D _BLUEJP -D _JPTXT -D _ORIGBACK -h -o $@ $*.asm
 
+%_redjp.o: dep = $(shell tools/scan_includes $(@D)/$*.asm)
+$(pokeredjp_obj): %_redjp.o: %.asm $$(dep)
+	rgbasm -D _RED -D _REDGREENJP -D _JPTXT -h -o $@ $*.asm
+
 #gbcnote - use cjsv to compile as GBC+DMG rom
 pokered_opt  = -cjsv -k 01 -l 0x33 -m 0x13 -p 0 -r 03 -t "POKEMON RED"
 pokeblue_opt = -cjsv -k 01 -l 0x33 -m 0x13 -p 0 -r 03 -t "POKEMON BLUE"
@@ -81,6 +88,7 @@ pokegreen_opt = -cjsv -k 01 -l 0x33 -m 0x13 -p 0 -r 03 -t "POKEMON GREEN"
 pokered_origback_opt  = -cjsv -k 01 -l 0x33 -m 0x13 -p 0 -r 03 -t "POKEMON RED"
 pokeblue_origback_opt = -cjsv -k 01 -l 0x33 -m 0x13 -p 0 -r 03 -t "POKEMON BLUE"
 pokebluejp_opt = -cjsv -k 01 -l 0x33 -m 0x13 -p 0 -r 03 -t "POKEMON BLUE"
+pokeredjp_opt = -cjsv -k 01 -l 0x33 -m 0x13 -p 0 -r 03 -t "POKEMON RED"
 
 %.gbc: $$(%_obj)
 	rgblink -d -n $*.sym -l pokered.link -o $@ $^

@@ -3222,7 +3222,11 @@ _UsedCutText::
 
 SECTION "Pokedex Text", ROMX, BANK[POKEDEX_TEXT]
 
+IF DEF(_REDGREENJP)
+INCLUDE "text/pokedexgreen.asm"
+ELSE
 INCLUDE "text/pokedex.asm"
+ENDC
 
 
 SECTION "Move Names", ROMX, BANK[MOVE_NAMES]

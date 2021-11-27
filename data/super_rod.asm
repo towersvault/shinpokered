@@ -1,6 +1,7 @@
 ; super rod data
 ; format: map, pointer to fishing group
 ;joenote - Ditto encounters set in fishing group 2 (route 22 set to group 1)
+;		- Super Rod now randomly increases level by 0 to 7
 SuperRodData:
 	dbw PALLET_TOWN, FishingGroup1
 	dbw VIRIDIAN_CITY, FishingGroup1

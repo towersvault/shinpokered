@@ -2126,7 +2126,13 @@ RodResponse:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;	
 	ld a, 1
 	ld [wMoveMissed], a
-	ld a, b ; level
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;joenote - increase level by 0 to 7
+;	ld a, b ; level
+	call Random
+	and %111
+	add b
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	ld [wCurEnemyLVL], a
 	ld a, c ; species
 	ld [wCurOpponent], a

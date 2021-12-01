@@ -121,7 +121,13 @@ GainExperience:
 	ld [wGainBoostedExp], a
 	ld a, [wIsInBattle]
 	dec a ; is it a trainer battle?
-	call nz, BoostExp ; if so, boost exp
+	jr z, .nottrainerbattle
+	call BoostExp ; if so, boost exp
+;joenote - boost exp again in trainer battls if in SET mode
+	ld a, [wOptions]
+	bit 6, a
+	call nz, BoostExp
+.nottrainerbattle
 	inc hl
 	inc hl
 	inc hl

@@ -128,6 +128,7 @@ GainExperience:
 	bit 6, a
 	call nz, BoostExp
 .nottrainerbattle
+	call CatchUpBoost	;joenote - boost exp if underlevelled
 	inc hl
 	inc hl
 	inc hl
@@ -421,6 +422,24 @@ BoostExp:
 	ld a, $FF
 	ld [H_QUOTIENT + 2], a
 	ld [H_QUOTIENT + 3], a
+	ret
+	
+CatchUpBoost:	;joenote - boost exp if underlevelled
+	CheckEvent EVENT_906
+	ret z
+	ld a, [wBattleMonLevel]
+	ld b, a
+	ld a, [wEnemyMonLevel]	
+	sub b
+	ret z	;return if enemy lvl = player level
+	ret c	;return if enemy lvl < player level
+.loop
+	;A is currently wEnemyMonLevel - wBattleMonLevel > 0
+	push af
+	call BoostExp
+	pop af
+	sub 4	;additional boost every 4 levels of difference
+	jr nc, .loop	;keep boosting until A underflows
 	ret
 
 GainedText:

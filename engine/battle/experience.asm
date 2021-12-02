@@ -438,7 +438,7 @@ CatchUpBoost:	;joenote - boost exp if underlevelled
 	push af
 	call BoostExp
 	pop af
-	sub 4	;additional boost every 4 levels of difference
+	sub 3	;additional boost every 3 levels of difference
 	jr nc, .loop	;keep boosting until A underflows
 	ret
 

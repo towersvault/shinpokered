@@ -20,10 +20,12 @@ Always apply patches to a fresh USA ROM or else strange glitches will occur.
 ***Includes Pokemon Green and Japanese Red!***
 - The compiler primarily builds the graphics and cerulean cave layout back to the original japanese release.
 - Pokedex entries adapt the original Green version text that was translated in Fire Red.
+- Pokedex uses metric units.
 - Apply the Green ips patch to a USA Blue rom. Apply the Red-JP ips patch to a USA Red rom.
 
 ***Now Includes Japanese Blue!***
 - Primarily builds the lists for encounters, trades, and prizes that were in the never-localized japanese release.
+- Pokedex uses metric units.
 - Apply the ips patch to a USA Blue rom.
 
 Important Note: If you are using a save file from a previous version, you might be blocked by invisible walls upon loading the game.
@@ -75,6 +77,7 @@ New options that can be toggled!
 - Hit SELECT on the options screen to cycle through the audio output types.
 - Playing in GBC mode on a backlit LCD screen? Press SELECT at the copyright screen to activate color correction.
 - Experimental 60FPS Mode: Place the cursor over CANCEL in the options screen and toggle by pressing left or right.
+- Zero-Delay Text: Text with zero frame delay can be toggled in the options menu; press LEFT with the cursor on FAST.
 
 Trainer AI has been improved and greatly expanded. 
 Some trainers will even try to switch pokemon intelligently.
@@ -108,6 +111,7 @@ The "SET" battle style gives increased difficulty by making the stats of trainer
 It also doubles the effect of the X-stat items that AI trainers are fond of.
 And it disallows the use of Revive items in battle.
 Finally, it makes catching a wild Mewtwo more challenging.
+As compensation, SET mode gives an additional 1.5x EXP boost in trainer battles.
 
 You can choose RUN while holding SELECT in trainer battles to forfeit the match and black yourself out.
 
@@ -117,6 +121,8 @@ The other aide in Oak's lab toggles a pokeball-caught symbol in battle after obt
 To help with Gen 2 interaction, this also applies a gender symbol to species that can be male or female.
 
 Another aide npc is in the Viridian pokemon center. He will toggle on/off randomization of non-special trainers.
+
+An aide is in the Celadon Diner. He will toggle on/off a catch-up EXP boost function for under-leveled pokemon.
 
 Item, Sleep, and Freeze clauses can each be toggled by the Clause Brothers in Viridian City.
  
@@ -146,6 +152,14 @@ New NPCs!
 - After the Elite-4, the game corner chief will buy pokemon from the player.
 - There's a tournament being held in the SS Anne's kitchen after the Elite-4 are beaten. Yes, the ship returns!
 - Added some special post-game trainer battles as fun little easter eggs. Can you find and defeat all five?
+
+Changes to fishing!
+- The Good Rod has an expanded 'mon list and level range.
+- Level range of the super rod has been increased.
+- The Old Rod now randomly acts as a Good rod 50% of the time.
+- The Old Rod is a sellable non-key item with the value of a nugget.
+- The Route 12 Fishing Guru can be visited upon first reaching Lavender Town.
+- The locations of the Good and Super Rod have been swapped.
 
 Other minor changes to lessen annoyance.
 - Low HP alarm only plays three times then turns itself off.
@@ -211,11 +225,9 @@ Cheats and Secrets!
 
 #New features & adjustments since last version:
 -----------
-- Pokemon can now learn more than 1 more per level
-
 - Good rod has an expanded 'mon list and level range
 - Increased the level range of the super rod
-- Old rod now randomly acts as a Good rood 50% of the time 
+- Old rod now randomly acts as a Good rod 50% of the time 
 - Old rod is a sellable non-key item with the value of a nugget
 - The Route 12 Fishing Guru is now visitable upon first reaching Lavender Town
 - Swapped location of Good and Super Rod
@@ -235,6 +247,8 @@ Cheats and Secrets!
 
 - Engine improvement: the 1.5x EXP boost function now has overflow protection
 - Engine improvement: EXP Gained can now print up to five digits instead of four
+- Engine Improvement: Pokemon can now learn more than 1 move per level
+*- Text with zero frame delay can be toggled in the options menu; press LEFT with the cursor on FAST
 
 
 #Changes not yet in the release branch:
@@ -601,7 +615,7 @@ Cheats and Secrets!
   - Mewtwo can learn Swift by TM 
   - Kakuna and Metapod learn harden by level-up
   - pikachu and kadabra have their catch rates adjusted to yellow version
-  - Give haunter/machoke/kadabra/graveler an evo by level option (level 45 to 48)
+  - Give haunter/machoke/kadabra/graveler an evo by level option (level 45)
   - Butterfree and Beedrill have their prior evolutions' moves added to their level-0 move list
   - Clefable and Wigglytuff get some moves back via level-up
   - Diglett & Dugtrio can learn cut like in yellow version
@@ -617,6 +631,16 @@ Cheats and Secrets!
   - Adjusted daycare to allow exp values over $500000
   - Allow up to 8 digits when displaying experience on the status screen
   - Pokemon can now learn more than 1 more per level
+  - The 1.5x EXP boost function now has overflow protection
+  - Engine improvement: EXP Gained can now print up to five digits instead of four
+
+-Changes to fishing
+  - Good rod has an expanded 'mon list and level range
+  - Increased the level range of the super rod
+  - Old rod now randomly acts as a Good rod 50% of the time 
+  - Old rod is a sellable non-key item with the value of a nugget
+  - The Route 12 Fishing Guru is now visitable upon first reaching Lavender Town
+  - Swapped location of Good and Super Rod
 
 - A regular New Game will default the battle style to SET
 - Yes/No prompt for flute use has been added to blocking snorlax
@@ -657,6 +681,7 @@ Cheats and Secrets!
   - X-stat items have double the effect like in more recent generations
   - Revive items cannot be used in battles
   - Mewtwo will prevent you from using a master ball on it and use AI to choose moves
+  - SET mode gives an additional 1.5x EXP boost in trainer battles
 - Added the Clause Brothers to Viridian City
   - They toggle enforcement of the item, sleep, and/or freeze clauses
   - The clauses apply to the player and AI equally, and only apply during non-link trainer battles
@@ -666,9 +691,14 @@ Cheats and Secrets!
 #Quick Keys
 - Press SELECT on the option screen to change the audio type
 - Added built-in gamma shader for backlit LCD screens (press SELECT at the copyright screen)
+	- Gamma shader defaults ON if the destination code in the rom header is set to 00 (JP)
+	- Pressing SELECT at the copyright info now switches the shader from its default state
+	- The default state of the gamma shader can be changed with any gameboy rom header editor
+	- Alternately, remove the 'j' in 'cjsv' in the Makefile to compile with a JP destination code
 - Added an option to make the overworld run in 60fps
   - Place the cursor over CANCEL in the options screen and toggle by pressing left or right
   - This feature is more of a proof-of-concept and is still kinda rusty
+- Text with zero frame delay can be toggled in the options menu; press LEFT with the cursor on FAST
 - Softlock Warp 
   - Instantly teleport back to your mom's house if you get stuck or are unable to move after updating to a new patch
   - Sets money to at least 1000 if you have less than that
@@ -736,6 +766,12 @@ Cheats and Secrets!
   - Talk to the little girl to delete moves.
   - Talk to her tutor to relearn moves.
   - I have expanded Mateo's code so that it also detects default level-0 moves from the baseStats header files.
+- Catch-Up EXP Booster
+  - Talk to the aide in the Celadon Diner to toggle this feature.  
+  - While active, EXP gained is boosted if the active pokemon's level is lower than that of the fainted enemy.  
+  - The boost is 1.5x multiplied by an additional 1.5x for every 3 levels of difference.  
+  - For example, a level gap of 12 results in an EXP multiplier of (1.5)^4 = 5.0625.  
+  - Use this feature to help you train-up new team members in the mid-to-late game.  
 - Can rematch gym leaders and most non gym-leader trainers just by talking to them one or two times
   - Giovanni respawns after leaving the gym so you can rematch him
 

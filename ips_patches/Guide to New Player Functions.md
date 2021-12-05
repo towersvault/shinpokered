@@ -27,6 +27,13 @@ You can cycle through mono sound and three types of stereo mixing.
 This feature is more of a proof-of-concept and is still kinda rusty.  
 Place the cursor over CANCEL in the options screen, and toggle the mode by pressing LEFT or RIGHT.  
 
+**Zero-Delay Text**  
+This feature reinstitutes a speed-running trick that makes text print with zero frame delay.  
+Go to the options menu.  
+With the cursor over FAST text speed, press LEFT to toggle this feature on and off.  
+A "!" symbol appears next to FAST while this feature is active.  
+Please note that other text speed selections do nothing while this feature is active.  
+
 **Softlock Warp**  
 This will instantly teleport back to your mom's house if you get stuck.  
 It also sets your money to at least 1000 if you have less than that.  
@@ -61,6 +68,7 @@ A new trainer ID and hash is generated, so boxed pokemon are permanently treated
 #Functions for Adjusting Difficulty
 -----------------------------------------------
 **Increase Difficulty**  
+A NEW GAME now defaults to the SET battle style in the options menu.  
 Playing on the SET battle style now imposes several changes to the game's systems that increase difficulty:  
 1 - Enemy trainer pokemon are assigned level-appropriate StatEXP whereas they previously had none.  
 2 - Enemy trainer pokemon have randomized DVs of 8 or better whereas they previously all had values of 8 or 9.  
@@ -81,13 +89,6 @@ The house to the lower-left of Viridian Gym is home to three new NPCs named the 
 Each one toggles enforcement of either the item, sleep, or freeze clause from Pokemon Stadium.  
 The sleep clause in particular works like it does in Stadium with respect to using the Rest move.  
 The clauses apply to the player and AI equally, and they only apply during non-link trainer battles.  
-
-**Catch-Up EXP Booster**  
-Talk to the aide in the Celadon Diner to toggle this feature.  
-While active, EXP gained is boosted if the active pokemon's level is lower than that of the fainted enemy.  
-The boost is 1.5x multiplied by an additional 1.5x for every 3 levels of difference.  
-For example, a level gap of 12 results in an EXP multiplier of (1.5)^4 = 5.0625.  
-Use this feature to help you train-up new team members in the mid-to-late game.  
 
 
 #New Gameplay Features
@@ -209,6 +210,13 @@ There is a gentleman added to the Celadon Hotel as an alternative to playing the
 He will give you free game corner coins if you show him the pokemon he requests.  
 His request changes every time you enter the hotel, so make use of the hotel's PC to the right.  
 Place his requested pokemon at the top of your team and speak to him to get your reward.  
+
+**Catch-Up EXP Booster**  
+Talk to the aide in the Celadon Diner to toggle this feature.  
+While active, EXP gained is boosted if the active pokemon's level is lower than that of the fainted enemy.  
+The boost is 1.5x multiplied by an additional 1.5x for every 3 levels of difference.  
+For example, a level gap of 12 results in an EXP multiplier of (1.5)^4 = 5.0625.  
+Use this feature to help you train-up new team members in the mid-to-late game.  
 
 
 #Additions to the Post-Game

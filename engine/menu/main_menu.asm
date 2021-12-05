@@ -139,6 +139,7 @@ InitOptions:
 	ld a, 1 ; no delay
 	ld [wLetterPrintingDelayFlags], a
 	ld a, 3 ; medium speed
+	set 6, a ;joenote - SET battle style
 	ld [wOptions], a
 	ret
 

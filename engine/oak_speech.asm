@@ -72,8 +72,6 @@ OakSpeech:
 	ld [wUnusedD721], a
 	call ClearScreen
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-	ld hl, wOptions
-	set 6, [hl] ;joenote - make a new game default into SET battle style
 	ld a, $FF
 	call PlaySound ; stop music
 	ld a, BANK(Music_Routes2)

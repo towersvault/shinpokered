@@ -1,6 +1,6 @@
 # Shin Pokémon Red and Blue
 
-Version 1.22.1
+Version 1.22.2
 
 This is a rom hack of pokemon red & blue based on the Pret team's disassembly.  
 It's a mostly-vanilla hack that focuses on fixing game engine bugs and oversights from the original game.  
@@ -17,12 +17,17 @@ Download the IPS patch file of the version you want and apply it to its respecti
 The "_origback" ips patches are alternatives for red & blue that keep the original back sprites. 
 Always apply patches to a fresh USA ROM or else strange glitches will occur.  
 
-***Now includes Pokemon Green!***
-- The compiler primarily builds the graphics and cerulean cave layout back to what green version had.
+***Includes Pokemon Green and Japanese Red!***
+- The compiler primarily builds the graphics and cerulean cave layout back to the original japanese release.
+- Pokedex entries adapt the original Green version text that was translated in Fire Red.
+- Apply the Green ips patch to a USA Blue rom. Apply the Red-JP ips patch to a USA Red rom.
+
+***Now Includes Japanese Blue!***
+- Primarily builds the lists for encounters, trades, and prizes that were in the never-localized japanese release.
 - Apply the ips patch to a USA Blue rom.
 
 Important Note: If you are using a save file from a previous version, you might be blocked by invisible walls upon loading the game.
-To fix this, you must use the Softlock Warp detailed below to teleport back to Palette Town.
+To fix this, you must use the Softlock Warp detailed below to teleport back to Pallet Town.
 
 Notice: New patches might crash upon loading a save from a previous patch.
 		To prevent this from happening, save outside in Pallet Town.
@@ -188,19 +193,48 @@ Cheats and Secrets!
 - Fixed Flying and Teleporting out of maps with the forest tileset
 - Fixed messed-up warps dealing with the forest tileset
 - Fixed incorrect animation colors
+- Fixed some minor color errors in non-move battle animations
+
+- Changed color of normal-type attacks to yellow
+- Adjusted the Saffron Guard text for accuracy
+
 - Fixed bugged TH/HM names within text boxes
+- Slightly adjusted some Cinnabar Mansion notes to match the Japanese text
 - Reworked the level-up movelist for all four 'mons in the Eevee family
 - Readjusted the vertical positioning of some spaceworld back sprites
-- Fixed typos
-- Slightly adjusted some Cinnabar Mansion notes to match the Japanese text
 - Fixed the item clause breaking the AI choosing moves
-- Fixed some minor color errors in non-move battle animations
 - Clarified text of the blocking 'mon in Vermilion city
+- Fixed typos
+- Adjusted alignment of printed statEXP
+- EXP bar goes off of MAX_LEVEL instead of an assumed lvl 100
 
 
 #New features & adjustments since last version:
 -----------
 - Pokemon can now learn more than 1 more per level
+
+- Good rod has an expanded 'mon list and level range
+- Increased the level range of the super rod
+- Old rod now randomly acts as a Good rood 50% of the time 
+- Old rod is a sellable non-key item with the value of a nugget
+- The Route 12 Fishing Guru is now visitable upon first reaching Lavender Town
+- Swapped location of Good and Super Rod
+
+- SET mode gives an additional 1.5x EXP boost in trainer battles
+- Added a NPC to the Celadon Diner to toggle a Catch-Up EXP Boost feature
+
+- The project now compiles Japanese Blue
+- The project now compiles Japanese Red
+- Green and Red-JP have their original pokedex entries (adapted from Fire Red)
+- Green, Red-JP, and Blue-JP now display metric units in the pokedex
+
+- Gamma shader defaults ON if the destination code in the rom header is set to 00 (JP)
+- Pressing SELECT at the copyright info now switches the shader from its default state
+- The default state of the gamma shader can be changed with any gameboy rom header editor
+- Alternately, remove the 'j' in 'cjsv' in the Makefile to compile with a JP destination code
+
+- Engine improvement: the 1.5x EXP boost function now has overflow protection
+- Engine improvement: EXP Gained can now print up to five digits instead of four
 
 
 #Changes not yet in the release branch:
@@ -749,7 +783,7 @@ Cheats and Secrets!
 - Pkmn with levels > level cap give 255 stat exp for each stat
 - Pkmn with levels > level cap have 255 base exp yield
 - If a chansey >= level 100 is first in your roster:
-  - Shiny wild random encounters are much more common (1 in 256)
+  - Shiny wild random encounters and super rod encounters are much more common (1 in 256)
   - Repel effects will not block shiny encounters
 - You can now battle missingno on the infamous cinnabar shoreline
   - You must have gotten the pokedex diploma first

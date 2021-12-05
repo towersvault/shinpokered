@@ -14,7 +14,9 @@ Save the game. Your save file is now updated.
 This applies when playing or emulating as a Gameboy Color game.  
 It's assumed you are using a modern backlit screen with no other color correction.  
 Under these stated conditions, the colors will be highly saturated.  
-Press SELECT at the copyright screen when the game first boots. This will fix the saturated colors.  
+Press SELECT at the copyright screen when the game first boots. This will fix the saturated colors.
+Changing the destination code of the rom header to 00 (JP) defaults this to ON and pressing SELECT turns it OFF.
+Use Gameboy Rom Analyzer to change the destination code (https://www.romhacking.net/utilities/1343/).
 
 **Change the Audio Type**  
 Updated Audio mixing has been ported over from Pokemon Yellow.  
@@ -66,6 +68,7 @@ Playing on the SET battle style now imposes several changes to the game's system
 4 - X-stat items increase by two stages instead of one like in more recent generations.  
 5 - Revive items can only be used outside of battle.  
 6 - Wild Mewtwo uses trainer AI to choose its moves, and it also blocks you from using a Master Ball.  
+7 - EXP is boosted by an additional 50% in trainer battles as compensation to the player.  
 
 **Scale Enemy Trainer Levels**  
 Talk to the aide in the lower-right section of Oak's lab to toggle this feature.  
@@ -78,6 +81,13 @@ The house to the lower-left of Viridian Gym is home to three new NPCs named the 
 Each one toggles enforcement of either the item, sleep, or freeze clause from Pokemon Stadium.  
 The sleep clause in particular works like it does in Stadium with respect to using the Rest move.  
 The clauses apply to the player and AI equally, and they only apply during non-link trainer battles.  
+
+**Catch-Up EXP Booster**  
+Talk to the aide in the Celadon Diner to toggle this feature.  
+While active, EXP gained is boosted if the active pokemon's level is lower than that of the fainted enemy.  
+The boost is 1.5x multiplied by an additional 1.5x for every 3 levels of difference.  
+For example, a level gap of 12 results in an EXP multiplier of (1.5)^4 = 5.0625.  
+Use this feature to help you train-up new team members in the mid-to-late game.  
 
 
 #New Gameplay Features
@@ -132,7 +142,8 @@ You will be asked to confirm your decision. Choose YES to forfeit or NO to cance
 
 **Reworked Fishing**  
 The locations of the Good Rod and the Super Rod have been swapped.  
-Route 12 has been altered to give access to its Fishing Guru without needing the Pokeflute.   
+Route 12 has been altered to give access to its Fishing Guru without needing the Pokeflute.  
+The Super Rod now randomly adds 0 to 7 levels of anything it hooks.   
 The Good Rod has been altered:  
   - Its hardcoded list of 2 pokemon has been increased to 8.  
   - Levels of pokemon that can be hooked have mostly been increased.  
@@ -141,17 +152,15 @@ The Old Rod has been altered:
   - 50% of the time it will act as a Good Rod. The implication is that it was "Good" long ago.  
   - No longer a key item.  
   - Eventually supplanted by the Good Rod. Might want to sell it for a good price.  
-The Good Rod maintains some niche utility over the Super Rod. Comparing the two:
+The Good Rod maintains some niche utility over the Super Rod. Comparing the two:  
   - Super Rod  
     - Has route-based encounter tables.  
-	- Access to rarer pokemon.  
-	- Levels of hooked pokemon are mostly locked at 15.  
-	- Each encounter table can only have up to four pokemon.   
+	- Access to rarer or evolved pokemon.   
+	- Each encounter table only has up to four pokemon.   
   - Good Rod  
-    - Up to 8 different pokemon can be hooked.  
-	- Levels hooked pokemon can sometimes exceed 15.  
     - Limited to a single hardcoded encounter table.  
 	- Pokemon encountered are unevolved and entry-level.  
+    - Up to eight different pokemon can be hooked.  
 
 
 #Trainer-Aiding Features
@@ -251,6 +260,26 @@ This applies whether it is a gift, in-game trade, or a purchase.
 This means that prize pokemon from the game corner will always have good stats.  
 And buying a magikarp from a shady figure might not be such a bad investment.  
 
+**Use Those TMs**  
+Though still single-use, all TMs can be repurchased from pokemarts around the region.  
+So don't be shy about using TMs acquired from NPCs and exploration.  
+
+**Stock-Up on Items**  
+Enemy trainers are more agressive about attacking, so your team incurs more damage over time.  
+Be sure to purchase a reasonable stock of healing items to counter the increased attrition.  
+
+**Big EXP Gains**  
+The Catch-Up Booster bonus does compound with other 1.5x EXP bonuses in the game.  
+With this is in mind, turn on the level scaling and do trainer rematches in SET mode to gain lots of EXP.  
+
+**Training in Post-Game Without Battling**  
+Here is an alternative to grinding out battles in the post-game.  
+Catch some pokemon.  
+Sell them to the game corner chief.  
+Buy rare candies and vitamins with the proceeds.  
+Take note that vitamins are uncapped in the post-game.  
+Use your purchases to train your roster pokemon without battling.  
+
 **Secret Hints**  
 1 - Try winning the SS Anne tournament with a Pikachu in your party.  
 2 - After beating the Elite-4, vitamins are no longer limited on your pokemon.  
@@ -261,8 +290,3 @@ And buying a magikarp from a shady figure might not be such a bad investment.
 7 - Place a level 100 Chansey at the top of your party and use a repel. You're bound to find something shiny.  
 8 - When going to the game corner, try having your 1st-slot pokemon know Pay Day. It may tip you off.  
 9 - Missingno can be activated if you have your pokedex diploma. Prepare your sixth item slot in case you win.  
-10 - An alternative to grinding out battles in the post-game:  
-->Catch some pokemon.  
-->Sell them to the game corner chief.  
-->Buy rare candies and vitamins with the proceeds.  
-->Use your purchases to train your roster pokemon without battling.  

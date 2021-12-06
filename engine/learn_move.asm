@@ -13,6 +13,11 @@ DontAbandonLearning:
 	ld bc, wPartyMon2Moves - wPartyMon1Moves
 	ld a, [wWhichPokemon]
 	call AddNTimes
+	
+	;joenote - for field move slot
+	call LearnToFieldSlot
+	jp nz, PrintLearnedMove
+	
 	ld d, h
 	ld e, l
 	ld b, NUM_MOVES
@@ -86,11 +91,7 @@ DontAbandonLearning:
 AbandonLearning:
 	ld hl, AbandonLearningText
 	call PrintText
-	coord hl, 14, 7
-	lb bc, 8, 15
-	ld a, TWO_OPTION_MENU
-	ld [wTextBoxID], a
-	call DisplayTextBoxID ; yes/no menu
+	call LearnMoveYesNo
 	ld a, [wCurrentMenuItem]
 	and a
 	jp nz, DontAbandonLearning
@@ -109,11 +110,7 @@ TryingToLearn:
 	push hl
 	ld hl, TryingToLearnText
 	call PrintText
-	coord hl, 14, 7
-	lb bc, 8, 15
-	ld a, TWO_OPTION_MENU
-	ld [wTextBoxID], a
-	call DisplayTextBoxID ; yes/no menu
+	call LearnMoveYesNo
 	pop hl
 	ld a, [wCurrentMenuItem]
 	rra
@@ -234,3 +231,93 @@ ForgotAndText:
 HMCantDeleteText:
 	TX_FAR _HMCantDeleteText
 	db "@"
+
+LearnMoveYesNo:
+	coord hl, 14, 7
+	lb bc, 8, 15
+	ld a, TWO_OPTION_MENU
+	ld [wTextBoxID], a
+	call DisplayTextBoxID ; yes/no menu
+	ret
+
+;joenote - for field move slot
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LearnToFieldSlot:
+;return z flag if not executed
+;return nz flag if field move slot was learned
+	push hl
+	
+	ld a, [wIsInBattle]
+	and a
+	jr nz, .return_fail	;do not allow the learning of a temporary field move in battle
+	
+	call SetCarryIfFieldMove
+	jr nc, .return_fail
+	
+	ld hl, LearnTempFieldMoveText
+	call PrintText
+	call LearnMoveYesNo
+	ld a, [wCurrentMenuItem]
+	rra
+	jr c, .return_fail	;exit if No is chosen
+	
+	;move to the correct field move slot
+	ld a, [wWhichPokemon]
+	ld c, a
+	ld b,0
+	ld hl, wTempFieldMoveSLots
+	add hl, bc
+	
+	;exit if a move is already in that slot
+	ld a, [hl]
+	and a
+	jr z, .next
+	ld hl, LearnTempFieldMoveTextDenied
+	call PrintText
+	jr .return_fail
+.next
+	
+	;fill the slot with the move
+	ld a, [wMoveNum]
+	ld [hl], a
+	
+.return_success
+	xor a
+	add 1
+	pop hl
+	ret
+.return_fail
+	xor a
+	pop hl
+	ret
+
+LearnTempFieldMoveText:
+	TX_FAR _LearnTempFieldMoveText
+	db "@"
+LearnTempFieldMoveTextDenied:
+	TX_FAR _LearnTempFieldMoveTextDenied
+	db "@"
+
+SetCarryIfFieldMove:
+	ld a, [wMoveNum]
+	push hl
+	push de
+	push bc
+	ld hl, FieldMoveList
+	ld de, $0001
+	call IsInArray
+	pop bc
+	pop de
+	pop hl
+	;carry is set if this is a field move
+	ret
+FieldMoveList:
+	db	CUT
+	db	FLY
+	db	SURF
+	db	STRENGTH
+	db	FLASH
+	db	DIG
+	db	TELEPORT
+	db	SOFTBOILED
+	db	$FF 

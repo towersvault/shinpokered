@@ -3219,6 +3219,21 @@ _UsedCutText::
 	line "away with CUT!"
 	prompt
 
+;joenote - for field move slot
+_LearnTempFieldMoveText::
+	text "Learn this as a"
+	line "temporary FIELD"
+	cont "MOVE?"
+	done
+_LearnTempFieldMoveTextDenied::
+	text "A temporary FIELD"
+	line "MOVE is already"
+	cont "known!"
+	
+	para "Put this #MON"
+	line "in a PC BOX to"
+	cont "erase it."
+	prompt
 
 SECTION "Pokedex Text", ROMX, BANK[POKEDEX_TEXT]
 

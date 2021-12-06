@@ -67,7 +67,7 @@ INCLUDE "engine/menu/swap_items.asm"
 
 INCLUDE "engine/overworld/pokemart.asm"
 
-INCLUDE "engine/learn_move.asm"
+;INCLUDE "engine/learn_move.asm"	;joenote - moved in order to have more space
 
 INCLUDE "engine/overworld/pokecenter.asm"
 
@@ -2820,6 +2820,7 @@ RedFFishingTilesSide:  INCBIN "gfx/redF_fishing_tile_side.2bpp"
 
 INCLUDE "engine/items/tm_prices.asm"
 
+INCLUDE "engine/learn_move.asm"	;joenote - moved in order to have more space
 
 SECTION "bank2E",ROMX,BANK[$2E]	
 ;gbcnote - This bank with hold the bg map attributes for the gameboy color among other stuff

@@ -1507,7 +1507,7 @@ wItemPrices:: ; cf8f
 
 wcf91:: ds 1 ; used with a lot of things (too much to list here)
 
-wWhichPokemon:: ; cf92
+wWhichPokemon:: ; cf92	;this is zero-indexed (values of 0 to 5)
 ; which pokemon you selected
 	ds 1
 
@@ -2979,7 +2979,9 @@ wSeafoamIslands5CurScript:: ; d668
 wRoute18GateCurScript:: ; d669
 	ds 1
 ;usused space
-	ds 36
+	ds 30
+wTempFieldMoveSLots::	;joenote - for field move slot
+	ds 6
 wBagBackupSpace::	;joenote - added to expand the bag space (42 bytes long)
 wBagNumBackup::
 	ds 1

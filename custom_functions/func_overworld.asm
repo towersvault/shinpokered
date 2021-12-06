@@ -285,6 +285,18 @@ PartyMoveTest:
 	jr z, .loop2exit
 	dec b
 	jr nz, .loop2
+	
+	;check temp field move slot if not found in move list
+	push bc
+	push hl
+	ld b, 0
+	ld c, d
+	ld hl, wTempFieldMoveSLots
+	add hl, bc
+	ld a, [hl]
+	pop hl
+	pop bc
+	
 .loop2exit
 	cp c
 	pop bc

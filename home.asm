@@ -4662,7 +4662,9 @@ SetMapTextPointer::
 HandleSlpFrzClause::	;joenote - move to the main function
 	push bc
 	push hl
+	push de
 	callba _HandleSlpFrzClause
+	pop de
 	pop hl
 	pop bc
 	ret

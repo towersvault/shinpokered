@@ -540,7 +540,17 @@ AIMoveChoiceModification1:
 	ld a, [wEnemyMoveEffect]
 	cp SLEEP_EFFECT
 	jr nz, .nosleepclause
+	
+	push bc
+	ld a, [H_WHOSETURN]
+	ld b, a
+	ld a, 1	;force the enemy turn
+	ld [H_WHOSETURN], a
 	call HandleSlpFrzClause
+	ld a, b
+	ld [H_WHOSETURN], a
+	pop bc
+	
 	jp nz, .heavydiscourage
 .nosleepclause
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

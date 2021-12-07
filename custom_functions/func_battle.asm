@@ -336,61 +336,37 @@ EnemyDisableHandler:
 
 
 ;return z and nc if nothing detected
-;return nz for sleep detected
-;return c for  freeze detected
+;return nz for sleep clause triggered
+;return c for  freeze clause triggered
 ;link battles unsupported
-_HandleSlpFrzClause:	
-;	call GetPredefRegisters
-	
+_HandleSlpFrzClause:		
 	ld a, [wLinkState]
 	cp LINK_STATE_BATTLING
-	jp z, .returnshort ;do not enforce for link battles
+	jp z, .returnclear ;do not enforce for link battles
 	
 	ld a, [wIsInBattle]
 	cp 2
-	jr z, .next0 ;continue for trainer battles only
-	ld a, 0
-	and a
-	jp .returnshort
-.next0	
+	jp nz, .returnclear ;continue for trainer battles only
+
 	ld a, [wUnusedD721]
 	and %11000000
-	jp z, .returnshort	;return if neither sleep nor freeze clause bits are set
-	
-	push de
-	
-	ld hl, .return
-	bit 7, a
-	jr nz, .next1
-	ld hl, .nofreeze
-.next1
-	push hl
-	ld hl, .next3
-	bit 6, a
-	jr nz, .next2
-	ld hl, .nosleep
-.next2
-	push hl
+	jp z, .returnclear	;return if neither sleep nor freeze clause bits are set
 	
 	ld a, [H_WHOSETURN]
 	and a
 	jr nz, .playerdata
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;	
 .enemydata
-	;copy hp, position, and status of the active pokemon to its roster position
+	;copy status of the active pokemon to its roster position
 	ld a, [wEnemyMonPartyPos]
-	ld hl, wEnemyMon1HP
+	ld hl, wEnemyMon1Status
 	ld bc, wEnemyMon2 - wEnemyMon1
 	call AddNTimes
-	ld d, h
-	ld e, l
-	ld hl, wEnemyMonHP
-	ld bc, 4
-	call CopyData
+	ld a, [wEnemyMonStatus]
+	ld [hl], a
 	
 	;now set up to start looping through the party
 	ld a, [wEnemyPartyCount]	;1 to 6
-	dec a	;0 to 5
 	ld d, a
 	ld bc, wEnemyMon2 - wEnemyMon1
 	ld hl, wEnemyMon1Status
@@ -398,70 +374,76 @@ _HandleSlpFrzClause:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;	
 .playerdata
-	;copy hp, position, and status of the active pokemon to its roster position
+	;copy status of the active pokemon to its roster position
 	ld a, [wBattleMonPartyPos]
-	ld hl, wPartyMon1HP
+	ld hl, wPartyMon1Status
 	ld bc, wPartyMon2 - wPartyMon1
 	call AddNTimes
-	ld d, h
-	ld e, l
-	ld hl, wBattleMonHP
-	ld bc, 4
-	call CopyData
+	ld a, [wBattleMonStatus]
+	ld [hl], a
 	
 	;now set up to start looping through the party
 	ld a, [wPartyCount]	;1 to 6
-	dec a	;0 to 5
 	ld d, a
 	ld bc, wPartyMon2 - wPartyMon1
 	ld hl, wPartyMon1Status
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 .initialize
-	xor a
-	push af
+	xor a	;start with A having a value of 0
 .loop	
-	pop af
 	or [hl]
-	push af
-	ld a, d
-	and a
-	jr z, .doneloop
 	dec d
+	jr z, .doneloop
 	add hl, bc
 	jr .loop
 .doneloop
-
-	pop af	
+	;Rotate A so that the bits look like 4,3,2,1,0,7,6,5
 	rlca
 	rlca
-	rlca	;frz bit is now the carry bit and z flag is cleared
-	;A is now rotated to be bits 4,3,2,1,0,5,6,7
-	;Sleep counter is in bits 2,1,0
+	rlca	
+	;frz bit is now the carry bit and z flag is cleared by the rlca opcode
+	;Sleep counter is 2,1,0
+	;use res opcodes to effectively do "and %00111000" so as to not affect the carry flag
 	res 7, a
 	res 6, a
 	res 2, a
 	res 1, a
 	res 0, a
+	;assign z or nz based on value of the sleep counter using inc and dec to not affect carry flag
 	inc a
-	dec a	;set z flag based zero state of sleep counter
+	dec a	
 	
-	pop hl
-	jp hl
-.next3
-	pop hl 
-	jp hl
-.return
-	pop de
-.returnshort
+	push af	;save flags and the OR'ed status bits
+	ld a, [wUnusedD721]
+	and %11000000
+	
+	cp  %10000000
+	jr z, .returnFRZonly
+	
+	cp  %01000000
+	jr z, .returnSLPonly
+	
+	jr .returnboth
+	
+.returnFRZonly
+	pop af
+	;need to set the z state while leaving carry alone 
+	ld b, 1
+	dec b
 	ret
-.nofreeze
-	and a
-	jp .return
-.nosleep
-	ld a, 0
-	inc a
-	dec a
-	jp .next3
+.returnSLPonly
+	pop af
+	;need to clear carry while maintaining proper z state
+	ld b, a
+	res 7, b	;make bit 7 into a 0
+	rlc b	;then roll that 0 into the carry flag. sleep counter bits will determine the z/nz flag state.
+	ret
+.returnboth
+	pop af
+	ret
+.returnclear
+	xor a
+	ret
 
 	
 	

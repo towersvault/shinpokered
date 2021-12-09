@@ -68,7 +68,10 @@ OakSpeech:
 	call PrintText
 	call NoYesChoice
 	ld a, [wCurrentMenuItem]
-	and a
+	ld b, a
+	ld a, [wUnusedD721]
+	res 0, a
+	or b
 	ld [wUnusedD721], a
 	call ClearScreen
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

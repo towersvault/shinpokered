@@ -31,8 +31,10 @@ Always apply patches to a fresh USA ROM or else strange glitches will occur.
 Important Note: If you are using a save file from a previous version, you might be blocked by invisible walls upon loading the game.
 To fix this, you must use the Softlock Warp detailed below to teleport back to Pallet Town.
 
-Notice: New patches might crash upon loading a save from a previous patch.
-		To prevent this from happening, save outside in Pallet Town.
+Notice: New patches might crash or have issues upon loading a save from a previous patch.
+		To prevent this from happening, prepare your save file in the following way:
+		--> Deactivate all special options (such as 60fps mode and NPC toggles).
+		--> Save in the outdoor Pallet Town map.
 
 		
 Title Screen  (GBC Palettes)  
@@ -130,6 +132,10 @@ The bag now supports an additional item list for an extra 20 slots of space!
 Press START on the bag menu to hot-swap the item list that populates the active bag.
 Only the active bag's item list is recognized by the game's systems.
 
+Each pokemon on your team has a field move slot. 
+These slots can temporarily hold a HM move for overworld-use only.
+No longer do you have to sacrifice one of your four moves for a HM move.
+
 An experimental New Game+ has been added.
 It can be enabled if you have an uncorrupt save file wherein the Elite 4 have been beaten.
 Press and hold SELECT while choosing New Game; a jingle confirms activation.
@@ -208,9 +214,9 @@ Cheats and Secrets!
 - Fixed messed-up warps dealing with the forest tileset
 - Fixed incorrect animation colors
 - Fixed some minor color errors in non-move battle animations
-
 - Changed color of normal-type attacks to yellow
 - Adjusted the Saffron Guard text for accuracy
+*- Assigned a default palette to confusion & crashing self-damage
 
 - Fixed bugged TH/HM names within text boxes
 - Slightly adjusted some Cinnabar Mansion notes to match the Japanese text
@@ -221,10 +227,23 @@ Cheats and Secrets!
 - Fixed typos
 - Adjusted alignment of printed statEXP
 - EXP bar goes off of MAX_LEVEL instead of an assumed lvl 100
+- Fixed Sleep/Freeze clause not working correctly
+- Streamlined the Sleep/Freeze clause function and cleaned the spaghetti code
+- Made it so choosing to play as a girl doesn't clear certain other options
 
 
 #New features & adjustments since last version:
 -----------
+- The player's party 'mons now have temporary field move slots for HM moves
+  - Each party 'mon has 1 slot separate from its regular move list
+  - A field move in this slot can be used in the overworld as normal
+  - You will be asked about filling the slot when teaching a field move out of battle
+  - You cannot overwrite a slot with a field move already in it
+  - A slot is cleared when its 'mon leaves the party (such as being put in the PC)
+  - In the case of a 'mon with 4 regular field moves:
+    - The slotted temporary move cannot be menu-selected
+	- The slotted temporary move, if it's a HM move, can be used via quick-key
+
 - Good rod has an expanded 'mon list and level range
 - Increased the level range of the super rod
 - Old rod now randomly acts as a Good rod 50% of the time 
@@ -248,7 +267,7 @@ Cheats and Secrets!
 - Engine improvement: the 1.5x EXP boost function now has overflow protection
 - Engine improvement: EXP Gained can now print up to five digits instead of four
 - Engine Improvement: Pokemon can now learn more than 1 move per level
-*- Text with zero frame delay can be toggled in the options menu; press LEFT with the cursor on FAST
+- Text with zero frame delay can be toggled in the options menu; press LEFT with the cursor on FAST
 
 
 #Changes not yet in the release branch:
@@ -688,7 +707,7 @@ Cheats and Secrets!
   - Sleep and freeze clauses work like they do in Pokemon Stadium
 
 
-#Quick Keys
+#Quick Keys / Options / Menu-Related
 - Press SELECT on the option screen to change the audio type
 - Added built-in gamma shader for backlit LCD screens (press SELECT at the copyright screen)
 	- Gamma shader defaults ON if the destination code in the rom header is set to 00 (JP)
@@ -729,6 +748,15 @@ Cheats and Secrets!
   - Only the active bag's item list is recognized by the game's systems
     - For example, you cannot enter the Cinnabar Gym if the Secret Key is not in the active bag
 	- Same for Stadium compatibility, detecting only the bag list that was active when last saved  
+- The player's party 'mons now have temporary field move slots for HM moves
+  - Each party 'mon has 1 slot separate from its regular move list
+  - A field move in this slot can be used in the overworld as normal
+  - You will be asked about filling the slot when teaching a field move out of battle
+  - You cannot overwrite a slot with a field move already in it
+  - A slot is cleared when its 'mon leaves the party (such as being put in the PC)
+  - In the case of a 'mon with 4 regular field moves:
+    - The slotted temporary move cannot be menu-selected
+	- The slotted temporary move, if it's a HM move, can be used via quick-key
 
  
 #Graphics

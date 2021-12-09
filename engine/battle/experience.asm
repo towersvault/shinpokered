@@ -425,7 +425,7 @@ BoostExp:
 	ret
 	
 CatchUpBoost:	;joenote - boost exp if underlevelled
-	CheckEvent EVENT_906
+	CheckEvent EVENT_8D9
 	ret z
 	ld a, [wBattleMonLevel]
 	ld b, a

@@ -1,5 +1,6 @@
 #Updating an Old Save File
 -----------------------------------------------
+Is the old save was from an earlier Shin Pokemon version, deactivate all special options and NPC toggles.  
 Make sure you are saved outside in Pallet Town on the old save file.  
 Make a copy of the old save file. This will be your new save file.  
 Load the new save with the latest version of Shin Pokemon.  
@@ -108,6 +109,18 @@ This also works in battle or when depositing items into the PC.
 But be mindful. Only the item list that is currently active is recognized by the game's systems.  
 For example, you cannot enter the Cinnabar Gym if the Secret Key is not in the active bag.  
 It's the same for Pokemon Stadium compatibility, only the bag list that was active when last saved is detected.  
+
+**Temporary Field Move Slots**  
+When teaching a pokemon a field move outside of battle, such as with a HM, this feature becomes apparent.  
+You will be asked if you would like to teach it as a temporary field move.  
+If so, it will be learned into a special field move slot that is separate from the normal list of four moves.  
+Such a temporary move cannot be used in battle, but it can be used in the overworld as normal.  
+Each pokemon on your team can have one temporary field move at a time.  
+Having one will display it on the status screen above the pokemon's other moves.  
+A temporary field move cannot be overwritten with another field move.  
+But it will be erased if it's owning pokemon leaves the party (such as by being deposited in the PC).  
+If all four of a pokemon's regular moves are field moves, its temporary field move cannot be menu-selected.  
+But if a fifth field move in the temporary slot is a HM, it can still be activated via One-Button HM Usage.  
 
 **One-Button HM Usage**  
 You must still have the correct badge and move on one of your pokemon to use a HM in this way.  

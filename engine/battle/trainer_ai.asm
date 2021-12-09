@@ -1352,8 +1352,7 @@ TrainerAI:
 	ld a, [wTrainerClass]
 	cp JUGGLER
 	jr z, .checkAIcount
-	ld a, [wUnusedD721]
-	bit 5, a
+	CheckEvent EVENT_8DB
 	jr z, .checkAIcount	
 	;done if item clause active
 	xor a	;make sure to clear the A register and flags before returning

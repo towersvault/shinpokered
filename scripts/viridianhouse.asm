@@ -41,8 +41,7 @@ ClauseBrother_Item:
 	ld hl, ClauseBrother_ItemIntro
 	call PrintText
 
-	ld a, [wUnusedD721]
-	bit 5, a
+	CheckEvent EVENT_8DB
 	jr z, .ask_turn_on
 	
 	ld hl, ClauseBrother_OFF
@@ -50,9 +49,7 @@ ClauseBrother_Item:
 	call .choose
 	ld hl, ClauseBrother_REJECT
 	jr z, .end
-	ld a, [wUnusedD721]
-	res 5, a
-	ld [wUnusedD721], a
+	ResetEvent EVENT_8DB
 	jr .print_done
 
 .ask_turn_on
@@ -61,9 +58,7 @@ ClauseBrother_Item:
 	call .choose
 	ld hl, ClauseBrother_REJECT
 	jr z, .end
-	ld a, [wUnusedD721]
-	set 5, a
-	ld [wUnusedD721], a
+	SetEvent EVENT_8DB
 	
 .print_done
 	ld hl, ClauseBrother_DONE
@@ -81,8 +76,7 @@ ClauseBrother_Sleep:
 	ld hl, ClauseBrother_SleepIntro
 	call PrintText
 
-	ld a, [wUnusedD721]
-	bit 6, a
+	CheckEvent EVENT_8DC
 	jr z, .ask_turn_on
 	
 	ld hl, ClauseBrother_OFF
@@ -90,9 +84,7 @@ ClauseBrother_Sleep:
 	call .choose
 	ld hl, ClauseBrother_REJECT
 	jr z, .end
-	ld a, [wUnusedD721]
-	res 6, a
-	ld [wUnusedD721], a
+	ResetEvent EVENT_8DC
 	jr .print_done
 
 .ask_turn_on
@@ -101,9 +93,7 @@ ClauseBrother_Sleep:
 	call .choose
 	ld hl, ClauseBrother_REJECT
 	jr z, .end
-	ld a, [wUnusedD721]
-	set 6, a
-	ld [wUnusedD721], a
+	SetEvent EVENT_8DC
 	
 .print_done
 	ld hl, ClauseBrother_DONE
@@ -121,8 +111,7 @@ ClauseBrother_Freeze:
 	ld hl, ClauseBrother_FreezeIntro
 	call PrintText
 
-	ld a, [wUnusedD721]
-	bit 7, a
+	CheckEvent EVENT_8DD
 	jr z, .ask_turn_on
 	
 	ld hl, ClauseBrother_OFF
@@ -130,9 +119,7 @@ ClauseBrother_Freeze:
 	call .choose
 	ld hl, ClauseBrother_REJECT
 	jr z, .end
-	ld a, [wUnusedD721]
-	res 7, a
-	ld [wUnusedD721], a
+	ResetEvent EVENT_8DD
 	jr .print_done
 
 .ask_turn_on
@@ -141,9 +128,7 @@ ClauseBrother_Freeze:
 	call .choose
 	ld hl, ClauseBrother_REJECT
 	jr z, .end
-	ld a, [wUnusedD721]
-	set 7, a
-	ld [wUnusedD721], a
+	SetEvent EVENT_8DD
 	
 .print_done
 	ld hl, ClauseBrother_DONE

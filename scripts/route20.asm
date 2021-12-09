@@ -17,8 +17,7 @@ Route20Script:
 	ret
 
 MissingnoShore:
-	ld a, [wUnusedD721]	;check if old man has been talked to to activate the shore
-	bit 1, a
+	CheckEvent EVENT_8DA	;check if old man has been talked to to activate the shore
 	jr z, .return	;leave if it hasn't
 	ld hl, MissingnoCoordsData	;load the table of coordinates defining the infamous cinnabar shore
 	call ArePlayerCoordsInArray	;check player coordinates and set the carry flag if a match is found
@@ -31,9 +30,7 @@ MissingnoShore:
 	ld a, [hRandomSub]
 	cp $F0
 	jr c, .return
-	ld a, [wUnusedD721]
-	res 1, a
-	ld [wUnusedD721], a	;clear cinnabar shore activation
+	ResetEvent EVENT_8DA	;clear cinnabar shore activation
 	ld hl, wd72d;set the bits for triggering battle
 	set 6, [hl]	;
 	set 7, [hl]	;

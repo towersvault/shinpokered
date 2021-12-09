@@ -6,8 +6,7 @@ UseItem_:
 	ld a, [wIsInBattle]
 	cp 2
 	jr nz, .nottrainerbattle
-	ld a, [wUnusedD721]
-	bit 5, a
+	CheckEvent EVENT_8DB
 	jp nz, UnusableItem	;done if item clause active
 .nottrainerbattle
 
@@ -185,8 +184,7 @@ ItemUseBall:
 	;jp z, .setAnimData
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	;joenote - use a bit to determine if this is a ghost marowak battle
-	ld a, [wUnusedD721]
-	bit 3, a
+	CheckEvent EVENT_10E
 	jr z, .loop
 	ld b, $10 ; can't be caught value
 	jp .setAnimData
@@ -1815,8 +1813,7 @@ ItemUsePokedoll:
 	jp nz, ItemUseNotTime
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	;joenote - if this is a ghost marowak battle, prevent using a pokedoll
-	ld a, [wUnusedD721]
-	bit 3, a
+	CheckEvent EVENT_10E
 	jp nz, ItemUseNotTime
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	ld a, $01

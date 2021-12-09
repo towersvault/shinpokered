@@ -348,8 +348,7 @@ _HandleSlpFrzClause:
 	cp 2
 	jp nz, .returnclear ;continue for trainer battles only
 
-	ld a, [wUnusedD721]
-	and %11000000
+	CheckEitherEventSet EVENT_8DC, EVENT_8DD
 	jp z, .returnclear	;return if neither sleep nor freeze clause bits are set
 	
 	ld a, [H_WHOSETURN]
@@ -414,17 +413,13 @@ _HandleSlpFrzClause:
 	dec a	
 	
 	push af	;save flags and the OR'ed status bits
-	ld a, [wUnusedD721]
-	and %11000000
+	CheckBothEventsSet EVENT_8DC, EVENT_8DD
+	jr z, .returnboth
 	
-	cp  %10000000
-	jr z, .returnFRZonly
-	
-	cp  %01000000
-	jr z, .returnSLPonly
-	
-	jr .returnboth
-	
+	CheckEvent EVENT_8DC
+	jr nz, .returnSLPonly	
+	;otherwise the FRZ clause must be the only one active
+
 .returnFRZonly
 	pop af
 	;need to set the z state while leaving carry alone 

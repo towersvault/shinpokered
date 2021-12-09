@@ -26,14 +26,14 @@ ViridianTradeNurseText:
 ;;;;;;;;;;;;;;;;;;;;;;;;;joenote - add text for trainer randomization
 ViridianPokeCenterText5:
 	TX_ASM
-	CheckEvent EVENT_910
+	CheckEvent EVENT_8D8
 	jr z, .RegRandON
 	ld hl, ViridianPokeCenter_RegRandomOFF 
 	call PrintText
 	call .choose
 	ld hl, ViridianPokeCenter_AideQ_reject
 	jr z, .end
-	ResetEvent EVENT_910
+	ResetEvent EVENT_8D8
 	jr .print_done
 .RegRandON
 	ld hl, ViridianPokeCenter_RegRandomON
@@ -41,7 +41,7 @@ ViridianPokeCenterText5:
 	call .choose
 	ld hl, ViridianPokeCenter_AideQ_reject
 	jr z, .end
-	SetEvent EVENT_910
+	SetEvent EVENT_8D8
 .print_done
 	ld hl, ViridianPokeCenter_AideQ_done
 .end

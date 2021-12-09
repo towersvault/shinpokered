@@ -115,10 +115,11 @@ MainMenu:
 	ld a, PLAYER_DIR_DOWN
 	ld [wPlayerDirection], a
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;joenote - initialize saved wram flags for various things
-	ld a, [wUnusedD721]
-	and %11110101
-	ld [wUnusedD721], a
+;joenote - clear saved events flags on load for safety
+	ResetEvent EVENT_10E	;ghost marowak
+	ResetEvent EVENT_8DA	;cinnabar shore missingno
+	ResetEvent EVENT_90A	;random trainer flag
+	ResetEvent EVENT_90D	;random 3-mon trainer for tournament
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	ld c, 10
 	call DelayFrames

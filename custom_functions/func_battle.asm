@@ -616,8 +616,8 @@ DoDisobeyLevelCheck:
 	jr z, .return_usemove
 
 ; compare the mon's original trainer ID with the player's ID to see if it was traded
-	CheckEvent EVENT_908	;joenote Check if Elite 4 beaten, and if so then don't even bother going further
-	jr nz, .return_usemove
+;	CheckEvent EVENT_908	;joenote Check if Elite 4 beaten, and if so then don't even bother going further
+;	jr nz, .return_usemove
 	ld a, [wUnusedD721]	;joenote - check if obedience level cap is active and always treat as traded if so
 	bit 5, a
 	jr nz, .monIsTraded
@@ -655,26 +655,30 @@ ObedienceLevelsTraded:
 	db 70	;marsh badge
 	db 255	;earth badge
 ObedienceLevelCappedOption:
-	db 25	;no badges
-	db 35	;cascade badge
-	db 45	;rainbow badge
-	db 55	;marsh badge
+	db 15	;no badges
+	db 20	;boulder badge
+	db 25	;cascade badge
+	db 30	;thunder badge
+	db 40	;rainbow badge
+	db 45	;soul badge
+	db 45	;marsh badge
+	db 50	;volcano badge
 	db 65	;earth badge
 
 ;returns the level cap based on badges back into D
 GetBadgeCap:
 	ld hl, ObedienceLevelsTraded
+	ld e, 4
 	ld a, [wUnusedD721]	;joenote - check if obedience level cap is active
 	bit 5, a
 	jr z, .next
 	ld hl, ObedienceLevelCappedOption	
+	ld e, 8
 .next
 
 	ld a, [wObtainedBadges]
 	ld d, a
 	
-	ld e, 4
-
 	ld a, [hl]
 
 .loop_level

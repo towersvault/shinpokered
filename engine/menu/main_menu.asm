@@ -819,12 +819,12 @@ ShowBadgeCap:
 	pop af
 	ret z
 	
-	CheckEvent EVENT_908
-	jr z, .printnum
-	ld de, OptionMenuCapLevelMaxText
-	coord hl, $10, $0C
-	call PlaceString
-	ret
+;	CheckEvent EVENT_908
+;	jr z, .printnum
+;	ld de, OptionMenuCapLevelMaxText
+;	coord hl, $10, $0C
+;	call PlaceString
+;	ret
 	
 .printnum	
 	callba GetBadgeCap
@@ -839,8 +839,8 @@ OptionMenuCapTradeText:
 	db "     @"
 OptionMenuCapLevelText:
 	db "L:@"
-OptionMenuCapLevelMaxText:
-	db "Any@"
+;OptionMenuCapLevelMaxText:
+;	db "Any@"
 
 ; sets the options variable according to the current placement of the menu cursors in the options menu
 SetOptionsFromCursorPositions:

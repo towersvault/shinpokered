@@ -1,6 +1,6 @@
 # Shin Pokémon Red and Blue
 
-Version 1.22.2
+Version 1.22.3
 
 This is a rom hack of pokemon red & blue based on the Pret team's disassembly.  
 It's a mostly-vanilla hack that focuses on fixing game engine bugs and oversights from the original game.  
@@ -216,7 +216,8 @@ Cheats and Secrets!
 - Fixed some minor color errors in non-move battle animations
 - Changed color of normal-type attacks to yellow
 - Adjusted the Saffron Guard text for accuracy
-*- Assigned a default palette to confusion & crashing self-damage
+- Assigned a default palette to confusion & crashing self-damage
+- Made it so choosing New Game doesn't clear certain other options
 
 - Fixed bugged TH/HM names within text boxes
 - Slightly adjusted some Cinnabar Mansion notes to match the Japanese text
@@ -243,6 +244,11 @@ Cheats and Secrets!
   - In the case of a 'mon with 4 regular field moves:
     - The slotted temporary move cannot be menu-selected
 	- The slotted temporary move, if it's a HM move, can be used via quick-key
+
+- There is now an obedience level cap that can be toggled in the options menu
+  - With the cursor in the BATTLE STYLE section, press A to toggle it on and off
+  - While active, the current maximum obedience level will display in the options menu
+  - All pokemon, not just trades, will start to disobey if over the displayed level cap
 
 - Good rod has an expanded 'mon list and level range
 - Increased the level range of the super rod

@@ -40,8 +40,7 @@ Additional Rules:
 
 7 - You are allowed and encouraged to buy healing items and supplies at pokemarts. You will need them.
 
-8 - You cannot run back to a pokecenter through caves, dungeons, gyms, or routes until you have trekked through them at least once.
-	You must push on ahead, use Dig/Teleport/Fly/Escape Rope/etc, or incur a blackout.
+8 - At least one of these features must remain active: Obedience Level Cap or Scale Enemy Trainer Levels.
 
 9 -	Trainers can be rematched for friendly sparring after defeating them. Faintings during such rematches never count as deaths.
 

@@ -85,6 +85,12 @@ While active, enemy trainer roster levels will scale upwards relative to the hig
 Enemy pokemon will evolve by level if applicable.  
 Gym leaders and the Elite-4 scale slightly higher than normal trainers.  
 
+**Obedience Level Cap**  
+There is now an obedience level cap that can be toggled in the options menu.  
+With the cursor in the BATTLE STYLE section, press A to toggle it on and off.  
+While active, the current maximum obedience level will display in the options menu.  
+All pokemon, not just trades, will start to disobey if over the displayed level cap.  
+
 **Sleep, Freeze, and Item Clauses**  
 The house to the lower-left of Viridian Gym is home to three new NPCs named the Clause Brothers.  
 Each one toggles enforcement of either the item, sleep, or freeze clause from Pokemon Stadium.  

@@ -94,6 +94,8 @@ SpecialTrainerMoves:
 	db 4,1,EARTHQUAKE
 	db 4,3,ICE_BEAM
 	db 5,1,ROCK_SLIDE
+	db 5,2,BODY_SLAM
+	db 5,3,DOUBLE_TEAM
 	db 5,4,EARTHQUAKE
 	db 0
 	

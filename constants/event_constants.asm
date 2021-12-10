@@ -2240,7 +2240,7 @@ const_value = 0
 	const EVENT_8BD                                  ; 8BD, (D85E, bit 5)
 	const EVENT_8BE                                  ; 8BE, (D85E, bit 6)
 	const EVENT_8BF                                  ; 8BF, (D85E, bit 7)
-	const EVENT_8C0   ;encountered MEW               ; 8C0, (D85F, bit 0)
+	const EVENT_8C0   ;encountered MEW               ; 8C0, (D85F, bit 0)	;joenote
 	const EVENT_BEAT_MEWTWO                          ; 8C1, (D85F, bit 1)
 	const EVENT_8C2   ;MEW text                      ; 8C2, (D85F, bit 2)
 	const EVENT_8C3                                  ; 8C3, (D85F, bit 3)
@@ -2270,7 +2270,7 @@ const_value = 0
 	const EVENT_8DB     ;item clause active          ; 8DB, (D862, bit 3)
 	const EVENT_8DC     ;sleep clause active         ; 8DC, (D862, bit 4)
 	const EVENT_8DD     ;freeze clause active        ; 8DD, (D862, bit 5)
-	const EVENT_8DE                                  ; 8DE, (D862, bit 6)
+	const EVENT_8DE									 ; 8DE, (D862, bit 6)
 	const EVENT_8DF                                  ; 8DF, (D862, bit 7)
 	const ELITE4_EVENTS_START                        ; 8E0, (D863, bit 0)
 	const EVENT_BEAT_LORELEIS_ROOM_TRAINER_0         ; 8E1, (D863, bit 1)

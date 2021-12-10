@@ -4384,47 +4384,11 @@ OHKOText:
 ; checks if a traded mon will disobey due to lack of badges
 ; stores whether the mon will use a move in Z flag
 CheckForDisobedience:
-	xor a
-	ld [wMonIsDisobedient], a
-	ld a, [wLinkState]
-	cp LINK_STATE_BATTLING
-	jr nz, .checkIfMonIsTraded
-	ld a, $1
-	and a
-	ret
-; compare the mon's original trainer ID with the player's ID to see if it was traded
-.checkIfMonIsTraded
-	ld hl, wPartyMon1OTID
-	ld bc, wPartyMon2 - wPartyMon1
-	ld a, [wPlayerMonNumber]
-	call AddNTimes
-	ld a, [wPlayerID]
-	cp [hl]
-	jr nz, .monIsTraded
-	inc hl
-	ld a, [wPlayerID + 1]
-	cp [hl]
+	callba DoDisobeyLevelCheck	
 	jp z, .canUseMove
-; it was traded
-.monIsTraded
-; what level might disobey?
-	ld hl, wObtainedBadges
-	bit 7, [hl]
-	ld a, 255	;joenote - upped to 255
-	jr nz, .next
-	bit 5, [hl]
-	ld a, 70
-	jr nz, .next
-	bit 3, [hl]
-	ld a, 50
-	jr nz, .next
-	bit 1, [hl]
-	ld a, 30
-	jr nz, .next
-	ld a, 10
-.next
-	ld b, a
-	ld c, a
+.backfromlevelcheck
+	ld b, d
+	ld c, d
 	ld a, [wBattleMonLevel]
 	ld d, a
 	add b

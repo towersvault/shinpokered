@@ -606,3 +606,86 @@ TypePalColorList:
 	db PAL_PINKMON;psychic
 	db PAL_CYANMON;ice
 	db PAL_REDMON;dragon
+
+;Note: calls GetBadgeCap and preserves D so that this too returns the level cap based on badges back into D
+DoDisobeyLevelCheck:
+	xor a
+	ld [wMonIsDisobedient], a
+	ld a, [wLinkState]
+	cp LINK_STATE_BATTLING
+	jr z, .return_usemove
+
+; compare the mon's original trainer ID with the player's ID to see if it was traded
+	CheckEvent EVENT_908	;joenote Check if Elite 4 beaten, and if so then don't even bother going further
+	jr nz, .return_usemove
+	ld a, [wUnusedD721]	;joenote - check if obedience level cap is active and always treat as traded if so
+	bit 5, a
+	jr nz, .monIsTraded
+	
+	ld hl, wPartyMon1OTID
+	ld bc, wPartyMon2 - wPartyMon1
+	ld a, [wPlayerMonNumber]
+	call AddNTimes
+	ld a, [wPlayerID]
+	cp [hl]
+	jr nz, .monIsTraded
+	inc hl
+	ld a, [wPlayerID + 1]
+	cp [hl]
+	jr z, .return_usemove
+; it was traded
+
+.monIsTraded
+; what level might disobey?
+	call GetBadgeCap
+
+.return_back
+	ld a, 1
+	and a
+	ret
+	
+.return_usemove
+	xor a
+	ret
+
+ObedienceLevelsTraded:
+	db 10	;no badges
+	db 30	;cascade badge
+	db 50	;rainbow badge
+	db 70	;marsh badge
+	db 255	;earth badge
+ObedienceLevelCappedOption:
+	db 25	;no badges
+	db 35	;cascade badge
+	db 45	;rainbow badge
+	db 55	;marsh badge
+	db 65	;earth badge
+
+;returns the level cap based on badges back into D
+GetBadgeCap:
+	ld hl, ObedienceLevelsTraded
+	ld a, [wUnusedD721]	;joenote - check if obedience level cap is active
+	bit 5, a
+	jr z, .next
+	ld hl, ObedienceLevelCappedOption	
+.next
+
+	ld a, [wObtainedBadges]
+	ld d, a
+	
+	ld e, 4
+
+	ld a, [hl]
+
+.loop_level
+	inc hl
+	rrc d
+	rrc d
+	jr nc, .donthavebadge
+	ld a, [hl]
+.donthavebadge
+	dec e
+	jr nz, .loop_level
+	
+	ld d, a
+	ret

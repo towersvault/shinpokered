@@ -531,6 +531,7 @@ DisplayOptionMenu:
 	call PlaceSoundSetting	;joenote - display the sound setting
 	call Show60FPSSetting	;60fps - display current setting
 	call ShowLaglessTextSetting	;joenote - display marker for lagless text or not
+	call ShowBadgeCap	;joenote - show the level cap depending on badge
 	xor a
 	ld [wCurrentMenuItem], a
 	ld [wLastMenuItem], a
@@ -563,7 +564,9 @@ DisplayOptionMenu:
 	jr z, .checkDirectionKeys
 	ld a, [wTopMenuItemY]
 	cp 16 ; is the cursor on Cancel?
-	jr nz, .loop
+	jr z, .exitMenu
+	ld a, [wTopMenuItemY]
+	jr .cursor_section
 .exitMenu
 	ld a, SFX_PRESS_AB
 	call PlaySound
@@ -578,6 +581,7 @@ DisplayOptionMenu:
 	jr nz, .downPressed
 	bit 6, b ; Up pressed?
 	jr nz, .upPressed
+.cursor_section
 	cp 8 ; cursor in Battle Animation section?
 	jr z, .cursorInBattleAnimation
 	cp 13 ; cursor in Battle Style section?
@@ -588,6 +592,8 @@ DisplayOptionMenu:
 	pop af
 	jr z, .loop
 .cursorInTextSpeed
+	bit 0, b	;A pressed
+	jp nz, .loop
 	bit 5, b ; Left pressed?
 	jp nz, .pressedLeftInTextSpeed
 	jp .pressedRightInTextSpeed
@@ -628,11 +634,18 @@ DisplayOptionMenu:
 	call PlaceUnfilledArrowMenuCursor
 	jp .loop
 .cursorInBattleAnimation
+	bit 0, b	;A pressed
+	jp nz, .loop
 	ld a, [wOptionsBattleAnimCursorX] ; battle animation cursor X coordinate
 	xor $0b ; toggle between 1 and 10
 	ld [wOptionsBattleAnimCursorX], a
 	jp .eraseOldMenuCursor
 .cursorInBattleStyle
+	bit 0, b	;A pressed
+	push af
+	call nz, ToggleBadgeCap	;60fps - toggle level cap depending on badge
+	pop af
+	jp nz, .loop
 	ld a, [wOptionsBattleStyleCursorX] ; battle style cursor X coordinate
 	xor $0b ; toggle between 1 and 10
 	ld [wOptionsBattleStyleCursorX], a
@@ -786,6 +799,48 @@ ShowLaglessTextSetting:
 	coord hl, $06, $03
 	call PlaceString
 	ret
+	
+;joenote - show /toggle badge cap for level
+ToggleBadgeCap:
+	ld a, [wUnusedD721]
+	xor %00100000
+	ld [wUnusedD721], a
+	;fall through
+ShowBadgeCap:
+	ld de, OptionMenuCapTradeText
+	ld a, [wUnusedD721]	;check if obedience level cap is active
+	bit 5, a
+	jr z, .print
+	ld de, OptionMenuCapLevelText
+.print
+	push af
+	coord hl, $0E, $0C
+	call PlaceString
+	pop af
+	ret z
+	
+	CheckEvent EVENT_908
+	jr z, .printnum
+	ld de, OptionMenuCapLevelMaxText
+	coord hl, $10, $0C
+	call PlaceString
+	ret
+	
+.printnum	
+	callba GetBadgeCap
+	ld a, d
+	ld [wNumSetBits], a
+	ld de, wNumSetBits
+	coord hl, $10, $0C
+	lb bc, 1, 3
+	jp PrintNumber
+	ret
+OptionMenuCapTradeText:
+	db "     @"
+OptionMenuCapLevelText:
+	db "L:@"
+OptionMenuCapLevelMaxText:
+	db "Any@"
 
 ; sets the options variable according to the current placement of the menu cursors in the options menu
 SetOptionsFromCursorPositions:

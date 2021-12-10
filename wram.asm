@@ -3106,7 +3106,7 @@ wUnusedD721:: ; d721	;joenote - use to set various wram flags
 	;bit 2 - override bit 0 for specific bank switching instances
 	;bit 3 - not used
 	;bit 4 - 60fps option flag
-	;bit 5 - not used
+	;bit 5 - obedience level cap
 	;bit 6 - not used
 	;bit 7 - not used
 ;;;;;;;;;;;;;;joenote - use these unused locations for debugging and parkesing DV scores

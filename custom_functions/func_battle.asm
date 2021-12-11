@@ -639,6 +639,15 @@ DoDisobeyLevelCheck:
 ; what level might disobey?
 	call GetBadgeCap
 
+	ld a, [wBattleMonLevel]
+	ld e, a
+	
+	ld a, [wUnusedD721]	;check if obedience level cap is active and always treat as traded if so
+	bit 5, a
+	jr z, .return_back
+	
+	srl e	; halve level value if obedience level cap is active (increases probability of obeying)
+	
 .return_back
 	ld a, 1
 	and a

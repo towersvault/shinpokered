@@ -4387,9 +4387,9 @@ CheckForDisobedience:
 	callba DoDisobeyLevelCheck	
 	jp z, .canUseMove
 .backfromlevelcheck
-	ld b, d
+	ld b, d	;joenote - D holds the level cap from DoDisobeyLevelCheck
 	ld c, d
-	ld a, [wBattleMonLevel]
+	ld a, e	;E holds the level factor from DoDisobeyLevelCheck
 	ld d, a
 	add b
 	ld b, a

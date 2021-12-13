@@ -45,6 +45,21 @@ SpecialTrainerMoves:
 	db 2,4,BIDE
 	db 0
 	
+	;joenote - give the abra of the cerulean rival something to do
+	;		-assume the rival got some TMs from Celadon City
+	db SONY1, $7
+	db 2,2,COUNTER
+	db 2,3,TRI_ATTACK
+	db 0
+	db SONY1, $8
+	db 2,2,COUNTER
+	db 2,3,TRI_ATTACK
+	db 0
+	db SONY1, $9
+	db 2,2,COUNTER
+	db 2,3,TRI_ATTACK
+	db 0
+	
 	db MISTY,$1
 	db 2,3,HARDEN
 	db 2,4,BUBBLEBEAM

@@ -363,11 +363,11 @@ HandshakeList:
 ;FF is used as an end-of-list marker.
 	db $1
 	db $2
-	db $2
+	db $3
 	db $a
 	db $ff
 VersionText:
-	db "v1.22.2M@"
+	db "v1.23M@"
 
 WhereWouldYouLikeText:
 	TX_FAR _WhereWouldYouLikeText

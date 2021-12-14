@@ -40,13 +40,14 @@ Additional Rules:
 
 7 - You are allowed and encouraged to buy healing items and supplies at pokemarts. You will need them.
 
-8 - At least one of these features must remain active: Obedience Level Cap or Scale Enemy Trainer Levels.
+8 - Keep one of these features active at all times: Obedience Level Cap or Scale Enemy Trainer Levels.
 
 9 -	Trainers can be rematched for friendly sparring after defeating them. Faintings during such rematches never count as deaths.
 
 10 - Anytime you black out at the Indigo Plateau, the Elite 4 are considered to have confiscated your badges.
 	You must return to Oak's lab and turn on Trainer Scaling via the bottom-right aide.
+	Make sure that the Obedience Level Cap is deactivated.
 	All eight gym leaders must be re-matched and defeated to get your badges back (your choice on the order).
 	These gym leader rematches are serious. Your pokemon are susceptable to death in spite of Rule 9.
-	Trainer scaling can be turned off once all eight badges have been regained. 
+	Trainer scaling may be turned off and the level-cap turned on once all eight badges have been regained. 
 	Only then are you allowed to re-challenge the Elite 4.

@@ -1,6 +1,6 @@
 #Updating an Old Save File
 -----------------------------------------------
-Is the old save was from an earlier Shin Pokemon version, deactivate all special options and NPC toggles.  
+If the old save was from an earlier Shin Pokemon version, deactivate all special options and NPC toggles.  
 Make sure you are saved outside in Pallet Town on the old save file.  
 Make a copy of the old save file. This will be your new save file.  
 Load the new save with the latest version of Shin Pokemon.  
@@ -15,9 +15,9 @@ Save the game. Your save file is now updated.
 This applies when playing or emulating as a Gameboy Color game.  
 It's assumed you are using a modern backlit screen with no other color correction.  
 Under these stated conditions, the colors will be highly saturated.  
-Press SELECT at the copyright screen when the game first boots. This will fix the saturated colors.
-Changing the destination code of the rom header to 00 (JP) defaults this to ON and pressing SELECT turns it OFF.
-Use Gameboy Rom Analyzer to change the destination code (https://www.romhacking.net/utilities/1343/).
+Press SELECT at the copyright screen when the game first boots. This will fix the saturated colors.  
+Changing the destination code of the rom header to 00 (JP) defaults this to ON and pressing SELECT turns it OFF.  
+Use Gameboy Rom Analyzer to change the destination code (https://www.romhacking.net/utilities/1343/).  
 
 **Change the Audio Type**  
 Updated Audio mixing has been ported over from Pokemon Yellow.  
@@ -63,7 +63,7 @@ Preserves ONLY the following information (your current party will be lost):
 - Pokedex seen/owned registry  
 - Hall of Fame (experimental)  
 - Option screen selections  
-A new trainer ID and hash is generated, so boxed pokemon are permanently treated as traded pokemon  
+A new trainer ID and hash is generated, so boxed pokemon are permanently treated as traded pokemon.  
 
 
 #Functions for Adjusting Difficulty
@@ -90,6 +90,11 @@ There is now an obedience level cap that can be toggled in the options menu.
 With the cursor in the BATTLE STYLE section, press A to toggle it on and off.  
 While active, the current maximum obedience level will display in the options menu.  
 All pokemon, not just trades, will start to disobey if over the displayed level cap.  
+The chance of disobedience ocurring has been adjusted about -16% to make it less aggravating.  
+The cap will change based on which badge you have. Its max of 65 is granted by the earth badge.  
+This is intended as an alternative to, and not to be used with, the Scale Enemy Trainer Levels feature.  
+It provides a different challenge where one is forced to keep a team within the game's level curve.  
+Players should deactivate this feature for post-game adventuring past the level-cap.  
 
 **Sleep, Freeze, and Item Clauses**  
 The house to the lower-left of Viridian Gym is home to three new NPCs named the Clause Brothers.  
@@ -144,7 +149,7 @@ This will prompt the game to choose the best rod in your bag and use it.
 **Quick Bike Button Combo**  
 You must have the bicycle in your bag.  
 You must not be facing a shore.  
-Text for NPCs, signs, objects, etc, takes precedence, so do not face toward these things.  
+Text for NPCs, signs, objects, etc, have priority, so do not face toward these things.  
 Press and hold A. While doing that, press SELECT. You can now release the two buttons.  
 This will tell the game to get on your bike. You can also get off your bike the same way.  
 
@@ -155,7 +160,7 @@ If Giovanni has disappeared from his gym, exit and re-enter the gym to bring him
 
 **Forfeit Trainer Battles**  
 You can now forfeit a trainer battle to force yourself to black out.  
-This can be useful for escaping in-battle softlock scenarios or creating variants of Nuzlock rules.  
+This can be useful for escaping in-battle softlock scenarios or creating variants of Nuzlocke rules.  
 On the main battle menu, place the cursor over RUN.  
 While holding the SELECT button, press the A button.  
 You will be asked to confirm your decision. Choose YES to forfeit or NO to cancel.  

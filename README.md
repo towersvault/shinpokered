@@ -1,6 +1,6 @@
 # Shin Pokémon Red and Blue
 
-Version 1.22.3
+Version 1.23
 
 This is a rom hack of pokemon red & blue based on the Pret team's disassembly.  
 It's a mostly-vanilla hack that focuses on fixing game engine bugs and oversights from the original game.  
@@ -118,6 +118,11 @@ As compensation, SET mode gives an additional 1.5x EXP boost in trainer battles.
 You can choose RUN while holding SELECT in trainer battles to forfeit the match and black yourself out.
 
 One of the aides in Oak's lab toggles scaling of trainer rosters to your level (evolving them if applicable).
+
+As an alternative to trainer scaling, there is now an obedience level-cap that can be toggled in the options menu.
+With the cursor in the BATTLE STYLE section, press A to toggle it on and off.
+While active, the current maximum obedience level will display in the options menu.
+All pokemon, not just trades, will start to disobey if over the displayed level cap.
 
 The other aide in Oak's lab toggles a pokeball-caught symbol in battle after obtaining the pokedex.
 To help with Gen 2 interaction, this also applies a gender symbol to species that can be male or female.
@@ -245,11 +250,15 @@ Cheats and Secrets!
     - The slotted temporary move cannot be menu-selected
 	- The slotted temporary move, if it's a HM move, can be used via quick-key
 
-- There is now an obedience level cap that can be toggled in the options menu
+- There is now an obedience level-cap that can be toggled in the options menu
   - With the cursor in the BATTLE STYLE section, press A to toggle it on and off
   - While active, the current maximum obedience level will display in the options menu
   - All pokemon, not just trades, will start to disobey if over the displayed level cap
-
+  - The chance of disobedience ocurring has been adjusted about -16% to make it less aggravating
+  - The cap will change based on which badge you have (max of 65 with earth badge)
+  - Not recommended for use with trainer scaling since you might gain too many levels too quickly
+  - Best to turn this off in the post-game as it's really for the gym challenge and elite-4
+  
 - Good rod has an expanded 'mon list and level range
 - Increased the level range of the super rod
 - Old rod now randomly acts as a Good rod 50% of the time 
@@ -274,6 +283,8 @@ Cheats and Secrets!
 - Engine improvement: EXP Gained can now print up to five digits instead of four
 - Engine Improvement: Pokemon can now learn more than 1 move per level
 - Text with zero frame delay can be toggled in the options menu; press LEFT with the cursor on FAST
+
+- Gave a couple tm moves to the cerulean rival's abra
 
 
 #Changes not yet in the release branch:
@@ -657,7 +668,7 @@ Cheats and Secrets!
   - Allow up to 8 digits when displaying experience on the status screen
   - Pokemon can now learn more than 1 more per level
   - The 1.5x EXP boost function now has overflow protection
-  - Engine improvement: EXP Gained can now print up to five digits instead of four
+  - EXP Gained can now print up to five digits instead of four
 
 -Changes to fishing
   - Good rod has an expanded 'mon list and level range
@@ -689,6 +700,7 @@ Cheats and Secrets!
 - Amber and fossils are now non-key items
 - Low HP alarm only plays three times then turns itself off
 - You can now cut the grass in the plateau tileset
+- Gave a couple TM moves to the cerulean rival's abra
 
   
 #Additions:
@@ -711,6 +723,14 @@ Cheats and Secrets!
   - They toggle enforcement of the item, sleep, and/or freeze clauses
   - The clauses apply to the player and AI equally, and only apply during non-link trainer battles
   - Sleep and freeze clauses work like they do in Pokemon Stadium
+- There is now an obedience level-cap that can be toggled in the options menu
+  - With the cursor in the BATTLE STYLE section, press A to toggle it on and off
+  - While active, the current maximum obedience level will display in the options menu
+  - All pokemon, not just trades, will start to disobey if over the displayed level cap
+  - The chance of disobedience ocurring has been adjusted about -16% to make it less aggravating
+  - The cap will change based on which badge you have (max of 65 with earth badge)
+  - Not recommended for use with trainer scaling since you might gain too many levels too quickly
+  - Best to turn this off in the post-game as it's really for the gym challenge and elite-4
 
 
 #Quick Keys / Options / Menu-Related

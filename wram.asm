@@ -2993,9 +2993,10 @@ wBagBackupSpace::	;joenote - added to expand the bag space (42 bytes long)
 wBagNumBackup::
 	ds 1
 wBagItemsBackup::
-	ds 40
-wBagItemsTerminator::
+	ds BAG_ITEM_CAPACITY * 2
+wBagItemsBackupTerminator::
 	ds 1
+wBagBackupSpaceEnd::
 wGameProgressFlagsEnd::
 
 

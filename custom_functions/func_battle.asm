@@ -657,11 +657,17 @@ DoDisobeyLevelCheck:
 	xor a
 	ret
 
+;a 0 value means badge has no effect on obedience
+; the value for no badges must be non-zero
 ObedienceLevelsTraded:
 	db 10	;no badges
+	db 0	;boulder badge
 	db 30	;cascade badge
+	db 0	;thunder badge
 	db 50	;rainbow badge
+	db 0	;soul badge
 	db 70	;marsh badge
+	db 0	;volcano badge
 	db 255	;earth badge
 ObedienceLevelCappedOption:
 	db 15	;no badges
@@ -677,28 +683,32 @@ ObedienceLevelCappedOption:
 ;returns the level cap based on badges back into D
 GetBadgeCap:
 	ld hl, ObedienceLevelsTraded
-	ld e, 4
 	ld a, [wUnusedD721]	;joenote - check if obedience level cap is active
 	bit 5, a
 	jr z, .next
 	ld hl, ObedienceLevelCappedOption	
-	ld e, 8
 .next
 
+	ld e, 8	;number of badges that exist
 	ld a, [wObtainedBadges]
 	ld d, a
 	
+	push bc
 	ld a, [hl]
+	ld b, a
 
 .loop_level
 	inc hl
 	rrc d
-	rrc d
 	jr nc, .donthavebadge
 	ld a, [hl]
+	and a
+	jr z, .donthavebadge
+	ld b, a
 .donthavebadge
 	dec e
 	jr nz, .loop_level
 	
-	ld d, a
+	ld d, b
+	pop bc
 	ret

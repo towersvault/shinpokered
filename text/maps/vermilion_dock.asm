@@ -5,7 +5,7 @@ _VermilionDockText1::
 _VermilionDockSeigaIntro::
 	text "My name is Seiga."
 	line "Though my friends"
-IF DEF(_GREEN)
+IF (DEF(_GREEN) || DEF(_REDJP) || DEF(_BLUEJP))
 	cont "call me BLUE."
 ELSE
 	cont "call me GREEN."

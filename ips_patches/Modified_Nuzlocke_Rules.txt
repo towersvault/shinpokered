@@ -3,7 +3,7 @@ Trainers in this rom hack are not complete pushovers. They try to choose moves w
 and their pokemon tend to have slightly better stats compared to your pokemon at the same level. 
 Knockouts are fairly common. Your nuzlocke run will likely end in Mt Moon if playing by the normally-accepted ruleset. 
 If you really want to do it though, I suggest playing your nuzlocke run via the ruleset I have put together below.
-Corollaries are mandatory clarifications of existing rules, and Modifications are optional according to player taste.
+Corollaries are mandatory clarifications of existing rules. Modifications are optional according to player taste.
 
 
 Core Rules:

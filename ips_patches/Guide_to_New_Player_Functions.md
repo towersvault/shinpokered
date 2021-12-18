@@ -117,9 +117,9 @@ This also works when surfing or using your bike.
 The bag now supports an additional item list for an extra 20 slots of space.  
 Press START while in the bag menu to hot-swap the item list that populates the active bag.  
 This also works in battle or when depositing items into the PC.  
-But be mindful. Only the item list that is currently active is recognized by the game's systems.  
-For example, you cannot enter the Cinnabar Gym if the Secret Key is not in the active bag.  
-It's the same for Pokemon Stadium compatibility, only the bag list that was active when last saved is detected.  
+In general, the non-active item list gets recognized by the game's systems.  
+For example, you can enter the Cinnabar Gym even if the Secret Key is in the non-active bag space.  
+For certain unique systems, like Pokemon Stadium compatibility, only the active bag list is detected.  
 
 **Temporary Field Move Slots**  
 When teaching a pokemon a field move outside of battle, such as with a HM, this feature becomes apparent.  

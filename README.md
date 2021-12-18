@@ -28,13 +28,13 @@ Always apply patches to a fresh USA ROM or else strange glitches will occur.
 - Pokedex uses metric units.
 - Apply the ips patch to a USA Blue rom.
 
-Important Note: If you are using a save file from a previous version, you might be blocked by invisible walls upon loading the game.
-To fix this, you must use the Softlock Warp detailed below to teleport back to Pallet Town.
-
-Notice: New patches might crash or have issues upon loading a save from a previous patch.
-		To prevent this from happening, prepare your save file in the following way:
-		--> Deactivate all special options (such as 60fps mode and NPC toggles).
-		--> Save in the outdoor Pallet Town map.
+***Updating Your Save File***  
+New patches might crash or have issues upon loading a save from a previous patch or an unpatched game.  
+To prevent this from happening, prepare your save file in the following way:  
+--> Deactivate all special options (such as 60fps mode and NPC toggles).  
+--> Save in the outdoor Pallet Town map.  
+You might be blocked by invisible walls upon loading the game.  
+To fix this, you must use the Softlock Warp detailed below to teleport back to Pallet Town.  
 
 		
 Title Screen  (GBC Palettes)  
@@ -135,7 +135,8 @@ Item, Sleep, and Freeze clauses can each be toggled by the Clause Brothers in Vi
  
 The bag now supports an additional item list for an extra 20 slots of space!
 Press START on the bag menu to hot-swap the item list that populates the active bag.
-Only the active bag's item list is recognized by the game's systems.
+The game's systems will generally detect items in the non-active bag space.
+Unique systems, such as Pokemon Stadium, will only recognize the active bag's item list.
 
 Each pokemon on your team has a field move slot. 
 These slots can temporarily hold a HM move for overworld-use only.
@@ -223,7 +224,6 @@ Cheats and Secrets!
 - Adjusted the Saffron Guard text for accuracy
 - Assigned a default palette to confusion & crashing self-damage
 - Made it so choosing New Game doesn't clear certain other options
-
 - Fixed bugged TH/HM names within text boxes
 - Slightly adjusted some Cinnabar Mansion notes to match the Japanese text
 - Reworked the level-up movelist for all four 'mons in the Eevee family
@@ -236,6 +236,7 @@ Cheats and Secrets!
 - Fixed Sleep/Freeze clause not working correctly
 - Streamlined the Sleep/Freeze clause function and cleaned the spaghetti code
 - Made it so choosing to play as a girl doesn't clear certain other options
+- Updated the Elite 4 and Gym Leaders a bit (mostly Koga)
 
 
 #New features & adjustments since last version:
@@ -284,6 +285,7 @@ Cheats and Secrets!
 - Engine Improvement: Pokemon can now learn more than 1 move per level
 - Text with zero frame delay can be toggled in the options menu; press LEFT with the cursor on FAST
 
+- The extra bag space introduced previously is now detected by most of the game's systems
 - Gave a couple tm moves to the cerulean rival's abra
 
 
@@ -771,9 +773,10 @@ Cheats and Secrets!
   - Press START on the bag menu to hot-swap the item list that populates the active bag
     - Also works in battle
 	- Also works when depositing items in the PC
-  - Only the active bag's item list is recognized by the game's systems
-    - For example, you cannot enter the Cinnabar Gym if the Secret Key is not in the active bag
-	- Same for Stadium compatibility, detecting only the bag list that was active when last saved  
+  - The game's systems will generally detect items in the non-active bag space
+    - For example, you can enter the Cinnabar Gym even if the Secret Key is in the non-active bag space
+  - Certain unique systems may only recognize the active bag's item list
+	- For example, the Pokemon Stadium games detect only the bag list that was active when last saved
 - The player's party 'mons now have temporary field move slots for HM moves
   - Each party 'mon has 1 slot separate from its regular move list
   - A field move in this slot can be used in the overworld as normal
@@ -951,7 +954,7 @@ Cheats and Secrets!
 
 
 #CREDITS / SPECIAL THANKS:
------------
+--------------------------
 - The Pret team for the pokered and pokeyellow disassemblies and all the code comments that came with them
 - MoriyaFaith's pokejp project for green version assets and code referencing
 - Rangi for the tool Polished Map
@@ -959,17 +962,23 @@ Cheats and Secrets!
 - The Pokemon Prism team for the improved RNG
 - Move deleter/relearner coded by TheFakeMateo for Pokemon Red++
 - Code contributions and bugfixing by wisp92
-- The following folks for their great tutorials, glitch videos, and explanations across the internet
-  - TheFakeMateo 
-  - Crystal_
-  - ChickasaurusGL
-  - v0id19
-- The following folks for their help in pointing out and diagnosing bugs 
-  - kadetPirx
-  - JOBOalthor1992
-  - krazsen
-  - kmalove
-  - zycain
+- GLSWV for correcting the metric conversions of height and weight data 
+
+The following folks for their great tutorials, glitch videos, and explanations across the internet
+- TheFakeMateo 
+- Crystal_
+- ChickasaurusGL
+- v0id19
+
+The following folks for their help in pointing out and diagnosing bugs 
+- kadetPirx
+- JOBOalthor1992
+- krazsen
+- kmalove
+- zycain
+- jastolze007 
+- MStern
+- TSinnohTrainer 
 
   
 The shinpokered repository was branched from pret/pokered at merge pull request #185 committed on Jul 2, 2018

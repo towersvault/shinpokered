@@ -356,14 +356,6 @@ _HandleSlpFrzClause:
 	jr nz, .playerdata
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;	
 .enemydata
-	;copy status of the active pokemon to its roster position
-	ld a, [wEnemyMonPartyPos]
-	ld hl, wEnemyMon1Status
-	ld bc, wEnemyMon2 - wEnemyMon1
-	call AddNTimes
-	ld a, [wEnemyMonStatus]
-	ld [hl], a
-	
 	;now set up to start looping through the party
 	ld a, [wEnemyPartyCount]	;1 to 6
 	ld d, a
@@ -373,14 +365,6 @@ _HandleSlpFrzClause:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;	
 .playerdata
-	;copy status of the active pokemon to its roster position
-	ld a, [wBattleMonPartyPos]
-	ld hl, wPartyMon1Status
-	ld bc, wPartyMon2 - wPartyMon1
-	call AddNTimes
-	ld a, [wBattleMonStatus]
-	ld [hl], a
-	
 	;now set up to start looping through the party
 	ld a, [wPartyCount]	;1 to 6
 	ld d, a
@@ -641,13 +625,7 @@ DoDisobeyLevelCheck:
 
 	ld a, [wBattleMonLevel]
 	ld e, a
-	
-	ld a, [wUnusedD721]	;check if obedience level cap is active and always treat as traded if so
-	bit 5, a
-	jr z, .return_back
-	
-	srl e	; halve level value if obedience level cap is active (increases probability of obeying)
-	
+		
 .return_back
 	ld a, 1
 	and a

@@ -428,15 +428,21 @@ DisplayTwoOptionMenu:
 	ld [wTwoOptionMenuID], a
 	ld a, [wFlags_0xcd60]
 	push af
-	push hl
-	ld hl, wFlags_0xcd60
-	bit 5, [hl]
-	set 5, [hl] ; don't play sound when A or B is pressed in menu
-	pop hl
+;joenote - play sound on NoYes menu
+;	push hl
+;	ld hl, wFlags_0xcd60
+;	bit 5, [hl]
+;	set 5, [hl] ; don't play sound when A or B is pressed in menu
+;	pop hl
 .noYesMenuInputLoop
 	call HandleMenuInput
 	bit 1, a ; A button pressed?
-	jr nz, .noYesMenuInputLoop ; try again if A was not pressed
+;	jr nz, .noYesMenuInputLoop ; try again if A was not pressed
+;joenote - allow B to cancel the NoYes menu
+	jr z, .noYesAPressed
+	xor a
+	ld [wCurrentMenuItem], a
+.noYesAPressed
 	pop af
 	pop hl
 	ld [wFlags_0xcd60], a

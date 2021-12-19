@@ -2082,15 +2082,6 @@ ItemUseGoodRod:
 	ld b, 0
 	add hl, bc
 	ld b, [hl]
-	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-	;joenote - increase levels by 0 to 7
-	push af
-	call Random
-	and %111
-	add b
-	ld b, a
-	pop af
-	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	inc hl
 	ld c, [hl]
 	and a

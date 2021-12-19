@@ -7,5 +7,5 @@ GoodRodMons:
 	db 12,GOLDEEN
 	db 12, HORSEA
 	db 12, KRABBY
-	db 12, STARYU
+	db 12, PSYDUCK
 	db 12, SHELLDER	

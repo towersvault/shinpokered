@@ -237,6 +237,9 @@ Cheats and Secrets!
 - Streamlined the Sleep/Freeze clause function and cleaned the spaghetti code
 - Made it so choosing to play as a girl doesn't clear certain other options
 - Updated the Elite 4 and Gym Leaders a bit (mostly Koga)
+- Edited Blaine's sunglasses to be darker
+- No-Yes boxes can be canceled by pressing B
+- Fixed text delay flags getting cleared which would override the text speed
 
 
 #New features & adjustments since last version:
@@ -255,7 +258,6 @@ Cheats and Secrets!
   - With the cursor in the BATTLE STYLE section, press A to toggle it on and off
   - While active, the current maximum obedience level will display in the options menu
   - All pokemon, not just trades, will start to disobey if over the displayed level cap
-  - The chance of disobedience ocurring has been adjusted about -16% to make it less aggravating
   - The cap will change based on which badge you have (max of 65 with earth badge)
   - Not recommended for use with trainer scaling since you might gain too many levels too quickly
   - Best to turn this off in the post-game as it's really for the gym challenge and elite-4
@@ -729,7 +731,6 @@ Cheats and Secrets!
   - With the cursor in the BATTLE STYLE section, press A to toggle it on and off
   - While active, the current maximum obedience level will display in the options menu
   - All pokemon, not just trades, will start to disobey if over the displayed level cap
-  - The chance of disobedience ocurring has been adjusted about -16% to make it less aggravating
   - The cap will change based on which badge you have (max of 65 with earth badge)
   - Not recommended for use with trainer scaling since you might gain too many levels too quickly
   - Best to turn this off in the post-game as it's really for the gym challenge and elite-4
@@ -876,7 +877,7 @@ Cheats and Secrets!
 - Pkmn with levels > level cap give 255 stat exp for each stat
 - Pkmn with levels > level cap have 255 base exp yield
 - If a chansey >= level 100 is first in your roster:
-  - Shiny wild random encounters and super rod encounters are much more common (1 in 256)
+  - Shiny wild random encounters and fishing rod encounters are much more common (1 in 256)
   - Repel effects will not block shiny encounters
 - You can now battle missingno on the infamous cinnabar shoreline
   - You must have gotten the pokedex diploma first

@@ -649,14 +649,14 @@ ObedienceLevelsTraded:
 	db 255	;earth badge
 ObedienceLevelCappedOption:
 	db 15	;no badges
-	db 20	;boulder badge
-	db 25	;cascade badge
-	db 30	;thunder badge
-	db 40	;rainbow badge
-	db 45	;soul badge
-	db 45	;marsh badge
-	db 50	;volcano badge
-	db 65	;earth badge
+	db 25	;boulder badge
+	db 30	;cascade badge
+	db 35	;thunder badge
+	db 45	;rainbow badge
+	db 50	;soul badge
+	db 50	;marsh badge
+	db 55	;volcano badge
+	db 70	;earth badge
 
 ;returns the level cap based on badges back into D
 GetBadgeCap:

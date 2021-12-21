@@ -373,8 +373,11 @@ _HandleSlpFrzClause:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 .initialize
 	xor a	;start with A having a value of 0
-.loop	
+.loop
+	call .CheckPartyZeroHP
+	jr c, .skipOR	;do not do the OR if pointed-to 'mon has zero HP
 	or [hl]
+.skipOR
 	dec d
 	jr z, .doneloop
 	add hl, bc
@@ -423,8 +426,26 @@ _HandleSlpFrzClause:
 .returnclear
 	xor a
 	ret
-
-	
+;Used by _HandleSlpFrzClause to check if a party mon has zero HP
+;set the carry bit if true
+.CheckPartyZeroHP
+	scf		;set the carry flag
+	push af
+	push hl
+	;assume hl points to wEnemy/PartyMonXStatus
+	dec hl	;point to level
+	dec hl	;point to lo byte of hp
+	ld a, [hld]	;lo HP byte into A then point to hi HP byte
+	or [hl]; OR the lo and hi HP bytes together
+	pop hl
+	jr z, .ZeroHP
+.SomeHP
+	pop af
+	ccf		;complement the carry flag (change from 1 to 0)
+	ret
+.ZeroHP
+	pop af
+	ret
 	
 SetAttackAnimPal:
 	call GetPredefRegisters

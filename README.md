@@ -290,6 +290,10 @@ Cheats and Secrets!
 - The extra bag space introduced previously is now detected by most of the game's systems
 - Gave a couple tm moves to the cerulean rival's abra
 
+- Initiating the Pokemon Tower rival battle will deactivate the following skippable rival battles
+  - The Cerulean encounter
+  - The SS Anne encounter
+
 
 #Changes not yet in the release branch:
 -----------
@@ -699,12 +703,14 @@ Cheats and Secrets!
 - Just for fun, the last juggler in the fuchsia gym is replaced with a cameo of Janine
   - Though at this point she's still just a cooltrainer and doesn't have a unique battle sprite
 - The L: block doesn't disappear when level hits three digits
-- If SS Anne is skipped and the pokemon tower rival battle is initiated, the SS Anne rival battle is deactivated
 - Greatly increased the speed and performance of spin tiles  
 - Amber and fossils are now non-key items
 - Low HP alarm only plays three times then turns itself off
 - You can now cut the grass in the plateau tileset
 - Gave a couple TM moves to the cerulean rival's abra
+- Initiating the Pokemon Tower rival battle will deactivate the following skippable rival battles
+  - The Cerulean encounter
+  - The SS Anne encounter
 
   
 #Additions:

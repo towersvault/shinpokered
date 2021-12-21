@@ -771,6 +771,14 @@ GetMonFieldMoves:
 	ld hl, wTempFieldMoveSLots
 	add hl, bc
 	
+	
+	push hl
+	ld a, [hl]
+	ld [wMoveNum], a
+	callba _CheckIfMoveIsKnown
+	pop hl
+	jr c, .done
+	
 	ld a, [hl]
 	ld b, a
 	ld c, 1

@@ -37,7 +37,7 @@ xMonCRand+=("${xMonC[@]}")
 
 #Arrays for B-tier wild land pokemon
 	#Temporary array and initial list define
-xWildMonB=(55 36 1E 5D 35 33 82 08 9E 23 77 2D 76 93 2E 29 BD 27 A3 91 2B 2C A6 22 2A 48 26 BA 12 A8 A7 0B 4E 96)
+xWildMonB=(55 36 1E 5D 35 33 82 08 9E 23 77 2D 76 93 2E 29 BD 27 A3 91 2B 2C A6 22 2A 48 26 BA 12 A8 A7 0B 4E 96 AA)
 	#Backup of original list
 xWildMonBOrg+=("${xWildMonB[@]}")
 	#New randomized list specifying a replacement in a per-element basis
@@ -614,6 +614,65 @@ funcSetSuperRod()
 }
 
 
+funcSetPrizemon()
+{
+	echo Do you want to randomize game corner prize pokemon? [y/n]
+	read ans
+	case $ans in
+		y)
+			#do nothing
+			;;
+		n)
+			return
+			;;
+		*)
+			echo Unrecognized input. Exiting script.
+			exit 
+			;;
+	esac
+
+	echo Search for PrizeMenuMon1Entries and note the rom bank hex value to the left of the :
+	echo And also note the hex address of PrizeMenuMon1Entries to the right of the :
+	echo Enter the rom bank hex value now.
+	read xBank
+	echo Enter the hex address now.
+	read xAddress
+	echo
+	
+	dBank=$((0x$xBank))
+	dAddress=$((0x$xAddress))
+	dOffset=$(($dBank*$dBankSize + $dAddress - $dBankSize))
+	dOffsetEnd=$(($dOffset + 14))
+	
+	local i
+	local j
+	for (( i=$dOffset; i<$dOffsetEnd; i+=8 ))	#scan through all the prizemon data
+	do
+		#randomize the next 3 pokemon slots
+		for (( j=0; j<3; j++ ))
+		do
+			xByte=$(xxd -p -l 1 -s $i $sFile)	#get mon byte
+			#randomize mon byte
+			funcRandWildAvert
+			funcRandWildBvert
+			funcRandWildCvert
+			funcRandFishvert
+			#write the new random mon byte
+			printf "$(printf '\\x%02X' $((0x$xByte)))" | dd of=$sFile bs=1 seek=$i count=1 conv=notrunc status=none
+			echo offset $(($i)) written.
+			((i++))	#increment to next mon
+			#j increments here
+		done
+		
+		echo Completion is $(($i - $dOffset)) of $(($dOffsetEnd - $dOffset - 1)) bytes.
+		
+		#i increments here
+	done
+
+	echo Prize pokemon have now been randomized.
+}
+
+
 funcMainInputs()
 {
     echo Randomizing pokemon lists for $sVersion version.
@@ -644,10 +703,12 @@ funcMainInputs()
 	echo
 	funcSetSuperRod
 	echo
+	funcSetPrizemon
+	echo
 }
 
 #Main Script Starts Here
-echo Enter the filepath and/or name of your rom file (including the file extension).
+echo Enter the filepath and/or name of your rom file, including the file extension.
 read sFile
 echo
 

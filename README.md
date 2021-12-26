@@ -12,6 +12,7 @@ Read the "Guide to New Player Functions" for instructions on all the new stuff t
 Don't like the non-vanilla changes? Prefer only the bugfixes and AI improvements? Want a codebase from which to launch your own rom hack?
 Then the [Lite branch](https://github.com/jojobear13/shinpokered/tree/lite) is what you want. Head on over and start compiling.
 
+A bash script randomizer, "randoshinred", is now in beta test.
 
 Download the IPS patch file of the version you want and apply it to its respective USA rom. 
 The "_origback" ips patches are alternatives for red & blue that keep the original back sprites. 

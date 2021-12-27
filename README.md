@@ -44,7 +44,7 @@ To fix this, you must use the Softlock Warp detailed below to teleport back to P
 Title Screens  (GBC Palettes)  
 ![Title Screen 1](/screenshots/bgb00028.bmp?raw=true)
 ![Title Screen 2](/screenshots/bgb00029.bmp?raw=true)
-![Title Screen 3](/screenshots/bgb00030.bmp?raw=true)
+![Title Screen 3](/screenshots/bgb00030.bmp?raw=true)  
 ![Title Screen 4](/screenshots/bgb00031.bmp?raw=true)
 ![Title Screen 5](/screenshots/bgb00032.bmp?raw=true)
 
@@ -57,9 +57,9 @@ Rematches
 Trainer AI, Shiny Palette, Exp Bar, Spaceworld Back Sprites  
 Gender & Caught symbols in Wild Battles, Colored Attacks in GBC-mode  
 ![Battle Screen Upgrades 1](/screenshots/bgb00020.bmp?raw=true)
-![Battle Screen Upgrades 1](/screenshots/bgb00021.bmp?raw=true)
+![Battle Screen Upgrades 2](/screenshots/bgb00021.bmp?raw=true)
 
-TMs in Marts  
+TMs in Marts with Abbreviated Names  
 ![Marts](/screenshots/bgb00016.bmp?raw=true)
 
 Shiny Animation  
@@ -70,8 +70,8 @@ Girl Trainer
 ![Girl Trainer 2](/screenshots/bgb00025.bmp?raw=true)
 
 Temporary Field Move Slot  
-![Rematches](/screenshots/bgb00004.bmp?raw=true)
-![Rematches](/screenshots/bgb00005.bmp?raw=true)
+![Field SLot 1](/screenshots/bgb00004.bmp?raw=true)
+![Field SLot 2](/screenshots/bgb00005.bmp?raw=true)
 
 Many new NPCs to toggle features  
 ![NPC 1](/screenshots/bgb00007.bmp?raw=true)
@@ -81,7 +81,7 @@ Many new NPCs to toggle features
 ![NPC 5](/screenshots/bgb00011.bmp?raw=true)
 ![NPC 6](/screenshots/bgb00012.bmp?raw=true)
 
-Gamma Shader for LCD Screens (Off & On Somparison)  
+Gamma Shader for LCD Screens (Off & On Comparison)  
 ![Shader Off](/screenshots/bgb00035.bmp?raw=true)
 ![Shader On](/screenshots/bgb00036.bmp?raw=true)
 
@@ -96,10 +96,11 @@ There are too many to enumerate in a simple summary, and some of them are very o
 
 Includes english builds of Green and Red-JP versions. 
 It swaps the graphics, Cerulean Cave layout, and a few lines of text to replicate the original japanese releases.
+The original release pokedex entries have been adapted from the Fire Red translations.
 It also has all the pokedex data in metric.
 
 Includes an english build of Blue-JP version.
-It swaps prizes, trades, and wild encounter data, and some text to replicate the original japanese release.
+It swaps prizes, trades, wild encounter data, and some text to replicate the original japanese release.
 It also has all the pokedex data in metric.
 
 Engine features from USA Yellow version have been backported.

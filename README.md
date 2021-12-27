@@ -38,8 +38,15 @@ You might be blocked by invisible walls upon loading the game.
 To fix this, you must use the Softlock Warp detailed below to teleport back to Pallet Town.  
 
 		
-Title Screen  (GBC Palettes)  
-![Title Screen 2](/screenshots/bgb00028.bmp?raw=true)
+#Screenshots
+-----------
+
+Title Screens  (GBC Palettes)  
+![Title Screen 1](/screenshots/bgb00028.bmp?raw=true)
+![Title Screen 2](/screenshots/bgb00029.bmp?raw=true)
+![Title Screen 3](/screenshots/bgb00030.bmp?raw=true)
+![Title Screen 4](/screenshots/bgb00031.bmp?raw=true)
+![Title Screen 5](/screenshots/bgb00032.bmp?raw=true)
 
 Pokemon Yellow Backported Palettes  
 ![Backported Palettes](/screenshots/bgb00022.bmp?raw=true)
@@ -47,8 +54,10 @@ Pokemon Yellow Backported Palettes
 Rematches  
 ![Rematches](/screenshots/bgb00003.bmp?raw=true)
 
-Trainer AI, Shiny SGB palette, & Exp Bar  
-![TrainerAI, Shiny SGB palette, & Exp Bar](/screenshots/bgb00020.bmp?raw=true)
+Trainer AI, Shiny Palette, Exp Bar, Spaceworld Back Sprites  
+Gender & Caught symbols in Wild Battles, Colored Attacks in GBC-mode  
+![Battle Screen Upgrades 1](/screenshots/bgb00020.bmp?raw=true)
+![Battle Screen Upgrades 1](/screenshots/bgb00021.bmp?raw=true)
 
 TMs in Marts  
 ![Marts](/screenshots/bgb00016.bmp?raw=true)
@@ -57,7 +66,24 @@ Shiny Animation
 ![Shiny Animation](/screenshots/bgb00019.bmp?raw=true)
 
 Girl Trainer  
-![Girl Trainer 1](/screenshots/bgb00026.bmp?raw=true) ![Girl Trainer 2](/screenshots/bgb00025.bmp?raw=true)
+![Girl Trainer 1](/screenshots/bgb00026.bmp?raw=true)
+![Girl Trainer 2](/screenshots/bgb00025.bmp?raw=true)
+
+Temporary Field Move Slot  
+![Rematches](/screenshots/bgb00004.bmp?raw=true)
+![Rematches](/screenshots/bgb00005.bmp?raw=true)
+
+Many new NPCs to toggle features  
+![NPC 1](/screenshots/bgb00007.bmp?raw=true)
+![NPC 2](/screenshots/bgb00008.bmp?raw=true)
+![NPC 3](/screenshots/bgb00009.bmp?raw=true)  
+![NPC 4](/screenshots/bgb00010.bmp?raw=true)
+![NPC 5](/screenshots/bgb00011.bmp?raw=true)
+![NPC 6](/screenshots/bgb00012.bmp?raw=true)
+
+Gamma Shader for LCD Screens (Off & On Somparison)  
+![Shader Off](/screenshots/bgb00035.bmp?raw=true)
+![Shader On](/screenshots/bgb00036.bmp?raw=true)
 
 
 #Summary
@@ -68,12 +94,17 @@ Girl Trainer
 A huge number of bugs, glitches, oversights, and text errors of all sorts have been fixed. 
 There are too many to enumerate in a simple summary, and some of them are very obscure or previously undiscovered.
 
-Includes an english Green version. 
-It swaps the graphics, Cerulean Cave layout, and a few lines of text to replicate the original Green version.
-Apply the patch to a USA Blue rom to use it.
+Includes english builds of Green and Red-JP versions. 
+It swaps the graphics, Cerulean Cave layout, and a few lines of text to replicate the original japanese releases.
+It also has all the pokedex data in metric.
+
+Includes an english build of Blue-JP version.
+It swaps prizes, trades, and wild encounter data, and some text to replicate the original japanese release.
+It also has all the pokedex data in metric.
 
 Engine features from USA Yellow version have been backported.
 Super Gameboy palettes get converted to display on the Gameboy Color. No more monochrome!
+Attack animations are colored according to type during Gameboy Color play.
 The audio engine is backported for stereo sound support. 
 
 New options that can be toggled!
@@ -295,6 +326,8 @@ Cheats and Secrets!
   - The Cerulean encounter
   - The SS Anne encounter
 
+- Attacks reduced to zero damage now say the target is unaffected instead of missing
+
 
 #Changes not yet in the release branch:
 -----------
@@ -501,8 +534,8 @@ Cheats and Secrets!
 #TWEAKS:
 -----------
 
-- Fixed mistakes and made adjustments to the game text
-  - When a pkmn is caught and fills the box, a reminder is printed that the box is full
+- Fixed mistakes in the game text
+  - Attacks reduced to zero damage now say the target is unaffected instead of missing
   - Man in cinnabar won't mention raichu evolving (also applies to the jynx trade in cerulean)
   - Koga correctly says soul badge increases speed
   - Lt. Surge correctly says thunder badge increases defense
@@ -510,24 +543,26 @@ Cheats and Secrets!
   - Viridian girl's notebook 2nd page revised for pkmn-catching effectiveness
   - Viridian blackboard BRN info corrected (BRN does not reduce speed)
   - Viridian Blackboard PAR info updated
-  - Made cinnabar mansion notes more true to the original japanese text
-  - TM 18 given an actual explanation 
-  - New student in viridian school explains ohko moves
   - Cerulean badge-house guy has updated text
   - Prof. oak's speech plays the correct Nidorino cry
   - Text for using a TM/HM now refers to the "machine" rather than just "TM"
   - Fixed daycare man capitalization
-  - Clarified "chem" to mean grade in chemistry
   - Fixed capitalization in safari zone entrance
-  - PC has a text prompt to tell you if its full after depositing
-  - Exp.all now prints one message when splitting exp instead of for each party member
-  - TMs and HMs now have their attacks (albeit abbreviated) appended to the item names
   - Fixed the flipped text for a girl in Saffron and the letter she is writing
   - Fixed text overlap with Oak giving you pokeballs
   - Reactivated lost text that was meant to play when you lose to your rival
+- Made adjustments to the game text
+  - When a pkmn is caught and fills the box, a reminder is printed that the box is full
+  - PC has a text prompt to tell you if its full after depositing
+  - Made cinnabar mansion notes more true to the original japanese text
+  - TM 18 given an actual explanation 
+  - New student in viridian school explains ohko moves
+  - Exp.all now prints one message when splitting exp instead of for each party member
+  - TMs and HMs now have their attacks (albeit abbreviated) appended to the item names
   - Removed the word "only" from NPC on Silph Co 5f who talks about trade evos
   - Text tweak to route 14 trainer with regards to forgetting HMs
   - Adjusted some of Giovanni's final lines for clarity
+  - Clarified "chem" to mean grade in chemistry
 
 - Adjustments to moves  
   - Stat-down moves no longer have a 25% miss chance in AI matches

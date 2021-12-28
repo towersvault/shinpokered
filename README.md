@@ -54,7 +54,7 @@ Pokemon Yellow Backported Palettes
 Rematches  
 ![Rematches](/screenshots/bgb00003.bmp?raw=true)
 
-Trainer AI, Shiny Palette, Exp Bar, Spaceworld Back Sprites  
+Trainer AI, Shiny Palette & Symbol, Exp Bar, Spaceworld Back Sprites  
 Gender & Caught symbols in Wild Battles, Colored Attacks in GBC-mode  
 ![Battle Screen Upgrades 1](/screenshots/bgb00020.bmp?raw=true)
 ![Battle Screen Upgrades 2](/screenshots/bgb00021.bmp?raw=true)
@@ -307,10 +307,13 @@ Cheats and Secrets!
 
 - New Game Plus no longer makes a new Trainer ID, so old boxed pokemon will obey on a new playthrough
 
+- Shiny symbol is now displayed
+
 - The project now compiles Japanese Blue
 - The project now compiles Japanese Red
 - Green and Red-JP have their original pokedex entries (adapted from Fire Red)
 - Green, Red-JP, and Blue-JP now display metric units in the pokedex
+- Green, Red-JP, and Blue-JP now have correct copyright graphics
 
 - Gamma shader defaults ON if the destination code in the rom header is set to 00 (JP)
 - Pressing SELECT at the copyright info now switches the shader from its default state
@@ -843,7 +846,9 @@ Cheats and Secrets!
 - You can now play as a girl when starting a new game
   - Has front, back, walking, fishing, and cycling sprites
   - Has unique default names when starting a new game
-- If a pkmn has DVs that would make it shiny in Gen 2, an unused "power up" style of animation plays when it enters battle
+- If a pkmn has DVs that would make it shiny in Gen 2
+  - An unused "power up" style of animation plays when it enters battle
+  - It also has a shiny symbol by its name
 - If playing on a super gameboy, shiny pkmn will have a palette swap on the status screen and also change color in battle
 - If playing on super gameboy, hold select when loading a pokedex entry to see that pokemon's shiny palette
 - Added an exp bar using code by Danny-E 33 

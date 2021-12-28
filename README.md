@@ -305,6 +305,8 @@ Cheats and Secrets!
 - SET mode gives an additional 1.5x EXP boost in trainer battles
 - Added a NPC to the Celadon Diner to toggle a Catch-Up EXP Boost feature
 
+- New Game Plus no longer makes a new Trainer ID, so old boxed pokemon will obey on a new playthrough
+
 - The project now compiles Japanese Blue
 - The project now compiles Japanese Red
 - Green and Red-JP have their original pokedex entries (adapted from Fire Red)

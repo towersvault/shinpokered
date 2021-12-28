@@ -1,33 +1,38 @@
 InitPlayerData:
 InitPlayerData2:
 
+;useless, so commenting out
+;	ld a, $ff
+;	ld [wUnusedD71B], a
+
+;joenote - check if doing NG+
+	ld a, [hJoyHeld]
+	and SELECT
+	jr nz, .newgameplus	;skip the next few things if NG+
+	
+	;generate a new player ID
 	call Random
 	ld a, [hRandomSub]
 	ld [wPlayerID], a
-
 	call Random
 	ld a, [hRandomAdd]
 	ld [wPlayerID + 1], a
-
-	ld a, $ff
-	ld [wUnusedD71B], a
-
-	ld hl, wPartyCount
-	call InitializeEmptyList
 	
-;joenote - check if doing NG+
-;Don't write box terminator if so
-	ld a, [hJoyHeld]
-	and SELECT
-	jr nz, .newgameplus
+	;write a new box terminator to empty the box list
 	ld hl, wNumInBox
 	call InitializeEmptyList
 .newgameplus
 
+	ld hl, wPartyCount
+	call InitializeEmptyList
+
 	ld hl, wNumBagItems
 	call InitializeEmptyList
+
 	ld hl, wNumBoxItems
 	call InitializeEmptyList
+	
+	;note that the new extra bag space is wiped out when all the game progress flags get cleared
 
 START_MONEY EQU $3000
 	ld hl, wPlayerMoney + 1

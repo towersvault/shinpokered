@@ -48,8 +48,9 @@ Title Screens  (GBC Palettes)
 ![Title Screen 4](/screenshots/bgb00031.bmp?raw=true)
 ![Title Screen 5](/screenshots/bgb00032.bmp?raw=true)
 
-Pokemon Yellow Backported Palettes  
+Pokemon Yellow Backported Palettes and Gym Leader Names Restored  
 ![Backported Palettes](/screenshots/bgb00022.bmp?raw=true)
+![Gym Leader Names](/screenshots/bgb00037.bmp?raw=true)
 
 Rematches  
 ![Rematches](/screenshots/bgb00003.bmp?raw=true)
@@ -63,7 +64,7 @@ TMs in Marts with Abbreviated Names
 ![Marts](/screenshots/bgb00016.bmp?raw=true)
 
 Shiny Animation  
-![Shiny Animation](/screenshots/bgb00019.bmp?raw=true)
+![Shiny Animation](/screenshots/bgb00019.gif?raw=true)
 
 Girl Trainer  
 ![Girl Trainer 1](/screenshots/bgb00026.bmp?raw=true)
@@ -286,7 +287,7 @@ Cheats and Secrets!
   - In the case of a 'mon with 4 regular field moves:
     - The slotted temporary move cannot be menu-selected
 	- The slotted temporary move, if it's a HM move, can be used via quick-key
-
+---
 - There is now an obedience level-cap that can be toggled in the options menu
   - With the cursor in the BATTLE STYLE section, press A to toggle it on and off
   - While active, the current maximum obedience level will display in the options menu
@@ -294,21 +295,14 @@ Cheats and Secrets!
   - The cap will change based on which badge you have (max of 65 with earth badge)
   - Not recommended for use with trainer scaling since you might gain too many levels too quickly
   - Best to turn this off in the post-game as it's really for the gym challenge and elite-4
-  
+---
 - Good rod has an expanded 'mon list and level range
 - Increased the level range of the super rod
 - Old rod now randomly acts as a Good rod 50% of the time 
 - Old rod is a sellable non-key item with the value of a nugget
 - The Route 12 Fishing Guru is now visitable upon first reaching Lavender Town
 - Swapped location of Good and Super Rod
-
-- SET mode gives an additional 1.5x EXP boost in trainer battles
-- Added a NPC to the Celadon Diner to toggle a Catch-Up EXP Boost feature
-
-- New Game Plus no longer makes a new Trainer ID, so old boxed pokemon will obey on a new playthrough
-
-- Shiny symbol is now displayed
-
+---
 - The project now compiles Japanese Blue
 - The project now compiles Japanese Red
 - Green and Red-JP have their original pokedex entries (adapted from Fire Red)
@@ -317,26 +311,29 @@ Cheats and Secrets!
 - Green, Red-JP, and Blue-JP now have their correct copyright graphics
 - Green, Red-JP, and Blue-JP now have the "PRESENTS" graphic under "Game Freak"
 - Green and Red-JP play the original shooting star sound effect
-
+---
 - Gamma shader defaults ON if the destination code in the rom header is set to 00 (JP)
 - Pressing SELECT at the copyright info now switches the shader from its default state
 - The default state of the gamma shader can be changed with any gameboy rom header editor
 - Alternately, remove the 'j' in 'cjsv' in the Makefile to compile with a JP destination code
-
+---
+- SET mode gives an additional 1.5x EXP boost in trainer battles
+- Added a NPC to the Celadon Diner to toggle a Catch-Up EXP Boost feature
+---
 - Engine Improvement: the 1.5x EXP boost function now has overflow protection
 - Engine Improvement: EXP Gained can now print up to five digits instead of four
 - Engine Improvement: Pokemon can now learn more than 1 move per level
 - Engine Improvement: the "<LF>" character mapping can be used as a line-feed
 - Text with zero frame delay can be toggled in the options menu; press LEFT with the cursor on FAST
-
+- New Game Plus no longer makes a new Trainer ID, so old boxed pokemon will obey on a new playthrough
+- Shiny symbol is now displayed
 - The extra bag space introduced previously is now detected by most of the game's systems
 - Gave a couple tm moves to the cerulean rival's abra
-
 - Initiating the Pokemon Tower rival battle will deactivate the following skippable rival battles
   - The Cerulean encounter
   - The SS Anne encounter
-
 - Attacks reduced to zero damage now say the target is unaffected instead of missing
+- Gym leader names have been restored on the trainer card
 
 
 #Changes not yet in the release branch:
@@ -442,6 +439,9 @@ Cheats and Secrets!
 
   
 - Graphical Fixes
+  - Gym leader names have been restored on the trainer card
+    - These were removed during localization as a simple and expedient solution
+    - So this is more of a correction to the localization than a strict graphical error
   - Glitched sprites can no longer cause a buffer overflow that corrupts the hall of fame
   - Returning from the status screen when an opponent is in substitute/minimize no longer glitches the graphics
   - PC graphic restored to celadon hotel

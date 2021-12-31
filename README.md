@@ -274,6 +274,9 @@ Cheats and Secrets!
 - Edited Blaine's sunglasses to be darker
 - No-Yes boxes can be canceled by pressing B
 - Fixed text delay flags getting cleared which would override the text speed
+- Seiga/Green special battle now uses JrTrainer-F instead of Lass
+- Lass reverted to vanilla AI
+- Rival phase 1 gets AI layer 3 and Channeler gets AI layer 4
 
 
 #New features & adjustments since last version:
@@ -666,11 +669,11 @@ Cheats and Secrets!
   - AI switch scoring now penalizes bad match-ups between player and enemy 'mon types
   
 - Trainer ai routine #3 added to the following trainer classes
-  - jr trainer M/F, tamer, scientist, lass, gentleman, black belt, bird keeper, engineer, 
-  - chief, bruno, brock, agatha, juggler
+  - jr trainer M/F, engineer, rocker, juggler, tamer, birdkeeper, black belt, scientist, gentleman
+  - bruno, brock, surge, blaine, sabrina, agatha, rival phase 1, chief
 - Trainer ai routine #4 added to the following trainer classes
-  -cueball, psychic, hiker, rocket, black belt, tamer, lass, jr trainer M/F, cooltrainer M/F, gentleman, pokemaniac 
-  -all rival phases, prof.oak, chief, gym leaders, elite-4
+  -jr trainer M/F, pokemaniac, hiker, cueball, psychic, tamer, black belt, rocket, cooltrainer M/F, gentleman, channeler
+  -all rival phases, all gym leaders, elite-4, prof.oak, chief
   
 - Trainer stat DVs are now randomly generated to a degree (only in "SET" style)
   - Attack DV is between 9 and 15 and always odd-numbered

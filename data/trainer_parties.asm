@@ -127,9 +127,6 @@ LassData:
 ; Celadon Gym
 	db 23,BELLSPROUT,WEEPINBELL,0
 	db 23,ODDISH,GLOOM,0
-;Vermillion Dock 
-	;joenote - Special Trainer - Seiga/Green the orange league champ
-	db $FF,80,CLEFABLE,82,GENGAR,83,VICTREEBEL,83,NINETALES,84,KANGASKHAN,85,BLASTOISE,0	;lass #19
 	
 SailorData:
 ; SS Anne Stern
@@ -196,6 +193,9 @@ JrTrainerFData:
 	db 29,PIKACHU,RAICHU,0
 	db 33,CLEFAIRY,0
 	db 29,BELLSPROUT,ODDISH,TANGELA,0
+;Vermillion Dock 
+	;joenote - Special Trainer - Seiga/Green the orange league champ
+	db $FF,80,CLEFABLE,82,GENGAR,83,VICTREEBEL,83,NINETALES,84,KANGASKHAN,85,BLASTOISE,0	;jr trainerF #24
 ; Unused
 	;db 22,BULBASAUR,0
 

@@ -287,7 +287,7 @@ SpecialTrainerMoves:
 	db 0
 	
 	;Seiga battle
-	db LASS,$13
+	db JR_TRAINER_F,$18
 	db 1,1,PSYCHIC_M
 	db 1,2,SING
 	db 1,3,METRONOME

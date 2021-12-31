@@ -326,7 +326,7 @@ Cheats and Secrets!
 - Engine Improvement: the 1.5x EXP boost function now has overflow protection
 - Engine Improvement: EXP Gained can now print up to five digits instead of four
 - Engine Improvement: Pokemon can now learn more than 1 move per level
-- Engine Improvement: the "<LF>" character mapping can be used as a line-feed
+- Engine Improvement: the "LF" character mapping can be used as a line-feed
 - Text with zero frame delay can be toggled in the options menu; press LEFT with the cursor on FAST
 - New Game Plus no longer makes a new Trainer ID, so old boxed pokemon will obey on a new playthrough
 - Shiny symbol is now displayed

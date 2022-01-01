@@ -90,7 +90,7 @@ There is now an obedience level cap that can be toggled in the options menu.
 With the cursor in the BATTLE STYLE section, press A to toggle it on and off.  
 While active, the current maximum obedience level will display in the options menu.  
 All pokemon, not just trades, will start to disobey if over the displayed level cap.  
-The cap will change based on which badge you have. Its max of 65 is granted by the earth badge.  
+The cap will change based on which badge you have.  
 This is intended as an alternative to, and not to be used with, the Scale Enemy Trainer Levels feature.  
 It provides a different challenge where one is forced to keep a team within the game's level curve.  
 Players should deactivate this feature for post-game adventuring past the level-cap.  

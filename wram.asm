@@ -1235,6 +1235,7 @@ wRightGBMonSpecies:: ; cd5f
 wFlags_0xcd60:: ; cd60
 ; bit 0: is player engaged by trainer (to avoid being engaged by multiple trainers simultaneously)
 ; bit 1: boulder dust animation (from using Strength) pending
+; bit 2: used for unknown stuff
 ; bit 3: using generic PC
 ; bit 4: withdrawing boxed item's from pc ;joenote - added this
 ; bit 5: don't play sound when A or B is pressed in menu
@@ -1507,7 +1508,7 @@ wItemPrices:: ; cf8f
 
 wcf91:: ds 1 ; used with a lot of things (too much to list here)
 
-wWhichPokemon:: ; cf92
+wWhichPokemon:: ; cf92	;this is zero-indexed (values of 0 to 5)
 ; which pokemon you selected
 	ds 1
 
@@ -1726,6 +1727,9 @@ wCriticalHitOrOHKO:: ; d05e
 	ds 1
 
 wMoveMissed:: ; d05f
+;0 if didn't miss
+;1 if regular miss
+;2 if miss due to damage being reduced to 0 in calculations
 	ds 1
 
 wPlayerStatsToDouble:: ; d060
@@ -2431,7 +2435,14 @@ wOptions:: ; d355
 
 wObtainedBadges:: ; d356
 	flag_array 8
-
+;	BIT_BOULDERBADGE ; 0
+;	BIT_CASCADEBADGE ; 1
+;	BIT_THUNDERBADGE ; 2
+;	BIT_RAINBOWBADGE ; 3
+;	BIT_SOULBADGE    ; 4
+;	BIT_MARSHBADGE   ; 5
+;	BIT_VOLCANOBADGE ; 6
+;	BIT_EARTHBADGE   ; 7
 	ds 1
 
 wLetterPrintingDelayFlags:: ; d358
@@ -2979,14 +2990,17 @@ wSeafoamIslands5CurScript:: ; d668
 wRoute18GateCurScript:: ; d669
 	ds 1
 ;usused space
-	ds 36
+	ds 30
+wTempFieldMoveSLots::	;joenote - for field move slot
+	ds 6
 wBagBackupSpace::	;joenote - added to expand the bag space (42 bytes long)
 wBagNumBackup::
 	ds 1
 wBagItemsBackup::
-	ds 40
-wBagItemsTerminator::
+	ds BAG_ITEM_CAPACITY * 2
+wBagItemsBackupTerminator::
 	ds 1
+wBagBackupSpaceEnd::
 wGameProgressFlagsEnd::
 
 
@@ -3093,14 +3107,14 @@ wSpinnerTileFrameCount::	;d720	;joenote - used as a counter for the spinner tile
 wUnusedD721:: ; d721	;joenote - use to set various wram flags
 	ds 1
 	;bit 0 - player is female trainer if set
-	;bit 1 - activate cinnabar shore if set
+	;bit 1 - not used
 	;bit 2 - override bit 0 for specific bank switching instances
-	;bit 3 - ghost marowak battle if set
+	;bit 3 - not used
 	;bit 4 - 60fps option flag
-	;bit 5 - set for item clause
-	;bit 6 - set for sleep clause
-	;bit 7 - set for freeze clause
-;;;;;;;;;;;;;;joenote - use these unused locations for debugging and parsing DV scores
+	;bit 5 - obedience level cap
+	;bit 6 - not used
+	;bit 7 - not used
+;;;;;;;;;;;;;;joenote - use these unused locations for debugging and parkesing DV scores
 wUnusedD722:: 
 	ds 4
 wUnusedD726:: 

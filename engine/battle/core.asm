@@ -4269,15 +4269,27 @@ PrintMoveFailureText:
 	jr z, .playersTurn
 	ld de, wEnemyMoveEffect
 .playersTurn
+
 	ld hl, DoesntAffectMonText
 	ld a, [wDamageMultipliers]
 	and $7f
-	jr z, .gotTextToPrint
-	ld hl, AttackMissedText
+	jr z, .gotTextToPrint	;0 for damage multipliers means defender is immune
+	
+	;joenote - Replace UnaffectedText with IsUnaffectedText
+	;It's the same thing in english, but it sounds better grammatically.
+	;UnaffectedText can then be commented out.
+	ld hl, IsUnaffectedText
 	ld a, [wCriticalHitOrOHKO]
 	cp $ff
-	jr nz, .gotTextToPrint
-	ld hl, UnaffectedText
+	jr z, .gotTextToPrint	;defender is unaffected if the attack was a failed OHKO move
+	
+	ld a, [wMoveMissed]
+	cp 2
+	jr z, .gotTextToPrint	;defender is unaffected if the attack damage was reduced to 0
+	
+.regularMiss
+	ld hl, AttackMissedText
+	
 .gotTextToPrint
 	push de
 	call PrintText
@@ -4336,9 +4348,10 @@ KeptGoingAndCrashedText:
 	TX_FAR _KeptGoingAndCrashedText
 	db "@"
 
-UnaffectedText:
-	TX_FAR _UnaffectedText
-	db "@"
+;joenote - Redundant, so it can be commented out
+;UnaffectedText:
+;	TX_FAR _UnaffectedText
+;	db "@"
 
 PrintDoesntAffectText:
 	ld hl, DoesntAffectMonText
@@ -4384,48 +4397,12 @@ OHKOText:
 ; checks if a traded mon will disobey due to lack of badges
 ; stores whether the mon will use a move in Z flag
 CheckForDisobedience:
-	xor a
-	ld [wMonIsDisobedient], a
-	ld a, [wLinkState]
-	cp LINK_STATE_BATTLING
-	jr nz, .checkIfMonIsTraded
-	ld a, $1
-	and a
-	ret
-; compare the mon's original trainer ID with the player's ID to see if it was traded
-.checkIfMonIsTraded
-	ld hl, wPartyMon1OTID
-	ld bc, wPartyMon2 - wPartyMon1
-	ld a, [wPlayerMonNumber]
-	call AddNTimes
-	ld a, [wPlayerID]
-	cp [hl]
-	jr nz, .monIsTraded
-	inc hl
-	ld a, [wPlayerID + 1]
-	cp [hl]
+	callba DoDisobeyLevelCheck	
 	jp z, .canUseMove
-; it was traded
-.monIsTraded
-; what level might disobey?
-	ld hl, wObtainedBadges
-	bit 7, [hl]
-	ld a, 255	;joenote - upped to 255
-	jr nz, .next
-	bit 5, [hl]
-	ld a, 70
-	jr nz, .next
-	bit 3, [hl]
-	ld a, 50
-	jr nz, .next
-	bit 1, [hl]
-	ld a, 30
-	jr nz, .next
-	ld a, 10
-.next
-	ld b, a
-	ld c, a
-	ld a, [wBattleMonLevel]
+.backfromlevelcheck
+	ld b, d	;joenote - D holds the level cap from DoDisobeyLevelCheck
+	ld c, d
+	ld a, e	;E holds the level factor from DoDisobeyLevelCheck
 	ld d, a
 	add b
 	ld b, a
@@ -5916,6 +5893,7 @@ AdjustDamageForMoveType:
 ; if damage is 0, make the move miss
 ; this only occurs if a move that would do 2 or 3 damage is 0.25x effective against the target
 	inc a
+	inc a ;joenote - set wMoveMissed to 2
 	ld [wMoveMissed], a
 .skipTypeImmunity
 	pop bc
@@ -7686,8 +7664,7 @@ InitWildBattle:
 	call DoBattleTransitionAndInitBattleVariables
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	;joenote - use a bit to determine if this is a ghost marowak battle
-	ld a, [wUnusedD721]
-	bit 3, a
+	CheckEvent EVENT_10E
 	jr nz, .isGhost
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;	ld a, [wCurOpponent]
@@ -7882,7 +7859,7 @@ LoadMonBackPic:
 	call UncompressMonSprite
 
 ;joenote - needed for loading the 48x48 spaceworld back sprites
-IF (DEF(_GREEN) || DEF(_ORIGBACK))
+IF (DEF(_REDGREENJP) || DEF(_ORIGBACK))
 	predef ScaleSpriteByTwo
 	ld de, vBackPic
 	call InterlaceMergeSpriteBuffers ; combine the two buffers to a single 2bpp sprite

@@ -33,7 +33,7 @@ You can randomize both Master and Lite branches of Shin Pokemon.
 151 availability is only in the Master Shin Pokemon rom. 
 This is because the 151 availability is already built-in.
 
-Static encounters, prizes, gifts, and trades are not yet supported for randomizing.
+Static encounters, gifts, and trades are not yet supported for randomizing.
 Legendary pokemon (the birds and the mews) are left out of randomization arrays as a result.
 
 There are three main randomized arrays that replace pokemon on a global level:

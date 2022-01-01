@@ -277,7 +277,7 @@ PreventARegOverflow:
 
 ;randomizes the 'mon in wcf91 to an unevolved 'mon then tries to evolve it	
 RandomizeRegularTrainerMons:
-	CheckEvent EVENT_910
+	CheckEvent EVENT_8D8
 	ret z
 	push de
 	ld de, ListNonLegendUnEvoPkmn

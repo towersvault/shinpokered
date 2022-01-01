@@ -16,7 +16,7 @@ AnimateEXPBar:
 	call IsCurrentMonBattleMon
 	ret nz
 	ld a, [wBattleMonLevel]
-	cp 100
+	cp MAX_LEVEL
 	ret nc
 	;ld a, SFX_HEAL_HP
 	;call PlaySoundWaitForCurrent

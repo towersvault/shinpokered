@@ -573,10 +573,15 @@ DrawTrainerInfo:
 	ld de, vChars2 + $770
 	ld bc, $0080
 	push bc
-	call TrainerInfo_FarCopyData
+	call TrainerInfo_FarCopyData ;joenote - do the circle tile separately from name tiles
 	ld hl, BlankLeaderNames
 	ld de, vChars2 + $600
-	ld bc, $0170
+;	ld bc, $0160
+	ld bc, $0150	;joenote - going to restore the names which uses 16 less bytes
+	call TrainerInfo_FarCopyData
+	ld hl, CircleTile
+	ld de, vChars2 + $760
+	ld bc, $10
 	call TrainerInfo_FarCopyData
 	pop bc
 	ld hl, BadgeNumbersTileGraphics  ; badge number tile patterns
@@ -801,6 +806,9 @@ SwitchPartyMon_InitVarOrSwapData:
 .swappingDifferentMons
 	ld a, b
 	ld [wMenuItemToSwap], a
+
+	call SwapTempFieldMoves ;joenote - for field move slot
+
 	push hl
 	push de
 	ld hl, wPartySpecies
@@ -886,5 +894,36 @@ SwitchPartyMon_InitVarOrSwapData:
 	ld [wMenuItemToSwap], a
 	ld [wPartyMenuTypeOrMessageID], a
 	pop de
+	pop hl
+	ret
+
+SwapTempFieldMoves:	;joenote - for field move slot
+	push hl
+	push bc
+	push de
+	
+	ld a, [wCurrentMenuItem]
+	ld c, a
+	ld b,0
+	ld hl, wTempFieldMoveSLots
+	add hl, bc
+	ld d, h
+	ld e, l
+	
+	ld a, [wMenuItemToSwap]
+	ld c, a
+	ld b,0
+	ld hl, wTempFieldMoveSLots
+	add hl, bc
+	
+	ld a, [de]
+	ld b, a
+	ld a, [hl]
+	ld [de], a
+	ld a, b
+	ld [hl], a
+	
+	pop de
+	pop bc
 	pop hl
 	ret

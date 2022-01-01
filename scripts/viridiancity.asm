@@ -95,14 +95,10 @@ ViridianCityScript1:
 	;joenote - activate cinnabar shore
 	CheckEvent EVENT_90B	;check if the dex diploma has been gained
 	jr nz, .havediploma
-	ld a, [wUnusedD721]
-	res 1, a
-	ld [wUnusedD721], a	;clear cinnabar shore activation
+	ResetEvent EVENT_8DA	;clear cinnabar shore activation
 	ret
 .havediploma
-	ld a, [wUnusedD721]
-	set 1, a
-	ld [wUnusedD721], a	;activate cinnabar shore
+	SetEvent EVENT_8DA	;activate cinnabar shore
 	ret
 
 ViridianCityScript2:

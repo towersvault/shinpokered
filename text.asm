@@ -1028,7 +1028,7 @@ _PokemonBooksText::
 	line "#MON books!"
 	done
 
-IF DEF(_GREEN)
+IF DEF(_JPTXT)
 _DiglettSculptureText::
 	text "It's a statue of"
 	line "a fat Buddha."
@@ -1357,10 +1357,11 @@ _KeptGoingAndCrashedText::
 	cont "crashed!"
 	prompt
 
-_UnaffectedText::
-	text "<TARGET>'s"
-	line "unaffected!"
-	prompt
+;joenote - the same in english as _IsUnaffectedText, so it's redundant 
+;_UnaffectedText::
+;	text "<TARGET>'s"
+;	line "unaffected!"
+;	prompt
 
 _DoesntAffectMonText::
 	text "It doesn't affect"
@@ -1450,7 +1451,7 @@ _BoostedText::
 	cont "@@"
 
 _ExpPointsText::
-	TX_NUM wExpAmountGained, 2, 4
+	TX_NUM wExpAmountGained, 2, 5	;joenote - increased to 5 digits
 	text " EXP. Points!"
 	prompt
 
@@ -3163,7 +3164,11 @@ _AfterTrade2Text::
 	text " you"
 	line "traded to me"
 
+IF DEF(_BLUEJP)
+	para "went and evolved!"	;Blue-JP uses Kadabra so this makes sense
+ELSE
 	para "is learning fast!"	;joenote - fixed nonsense about evolving
+ENDC
 	done
 
 _WannaTrade3Text::
@@ -3219,10 +3224,29 @@ _UsedCutText::
 	line "away with CUT!"
 	prompt
 
+;joenote - for field move slot
+_LearnTempFieldMoveText::
+	text "Learn this as a"
+	line "temporary FIELD"
+	cont "MOVE?"
+	done
+_LearnTempFieldMoveTextDenied::
+	text "A temporary FIELD"
+	line "MOVE is already"
+	cont "known!"
+	
+	para "Put this #MON"
+	line "in a PC BOX to"
+	cont "erase it."
+	prompt
 
 SECTION "Pokedex Text", ROMX, BANK[POKEDEX_TEXT]
 
+IF DEF(_REDGREENJP)
+INCLUDE "text/pokedexgreen.asm"
+ELSE
 INCLUDE "text/pokedex.asm"
+ENDC
 
 
 SECTION "Move Names", ROMX, BANK[MOVE_NAMES]

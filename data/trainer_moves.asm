@@ -45,6 +45,21 @@ SpecialTrainerMoves:
 	db 2,4,BIDE
 	db 0
 	
+	;joenote - give the abra of the cerulean rival something to do
+	;		-assume the rival got some TMs from Celadon City
+	db SONY1, $7
+	db 2,2,COUNTER
+	db 2,3,TRI_ATTACK
+	db 0
+	db SONY1, $8
+	db 2,2,COUNTER
+	db 2,3,TRI_ATTACK
+	db 0
+	db SONY1, $9
+	db 2,2,COUNTER
+	db 2,3,TRI_ATTACK
+	db 0
+	
 	db MISTY,$1
 	db 2,3,HARDEN
 	db 2,4,BUBBLEBEAM
@@ -67,9 +82,14 @@ SpecialTrainerMoves:
 	
 	db KOGA,$1
 	db 1,1,EXPLOSION
-	db 3,1,SUBSTITUTE
+	db 1,2,DOUBLE_TEAM
+	db 2,2,SUBSTITUTE
+	db 3,1,TAKE_DOWN
+	db 3,2,SUPERSONIC
+	db 3,3,MEGA_DRAIN
 	db 4,1,TOXIC
-	db 4,4,MIMIC
+	db 4,3,MIMIC
+	db 4,4,EXPLOSION
 	db 0
 	
 	db SABRINA,$1
@@ -82,18 +102,20 @@ SpecialTrainerMoves:
 	db BLAINE,$1
 	db 1,1,SWIFT
 	db 2,1,STRENGTH
-	db 3,3,TAKE_DOWN
-	db 4,2,AGILITY
-	db 4,3,FIRE_BLAST
+	db 3,3,DOUBLE_EDGE
+	db 4,2,FIRE_BLAST
+	db 4,4,BODY_SLAM
 	db 0
 	
 	db GIOVANNI,$3
 	db 2,1,FISSURE
 	db 3,1,EARTHQUAKE
-	db 3,3,THUNDER
+	db 3,4,THUNDER
 	db 4,1,EARTHQUAKE
 	db 4,3,ICE_BEAM
 	db 5,1,ROCK_SLIDE
+	db 5,2,BODY_SLAM
+	db 5,3,DOUBLE_TEAM
 	db 5,4,EARTHQUAKE
 	db 0
 	
@@ -117,7 +139,6 @@ SpecialTrainerMoves:
 	db 4,2,SCREECH
 	db 4,4,EARTHQUAKE
 	db 5,1,KARATE_CHOP
-	db 5,3,DOUBLE_EDGE
 	db 0
 
 	db AGATHA,$1
@@ -127,19 +148,19 @@ SpecialTrainerMoves:
 	db 2,4,MEGA_DRAIN
 	db 3,3,SCREECH
 	db 3,4,TOXIC
-	db 4,4,EARTHQUAKE
+	db 4,1,EARTHQUAKE
 	db 5,2,PSYCHIC_M
 	db 0
 
 	db LANCE,$1
-	db 1,3,FIRE_BLAST
+	db 1,3,BITE
 	db 2,1,THUNDER_WAVE
+	db 2,2,REFLECT
 	db 2,3,THUNDERBOLT
 	db 3,1,SURF
 	db 3,2,BODY_SLAM
 	db 3,3,ICE_BEAM
-	db 4,1,WING_ATTACK
-	db 4,2,SWIFT
+	db 4,2,WING_ATTACK
 	db 4,3,FLY
 	db 5,1,BLIZZARD
 	db 5,2,FIRE_BLAST
@@ -156,18 +177,12 @@ SpecialTrainerMoves:
 	db 3,2,EARTHQUAKE
 	db 3,3,ROCK_SLIDE
 	db 3,4,TAKE_DOWN
-	db 4,1,FLAMETHROWER
+	db 4,1,TOXIC
 	db 4,2,REST
 	db 4,3,DOUBLE_EDGE
-	db 4,4,TOXIC
-	db 5,1,STOMP
-	db 5,2,SLEEP_POWDER
-	db 5,3,SOLARBEAM
-	db 5,4,LEECH_SEED
-	db 6,1,HYDRO_PUMP
-	db 6,2,BLIZZARD
-	db 6,3,REFLECT
-	db 6,4,SKULL_BASH
+	db 5,1,LEECH_SEED
+	db 6,1,BLIZZARD
+	db 6,2,REFLECT
 	db 0
 
 	db SONY3,$2
@@ -182,11 +197,10 @@ SpecialTrainerMoves:
 	db 3,4,TAKE_DOWN
 	db 4,1,ICE_BEAM
 	db 4,2,BODY_SLAM
-	db 5,1,FLAMETHROWER
+	db 5,1,TOXIC
 	db 5,2,REST
 	db 5,3,DOUBLE_EDGE
-	db 5,4,TOXIC
-	db 6,1,MEGA_DRAIN
+	db 6,2,MEGA_DRAIN
 	db 0
 
 	db SONY3,$3
@@ -199,14 +213,11 @@ SpecialTrainerMoves:
 	db 3,2,EARTHQUAKE
 	db 3,3,ROCK_SLIDE
 	db 3,4,TAKE_DOWN
-	db 4,1,STOMP
-	db 4,2,SLEEP_POWDER
-	db 4,3,SOLARBEAM
-	db 4,4,LEECH_SEED
+	db 4,1,LEECH_SEED
 	db 5,1,ICE_BEAM
 	db 5,2,BODY_SLAM
 	db 6,1,SWORDS_DANCE
-	db 4,2,LEER
+	db 6,3,FIRE_BLAST
 	db 0
 
 	;prof oak's 1st pokemon
@@ -276,7 +287,7 @@ SpecialTrainerMoves:
 	db 0
 	
 	;Seiga battle
-	db LASS,$13
+	db JR_TRAINER_F,$18
 	db 1,1,PSYCHIC_M
 	db 1,2,SING
 	db 1,3,METRONOME

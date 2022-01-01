@@ -428,15 +428,21 @@ DisplayTwoOptionMenu:
 	ld [wTwoOptionMenuID], a
 	ld a, [wFlags_0xcd60]
 	push af
-	push hl
-	ld hl, wFlags_0xcd60
-	bit 5, [hl]
-	set 5, [hl] ; don't play sound when A or B is pressed in menu
-	pop hl
+;joenote - play sound on NoYes menu
+;	push hl
+;	ld hl, wFlags_0xcd60
+;	bit 5, [hl]
+;	set 5, [hl] ; don't play sound when A or B is pressed in menu
+;	pop hl
 .noYesMenuInputLoop
 	call HandleMenuInput
 	bit 1, a ; A button pressed?
-	jr nz, .noYesMenuInputLoop ; try again if A was not pressed
+;	jr nz, .noYesMenuInputLoop ; try again if A was not pressed
+;joenote - allow B to cancel the NoYes menu
+	jr z, .noYesAPressed
+	xor a
+	ld [wCurrentMenuItem], a
+.noYesAPressed
 	pop af
 	pop hl
 	ld [wFlags_0xcd60], a
@@ -710,10 +716,12 @@ GetMonFieldMoves:
 	push hl
 .nextMove
 	dec c
-	jr z, .done
+	;jr z, .done
+	jr z, .tempfieldmove
 	ld a, [de] ; move ID
 	and a
-	jr z, .done
+	;jr z, .done
+	jr z, .tempfieldmove
 	ld b, a
 	inc de
 	ld hl, FieldMoveDisplayData
@@ -748,6 +756,35 @@ GetMonFieldMoves:
 .done
 	pop hl
 	ret
+.tempfieldmove	;joenote - for field move slot
+	ld a, d 
+	cp $FF
+	jr z, .done
+	
+	ld a, [wNumFieldMoves]
+	cp NUM_MOVES
+	jr nc, .done
+	
+	ld a, [wWhichPokemon]
+	ld c, a
+	ld b,0
+	ld hl, wTempFieldMoveSLots
+	add hl, bc
+	
+	
+	push hl
+	ld a, [hl]
+	ld [wMoveNum], a
+	callba _CheckIfMoveIsKnown
+	pop hl
+	jr c, .done
+	
+	ld a, [hl]
+	ld b, a
+	ld c, 1
+	ld d, $FF
+	ld hl, FieldMoveDisplayData
+	jr .fieldMoveLoop
 
 ; Format: [Move id], [name index], [leftmost tile]
 ; Move id = id of move

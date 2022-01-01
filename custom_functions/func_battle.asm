@@ -336,61 +336,28 @@ EnemyDisableHandler:
 
 
 ;return z and nc if nothing detected
-;return nz for sleep detected
-;return c for  freeze detected
+;return nz for sleep clause triggered
+;return c for  freeze clause triggered
 ;link battles unsupported
-_HandleSlpFrzClause:	
-;	call GetPredefRegisters
-	
+_HandleSlpFrzClause:		
 	ld a, [wLinkState]
 	cp LINK_STATE_BATTLING
-	jp z, .returnshort ;do not enforce for link battles
+	jp z, .returnclear ;do not enforce for link battles
 	
 	ld a, [wIsInBattle]
 	cp 2
-	jr z, .next0 ;continue for trainer battles only
-	ld a, 0
-	and a
-	jp .returnshort
-.next0	
-	ld a, [wUnusedD721]
-	and %11000000
-	jp z, .returnshort	;return if neither sleep nor freeze clause bits are set
-	
-	push de
-	
-	ld hl, .return
-	bit 7, a
-	jr nz, .next1
-	ld hl, .nofreeze
-.next1
-	push hl
-	ld hl, .next3
-	bit 6, a
-	jr nz, .next2
-	ld hl, .nosleep
-.next2
-	push hl
+	jp nz, .returnclear ;continue for trainer battles only
+
+	CheckEitherEventSet EVENT_8DC, EVENT_8DD
+	jp z, .returnclear	;return if neither sleep nor freeze clause bits are set
 	
 	ld a, [H_WHOSETURN]
 	and a
 	jr nz, .playerdata
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;	
 .enemydata
-	;copy hp, position, and status of the active pokemon to its roster position
-	ld a, [wEnemyMonPartyPos]
-	ld hl, wEnemyMon1HP
-	ld bc, wEnemyMon2 - wEnemyMon1
-	call AddNTimes
-	ld d, h
-	ld e, l
-	ld hl, wEnemyMonHP
-	ld bc, 4
-	call CopyData
-	
 	;now set up to start looping through the party
 	ld a, [wEnemyPartyCount]	;1 to 6
-	dec a	;0 to 5
 	ld d, a
 	ld bc, wEnemyMon2 - wEnemyMon1
 	ld hl, wEnemyMon1Status
@@ -398,72 +365,87 @@ _HandleSlpFrzClause:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;	
 .playerdata
-	;copy hp, position, and status of the active pokemon to its roster position
-	ld a, [wBattleMonPartyPos]
-	ld hl, wPartyMon1HP
-	ld bc, wPartyMon2 - wPartyMon1
-	call AddNTimes
-	ld d, h
-	ld e, l
-	ld hl, wBattleMonHP
-	ld bc, 4
-	call CopyData
-	
 	;now set up to start looping through the party
 	ld a, [wPartyCount]	;1 to 6
-	dec a	;0 to 5
 	ld d, a
 	ld bc, wPartyMon2 - wPartyMon1
 	ld hl, wPartyMon1Status
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 .initialize
-	xor a
-	push af
-.loop	
-	pop af
+	xor a	;start with A having a value of 0
+.loop
+	call .CheckPartyZeroHP
+	jr c, .skipOR	;do not do the OR if pointed-to 'mon has zero HP
 	or [hl]
-	push af
-	ld a, d
-	and a
-	jr z, .doneloop
+.skipOR
 	dec d
+	jr z, .doneloop
 	add hl, bc
 	jr .loop
 .doneloop
-
-	pop af	
+	;Rotate A so that the bits look like 4,3,2,1,0,7,6,5
 	rlca
 	rlca
-	rlca	;frz bit is now the carry bit and z flag is cleared
-	;A is now rotated to be bits 4,3,2,1,0,5,6,7
-	;Sleep counter is in bits 2,1,0
+	rlca	
+	;frz bit is now the carry bit and z flag is cleared by the rlca opcode
+	;Sleep counter is 2,1,0
+	;use res opcodes to effectively do "and %00111000" so as to not affect the carry flag
 	res 7, a
 	res 6, a
 	res 2, a
 	res 1, a
 	res 0, a
+	;assign z or nz based on value of the sleep counter using inc and dec to not affect carry flag
 	inc a
-	dec a	;set z flag based zero state of sleep counter
+	dec a	
 	
-	pop hl
-	jp hl
-.next3
-	pop hl 
-	jp hl
-.return
-	pop de
-.returnshort
-	ret
-.nofreeze
-	and a
-	jp .return
-.nosleep
-	ld a, 0
-	inc a
-	dec a
-	jp .next3
+	push af	;save flags and the OR'ed status bits
+	CheckBothEventsSet EVENT_8DC, EVENT_8DD
+	jr z, .returnboth
+	
+	CheckEvent EVENT_8DC
+	jr nz, .returnSLPonly	
+	;otherwise the FRZ clause must be the only one active
 
-	
+.returnFRZonly
+	pop af
+	;need to set the z state while leaving carry alone 
+	ld b, 1
+	dec b
+	ret
+.returnSLPonly
+	pop af
+	;need to clear carry while maintaining proper z state
+	ld b, a
+	res 7, b	;make bit 7 into a 0
+	rlc b	;then roll that 0 into the carry flag. sleep counter bits will determine the z/nz flag state.
+	ret
+.returnboth
+	pop af
+	ret
+.returnclear
+	xor a
+	ret
+;Used by _HandleSlpFrzClause to check if a party mon has zero HP
+;set the carry bit if true
+.CheckPartyZeroHP
+	scf		;set the carry flag
+	push af
+	push hl
+	;assume hl points to wEnemy/PartyMonXStatus
+	dec hl	;point to level
+	dec hl	;point to lo byte of hp
+	ld a, [hld]	;lo HP byte into A then point to hi HP byte
+	or [hl]; OR the lo and hi HP bytes together
+	pop hl
+	jr z, .ZeroHP
+.SomeHP
+	pop af
+	ccf		;complement the carry flag (change from 1 to 0)
+	ret
+.ZeroHP
+	pop af
+	ret
 	
 SetAttackAnimPal:
 	call GetPredefRegisters
@@ -484,7 +466,7 @@ SetAttackAnimPal:
 	and a
 	ret z
 	cp STRUGGLE
-	ret nc	
+	jp nc, SetAttackAnimPal_otheranim	;reset battle pals for non-move battle animations
 	
 	ld a, $e4
 	ld [wAnimPalette], a
@@ -510,6 +492,13 @@ SetAttackAnimPal:
 	ld a, [hl]
 	ld b, a
 
+	ld a, [wUnusedC000]
+	bit 7, a	;check the bit that is set when hurting self from confusion or crash damage
+	jr z, .noselfdamage
+	;if hurting self, load default palette
+	ld b, PAL_BW
+.noselfdamage
+
 	;make sure to reset palette/shade data into OBP0
 	ld a, %11100100
 	ld [rOBP0], a
@@ -534,14 +523,74 @@ SetAttackAnimPal:
 	pop bc
 	pop hl
 	ret	
+;This function copies BGP colors 0-3 into OBP colors 0-3
+;It is meant to reset the object palettes on the fly
+SetAttackAnimPal_otheranim:
+	push hl
+	push bc
+	push de
+	
+	ld c, 4
+.loop
+	ld a, 4
+	sub c
+	;multiply index by 8 since each index represents 8 bytes worth of data
+	add a
+	add a
+	add a
+	ld [rBGPI], a
+	or $80 ; set auto-increment bit for writing
+	ld [rOBPI], a
+	ld hl, rBGPD
+	ld de, rOBPD
+	
+	ld b, 4
+.loop2
+	ld a, [rLCDC]
+	and rLCDC_ENABLE_MASK
+	jr z, .lcd_dis
+	;lcd in enabled otherwise
+.wait1
+	;wait for current blank period to end
+	ld a, [rSTAT]
+	and %10 ; mask for non-V-blank/non-H-blank STAT mode
+	jr z, .wait1
+	;out of blank period now
+.wait2
+	ld a, [rSTAT]
+	and %10 ; mask for non-V-blank/non-H-blank STAT mode
+	jr nz, .wait2
+	;back in blank period now
+.lcd_dis	
+	;LCD is disabled, so safe to read/write colors directly
+	ld a, [hl]
+	ld [de], a
+	ld a, [rBGPI]
+	inc a
+	ld [rBGPI], a
+	ld a, [hl]
+	ld [de], a
+	ld a, [rBGPI]
+	inc a
+	ld [rBGPI], a
+	dec b
+	jr nz, .loop2
+	
+	dec c
+	jr nz, .loop
+	
+	pop de
+	pop bc
+	pop hl
+	ret
 TypePalColorList:
-	db PAL_BW;normal
+	db PAL_YELLOWMON;normal
 	db PAL_GREYMON;fighting
 	db PAL_MEWMON;flying
 	db PAL_PURPLEMON;poison
 	db PAL_BROWNMON;ground
 	db PAL_GREYMON;rock
-	db PAL_BW;untyped
+	db PAL_BW;untyped/bird
 	db PAL_GREENMON;bug
 	db PAL_PURPLEMON;ghost
 	db PAL_BW;unused
@@ -562,3 +611,103 @@ TypePalColorList:
 	db PAL_PINKMON;psychic
 	db PAL_CYANMON;ice
 	db PAL_REDMON;dragon
+
+;Note: calls GetBadgeCap and preserves D so that this too returns the level cap based on badges back into D
+DoDisobeyLevelCheck:
+	xor a
+	ld [wMonIsDisobedient], a
+	ld a, [wLinkState]
+	cp LINK_STATE_BATTLING
+	jr z, .return_usemove
+
+; compare the mon's original trainer ID with the player's ID to see if it was traded
+;	CheckEvent EVENT_908	;joenote Check if Elite 4 beaten, and if so then don't even bother going further
+;	jr nz, .return_usemove
+	ld a, [wUnusedD721]	;joenote - check if obedience level cap is active and always treat as traded if so
+	bit 5, a
+	jr nz, .monIsTraded
+	
+	ld hl, wPartyMon1OTID
+	ld bc, wPartyMon2 - wPartyMon1
+	ld a, [wPlayerMonNumber]
+	call AddNTimes
+	ld a, [wPlayerID]
+	cp [hl]
+	jr nz, .monIsTraded
+	inc hl
+	ld a, [wPlayerID + 1]
+	cp [hl]
+	jr z, .return_usemove
+; it was traded
+
+.monIsTraded
+; what level might disobey?
+	call GetBadgeCap
+
+	ld a, [wBattleMonLevel]
+	ld e, a
+		
+.return_back
+	ld a, 1
+	and a
+	ret
+	
+.return_usemove
+	xor a
+	ret
+
+;a 0 value means badge has no effect on obedience
+; the value for no badges must be non-zero
+ObedienceLevelsTraded:
+	db 10	;no badges
+	db 0	;boulder badge
+	db 30	;cascade badge
+	db 0	;thunder badge
+	db 50	;rainbow badge
+	db 0	;soul badge
+	db 70	;marsh badge
+	db 0	;volcano badge
+	db 255	;earth badge
+ObedienceLevelCappedOption:
+	db 15	;no badges
+	db 25	;boulder badge
+	db 30	;cascade badge
+	db 35	;thunder badge
+	db 45	;rainbow badge
+	db 50	;soul badge
+	db 50	;marsh badge
+	db 55	;volcano badge
+	db 70	;earth badge
+
+;returns the level cap based on badges back into D
+GetBadgeCap:
+	ld hl, ObedienceLevelsTraded
+	ld a, [wUnusedD721]	;joenote - check if obedience level cap is active
+	bit 5, a
+	jr z, .next
+	ld hl, ObedienceLevelCappedOption	
+.next
+
+	ld e, 8	;number of badges that exist
+	ld a, [wObtainedBadges]
+	ld d, a
+	
+	push bc
+	ld a, [hl]
+	ld b, a
+
+.loop_level
+	inc hl
+	rrc d
+	jr nc, .donthavebadge
+	ld a, [hl]
+	and a
+	jr z, .donthavebadge
+	ld b, a
+.donthavebadge
+	dec e
+	jr nz, .loop_level
+	
+	ld d, b
+	pop bc
+	ret

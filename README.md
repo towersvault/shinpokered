@@ -1,6 +1,6 @@
 # Shin Pokémon Red and Blue
 
-Version 1.22
+Version 1.23
 
 This is a rom hack of pokemon red & blue based on the Pret team's disassembly.  
 It's a mostly-vanilla hack that focuses on fixing game engine bugs and oversights from the original game.  
@@ -12,42 +12,79 @@ Read the "Guide to New Player Functions" for instructions on all the new stuff t
 Don't like the non-vanilla changes? Prefer only the bugfixes and AI improvements? Want a codebase from which to launch your own rom hack?
 Then the [Lite branch](https://github.com/jojobear13/shinpokered/tree/lite) is what you want. Head on over and start compiling.
 
+A bash script randomizer, "randoshinred", is now in beta test.
 
 Download the IPS patch file of the version you want and apply it to its respective USA rom. 
 The "_origback" ips patches are alternatives for red & blue that keep the original back sprites. 
 Always apply patches to a fresh USA ROM or else strange glitches will occur.  
 
-***Now includes Pokemon Green!***
-- The compiler primarily builds the graphics and cerulean cave layout back to what green version had.
+***Includes Pokemon Green and Japanese Red!***
+- The compiler primarily builds the graphics and cerulean cave layout back to the original japanese release.
+- Pokedex entries adapt the original Green version text that was translated in Fire Red.
+- Pokedex uses metric units.
+- Apply the Green ips patch to a USA Blue rom. Apply the Red-JP ips patch to a USA Red rom.
+
+***Now Includes Japanese Blue!***
+- Primarily builds the lists for encounters, trades, and prizes that were in the never-localized japanese release.
+- Pokedex uses metric units.
 - Apply the ips patch to a USA Blue rom.
 
-Important Note: If you are using a save file from a previous version, you might be blocked by invisible walls upon loading the game.
-To fix this, you must use the Softlock Warp detailed below to teleport back to Palette Town.
-
-Notice: New patches might crash upon loading a save from a previous patch.
-		To prevent this from happening, save outside in Pallet Town.
+***Updating Your Save File***  
+New patches might crash or have issues upon loading a save from a previous patch or an unpatched game.  
+To prevent this from happening, prepare your save file in the following way:  
+--> Deactivate all special options (such as 60fps mode and NPC toggles).  
+--> Save in the outdoor Pallet Town map.  
+You might be blocked by invisible walls upon loading the game.  
+To fix this, you must use the Softlock Warp detailed below to teleport back to Pallet Town.  
 
 		
-Title Screen  (GBC Palettes)  
-![Title Screen 2](/screenshots/bgb00028.bmp?raw=true)
+#Screenshots
+-----------
 
-Pokemon Yellow Backported Palettes  
+Title Screens  (GBC Palettes)  
+![Title Screen 1](/screenshots/bgb00028.bmp?raw=true)
+![Title Screen 2](/screenshots/bgb00029.bmp?raw=true)
+![Title Screen 3](/screenshots/bgb00030.bmp?raw=true)  
+![Title Screen 4](/screenshots/bgb00031.bmp?raw=true)
+![Title Screen 5](/screenshots/bgb00032.bmp?raw=true)
+
+Pokemon Yellow Backported Palettes and Gym Leader Names Restored  
 ![Backported Palettes](/screenshots/bgb00022.bmp?raw=true)
+![Gym Leader Names](/screenshots/bgb00037.bmp?raw=true)
 
 Rematches  
 ![Rematches](/screenshots/bgb00003.bmp?raw=true)
 
-Trainer AI, Shiny SGB palette, & Exp Bar  
-![TrainerAI, Shiny SGB palette, & Exp Bar](/screenshots/bgb00020.bmp?raw=true)
+Trainer AI, Shiny Palette & Symbol, Exp Bar, Spaceworld Back Sprites  
+Gender & Caught symbols in Wild Battles, Colored Attacks in GBC-mode  
+![Battle Screen Upgrades 1](/screenshots/bgb00020.bmp?raw=true)
+![Battle Screen Upgrades 2](/screenshots/bgb00021.bmp?raw=true)
 
-TMs in Marts  
+TMs in Marts with Abbreviated Names  
 ![Marts](/screenshots/bgb00016.bmp?raw=true)
 
 Shiny Animation  
-![Shiny Animation](/screenshots/bgb00019.bmp?raw=true)
+![Shiny Animation](/screenshots/bgb00019.gif?raw=true)
 
 Girl Trainer  
-![Girl Trainer 1](/screenshots/bgb00026.bmp?raw=true) ![Girl Trainer 2](/screenshots/bgb00025.bmp?raw=true)
+![Girl Trainer 1](/screenshots/bgb00026.bmp?raw=true)
+![Girl Trainer 2](/screenshots/bgb00025.bmp?raw=true)
+
+Temporary Field Move Slot  
+![Field SLot 1](/screenshots/bgb00004.bmp?raw=true)
+![Field SLot 2](/screenshots/bgb00005.bmp?raw=true)
+
+Many new NPCs to toggle features  
+![NPC 1](/screenshots/bgb00007.bmp?raw=true)
+![NPC 2](/screenshots/bgb00008.bmp?raw=true)
+![NPC 3](/screenshots/bgb00009.bmp?raw=true)  
+![NPC 4](/screenshots/bgb00010.bmp?raw=true)
+![NPC 5](/screenshots/bgb00011.bmp?raw=true)
+![NPC 6](/screenshots/bgb00012.bmp?raw=true)
+
+Gamma Shader for LCD Screens (Off & On Comparison)  
+![Shader Off](/screenshots/bgb00035.bmp?raw=true)
+![Shader On](/screenshots/bgb00036.bmp?raw=true)
 
 
 #Summary
@@ -58,18 +95,25 @@ Girl Trainer
 A huge number of bugs, glitches, oversights, and text errors of all sorts have been fixed. 
 There are too many to enumerate in a simple summary, and some of them are very obscure or previously undiscovered.
 
-Includes an english Green version. 
-It swaps the graphics, Cerulean Cave layout, and a few lines of text to replicate the original Green version.
-Apply the patch to a USA Blue rom to use it.
+Includes english builds of Green and Red-JP versions. 
+It swaps the graphics, Cerulean Cave layout, and a few lines of text to replicate the original japanese releases.
+The original release pokedex entries have been adapted from the Fire Red translations.
+It also has all the pokedex data in metric.
+
+Includes an english build of Blue-JP version.
+It swaps prizes, trades, wild encounter data, and some text to replicate the original japanese release.
+It also has all the pokedex data in metric.
 
 Engine features from USA Yellow version have been backported.
 Super Gameboy palettes get converted to display on the Gameboy Color. No more monochrome!
+Attack animations are colored according to type during Gameboy Color play.
 The audio engine is backported for stereo sound support. 
 
 New options that can be toggled!
 - Hit SELECT on the options screen to cycle through the audio output types.
 - Playing in GBC mode on a backlit LCD screen? Press SELECT at the copyright screen to activate color correction.
 - Experimental 60FPS Mode: Place the cursor over CANCEL in the options screen and toggle by pressing left or right.
+- Zero-Delay Text: Text with zero frame delay can be toggled in the options menu; press LEFT with the cursor on FAST.
 
 Trainer AI has been improved and greatly expanded. 
 Some trainers will even try to switch pokemon intelligently.
@@ -103,21 +147,34 @@ The "SET" battle style gives increased difficulty by making the stats of trainer
 It also doubles the effect of the X-stat items that AI trainers are fond of.
 And it disallows the use of Revive items in battle.
 Finally, it makes catching a wild Mewtwo more challenging.
+As compensation, SET mode gives an additional 1.5x EXP boost in trainer battles.
 
 You can choose RUN while holding SELECT in trainer battles to forfeit the match and black yourself out.
 
 One of the aides in Oak's lab toggles scaling of trainer rosters to your level (evolving them if applicable).
+
+As an alternative to trainer scaling, there is now an obedience level-cap that can be toggled in the options menu.
+With the cursor in the BATTLE STYLE section, press A to toggle it on and off.
+While active, the current maximum obedience level will display in the options menu.
+All pokemon, not just trades, will start to disobey if over the displayed level cap.
 
 The other aide in Oak's lab toggles a pokeball-caught symbol in battle after obtaining the pokedex.
 To help with Gen 2 interaction, this also applies a gender symbol to species that can be male or female.
 
 Another aide npc is in the Viridian pokemon center. He will toggle on/off randomization of non-special trainers.
 
+An aide is in the Celadon Diner. He will toggle on/off a catch-up EXP boost function for under-leveled pokemon.
+
 Item, Sleep, and Freeze clauses can each be toggled by the Clause Brothers in Viridian City.
  
 The bag now supports an additional item list for an extra 20 slots of space!
 Press START on the bag menu to hot-swap the item list that populates the active bag.
-Only the active bag's item list is recognized by the game's systems.
+The game's systems will generally detect items in the non-active bag space.
+Unique systems, such as Pokemon Stadium, will only recognize the active bag's item list.
+
+Each pokemon on your team has a field move slot. 
+These slots can temporarily hold a HM move for overworld-use only.
+No longer do you have to sacrifice one of your four moves for a HM move.
 
 An experimental New Game+ has been added.
 It can be enabled if you have an uncorrupt save file wherein the Elite 4 have been beaten.
@@ -141,6 +198,14 @@ New NPCs!
 - After the Elite-4, the game corner chief will buy pokemon from the player.
 - There's a tournament being held in the SS Anne's kitchen after the Elite-4 are beaten. Yes, the ship returns!
 - Added some special post-game trainer battles as fun little easter eggs. Can you find and defeat all five?
+
+Changes to fishing!
+- The Good Rod has an expanded 'mon list and level range.
+- Level range of the super rod has been increased.
+- The Old Rod now randomly acts as a Good rod 50% of the time.
+- The Old Rod is a sellable non-key item with the value of a nugget.
+- The Route 12 Fishing Guru can be visited upon first reaching Lavender Town.
+- The locations of the Good and Super Rod have been swapped.
 
 Other minor changes to lessen annoyance.
 - Low HP alarm only plays three times then turns itself off.
@@ -185,96 +250,93 @@ Cheats and Secrets!
 
 #Hack-Induced Bugfixes & Adjustments since last version:
 -----------
-- Slightly increased the possible coin payout for the the celadon hotel coin guy
-- Added a level-based multiplier to greatly increase the money offered to sell 'mons
-  - Interestingly, this makes it so you no longer need to grind battles to train a post-game team
-  - Catch pokemon, sell them for money, then spend it on vitamins and rare candy in the Celadon mart
-  - Since vitamins have no limit in the post-game, you can max levels and stat exp via this funding method
-- Adjusted the level 0 moves of stone evolutions to play nicer with the move relearner
-
-- Butterfree, Venonat, and Venomoth can all learn HM05 instead of HM04
-- Fixed a menu return issue when forfeiting fights (particularly against the rival)
-- Fixed some BCD payout wierdness
-- Getting max base exp for enemies > lvl 100 is now based on level cap instead
-
-- Fixed scripted NPC-following movement in 60fps mode
-- Fixed some NPC ghosting in mart menus in GBC mode
-- Applied Rangi's reformatting to key item bit fields
-- Removed the redundant overflow check on the celadon hotel coin guy
-- Consolidated the code used for stat scaling
-- Fixed rival facing in silph co after battle
-- Fixed issue with route 22 phantom rival appearing if the first battle was skipped
-- Stopped AI from decrementing PP on item usage and switching
-- Stopped AI from decrementing PP when it doesn't wake up from sleep
-- Bank $13 is now solely used for trainer pics
-- Fixed crash damage being zeroed for the jump kick effects
-- Fixed stat exp not being applied properly
-- Fixed blackouts not applying when defeated by Prof Oak
+- Fixed Flying and Teleporting out of maps with the forest tileset
+- Fixed messed-up warps dealing with the forest tileset
+- Fixed incorrect animation colors
+- Fixed some minor color errors in non-move battle animations
+- Changed color of normal-type attacks to yellow
+- Adjusted the Saffron Guard text for accuracy
+- Assigned a default palette to confusion & crashing self-damage
+- Made it so choosing New Game doesn't clear certain other options
+- Fixed bugged TH/HM names within text boxes
+- Slightly adjusted some Cinnabar Mansion notes to match the Japanese text
+- Reworked the level-up movelist for all four 'mons in the Eevee family
+- Readjusted the vertical positioning of some spaceworld back sprites
+- Fixed the item clause breaking the AI choosing moves
+- Clarified text of the blocking 'mon in Vermilion city
+- Fixed typos
+- Adjusted alignment of printed statEXP
+- EXP bar goes off of MAX_LEVEL instead of an assumed lvl 100
+- Fixed Sleep/Freeze clause not working correctly
+- Streamlined the Sleep/Freeze clause function and cleaned the spaghetti code
+- Made it so choosing to play as a girl doesn't clear certain other options
+- Updated the Elite 4 and Gym Leaders a bit (mostly Koga)
+- Edited Blaine's sunglasses to be darker
+- No-Yes boxes can be canceled by pressing B
+- Fixed text delay flags getting cleared which would override the text speed
+- Seiga/Green special battle now uses JrTrainer-F instead of Lass
+- Lass reverted to vanilla AI
+- Rival phase 1 gets AI layer 3 and Channeler gets AI layer 4
 
 
 #New features & adjustments since last version:
 -----------
-- Amber and fossils are now non-key items
-- Trapping moves play a 'poof' animation on the final turn instead of a cry (changed for the hearing impared)
-- Gave the strength quick-key a visual cue and sfx
-- Removed the word "only" from NPC on Silph Co 5f who talks about trade evos
-- Text tweak to route 14 trainer with regards to forgetting HMs
-- Gave AI layer 3 to Juggler
-
-- The bag now supports an additional item list for an extra 20 slots of space
-  - Press START on the bag menu to hot-swap the item list that populates the active bag
-    - Also works in battle
-	- Also works when depositing items in the PC
-  - Only the active bag's item list is recognized by the game's systems
-    - For example, you cannot enter the Cinnabar Gym if the Secret Key is not in the active bag
-	- Same for Stadium compatibility, detecting only the bag list that was active when last saved  
-- Low HP alarm only plays three times then turns itself off
-- There is an Aide NPC in the viridian pokemon center that can toggle regular trainer randomization
-  - Only affects regular trainers that use one level for all 'mons and have no custom movesets
-  - Will replace their roster 'mons with random non-evolved 'mons (legendaries are excluded)
-  - The new mons will be swapped with their evolved forms if at a high enough level
-  - This feature was added with the intent of spicing-up subsequent Gen-1 playthroughs
-- Added the Clause Brothers to Viridian City
-  - They toggle enforcement of the item, sleep, and/or freeze clauses
-  - The clauses apply to the player and AI equally, and only apply during non-link trainer battles
-  - Sleep and freeze clauses work like they do in Pokemon Stadium
-- Revive items cannot be used in battle on SET style
-- When playing in GBC-mode, move animations are colored based on their type
-- Red & Blue versions use the back sprites from spaceworld 97 so as to be cohesive with the front sprites
-  
-- AI layer 1: discourage exploding effects if faster than a player in fly/dig state
-- AI layer 1: randomly discourage usage of 2-turn moves when confused/paralyzed
-- AI Layer 1: 50% chance that the AI is blind to a player switching or using an item
-- AI layer 3: added some strategy to handle when the player uses fly/dig
-- AI layer 3: slightly preference regular effectiveness moves if STAB exists (25% chance per move)
-- Greatly increased the speed and performance of spin tiles  
-- Adjusted some of Giovanni's final lines for clarity
-- Added some underflow and overflow protection to switch scoring
-- AI switch scoring now penalizes bad match-ups between player and enemy 'mon types
-- Minor adjustments to switch scoring
-
-- Made adjustments to critical hit damage
-  - Damage factor is now 2*(2*level)/5 + 4 instead of 2*(2*level)/5 + 2 to simplify some algebra
-  - If non-crit damage would be >= crit damage, the regular modified stat values are applied instead
-- Bike music stops playing now when going down a hole
-- Can no longer walk up to 4 steps with a fainted team
-- Fixed a conflict where transforming while disabled can leave the new moves disabled
-- Fixed transformed 'mons reseting their moves when learning a level-up move
-- Fixed a typo so now transformed 'mons retain their original palette
-- PP-restoring items no longer affect transformed moves and only restore the original moves
-- Fixed-damage move effects now use 2 bytes for damage instead of 1
-- Fixed Psywave underflow/overflow with levels of 0, 1, and above 170
-- Fixed an issue with Disable's counter on slower 'mons
-- Fixed an issue with the silph co 11f elevator doors
-- Non-link enemy mons now have PP, so always run checks for 0 PP during disable effect
-- Fixed a missed increment that makes a map's 15th object not update its facing properly
-- Adjusted two spin-stop tiles in Viridian Gym
-- Made Agility's animation more apparent
-- Water warps in seafoam island 4 & 5 are now scripted movement
-- Fixed a bug in the GetName: function that treated lists over 195 entries as item lists
-- You can now cut the grass in the plateau tileset
-- You can Fly and Teleport out of maps with the forest tileset
-- Pokemon can now learn more than 1 more per level
+- The player's party 'mons now have temporary field move slots for HM moves
+  - Each party 'mon has 1 slot separate from its regular move list
+  - A field move in this slot can be used in the overworld as normal
+  - You will be asked about filling the slot when teaching a field move out of battle
+  - You cannot overwrite a slot with a field move already in it
+  - A slot is cleared when its 'mon leaves the party (such as being put in the PC)
+  - In the case of a 'mon with 4 regular field moves:
+    - The slotted temporary move cannot be menu-selected
+	- The slotted temporary move, if it's a HM move, can be used via quick-key
+---
+- There is now an obedience level-cap that can be toggled in the options menu
+  - With the cursor in the BATTLE STYLE section, press A to toggle it on and off
+  - While active, the current maximum obedience level will display in the options menu
+  - All pokemon, not just trades, will start to disobey if over the displayed level cap
+  - The cap will change based on which badge you have (max of 65 with earth badge)
+  - Not recommended for use with trainer scaling since you might gain too many levels too quickly
+  - Best to turn this off in the post-game as it's really for the gym challenge and elite-4
+---
+- Good rod has an expanded 'mon list and level range
+- Increased the level range of the super rod
+- Old rod now randomly acts as a Good rod 50% of the time 
+- Old rod is a sellable non-key item with the value of a nugget
+- The Route 12 Fishing Guru is now visitable upon first reaching Lavender Town
+- Swapped location of Good and Super Rod
+---
+- The project now compiles Japanese Blue
+- The project now compiles Japanese Red
+- Green and Red-JP have their original pokedex entries (adapted from Fire Red)
+- Green, Red-JP, and Blue-JP now display metric units in the pokedex
+- Green, Red-JP, and Blue-JP now have the japanese-style town map layout
+- Green, Red-JP, and Blue-JP now have their correct copyright graphics
+- Green, Red-JP, and Blue-JP now have the "PRESENTS" graphic under "Game Freak"
+- Green and Red-JP play the original shooting star sound effect
+---
+- Gamma shader defaults ON if the destination code in the rom header is set to 00 (JP)
+- Pressing SELECT at the copyright info now switches the shader from its default state
+- The default state of the gamma shader can be changed with any gameboy rom header editor
+- Alternately, remove the 'j' in 'cjsv' in the Makefile to compile with a JP destination code
+---
+- SET mode gives an additional 1.5x EXP boost in trainer battles
+- Added a NPC to the Celadon Diner to toggle a Catch-Up EXP Boost feature
+---
+- Engine Improvement: the 1.5x EXP boost function now has overflow protection
+- Engine Improvement: EXP Gained can now print up to five digits instead of four
+- Engine Improvement: Pokemon can now learn more than 1 move per level
+- Engine Improvement: the "LF" character mapping can be used as a line-feed
+- Text with zero frame delay can be toggled in the options menu; press LEFT with the cursor on FAST
+- New Game Plus no longer makes a new Trainer ID, so old boxed pokemon will obey on a new playthrough
+- Shiny symbol is now displayed
+- The extra bag space introduced previously is now detected by most of the game's systems
+- Gave a couple tm moves to the cerulean rival's abra
+- Initiating the Pokemon Tower rival battle will deactivate the following skippable rival battles
+  - The Cerulean encounter
+  - The SS Anne encounter
+- Attacks reduced to zero damage now say the target is unaffected instead of missing
+- Gym leader names have been restored on the trainer card
 
 
 #Changes not yet in the release branch:
@@ -380,6 +442,9 @@ Cheats and Secrets!
 
   
 - Graphical Fixes
+  - Gym leader names have been restored on the trainer card
+    - These were removed during localization as a simple and expedient solution
+    - So this is more of a correction to the localization than a strict graphical error
   - Glitched sprites can no longer cause a buffer overflow that corrupts the hall of fame
   - Returning from the status screen when an opponent is in substitute/minimize no longer glitches the graphics
   - PC graphic restored to celadon hotel
@@ -451,7 +516,7 @@ Cheats and Secrets!
   - Cinnabar/seafoam islands coast glitch fixed (no more missingo or artificially loading pokemon data)
   - Catching a transformed pokemon no longer defaults to catching a ditto
   - Vending machine now checks for the correct amount of money
-  - Prevented byte overflow when determining the trash can with 2nd switch in vermillion gym
+  - Prevented byte overflow when determining the trash can with 2nd switch in vermilion gym
   - Hidden nugget in safari entrance now obtainable
   - Slot machine reel bug fixed
   - Fixed oversights in reel functionality to better match Gamfreak's intent
@@ -482,8 +547,8 @@ Cheats and Secrets!
 #TWEAKS:
 -----------
 
-- Fixed mistakes and made adjustments to the game text
-  - When a pkmn is caught and fills the box, a reminder is printed that the box is full
+- Fixed mistakes in the game text
+  - Attacks reduced to zero damage now say the target is unaffected instead of missing
   - Man in cinnabar won't mention raichu evolving (also applies to the jynx trade in cerulean)
   - Koga correctly says soul badge increases speed
   - Lt. Surge correctly says thunder badge increases defense
@@ -491,24 +556,26 @@ Cheats and Secrets!
   - Viridian girl's notebook 2nd page revised for pkmn-catching effectiveness
   - Viridian blackboard BRN info corrected (BRN does not reduce speed)
   - Viridian Blackboard PAR info updated
-  - Made cinnabar mansion notes more true to the original japanese text
-  - TM 18 given an actual explanation 
-  - New student in viridian school explains ohko moves
   - Cerulean badge-house guy has updated text
   - Prof. oak's speech plays the correct Nidorino cry
   - Text for using a TM/HM now refers to the "machine" rather than just "TM"
   - Fixed daycare man capitalization
-  - Clarified "chem" to mean grade in chemistry
   - Fixed capitalization in safari zone entrance
-  - PC has a text prompt to tell you if its full after depositing
-  - Exp.all now prints one message when splitting exp instead of for each party member
-  - TMs and HMs now have their attacks (albeit abbreviated) appended to the item names
   - Fixed the flipped text for a girl in Saffron and the letter she is writing
   - Fixed text overlap with Oak giving you pokeballs
   - Reactivated lost text that was meant to play when you lose to your rival
+- Made adjustments to the game text
+  - When a pkmn is caught and fills the box, a reminder is printed that the box is full
+  - PC has a text prompt to tell you if its full after depositing
+  - Made cinnabar mansion notes more true to the original japanese text
+  - TM 18 given an actual explanation 
+  - New student in viridian school explains ohko moves
+  - Exp.all now prints one message when splitting exp instead of for each party member
+  - TMs and HMs now have their attacks (albeit abbreviated) appended to the item names
   - Removed the word "only" from NPC on Silph Co 5f who talks about trade evos
   - Text tweak to route 14 trainer with regards to forgetting HMs
   - Adjusted some of Giovanni's final lines for clarity
+  - Clarified "chem" to mean grade in chemistry
 
 - Adjustments to moves  
   - Stat-down moves no longer have a 25% miss chance in AI matches
@@ -602,11 +669,11 @@ Cheats and Secrets!
   - AI switch scoring now penalizes bad match-ups between player and enemy 'mon types
   
 - Trainer ai routine #3 added to the following trainer classes
-  - jr trainer M/F, tamer, scientist, lass, gentleman, black belt, bird keeper, engineer, 
-  - chief, bruno, brock, agatha, juggler
+  - jr trainer M/F, engineer, rocker, juggler, tamer, birdkeeper, black belt, scientist, gentleman
+  - bruno, brock, surge, blaine, sabrina, agatha, rival phase 1, chief
 - Trainer ai routine #4 added to the following trainer classes
-  -cueball, psychic, hiker, rocket, black belt, tamer, lass, jr trainer M/F, cooltrainer M/F, gentleman, pokemaniac 
-  -all rival phases, prof.oak, chief, gym leaders, elite-4
+  -jr trainer M/F, pokemaniac, hiker, cueball, psychic, tamer, black belt, rocket, cooltrainer M/F, gentleman, channeler
+  -all rival phases, all gym leaders, elite-4, prof.oak, chief
   
 - Trainer stat DVs are now randomly generated to a degree (only in "SET" style)
   - Attack DV is between 9 and 15 and always odd-numbered
@@ -641,7 +708,7 @@ Cheats and Secrets!
   - Mewtwo can learn Swift by TM 
   - Kakuna and Metapod learn harden by level-up
   - pikachu and kadabra have their catch rates adjusted to yellow version
-  - Give haunter/machoke/kadabra/graveler an evo by level option (level 45 to 48)
+  - Give haunter/machoke/kadabra/graveler an evo by level option (level 45)
   - Butterfree and Beedrill have their prior evolutions' moves added to their level-0 move list
   - Clefable and Wigglytuff get some moves back via level-up
   - Diglett & Dugtrio can learn cut like in yellow version
@@ -657,6 +724,17 @@ Cheats and Secrets!
   - Adjusted daycare to allow exp values over $500000
   - Allow up to 8 digits when displaying experience on the status screen
   - Pokemon can now learn more than 1 more per level
+  - The 1.5x EXP boost function now has overflow protection
+  - EXP Gained can now print up to five digits instead of four
+  - The "<LF>" character mapping can be used as a line-feed
+
+-Changes to fishing
+  - Good rod has an expanded 'mon list and level range
+  - Increased the level range of the super rod
+  - Old rod now randomly acts as a Good rod 50% of the time 
+  - Old rod is a sellable non-key item with the value of a nugget
+  - The Route 12 Fishing Guru is now visitable upon first reaching Lavender Town
+  - Swapped location of Good and Super Rod
 
 - A regular New Game will default the battle style to SET
 - Yes/No prompt for flute use has been added to blocking snorlax
@@ -675,11 +753,14 @@ Cheats and Secrets!
 - Just for fun, the last juggler in the fuchsia gym is replaced with a cameo of Janine
   - Though at this point she's still just a cooltrainer and doesn't have a unique battle sprite
 - The L: block doesn't disappear when level hits three digits
-- If SS Anne is skipped and the pokemon tower rival battle is initiated, the SS Anne rival battle is deactivated
 - Greatly increased the speed and performance of spin tiles  
 - Amber and fossils are now non-key items
 - Low HP alarm only plays three times then turns itself off
 - You can now cut the grass in the plateau tileset
+- Gave a couple TM moves to the cerulean rival's abra
+- Initiating the Pokemon Tower rival battle will deactivate the following skippable rival battles
+  - The Cerulean encounter
+  - The SS Anne encounter
 
   
 #Additions:
@@ -697,18 +778,31 @@ Cheats and Secrets!
   - X-stat items have double the effect like in more recent generations
   - Revive items cannot be used in battles
   - Mewtwo will prevent you from using a master ball on it and use AI to choose moves
+  - SET mode gives an additional 1.5x EXP boost in trainer battles
 - Added the Clause Brothers to Viridian City
   - They toggle enforcement of the item, sleep, and/or freeze clauses
   - The clauses apply to the player and AI equally, and only apply during non-link trainer battles
   - Sleep and freeze clauses work like they do in Pokemon Stadium
+- There is now an obedience level-cap that can be toggled in the options menu
+  - With the cursor in the BATTLE STYLE section, press A to toggle it on and off
+  - While active, the current maximum obedience level will display in the options menu
+  - All pokemon, not just trades, will start to disobey if over the displayed level cap
+  - The cap will change based on which badge you have (max of 65 with earth badge)
+  - Not recommended for use with trainer scaling since you might gain too many levels too quickly
+  - Best to turn this off in the post-game as it's really for the gym challenge and elite-4
 
 
-#Quick Keys
+#Quick Keys / Options / Menu-Related
 - Press SELECT on the option screen to change the audio type
 - Added built-in gamma shader for backlit LCD screens (press SELECT at the copyright screen)
+	- Gamma shader defaults ON if the destination code in the rom header is set to 00 (JP)
+	- Pressing SELECT at the copyright info now switches the shader from its default state
+	- The default state of the gamma shader can be changed with any gameboy rom header editor
+	- Alternately, remove the 'j' in 'cjsv' in the Makefile to compile with a JP destination code
 - Added an option to make the overworld run in 60fps
   - Place the cursor over CANCEL in the options screen and toggle by pressing left or right
   - This feature is more of a proof-of-concept and is still kinda rusty
+- Text with zero frame delay can be toggled in the options menu; press LEFT with the cursor on FAST
 - Softlock Warp 
   - Instantly teleport back to your mom's house if you get stuck or are unable to move after updating to a new patch
   - Sets money to at least 1000 if you have less than that
@@ -736,9 +830,19 @@ Cheats and Secrets!
   - Press START on the bag menu to hot-swap the item list that populates the active bag
     - Also works in battle
 	- Also works when depositing items in the PC
-  - Only the active bag's item list is recognized by the game's systems
-    - For example, you cannot enter the Cinnabar Gym if the Secret Key is not in the active bag
-	- Same for Stadium compatibility, detecting only the bag list that was active when last saved  
+  - The game's systems will generally detect items in the non-active bag space
+    - For example, you can enter the Cinnabar Gym even if the Secret Key is in the non-active bag space
+  - Certain unique systems may only recognize the active bag's item list
+	- For example, the Pokemon Stadium games detect only the bag list that was active when last saved
+- The player's party 'mons now have temporary field move slots for HM moves
+  - Each party 'mon has 1 slot separate from its regular move list
+  - A field move in this slot can be used in the overworld as normal
+  - You will be asked about filling the slot when teaching a field move out of battle
+  - You cannot overwrite a slot with a field move already in it
+  - A slot is cleared when its 'mon leaves the party (such as being put in the PC)
+  - In the case of a 'mon with 4 regular field moves:
+    - The slotted temporary move cannot be menu-selected
+	- The slotted temporary move, if it's a HM move, can be used via quick-key
 
  
 #Graphics
@@ -750,7 +854,9 @@ Cheats and Secrets!
 - You can now play as a girl when starting a new game
   - Has front, back, walking, fishing, and cycling sprites
   - Has unique default names when starting a new game
-- If a pkmn has DVs that would make it shiny in Gen 2, an unused "power up" style of animation plays when it enters battle
+- If a pkmn has DVs that would make it shiny in Gen 2
+  - An unused "power up" style of animation plays when it enters battle
+  - It also has a shiny symbol by its name
 - If playing on a super gameboy, shiny pkmn will have a palette swap on the status screen and also change color in battle
 - If playing on super gameboy, hold select when loading a pokedex entry to see that pokemon's shiny palette
 - Added an exp bar using code by Danny-E 33 
@@ -776,6 +882,12 @@ Cheats and Secrets!
   - Talk to the little girl to delete moves.
   - Talk to her tutor to relearn moves.
   - I have expanded Mateo's code so that it also detects default level-0 moves from the baseStats header files.
+- Catch-Up EXP Booster
+  - Talk to the aide in the Celadon Diner to toggle this feature.  
+  - While active, EXP gained is boosted if the active pokemon's level is lower than that of the fainted enemy.  
+  - The boost is 1.5x multiplied by an additional 1.5x for every 3 levels of difference.  
+  - For example, a level gap of 12 results in an EXP multiplier of (1.5)^4 = 5.0625.  
+  - Use this feature to help you train-up new team members in the mid-to-late game.  
 - Can rematch gym leaders and most non gym-leader trainers just by talking to them one or two times
   - Giovanni respawns after leaving the gym so you can rematch him
 
@@ -823,7 +935,7 @@ Cheats and Secrets!
 - Pkmn with levels > level cap give 255 stat exp for each stat
 - Pkmn with levels > level cap have 255 base exp yield
 - If a chansey >= level 100 is first in your roster:
-  - Shiny wild random encounters are much more common (1 in 256)
+  - Shiny wild random encounters and fishing rod encounters are much more common (1 in 256)
   - Repel effects will not block shiny encounters
 - You can now battle missingno on the infamous cinnabar shoreline
   - You must have gotten the pokedex diploma first
@@ -901,25 +1013,31 @@ Cheats and Secrets!
 
 
 #CREDITS / SPECIAL THANKS:
------------
+--------------------------
 - The Pret team for the pokered and pokeyellow disassemblies and all the code comments that came with them
 - MoriyaFaith's pokejp project for green version assets and code referencing
-- Rangi for the tool Polished Map
+- Rangi for the tool Polished Map and the jp-style town map from Red/Blue Star
 - Exp bar coded by Danny-E 33
 - The Pokemon Prism team for the improved RNG
 - Move deleter/relearner coded by TheFakeMateo for Pokemon Red++
 - Code contributions and bugfixing by wisp92
-- The following folks for their great tutorials, glitch videos, and explanations across the internet
-  - TheFakeMateo 
-  - Crystal_
-  - ChickasaurusGL
-  - v0id19
-- The following folks for their help in pointing out and diagnosing bugs 
-  - kadetPirx
-  - JOBOalthor1992
-  - krazsen
-  - kmalove
-  - zycain
+- GLSWV for correcting the metric conversions of height and weight data 
+
+The following folks for their great tutorials, glitch videos, and explanations across the internet
+- TheFakeMateo 
+- Crystal_
+- ChickasaurusGL
+- v0id19
+
+The following folks for their help in pointing out and diagnosing bugs 
+- kadetPirx
+- JOBOalthor1992
+- krazsen
+- kmalove
+- zycain
+- jastolze007 
+- MStern
+- TSinnohTrainer 
 
   
 The shinpokered repository was branched from pret/pokered at merge pull request #185 committed on Jul 2, 2018

@@ -249,7 +249,7 @@ SwapBagData:
 	
 	;format the terminator at the end
 	ld a, $FF
-	ld [wBagItemsTerminator], a
+	ld [wBagItemsBackupTerminator], a
 
 	;format the list terminator given the number of items
 	ld a, [wBagNumBackup]
@@ -261,7 +261,7 @@ SwapBagData:
 	ld [hl], $FF
 	
 	;swap out the items
-	ld c, wGameProgressFlagsEnd - wBagBackupSpace
+	ld c, wBagBackupSpaceEnd - wBagBackupSpace
 	ld de, wBagBackupSpace
 	ld hl, wNumBagItems
 	call SwapDataSmall

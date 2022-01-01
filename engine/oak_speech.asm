@@ -5,6 +5,8 @@ SetDefaultNames:
 	push af
 	ld a, [wd732]
 	push af
+	ld a, [wUnusedD721]	;joenote - preserve extra options
+	push af
 	ld hl, wPlayerName
 	ld bc, wBoxDataEnd - wPlayerName
 	xor a
@@ -13,6 +15,8 @@ SetDefaultNames:
 	ld bc, $200
 	xor a
 	call FillMemory
+	pop af
+	ld [wUnusedD721], a	;joenote - restore extra options
 	pop af
 	ld [wd732], a
 	pop af
@@ -68,12 +72,13 @@ OakSpeech:
 	call PrintText
 	call NoYesChoice
 	ld a, [wCurrentMenuItem]
-	and a
+	ld b, a
+	ld a, [wUnusedD721]
+	res 0, a
+	or b
 	ld [wUnusedD721], a
 	call ClearScreen
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-	ld hl, wOptions
-	set 6, [hl] ;joenote - make a new game default into SET battle style
 	ld a, $FF
 	call PlaySound ; stop music
 	ld a, BANK(Music_Routes2)
@@ -315,30 +320,49 @@ IntroDisplayPicCenteredOrUpperRight:
 
 
 DoNewGamePlus: ;joenote - selective wram clearing for new game plus
-	;preserve pokedex
+
+	;preserve the player ID
+	ld a, [wPlayerID]
+	ld h, a
+	ld a, [wPlayerID + 1]
+	ld l, a
+	push hl
+
 	ld hl, wPlayerName
 	ld bc, wMainDataStart - wPlayerName
 	xor a
 	call FillMemory
 	
-	;preserve #of HoF teams as well as current box number
+	;skip clearing pokedex data at wMainDataStart
+		
 	ld hl, wNumBagItems
 	ld bc, wCurrentBoxNum - wNumBagItems
 	xor a
 	call FillMemory
 
-	;preserve game time
+	;skip clearing #of HoF teams as well as current box number
+
 	ld hl, wUnusedD5A3
 	ld bc, wPlayTimeHours - wUnusedD5A3
 	xor a
 	call FillMemory
+
+	;skip clearing the play clock
 	
-	;preserve box pkmn data
 	ld hl, wSafariZoneGameOver
 	ld bc, wMainDataEnd - wSafariZoneGameOver
 	xor a
 	call FillMemory
 
+	;skip clearing box pkmn data
+	
+	;restore the player ID
+	pop hl
+	ld a, l
+	ld [wPlayerID + 1], a
+	ld a, h
+	ld [wPlayerID], a
+	
 	ret
 
 AskIfGirlText::	;joenote - text to ask if female trainer

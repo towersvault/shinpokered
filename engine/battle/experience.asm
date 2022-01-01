@@ -121,7 +121,14 @@ GainExperience:
 	ld [wGainBoostedExp], a
 	ld a, [wIsInBattle]
 	dec a ; is it a trainer battle?
-	call nz, BoostExp ; if so, boost exp
+	jr z, .nottrainerbattle
+	call BoostExp ; if so, boost exp
+;joenote - boost exp again in trainer battls if in SET mode
+	ld a, [wOptions]
+	bit 6, a
+	call nz, BoostExp
+.nottrainerbattle
+	call CatchUpBoost	;joenote - boost exp if underlevelled
 	inc hl
 	inc hl
 	inc hl
@@ -409,6 +416,30 @@ BoostExp:
 	ld a, [H_QUOTIENT + 2]
 	adc b
 	ld [H_QUOTIENT + 2], a
+	jr c, .overflow
+	ret
+.overflow	;joenote - add overflow protection
+	ld a, $FF
+	ld [H_QUOTIENT + 2], a
+	ld [H_QUOTIENT + 3], a
+	ret
+	
+CatchUpBoost:	;joenote - boost exp if underlevelled
+	CheckEvent EVENT_8D9
+	ret z
+	ld a, [wBattleMonLevel]
+	ld b, a
+	ld a, [wEnemyMonLevel]	
+	sub b
+	ret z	;return if enemy lvl = player level
+	ret c	;return if enemy lvl < player level
+.loop
+	;A is currently wEnemyMonLevel - wBattleMonLevel > 0
+	push af
+	call BoostExp
+	pop af
+	sub 3	;additional boost every 3 levels of difference
+	jr nc, .loop	;keep boosting until A underflows
 	ret
 
 GainedText:

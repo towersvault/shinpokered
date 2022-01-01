@@ -133,6 +133,7 @@ ShinyStatusScreen:
 	ld a, [wPalPacket + 3]
 	call ShinyDVConvert
 	ld [wPalPacket + 3], a
+	call PrintShinySymbolStatus
 	ret
 ShinyPlayerMon:
 	ld a, [wPalPacket + 5]
@@ -197,4 +198,7 @@ ShinyDVConvert:	;'a' holds the default value
 .endConvert
 	ret
 	
-	
+PrintShinySymbolStatus:
+	coord hl, 8, 1
+	ld [hl], "<SHINY>"
+	ret	

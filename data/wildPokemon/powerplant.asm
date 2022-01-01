@@ -1,4 +1,4 @@
-PowerPlantMons:
+PowerPlantMons:	;joenote - added porygon to Red
 	db $0A
 	db 21,VOLTORB
 	db 21,MAGNEMITE
@@ -11,8 +11,7 @@ PowerPlantMons:
 		db 34,ELECTABUZZ
 		db 37,ELECTABUZZ
 		db 21,PORYGON
-	ENDC
-	IF (DEF(_BLUE) || DEF(_GREEN))
+	ELSE
 		db 33,ELECTABUZZ
 		db 33,RAICHU
 		db 36,RAICHU

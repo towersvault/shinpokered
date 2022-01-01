@@ -125,6 +125,15 @@ PlacePlayerHUDTiles:
 	ld de, wHUDGraphicsTiles
 	ld bc, $3
 	call CopyData
+
+;joenote - let's draw a shiny symbol if applicable
+	ld a, [wUnusedD366]
+	bit 0, a
+	jr z, .noshiny
+	coord hl, 9, 7
+	ld [hl], "<SHINY>"
+.noshiny
+	
 	coord hl, 18, 10
 	ld de, -1
 	jr PlaceHUDTiles
@@ -140,15 +149,26 @@ PlaceEnemyHUDTiles:
 	ld de, wHUDGraphicsTiles
 	ld bc, $3
 	call CopyData
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;joenote - let's draw a pokeball to indicate an owned mon
+;joenote - don't draw any special symbols for ghost battles
+	ld a, [wFlags_D733]
+	bit 6, a
+	jr nz, .noDraw 
+
+;joenote - let's draw a shiny symbol if applicable
+	ld a, [wUnusedD366]
+	bit 7, a
+	jr z, .noshiny
+	coord hl, 0, 0
+	ld [hl], "<SHINY>"
+.noshiny
+
+;let's draw a pokeball to indicate an owned mon
 ;also let's handle a gender symbol
 	ld a, [wIsInBattle]
 	cp 1
 	jr nz, .noDraw	;don't draw anything for non-wild battles
-	ld a, [wFlags_D733]
-	bit 6, a
-	jr nz, .noDraw ;don't draw anything for ghost battles
 	
 	CheckEvent EVENT_90E
 	jr z, .noDraw

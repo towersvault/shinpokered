@@ -6,8 +6,7 @@ UseItem_:
 	ld a, [wIsInBattle]
 	cp 2
 	jr nz, .nottrainerbattle
-	ld a, [wUnusedD721]
-	bit 5, a
+	CheckEvent EVENT_8DB
 	jp nz, UnusableItem	;done if item clause active
 .nottrainerbattle
 
@@ -185,8 +184,7 @@ ItemUseBall:
 	;jp z, .setAnimData
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	;joenote - use a bit to determine if this is a ghost marowak battle
-	ld a, [wUnusedD721]
-	bit 3, a
+	CheckEvent EVENT_10E
 	jr z, .loop
 	ld b, $10 ; can't be caught value
 	jp .setAnimData
@@ -1815,8 +1813,7 @@ ItemUsePokedoll:
 	jp nz, ItemUseNotTime
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	;joenote - if this is a ghost marowak battle, prevent using a pokedoll
-	ld a, [wUnusedD721]
-	bit 3, a
+	CheckEvent EVENT_10E
 	jp nz, ItemUseNotTime
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	ld a, $01
@@ -2054,6 +2051,11 @@ CoinCaseNumCoinsText:
 	db "@"
 
 ItemUseOldRod:
+	;joenote - give 50% chance to use the Good Rod functionality when using the Old Rod
+	call Random
+	srl a
+	jr c, ItemUseGoodRod
+	
 	call FishingInit
 	jp c, ItemUseNotTime
 	lb bc, 5, MAGIKARP
@@ -2067,8 +2069,11 @@ ItemUseGoodRod:
 	call Random
 	srl a
 	jr c, .SetBite
-	and %11
-	cp 2
+	;and %11
+	;cp 2
+	;joenote - use the expanded list
+	and %1111
+	cp 8
 	jr nc, .RandomLoop
 	; choose which monster appears
 	ld hl, GoodRodMons
@@ -2109,7 +2114,13 @@ RodResponse:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;	
 	ld a, 1
 	ld [wMoveMissed], a
-	ld a, b ; level
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;joenote - increase level by 0 to 7
+;	ld a, b ; level
+	call Random
+	and %111
+	add b
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	ld [wCurEnemyLVL], a
 	ld a, c ; species
 	ld [wCurOpponent], a

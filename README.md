@@ -295,7 +295,7 @@ Cheats and Secrets!
   - With the cursor in the BATTLE STYLE section, press A to toggle it on and off
   - While active, the current maximum obedience level will display in the options menu
   - All pokemon, not just trades, will start to disobey if over the displayed level cap
-  - The cap will change based on which badge you have (max of 65 with earth badge)
+  - The cap will change based on which badge you have
   - Not recommended for use with trainer scaling since you might gain too many levels too quickly
   - Best to turn this off in the post-game as it's really for the gym challenge and elite-4
 ---
@@ -787,7 +787,7 @@ Cheats and Secrets!
   - With the cursor in the BATTLE STYLE section, press A to toggle it on and off
   - While active, the current maximum obedience level will display in the options menu
   - All pokemon, not just trades, will start to disobey if over the displayed level cap
-  - The cap will change based on which badge you have (max of 65 with earth badge)
+  - The cap will change based on which badge you have
   - Not recommended for use with trainer scaling since you might gain too many levels too quickly
   - Best to turn this off in the post-game as it's really for the gym challenge and elite-4
 

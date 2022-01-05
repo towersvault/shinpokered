@@ -199,9 +199,7 @@ PlaceEnemyHUDTiles:
 	jr z, .noDraw
 	;load the indicator tiles to be drawn
 	coord hl, 1, 1
-	ld [hl], $79 
-	coord hl, 2, 1
-	ld [hl], $6C
+	ld [hl], "<BALL>"
 .noDraw
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	coord hl, 1, 2

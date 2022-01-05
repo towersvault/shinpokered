@@ -565,22 +565,22 @@ GetMonHeader::
 	push af
 	ld a, [wd0b5]
 	ld [wd11e], a
-;joenote - modifying for a stable missingno that can be loaded
-	cp MISSINGNO_B5 ; stablized missingno with actual stats
-	jr z, .missingno	
+;joenote - checks for special ID
+	
+	
 	ld de, FossilKabutopsPic
-	ld b, $66 ; size of Kabutops fossil and Ghost sprites
+	ld b, Bank(FossilKabutopsPic)
 	cp FOSSIL_KABUTOPS
 	jr z, .specialID
 	ld de, GhostPic
-	cp MON_GHOST ; Ghost
+	ld b, Bank(GhostPic)
+	cp MON_GHOST
 	jr z, .specialID
 	ld de, FossilAerodactylPic
-	ld b, $77 ; size of Aerodactyl fossil sprite
-	cp FOSSIL_AERODACTYL ; Aerodactyl fossil
+	ld b, Bank(FossilAerodactylPic)
+	cp FOSSIL_AERODACTYL
 	jr z, .specialID
-	;cp MEW	
-	;jr z, .mew
+
 	predef IndexToPokedex   ; convert pokemon ID in [wd11e] to pokedex number
 	ld a, [wd11e]
 	dec a
@@ -592,6 +592,13 @@ GetMonHeader::
 	call CopyData
 	jr .done
 .specialID
+	;joenote - dynamically get pic size of special ID
+	ld a, b
+	call BankswitchHome
+	ld a, [de]
+	ld b, a
+	call BankswitchBack
+
 	ld hl, wMonHSpriteDim
 	ld [hl], b ; write sprite dimensions
 	inc hl

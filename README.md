@@ -255,7 +255,7 @@ Cheats and Secrets!
 
 #New features & adjustments since last version:
 -----------
-- 
+-
 
 
 #Changes not yet in the release branch:

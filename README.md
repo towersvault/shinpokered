@@ -1,6 +1,6 @@
 # Shin Pokémon Red and Blue
 
-Version 1.23
+Version 1.23.XX
 
 This is a rom hack of pokemon red & blue based on the Pret team's disassembly.  
 It's a mostly-vanilla hack that focuses on fixing game engine bugs and oversights from the original game.  
@@ -250,98 +250,19 @@ Cheats and Secrets!
 
 #Hack-Induced Bugfixes & Adjustments since last version:
 -----------
-- Fixed Flying and Teleporting out of maps with the forest tileset
-- Fixed messed-up warps dealing with the forest tileset
-- Fixed incorrect animation colors
-- Fixed some minor color errors in non-move battle animations
-- Changed color of normal-type attacks to yellow
-- Adjusted the Saffron Guard text for accuracy
-- Assigned a default palette to confusion & crashing self-damage
-- Made it so choosing New Game doesn't clear certain other options
-- Fixed bugged TH/HM names within text boxes
-- Slightly adjusted some Cinnabar Mansion notes to match the Japanese text
-- Reworked the level-up movelist for all four 'mons in the Eevee family
-- Readjusted the vertical positioning of some spaceworld back sprites
-- Fixed the item clause breaking the AI choosing moves
-- Clarified text of the blocking 'mon in Vermilion city
-- Fixed typos
-- Adjusted alignment of printed statEXP
-- EXP bar goes off of MAX_LEVEL instead of an assumed lvl 100
-- Fixed Sleep/Freeze clause not working correctly
-- Streamlined the Sleep/Freeze clause function and cleaned the spaghetti code
-- Made it so choosing to play as a girl doesn't clear certain other options
-- Updated the Elite 4 and Gym Leaders a bit (mostly Koga)
-- Edited Blaine's sunglasses to be darker
-- No-Yes boxes can be canceled by pressing B
-- Fixed text delay flags getting cleared which would override the text speed
-- Seiga/Green special battle now uses JrTrainer-F instead of Lass
-- Lass reverted to vanilla AI
-- Rival phase 1 gets AI layer 3 and Channeler gets AI layer 4
+- 
 
 
 #New features & adjustments since last version:
 -----------
-- The player's party 'mons now have temporary field move slots for HM moves
-  - Each party 'mon has 1 slot separate from its regular move list
-  - A field move in this slot can be used in the overworld as normal
-  - You will be asked about filling the slot when teaching a field move out of battle
-  - You cannot overwrite a slot with a field move already in it
-  - A slot is cleared when its 'mon leaves the party (such as being put in the PC)
-  - In the case of a 'mon with 4 regular field moves:
-    - The slotted temporary move cannot be menu-selected
-	- The slotted temporary move, if it's a HM move, can be used via quick-key
----
-- There is now an obedience level-cap that can be toggled in the options menu
-  - With the cursor in the BATTLE STYLE section, press A to toggle it on and off
-  - While active, the current maximum obedience level will display in the options menu
-  - All pokemon, not just trades, will start to disobey if over the displayed level cap
-  - The cap will change based on which badge you have (max of 65 with earth badge)
-  - Not recommended for use with trainer scaling since you might gain too many levels too quickly
-  - Best to turn this off in the post-game as it's really for the gym challenge and elite-4
----
-- Good rod has an expanded 'mon list and level range
-- Increased the level range of the super rod
-- Old rod now randomly acts as a Good rod 50% of the time 
-- Old rod is a sellable non-key item with the value of a nugget
-- The Route 12 Fishing Guru is now visitable upon first reaching Lavender Town
-- Swapped location of Good and Super Rod
----
-- The project now compiles Japanese Blue
-- The project now compiles Japanese Red
-- Green and Red-JP have their original pokedex entries (adapted from Fire Red)
-- Green, Red-JP, and Blue-JP now display metric units in the pokedex
-- Green, Red-JP, and Blue-JP now have the japanese-style town map layout
-- Green, Red-JP, and Blue-JP now have their correct copyright graphics
-- Green, Red-JP, and Blue-JP now have the "PRESENTS" graphic under "Game Freak"
-- Green and Red-JP play the original shooting star sound effect
----
-- Gamma shader defaults ON if the destination code in the rom header is set to 00 (JP)
-- Pressing SELECT at the copyright info now switches the shader from its default state
-- The default state of the gamma shader can be changed with any gameboy rom header editor
-- Alternately, remove the 'j' in 'cjsv' in the Makefile to compile with a JP destination code
----
-- SET mode gives an additional 1.5x EXP boost in trainer battles
-- Added a NPC to the Celadon Diner to toggle a Catch-Up EXP Boost feature
----
-- Engine Improvement: the 1.5x EXP boost function now has overflow protection
-- Engine Improvement: EXP Gained can now print up to five digits instead of four
-- Engine Improvement: Pokemon can now learn more than 1 move per level
-- Engine Improvement: the "<LF>" character mapping can be used as a line-feed
-- Text with zero frame delay can be toggled in the options menu; press LEFT with the cursor on FAST
-- New Game Plus no longer makes a new Trainer ID, so old boxed pokemon will obey on a new playthrough
-- Shiny symbol is now displayed
-- The extra bag space introduced previously is now detected by most of the game's systems
-- Gave a couple tm moves to the cerulean rival's abra
-- Initiating the Pokemon Tower rival battle will deactivate the following skippable rival battles
-  - The Cerulean encounter
-  - The SS Anne encounter
-- Attacks reduced to zero damage now say the target is unaffected instead of missing
-- Gym leader names have been restored on the trainer card
+- 
 
 
 #Changes not yet in the release branch:
 -----------
-- 
+v1.23.01
+- Green and Red-JP have the original front sprites for fossil kabutops and fossil aerodactyl
+- Green and Red-JP have the original text box corners 
 
 
 #Bugfixes:
@@ -787,7 +708,7 @@ Cheats and Secrets!
   - With the cursor in the BATTLE STYLE section, press A to toggle it on and off
   - While active, the current maximum obedience level will display in the options menu
   - All pokemon, not just trades, will start to disobey if over the displayed level cap
-  - The cap will change based on which badge you have (max of 65 with earth badge)
+  - The cap will change based on which badge you have
   - Not recommended for use with trainer scaling since you might gain too many levels too quickly
   - Best to turn this off in the post-game as it's really for the gym challenge and elite-4
 

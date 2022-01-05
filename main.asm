@@ -169,7 +169,11 @@ PokemonLogoGraphics:            INCBIN "gfx/pokemon_logo.2bpp"
 FontGraphics:                   INCBIN "gfx/font.1bpp"
 FontGraphicsEnd:
 ABTiles:                        INCBIN "gfx/AB.2bpp"
+IF DEF(_REDGREENJP)
+HpBarAndStatusGraphics:         INCBIN "gfx/hp_bar_and_status_green.2bpp"
+ELSE
 HpBarAndStatusGraphics:         INCBIN "gfx/hp_bar_and_status.2bpp"
+ENDC
 HpBarAndStatusGraphicsEnd:
 BattleHudTiles1:                INCBIN "gfx/battle_hud1.1bpp"
 BattleHudTiles1End:
@@ -187,7 +191,11 @@ ENDC
 
 GamefreakLogoGraphics:          INCBIN "gfx/gamefreak.2bpp"
 GamefreakLogoGraphicsEnd:
+IF DEF(_REDGREENJP)
+TextBoxGraphics:                INCBIN "gfx/text_box_green.2bpp"
+ELSE
 TextBoxGraphics:                INCBIN "gfx/text_box.2bpp"
+ENDC
 TextBoxGraphicsEnd:
 PokedexTileGraphics:            INCBIN "gfx/pokedex.2bpp"
 PokedexTileGraphicsEnd:

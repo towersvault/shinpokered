@@ -218,3 +218,6 @@ CONVERT_OBP1 EQU 2
 NUM_COLORS EQU 4
 PAL_SIZE EQU NUM_COLORS * 2
 NUM_ACTIVE_PALS EQU 4
+
+;joenote - catch rate given to pokemon marked as dead for nuzlocke mode
+DEAD EQU $05

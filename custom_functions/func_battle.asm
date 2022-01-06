@@ -235,7 +235,7 @@ ForfeitTrainerMatch:
 	call NoYesChoice
 	ld a, [wCurrentMenuItem]
 	and a
-	call nz, FaintAllMons
+	jp nz, ForfeitConfirmed
 	ret
 ForfeitTrainerMatchText:
 	TX_FAR _ForfeitTrainerMatchText
@@ -244,7 +244,15 @@ _ForfeitTrainerMatchText::
 	text "Forfeit?"
 	done
 
-FaintAllMons:	
+ForfeitConfirmed:
+	;set the flag for forfeiting
+	ld a, [wUnusedD721]
+	set 1, a
+	ld [wUnusedD721], a
+	call ForfeitConfirmed_NuzlockeHandler	;joenote - mark already KO'ed pokemon as dead for nuzlocke mode
+	;fall through
+FaintAllMons:
+	;now KO the whole party
 	ld a, $00
 	ld [wBattleMonHP], a
 	ld [wBattleMonHP + 1], a

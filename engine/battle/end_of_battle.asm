@@ -49,6 +49,12 @@ EndOfBattle:
 	ld a, [wUnusedD5A3]
 	set 7, a
 	ld [wUnusedD5A3], a
+;handle stuff for the nuzlocke mode; anything with zero HP will be marked dead if there was no forfeit
+	callba EndOfBattle_NuzlockeHandler
+;reset the flag used forfeiting
+	ld a, [wUnusedD721]
+	res 1, a
+	ld [wUnusedD721], a
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	xor a
 	ld [wLowHealthAlarm], a ;disable low health alarm

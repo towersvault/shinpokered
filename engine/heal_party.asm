@@ -96,4 +96,14 @@ HealParty:
 	inc [hl]
 	dec b
 	jr nz, .ppup
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;	
+;joenote - handle dead pokemon for the nuzlocke mode
+	push hl
+	push de
+	push bc
+	callba HealParty_NuzlockeHandler
+	pop bc
+	pop de
+	pop hl
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	ret

@@ -635,6 +635,9 @@ DisplayOptionMenu:
 	jp .loop
 .cursorInBattleAnimation
 	bit 0, b	;A pressed
+	push af
+	call nz, ToggleNuzlocke	;joenote - toggle nuzlocke mode
+	pop af
 	jp nz, .loop
 	ld a, [wOptionsBattleAnimCursorX] ; battle animation cursor X coordinate
 	xor $0b ; toggle between 1 and 10
@@ -643,7 +646,7 @@ DisplayOptionMenu:
 .cursorInBattleStyle
 	bit 0, b	;A pressed
 	push af
-	call nz, ToggleBadgeCap	;60fps - toggle level cap depending on badge
+	call nz, ToggleBadgeCap	;joenote - toggle level cap depending on badge
 	pop af
 	jp nz, .loop
 	ld a, [wOptionsBattleStyleCursorX] ; battle style cursor X coordinate
@@ -747,10 +750,10 @@ PlaceSoundSetting:
 ;60fps - show the fps setting on the menu when activated
 OptionMenu60FPSText:
 	dw OptionMenu60FPSON
-	dw OptionMenu60FPSOFF
+	dw OptionMenu5SpacesOFF
 OptionMenu60FPSON:
 	db "60FPS@"
-OptionMenu60FPSOFF:
+OptionMenu5SpacesOFF:
 	db "     @"
 Toggle60FPSSetting:
 	ld a, [wUnusedD721]
@@ -807,7 +810,7 @@ ToggleBadgeCap:
 	ld [wUnusedD721], a
 	;fall through
 ShowBadgeCap:
-	ld de, OptionMenuCapTradeText
+	ld de, OptionMenu5SpacesOFF
 	ld a, [wUnusedD721]	;check if obedience level cap is active
 	bit 5, a
 	jr z, .print
@@ -819,13 +822,6 @@ ShowBadgeCap:
 	pop af
 	ret z
 	
-;	CheckEvent EVENT_908
-;	jr z, .printnum
-;	ld de, OptionMenuCapLevelMaxText
-;	coord hl, $10, $0C
-;	call PlaceString
-;	ret
-	
 .printnum	
 	callba GetBadgeCap
 	ld a, d
@@ -835,12 +831,49 @@ ShowBadgeCap:
 	lb bc, 1, 3
 	jp PrintNumber
 	ret
-OptionMenuCapTradeText:
-	db "     @"
 OptionMenuCapLevelText:
 	db "L:@"
-;OptionMenuCapLevelMaxText:
-;	db "Any@"
+
+
+;joenote - show /toggle badge cap for level
+ToggleNuzlocke:
+	ld a, [wUnusedD721]
+	xor %01000000
+	ld [wUnusedD721], a
+	call nz, NuzlockeSettings
+	;fall through
+ShowNuzlocke:
+	ld de, OptionMenu5SpacesOFF
+	ld a, [wUnusedD721]	;check if nuzlocke is active
+	bit 6, a
+	jr z, .print
+	ld de, OptionMenuNuzlockeText
+.print
+	coord hl, $0E, $07
+	call PlaceString
+	ret
+OptionMenuNuzlockeText:
+	db "NUZ!@"
+;default to recommended settings when turned on
+NuzlockeSettings:
+	push hl
+	ld hl, wUnusedD721
+;activate or deactivate level cap if depending on state of trainer scaling
+	set 5, [hl]
+	CheckEvent EVENT_90C
+	jr z, .next
+	res 5, [hl]
+.next
+	call ShowBadgeCap
+	;battle mode SET
+	ld hl, wOptions
+	set 6, [hl]
+	call SetCursorPositionsFromOptions
+	coord hl, $01, $0D
+	ld [hl], $7F
+	pop hl
+	ret
+
 
 ; sets the options variable according to the current placement of the menu cursors in the options menu
 SetOptionsFromCursorPositions:

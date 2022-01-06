@@ -3107,12 +3107,12 @@ wSpinnerTileFrameCount::	;d720	;joenote - used as a counter for the spinner tile
 wUnusedD721:: ; d721	;joenote - use to set various wram flags
 	ds 1
 	;bit 0 - player is female trainer if set
-	;bit 1 - not used
+	;bit 1 - Gets set when forfeiting a battle
 	;bit 2 - override bit 0 for specific bank switching instances
 	;bit 3 - not used
 	;bit 4 - 60fps option flag
 	;bit 5 - obedience level cap
-	;bit 6 - not used
+	;bit 6 - nuzlocke mode activated
 	;bit 7 - not used
 ;;;;;;;;;;;;;;joenote - use these unused locations for debugging and parkesing DV scores
 wUnusedD722:: 

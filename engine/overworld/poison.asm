@@ -67,6 +67,12 @@ ApplyOutOfBattlePoisonDamage:
 	ld a, TEXT_MON_FAINTED
 	ld [hSpriteIndexOrTextID], a
 	call DisplayTextID
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;	
+;joenote - update dead pokemon for nuzlocke mode
+	push bc
+	callba OverwoldDamage_NuzlockeHandler
+	pop bc
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	pop de
 	pop hl
 .nextMon

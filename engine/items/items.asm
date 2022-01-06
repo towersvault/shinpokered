@@ -906,6 +906,13 @@ ItemUseMedicine:
 	cp d ; is the pokemon trying to use softboiled on itself?
 	jr z, ItemUseMedicine ; if so, force another choice
 .checkItemType
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;joenote - in nuzlocke mode, cannot use medicine on dead pokemon
+	push hl
+	callba IsPartyMonDead
+	pop hl
+	jp z, .healingItemNoEffect
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	ld a, [wcf91]
 	cp REVIVE
 	jr nc, .healHP ; if it's a Revive or Max Revive

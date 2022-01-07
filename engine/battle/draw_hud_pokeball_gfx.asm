@@ -170,6 +170,12 @@ PlaceEnemyHUDTiles:
 	cp 1
 	jr nz, .noDraw	;don't draw anything for non-wild battles
 	
+	;while we're at it, updated the encounter flags if playing in nuzlocke mode
+	CheckEvent EVENT_9AF	;skip if the flags have already been handled this battle
+	jr nz, .noNuzlocke
+	predef EncounterLoad_NuzlockeHandler
+.noNuzlocke
+	
 	CheckEvent EVENT_90E
 	jr z, .noDraw
 	

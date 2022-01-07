@@ -535,6 +535,13 @@ ZeroOutDuplicatesInList:
 	inc hl
 	jr .zeroDuplicatesLoop
 
+LoadTownMapEntryFromD:	;joenote - for more versatility, like with using callba
+	ld a, d
+	ld de, wTownMapCoords
+	call LoadTownMapEntry
+	ld a, [de]
+	ld d, a
+	ret
 LoadTownMapEntry:
 ; in: a = map number
 ; out: lower nybble of [de] = x, upper nybble of [de] = y, hl = address of name

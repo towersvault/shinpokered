@@ -162,3 +162,8 @@ PredefPointers::
 	add_predef PlayerDisableHandler
 	add_predef EnemyDisableHandler
 	add_predef SetAttackAnimPal
+	add_predef EndOfBattle_NuzlockeHandler
+	add_predef HealParty_NuzlockeHandler
+	add_predef OverwoldDamage_NuzlockeHandler
+	add_predef EncounterLoad_NuzlockeHandler
+	

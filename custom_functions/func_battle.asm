@@ -235,7 +235,9 @@ ForfeitTrainerMatch:
 	call NoYesChoice
 	ld a, [wCurrentMenuItem]
 	and a
-	jp nz, ForfeitConfirmed
+	push af
+	call nz, ForfeitConfirmed
+	pop af
 	ret
 ForfeitTrainerMatchText:
 	TX_FAR _ForfeitTrainerMatchText

@@ -69,9 +69,7 @@ ApplyOutOfBattlePoisonDamage:
 	call DisplayTextID
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;	
 ;joenote - update dead pokemon for nuzlocke mode
-	push bc
-	callba OverwoldDamage_NuzlockeHandler
-	pop bc
+	predef OverwoldDamage_NuzlockeHandler
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	pop de
 	pop hl

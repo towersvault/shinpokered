@@ -532,6 +532,7 @@ DisplayOptionMenu:
 	call Show60FPSSetting	;60fps - display current setting
 	call ShowLaglessTextSetting	;joenote - display marker for lagless text or not
 	call ShowBadgeCap	;joenote - show the level cap depending on badge
+	call ShowNuzlocke
 	xor a
 	ld [wCurrentMenuItem], a
 	ld [wLastMenuItem], a

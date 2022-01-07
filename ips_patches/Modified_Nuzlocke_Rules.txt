@@ -1,7 +1,9 @@
+UPDATE - These are alternate guidelines for doing a nuzlocke run should you decide to forgo the built-in feature.
+
 I personally do not suggest players attempt a nuzlocke run of Shin Pokemon Red/Blue if using the "SET" battle style.
-Trainers in this rom hack are not complete pushovers. They try to choose moves with some semblance of good play, 
-and their pokemon tend to have slightly better stats compared to your pokemon at the same level. 
-Knockouts are fairly common. Your nuzlocke run will likely end in Mt Moon if playing by the normally-accepted ruleset. 
+Trainers in this rom hack are not complete pushovers. They try to choose moves with some semblance of good play,
+and their pokemon tend to have slightly better stats compared to your pokemon at the same level.
+Knockouts are fairly common. Your nuzlocke run will likely end in Mt Moon if playing by the normally-accepted ruleset.
 If you really want to do it though, I suggest playing your nuzlocke run via the ruleset I have put together below.
 Corollaries are mandatory clarifications of existing rules. Modifications are optional according to player taste.
 

@@ -14,48 +14,77 @@ IsPartyMonDead:
 
 
 EndOfBattle_NuzlockeHandler:
-OverwoldDamage_NuzlockeHandler:
+	ResetEvent EVENT_9AF	;clear the map-flag-handled event for this battle
+
 	ld a, [wLinkState]
 	cp LINK_STATE_BATTLING
-	ret z	;return if this was a link battle
+	jr z, .return	;return if this was a link battle
 
 	call IsNuzlocke
-	ret z	;return if not in nuzlocke mode
+	jr z, .return	;return if not in nuzlocke mode
 	
 	ld a, [wUnusedD721]
 	bit 1, a
-	ret nz	;return if player forfeited, 
-	
-	call SetDeadPartyMons
+	call z, SetDeadPartyMons	;only set dead mons if player has not forfeited, 
+.return
+	call GetPredefRegisters
 	ret
 
 
 ForfeitConfirmed_NuzlockeHandler:
 	ld a, [wLinkState]
 	cp LINK_STATE_BATTLING
-	ret z	;return if this was a link battle
+	jr z, .return	;return if this was a link battle
 
 	call IsNuzlocke
-	ret z	;return if not in nuzlocke mode
+	jr z, .return	;return if not in nuzlocke mode
 	
 	ld a, [wUnusedD721]
 	bit 1, a
-	ret z	;return if player did not actually forfeit, 
-	
-	call SetDeadPartyMons
+	call nz, SetDeadPartyMons	;only set dead mons if player actually forfeited,
+.return	
+	ret
+
+
+OverwoldDamage_NuzlockeHandler:
+	call IsNuzlocke
+	call nz, SetDeadPartyMons	;only set dead mons if in nuzlocke mode
+	call GetPredefRegisters
 	ret
 
 
 HealParty_NuzlockeHandler:
 	call IsNuzlocke
-	ret z	;return if not in nuzlocke mode
+	jr z, .return	;return if not in nuzlocke mode
 
 	call OneHPDeadMons
 	call ZeroPPDeadMons	
 	call FRZDeadMons
+.return
+	call GetPredefRegisters
 	ret
 
+
+EncounterLoad_NuzlockeHandler:
+	SetEvent EVENT_9AF	;Set an event to signal that the map flag has been handled for this battle
+	call IsNuzlocke
+	jr z, .return	;return if not in nuzlocke mode
 	
+	;comming from its position in PlaceEnemyHUDTiles, the enemy should already be a wild non-tower_ghost
+	;do need to check for ghost marowak
+	CheckEvent EVENT_10E
+	jr nz, .return	;return if this is the ghost marowak
+	
+	call GetTownMapLocationCoords
+	call GetNuzlockeEncounterMapFlag
+	jr z, .return	;map not found on list of tracked nuzlocke maps
+	call SetNuzlockeEncounterEvent
+	
+.return
+	call GetPredefRegisters
+	ret
+
+
 ;is nuzlocke mode active
 IsNuzlocke:
 	ld a, [wUnusedD721]
@@ -220,6 +249,15 @@ FRZDeadMons:
 	ret
 
 
+;Puts the town map coordinates for the current map into D
+GetTownMapLocationCoords:
+	ld a, [wCurMap]
+	ld d, a
+	callba LoadTownMapEntryFromD
+	swap d
+	ret
+
+
 ;set & reset the nuzlocke encounter event bit specified by register DE	
 SetNuzlockeEncounterEvent:
 	call NuzlockeEncounterEvent_common1
@@ -288,3 +326,94 @@ NuzlockeEncounterEvent_common2:
 .next2
 	ld [hl], a
 	ret
+
+
+;Given D holds town map location coordinates,
+;Returns the nuzlocke encounter event bit in DE
+;Returns with z if current map is not tracked by the list
+GetNuzlockeEncounterMapFlag:
+	ld hl, NuzlockeMapList
+	push hl
+	push bc
+	ld a, d
+	ld b, a
+.loop
+	ld a, [hli]
+	cp b
+	jr z, .next
+	inc a	;is a = FF then incremented to 00?
+	jr z, .next
+	jr .loop
+.next
+	dec hl
+	ld d, h
+	ld e, l
+	pop bc
+	pop hl
+	and a	;A = 0 of end of list was reached
+	ret z	;return if so
+	
+	;do DE = DE - HL
+	ld a, e
+	sub l
+	ld e, a
+	ld a, d
+	sbc h
+	ld d, a
+	;D = 0 & E = list offset
+	
+	ld hl, EVENT_980	;load byte offset of first nuzlocke map flag
+	add hl, de
+	ld d, h
+	ld e, l
+	;DE now points to the corresponding map flag
+	;make sure to return the nz state
+	ld a, 1
+	and a
+	ret
+NuzlockeMapList:
+	db $75	; CeladonCityName
+	db $91	; CeruleanCaveName
+	db $A2	; CeruleanCityName
+	db $2F	; CinnabarIslandName
+	db $34	; DiglettsCaveName
+	db $8D	; FuchsiaCityName
+	db $62	; MountMoonName
+	db $2B	; PalletTownName
+	db $02	; PokemonLeagueName
+	db $2F	; PokemonMansionName
+	db $F5	; PokemonTowerName
+	db $F4	; PowerPlantName
+	db $E3	; RockTunnelName
+	db $E4	; Route10Name
+	db $C9	; Route11Name
+	db $E7	; Route12Name
+	db $DB	; Route13Name
+	db $BC	; Route14Name
+	db $9D	; Route15Name
+	db $45	; Route16Name
+	db $48	; Route17Name
+	db $6D	; Route18Name
+	db $6F	; Route19Name
+	db $2A	; Route1Name
+	db $4F	; Route20Name
+	db $2D	; Route21Name
+	db $07	; Route22Name
+	db $06	; Route23Name
+	db $A1	; Route24Name
+	db $B0	; Route25Name
+	db $26	; Route2Name
+	db $43	; Route3Name
+	db $52	; Route4Name
+	db $A3	; Route5Name
+	db $A8	; Route6Name
+	db $85	; Route7Name
+	db $B5	; Route8Name
+	db $D2	; Route9Name
+	db $8C	; SafariZoneName
+	db $5F	; SeafoamIslandsName
+	db $A9	; VermilionCityName
+	db $04	; VictoryRoadName
+	db $28	; ViridianCityName
+	db $24	; ViridianForestName
+	db $FF	; list terminator

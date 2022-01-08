@@ -15,6 +15,7 @@ IsPartyMonDead:
 
 EndOfBattle_NuzlockeHandler:
 	ResetEvent EVENT_9AF	;clear the map-flag-handled event for this battle
+	ResetEvent EVENT_9AE	;clear the flag that prevent using pokeballs
 
 	ld a, [wLinkState]
 	cp LINK_STATE_BATTLING
@@ -66,25 +67,98 @@ HealParty_NuzlockeHandler:
 
 
 EncounterLoad_NuzlockeHandler:
-	SetEvent EVENT_9AF	;Set an event to signal that the map flag has been handled for this battle
+	SetEvent EVENT_9AF	;Set an event to signal that the map flag has been handled for this battle...
+	;...because this should only be called once per battle
+
 	call IsNuzlocke
 	jr z, .return	;return if not in nuzlocke mode
 	
 	;comming from its position in PlaceEnemyHUDTiles, the enemy should already be a wild non-tower_ghost
-	;do need to check for ghost marowak
+	;need to check for ghost marowak
 	CheckEvent EVENT_10E
 	jr nz, .return	;return if this is the ghost marowak
+	
+	;don't automatically flag the area if this the Old Man tutorial battle
+	ld a, [wBattleType]
+	dec a
+	jr z, .return
 	
 	call GetTownMapLocationCoords
 	call GetNuzlockeEncounterMapFlag
 	jr z, .return	;map not found on list of tracked nuzlocke maps
-	call SetNuzlockeEncounterEvent
+	push de
+	call CheckNuzlockeEncounterEvent	;see if area flag was already set
+	pop de
+	jr nz, .noCatchFlag		;If area flag already set, then set a flag that disallows catching
+
+	;if area flag not set, then go ahead and set it...
+	ld a, [wBattleType]		;...except if in safari zone..
+	cp 2
+	jr z, .no_set
+	push de				;... and except if the encountered 'mon is already owned...
+	callba IsEnemyMonOwned
+	pop de
+	jr nz, .no_set
+	call SetNuzlockeEncounterEvent	
+.no_set
+	ResetEvent EVENT_9AE	;...and clear the flag that disallows catching
+	jr .return
 	
+.noCatchFlag
+	SetEvent EVENT_9AE
 .return
 	call GetPredefRegisters
 	ret
 
 
+BallCaught_NuzlockeHandler:
+	call IsNuzlocke
+	jr z, .return	;return if not in nuzlocke mode
+	
+	ld a, [wBattleType]
+	dec a
+	jr z, .return ;return if this is the Old Man tutorial battle
+	
+	call GetTownMapLocationCoords
+	call GetNuzlockeEncounterMapFlag
+	jr z, .return	;map not found on list of tracked nuzlocke maps
+	call SetNuzlockeEncounterEvent	;set the area encounter flag
+
+.return
+	call GetPredefRegisters
+	ret
+
+
+;returns the nz state if throwing a pokeball is not allowed
+;return the z state if throwing a pokeball is allowed
+NoCatch_NuzlockeHandler:
+	call IsNuzlocke
+	ret z
+	
+	ld a, [wBattleType]
+	dec a
+	ret z ;return if this is the OldManBattle
+	
+	ld a, [wUnusedD366]
+	and %1000000
+	xor %1000000
+	ret z	;return if the enemy pokemon is shiny
+	
+	CheckEvent EVENT_9AE
+	ret
+
+
+;This function is meant to clear the Nuzlocke area encounter flag for the value in wCurMap
+ResetAreaFlag_NuzlockePredef:
+	call GetTownMapLocationCoords
+	call GetNuzlockeEncounterMapFlag
+	jr z, .return	;map not found on list of tracked nuzlocke maps
+	call ResetNuzlockeEncounterEvent
+.return
+	call GetPredefRegisters
+	ret
+
+	
 ;is nuzlocke mode active
 IsNuzlocke:
 	ld a, [wUnusedD721]
@@ -268,6 +342,13 @@ ResetNuzlockeEncounterEvent:
 	call NuzlockeEncounterEvent_common1
 	res 0, a
 	call NuzlockeEncounterEvent_common2
+	ret
+CheckNuzlockeEncounterEvent:
+	call NuzlockeEncounterEvent_common1
+	bit 0, a
+	push af
+	call NuzlockeEncounterEvent_common2
+	pop af
 	ret
 NuzlockeEncounterEvent_common1:
 	push de

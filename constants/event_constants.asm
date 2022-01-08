@@ -2476,9 +2476,9 @@ const_value = 0
 	const EVENT_9A9                                  ; 9A9, (D87C, bit 1)
 	const EVENT_9AA                                  ; 9AA, (D87C, bit 2)
 	const EVENT_9AB                                  ; 9AB, (D87C, bit 3)
-	const EVENT_9AC                                  ; 9AC, (D87C, bit 4)
-	const EVENT_9AD                                  ; 9AD, (D87C, bit 5)
-	const EVENT_9AE                                  ; 9AE, (D87C, bit 6)
+	const EVENT_9AC      ;padding                            ; 9AC, (D87C, bit 4)
+	const EVENT_9AD      ;padding                            ; 9AD, (D87C, bit 5)
+	const EVENT_9AE  ;nuzlock disallow a catch                                ; 9AE, (D87C, bit 6)
 	const EVENT_9AF  ;nuzlock map flag already handled for a battle	; 9AF, (D87C, bit 7)	;nuzlock encounter tracking end
 	const EVENT_9B0                                  ; 9B0, (D87D, bit 0)
 	const EVENT_BEAT_ROCK_TUNNEL_2_TRAINER_0         ; 9B1, (D87D, bit 1)

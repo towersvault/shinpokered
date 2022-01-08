@@ -321,3 +321,73 @@ Use your purchases to train your roster pokemon without battling.
 7 - Place a level 100 Chansey at the top of your party and use a repel. You're bound to find something shiny.  
 8 - When going to the game corner, try having your 1st-slot pokemon know Pay Day. It may tip you off.  
 9 - Missingno can be activated if you have your pokedex diploma. Prepare your sixth item slot in case you win.  
+
+
+#Built-In Nuzlocke Mode
+-----------------------------------------------
+- Activation/Deactivation
+  - Go to the OPTIONS screen.
+  - Place the cursor in the BATTLE ANIMATION section.
+  - Press A to toggle nuzlocke mode on or off.
+  - The "NUZ!" symbol will appear if nuzlocke mode is on.
+  
+- Default Options
+  - Some options are automatically changed when nuzlocke mode is turned on.
+  - The Obedience Level Cap will be activated if the Scale Enemy Trainer Levels feature is inactive.
+  - Also, the battle style will change to SET.
+  - These are not mandatory changes, and you may reconfigure your options as you wish.
+  
+- Rule 1: A pokemon that faints is considered dead and can no longer be used.
+  - Revival items cannot be used in battle.
+  - If a battle ends with no forfeiture, all pokemon with 0 HP are marked dead.
+  - If a battle ends in a forfeit, all pokemon with 0 HP before the forfeit are marked dead.
+  - Pokemon marked as dead have $05 written to their catch rate to permanently mark them.
+  - Even if they are traded back and forth, dead pokemon remain marked as dead while in nuzlocke mode.
+  - Medicinal items will not work on pokemon marked as dead, nor will Soft-boiled.
+  - Party healing (Mom, Pokemon Center, blacking out, etc) makes a dead pokemon effectively useless.
+  - To clarify, it gives a dead pokemon 1 HP, the FRZ status, and 0 PP for all moves.
+  - This allows a player to continue the game with boxed pokemon in case of a total party loss.
+  - Dead pokemon transferred to Gen-2 games will be holding a pokeball.
+
+- Rule 2: You can only catch the 1st wild pokemon that you encounter in an area.
+  - An "area" is defined by the name displayed on the town map.
+  - You will be unable to throw balls in subsequent wild battles in that area.
+  - Static wild battles count for this as well.
+  - Wild battles before you can get pokeballs also count.
+  - In light of this, you may want to delay activating nuzlocke mode until pokeballs are available.
+  - Story wild battles (Old Man tutorial, Ghost Marowak, and Tower Ghosts) do not apply.
+  
+- Rule 3 (Optional): Nickname every pokemon you obtain.
+  - You will always go straight to the nickname screen without a Yes/No prompt.
+  - You can still opt out of a nickname by leaving the entry field blank.
+  
+- Built-in exceptions:
+  - Shiny Clause: Nothing prevents you from throwing balls to catch a wild shiny pokemon.
+  - Duplication Clause: Encountering a wild "owned" pokemon will not activate Rule 2.
+  - Rule 2 resets for the Safari Zone area upon paying the entrance fee.
+  - Catching a pokemon, even if owned, always activates Rule 2. Important for the Safari Zone and New Game+.
+  - Dead pokemon can still use overworld moves (HM moves, Teleport, etc).
+
+- Visuale Aides:
+  - An Up-Down-Arrow symbol will display on the HUD of a wild pokemon if a ball is allowed to be tossed.
+  - This symbol follows Rule 2 and any built-in exceptions previously destribed.
+
+- Nuzlocke and the Safari Zone:
+  - The Safari Zone is not inherently limited to a single entry in nuzlocke mode.
+  - Entering the Safari Zone gives the player an opportunity to catch 1 pokemon.
+  - And this opportunity presents itself each time the player pays the entry fee.
+
+- Nuzlocke and New Game+:
+  - New Game+ preserves the pokedex.
+  - This means the Duplication Clause will prevent Rule 2 from activating.
+  - In light of this, Rule 2 will always activate on an area upon the first catch made there.
+  
+- Dead pokemon and toggling Nuzlocke mode:
+  - It is possible to cheat by turning off nuzlocke mode, healing a dead pokemon, then turning it back on.
+  - If this is done, the healed pokemon is still considered dead.
+  - This means that party-wide healing will make it useless and medicine still has no effect.
+  - This has the potential for a kind of "undead run" rule variant.
+ 
+- Removing the death marker:
+  - The only way to undo this is by modifying the dead pokemon's catch rate.
+  - This is usually done via the Gen-2 time capsule and trading it back without a hold item or a different hold item.

@@ -11,6 +11,16 @@ AskName:
 	ld a, [wcf91]
 	ld [wd11e], a
 	call GetMonName
+	
+	;joenote - always ask to name if in nuzlocke mode
+	ld a, [wUnusedD721]
+	bit 6, a
+	jr z, .notNuzlocke
+	xor a
+	ld [wCurrentMenuItem], a
+	jr .skipAskName
+.notNuzlocke
+	
 	ld hl, DoYouWantToNicknameText
 	call PrintText
 	coord hl, 14, 7
@@ -18,6 +28,7 @@ AskName:
 	ld a, TWO_OPTION_MENU
 	ld [wTextBoxID], a
 	call DisplayTextBoxID
+.skipAskName
 	pop hl
 	ld a, [wCurrentMenuItem]
 	and a

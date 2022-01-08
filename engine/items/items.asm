@@ -112,11 +112,17 @@ ItemUsePtrTable:
 
 ItemUseBall:
 
+;joenote - restrict throwing a ball for nuzlocke mode
+	push de
+	callba NoCatch_NuzlockeHandler
+	pop de
+	jp nz, ItemUseNotTime
+
 ; Balls can't be used out of battle.
 	ld a, [wIsInBattle]
 	and a
 	jp z, ItemUseNotTime
-
+	
 ; Balls can't catch trainers' Pokémon.
 	dec a
 	jp nz, ThrowBallAtTrainerMon
@@ -358,6 +364,7 @@ ItemUseBall:
 	jr c, .failedToCapture
 
 .captured
+	predef BallCaught_NuzlockeHandler	;joenote - set map flags for nuzlocke mode
 	jr .skipShakeCalculations
 
 .failedToCapture
@@ -1000,8 +1007,13 @@ ItemUseMedicine:
 	and a
 	jr z, .compareCurrentHPToMaxHP
 ;joenote - at this point, trying to revive a fainted 'mon in battle
-;disallow this in SET battle style
+;disallow this in SET battle style or in nuzlock mode
+	push bc
 	ld a, [wOptions]
+	ld b, a
+	ld a, [wUnusedD721]
+	or b
+	pop bc
 	bit 6, a
 	jr z, .can_revive
 	call ItemUseNotTime

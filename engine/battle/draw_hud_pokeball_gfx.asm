@@ -136,7 +136,7 @@ PlacePlayerHUDTiles:
 	
 	coord hl, 18, 10
 	ld de, -1
-	jr PlaceHUDTiles
+	jp PlaceHUDTiles
 
 PlayerBattleHUDGraphicsTiles:
 ; The tile numbers for specific parts of the battle display for the player's pokemon
@@ -170,11 +170,18 @@ PlaceEnemyHUDTiles:
 	cp 1
 	jr nz, .noDraw	;don't draw anything for non-wild battles
 	
-	;while we're at it, updated the encounter flags if playing in nuzlocke mode
+;while we're at it, let's also do some nuzelock mode stuff
+	;update the encounter flags if playing in nuzlocke mode
 	CheckEvent EVENT_9AF	;skip if the flags have already been handled this battle
 	jr nz, .noNuzlocke
 	predef EncounterLoad_NuzlockeHandler
 .noNuzlocke
+	;if catching is allowed, print an up/down arrow symbol
+	CheckEvent EVENT_9AE
+	jr nz, .nocatchingallowed
+	coord hl, 2, 1
+	ld [hl], "<UPDN>"
+.nocatchingallowed
 	
 	CheckEvent EVENT_90E
 	jr z, .noDraw

@@ -191,6 +191,7 @@ SafariZoneEntranceTextPointers:
 	call DisplayTextBoxID
 	ld hl, .MakePaymentText
 	call PrintText
+	predef ResetAreaFlag_NuzlockePredef	;joenote - for nuzlocke, reset safari area encounter flag upon payment
 ;joedebug - safari zone starts here
 	ld a, 30
 	ld [wNumSafariBalls], a

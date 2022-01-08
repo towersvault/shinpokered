@@ -166,4 +166,6 @@ PredefPointers::
 	add_predef HealParty_NuzlockeHandler
 	add_predef OverwoldDamage_NuzlockeHandler
 	add_predef EncounterLoad_NuzlockeHandler
+	add_predef BallCaught_NuzlockeHandler
+	add_predef ResetAreaFlag_NuzlockePredef
 	

@@ -368,9 +368,9 @@ Use your purchases to train your roster pokemon without battling.
   - Catching a pokemon, even if owned, always activates Rule 2. Important for the Safari Zone and New Game+.
   - Dead pokemon can still use overworld moves (HM moves, Teleport, etc).
 
-- Visuale Aides:
+- Visual Aides:
   - An Up-Down-Arrow symbol will display on the HUD of a wild pokemon if a ball is allowed to be tossed.
-  - This symbol follows Rule 2 and any built-in exceptions previously destribed.
+  - This symbol follows Rule 2 and any built-in exceptions previously described.
 
 - Nuzlocke and the Safari Zone:
   - The Safari Zone is not inherently limited to a single entry in nuzlocke mode.

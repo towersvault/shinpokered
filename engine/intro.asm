@@ -413,7 +413,6 @@ PlayShootingStar:
 	callba AnimateShootingStar
 	push af
 
-IF (DEF(_REDGREENJP) || DEF(_BLUEJP))
 ;joenote - restore "Presents" for the japanese builds
 	coord hl, 7, 11
 	ld de, .presentsTiles
@@ -428,7 +427,6 @@ IF (DEF(_REDGREENJP) || DEF(_BLUEJP))
 .presentsTiles
 	db $67,$68,$69,$6A,$6B,$6C ; "Presents"
 .presentEnd
-ENDC
 
 	pop af
 	jr c, .next ; skip the delay if the user interrupted the animation

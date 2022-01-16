@@ -29,11 +29,12 @@ Always apply patches to a fresh USA ROM or else strange glitches will occur.
 - Pokedex uses metric units.
 - Apply the ips patch to a USA Blue rom.
 
-***Updating Your Save File***  
-New patches might crash or have issues upon loading a save from a previous patch or an unpatched game.  
-To prevent this from happening, prepare your save file in the following way:  
---> Deactivate all special options (such as 60fps mode and NPC toggles).  
---> Save in the outdoor Pallet Town map.  
+***Updating Your Save File***
+Deactivate all special options and NPC toggles in the old save if it's from an earlier patch.  
+When loading an old save file with the latest patch, the player is automatically warped to Pallet Town.  
+Normally this will be enough to update the save file without doing anything else.  
+It's possible you may still have issues upon loading a save from a previous patch or an unpatched game.  
+To prevent this from happening, save in the outdoor Pallet Town map on the old save.  
 You might be blocked by invisible walls upon loading the game.  
 To fix this, you must use the Softlock Warp detailed below to teleport back to Pallet Town.  
 
@@ -267,6 +268,12 @@ v1.23.01
 - Green and Red-JP have the original text box corners 
 v1.23.02
 - Added nuzlocke mode
+v1.23.03
+- Restored intro "Presents" for all builds
+- Added rom hack version tracking for save files
+  - It's a single byte in the save file that gets incremented each version
+  - If the save byte does not match, the player is automatically warped back to Pallet Town
+  - Helps prevent crashes and glitches when updating an older save file
 
 
 #Bugfixes:
@@ -370,6 +377,7 @@ v1.23.02
   - Gym leader names have been restored on the trainer card
     - These were removed during localization as a simple and expedient solution
     - So this is more of a correction to the localization than a strict graphical error
+  - Restored intro "Presents" for all builds as localizers did not need to do this for Nintendo of America
   - Glitched sprites can no longer cause a buffer overflow that corrupts the hall of fame
   - Returning from the status screen when an opponent is in substitute/minimize no longer glitches the graphics
   - PC graphic restored to celadon hotel
@@ -652,6 +660,10 @@ v1.23.02
   - The 1.5x EXP boost function now has overflow protection
   - EXP Gained can now print up to five digits instead of four
   - The "<LF>" character mapping can be used as a line-feed
+  - Added rom hack version tracking for save files
+    - It's a single byte in the save file that gets incremented each version
+    - If the save byte does not match, the player is automatically warped back to Pallet Town
+    - Helps prevent crashes and glitches when updating an older save file
 
 -Changes to fishing
   - Good rod has an expanded 'mon list and level range

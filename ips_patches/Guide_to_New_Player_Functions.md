@@ -1,12 +1,14 @@
 #Updating an Old Save File
 -----------------------------------------------
 If the old save was from an earlier Shin Pokemon version, deactivate all special options and NPC toggles.  
-Make sure you are saved outside in Pallet Town on the old save file.  
 Make a copy of the old save file. This will be your new save file.  
 Load the new save with the latest version of Shin Pokemon.  
-You may notice you are blocked by invisible walls.  
-Regardless if you are or not, use the Softlock Warp (detailed below) at this time.  
+You will be automatically warped to Pallet Town.  
 Save the game. Your save file is now updated.  
+
+**Troubleshooting**
+If you are blocked by invisible walls, use the Softlock Warp (detailed below).  
+On the old save, before transferring it over, saving outside in Pallet town can solve certain issues.  
 
 
 #New Engine Functions

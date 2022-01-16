@@ -3311,7 +3311,11 @@ wCurMapScript:: ; da39
 ; mostly copied from map-specific map script pointer and written back later
 	ds 1
 
-	ds 7
+wRomHackVersion:: ;da3A
+;joenote - starting with version 1.24, each major update increments this by 1
+	ds 1
+
+	ds 6
 
 wPlayTimeHours:: ; da41
 	ds 1

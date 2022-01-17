@@ -67,12 +67,15 @@ HealParty_NuzlockeHandler:
 
 
 EncounterLoad_NuzlockeHandler:
-	SetEvent EVENT_9AF	;Set an event to signal that the map flag has been handled for this battle...
-	;...because this should only be called once per battle
-
 	call IsNuzlocke
-	jr z, .return	;return if not in nuzlocke mode
+	jr z, .return_immediate	;return if not in nuzlocke mode
 	
+	CheckEvent EVENT_9AF	;update catch symbol & return if the flags have already been handled this battle
+	jr nz, .return
+	
+	SetEvent EVENT_9AF	;Set an event to signal that the map flag has been handled for this battle...
+	;...because this should only continue onward once per battle
+
 	;comming from its position in PlaceEnemyHUDTiles, the enemy should already be a wild non-tower_ghost
 	;need to check for ghost marowak
 	CheckEvent EVENT_10E
@@ -106,7 +109,15 @@ EncounterLoad_NuzlockeHandler:
 	
 .noCatchFlag
 	SetEvent EVENT_9AE
+
 .return
+	;if catching is allowed, print an up/down arrow symbol
+	CheckEvent EVENT_9AE
+	jr nz, .return_immediate
+	coord hl, 2, 1
+	ld [hl], "<UPDN>"
+
+.return_immediate
 	call GetPredefRegisters
 	ret
 

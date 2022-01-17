@@ -164,25 +164,16 @@ PlaceEnemyHUDTiles:
 	ld [hl], "<SHINY>"
 .noshiny
 
-;let's draw a pokeball to indicate an owned mon
-;also let's handle a gender symbol
+;don't draw any further special sybols if in a non-wild battle
 	ld a, [wIsInBattle]
 	cp 1
 	jr nz, .noDraw	;don't draw anything for non-wild battles
 	
 ;while we're at it, let's also do some nuzelock mode stuff
-	;update the encounter flags if playing in nuzlocke mode
-	CheckEvent EVENT_9AF	;skip if the flags have already been handled this battle
-	jr nz, .noNuzlocke
 	predef EncounterLoad_NuzlockeHandler
-.noNuzlocke
-	;if catching is allowed, print an up/down arrow symbol
-	CheckEvent EVENT_9AE
-	jr nz, .nocatchingallowed
-	coord hl, 2, 1
-	ld [hl], "<UPDN>"
-.nocatchingallowed
-	
+
+;let's draw a pokeball to indicate an owned mon
+;also let's handle a gender symbol	
 	CheckEvent EVENT_90E
 	jr z, .noDraw
 	

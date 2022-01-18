@@ -134,14 +134,17 @@ LoadTownMap_Nest:
 	call DisplayWildLocations
 	call GetMonName
 IF (DEF(_REDGREENJP) || DEF(_BLUEJP))
-	call PlaceMapName
+	coord hl, 0, 0
 ELSE
 	coord hl, 1, 0
-	call PlaceString
 ENDC
+	call PlaceString
 	ld h, b
 	ld l, c
 	ld de, MonsNestText
+IF (DEF(_REDGREENJP) || DEF(_BLUEJP))
+	coord hl, 5, 1
+ENDC
 	call PlaceString
 	call WaitForTextScrollButtonPress
 	call ExitTownMap
@@ -151,7 +154,11 @@ ENDC
 	ret
 
 MonsNestText:
+IF (DEF(_REDGREENJP) || DEF(_BLUEJP))
+	db "NESTS@"
+ELSE
 	db "'s NEST@"
+ENDC
 
 LoadTownMap_Fly:
 	call ClearSprites

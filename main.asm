@@ -189,11 +189,13 @@ ELSE
 NintendoCopyrightLogoGraphics:  INCBIN "gfx/copyright.2bpp"
 ENDC
 
-GamefreakLogoGraphics:          INCBIN "gfx/gamefreak.2bpp"
-GamefreakLogoGraphicsEnd:
 IF DEF(_REDGREENJP)
+GamefreakLogoGraphics:          INCBIN "gfx/gamefreak_green.2bpp"
+GamefreakLogoGraphicsEnd:
 TextBoxGraphics:                INCBIN "gfx/text_box_green.2bpp"
 ELSE
+GamefreakLogoGraphics:          INCBIN "gfx/gamefreak.2bpp"
+GamefreakLogoGraphicsEnd:
 TextBoxGraphics:                INCBIN "gfx/text_box.2bpp"
 ENDC
 TextBoxGraphicsEnd:

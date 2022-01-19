@@ -274,6 +274,7 @@ v1.23.03
   - It's a single byte in the save file that gets incremented each version
   - If the save byte does not match, the player is automatically warped back to Pallet Town
   - Helps prevent crashes and glitches when updating an older save file
+- Adapted the japanese title screen logo, sfx, and motion for the jp builds
 
 
 #Bugfixes:

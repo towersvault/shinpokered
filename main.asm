@@ -164,8 +164,11 @@ LyingOldManSprite:     INCBIN "gfx/sprites/lying_old_man.2bpp"
 
 
 SECTION "Graphics", ROMX, BANK[GFX]
-
+IF (DEF(_REDGREENJP) || DEF(_BLUEJP))
+PokemonLogoGraphics:            INCBIN "gfx/pokemon_logo_jp.2bpp"
+ELSE
 PokemonLogoGraphics:            INCBIN "gfx/pokemon_logo.2bpp"
+ENDC
 FontGraphics:                   INCBIN "gfx/font.1bpp"
 FontGraphicsEnd:
 ABTiles:                        INCBIN "gfx/AB.2bpp"
@@ -2572,13 +2575,10 @@ SECTION "bank1A",ROMX,BANK[$1A]
 INCLUDE "engine/battle/decrement_pp.asm"
 
 Version_GFX:
-IF DEF(_REDJP)
-	INCBIN "gfx/red/redgreenversionjp.1bpp" ; 10 tiles
-ELIF (DEF(_RED) || DEF(_GREEN))
+IF (DEF(_RED) || DEF(_GREEN))
 	INCBIN "gfx/red/redgreenversion.1bpp" ; 10 tiles
-ELIF DEF(_BLUEJP)
-	INCBIN "gfx/blue/blueversionjp.1bpp" ; 8 tiles
-ELIF DEF(_BLUE)
+ENDC
+IF DEF(_BLUE)
 	INCBIN "gfx/blue/blueversion.1bpp" ; 8 tiles
 ENDC
 Version_GFXEnd:

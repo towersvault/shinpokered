@@ -156,18 +156,34 @@ IF DEF(_BLUE)
 	RGB 14,19,29	;version subtitle text color
 ENDC
 IF DEF(_GREEN)
-	SGB_WHITE
-	RGB 30,30,17
-	RGB 21,0,4
-	RGB 9,22,12
+	SGB_WHITE	;white bg
+	RGB 30,30,17	;yellow logo text
+	RGB 21,0,4	;unused on title screen
+	RGB 9,22,12		;version subtitle text color
 ENDC
 
 	; PAL_LOGO2
+IF DEF(_REDJP)
+	SGB_WHITE 		;white bg
+	RGB 30,30,17	;unused yellow logo text
+	RGB 14,19,29	;"pocket monsters" logo text color
+	RGB 21,0,4		;japanese logo text color
+ELIF DEF(_GREEN)
+	SGB_WHITE 		;white bg
+	RGB 30,30,17	;unused yellow logo text
+	RGB 14,19,29	;"pocket monsters" logo text color
+	RGB 9,22,12		;japanese logo text color
+ELIF DEF(_BLUEJP)
+	SGB_WHITE 		;white bg
+	RGB 30,30,17	;unused yellow logo text
+	RGB 30,18,0		;"pocket monsters" logo text color
+	RGB 14,19,29	;japanese logo text color
+ELSE
 	SGB_WHITE 	;white bg
 	RGB 30,30,17	;unused on title screen
 	RGB 18,18,24	;blue logo text shadow
 	RGB 7,7,16	;blue logo text outline
-	
+ENDC
 	; PAL_0F
 	SGB_WHITE 
 	RGB 24,20,30

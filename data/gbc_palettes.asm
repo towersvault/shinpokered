@@ -113,7 +113,7 @@ ELIF DEF(_GREEN)
 ELIF DEF(_BLUEJP)
 	RGB 31, 31, 31	;white bg
 	RGB 31, 31,  0	;unused yellow logo text
-	RGB 21,  0,  4	;"pocket monsters" logo text color
+	RGB 31,  15, 0	;"pocket monsters" logo text color
 	RGB  3,  3, 23	;japanese logo text color
 ELSE
 	RGB 31, 31, 31	;white bg

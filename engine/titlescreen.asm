@@ -160,11 +160,13 @@ ENDC
 	call TitleScreenCopyTileMapToVRAM
 	ld b, SET_PAL_TITLE_SCREEN
 	call RunPaletteCommand
-	call GBPalNormal
-	ld a, %11100100
-	ld [rOBP0], a
-	call UpdateGBCPal_OBP0
 	
+	ld a, %11100100
+	ld [rBGP], a
+	ld [rOBP0], a
+	call UpdateGBCPal_BGP
+	call UpdateGBCPal_OBP0
+		
 	push de
 	ld d, CONVERT_BGP
 	ld e, 2

@@ -11,6 +11,33 @@ If you are blocked by invisible walls, use the Softlock Warp (detailed below).
 On the old save, before transferring it over, saving outside in Pallet town can solve certain issues.  
 
 
+#Some Particular Battle Mechanic Changes
+-----------------------------------------------
+**Rage**  
+This move now lasts 2 to 3 turns to prevent getting stuck in an infinite loop.  
+Any attack boosts gained during Rage are retained when it ends.  
+In this way, Rage is almost like an alternate take on Bide.  
+Having your Raging pokemon tank a multi-hit move is a great way to setup for a physical sweep.  
+
+**Bide**  
+Each hit of a multi-hit move now adds to Bide's damage instead of just the first.  
+Needless to say, using Double Kick on a Bide-user has the potential to backfire horribly.  
+
+**Sleep Status**  
+You can choose a move while asleep, and the move is used upon waking up.  
+Sleep starts with a counter of at least 2 in order to maintain the accuracy of sleep effect moves.  
+Rest now sets the sleep counter to 3 in order to preserve its lose-2-turns penalty.  
+These changes help to remove the "infinite combo" that could by done by high-speed users of sleep moves.  
+Overall, the only loss is that sleep has a maximum possible lost-turn number of 6 instead of 7.  
+
+**Trapping Moves**
+Switching out of trapping moves (Wrap, Clamp, Fire Spin, etc) ends the move and wastes the trapper's turn.  
+Additional changes exist that are not found in the Lite patches:  
+- Landing a trapping move gives the user a compounding -25% speed until recalculated via other mechanics.  
+- A 'poof' animation plays to signal the last turn of a trapping move.  
+- These changes help to remove the "infinite combo" that could by done by high-speed users of trapping moves.  
+
+
 #New Engine Functions
 -----------------------------------------------
 **Activate Color Correction**  
@@ -19,7 +46,7 @@ It's assumed you are using a modern backlit screen with no other color correctio
 Under these stated conditions, the colors will be highly saturated.  
 Press SELECT at the copyright screen when the game first boots. This will fix the saturated colors.  
 Changing the destination code of the rom header to 00 (JP) defaults this to ON and pressing SELECT turns it OFF.  
-Use Gameboy Rom Analyzer to change the destination code (https://www.romhacking.net/utilities/1343/).  
+Use the Gameboy Rom Analyzer to change the destination code (https://www.romhacking.net/utilities/1343/).  
 
 **Change the Audio Type**  
 Updated Audio mixing has been ported over from Pokemon Yellow.  
@@ -38,7 +65,7 @@ A "!" symbol appears next to FAST while this feature is active.
 Please note that other text speed selections do nothing while this feature is active.  
 
 **Softlock Warp**  
-This will instantly teleport back to your mom's house if you get stuck.  
+This will instantly teleport you back to your mom's house in Pallet Town if you get stuck.  
 It also sets your money to at least 1000 if you have less than that.  
 Use this warp if you find yourself unable to move after updating to a new patch.  
 Instructions to perform:  
@@ -58,7 +85,7 @@ Activated under these conditions:
 1 - Must have an existing non-corrupt game save on-file.  
 2 - Must have beaten the Elite-4 in the on-file save.  
 3 - Press and hold SELECT while choosing the NEW GAME option.  
-A jingle will play to indicate NG+ has activated and the SELECT button can now be released.  
+4 - A jingle will play to indicate NG+ has activated and the SELECT button can now be released.  
 Preserves ONLY the following information (your current party will be lost):  
 - Boxed pokemon  
 - Play clock  
@@ -83,7 +110,7 @@ Playing on the SET battle style now imposes several changes to the game's system
 
 **Scale Enemy Trainer Levels**  
 Talk to the aide in the lower-right section of Oak's lab to toggle this feature.  
-While active, enemy trainer roster levels will scale upwards relative to the highest-level'd pokemon in your party.  
+While active, enemy trainer roster levels will scale upwards relative to the highest-level pokemon in your party.  
 Enemy pokemon will evolve by level if applicable.  
 Gym leaders and the Elite-4 scale slightly higher than normal trainers.  
 
@@ -130,7 +157,7 @@ Such a temporary move cannot be used in battle, but it can be used in the overwo
 Each pokemon on your team can have one temporary field move at a time.  
 Having one will display it on the status screen above the pokemon's other moves.  
 A temporary field move cannot be overwritten with another field move.  
-But it will be erased if it's owning pokemon leaves the party (such as by being deposited in the PC).  
+But it will be erased if its owning pokemon leaves the party (such as by being deposited in the PC).  
 If all four of a pokemon's regular moves are field moves, its temporary field move cannot be menu-selected.  
 But if a fifth field move in the temporary slot is a HM, it can still be activated via One-Button HM Usage.  
 
@@ -196,7 +223,7 @@ Determinant Values (DVs) are the predecessors to the Individual Values (IVs) use
 Unlike IVs, DV are on a scale from 0 to 15.  
 On the pokemon menu, select a pokemon and place the cursor over STATS.  
 While holding the START button, press the A button to enter the pokemon's status screen.  
-In place of the pokemon's HP and stat values, it's corresponding DV will be displayed instead.  
+In place of the pokemon's HP and stat values, it's corresponding DVs will be displayed instead.  
 
 **Display Pokemon StatEXP**  
 Stat Experience (StatEXP) is the predecessor to the Effort Values (EVs) used in Gen 3 and onwards.  
@@ -204,7 +231,7 @@ Unlike EVs, StatEXP values are on a scale from 0 to 65535 and there is no sum to
 At level 100, a pokemon gains extra points in a stat equal to 0.25 x SQRT(StatEXP) rounded down.  
 On the pokemon menu, select a pokemon and place the cursor over STATS.  
 While holding the SELECT button, press the A button to enter the pokemon's status screen.  
-In place of the pokemon's HP and stat values, it's corresponding StatEXP will be displayed instead.  
+In place of the pokemon's HP and stat values, it's corresponding StatEXP values will be displayed instead.  
 
 **View a Shiny Palette**  
 This applies when playing or emulating as a Gameboy Color or Super Gameboy game.  
@@ -302,8 +329,8 @@ Enemy trainers are more agressive about attacking, so your team incurs more dama
 Be sure to purchase a reasonable stock of healing items to counter the increased attrition.  
 
 **Big EXP Gains**  
-The Catch-Up Booster bonus does compound with other 1.5x EXP bonuses in the game.  
-With this is in mind, turn on the level scaling and do trainer rematches in SET mode to gain lots of EXP.  
+The Catch-Up Booster bonus compounds with other 1.5x EXP bonuses in the game.  
+With this is in mind, activate level-scaling and do trainer rematches in SET mode to gain loads of EXP.  
 
 **Training in Post-Game Without Battling**  
 Here is an alternative to grinding out battles in the post-game.  

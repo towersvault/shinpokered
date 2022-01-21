@@ -1,6 +1,6 @@
 Route13Mons:;joenote - added farfetchd
-	IF DEF(_RED)
 		db $14
+	IF DEF(_RED)
 		db 24,ODDISH
 		db 25,PIDGEY
 		db 24,VENONAT
@@ -23,7 +23,6 @@ Route13Mons:;joenote - added farfetchd
 		db 30, GLOOM
 		db 27,FARFETCHD
 	ELIF (DEF(_BLUE) || DEF(_GREEN))
-		db $14
 		db 24,BELLSPROUT
 		db 25,PIDGEY
 		db 24,VENONAT

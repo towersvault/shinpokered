@@ -275,6 +275,7 @@ v1.23.03
   - If the save byte does not match, the player is automatically warped back to Pallet Town
   - Helps prevent crashes and glitches when updating an older save file
 - Adapted the japanese title screen logo, sfx, and motion for the jp builds
+- Minor timing fix to title object palette loading
 
 
 #Bugfixes:

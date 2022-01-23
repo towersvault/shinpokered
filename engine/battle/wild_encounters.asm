@@ -88,6 +88,9 @@ TryDoWildEncounter:
 ;joenote - check for shiny DV attract conditions
 	callba ShinyAttractFunction
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;	
+;joenote - generate a random wild pokemon based on a seed value
+	predef ReplaceWildMon
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	ld a, [wRepelRemainingSteps]
 	and a
 	jr z, .willEncounter
@@ -95,7 +98,8 @@ TryDoWildEncounter:
 	ld b, a
 	ld a, [wCurEnemyLVL]
 	cp b
-	jr c, .CantEncounter2 ; repel prevents encounters if the leading party mon's level is higher than the wild mon
+;	jr c, .CantEncounter2 ; repel prevents encounters if the leading party mon's level is higher than the wild mon
+	jr c, .shinycheck_repel
 	jr .willEncounter
 .lastRepelStep
 	ld [wRepelRemainingSteps], a
@@ -104,18 +108,18 @@ TryDoWildEncounter:
 	call EnableAutoTextBoxDrawing
 	call DisplayTextID
 .CantEncounter2
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;joenote - initiate encounter if shiny (overrides repel)
-	ld a, [wFontLoaded]
-	bit 7, a
-	jr nz, .willEncounter
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	ld a, $1
 	and a
 	ret
 .willEncounter
 	xor a
 	ret
+.shinycheck_repel
+;joenote - initiate encounter if shiny (overrides repel)
+	ld a, [wFontLoaded]
+	bit 7, a
+	jr nz, .willEncounter
+	jr .CantEncounter2
 
 WildMonEncounterSlotChances:
 ; There are 10 slots for wild pokemon, and this is the table that defines how common each of

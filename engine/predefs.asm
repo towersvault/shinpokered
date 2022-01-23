@@ -168,4 +168,6 @@ PredefPointers::
 	add_predef EncounterLoad_NuzlockeHandler
 	add_predef BallCaught_NuzlockeHandler
 	add_predef ResetAreaFlag_NuzlockePredef
-	
+	add_predef ReplaceWildMon
+	add_predef randomMonPrizes
+	add_predef LookupWildRandomMon

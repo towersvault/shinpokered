@@ -2808,6 +2808,7 @@ INCLUDE "custom_functions/func_shiny.asm"
 INCLUDE "custom_functions/func_nuzlocke.asm"
 INCLUDE "engine/battle/stats_functions.asm"	
 INCLUDE "engine/battle/exp_bar_print.asm"	
+INCLUDE "custom_functions/fisher_yates.asm"
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 TradingAnimationGraphics:

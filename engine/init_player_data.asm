@@ -18,6 +18,10 @@ InitPlayerData2:
 	ld a, [hRandomAdd]
 	ld [wPlayerID + 1], a
 	
+	;joenote - generate a random seed for fisher-yates randomizer functions
+	ld a, [hRandomSub]
+	ld [wRandomizerSeed], a
+	
 	;write a new box terminator to empty the box list
 	ld hl, wNumInBox
 	call InitializeEmptyList

@@ -1166,7 +1166,34 @@ OaksLabText9:
 	TX_ASM
 	ld hl, OaksLabText_1d340
 	call PrintText
+;	jp TextScriptEnd
+;joenote - dialogue for wild randomization
+	CheckEvent EVENT_8DE
+	jr z, .randOn
+	ld hl, OaksLabText_randwildOFF 
+	call PrintText
+	call .choose
+	ld hl, OaksLabText_AideQ_reject
+	jr z, .end
+	ResetEvent EVENT_8DE
+	jr .print_done
+.randOn
+	ld hl, OaksLabText_randwildON
+	call PrintText
+	call .choose
+	ld hl, OaksLabText_AideQ_reject
+	jr z, .end
+	SetEvent EVENT_8DE
+.print_done
+	ld hl, OaksLabText_AideQ_done
+.end
+	call PrintText
 	jp TextScriptEnd
+.choose
+	call NoYesChoice
+	ld a, [wCurrentMenuItem]
+	and a
+	ret
 
 OaksLabText_1d340:
 	TX_FAR _OaksLabText_1d340
@@ -1389,6 +1416,13 @@ OaksLabText_scalingOFF:
 	TX_FAR _OaksLabText_scalingOFF
 	db "@"
 	
+OaksLabText_randwildON:
+	TX_FAR _OaksLabText_randwildON
+	db "@"
+OaksLabText_randwildOFF:
+	TX_FAR _OaksLabText_randwildOFF
+	db "@"
+
 OaksLabText_symbolsON:
 	TX_FAR _OaksLabText_symbolsON
 	db "@"

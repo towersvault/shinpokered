@@ -2142,7 +2142,13 @@ RodResponse:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	ld [wCurEnemyLVL], a
 	ld a, c ; species
+;	ld [wCurOpponent], a
+;joenote - generate a random wild pokemon based on a seed value
+	ld [wcf91], a
+	predef ReplaceWildMon
+	ld a, [wcf91]
 	ld [wCurOpponent], a
+
 
 .next
 	ld hl, wWalkBikeSurfState
@@ -3215,6 +3221,9 @@ ItemUseReloadOverworldData:
 ; creates a list at wBuffer of maps where the mon in [wd11e] can be found.
 ; this is used by the pokedex to display locations the mon can be found on the map.
 FindWildLocationsOfMon:
+	ld a, [wd11e]
+	push af
+	predef LookupWildRandomMon	;joenote - adjusted to show locations of randomized wild mons
 	ld hl, WildDataPointers
 	ld de, wBuffer
 	ld c, $0
@@ -3241,6 +3250,8 @@ FindWildLocationsOfMon:
 .done
 	ld a, $ff ; list terminator
 	ld [de], a
+	pop af
+	ld [wd11e], a
 	ret
 
 CheckMapForMon:

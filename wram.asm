@@ -3114,7 +3114,7 @@ wUnusedD721:: ; d721	;joenote - use to set various wram flags
 	;bit 5 - obedience level cap
 	;bit 6 - nuzlocke mode activated
 	;bit 7 - not used
-;;;;;;;;;;;;;;joenote - use these unused locations for debugging and parkesing DV scores
+;;;;;;;;;;;;;;joenote - use these unused locations for debugging and parsing DV scores or holding temp values
 wUnusedD722:: 
 	ds 4
 wUnusedD726:: 
@@ -3315,7 +3315,11 @@ wRomHackVersion:: ;da3A
 ;joenote - starting with version 1.24, each major update increments this by 1
 	ds 1
 
-	ds 6
+wRandomizerSeed:: 	;da3B
+;joenote - generate a random seed for fisher-yates randomizer functions
+	ds 1
+
+	ds 5
 
 wPlayTimeHours:: ; da41
 	ds 1

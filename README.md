@@ -154,6 +154,8 @@ You can choose RUN while holding SELECT in trainer battles to forfeit the match 
 
 There is a built-in nuzlocke mode that can be toggled from the options menu.
 
+The girl in Oak's lab toggles wild pokemon randomization.
+
 One of the aides in Oak's lab toggles scaling of trainer rosters to your level (evolving them if applicable).
 
 As an alternative to trainer scaling, there is now an obedience level-cap that can be toggled in the options menu.
@@ -278,6 +280,17 @@ v1.23.03
 - Minor timing fix to title object palette loading
 - Fixed Raticate not appearing in Unknown Dungeon 2F in Blue-Jp
 - Fixed incorrect encounters on route 13 for some versions
+v1.23.04
+- Tweaked a flag for shinies so it can be used as a debugging toggle
+- The girl in Oak's lab toggles a built-in randomizer for wild pokemon
+  - Shuffles all pokemon that can be gained through walking, surfing, fishing, or from the game corner
+  - Randomizes using a saved seed value, so the shuffled order is always preserved between play sessions
+  - A new random seed is generated upon each new game
+  - There are three pokemon lists based on base-stat-total; A, B, and C tiers
+  - Pokemon are only shuffled within their own list in order to maintain some modicum of balance
+  - Scripted events are unaffected (gifts, in-game trades, static encounters, etc)
+  - The game's five legendary pokemon are excluded from randomization
+  - The AREA feature of the pokedex automatically adjusts to show the new pokemon locations
 
 
 #Bugfixes:
@@ -812,6 +825,15 @@ v1.23.03
 
 
 #Pre-E4 NPCs
+- The girl in Oak's lab toggles a built-in randomizer for wild pokemon
+  - Shuffles all pokemon that can be gained through walking, surfing, fishing, or from the game corner
+  - Randomizes using a saved seed value, so the shuffled order is always preserved between play sessions
+  - A new random seed is generated upon each new game
+  - There are three pokemon lists based on base-stat-total; A, B, and C tiers
+  - Pokemon are only shuffled within their own list in order to maintain some modicum of balance
+  - Scripted events are unaffected (gifts, in-game trades, static encounters, etc)
+  - The game's five legendary pokemon are excluded from randomization
+  - The AREA feature of the pokedex automatically adjusts to show the new pokemon locations
 - There is an Aide NPC in the viridian pokemon center that can toggle regular trainer randomization
   - Only affects regular trainers that use one level for all 'mons and have no custom movesets
   - Will replace their roster 'mons with random non-evolved 'mons (legendaries are excluded)

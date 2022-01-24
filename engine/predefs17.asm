@@ -4,7 +4,7 @@
 StarterDex:
 	ld a, [wPokedexOwned]
 	push af
-	ld a, %01001011 ; set starter flags
+	ld a, %01001001 ; set starter flags	;joenote - removed ivysaur from the set flags
 	ld [wPokedexOwned], a
 	predef ShowPokedexData
 	;xor a ; unset starter flags

@@ -155,6 +155,7 @@ You can choose RUN while holding SELECT in trainer battles to forfeit the match 
 There is a built-in nuzlocke mode that can be toggled from the options menu.
 
 The girl in Oak's lab toggles wild pokemon randomization.
+If activated early enough in the game, your starter pokemon choices are randomized as well.
 
 One of the aides in Oak's lab toggles scaling of trainer rosters to your level (evolving them if applicable).
 
@@ -282,8 +283,9 @@ v1.23.03
 - Fixed incorrect encounters on route 13 for some versions
 v1.23.04
 - Tweaked a flag for shinies so it can be used as a debugging toggle
-- The girl in Oak's lab toggles a built-in randomizer for wild pokemon
+- The girl in Oak's lab toggles a built-in randomizer for wild pokemon and your starters
   - Shuffles all pokemon that can be gained through walking, surfing, fishing, or from the game corner
+  - If activated early enough, your starter pokemon options are shuffled as well
   - Randomizes using a saved seed value, so the shuffled order is always preserved between play sessions
   - A new random seed is generated upon each new game
   - There are three pokemon lists based on base-stat-total; A, B, and C tiers
@@ -825,8 +827,9 @@ v1.23.04
 
 
 #Pre-E4 NPCs
-- The girl in Oak's lab toggles a built-in randomizer for wild pokemon
+- The girl in Oak's lab toggles a built-in randomizer for wild pokemon and your starters
   - Shuffles all pokemon that can be gained through walking, surfing, fishing, or from the game corner
+  - If activated early enough, your starter pokemon options are shuffled as well
   - Randomizes using a saved seed value, so the shuffled order is always preserved between play sessions
   - A new random seed is generated upon each new game
   - There are three pokemon lists based on base-stat-total; A, B, and C tiers

@@ -85,9 +85,13 @@ _ReplaceMon:
 	ld a, l
 	cp $40
 	ret c
-
-	ld a, [wcf91]
+	
 	ld hl, MonListC
+	CheckEvent EVENT_GOT_STARTER
+	jr nz, .notstarter
+	ld hl, MonListStarter
+.notstarter
+	ld a, [wcf91]
 	ld de, $0001
 	push hl
 	call IsInArray
@@ -186,6 +190,13 @@ _ReplaceMon:
 
 
 MonListC:
+	db	MAGIKARP	 ;85
+	db	METAPOD	 ;7C
+	db	KAKUNA	 ;71
+	db	ABRA	 ;94
+	db	JIGGLYPUFF	 ;64
+	;fall through
+MonListStarter:	;because not all mons in c-tier are viable as a starter pokemon
 	db	KOFFING	 ;37
 	db	FARFETCHD	 ;40
 	db	TENTACOOL	 ;18
@@ -213,7 +224,6 @@ MonListC:
 	db	CLEFAIRY	 ;04
 	db	ODDISH	 ;B9
 	db	PSYDUCK	 ;2F
-	db	ABRA	 ;94
 	db	BULBASAUR	 ;99
 	db	SQUIRTLE	 ;B1
 	db	VENONAT	 ;41
@@ -227,17 +237,13 @@ MonListC:
 	db	NIDORAN_M	 ;03
 	db	SPEAROW	 ;05
 	db	DIGLETT	 ;3B
-	db	JIGGLYPUFF	 ;64
 	db	RATTATA	 ;A5
 	db	PIDGEY	 ;24
 	db	ZUBAT	 ;6B
-	db	METAPOD	 ;7C
-	db	KAKUNA	 ;71
 	db	CATERPIE	 ;7B
 	db	WEEDLE	 ;70
 	db	GOLDEEN	 ;9D
 	db	POLIWAG	 ;47
-	db	MAGIKARP	 ;85
 	db	DRATINI	 ;58
 	db $FF
 MonListB:

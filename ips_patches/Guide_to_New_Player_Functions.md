@@ -79,9 +79,10 @@ Instructions to perform:
 One of Oak's Aides has been added to the Viridian Pokemon Center. Talk to him to toggle this feature.  
 This randomizes the teams of regular no-name trainers that do not have roster customization.  
 
-**Wild Pokemon Randomization**  
+**Wild & Starter Pokemon Randomization**  
 The girl in Oak's lab toggles a built-in randomizer for wild pokemon on and off.  
 It shuffles all pokemon that can be gained through walking, surfing, fishing, or from the game corner.  
+If activated early enough in the game, your starter pokemon choices are randomized as well.  
 Scripted events are unaffected (gifts, in-game trades, static encounters, etc).  
 The game's five legendary pokemon are also excluded from randomization.  
 A saved seed value is used, so the shuffled order is always preserved between play sessions.  

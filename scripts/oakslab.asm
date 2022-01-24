@@ -852,6 +852,11 @@ PlayerStarter3Label::
 
 OaksLabScript_1d133:
 	ld [wcf91], a
+	
+	;joenote - randomize the starter
+	predef ReplaceWildMon
+	ld a, [wcf91]
+	
 	ld [wd11e], a
 	ld a, b
 	ld [wSpriteIndex], a

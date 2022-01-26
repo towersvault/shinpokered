@@ -27,7 +27,7 @@ Needless to say, using Double Kick on a Bide-user has the potential to backfire 
 You can choose a move while asleep, and the move is used upon waking up.  
 Sleep starts with a counter of at least 2 in order to maintain the accuracy of sleep effect moves.  
 Rest now sets the sleep counter to 3 in order to preserve its lose-2-turns penalty.  
-These changes help to remove the "infinite combo" that could by done by high-speed users of sleep moves.  
+These changes help to remove the "infinite combo" that could be done by high-speed users of sleep moves.  
 Overall, the only loss is that sleep has a maximum possible lost-turn number of 6 instead of 7.  
 
 **Trapping Moves**
@@ -35,7 +35,7 @@ Switching out of trapping moves (Wrap, Clamp, Fire Spin, etc) ends the move and 
 Additional changes exist that are not found in the Lite patches:  
 - Landing a trapping move gives the user a compounding -25% speed until recalculated via other mechanics.  
 - A 'poof' animation plays to signal the last turn of a trapping move.  
-- These changes help to remove the "infinite combo" that could by done by high-speed users of trapping moves.  
+- These changes help to remove the "infinite combo" that could be done by high-speed users of trapping moves.  
 
 
 #New Engine Functions

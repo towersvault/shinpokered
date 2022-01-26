@@ -282,6 +282,11 @@ The boost is 1.5x multiplied by an additional 1.5x for every 3 levels of differe
 For example, a level gap of 12 results in an EXP multiplier of (1.5)^4 = 5.0625.  
 Use this feature to help you train-up new team members in the mid-to-late game.  
 
+**Get a Free Paras**  
+Go to the small house on Route 2 just below the exit of Diglett's Cave.  
+The Aide NPC inside the house will now gift you a Paras.  
+You can use this Paras if you ever find yourself without a pokemon that can learn Cut.  
+
 
 #Additions to the Post-Game
 -----------------------------------------------

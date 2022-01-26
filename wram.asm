@@ -2789,7 +2789,9 @@ wBluesHouseCurScript:: ; d5f3
 	ds 1
 wViridianCityCurScript:: ; d5f4
 	ds 1
-	ds 2
+	ds 1
+wRoute2HouseCurScript:: ; d5f6
+	ds 1
 wPewterCityCurScript:: ; d5f7
 	ds 1
 wRoute3CurScript:: ; d5f8

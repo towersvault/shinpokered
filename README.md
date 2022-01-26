@@ -293,6 +293,7 @@ v1.23.04
   - Scripted events are unaffected (gifts, in-game trades, static encounters, etc)
   - The game's five legendary pokemon are excluded from randomization
   - The AREA feature of the pokedex automatically adjusts to show the new pokemon locations
+- Paras is gifted in the Route 2 house in case the player has no pokemon that can learn Cut
 
 
 #Bugfixes:
@@ -856,6 +857,7 @@ v1.23.04
   - Use this feature to help you train-up new team members in the mid-to-late game.  
 - Can rematch gym leaders and most non gym-leader trainers just by talking to them one or two times
   - Giovanni respawns after leaving the gym so you can rematch him
+- Paras is gifted in the Route 2 house in case the player has no pokemon that can learn Cut
 
 
 #Post-Game Content  

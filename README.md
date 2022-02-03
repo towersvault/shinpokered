@@ -266,12 +266,12 @@ Cheats and Secrets!
 
 #Changes not yet in the release branch:
 -----------
-v1.23.01
+v1.23.01  
 - Green and Red-JP have the original front sprites for fossil kabutops and fossil aerodactyl
 - Green and Red-JP have the original text box corners 
-v1.23.02
+v1.23.02  
 - Added nuzlocke mode
-v1.23.03
+v1.23.03  
 - Restored intro "Presents" for all builds
 - Added rom hack version tracking for save files
   - It's a single byte in the save file that gets incremented each version
@@ -281,7 +281,7 @@ v1.23.03
 - Minor timing fix to title object palette loading
 - Fixed Raticate not appearing in Unknown Dungeon 2F in Blue-Jp
 - Fixed incorrect encounters on route 13 for some versions
-v1.23.04
+v1.23.04  
 - Tweaked a flag for shinies so it can be used as a debugging toggle
 - The girl in Oak's lab toggles a built-in randomizer for wild pokemon and your starters
   - Shuffles all pokemon that can be gained through walking, surfing, fishing, or from the game corner

@@ -6,7 +6,7 @@ Load the new save with the latest version of Shin Pokemon.
 You will be automatically warped to Pallet Town.  
 Save the game. Your save file is now updated.  
 
-**Troubleshooting**
+**Troubleshooting**  
 If you are blocked by invisible walls, use the Softlock Warp (detailed below).  
 On the old save, before transferring it over, saving outside in Pallet town can solve certain issues.  
 
@@ -30,7 +30,7 @@ Rest now sets the sleep counter to 3 in order to preserve its lose-2-turns penal
 These changes help to remove the "infinite combo" that could be done by high-speed users of sleep moves.  
 Overall, the only loss is that sleep has a maximum possible lost-turn number of 6 instead of 7.  
 
-**Trapping Moves**
+**Trapping Moves**  
 Switching out of trapping moves (Wrap, Clamp, Fire Spin, etc) ends the move and wastes the trapper's turn.  
 Additional changes exist that are not found in the Lite patches:  
 - Landing a trapping move gives the user a compounding -25% speed until recalculated via other mechanics.  

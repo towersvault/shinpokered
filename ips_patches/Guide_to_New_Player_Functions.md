@@ -402,6 +402,7 @@ Use your purchases to train your roster pokemon without battling.
   - Wild battles before you can get pokeballs also count.
   - In light of this, you may want to delay activating nuzlocke mode until pokeballs are available.
   - Story wild battles (Old Man tutorial, Ghost Marowak, and Tower Ghosts) do not apply.
+  - Pokemon gained outside of battle (gifts, prizes, in-game trades, etc.) do not apply.
   
 - Rule 3 (Optional): Nickname every pokemon you obtain.
   - You will always go straight to the nickname screen without a Yes/No prompt.

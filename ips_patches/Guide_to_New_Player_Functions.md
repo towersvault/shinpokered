@@ -216,18 +216,18 @@ While holding the SELECT button, press the A button.
 You will be asked to confirm your decision. Choose YES to forfeit or NO to cancel.  
 
 **Reworked Fishing**  
-The locations of the Good Rod and the Super Rod have been swapped.  
-Route 12 has been altered to give access to its Fishing Guru without needing the Pokeflute.  
-The Super Rod now randomly adds 0 to 7 levels of anything it hooks.   
-The Good Rod has been altered:  
+- The locations of the Good Rod and the Super Rod have been swapped.  
+- Route 12 has been altered to give access to its Fishing Guru without needing the Pokeflute.  
+- The Super Rod now randomly adds 0 to 7 levels to anything it hooks.  
+- The Good Rod has been altered:  
   - Its hardcoded list of 2 pokemon has been increased to 8.  
   - Levels of pokemon that can be hooked have mostly been increased.  
-  - A level modifier +0 to +7 is randomly added to hooked pokemon for more variety.  
-The Old Rod has been altered:  
+  - A level modifier of +0 to +7 is randomly added to hooked pokemon for more variety.  
+- The Old Rod has been altered:  
   - 50% of the time it will act as a Good Rod. The implication is that it was "Good" long ago.  
   - No longer a key item.  
   - Eventually supplanted by the Good Rod. Might want to sell it for a good price.  
-The Good Rod maintains some niche utility over the Super Rod. Comparing the two:  
+- The Good Rod maintains some niche utility over the Super Rod. Comparing the two:  
   - Super Rod  
     - Has route-based encounter tables.  
     - Access to rarer or evolved pokemon.   
@@ -361,11 +361,11 @@ With this is in mind, activate level-scaling and do trainer rematches in SET mod
 
 **Training in Post-Game Without Battling**  
 Here is an alternative to grinding out battles in the post-game.  
-- Catch some pokemon.  
-- Sell them to the game corner chief.  
-- Buy rare candies and vitamins with the proceeds.  
-- Take note that vitamins are uncapped in the post-game.  
-- Use your purchases to train your roster pokemon without battling.  
+1 - Catch some pokemon.  
+2 - Sell them to the game corner chief.  
+3 - Buy rare candies and vitamins with the proceeds.  
+4 - Take note that vitamins are uncapped in the post-game.  
+5 - Use your purchases to train your roster pokemon without battling.  
 
 **Secret Hints**  
 1 - Try winning the SS Anne tournament with a Pikachu in your party.  

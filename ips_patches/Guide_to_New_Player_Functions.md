@@ -1,3 +1,9 @@
+#Which ROM base to use?
+-----------------------------------------------
+Shin Red patches should be applied to a USA Pokemon Red rom.  
+Shin Blue and Shin Green patches should be applied to a USA Pokemon Blue rom.  
+
+
 #Updating an Old Save File
 -----------------------------------------------
 If the old save was from an earlier Shin Pokemon version, deactivate all special options and NPC toggles.  
@@ -36,6 +42,10 @@ Additional changes exist that are not found in the Lite patches:
 - Landing a trapping move gives the user a compounding -25% speed until recalculated via other mechanics.  
 - A 'poof' animation plays to signal the last turn of a trapping move.  
 - These changes help to remove the "infinite combo" that could be done by high-speed users of trapping moves.  
+
+**Critical Hits**  
+Critical hit damage can no longer be less than the non-critical amount, so critical hits can never be a detriment.  
+Furthermore, the effect for Dire Hit and Focus Energy now work correctly and quadruple the critical hit rate.  
 
 
 #New Engine Functions
@@ -80,7 +90,7 @@ One of Oak's Aides has been added to the Viridian Pokemon Center. Talk to him to
 This randomizes the teams of regular no-name trainers that do not have roster customization.  
 
 **Wild & Starter Pokemon Randomization**  
-The girl in Oak's lab toggles a built-in randomizer for wild pokemon on and off.  
+The girl in Oak's lab toggles on/off a built-in randomizer for wild pokemon.  
 It shuffles all pokemon that can be gained through walking, surfing, fishing, or from the game corner.  
 If activated early enough in the game, your starter pokemon choices are randomized as well.  
 Scripted events are unaffected (gifts, in-game trades, static encounters, etc).  
@@ -88,7 +98,7 @@ The game's five legendary pokemon are also excluded from randomization.
 A saved seed value is used, so the shuffled order is always preserved between play sessions.  
 This lets the AREA feature of the pokedex automatically adjust for the new pokemon locations.  
 And a new random seed is generated upon each new game.  
-Shuffling is done based on three pokemon lists based on base-stat-total; A, B, and C tiers.  
+Shuffling is done using three internal pokemon lists defined by base-stat-total: A, B, and C tiers.  
 Pokemon are only shuffled within their own tier list in order to maintain some modicum of balance.  
 
 **New Game Plus**  
@@ -220,11 +230,11 @@ The Old Rod has been altered:
 The Good Rod maintains some niche utility over the Super Rod. Comparing the two:  
   - Super Rod  
     - Has route-based encounter tables.  
-	- Access to rarer or evolved pokemon.   
-	- Each encounter table only has up to four pokemon.   
+    - Access to rarer or evolved pokemon.   
+    - Each encounter table only has up to four pokemon.   
   - Good Rod  
     - Limited to a single hardcoded encounter table.  
-	- Pokemon encountered are unevolved and entry-level.  
+    - Pokemon encountered are unevolved and entry-level.  
     - Up to eight different pokemon can be hooked.  
 
 
@@ -279,7 +289,7 @@ Place his requested pokemon at the top of your team and speak to him to get your
 Talk to the aide in the Celadon Diner to toggle this feature.  
 While active, EXP gained is boosted if the active pokemon's level is lower than that of the fainted enemy.  
 The boost is 1.5x multiplied by an additional 1.5x for every 3 levels of difference.  
-For example, a level gap of 12 results in an EXP multiplier of (1.5)^4 = 5.0625.  
+For example, a level gap of 10 results in an EXP multiplier of (1.5)^4 = 5.0625.  
 Use this feature to help you train-up new team members in the mid-to-late game.  
 
 **Get a Free Paras**  
@@ -351,11 +361,11 @@ With this is in mind, activate level-scaling and do trainer rematches in SET mod
 
 **Training in Post-Game Without Battling**  
 Here is an alternative to grinding out battles in the post-game.  
-Catch some pokemon.  
-Sell them to the game corner chief.  
-Buy rare candies and vitamins with the proceeds.  
-Take note that vitamins are uncapped in the post-game.  
-Use your purchases to train your roster pokemon without battling.  
+- Catch some pokemon.  
+- Sell them to the game corner chief.  
+- Buy rare candies and vitamins with the proceeds.  
+- Take note that vitamins are uncapped in the post-game.  
+- Use your purchases to train your roster pokemon without battling.  
 
 **Secret Hints**  
 1 - Try winning the SS Anne tournament with a Pikachu in your party.  
@@ -379,14 +389,14 @@ Use your purchases to train your roster pokemon without battling.
   
 - Default Options
   - Some options are automatically changed when nuzlocke mode is turned on.
-  - The Obedience Level Cap will be activated if the Scale Enemy Trainer Levels feature is inactive.
-  - Also, the battle style will change to SET.
+  - The battle style will change to SET.
+  - Also, the Obedience Level Cap will be activated if the Scale Enemy Trainer Levels feature is inactive.
   - These are not mandatory changes, and you may reconfigure your options as you wish.
   
 - Rule 1: A pokemon that faints is considered dead and can no longer be used.
   - Revival items cannot be used in battle.
   - If a battle ends with no forfeiture, all pokemon with 0 HP are marked dead.
-  - If a battle ends in a forfeit, all pokemon with 0 HP before the forfeit are marked dead.
+  - If a battle ends in a forfeit (via the Forfeit Trainer Battles feature), all pokemon with 0 HP before the forfeit are marked dead.
   - Pokemon marked as dead have $05 written to their catch rate to permanently mark them.
   - Even if they are traded back and forth, dead pokemon remain marked as dead while in nuzlocke mode.
   - Medicinal items will not work on pokemon marked as dead, nor will Soft-boiled.
@@ -402,7 +412,7 @@ Use your purchases to train your roster pokemon without battling.
   - Wild battles before you can get pokeballs also count.
   - In light of this, you may want to delay activating nuzlocke mode until pokeballs are available.
   - Story wild battles (Old Man tutorial, Ghost Marowak, and Tower Ghosts) do not apply.
-  - Pokemon gained outside of battle (gifts, prizes, in-game trades, etc.) do not apply.
+  - Pokemon gained outside of battle (gifts, prizes, in-game trades, etc) do not apply.
   
 - Rule 3 (Optional): Nickname every pokemon you obtain.
   - You will always go straight to the nickname screen without a Yes/No prompt.
@@ -420,9 +430,9 @@ Use your purchases to train your roster pokemon without battling.
   - This symbol follows Rule 2 and any built-in exceptions previously described.
 
 - Nuzlocke and the Safari Zone:
-  - The Safari Zone is not inherently limited to a single entry in nuzlocke mode.
-  - Entering the Safari Zone gives the player an opportunity to catch 1 pokemon.
-  - And this opportunity presents itself each time the player pays the entry fee.
+  - The Safari Zone is not inherently limited to a single catch opportunity in nuzlocke mode.
+  - Entering the Safari Zone gives the player an opportunity to catch 1 pokemon per visit.
+  - This opportunity presents itself again each time the player pays the entry fee.
 
 - Nuzlocke and New Game+:
   - New Game+ preserves the pokedex.

@@ -20,6 +20,8 @@ HallofFameRoomScript3:
 	ret
 
 HallofFameRoomScript2:
+	predef SingleCPUSpeed	;deactivate 2x speed during hall of fame and credits as it may cause visual bugs
+	
 	call Delay3
 	ld a, [wLetterPrintingDelayFlags]
 	push af

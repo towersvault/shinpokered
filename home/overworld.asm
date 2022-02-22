@@ -44,6 +44,7 @@ OverworldLoop::
 	call z, DelayFrame
 OverworldLoopLessDelay::
 	;call DelayFrame
+	predef SetCPUSpeed	;2x speed
 	call CheckForSpinAndDelay
 	call LoadGBPal
 	ld a, [wd736]

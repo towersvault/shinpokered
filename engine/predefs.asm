@@ -171,3 +171,5 @@ PredefPointers::
 	add_predef ReplaceWildMon
 	add_predef randomMonPrizes
 	add_predef LookupWildRandomMon
+	add_predef SetCPUSpeed
+	add_predef SingleCPUSpeed

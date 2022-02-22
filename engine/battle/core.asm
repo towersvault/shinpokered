@@ -7687,6 +7687,8 @@ InitWildBattle:
 
 ; common code that executes after init battle code specific to trainer or wild battles
 _InitBattleCommon:
+	predef SingleCPUSpeed	;deactivate 2x speed during battle as it causes visual bugs
+
 	ld b, SET_PAL_BATTLE_BLACK
 	call RunPaletteCommand
 	call SlidePlayerAndEnemySilhouettesOnScreen

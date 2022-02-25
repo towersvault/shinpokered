@@ -294,6 +294,12 @@ v1.23.04
   - The game's five legendary pokemon are excluded from randomization
   - The AREA feature of the pokedex automatically adjusts to show the new pokemon locations
 - Paras is gifted in the Route 2 house in case the player has no pokemon that can learn Cut
+v1.23.05
+- The 60fps mode has better performance when playing in GBC-mode
+  - Does this by using the double-speed feature of the GBC's processor 
+  - Uses more battery as a trade-off
+- Fixed an invalid apostrophe
+- Fixed gift pokemon not having above-average DVs if sent to the box
 
 
 #Bugfixes:
@@ -684,8 +690,12 @@ v1.23.04
     - It's a single byte in the save file that gets incremented each version
     - If the save byte does not match, the player is automatically warped back to Pallet Town
     - Helps prevent crashes and glitches when updating an older save file
+  - The function that shows the dex entry for starter pokemon is now more robust
+    - It now works for any pokemon (like if the starters are changed or randomized)
+	- It keeps a backup of the pokedex-owned flags instead of erasing them
+	- Removed the unused Ivysaur flag
 
--Changes to fishing
+- Changes to fishing
   - Good rod has an expanded 'mon list and level range
   - Increased the level range of the super rod
   - Old rod now randomly acts as a Good rod 50% of the time 

@@ -286,14 +286,14 @@ _PinsirDexEntry::
 	next "are powerful."
 	next "Once they grip an"
 	
-	page "enemy, they won’t"
+	page "enemy, they won't"
 	next "release until the"
 	next "foe is torn twain"
 	dex
 
 _TangelaDexEntry::
 	text "Blue vines cloak"
-	next "the #MON’s"
+	next "the #MON's"
 	next "identity in a"
 	
 	page "tangled mass. It"
@@ -474,7 +474,7 @@ _GolemDexEntry::
 _MagmarDexEntry::
 	text "Found near mouths"
 	next "of volcanos. This"
-	next "fire-breather’s"
+	next "fire-breather's"
 	
 	page "body temperature"
 	next "is nearly 1,200"
@@ -862,7 +862,7 @@ _JolteonDexEntry::
 	dex
 
 _VaporeonDexEntry::
-	text "Its body’s cell"
+	text "Its body's cell"
 	next "structure is"
 	next "similar to a H2O"
 	
@@ -874,7 +874,7 @@ _VaporeonDexEntry::
 _MachopDexEntry::
 	text "Its whole body is"
 	next "made of muscles."
-	next "Though it’s the"
+	next "Though it's the"
 	
 	page "size of a human"
 	next "child, it can"
@@ -1027,7 +1027,7 @@ _MetapodDexEntry::
 	next "the body inside"
 	
 	page "is fragile. It"
-	next "can’t withstand a"
+	next "can't withstand a"
 	next "harsh attack"
 	dex
 
@@ -1385,7 +1385,7 @@ _PorygonDexEntry::
 
 _AerodactylDexEntry::
 	text "It was restored"
-	next "from a dinosaur’s"
+	next "from a dinosaur's"
 	next "DNA found inside"
 	
 	page "amber. It makes"

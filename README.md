@@ -295,6 +295,10 @@ v1.23.04
   - The AREA feature of the pokedex automatically adjusts to show the new pokemon locations
 - Paras is gifted in the Route 2 house in case the player has no pokemon that can learn Cut
 v1.23.05
+- The function that shows the dex entry for starter pokemon is now more robust
+  - It now works for any pokemon (like if the starters are changed or randomized)
+  - It keeps a backup of the pokedex-owned flags instead of erasing them
+  - Removed the unused Ivysaur flag
 - The 60fps mode has better performance when playing in GBC-mode
   - Does this by using the double-speed feature of the GBC's processor 
   - Uses more battery as a trade-off
@@ -769,6 +773,7 @@ v1.23.05
 - Added an option to make the overworld run in 60fps
   - Place the cursor over CANCEL in the options screen and toggle by pressing left or right
   - This feature is more of a proof-of-concept and is still kinda rusty
+  - Takes advantage of double-speed CPU mode when played as a GBC game
 - Text with zero frame delay can be toggled in the options menu; press LEFT with the cursor on FAST
 - Softlock Warp 
   - Instantly teleport back to your mom's house if you get stuck or are unable to move after updating to a new patch

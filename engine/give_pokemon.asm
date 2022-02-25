@@ -16,6 +16,17 @@ _GivePokemon:
 	ld a, [wcf91]
 	ld [wEnemyMonSpecies2], a
 	callab LoadEnemyMonData
+
+	;joenote - makes pkmn given to player (being sent to the box) have average IVs at minimum
+	ld hl, wEnemyMonDVs+1
+	ld a, [hld]
+	or $88	
+	ld b, a
+	ld a, [hl]
+	or $98
+	ld [hli], a
+	ld [hl], b
+	
 	call SetPokedexOwnedFlag
 	callab SendNewMonToBox
 	ld hl, wcf4b

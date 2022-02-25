@@ -11,7 +11,7 @@ _Route2HouseText3::
 	cont "it can still use "
 	cont "moves like CUT!"
 	
-	para "Need a pokemon"
+	para "Need a #MON"
 	line "that can use CUT?"
 	
 	para "You can take this"

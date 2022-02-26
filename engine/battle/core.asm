@@ -7186,7 +7186,11 @@ LoadPlayerBackPic:
 	ld a, BANK(RedPicBack)
 .next
 	call UncompressSpriteFromDE
-	predef ScaleSpriteByTwo
+IF (DEF(_REDGREENJP) || DEF(_ORIGBACK))
+	call SpriteScalingAndInterlacing
+ELSE
+	callba LoadUncompressedBackPics
+ENDC
 	ld hl, wOAMBuffer
 	xor a
 	ld [hOAMTile], a ; initial tile number
@@ -7221,8 +7225,8 @@ LoadPlayerBackPic:
 	ld e, a
 	dec b
 	jr nz, .loop
-	ld de, vBackPic
-	call InterlaceMergeSpriteBuffers
+;	ld de, vBackPic
+;	call InterlaceMergeSpriteBuffers
 	ld a, $a
 	ld [$0], a
 	xor a
@@ -7862,9 +7866,7 @@ LoadMonBackPic:
 
 ;joenote - needed for loading the 48x48 spaceworld back sprites
 IF (DEF(_REDGREENJP) || DEF(_ORIGBACK))
-	predef ScaleSpriteByTwo
-	ld de, vBackPic
-	call InterlaceMergeSpriteBuffers ; combine the two buffers to a single 2bpp sprite
+	call SpriteScalingAndInterlacing
 ELSE
 	callba LoadUncompressedBackPics
 ENDC
@@ -9666,4 +9668,10 @@ DecAttack:
 DeactivateRageInA:
 	ret nz
 	res USING_RAGE, a
+	ret
+
+SpriteScalingAndInterlacing:
+	predef ScaleSpriteByTwo
+	ld de, vBackPic
+	call InterlaceMergeSpriteBuffers ; combine the two buffers to a single 2bpp sprite
 	ret

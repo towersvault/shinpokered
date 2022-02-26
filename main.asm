@@ -1552,8 +1552,13 @@ MewPicFront:: 		   INCBIN "pic/bmon/mew.pic"
 MewPicBack::  		   INCBIN "pic/swmonback/mewb.pic"
 ENDC
 MissingnoPic::         INCBIN "pic/other/missingno.pic"
-RedPicBack::           INCBIN "pic/trainer/redb.pic"
-OldManPic::            INCBIN "pic/trainer/oldman.pic"
+IF (DEF(_REDGREENJP) || DEF(_ORIGBACK))
+RedPicBack::           INCBIN "pic/trainerback/redb.pic"
+OldManPic::            INCBIN "pic/trainerback/oldman.pic"
+ELSE
+RedPicBack::           INCBIN "pic/swtrainerback/redb.pic"
+OldManPic::            INCBIN "pic/swtrainerback/oldman.pic"
+ENDC
 
 SECTION "Battle (bank D)", ROMX, BANK[$D]
 ;migrated content to bank 9
@@ -2827,7 +2832,11 @@ INCLUDE "data/trainer_moves.asm"
 INCLUDE "data/trainer_parties.asm"
 
 ;joenote - adding female trainer sprites
-RedPicFBack::           INCBIN "pic/trainer/redb_f.pic"
+IF (DEF(_REDGREENJP) || DEF(_ORIGBACK))
+RedPicFBack::           INCBIN "pic/trainerback/redb_f.pic"
+ELSE
+RedPicFBack::           INCBIN "pic/swtrainerback/redb_f.pic"
+ENDC
 RedPicFFront:: 			INCBIN "pic/trainer/red_f.pic"
 RedFSprite:            INCBIN "gfx/sprites/redf.2bpp"
 RedFCyclingSprite:     INCBIN "gfx/sprites/cyclingf.2bpp"

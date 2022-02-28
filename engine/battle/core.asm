@@ -7186,10 +7186,10 @@ LoadPlayerBackPic:
 	ld a, BANK(RedPicBack)
 .next
 	call UncompressSpriteFromDE
-IF (DEF(_REDGREENJP) || DEF(_ORIGBACK))
-	call SpriteScalingAndInterlacing
-ELSE
+IF DEF(_SWSPRITES)
 	callba LoadUncompressedBackPics
+ELSE
+	call SpriteScalingAndInterlacing
 ENDC
 	ld hl, wOAMBuffer
 	xor a
@@ -7865,10 +7865,10 @@ LoadMonBackPic:
 	call UncompressMonSprite
 
 ;joenote - needed for loading the 48x48 spaceworld back sprites
-IF (DEF(_REDGREENJP) || DEF(_ORIGBACK))
-	call SpriteScalingAndInterlacing
-ELSE
+IF DEF(_SWSPRITES)
 	callba LoadUncompressedBackPics
+ELSE
+	call SpriteScalingAndInterlacing
 ENDC
 
 	ld hl, vSprites

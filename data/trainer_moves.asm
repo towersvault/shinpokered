@@ -110,7 +110,7 @@ SpecialTrainerMoves:
 	db GIOVANNI,$3
 	db 2,1,FISSURE
 	db 3,1,EARTHQUAKE
-	db 3,4,THUNDER
+	db 3,3,THUNDER
 	db 4,1,EARTHQUAKE
 	db 4,3,ICE_BEAM
 	db 5,1,ROCK_SLIDE
@@ -130,7 +130,7 @@ SpecialTrainerMoves:
 
 	db BRUNO,$1
 	db 1,1,ROCK_SLIDE
-	db 1,2,SCREECH
+	db 1,2,SCREECHs
 	db 1,4,DIG
 	db 2,3,FIRE_PUNCH
 	db 2,4,SUBMISSION

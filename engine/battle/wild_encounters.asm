@@ -27,8 +27,7 @@ TryDoWildEncounter:
 ; is the bottom right tile (9,9) of the half-block we're standing in a grass/water tile?
 	coord hl, 9, 9
 	ld c, [hl]
-	ld a, [wGrassTile]
-	cp c
+	call TestGrassTile	;joenote - fix a grass tile not generating encounters
 	ld a, [wGrassRate]
 	jr z, .CanEncounter
 	ld a, $14 ; in all tilesets with a water tile, this is its id
@@ -121,6 +120,22 @@ TryDoWildEncounter:
 	jr nz, .willEncounter
 	jr .CantEncounter2
 
+;joenote - fix a grass tile not generating encounters
+;c = lower-left tile to check
+;gives z if grass tile
+;give nz if not grass tile
+TestGrassTile:
+	ld a, [wGrassTile]
+	cp c
+	jr z, .return
+	ld a, [wCurMapTileset]
+	cp FOREST
+	jr nz, .return
+	ld a, $34	;check for the extra grass tile in the forest tileset
+	cp c
+.return
+	ret
+	
 WildMonEncounterSlotChances:
 ; There are 10 slots for wild pokemon, and this is the table that defines how common each of
 ; those 10 slots is. A random number is generated and then the first byte of each pair in this

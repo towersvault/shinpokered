@@ -305,6 +305,7 @@ v1.23.05
 - Fixed an invalid apostrophe
 - Fixed gift pokemon not having above-average DVs if sent to the box
 - Added spaceworld-style trainer back sprites for consistency with the spaceworld 'mon back sprites 
+- Fixed a grass tile in the Forest tileset not counting for encouner generation
 
 
 #Bugfixes:
@@ -506,6 +507,7 @@ v1.23.05
   - Water warps in seafoam island 4 & 5 are now scripted movement
   - Fixed a bug in the GetName: function that treated lists over 195 entries as item lists
   - You can Fly and Teleport out of maps with the forest tileset
+  - Fixed a grass tile in the Forest tileset not counting for encouner generation
   
   
 #TWEAKS:

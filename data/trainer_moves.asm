@@ -130,7 +130,7 @@ SpecialTrainerMoves:
 
 	db BRUNO,$1
 	db 1,1,ROCK_SLIDE
-	db 1,2,SCREECHs
+	db 1,2,SCREECH
 	db 1,4,DIG
 	db 2,3,FIRE_PUNCH
 	db 2,4,SUBMISSION

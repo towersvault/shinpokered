@@ -66,6 +66,7 @@ You can cycle through mono sound and three types of stereo mixing.
 **60 FPS Mode**  
 This feature is more of a proof-of-concept and is still kinda rusty.  
 Place the cursor over CANCEL in the options screen, and toggle the mode by pressing LEFT or RIGHT.  
+Playing as a GBC game will take advantage of the GBC's double-speed processor mode.  
 
 **Zero-Delay Text**  
 This feature reinstitutes a speed-running trick that makes text print with zero frame delay.  
@@ -236,6 +237,15 @@ You will be asked to confirm your decision. Choose YES to forfeit or NO to cance
     - Limited to a single hardcoded encounter table.  
     - Pokemon encountered are unevolved and entry-level.  
     - Up to eight different pokemon can be hooked.  
+	
+**Reworked Daycare EXP**  
+The daycare experience gain has been recalibrated.  
+It no longer gives 1 exp per step.  
+Instead, it falsifies the act of farming wild encounters against a pokemon with a base exp value of 56.  
+The falsified encounter starts at level 5, and it increases 5 more levels per badge obtained.  
+With 8 badges, using the daycare is essentially a faster way of farming level 45 basic pokemon.  
+The downside of not gaining statexp in the daycare still remains as a tradeoff.  
+Consider using the daycare as a way to outsource some grinding while you go focus on other things.  
 
 
 #Trainer-Aiding Features

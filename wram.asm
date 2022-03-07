@@ -1237,9 +1237,11 @@ wFlags_0xcd60:: ; cd60
 ; bit 1: boulder dust animation (from using Strength) pending
 ; bit 2: used for unknown stuff
 ; bit 3: using generic PC
-; bit 4: withdrawing boxed item's from pc ;joenote - added this
+; bit 4: skip updating sprites when displaying a text ID
+;		joenote - also used to flag for when you are withdrawing boxed item's from the pc
 ; bit 5: don't play sound when A or B is pressed in menu
 ; bit 6: tried pushing against boulder once (you need to push twice before it will move)
+; bit 7: used for some kind of dungeon warp in maps where you fall down holes (debug feature?)
 	ds 1
 
 	ds 9

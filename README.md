@@ -269,8 +269,10 @@ Cheats and Secrets!
 v1.23.01  
 - Green and Red-JP have the original front sprites for fossil kabutops and fossil aerodactyl
 - Green and Red-JP have the original text box corners 
+
 v1.23.02  
 - Added nuzlocke mode
+
 v1.23.03  
 - Restored intro "Presents" for all builds
 - Added rom hack version tracking for save files
@@ -281,6 +283,7 @@ v1.23.03
 - Minor timing fix to title object palette loading
 - Fixed Raticate not appearing in Unknown Dungeon 2F in Blue-Jp
 - Fixed incorrect encounters on route 13 for some versions
+
 v1.23.04  
 - Tweaked a flag for shinies so it can be used as a debugging toggle
 - The girl in Oak's lab toggles a built-in randomizer for wild pokemon and your starters
@@ -294,6 +297,7 @@ v1.23.04
   - The game's five legendary pokemon are excluded from randomization
   - The AREA feature of the pokedex automatically adjusts to show the new pokemon locations
 - Paras is gifted in the Route 2 house in case the player has no pokemon that can learn Cut
+
 v1.23.05
 - The function that shows the dex entry for starter pokemon is now more robust
   - It now works for any pokemon (like if the starters are changed or randomized)

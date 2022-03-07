@@ -178,12 +178,14 @@ DayCareMText1:
 	call AddNTimes
 	ld d, h
 	ld e, l
-	ld a, 1
-	ld [wLearningMovesFromDayCare], a
-	predef WriteMonMoves
+;	ld a, 1			;joenote - not going to be used anymore
+;	ld [wLearningMovesFromDayCare], a
+;	predef WriteMonMoves
 	pop bc
 	pop af
 
+	push af
+	
 ; set mon's HP to max
 	ld hl, wPartyMon1HP
 	call AddNTimes
@@ -199,6 +201,64 @@ DayCareMText1:
 
 	ld a, [wcf91]
 	call PlayCry
+	
+	;joenote - prompt evolution and move learning if possible
+	pop af
+	ld [wWhichPokemon], a
+	
+	ld a, [wDayCareMonSpecies]
+	ld [wd11e], a
+	
+	xor a 
+	ld [wMonDataLocation], a	; PLAYER_PARTY_DATA
+	ld [wForceEvolution], a
+
+	ld a, [wLetterPrintingDelayFlags]
+	push af
+	xor a
+	ld [wLetterPrintingDelayFlags], a
+
+	ld hl, wFlags_D733
+	set 6, [hl]
+	push hl
+
+	push bc
+	ld a, [wCurEnemyLVL]	; load the final level into a.
+	ld c, a	; load the final level to over to c
+	ld a, [wDayCareStartLevel]	; load the original level into a
+	ld b, a	; load the original level over to b
+	dec b
+.inc_level	; marker for looping back 
+	inc b	;increment the current level
+	ld a, b	;put the current level in a
+	ld [wCurEnemyLVL], a	;and reset the final level to the evolution level
+	push bc	;save b & c on the stack as they hold the currently tracked evolution level a true final level
+	predef LearnMoveFromLevelUp
+	pop bc	;get the current evolution and final level values back from the stack
+	ld a, b	;load the current evolution level into a
+	cp c	;compare it with the final level
+	jr nz, .inc_level	;loop back again if final level has not been reached
+	pop bc
+	
+	callab TryEvolvingMon
+
+	pop hl
+	res 6, [hl]
+	
+	pop af
+	ld [wLetterPrintingDelayFlags], a
+
+	ld a, [wEvolutionOccurred]
+	and a
+	ld a, 0
+	ld [wEvolutionOccurred], a
+	jr z, .no_evolve
+	call WaitForSoundToFinish
+	call GBPalWhiteOutWithDelay3
+	call RestoreScreenTilesAndReloadTilePatterns
+	call LoadGBPal
+.no_evolve
+
 	ld hl, DayCareGotMonBackText
 	jr .done
 

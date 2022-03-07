@@ -291,9 +291,15 @@ Evolution_PartyMonLoop: ; loop over party mons
 	ld [wMonDataLocation], a
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	;joenote - fixing skip move-learn on level-up evolution
+	ld a, [wFlags_D733]
+	bit 6, a
+	jr nz, .learn_missed_moves
+	
 	ld a, [wIsInBattle]
 	and a
 	jr z, .notinbattle
+	
+.learn_missed_moves
 	push bc
 	
 	ld a, [wCurEnemyLVL]	; load the final level into a.

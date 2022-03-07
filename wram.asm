@@ -3212,6 +3212,8 @@ wFlags_D733:: ; d733
 ; bit 4: use variable [wCurMapScript] instead of the provided index for next frame's map script (used to start battle when talking to trainers)
 ; bit 5: joenote - set if final battle against rival
 ; bit 6: joenote - gets set if this is a pkmn tower ghost battle
+;					- also used to force a pokemon to learn skipped moves upon evolving
+;					- and makes object sprites update when choosing a move to forget
 ; bit 7: used fly out of battle
 	ds 1
 

@@ -131,6 +131,11 @@ TryingToLearn:
 	ld b, 4
 	ld c, 14
 	call TextBoxBorder
+
+	ld a, [wFlags_D733]
+	bit 6, a
+	call nz, UpdateSprites ; joenote - disable sprites behind the text box
+
 	coord hl, 6, 8
 	ld de, wMovesString
 	ld a, [hFlags_0xFFF6]

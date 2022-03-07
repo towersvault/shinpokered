@@ -238,7 +238,9 @@ You will be asked to confirm your decision. Choose YES to forfeit or NO to cance
     - Pokemon encountered are unevolved and entry-level.  
     - Up to eight different pokemon can be hooked.  
 	
-**Reworked Daycare EXP**  
+**Reworked Daycare**  
+The daycare lets you select moves to forget (if any) upon retreiving your pokemon.  
+Retrieving a daycare pokemon that could have evolved via level will trigger evolution and learn any missed-out moves.  
 The daycare experience gain has been recalibrated.  
 It no longer gives 1 exp per step.  
 Instead, it falsifies the act of farming wild encounters against a pokemon with a base exp value of 56.  

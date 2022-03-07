@@ -224,6 +224,8 @@ Other minor changes to lessen annoyance.
 - Hitting with a trapping move reduces its user's speed by 25% until recalculated via some other effect.
 - Trapping moves play a 'poof' animation on the move's final turn in order to inform the player.
 - A recalibrated daycare gives experience points scaled to your gym progress.
+- The daycare lets you select moves to forget (if any) upon retreiving your pokemon.
+- Retrieving a daycare pokemon that could have evolved via level will trigger evolution and learn any missed-out moves.
 
 Cheats and Secrets!
 - A pokemon with Pay Day in your top slot will tip you off to a lucky slot machine and when it's in a special payout mode.
@@ -308,6 +310,8 @@ v1.23.05
 - Added spaceworld-style trainer back sprites for consistency with the spaceworld 'mon back sprites 
 - Fixed a grass tile in the Forest tileset not counting for encouner generation
 - Recalibrated the experience gain at the daycare
+- The daycare lets you select moves to forget (if any) upon retreiving your pokemon
+- Retrieving a daycare pokemon that could have evolved via level will trigger evolution and learn any missed-out moves
 
 
 #Bugfixes:
@@ -712,13 +716,15 @@ v1.23.05
   - The Route 12 Fishing Guru is now visitable upon first reaching Lavender Town
   - Swapped location of Good and Super Rod
 
-- Changes to daycare exp
+- Changes to the daycare
+  - The daycare lets you select moves to forget (if any) upon retreiving your pokemon
+  - Retrieving a daycare pokemon that could have evolved via level will trigger evolution and learn any missed-out moves
   - The daycare experience gain has been recalibrated
-  - It no longer gives 1 exp per step
-  - Instead, it falsifies the act of farming wild encounters against a pokemon with a base exp value of 56
-  - The falsified encounter starts at level 5, and it increases 5 more levels per badge obtained
-  - With 8 badges, using the daycare is essentially a faster way of farming level 45 basic pokemon
-  - The downside of not gaining statexp in the daycare still remains as a tradeoff
+    - It no longer gives 1 exp per step
+    - Instead, it falsifies the act of farming wild encounters against a pokemon with a base exp value of 56
+    - The falsified encounter starts at level 5, and it increases 5 more levels per badge obtained
+    - With 8 badges, using the daycare is essentially a faster way of farming level 45 basic pokemon
+    - The downside of not gaining statEXP in the daycare still remains as a tradeoff
 
 - A regular New Game will default the battle style to SET
 - Yes/No prompt for flute use has been added to blocking snorlax

@@ -312,6 +312,8 @@ v1.23.05
 - Recalibrated the experience gain at the daycare
 - The daycare lets you select moves to forget (if any) upon retreiving your pokemon
 - Retrieving a daycare pokemon that could have evolved via level will trigger evolution and learn any missed-out moves
+- Adjusted Oak's pokemon moves
+- Fixed text overlap for trainer Seiga
 
 
 #Bugfixes:

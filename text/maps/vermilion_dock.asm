@@ -55,9 +55,10 @@ _VermilionDockSeigaDefeat::
 	prompt
 
 _VermilionDockSeigaVictory::
-	text "A #MON"
-	line "was well-hidden"
-	cont "under the truck."
+	text "A"
+	line "#MON was well-"
+	cont "hidden under the"
+	cont "truck."
 	
 	para "It cried MEW!"
 	line "and flew towards"
@@ -70,13 +71,13 @@ _VermilionDockSeigaVictory::
 	cont "went to a lower"
 	cont "level."
 	
-	para "Your DEX is much"
+	para "Your 'DEX is much"
 	line "more advanced"
 	cont "than my locater."
 	
 	para "Maybe the #MON"
 	line "will appear when"
-	cont "it's upgraded with"
-	cont "a diploma."
+	cont "it's upgraded"
+	cont "with a diploma."
 	prompt
 	

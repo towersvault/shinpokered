@@ -220,18 +220,33 @@ SpecialTrainerMoves:
 	db 6,3,FIRE_BLAST
 	db 0
 
-	;prof oak's 1st pokemon
+	;prof oak's pokemon
 	db PROF_OAK,$1
 	db 1,2,EARTHQUAKE
 	db 1,3,THUNDERBOLT
+	db 1,3,HYPER_BEAM
+	db 3,1,FIRE_BLAST
+	db 4,3,BLIZZARD
+	db 5,1,THUNDERBOLT
+	db 5,2,ICE_BEAM
 	db 0
 	db PROF_OAK,$2
 	db 1,2,EARTHQUAKE
 	db 1,3,THUNDERBOLT
+	db 1,3,HYPER_BEAM
+	db 3,1,FIRE_BLAST
+	db 4,3,BODY_SLAM
+	db 5,1,THUNDERBOLT
+	db 5,2,ICE_BEAM
 	db 0
 	db PROF_OAK,$3
 	db 1,2,EARTHQUAKE
 	db 1,3,THUNDERBOLT
+	db 1,3,HYPER_BEAM
+	db 3,1,FIRE_BLAST
+	db 4,1,TOXIC
+	db 5,1,THUNDERBOLT
+	db 5,2,ICE_BEAM
 	db 0
 	
 	;mr fuji battle

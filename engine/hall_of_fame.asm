@@ -184,23 +184,28 @@ HoFMonInfoText:
 	next "TYPE2/@"
 
 HoFLoadPlayerPics:
-;joenote - support female trainer sprite
-	ld de, RedPicFFront
-	ld a, BANK(RedPicFFront)
-	
-	;need to preserve the bank value in A
-	push de
-	ld d, a
+;joenote - support female trainer sprites
 	ld a, [wUnusedD721]
 	bit 0, a	;check if girl
-	;need to get the bank value back in A
-	ld a, d
-	pop de
-	
-	jr nz, .donefemale_front
+	jr z, .loadmale
+.loadfemale
+	ld de, RedPicFBack
+	ld a, BANK(RedPicFBack)
+	push de	;push back pic
+	push af ;push back bank
+	ld de, RedPicFFront
+	ld a, BANK(RedPicFFront)
+	jr .doneload
+.loadmale
+	ld de, RedPicBack
+	ld a, BANK(RedPicBack)
+	push de ;push back pic
+	push af ; push back bank
 	ld de, RedPicFront
 	ld a, BANK(RedPicFront)
-.donefemale_front
+.doneload
+
+;load the front pic
 	call UncompressSpriteFromDE
 	ld hl, sSpriteBuffer1
 	ld de, sSpriteBuffer0
@@ -208,29 +213,21 @@ HoFLoadPlayerPics:
 	call CopyData
 	ld de, vFrontPic
 	call InterlaceMergeSpriteBuffers
-;joenote - support female trainer sprite
-	ld de, RedPicFBack
-	ld a, BANK(RedPicFBack)
-	
-	;need to preserve the bank value in A
-	push de
-	ld d, a
-	ld a, [wUnusedD721]
-	bit 0, a	;check if girl
-	;need to get the bank value back in A
-	ld a, d
-	pop de
-	
-	jr nz, .donefemale_back
-	ld de, RedPicBack
-	ld a, BANK(RedPicBack)
-.donefemale_back
+
+;load the back pic
+	pop af ;pop bank bank
+	pop de ;pop back pic
 	call UncompressSpriteFromDE
+IF DEF(_SWSPRITES)
+	callba LoadUncompressedBackPics
+ELSE
 	predef ScaleSpriteByTwo
 	ld de, vBackPic
 	call InterlaceMergeSpriteBuffers
+ENDC
 	ld c, $1
-
+	;fall through
+	
 HoFLoadMonPlayerPicTileIDs:
 ; c = base tile ID
 	ld b, 0

@@ -301,7 +301,7 @@ v1.23.04
   - The AREA feature of the pokedex automatically adjusts to show the new pokemon locations
 - Paras is gifted in the Route 2 house in case the player has no pokemon that can learn Cut
 
-v1.23.05
+v1.23.05  
 - The function that shows the dex entry for starter pokemon is now more robust
   - It now works for any pokemon (like if the starters are changed or randomized)
   - It keeps a backup of the pokedex-owned flags instead of erasing them
@@ -318,6 +318,9 @@ v1.23.05
 - Retrieving a daycare pokemon that could have evolved via level will trigger evolution and learn any missed-out moves
 - Adjusted Oak's pokemon moves
 - Fixed text overlap for trainer Seiga
+
+v1.23.06  
+- The static wild encounters (voltorbs and legendaries) now respond to the Chansey cheat for shiny hunting
 
 
 #Bugfixes:

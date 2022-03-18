@@ -112,6 +112,13 @@ ZapdosTrainerHeader:
 	db $ff
 
 InitVoltorbBattle:
+	;make the shiny attract cheat work on static wild encounters
+	push hl
+	push bc
+	callba ShinyAttractFunction
+	pop bc
+	pop hl
+
 	call TalkToTrainer
 	ld a, [wCurMapScript]
 	ld [wPowerPlantCurScript], a

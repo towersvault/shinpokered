@@ -218,7 +218,7 @@ HoFLoadPlayerPics:
 	pop af ;pop bank bank
 	pop de ;pop back pic
 	call UncompressSpriteFromDE
-IF DEF(_SWSPRITES)
+IF DEF(_SWBACKS)
 	callba LoadUncompressedBackPics
 ELSE
 	predef ScaleSpriteByTwo

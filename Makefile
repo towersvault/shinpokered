@@ -48,21 +48,26 @@ endif
 %.asm: ;
 
 # _RED, _BLUE, and _GREEN are the base rom tags. You can only have one of these.
-# _SWSPRITES modifies any base rom but cannot be used with _RGSPRITES. It uses red/blue front sprites and spaceworld back sprites.
-# _RGSPRITES modifies any base rom but cannot be used with _SWSPRITES. It uses redjp/green front sprites and regular back sprites.
+# _SWBACKS modifies any base rom. It uses spaceworld 48x48 back sprites.
+
+# _SWSPRITES modifies any base rom but cannot be used with other _*SPRITES tags. It uses spaceworld front 'mon sprites.
+# _YSPRITES modifies any base rom but cannot be used with other _*SPRITES tags. It uses yellow front 'mon sprites.
+# _RGSPRITES modifies any base rom but cannot be used with other _*SPRITES tags. It uses redjp/green front 'mon sprites.
+
 # _REDGREENJP modifies _RED or _GREEN. It reverts back certain aspects that were shared between japanese red & green.
 # _BLUEJP modifies _BLUE. It reverts back certain aspects that were unique to japanese blue.
 # _REDJP modifies _RED. It is for minor things exclusive to japanese red.
+
 # _JPTXT modifies any base rom. It restores some japanese text translations that were censored in english.
 # _METRIC modifies any base rom. It converts the pokedex data back to metric units.
 
 %_red.o: dep = $(shell tools/scan_includes $(@D)/$*.asm)
 $(pokered_obj): %_red.o: %.asm $$(dep)
-	rgbasm -D _RED -D _SWSPRITES -h -o $@ $*.asm
+	rgbasm -D _RED -D _SWBACKS -h -o $@ $*.asm
 
 %_blue.o: dep = $(shell tools/scan_includes $(@D)/$*.asm)
 $(pokeblue_obj): %_blue.o: %.asm $$(dep)
-	rgbasm -D _BLUE -D _SWSPRITES -h -o $@ $*.asm
+	rgbasm -D _BLUE -D _SWBACKS -h -o $@ $*.asm
 
 %_green.o: dep = $(shell tools/scan_includes $(@D)/$*.asm)
 $(pokegreen_obj): %_green.o: %.asm $$(dep)

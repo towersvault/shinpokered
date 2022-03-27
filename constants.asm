@@ -30,8 +30,19 @@ INCLUDE "constants/tilesets.asm"
 INCLUDE "constants/starter_mons.asm"
 INCLUDE "constants/event_constants.asm"
 INCLUDE "constants/text_constants.asm"
-IF DEF(_REDGREENJP)
-INCLUDE "constants/monfrontpic_constants_green.asm"
+
+IF DEF(_RGSPRITES)
+	INCLUDE "constants/monfrontpic_constants_green.asm"
+ELIF DEF(_YSPRITES)
+	INCLUDE "constants/monfrontpic_constants_yellow.asm"
+ELIF DEF(_SWSPRITES)
+	INCLUDE "constants/monfrontpic_constants_sw.asm"
 ELSE
-INCLUDE "constants/monfrontpic_constants.asm"
+	INCLUDE "constants/monfrontpic_constants.asm"
+ENDC
+
+IF DEF(_SWBACKS)
+	INCLUDE "constants/monbackpic_constants_sw.asm"
+ELSE
+	INCLUDE "constants/monbackpic_constants.asm"
 ENDC

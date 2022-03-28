@@ -7175,6 +7175,7 @@ LoadPlayerBackPic:
 	ld de, OldManPic
 	jr .bankred
 .redback
+IF DEF(_FPLAYER)
 	ld a, [wUnusedD721]
 	bit 0, a	;check if girl
 	jr z, .bankred	;go to the normal red sprite bank if boy
@@ -7182,6 +7183,7 @@ LoadPlayerBackPic:
 	ld de, RedPicFBack
 	ld a, BANK(RedPicFBack)
 	jr .next
+ENDC
 .bankred
 	ld a, BANK(RedPicBack)
 .next

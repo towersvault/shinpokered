@@ -1,10 +1,12 @@
 ChoosePlayerName:
 	call OakSpeechSlidePicRight
 ;joenote - support female trainer sprite
+IF DEF(_FPLAYER)
 	ld de, DefaultNamesPlayerF
 	ld a, [wUnusedD721]
 	bit 0, a	;check if girl
 	jr nz, .donefemale_names
+ENDC
 	ld de, DefaultNamesPlayer
 .donefemale_names
 	call DisplayIntroNameTextBox
@@ -13,10 +15,12 @@ ChoosePlayerName:
 	jr z, .customName
 ;joenote - support female trainer sprite
 	push af
+IF DEF(_FPLAYER)
 	ld hl, DefaultNamesPlayerListF
 	ld a, [wUnusedD721]
 	bit 0, a	;check if girl
 	jr nz, .donefemale_names2
+ENDC
 	ld hl, DefaultNamesPlayerList
 .donefemale_names2
 	pop af
@@ -35,11 +39,13 @@ ChoosePlayerName:
 	call ClearScreen
 	call Delay3
 ;joenote - support female trainer sprite
+IF DEF(_FPLAYER)
 	ld de, RedPicFFront
 	ld b, BANK(RedPicFFront)
 	ld a, [wUnusedD721]
 	bit 0, a	;check if girl
 	jr nz, .donefemale_front
+ENDC
 	ld de, RedPicFront
 	ld b, BANK(RedPicFront)
 .donefemale_front
@@ -209,13 +215,14 @@ DisplayIntroNameTextBox:
 	db "NAME@"
 
 ;joenote - set female trainer names
+IF DEF(_FPLAYER)
 DefaultNamesPlayerF:
 	db   "NEW NAME"
 	next "VIOLET"
 	next "CLAIRE"
 	next "JILL"
 	db   "@"
-
+ENDC
 
 IF DEF(_REDJP)
 DefaultNamesPlayer:
@@ -316,11 +323,13 @@ GetDefaultName:
 	jp CopyData
 
 ;joenote - set female trainer names
+IF DEF(_FPLAYER)
 DefaultNamesPlayerListF:
 	db "NEW NAME@"
 	db "VIOLET@"
 	db "CLAIRE@"
 	db "JILL@"
+ENDC
 
 IF DEF(_REDJP)
 DefaultNamesPlayerList:

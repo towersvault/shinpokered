@@ -321,12 +321,14 @@ PartyMoveTest:
 
 ;Overworld female trainer sprite functions
 LoadRedSpriteToDE:
-	ld de, RedFSprite
 	ld a, [wUnusedD721]
+IF DEF(_FPLAYER)
+	ld de, RedFSprite
 	bit 0, a	;check if girl
-	jr nz, .donefemale
+	jr nz, .next
+ENDC
 	ld de, RedSprite
-.donefemale
+.next
 	res 2, a
 	ld [wUnusedD721], a
 	ret

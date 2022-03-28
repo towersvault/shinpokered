@@ -394,11 +394,13 @@ FishingAnim:
 	set 6, [hl] ; reserve the last 4 OAM entries
 ;joenote - support female trainer sprite
 	push af
+IF DEF(_FPLAYER)
 	ld de, RedFSprite
 	lb bc, BANK(RedFSprite), $c
 	ld a, [wUnusedD721]
 	bit 0, a	;check if girl
 	jr nz, .donefemale
+ENDC
 	ld de, RedSprite
 	lb bc, BANK(RedSprite), $c
 .donefemale
@@ -408,10 +410,12 @@ FishingAnim:
 	ld a, $4
 ;joenote - support female trainer sprite when fishing
 	push af
+IF DEF(_FPLAYER)
 	ld hl, RedFFishingTiles
 	ld a, [wUnusedD721]
 	bit 0, a	;check if girl
 	jr nz, .donefemale2
+ENDC
 	ld hl, RedFishingTiles
 .donefemale2
 	pop af

@@ -1864,23 +1864,28 @@ INCLUDE "engine/battle/read_trainer_party.asm"
 INCLUDE "data/trainer_moves.asm"
 INCLUDE "data/trainer_parties.asm"
 
+IF DEF(_FPLAYER)
 ;joenote - adding female trainer sprites
-IF DEF(_SWBACKS)
-RedPicFBack::           INCBIN "pic/swtrainerback/redb_f.pic"
-ELSE
-RedPicFBack::           INCBIN "pic/trainerback/redb_f.pic"
+	IF DEF(_SWBACKS)
+	RedPicFBack::           INCBIN "pic/swtrainerback/redb_f.pic"
+	ELSE
+	RedPicFBack::           INCBIN "pic/trainerback/redb_f.pic"
+	ENDC
+	RedPicFFront:: 			INCBIN "pic/trainer/red_f.pic"
+	RedFSprite:            INCBIN "gfx/sprites/redf.2bpp"
+	RedFCyclingSprite:     INCBIN "gfx/sprites/cyclingf.2bpp"
 ENDC
-RedPicFFront:: 			INCBIN "pic/trainer/red_f.pic"
-RedFSprite:            INCBIN "gfx/sprites/redf.2bpp"
-RedFCyclingSprite:     INCBIN "gfx/sprites/cyclingf.2bpp"
 
 RedFishingTilesFront: INCBIN "gfx/red_fishing_tile_front.2bpp"
 RedFishingTilesBack:  INCBIN "gfx/red_fishing_tile_back.2bpp"
 RedFishingTilesSide:  INCBIN "gfx/red_fishing_tile_side.2bpp"
 RedFishingRodTiles:   INCBIN "gfx/red_fishingrod_tiles.2bpp"
-RedFFishingTilesFront: INCBIN "gfx/redF_fishing_tile_front.2bpp"
-RedFFishingTilesBack:  INCBIN "gfx/redF_fishing_tile_back.2bpp"
-RedFFishingTilesSide:  INCBIN "gfx/redF_fishing_tile_side.2bpp"
+
+IF DEF(_FPLAYER)
+	RedFFishingTilesFront: INCBIN "gfx/redF_fishing_tile_front.2bpp"
+	RedFFishingTilesBack:  INCBIN "gfx/redF_fishing_tile_back.2bpp"
+	RedFFishingTilesSide:  INCBIN "gfx/redF_fishing_tile_side.2bpp"
+ENDC
 
 INCLUDE "engine/items/tm_prices.asm"
 

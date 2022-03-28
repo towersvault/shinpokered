@@ -68,6 +68,7 @@ OakSpeech:
 	call RunDefaultPaletteCommand	;gbcnote - reinitialize the default palette in case the pointers got cleared
 ;joenote - give option to play as a female trainer here
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+IF DEF(_FPLAYER)
 	ld hl, AskIfGirlText
 	call PrintText
 	call NoYesChoice
@@ -78,6 +79,7 @@ OakSpeech:
 	or b
 	ld [wUnusedD721], a
 	call ClearScreen
+ENDC
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	ld a, $FF
 	call PlaySound ; stop music
@@ -190,14 +192,16 @@ OakSpeech:
 	call DelayFrames
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	;joenote - support female trainer
+IF DEF(_FPLAYER)
 	ld de, RedFSprite
 	lb bc, BANK(RedFSprite), $0C
 	ld a, [wUnusedD721]
 	bit 0, a	;check if girl
-	jr nz, .donefemale_sprite
+	jr nz, .sprite_next
+ENDC
 	ld de, RedSprite
 	lb bc, BANK(RedSprite), $0C
-.donefemale_sprite
+.sprite_next
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	ld hl, vSprites
 	call CopyVideoData
@@ -365,6 +369,8 @@ DoNewGamePlus: ;joenote - selective wram clearing for new game plus
 	
 	ret
 
+IF DEF(_FPLAYER)
 AskIfGirlText::	;joenote - text to ask if female trainer
 	TX_FAR _AskIfGirlText
 	db "@"
+ENDC

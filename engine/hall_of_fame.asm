@@ -185,6 +185,7 @@ HoFMonInfoText:
 
 HoFLoadPlayerPics:
 ;joenote - support female trainer sprites
+IF DEF(_FPLAYER)
 	ld a, [wUnusedD721]
 	bit 0, a	;check if girl
 	jr z, .loadmale
@@ -196,6 +197,7 @@ HoFLoadPlayerPics:
 	ld de, RedPicFFront
 	ld a, BANK(RedPicFFront)
 	jr .doneload
+ENDC
 .loadmale
 	ld de, RedPicBack
 	ld a, BANK(RedPicBack)

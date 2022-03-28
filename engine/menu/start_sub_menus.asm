@@ -550,14 +550,16 @@ StartMenu_TrainerInfo:
 ; loads tile patterns and draws everything except for gym leader faces / badges
 DrawTrainerInfo:
 ;joenote - support female trainer sprite
+IF DEF(_FPLAYER)
 	ld de, RedPicFFront
 	lb bc, BANK(RedPicFFront), $01
 	ld a, [wUnusedD721]
 	bit 0, a	;check if girl
-	jr nz, .donefemale_front
+	jr nz, .next
+ENDC
 	ld de, RedPicFront
 	lb bc, BANK(RedPicFront), $01
-.donefemale_front
+.next
 	predef DisplayPicCenteredOrUpperRight
 	call DisableLCD
 	coord hl, 0, 2

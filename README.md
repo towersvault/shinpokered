@@ -321,6 +321,11 @@ v1.23.05
 
 v1.23.06  
 - The static wild encounters (voltorbs and legendaries) now respond to the Chansey cheat for shiny hunting
+- Organized front ant back battle sprites to be controlled via assembler tags in the makefile
+- Organized the female trainer code to be activated via assembler tags in the makefile (for easy reference)
+- Added shiny mercy 
+  - When a player encounters an AI trainer shiny pokemon, the next wild encounter will be shiny
+  - Side effect: Because trainer 'mons can't be shiny in SHIFT mode, SET mode gives more chances to find wild shinies
 
 
 #Bugfixes:
@@ -949,6 +954,9 @@ v1.23.06
 - If a chansey >= level 100 is first in your roster:
   - Shiny wild random encounters and fishing rod encounters are much more common (1 in 256)
   - Repel effects will not block shiny encounters
+- Shiny Mercy 
+  - When a player encounters an AI trainer shiny pokemon, the next wild encounter will be shiny
+  - AI trainers can't have shinies in SHIFT mode, so SET mode affords more chances to find wild shinies
 - You can now battle missingno on the infamous cinnabar shoreline
   - You must have gotten the pokedex diploma first
   - Activated the traditional way via the "old man in viridian" method

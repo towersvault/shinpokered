@@ -389,6 +389,7 @@ Here is an alternative to grinding out battles in the post-game.
 7 - Place a level 100 Chansey at the top of your party and use a repel. You're bound to find something shiny.  
 8 - When going to the game corner, try having your 1st-slot pokemon know Pay Day. It may tip you off.  
 9 - Missingno can be activated if you have your pokedex diploma. Prepare your sixth item slot in case you win.  
+10 - Mercy is granted if you encounter an enemy trainer with a shiny pokemon.  
 
 
 #Built-In Nuzlocke Mode

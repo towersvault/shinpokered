@@ -19,6 +19,7 @@ ShinyAttractFunction:
 
 ;joenote - check if enemy mon has gen2 shiny DVs
 ;zero flag is set if not shiny	
+;as a mercy, makes the next encounter shiny via a flag bit if this is a trainer shiny
 CheckEnemyShinyDVs:
 	push hl
 	ld hl, wEnemyMonDVs
@@ -28,6 +29,22 @@ CheckEnemyShinyDVs:
 	and a 
 .end
 	pop hl
+	push af
+	call nz, .trainer_mercy
+	pop af
+	ret
+.trainer_mercy
+	ld a, [wIsInBattle]
+	cp 2
+	ret nz	;return if not a trainer battle
+	ld a, [wLinkState]
+	cp LINK_STATE_BATTLING
+	ret z ;return if this is a link battle
+	;at this point, player is facing an AI trainer's shiny pokemon
+	;so make the next wild encounter shiny
+	ld a, [wFontLoaded]
+	set 7, a 
+	ld [wFontLoaded], a
 	ret
 
 CheckPlayerShinyDVs:

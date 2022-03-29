@@ -326,6 +326,7 @@ v1.23.06
 - Added shiny mercy 
   - When a player encounters an AI trainer shiny pokemon, the next wild encounter will be shiny
   - Side effect: Because trainer 'mons can't be shiny in SHIFT mode, SET mode gives more chances to find wild shinies
+- AI can now handle fly/dig loops between the two pokemon
 
 
 #Bugfixes:
@@ -622,6 +623,7 @@ v1.23.06
   - Discourage exploding effects if faster than a player in fly/dig state
   - Randomly discourage usage of 2-turn moves when confused/paralyzed
   - 50% chance that the AI is blind to a player switching or using an item
+  - Discourage using fly/dig if faster than the player who is also picking fly/dig
 
 - Trainer ai routine #3 (choosing effective moves) has been modified
   - It now heavily discourages moves that would have no effect due to type immunity

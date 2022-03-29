@@ -302,6 +302,27 @@ AIMoveChoiceModification1:
 .twoturndone
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;joenote - discourage the use of fly or dig if a slower player is doing the same
+; this is because the faster 'mon always misses if both decide to use fly/dig
+	ld a, [wEnemyMoveNum]
+	call IsDigOrFly
+	jr nz, .end_bothusedigorfly
+	ld a, [wPlayerMoveNum]
+	call IsDigOrFly
+	jr nz, .end_bothusedigorfly
+	ld a, [wPlayerBattleStatus1]
+	bit 6, a
+	jr nz, .end_bothusedigorfly	;player is already in dig/fly invulnerability if nz, so move on
+	call StrCmpSpeed
+	jr z, .end_bothusedigorfly	;speeds equal if z, so move on
+	jr c, .end_bothusedigorfly	;speed is less than player if carry, so move on
+	;else AI is faster than player
+	;discourage because AI will miss and player will hit
+	inc [hl]
+	inc [hl]
+.end_bothusedigorfly
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	ld a, [wEnemyMovePower]
 	and a
 	jp nz, .nextMove	;go to next move if the current move is not zero-power
@@ -2020,3 +2041,10 @@ UndoEnemySelectionPPDecrement:
 	pop bc
 	pop hl
 	ret
+
+;joenote - ret z if move in A is either Dig or Fly
+IsDigOrFly:
+	cp DIG
+	ret z
+	cp FLY
+	ret 

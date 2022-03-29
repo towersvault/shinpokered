@@ -232,7 +232,7 @@ Cheats and Secrets!
 - New item, M.GENE, re-randomizes a pkmn's DVs to values of 9,8,8,8 or more.
 - Defeat all five post-game special trainers to reactivate the legendary pokemon.
 - To more easily find shiny pokemon, put a level-100 Chansey at the top of your roster. Use a repel if you wish!
-- Do you dare to activate Missingno at the Cinnabar shore? Only if you got your 'dex diploma.
+- New Super Boss: Do you dare to activate Missingno at the Cinnabar shore? Only if you got your 'dex diploma.
 - Winning the SS Anne's tournament with a pikachu in your party makes that pikachu eligible for the SURF HM.
 
 

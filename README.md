@@ -14,20 +14,20 @@ Then the [Lite branch](https://github.com/jojobear13/shinpokered/tree/lite) is w
 
 A bash script randomizer, "randoshinred", is now in beta test.
 
-Download the IPS patch file of the version you want and apply it to its respective USA rom. 
-The "_origback" ips patches are alternatives for red & blue that keep the original back sprites. 
-Always apply patches to a fresh USA ROM or else strange glitches will occur.  
+**IMPORTANT**: Download the IPS patch file of the version you want and apply it to the correct USA rom. 
+- The "_origback" ips patches are alternatives for red & blue that keep the original back sprites. 
+- Always apply patches to a fresh USA ROM or else strange glitches will occur.  
+- **Red patches are applied to a USA Red ROM.**
+- **All other patches (Blues and Greens) are applied to a USA Blue ROM.**
 
 ***Includes Pokemon Green and Japanese Red!***
 - The compiler primarily builds the graphics and cerulean cave layout back to the original japanese release.
 - Pokedex entries adapt the original Green version text that was translated in Fire Red.
 - Pokedex uses metric units.
-- Apply the Green ips patch to a USA Blue rom. Apply the Red-JP ips patch to a USA Red rom.
 
 ***Now Includes Japanese Blue!***
 - Primarily builds the lists for encounters, trades, and prizes that were in the never-localized japanese release.
 - Pokedex uses metric units.
-- Apply the ips patch to a USA Blue rom.
 
 ***Updating Your Save File***  
 New patches might crash or have issues upon loading a save from a previous patch or an unpatched game.  

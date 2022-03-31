@@ -20063,8 +20063,8 @@
 30:63e6 SeakingPicFront
 30:65e6 SeakingPicBack
 30:6753 PonytaPicFront
-30:68b2 RapidashPicFront
-30:6a23 PonytaPicBack
+30:68b2 PonytaPicBack
+30:6a23 RapidashPicFront
 30:6c45 RapidashPicBack
 30:6d47 RattataPicFront
 30:6e1e RattataPicBack

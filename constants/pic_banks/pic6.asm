@@ -27,8 +27,8 @@ GoldeenPicBack::	INCBIN	GOLDEEN_BK
 SeakingPicFront::	INCBIN	SEAKING_FR
 SeakingPicBack::	INCBIN	SEAKING_BK
 PonytaPicFront::	INCBIN	PONYTA_FR
-RapidashPicFront::	INCBIN	PONYTA_BK
-PonytaPicBack::	INCBIN	RAPIDASH_FR
+PonytaPicBack::	INCBIN	PONYTA_BK
+RapidashPicFront::	INCBIN	RAPIDASH_FR
 RapidashPicBack::	INCBIN	RAPIDASH_BK
 RattataPicFront::	INCBIN	RATTATA_FR
 RattataPicBack::	INCBIN	RATTATA_BK

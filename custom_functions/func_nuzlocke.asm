@@ -479,28 +479,28 @@ NuzlockeMapList:
 	db $E3	; RockTunnelName
 	db $E4	; Route10Name
 	db $C9	; Route11Name
-	db $E7	; Route12Name
+	db $E9	; Route12Name
 	db $DB	; Route13Name
 	db $BC	; Route14Name
-	db $9D	; Route15Name
-	db $45	; Route16Name
+	db $AD	; Route15Name
+	db $55	; Route16Name
 	db $48	; Route17Name
 	db $6D	; Route18Name
 	db $6F	; Route19Name
 	db $2A	; Route1Name
 	db $4F	; Route20Name
 	db $2D	; Route21Name
-	db $07	; Route22Name
+	db $08	; Route22Name
 	db $06	; Route23Name
 	db $A1	; Route24Name
 	db $B0	; Route25Name
 	db $26	; Route2Name
 	db $43	; Route3Name
-	db $52	; Route4Name
+	db $82	; Route4Name
 	db $A3	; Route5Name
 	db $A8	; Route6Name
 	db $85	; Route7Name
-	db $B5	; Route8Name
+	db $D5	; Route8Name
 	db $D2	; Route9Name
 	db $8C	; SafariZoneName
 	db $5F	; SeafoamIslandsName

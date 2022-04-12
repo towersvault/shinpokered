@@ -18,6 +18,25 @@ INCLUDE "home.asm"
 
 SECTION "bank1",ROMX,BANK[$1]
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;do some declarations for battle sprites
+IF DEF(_RGSPRITES)
+	INCLUDE "constants/monfrontpic_constants_green.asm"
+ELIF DEF(_YSPRITES)
+	INCLUDE "constants/monfrontpic_constants_yellow.asm"
+ELIF DEF(_SWSPRITES)
+	INCLUDE "constants/monfrontpic_constants_sw.asm"
+ELSE
+	INCLUDE "constants/monfrontpic_constants.asm"
+ENDC
+
+IF DEF(_SWBACKS)
+	INCLUDE "constants/monbackpic_constants_sw.asm"
+ELSE
+	INCLUDE "constants/monbackpic_constants.asm"
+ENDC
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 INCLUDE "data/facing.asm"
 
 INCLUDE "engine/black_out.asm"

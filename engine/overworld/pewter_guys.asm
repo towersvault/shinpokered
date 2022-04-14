@@ -37,6 +37,22 @@ PewterGuys:
 	ret z
 	ld [de], a
 	inc de
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;joenote - double the pauses if in 60fps mode
+	and a
+	jr nz, .no60fps
+	push hl
+	ld hl, wUnusedD721
+	bit 4, [hl]
+	pop hl
+	jr z, .no60fps
+	ld [de], a
+	inc de
+	ld a, [wSimulatedJoypadStatesIndex]
+	inc a
+	ld [wSimulatedJoypadStatesIndex], a
+.no60fps
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	ld a, [wSimulatedJoypadStatesIndex]
 	inc a
 	ld [wSimulatedJoypadStatesIndex], a

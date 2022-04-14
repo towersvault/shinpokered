@@ -66,6 +66,11 @@ OakSpeech:
 	predef InitPlayerData2
 .newgamedone
 	call RunDefaultPaletteCommand	;gbcnote - reinitialize the default palette in case the pointers got cleared
+;joenote - initialize hack version byte as well as...
+	ld a, HACK_VERSION
+	ld [wRomHackVersion], a
+	predef SingleCPUSpeed	;...deactivate 2x speed das it may cause visual bugs during Oak's speech
+	
 ;joenote - give option to play as a female trainer here
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 IF DEF(_FPLAYER)

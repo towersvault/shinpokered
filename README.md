@@ -332,6 +332,7 @@ v1.23.07
 - Fixed pewter npc following distance in 60 fps mode
 - Fixed rom hack byte not getting set on new game
 - Battle sprite organization updates and extra backs
+- You will now be given the choice to warp if the rom hack version does not match
 
 
 #Bugfixes:

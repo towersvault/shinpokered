@@ -3240,6 +3240,15 @@ _LearnTempFieldMoveTextDenied::
 	cont "erase it."
 	prompt
 
+_RomHackVersionText::
+	text "This SAVE is from"
+	line "a different rev"
+	cont "of this game."
+	
+	para "Warp to PALLET"
+	line "TOWN for safety?"
+	done
+
 SECTION "Pokedex Text", ROMX, BANK[POKEDEX_TEXT]
 
 IF DEF(_REDGREENJP)

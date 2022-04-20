@@ -110,6 +110,21 @@ MainMenu:
 	jp nz, .mainMenuLoop ; pressed B
 	jr .inputLoop
 .pressedA
+
+;joenote - check the rom hack version and give a choice for the pallet warp
+	ld a, [wRomHackVersion]
+	cp HACK_VERSION
+	jr z, .warpcheck_end
+	ld hl, RomHackVersionText
+	call PrintText
+	call YesNoChoice
+	ld a, [wCurrentMenuItem]
+	and a
+	jr z, .warpcheck_end
+	ld a, HACK_VERSION
+	ld [wRomHackVersion], a
+.warpcheck_end
+	
 	call GBPalWhiteOutWithDelay3
 	call ClearScreen
 	ld a, PLAYER_DIR_DOWN
@@ -305,7 +320,7 @@ LinkMenu:
 	inc a ; LINK_STATE_IN_CABLE_CLUB (makes a = 1)
 	ld [wLinkState], a
 	ld [wEnteringCableClub], a
-	jr SpecialEnterMap
+	jp SpecialEnterMap
 .choseCancel
 	xor a
 	ld [wMenuJoypadPollCount], a
@@ -390,6 +405,10 @@ PleaseWaitText:
 
 LinkCanceledText:
 	TX_FAR _LinkCanceledText
+	db "@"
+
+RomHackVersionText:
+	TX_FAR _RomHackVersionText
 	db "@"
 
 StartNewGame:

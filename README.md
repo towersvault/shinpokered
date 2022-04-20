@@ -328,6 +328,11 @@ v1.23.06
   - Side effect: Because trainer 'mons can't be shiny in SHIFT mode, SET mode gives more chances to find wild shinies
 - AI can now handle fly/dig loops between the two pokemon
 
+v1.23.07  
+- Fixed pewter npc following distance in 60 fps mode
+- Fixed rom hack byte not getting set on new game
+- Battle sprite organization updates and extra backs
+
 
 #Bugfixes:
 -----------

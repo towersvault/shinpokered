@@ -834,6 +834,13 @@ ItemUseEvoStone:
 	ld [wcf91], a
 	ld a, $01
 	ld [wForceEvolution], a
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;joenote - in nuzlocke mode, cannot use stones on dead pokemon
+	ld a, [wWhichPokemon]
+	ld [wUsedItemOnWhichPokemon], a
+	callba IsPartyMonDead
+	jr z, .noEffect
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	ld a, SFX_HEAL_AILMENT
 	call PlaySoundWaitForCurrent
 	call WaitForSoundToFinish
@@ -2239,6 +2246,13 @@ ItemUsePPRestore:
 	jr nc, .chooseMove
 	jp .itemNotUsed
 .chooseMove
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;joenote - in nuzlocke mode, cannot use PP items on dead pokemon
+	ld a, [wWhichPokemon]
+	ld [wUsedItemOnWhichPokemon], a
+	callba IsPartyMonDead
+	jp z, .noEffect
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	ld a, [wPPRestoreItem]
 	cp ELIXER
 	jp nc, .useElixir ; if Elixir or Max Elixir

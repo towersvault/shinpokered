@@ -4,6 +4,14 @@
 ;if dead --> return with z
 ;if alive --> return with nz
 IsPartyMonDead:
+	;treat mon as alive if nuzlocke mode is off
+	ld a, [wUnusedD721]
+	bit 6, a
+	jr nz, .next
+	ld a, 1
+	and a
+	ret
+.next
 	ld hl, wPartyMon1CatchRate
 	ld bc, wPartyMon2 - wPartyMon1
 	ld a, [wUsedItemOnWhichPokemon]

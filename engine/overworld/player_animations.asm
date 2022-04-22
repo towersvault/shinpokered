@@ -528,7 +528,8 @@ RedFishingTiles:
 	dw RedFishingRodTiles
 	db 3, BANK(RedFishingRodTiles)
 	dw vNPCSprites2 + $7d0
-	
+
+IF DEF(_FPLAYER)	;joenote - for female trainer
 RedFFishingTiles:
 	dw RedFFishingTilesFront
 	db 2, BANK(RedFFishingTilesFront)
@@ -545,6 +546,7 @@ RedFFishingTiles:
 	dw RedFishingRodTiles
 	db 3, BANK(RedFishingRodTiles)
 	dw vNPCSprites2 + $7d0
+ENDC
 
 _HandleMidJump:
 	ld a, [wPlayerJumpingYScreenCoordsIndex]

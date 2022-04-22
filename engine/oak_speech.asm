@@ -146,14 +146,17 @@ ENDC
 	call GBFadeOutToWhite
 	call ClearScreen
 ;joenote - support female sprite
+IF DEF(_FPLAYER)
 	ld de, RedPicFFront
 	lb bc, BANK(RedPicFFront), $00
 	ld a, [wUnusedD721]
 	bit 0, a	;check if girl
 	jr nz, .donefemale_front
+ENDC
 	ld de, RedPicFront
 	lb bc, BANK(RedPicFront), $00
-.donefemale_front	call IntroDisplayPicCenteredOrUpperRight
+.donefemale_front	
+	call IntroDisplayPicCenteredOrUpperRight
 	call MovePicLeft
 	ld hl, IntroducePlayerText
 	call PrintText
@@ -171,14 +174,17 @@ ENDC
 	call GBFadeOutToWhite
 	call ClearScreen
 ;joenote - support female sprite
+IF DEF(_FPLAYER)
 	ld de, RedPicFFront
 	lb bc, BANK(RedPicFFront), $00
 	ld a, [wUnusedD721]
 	bit 0, a	;check if girl
 	jr nz, .donefemale_front2
+ENDC
 	ld de, RedPicFront
 	lb bc, BANK(RedPicFront), $00
-.donefemale_front2	call IntroDisplayPicCenteredOrUpperRight
+.donefemale_front2	
+	call IntroDisplayPicCenteredOrUpperRight
 	call GBFadeInFromWhite
 	ld a, [wd72d]
 	and a

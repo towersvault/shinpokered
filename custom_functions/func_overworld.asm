@@ -341,10 +341,12 @@ LoadSeelSpriteToDE:
 	ret
 
 LoadRedCyclingSpriteToDE:
-	ld de, RedFCyclingSprite
 	ld a, [wUnusedD721]
+IF DEF(_FPLAYER)
+	ld de, RedFCyclingSprite
 	bit 0, a	;check if girl
 	jr nz, .donefemale
+ENDC
 	ld de, RedCyclingSprite
 .donefemale
 	res 2, a

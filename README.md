@@ -333,6 +333,9 @@ v1.23.07
 - Fixed rom hack byte not getting set on new game
 - Battle sprite organization updates and extra backs
 - You will now be given the choice to warp if the rom hack version does not match
+- The position of both switches in Vermilion Gym are now determined at the same time
+- The switches in Vermilion Gym can now be discovered independently from one another
+- Switches in Vermilion Gym will now properly take into acount vertical adjacents
 
 
 #Bugfixes:

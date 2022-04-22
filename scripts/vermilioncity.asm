@@ -14,10 +14,8 @@ VermilionCityScript:
 	jp CallFunctionInTable
 
 VermilionCityScript_197c0:
-	call Random
-	ld a, [$ffd4]
-	and $e
-	ld [wFirstLockTrashCanIndex], a
+;joenote - changed this so that both switches are determined at the same time
+	callba DetermineVermilionGymSwitches
 	ret
 
 VermilionCityScript_197cb:

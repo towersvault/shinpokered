@@ -17,8 +17,9 @@ A bash script randomizer, "randoshinred", is now in beta test.
 **IMPORTANT**: Download the IPS patch file of the version you want and apply it to the correct USA rom. 
 - The "_origback" ips patches are alternatives for red & blue that keep the original back sprites. 
 - Always apply patches to a fresh USA ROM or else strange glitches will occur.  
-- **Red patches are applied to a USA Red ROM.**
+- **Red patches (shin pokemon red, red_origback, and red-jp) are applied to a USA Red ROM.**
 - **All other patches (Blues and Greens) are applied to a USA Blue ROM.**
+
 
 ***Includes Pokemon Green and Japanese Red!***
 - The compiler primarily builds the graphics and cerulean cave layout back to the original japanese release.

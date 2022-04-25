@@ -337,6 +337,7 @@ v1.23.07
 - The position of both switches in Vermilion Gym are now determined at the same time
 - The switches in Vermilion Gym can now be discovered independently from one another
 - Switches in Vermilion Gym will now properly take into acount vertical adjacents
+- Fixed an issue with trapping moves being allowed on switch-in
 
 
 #Bugfixes:

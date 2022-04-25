@@ -2680,7 +2680,6 @@ SwitchPlayerMon:	;joedebug - this is where the player switches
 	ld [wEnemyNumAttacksLeft], a
 	ld a, $FF
 	ld [wEnemySelectedMove], a
-	call SetEnemyActedBit
 .preparewithdraw
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	callab RetreatMon
@@ -3340,7 +3339,14 @@ SelectEnemyMove:
 	jr z, .chooseRandomMoveAgain ; move not available, try again
 	pop de
 .done
-	ld [wEnemySelectedMove], a
+	;joenote - FF is a null move (such as losing a turn). If this is detected, do not replace with a chosen move
+	ld hl, wEnemySelectedMove
+	inc [hl]
+	push af
+	dec [hl]
+	pop af
+	ret z
+	ld [hl], a
 	ret
 .linkedOpponentUsedStruggle
 	ld a, STRUGGLE

@@ -628,11 +628,12 @@ AIMoveChoiceModification1:
 	and a
 	jr z, .skipoutspam	;skip if player did not use an item or switch
 	
-	;50% chance that the AI predicts the player would switch or use an item
+	;79.68% chance per move that the AI is blind to the fact that the player switched or used an item
+	;with three status moves on an AI mon, this works out to ~50% chance overall
 	call Random
-	rla
-	jr c, .skipoutspam	;if carry set, then proceed as normal
-	;else run spam protection on the status move
+	cp 204
+	jr nc, .skipoutspam	; if >= 204, proceed as normal
+	;else run spam protection on the status move to simulate being blind
 	
 .spamprotection
 ;heavily discourage 0 BP moves if health is below 1/3 max
@@ -1344,6 +1345,12 @@ TrainerAI:
 	ret z ; if not a trainer, we're done here
 	ld a, [wLinkState]
 	cp LINK_STATE_BATTLING
+	ret z
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;joenote - AI should not use actions if the null move has been selected
+	ld a, [wEnemySelectedMove]
+	cp $FF
 	ret z
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;joenote - AI should not use actions if in a move that prevents such a thing

@@ -338,6 +338,7 @@ v1.23.07
 - The switches in Vermilion Gym can now be discovered independently from one another
 - Switches in Vermilion Gym will now properly take into acount vertical adjacents
 - Fixed an issue with trapping moves being allowed on switch-in
+- Adjusted some AI anti-spam for status moves
 
 
 #Bugfixes:

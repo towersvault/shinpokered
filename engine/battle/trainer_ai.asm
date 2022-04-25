@@ -607,21 +607,22 @@ AIMoveChoiceModification1:
 	pop de
 	pop hl
 	jr nc, .spamprotection	;If not found on list, run anti-spam on it
+	;if it is in the list, has only a chance of anti-spam being run on it
 
 ;let's try to blind the AI a bit so that it won't just status the player immediately after using
 ;a restorative item or switching
-	;effect found on list of spam-exempt moves, is this a status move?
+	;effect found on list of spam-exempt moves, is this a status move (includes status-like effects)?
 	ld a, [wEnemyMoveEffect]
 	push hl
 	push de
 	push bc
-	ld hl, StatusAilmentMoveEffects
+	ld hl, StatusAilmentMoveEffectsExtended
 	ld de, $0001
 	call IsInArray
 	pop bc
 	pop de
 	pop hl
-	jr nc, .skipoutspam	;skip if not in the list of status effects
+	jr nc, .skipoutspam	;skip if not in the list of status effects (it's healing or a substitute or something)
 	
 	;effect is a status move, did the player use an item or switch?
 	ld a, [wActionResultOrTookBattleTurn]
@@ -633,7 +634,7 @@ AIMoveChoiceModification1:
 	call Random
 	cp 204
 	jr nc, .skipoutspam	; if >= 204, proceed as normal
-	;else run spam protection on the status move to simulate being blind
+	;else run spam protection on the status move to simulate not predicting the player
 	
 .spamprotection
 ;heavily discourage 0 BP moves if health is below 1/3 max
@@ -669,12 +670,13 @@ AIMoveChoiceModification1:
 	jp .nextMove
 
 EffectsToNotDissuade:
+	db HEAL_EFFECT
+	db SUBSTITUTE_EFFECT
+	;fall through
+StatusAilmentMoveEffectsExtended:
 	db CONFUSION_EFFECT
 	db LEECH_SEED_EFFECT
 	db DISABLE_EFFECT
-	db HEAL_EFFECT
-	db FOCUS_ENERGY_EFFECT
-	db SUBSTITUTE_EFFECT
 	;fall through
 StatusAilmentMoveEffects:
 	db $01 ; unused sleep effect

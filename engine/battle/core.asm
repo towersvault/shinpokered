@@ -2680,6 +2680,10 @@ SwitchPlayerMon:	;joedebug - this is where the player switches
 	ld [wEnemyNumAttacksLeft], a
 	ld a, $FF
 	ld [wEnemySelectedMove], a
+	;don't let enemy change the selected move during the next picking function
+	ld a, [wUnusedC000]
+	set 2, a
+	ld [wUnusedC000], a
 .preparewithdraw
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	callab RetreatMon
@@ -3266,9 +3270,17 @@ SelectEnemyMove:
 	ld a, [wEnemyBattleStatus1]
 	and (1 << USING_TRAPPING_MOVE) | (1 << STORING_ENERGY) ; using a trapping move like wrap or bide
 	ret nz
+
+;joenote - check and reset flag for being unable to select a move
+	ld hl, wUnusedC000
+	bit 2, [hl]
+	res 2, [hl]
+	jr nz, .unableToSelectMove
+	
 	ld a, [wPlayerBattleStatus1]
 	bit USING_TRAPPING_MOVE, a ; caught in player's trapping move (e.g. wrap)
 	jr z, .canSelectMove
+	
 .unableToSelectMove
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	call nz, NoAttackAICall	;joenote - get ai routines. flag register is preserved
@@ -3339,14 +3351,7 @@ SelectEnemyMove:
 	jr z, .chooseRandomMoveAgain ; move not available, try again
 	pop de
 .done
-	;joenote - FF is a null move (such as losing a turn). If this is detected, do not replace with a chosen move
-	ld hl, wEnemySelectedMove
-	inc [hl]
-	push af
-	dec [hl]
-	pop af
-	ret z
-	ld [hl], a
+	ld [wEnemySelectedMove], a
 	ret
 .linkedOpponentUsedStruggle
 	ld a, STRUGGLE
@@ -3362,13 +3367,13 @@ NoAttackAICall:
 	jr z, .NoAttackAICall_exit ; exit if this is a wild encounter
 	;set the no-attack bit
 	ld a, [wUnusedC000]
+	push af
 	set 2, a 
 	ld [wUnusedC000], a
 	;call ai routines
 	callab AIEnemyTrainerChooseMoves
 	;joenote - reset the no-attack bit
-	ld a, [wUnusedC000]
-	res 2, a 
+	pop af
 	ld [wUnusedC000], a
 .NoAttackAICall_exit
 	pop af ;get flags from stack

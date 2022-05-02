@@ -4,7 +4,7 @@ TrackPlayTime:
 	bit 0, a
 	ret z
 	ld a, [wPlayTimeMaxed]
-	and a
+	bit 7, a
 	ret nz
 	ld a, [wPlayTimeFrames]
 	inc a
@@ -30,9 +30,13 @@ TrackPlayTime:
 	ld a, [wPlayTimeHours]
 	inc a
 	ld [wPlayTimeHours], a
-	cp $ff
 	ret nz
-	ld a, $ff
+	ld a, [wPlayTimeMaxed]
+	inc a
+	ld [wPlayTimeMaxed], a
+	bit 7, a
+	ret z
+	or %01111111
 	ld [wPlayTimeMaxed], a
 	ret
 

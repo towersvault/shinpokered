@@ -340,6 +340,7 @@ v1.23.07
 - Fixed an issue with trapping moves being allowed on switch-in
 - Adjusted some AI anti-spam for status moves
 - Changed border block on route 16 to water to make it consistent with route 17
+- Increased the maximum game clock to 32767 hours
 
 
 #Bugfixes:

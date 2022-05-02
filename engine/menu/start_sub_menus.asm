@@ -641,15 +641,18 @@ ENDC
 	ld de, wPlayerMoney
 	ld c, $e3
 	call PrintBCDNumber
-	coord hl, 9, 6
-	ld de, wPlayTimeHours ; hours
-	lb bc, LEFT_ALIGN | 1, 3
-	call PrintNumber
-	ld [hl], $d6 ; colon tile ID
-	inc hl
-	ld de, wPlayTimeMinutes ; minutes
-	lb bc, LEADING_ZEROES | 1, 2
-	jp PrintNumber
+	coord hl, 7, 6
+;	ld de, wPlayTimeHours ; hours
+;	lb bc, LEFT_ALIGN | 1, 3
+;	call PrintNumber
+;	ld [hl], $d6 ; colon tile ID
+;	inc hl
+;	ld de, wPlayTimeMinutes ; minutes
+;	lb bc, LEADING_ZEROES | 1, 2
+;	jp PrintNumber
+	ld d, $d6
+	predef PrintPlayTime
+	ret
 
 TrainerInfo_FarCopyData:
 	ld a, BANK(TrainerInfoTextBoxTileGraphics)

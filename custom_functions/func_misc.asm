@@ -1,3 +1,40 @@
+;universally prints the play clock
+PrintPlayTime:	;joenote - moved this into a predef
+	call GetPredefRegisters
+
+	ld a, [wPlayTimeMaxed]
+	push af
+	res 7, a
+	ld [wPlayTimeMaxed], a
+
+	push de
+	call .swap
+	ld de, wPlayTimeHours
+	lb bc, 2, 5
+	call PrintNumber
+	pop de
+	call .swap
+
+	pop af
+	ld [wPlayTimeMaxed], a
+
+	ld a, d
+	ld [hl], a
+	inc hl
+	ld de, wPlayTimeMinutes
+	lb bc, LEADING_ZEROES | 1, 2
+	jp PrintNumber
+
+.swap
+	ld a, [wPlayTimeHours]
+	ld e, a
+	ld a, [wPlayTimeMaxed]
+	ld [wPlayTimeHours], a
+	ld a, e
+	ld [wPlayTimeMaxed], a
+	ret
+
+
 ;sets both of the vermilion gym switches at the same time
 DetermineVermilionGymSwitches:
 ;do first switch

@@ -464,8 +464,8 @@ DisplayContinueGameInfo:
 	call PrintNumBadges
 	coord hl, 16, 13
 	call PrintNumOwnedMons
-	coord hl, 13, 15
-	call PrintPlayTime
+	coord hl, 11, 15
+	call PrintPlayTime_local
 	ld a, 1
 	ld [H_AUTOBGTRANSFERENABLED], a
 	ld c, 30
@@ -490,8 +490,8 @@ PrintSaveScreenText:
 	call PrintNumBadges
 	coord hl, 16, 6
 	call PrintNumOwnedMons
-	coord hl, 13, 8
-	call PrintPlayTime
+	coord hl, 11, 8
+	call PrintPlayTime_local
 	ld a, $1
 	ld [H_AUTOBGTRANSFERENABLED], a
 	ld c, 30
@@ -517,15 +517,19 @@ PrintNumOwnedMons:
 	lb bc, 1, 3
 	jp PrintNumber
 
-PrintPlayTime:
-	ld de, wPlayTimeHours
-	lb bc, 1, 3
-	call PrintNumber
-	ld [hl], $6d
-	inc hl
-	ld de, wPlayTimeMinutes
-	lb bc, LEADING_ZEROES | 1, 2
-	jp PrintNumber
+PrintPlayTime_local:
+	ld d, $6d
+	predef PrintPlayTime
+	ret
+;PrintPlayTime:	;joenote - moved this into a predef
+;	ld de, wPlayTimeHours
+;	lb bc, 1, 3
+;	call PrintNumber
+;	ld [hl], $6d
+;	inc hl
+;	ld de, wPlayTimeMinutes
+;	lb bc, LEADING_ZEROES | 1, 2
+;	jp PrintNumber
 
 SaveScreenInfoText:
 	db   "PLAYER"

@@ -173,3 +173,4 @@ PredefPointers::
 	add_predef LookupWildRandomMon
 	add_predef SetCPUSpeed
 	add_predef SingleCPUSpeed
+	add_predef PrintPlayTime

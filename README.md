@@ -341,6 +341,7 @@ v1.23.07
 - Adjusted some AI anti-spam for status moves
 - Changed border block on route 16 to water to make it consistent with route 17
 - Increased the maximum game clock to 32767 hours
+- Fixed typo causing incorrect game corner prizes
 
 
 #Bugfixes:

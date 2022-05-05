@@ -31,6 +31,16 @@ MissingnoShore:
 	cp $F0
 	jr c, .return
 	ResetEvent EVENT_8DA	;clear cinnabar shore activation
+
+	ld a, 2	;get the right roster
+	ld [wTrainerNo], a
+	ld hl, MissingnoCoordsData2
+	call ArePlayerCoordsInArray
+	jr nc, .next
+	ld a, 3
+	ld [wTrainerNo], a
+.next
+
 	ld hl, wd72d;set the bits for triggering battle
 	set 6, [hl]	;
 	set 7, [hl]	;
@@ -41,8 +51,6 @@ MissingnoShore:
 	ld [wGymLeaderNo], a	;set bgm to champion music
 	ld a, OPP_CHIEF	;load the trainer type
 	ld [wCurOpponent], a	;set as the current opponent
-	ld a, 2	;get the right roster
-	ld [wTrainerNo], a
 	ld a, 3
 	ld [wRoute20CurScript], a
 	xor a
@@ -90,6 +98,16 @@ MissingnoCoordsData:
 	db $0B,$00
 	db $0C,$00
 	db $0D,$00
+	;fall through
+MissingnoCoordsData2:
+	db $02,$3e
+	db $03,$3e
+	db $04,$3e
+	db $05,$3e
+	db $06,$3e
+	db $07,$3e
+	db $08,$3e
+	db $09,$3e
 	db $ff
 
 Route20Script_50cc6:

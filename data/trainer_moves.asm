@@ -357,4 +357,20 @@ SpecialTrainerMoves:
 	db 6,4,DOUBLE_TEAM
 	db 0
 	
+	;multi missingno superboss battle
+	db CHIEF,$3
+	db 1,1,LEECH_SEED
+	db 1,2,TOXIC
+	db 1,3,SUPER_FANG
+	db 1,4,NIGHT_SHADE
+	db 2,1,EARTHQUAKE
+	db 2,2,HYPER_BEAM
+	db 2,3,CONFUSE_RAY
+	db 2,4,SPORE
+	db 3,1,PSYCHIC_M
+	db 3,2,BLIZZARD
+	db 3,3,THUNDER_WAVE
+	db 3,4,REST
+	db 0
+	
 	db $ff

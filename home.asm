@@ -583,7 +583,8 @@ GetMonHeader::
 
 	predef IndexToPokedex   ; convert pokemon ID in [wd11e] to pokedex number
 	ld a, [wd11e]
-	dec a
+	sub $01
+	jr c, .missingno	;joenote - missingno has a pokedex index of 0
 	ld bc, MonBaseStatsEnd - MonBaseStats
 	ld hl, BaseStats
 	call AddNTimes

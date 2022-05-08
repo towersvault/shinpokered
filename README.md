@@ -343,6 +343,7 @@ v1.23.07
 - Increased the maximum game clock to 32767 hours
 - Fixed typo causing incorrect game corner prizes
 - Added new superboss at the seafoam shore (activated the same as the existing missingno fight)
+- Assigned a proper forget-move sfx during battle
 
 
 #Bugfixes:

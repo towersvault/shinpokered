@@ -85,6 +85,7 @@ HiddenObjectMaps:
 	db CERULEAN_CITY
 	db ROUTE_4
 	db VERMILION_DOCK
+	db DAYCAREM
 	db $FF
 
 HiddenObjectPointers:
@@ -175,7 +176,8 @@ HiddenObjectPointers:
 	dw CeruleanCityHiddenObjects
 	dw Route4HiddenObjects
 	dw VermilionDockHiddenObjects
-
+	dw DaycareHiddenObjects
+	
 ; format: y-coord, x-coord, text id/item id, object routine
 TradeCenterHiddenObjects:
 	db $04,$05,$d0
@@ -862,4 +864,9 @@ VermilionDockHiddenObjects: ;joenote - added some hidden goodies
 	dbw BANK(HiddenItems),HiddenItems
 	db $0A,$1B,TM_15
 	dbw BANK(HiddenItems),HiddenItems
+	db $FF
+DaycareHiddenObjects:	;joentoe - added a PC to the daycare
+	db $01,$00,$04
+	db BANK(OpenPokemonCenterPC)
+	dw OpenPokemonCenterPC
 	db $FF

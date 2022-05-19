@@ -209,6 +209,30 @@ DayCareMText1:
 	ld a, [wDayCareMonSpecies]
 	ld [wd11e], a
 	
+	call EvoMoveStuff
+	ld a, [wWhichPokemon]
+	dec a
+	ld [wWhichPokemon], a
+	ld hl, wPartyMon1Species
+	ld bc, wPartyMon2 - wPartyMon1
+	call AddNTimes
+	ld a, [hl]
+	ld [wd11e], a
+	call EvoMoveStuff
+
+	ld hl, DayCareGotMonBackText
+	jr .done
+
+.leaveMonInDayCare
+	ld a, [wDayCareStartLevel]
+	ld [wDayCareMonBoxLevel], a
+
+.done
+	call PrintText
+	jp TextScriptEnd
+
+
+EvoMoveStuff:
 	xor a 
 	ld [wMonDataLocation], a	; PLAYER_PARTY_DATA
 	ld [wForceEvolution], a
@@ -258,17 +282,7 @@ DayCareMText1:
 	call RestoreScreenTilesAndReloadTilePatterns
 	call LoadGBPal
 .no_evolve
-
-	ld hl, DayCareGotMonBackText
-	jr .done
-
-.leaveMonInDayCare
-	ld a, [wDayCareStartLevel]
-	ld [wDayCareMonBoxLevel], a
-
-.done
-	call PrintText
-	jp TextScriptEnd
+	ret
 
 DayCareIntroText:
 	TX_FAR _DayCareIntroText

@@ -345,6 +345,7 @@ v1.23.07
 - Added new superboss at the seafoam shore (activated the same as the existing missingno fight)
 - Assigned a proper forget-move sfx during battle
 - Added a PC to the daycare
+- Teaching a TM as a field move (Dig/Teleport) no longer consumes the TM
 
 
 #Bugfixes:

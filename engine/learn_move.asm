@@ -16,7 +16,7 @@ DontAbandonLearning:
 	
 	;joenote - for field move slot
 	call LearnToFieldSlot
-	jp nz, PrintLearnedMove
+	jp nz, PrintLearnedFieldMove
 	
 	ld d, h
 	ld e, l
@@ -104,6 +104,12 @@ PrintLearnedMove:
 	ld hl, LearnedMove1Text
 	call PrintText
 	ld b, 1
+	ret
+PrintLearnedFieldMove:
+	ld hl, LearnedMove1Text
+	call PrintText
+	ld b, 1
+	ld c, 1	;make c=1 to indicate the move was learned as a field move
 	ret
 
 TryingToLearn:

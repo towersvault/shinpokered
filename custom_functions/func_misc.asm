@@ -396,6 +396,12 @@ SwapBagData:
 	push de
 	push hl
 	
+	coord hl, 5, 3
+	ld de, .swaptext
+	call PlaceString
+	ld c, 9
+	call DelayFrames
+	
 	;format the terminator at the end
 	ld a, $FF
 	ld [wBagItemsBackupTerminator], a
@@ -438,6 +444,9 @@ SwapBagData:
 	pop de
 	pop bc
 	ret
+.swaptext
+	db "…swapping…@"
+
 SwapDataSmall:
 ; Swap c bytes from hl to de using a and b.
 	ld a, [hl]

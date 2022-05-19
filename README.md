@@ -346,6 +346,7 @@ v1.23.07
 - Assigned a proper forget-move sfx during battle
 - Added a PC to the daycare
 - Teaching a TM as a field move (Dig/Teleport) no longer consumes the TM
+- Added visual indicator when swapping bag space
 
 
 #Bugfixes:

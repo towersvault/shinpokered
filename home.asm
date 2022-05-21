@@ -4114,6 +4114,7 @@ HandleMenuInput::
 	xor a
 	ld [wPartyMenuAnimMonEnabled], a
 
+;joenote - adjusted this so that pressing A or B has priority over pressing up or down
 HandleMenuInput_::
 	ld a, [H_DOWNARROWBLINKCNT1]
 	push af
@@ -4162,7 +4163,11 @@ HandleMenuInput_::
 	ld [wCheckFor180DegreeTurn], a
 	ld a, [hJoy5]
 	ld b, a
-	bit 6, a ; pressed Up key?
+.checkIfAButtonOrBButtonPressed
+	and A_BUTTON | B_BUTTON
+	jr nz, .AButtonOrBButtonPressed
+.checkIfUpPressed
+	bit 6, b;a ; pressed Up key?
 	jr z, .checkIfDownPressed
 .upPressed
 	ld a, [wCurrentMenuItem] ; selected menu item
@@ -4180,7 +4185,7 @@ HandleMenuInput_::
 	ld [wCurrentMenuItem], a ; wrap to the bottom of the menu
 	jr .checkOtherKeys
 .checkIfDownPressed
-	bit 7, a
+	bit 7, b;a
 	jr z, .checkOtherKeys
 .downPressed
 	ld a, [wCurrentMenuItem]
@@ -4201,10 +4206,11 @@ HandleMenuInput_::
 	ld a, [wMenuWatchedKeys]
 	and b ; does the menu care about any of the pressed keys?
 	jp z, .loop1
-.checkIfAButtonOrBButtonPressed
-	ld a, [hJoy5]
-	and A_BUTTON | B_BUTTON
-	jr z, .skipPlayingSound
+;.checkIfAButtonOrBButtonPressed
+;	ld a, [hJoy5]
+;	and A_BUTTON | B_BUTTON
+;	jr z, .skipPlayingSound
+	jr .skipPlayingSound
 .AButtonOrBButtonPressed
 	push hl
 	ld hl, wFlags_0xcd60
@@ -4226,9 +4232,10 @@ HandleMenuInput_::
 	ld a, [wMenuWatchMovingOutOfBounds]
 	and a ; should we return if the user tried to go past the top or bottom?
 	jr z, .checkOtherKeys
-	jr .checkIfAButtonOrBButtonPressed
-
-PlaceMenuCursor::
+	;jr .checkIfAButtonOrBButtonPressed
+	jr .skipPlayingSound
+	
+PlaceMenuCursor::	
 	ld a, [wTopMenuItemY]
 	and a ; is the y coordinate 0?
 	jr z, .adjustForXCoord

@@ -348,6 +348,7 @@ v1.23.07
 - Teaching a TM as a field move (Dig/Teleport) no longer consumes the TM
 - Added visual indicator when swapping bag space
 - The daycare can now support two evolutions back-to-back
+- Fixed input priority on menus
 
 
 #Bugfixes:

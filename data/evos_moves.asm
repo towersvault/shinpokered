@@ -217,7 +217,7 @@ KangaskhanEvosMoves:
 	db 0
 
 NidoranMEvosMoves:
-;joenote-modified the moveliest of nidoqueen line to be like yellow
+;joenote-modified the moveliest of nidoking line to be like yellow
 ; Evolutions
 	db EV_LEVEL, 16, NIDORINO
 	db 0
@@ -633,7 +633,8 @@ KadabraEvosMoves:
 	db EV_TRADE, 1, ALAKAZAM
 	db EV_LEVEL, 45, ALAKAZAM
 	db 0
-; Learnset
+; Learnset	;joenote - added Kinesis to be learned upon evolving
+	db 16, KINESIS
 	db 16, CONFUSION
 	db 20, DISABLE
 	db 27, PSYBEAM
@@ -928,7 +929,7 @@ VenonatEvosMoves:
 ; Learnset;joenote-modified for yellow
 	db 11, SUPERSONIC
 	db 19, CONFUSION
-	db 24, POISONPOWDER
+	db 22, POISONPOWDER
 	db 27, LEECH_LIFE
 	db 30, STUN_SPORE
 	db 35, PSYBEAM
@@ -1515,7 +1516,7 @@ VenomothEvosMoves:
 ; Learnsetjoenote-modified for yellow
 	db 11, SUPERSONIC
 	db 19, CONFUSION
-	db 24, POISONPOWDER
+	db 22, POISONPOWDER
 	db 27, LEECH_LIFE
 	db 30, STUN_SPORE
 	db 38, PSYBEAM
@@ -1565,12 +1566,12 @@ ButterfreeEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db 12, CONFUSION
-	db 15, POISONPOWDER
-	db 16, STUN_SPORE
-	db 17, SLEEP_POWDER
-	db 21, SUPERSONIC
-	db 26, WHIRLWIND
+	db 10, CONFUSION
+	db 13, POISONPOWDER
+	db 14, STUN_SPORE
+	db 15, SLEEP_POWDER
+	db 18, SUPERSONIC
+	db 23, WHIRLWIND
 	db 28, GUST;joenote - yellow update
 	db 32, PSYBEAM
 	db 0

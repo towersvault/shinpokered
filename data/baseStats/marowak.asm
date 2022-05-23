@@ -12,8 +12,8 @@ INCBIN MAROWAK_FR,0,1 ; 66, sprite dimensions
 dw MarowakPicFront
 dw MarowakPicBack
 ; attacks known at lvl 0
-db BONE_CLUB
 db GROWL
+db BONE_CLUB
 db LEER
 db FOCUS_ENERGY
 db 0 ; growth rate

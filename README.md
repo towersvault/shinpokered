@@ -349,6 +349,7 @@ v1.23.07
 - Added visual indicator when swapping bag space
 - The daycare can now support two evolutions back-to-back
 - Fixed input priority on menus
+- Minor adjustments to title screen and intro
 
 
 #Bugfixes:

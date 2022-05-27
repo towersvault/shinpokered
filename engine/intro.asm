@@ -185,7 +185,14 @@ ENDC
 	ld a, (FightIntroFrontMon3 - FightIntroFrontMon) / BYTES_PER_TILE
 	ld [wIntroNidorinoBaseTile], a
 	ld de, IntroNidorinoAnimation7
+IF DEF(_REDGREENJP)	;redjp and green have a delay after the leap for some reason
+	call AnimateIntroNidorino
+	ld c, $40
+	call DelayFrames
+	ret
+ELSE
 	jp AnimateIntroNidorino
+ENDC
 
 AnimateIntroNidorino:
 	ld a, [de]

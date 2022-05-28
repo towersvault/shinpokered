@@ -350,6 +350,7 @@ v1.23.07
 - The daycare can now support two evolutions back-to-back
 - Fixed input priority on menus
 - Minor adjustments to title screen and intro
+- Re-added the reference to the Kanto region in the JP translation
 
 
 #Bugfixes:

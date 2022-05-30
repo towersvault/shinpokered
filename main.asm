@@ -1604,6 +1604,8 @@ INCLUDE "engine/hidden_object_functions18.asm"
 SECTION "bank19",ROMX,BANK[$19]
 IF DEF(_REDGREENJP)
 Overworld_GFX:     INCBIN "gfx/tilesets/green/overworld.2bpp"
+ELIF DEF(_BLUEJP)
+Overworld_GFX:     INCBIN "gfx/tilesets/overworld_bluejp.2bpp"
 ELSE
 Overworld_GFX:     INCBIN "gfx/tilesets/overworld.2bpp"
 ENDC

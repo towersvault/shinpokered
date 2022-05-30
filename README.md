@@ -351,6 +351,8 @@ v1.23.07
 - Fixed input priority on menus
 - Minor adjustments to title screen and intro
 - Re-added the reference to the Kanto region in the JP translation
+- Restored SHOP and POKE building tiles in Blue-JP
+- SGB borders for JP versions are restored (with fixed centering for text)
 
 
 #Bugfixes:

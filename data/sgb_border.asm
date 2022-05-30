@@ -1,8 +1,12 @@
 BorderPalettes:
-IF DEF(_RED)
+IF DEF(_REDJP)
+	INCBIN "gfx/red/sgbborder_jp.map"
+ELIF DEF(_RED)
 	INCBIN "gfx/red/sgbborder.map"
 ENDC
-IF DEF(_BLUE)
+IF DEF(_BLUEJP)
+	INCBIN "gfx/blue/sgbborder_jp.map"
+ELIF DEF(_BLUE)
 	INCBIN "gfx/blue/sgbborder.map"
 ENDC
 IF DEF(_GREEN)

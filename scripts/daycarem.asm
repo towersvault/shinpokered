@@ -35,9 +35,12 @@ DayCareMText1:
 	pop af
 	ld hl, DayCareAllRightThenText
 	jp c, .done
-	callab KnowsHMMove
-	ld hl, DayCareCantAcceptMonWithHMText
-	jp c, .done
+;joenote - HM moves are not needed to travel between the daycare and the Cerulean Pokemon Center,
+;			so disallowing HM moves does nothing to prevent a softlock here.
+;			This can be commented out safely.
+;	callab KnowsHMMove
+;	ld hl, DayCareCantAcceptMonWithHMText
+;	jp c, .done
 	xor a
 	ld [wPartyAndBillsPCSavedMenuItem], a
 	ld a, [wWhichPokemon]

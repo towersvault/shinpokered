@@ -234,6 +234,7 @@ Cheats and Secrets!
 - Defeat all five post-game special trainers to reactivate the legendary pokemon.
 - To more easily find shiny pokemon, put a level-100 Chansey at the top of your roster. Use a repel if you wish!
 - New Super Boss: Do you dare to activate Missingno at the Cinnabar shore? Only if you got your 'dex diploma.
+- New Super Boss: Missingno not hard enough for you? Try activating it again at the infamous Seafoam shore!
 - Winning the SS Anne's tournament with a pikachu in your party makes that pikachu eligible for the SURF HM.
 
 
@@ -353,6 +354,9 @@ v1.23.07
 - Re-added the reference to the Kanto region in the JP translation
 - Restored SHOP and POKE building tiles in Blue-JP
 - SGB borders for JP versions are restored (with fixed centering for text)
+
+v1.23.08  
+- Daycare allows HM moves on entered pokemon
 
 
 #Bugfixes:
@@ -483,6 +487,7 @@ v1.23.07
   - Fixed a missed increment that makes a map's 15th object not update its facing properly
   - Adjusted two spin-stop tiles in Viridian Gym
   - Made Agility's animation more apparent
+  - Changed border block on route 16 to water to make it consistent with route 17
 
 
 - Item Fixes  
@@ -522,13 +527,17 @@ v1.23.07
 	- However, there is a unique unused sfx in the battle audio bank that signifies getting some kind of important item
 	- This is likely what was going to be used for getting a badge at some point, and it has been restored
   - Bike music stops playing now when going down a hole
+  - Assigned a proper forget-move sfx during battle
 
 
 - Misc. fixes
   - Cinnabar/seafoam islands coast glitch fixed (no more missingo or artificially loading pokemon data)
   - Catching a transformed pokemon no longer defaults to catching a ditto
   - Vending machine now checks for the correct amount of money
-  - Prevented byte overflow when determining the trash can with 2nd switch in vermilion gym
+  - Vermilion Gym switch puzzle fixes
+    - Prevented byte overflow when determining the trash can with 2nd switch in vermilion gym
+	- The position of both switches in Vermilion Gym are now determined at the same time
+    - The switches in Vermilion Gym can now be discovered independently from one another
   - Hidden nugget in safari entrance now obtainable
   - Slot machine reel bug fixed
   - Fixed oversights in reel functionality to better match Gamfreak's intent
@@ -555,7 +564,8 @@ v1.23.07
   - Fixed a bug in the GetName: function that treated lists over 195 entries as item lists
   - You can Fly and Teleport out of maps with the forest tileset
   - Fixed a grass tile in the Forest tileset not counting for encouner generation
-  
+  - Fixed input priority on menus
+
   
 #TWEAKS:
 -----------
@@ -745,10 +755,12 @@ v1.23.07
     - It's a single byte in the save file that gets incremented each version
     - If the save byte does not match, the player is automatically warped back to Pallet Town
     - Helps prevent crashes and glitches when updating an older save file
+    - You will be given the choice to warp to Pallet Town if the rom hack version does not match
   - The function that shows the dex entry for starter pokemon is now more robust
     - It now works for any pokemon (like if the starters are changed or randomized)
 	- It keeps a backup of the pokedex-owned flags instead of erasing them
 	- Removed the unused Ivysaur flag
+  - Increased the maximum game clock to 32767 hours
 
 - Changes to fishing
   - Good rod has an expanded 'mon list and level range
@@ -761,12 +773,14 @@ v1.23.07
 - Changes to the daycare
   - The daycare lets you select moves to forget (if any) upon retreiving your pokemon
   - Retrieving a daycare pokemon that could have evolved via level will trigger evolution and learn any missed-out moves
+  - The daycare will support two evolutions back-to-back
   - The daycare experience gain has been recalibrated
     - It no longer gives 1 exp per step
     - Instead, it falsifies the act of farming wild encounters against a pokemon with a base exp value of 56
     - The falsified encounter starts at level 5, and it increases 5 more levels per badge obtained
     - With 8 badges, using the daycare is essentially a faster way of farming level 45 basic pokemon
     - The downside of not gaining statEXP in the daycare still remains as a tradeoff
+  - Added a PC to the daycare
 
 - A regular New Game will default the battle style to SET
 - Yes/No prompt for flute use has been added to blocking snorlax
@@ -876,6 +890,7 @@ v1.23.07
   - In the case of a 'mon with 4 regular field moves:
     - The slotted temporary move cannot be menu-selected
 	- The slotted temporary move, if it's a HM move, can be used via quick-key
+  - Teaching a TM as a field move will not consume the TM
 
  
 #Graphics
@@ -993,6 +1008,7 @@ v1.23.07
   - Uses its L-block appearance remade as a proper image and has its own defined base stats data
   - If defeated, it will set a non-key item in the sixth bag slot to a quantity of 99
   - Win or lose, you must do the "Old Man" process again to reactivate the encounter
+  - For an even harder battle, try using the eastern shore of the seafoam islands
 - New Game Plus has been added (still experimental)
   - Activated under these conditions:
     - Must have an existing non-corrupt game save on-file

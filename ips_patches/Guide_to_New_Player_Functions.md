@@ -184,6 +184,7 @@ A temporary field move cannot be overwritten with another field move.
 But it will be erased if its owning pokemon leaves the party (such as by being deposited in the PC).  
 If all four of a pokemon's regular moves are field moves, its temporary field move cannot be menu-selected.  
 But if a fifth field move in the temporary slot is a HM, it can still be activated via One-Button HM Usage.  
+Teaching a TM as a field move will not consume the TM.  
 
 **One-Button HM Usage**  
 You must still have the correct badge and move on one of your pokemon to use a HM in this way.  
@@ -389,7 +390,7 @@ Here is an alternative to grinding out battles in the post-game.
 6 - Fish in the lowest level of Cerulean Cave for something strange.  
 7 - Place a level 100 Chansey at the top of your party and use a repel. You're bound to find something shiny.  
 8 - When going to the game corner, try having your 1st-slot pokemon know Pay Day. It may tip you off.  
-9 - Missingno can be activated if you have your pokedex diploma. Prepare your sixth item slot in case you win.  
+9 - Missingno can be activated in either Seafoam or Cinnabar with your pokedex diploma. Prepare your sixth item slot for victory.  
 10 - Mercy is granted if you encounter an enemy trainer with a shiny pokemon.  
 
 

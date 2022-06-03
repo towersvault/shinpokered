@@ -97,19 +97,18 @@ AbandonLearning:
 	jp nz, DontAbandonLearning
 	ld hl, DidNotLearnText
 	call PrintText
-	ld b, 0
+	ld bc, $0000
 	ret
 
 PrintLearnedMove:
 	ld hl, LearnedMove1Text
 	call PrintText
-	ld b, 1
+	ld bc, $0100
 	ret
 PrintLearnedFieldMove:
 	ld hl, LearnedMove1Text
 	call PrintText
-	ld b, 1
-	ld c, 1	;make c=1 to indicate the move was learned as a field move
+	ld bc, $0101	;make c=1 to indicate the move was learned as a field move
 	ret
 
 TryingToLearn:

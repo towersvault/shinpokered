@@ -3051,7 +3051,7 @@ wFossilItem:: ; d70f
 wFossilMon:: ; d710
 ; mon that will result from the item
 	ds 1
-
+wFossilMonDVs::	;d711 (2 bytes)	;joenote - added to store some values
 	ds 2
 
 wEnemyMonOrTrainerClass:: ; d713

@@ -850,3 +850,103 @@ DetermineMonGender:
 ;	call ResetRandomShowItem
 ;	call ResetRandomHiddenItem
 ;	ret
+
+
+;Takes DVs in BC and DE as an input.
+;Uses a Punnett square to output new DVs in HL
+DVPunnettSquare:
+	call GetPredefRegisters
+	push bc
+	push de
+
+	call _GetPunnettCEtoL
+	pop de
+	pop bc
+	ld h, l
+
+	push bc
+	push de
+	ld c, b
+	ld e, d
+
+	call _GetPunnettCEtoL
+	ld a, h
+	ld h, l
+	ld l, a
+
+	pop de
+	pop bc
+	ret
+_GetPunnettCEtoL:	
+	call Random
+	
+	ld a, %11110000
+	push af
+	and c
+	ld l, a
+	pop af
+	swap a
+	and e
+	or l
+	ld l, a
+	push hl
+	
+	ld a, %11110000
+	push af
+	and e
+	ld l, a
+	pop af
+	swap a
+	and c
+	or l
+	ld l, a
+	push hl
+	
+	ld a, %11110000
+	push af
+	and c
+	ld l, a
+	pop af
+	and e
+	swap a
+	or l
+	ld l, a
+	ld a, [hRandomSub]
+	bit 0, a
+	jr z, .next1
+	swap l
+.next1
+	push hl
+	
+	ld a, %00001111
+	push af
+	and c
+	ld l, a
+	pop af
+	and e
+	swap a
+	or l
+	ld l, a
+	ld a, [hRandomSub]
+	bit 1, a
+	jr z, .next2
+	swap l
+.next2
+	push hl
+	
+	ld a, [hRandomAdd]
+	and %00000011
+	ld b, 4
+.loop
+	pop hl
+	dec b
+	push af
+	cp b
+	jr nz, .next3
+	ld d, l
+.next3
+	pop af
+	jr nz, .loop
+	
+	ld l, d
+	ret

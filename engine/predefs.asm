@@ -174,3 +174,4 @@ PredefPointers::
 	add_predef SetCPUSpeed
 	add_predef SingleCPUSpeed
 	add_predef PrintPlayTime
+	add_predef DVPunnettSquare

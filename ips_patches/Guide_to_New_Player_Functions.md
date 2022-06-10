@@ -311,6 +311,51 @@ Go to the small house on Route 2 just below the exit of Diglett's Cave.
 The Aide NPC inside the house will now gift you a Paras.  
 You can use this Paras if you ever find yourself without a pokemon that can learn Cut.  
 
+**Cloning Genetically Modified Pokemon**  
+This process clones your 1st spot pokemon and modifies it with DNA from your 2nd spot pokemon.  
+It does this by treating a pokemon's two bytes of DV values as if they were two genes with two alleles each.  
+Gene-A has the Attack DV as its hi-side allele and the Defense DV as its lo-side allele.  
+Gene-B has the Speed DV as its hi-side allele and the Special DV as its lo-side allele.  
+The A-genes from the two donor pokemon will be mixed to make the clone's A-gene.  
+The B-genes from the two donor pokemon will be mixed to make the clone's B-gene.  
+Mixing two genes is done via Punnett Squares, and a random result is chosen based on its ratios.  
+Within a Punnett quadrant, a hi allele makes the upper digits and a lo allele makes the lower digits.  
+If two hi allels or two lo alleles fall within a Punnet quadrant, their order is randomly selected.  
+
+Example: Mixing gene hexadecimal values of $AB from one pokemon with $CD from another pokemon.  
+One of the four quadrants will be randomly chosen as a new value containing two DVs.  
+		C			D  
+	xxxxxxxxxxxxxxxxxxxxxxx  
+A	| AC or CA |   AD	  |  
+	xxxxxxxxxxxxxxxxxxxxxxx  
+B	|	CB	   | BD or DB |  
+	xxxxxxxxxxxxxxxxxxxxxxx  
+
+Talk to the new scientist in the fossil room of the Cinnabar Lab to get started.  
+For a small fee, a gene sequence listing the clone's new DV alleles in order is randomly determined.  
+If the clone's genes are acceptable, you may pay a larger fee to gestate the clone.  
+Pro-Tip: This makes it possible to selectively breed for shiny pokemon in a more realistic way.  
+
+Example of selecting for a shiny pokemon:  
+- A shiny pokemon in gen 2 has the 2-byte hex value of $XAAA for its DVs.
+  - Wherein 'X' is the Attack DV composed of the 4 bits yy1y.
+  - And 'y' bits are "don't care" values that can be either 0 or 1.
+- The first goal is to get $AA as the value for the B-gene.
+  - The minium requirement is to cross two pokemon that both have at least one $A in their B-genes.
+  - This minimum requirement results in a 25% chance of getting a value of $AA. 
+- The second goal is to get $A as the lo-side allele value for the A-gene.
+  - The minium requirement is that one of the donor pokemon have at least one $A in its A-gene.
+  - This minimum requirement has a 12.5% chance of fulfilling the goal if the donor $A is a hi-side allele.
+  - Note: Said chance increases to 37.5% if the donor $A is a lo-side allele.
+- The third goal is to get a 'X' value (previously described) as the hi-side allele value for the A-gene.
+  - The minium requirement is that one of the donor pokemon have at least one 'X' in its A-gene.
+  - This minimum requirement has a 12.5% chance of fulfilling the goal if the donor 'X' is a lo-side allele.
+  - Note: Said chance increases to 37.5% if the donor 'X' is a hi-side allele.
+- Assuming only the most minimal requirements are met, the chance of a shiny is [12.5% * 12.5% * 25%] = 1/256.
+  - Keep in mind that the default chance of a shiny pokemon is 1/8192.
+  - You can boost the chances higher by increasing the number of donor $A alleles and optimizing allele placement.
+  - The chances of getting a shiny by crossing two shiny donors is 50%.
+  
 
 #Additions to the Post-Game
 -----------------------------------------------

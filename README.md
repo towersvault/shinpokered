@@ -187,6 +187,10 @@ An experimental New Game+ has been added.
 It can be enabled if you have an uncorrupt save file wherein the Elite 4 have been beaten.
 Press and hold SELECT while choosing New Game; a jingle confirms activation.
 
+The Cinnabar Lab allows for cloning and genetic modification of pokemon.
+It does this by mixing their DVs as of they were akin to genes and alleles.
+This replicates the ability to do selective breeding for DVs in a way that's more realistic.
+
 Lots of quick-key features.
 - Quick 'Owned' Check - Place the cursor over FIGHT and press Select to play the enemy 'mon cry if it's already owned.
 - Softlock Warp - Instantly teleport back to your mom's house if you get stuck.
@@ -357,6 +361,7 @@ v1.23.07
 
 v1.23.08  
 - Daycare allows HM moves on entered pokemon
+- Added cloning and gene splicing
 
 
 #Bugfixes:

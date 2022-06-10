@@ -190,6 +190,10 @@ Lab4Text3:
 	ld de, wPlayerMoney + 2
 	ld c, $3
 	predef SubBCDPredef
+
+	ld a, SFX_PURCHASE
+	call PlaySoundWaitForCurrent
+	call WaitForSoundToFinish
 	
 	ld a, [wPartyMon1DVs]
 	ld b, a
@@ -256,6 +260,10 @@ Lab4Text3:
 	ld c, $3
 	predef SubBCDPredef
 	
+	ld a, SFX_PURCHASE
+	call PlaySoundWaitForCurrent
+	call WaitForSoundToFinish
+
 	ld a, [wPartyMon1Species]
 	ld [wFossilMon], a
 	SetEvent EVENT_2E3

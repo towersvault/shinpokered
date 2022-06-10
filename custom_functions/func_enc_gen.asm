@@ -309,3 +309,61 @@ RandomizeRegularTrainerMons:
 	ld a, JOLTEON
 	ld [wcf91], a
 	ret
+
+
+;joenote - evolve an enemy mon in wcf91 based on wCurEnemyLVL
+EnemyMonEvolve:
+	ld a, [wcf91]
+	cp EEVEE	;don't deal with evolving EEVEE right now
+	ret z
+	
+	ld hl, EvosMovesPointerTable	;load the address of the pointer table, and worry about the bank later
+	ld b, 0
+	dec a
+	add a
+	rl b
+	ld c, a		;BC now contains the pokemon's offset in the pointer table
+	add hl, bc	;and HL now points to the correct position in the pointer table
+	ld de, wEvosMoves
+	ld a, BANK(EvosMovesPointerTable)
+	ld bc, 2
+	call FarCopyData	;switches banks, then copies the 2-byte address that HL points to into wEvosMoves
+	ld hl, wEvosMoves	;let's now point HL to said address
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a				;HL now points to the address of the pokemon's evolution list
+	ld de, wEvosMoves
+	ld a, BANK(EvosMovesPointerTable)
+	ld bc, wEvosMoves.end - wEvosMoves
+	call FarCopyData	;now copy the evolution list pointed to by HL into wEvosMoves
+	ld hl, wEvosMoves	;we can now reference the evolution list by pointing HL to it
+	
+.evoloop
+	ld a, [hli]
+	and a
+	ret z
+	cp EV_LEVEL
+	jr z, .lvl_evolve
+	cp EV_TRADE
+	jr z, .trade_evolve
+	;else item evolve
+	inc hl
+	;only item evolve if lvl 40 or more
+	ld b, 40
+	ld a, [wCurEnemyLVL]
+	cp b
+	jr nc, .lvl_evolve ;after incrementing hl one space, maintains the same structure as lvl evolving
+.trade_evolve
+	inc hl	;increment to see if it level or stone evolves instead
+	inc hl
+	jr .evoloop
+
+.lvl_evolve
+	ld a, [hli]
+	ld b, a
+	ld a, [wCurEnemyLVL]
+	cp b
+	ret c
+	ld a, [hl]
+	ld [wcf91], a
+	jp EnemyMonEvolve

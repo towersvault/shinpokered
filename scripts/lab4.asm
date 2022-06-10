@@ -272,6 +272,13 @@ Lab4Text3:
 	call PrintText
 	
 	ld a, [wFossilMon]
+	ld [wcf91], a
+	push de
+	callba DevolveMon
+	callba DevolveMon
+	pop de
+	
+	ld a, [wcf91]
 	ld b, a
 	ld c, 5
 	call GivePokemon

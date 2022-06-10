@@ -192,6 +192,7 @@ EvosMovesPointerTable:
 	dw BellsproutEvosMoves
 	dw WeepinbellEvosMoves
 	dw VictreebelEvosMoves
+	dw $FFFF	;joenote - added a list terminator for specific uses
 
 RhydonEvosMoves:
 ; Evolutions

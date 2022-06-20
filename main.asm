@@ -1172,8 +1172,8 @@ INCLUDE "data/mapHeaders/route21.asm"
 INCLUDE "data/mapObjects/route21.asm"
 Route21Blocks: INCBIN "maps/route21.blk"
 
-VermilionHouse2Blocks:
-Route12HouseBlocks:
+VermilionHouse2Blocks: INCBIN "maps/vermilionhouse2.blk"
+Route12HouseBlocks: INCBIN "maps/route12house.blk"
 DayCareMBlocks: INCBIN "maps/daycarem.blk"
 
 FuchsiaHouse3Blocks: INCBIN "maps/fuchsiahouse3.blk"

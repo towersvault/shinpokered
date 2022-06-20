@@ -14,9 +14,9 @@ Then the [Lite branch](https://github.com/jojobear13/shinpokered/tree/lite) is w
 
 A bash script randomizer, "randoshinred", is now in beta test.
 
-**IMPORTANT**: Download the IPS patch file of the version you want and apply it to the correct USA rom. 
-- The "_origback" ips patches are alternatives for red & blue that keep the original back sprites. 
-- Always apply patches to a fresh USA ROM or else strange glitches will occur.  
+**IMPORTANT**: Download the BPS patch file of the version you want and apply it to the correct USA rom. 
+- The "_origback" BPS patches are alternatives for red & blue that keep the original back sprites. 
+- Use the tool [FLIPS](https://www.romhacking.net/utilities/1040/) to apply the BPS patches.   
 - **Red patches (shin pokemon red, red_origback, and red-jp) are applied to a USA Red ROM.**
 - **All other patches (Blues and Greens) are applied to a USA Blue ROM.**
 

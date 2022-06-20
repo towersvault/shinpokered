@@ -2,6 +2,7 @@
 -----------------------------------------------
 Shin Red patches should be applied to a USA Pokemon Red rom.  
 Shin Blue and Shin Green patches should be applied to a USA Pokemon Blue rom.  
+Use FLIPS to apply the BPS patches (https://www.romhacking.net/utilities/1040/).  
 
 
 #Updating an Old Save File

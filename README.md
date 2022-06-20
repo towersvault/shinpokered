@@ -211,10 +211,9 @@ New NPCs!
 - Added some special post-game trainer battles as fun little easter eggs. Can you find and defeat all five?
 
 Changes to fishing!
-- The Good Rod has an expanded 'mon list and level range.
-- Level range of the super rod has been increased.
-- The Old Rod now randomly acts as a Good rod 50% of the time.
-- The Old Rod is a sellable non-key item with the value of a nugget.
+- All rods have an expanded level range.
+- The Old Rod has an expanded 'mon list.
+- The Good Rod has an expanded 'mon list.
 - The Route 12 Fishing Guru can be visited upon first reaching Lavender Town.
 - The locations of the Good and Super Rod have been swapped.
 
@@ -362,6 +361,7 @@ v1.23.07
 v1.23.08  
 - Daycare allows HM moves on entered pokemon
 - Added cloning and gene splicing
+- Scaled back fishing, reduced its randomness, and made it more map-dependent
 
 
 #Bugfixes:
@@ -768,10 +768,15 @@ v1.23.08
   - Increased the maximum game clock to 32767 hours
 
 - Changes to fishing
-  - Good rod has an expanded 'mon list and level range
-  - Increased the level range of the super rod
-  - Old rod now randomly acts as a Good rod 50% of the time 
-  - Old rod is a sellable non-key item with the value of a nugget
+  - All rods have an expanded level range
+  - Old rod can fish up two kinds of pokemon (depending on the current map constant value)
+    - Magikarp or Goldeen
+	- Magikarp or Poliwag 
+  - Good rod can fish up three or four kinds of pokemon (depending on the current map constant value)
+    - Poliwag, Horsea, Krabby
+	- Poliwag, Krabby, Goldeen, Psyduck
+	- Goldeen, Psyduck, Shellder
+	- Goldeen, Shellder, Horsea, Tentacool
   - The Route 12 Fishing Guru is now visitable upon first reaching Lavender Town
   - Swapped location of Good and Super Rod
 

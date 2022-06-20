@@ -222,24 +222,15 @@ You will be asked to confirm your decision. Choose YES to forfeit or NO to cance
 **Reworked Fishing**  
 - The locations of the Good Rod and the Super Rod have been swapped.  
 - Route 12 has been altered to give access to its Fishing Guru without needing the Pokeflute.  
-- The Super Rod now randomly adds 0 to 7 levels to anything it hooks.  
-- The Good Rod has been altered:  
-  - Its hardcoded list of 2 pokemon has been increased to 8.  
-  - Levels of pokemon that can be hooked have mostly been increased.  
-  - A level modifier of +0 to +7 is randomly added to hooked pokemon for more variety.  
-- The Old Rod has been altered:  
-  - 50% of the time it will act as a Good Rod. The implication is that it was "Good" long ago.  
-  - No longer a key item.  
-  - Eventually supplanted by the Good Rod. Might want to sell it for a good price.  
-- The Good Rod maintains some niche utility over the Super Rod. Comparing the two:  
-  - Super Rod  
-    - Has route-based encounter tables.  
-    - Access to rarer or evolved pokemon.   
-    - Each encounter table only has up to four pokemon.   
-  - Good Rod  
-    - Limited to a single hardcoded encounter table.  
-    - Pokemon encountered are unevolved and entry-level.  
-    - Up to eight different pokemon can be hooked.  
+- All rods now randomly add 0 to 7 levels to anything it hooks.  
+- The Old Rod can fish up two kinds of pokemon (depending on the current map).  
+  - Magikarp or Goldeen
+  - Magikarp or Poliwag 
+- The Good Rod can fish up three or four kinds of pokemon (depending on the current map).  
+  - Poliwag, Horsea, Krabby
+  - Poliwag, Krabby, Goldeen, Psyduck
+  - Goldeen, Psyduck, Shellder
+  - Goldeen, Shellder, Horsea, Tentacool
 	
 **Reworked Daycare**  
 The daycare lets you select moves to forget (if any) upon retreiving your pokemon.  

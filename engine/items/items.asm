@@ -2077,13 +2077,17 @@ CoinCaseNumCoinsText:
 	db "@"
 
 ItemUseOldRod:
-	;joenote - give 50% chance to use the Good Rod functionality when using the Old Rod
-	call Random
-	srl a
-	jr c, ItemUseGoodRod
-	
+	;joenote - chooses 1 of the first 4 pokemon off the good rod list based on the current map constant
+	;		-but 50% chance to hook a lvl 5 to 12 magikarp
 	call FishingInit
 	jp c, ItemUseNotTime
+	call Random
+	srl a
+	jr c, .magikarp
+	ld a, [wCurMap]
+	and %11
+	jr ItemUseGoodRod.goodRodList
+.magikarp
 	lb bc, 5, MAGIKARP
 	ld a, $1 ; set bite
 	jr RodResponse
@@ -2091,16 +2095,25 @@ ItemUseOldRod:
 ItemUseGoodRod:
 	call FishingInit
 	jp c, ItemUseNotTime
-.RandomLoop
+;.RandomLoop
 	call Random
 	srl a
 	jr c, .SetBite
 	;and %11
 	;cp 2
-	;joenote - use the expanded list
-	and %1111
-	cp 8
-	jr nc, .RandomLoop
+;	jr nc, .RandomLoop
+;joenote - use the expanded list
+	push af
+	and %100
+	ld b, a
+	pop af
+	and $1
+	ld c, a
+	ld a, [wCurMap]
+	and %11
+	or b
+	add c
+.goodRodList
 	; choose which monster appears
 	ld hl, GoodRodMons
 	add a

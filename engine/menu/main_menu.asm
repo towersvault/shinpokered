@@ -168,6 +168,13 @@ InitOptions:
 	ld a, 3 ; medium speed
 	set 6, a ;joenote - SET battle style
 	ld [wOptions], a
+	ld a, [hGBC]
+	and a
+	ret z
+	;intialize 60 fps if on playing in GBC-mode
+	ld a, [wUnusedD721]
+	set 4, a
+	ld [wUnusedD721], a
 	ret
 
 LinkMenu:

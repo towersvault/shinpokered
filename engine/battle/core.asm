@@ -9018,7 +9018,8 @@ TwoToFiveAttacksEffect:
 	cp TWINEEDLE_EFFECT
 	jr z, .twineedle
 	cp ATTACK_TWICE_EFFECT
-	ld a, $2 ; number of hits it's always 2 for ATTACK_TWICE_EFFECT
+.load_two_hits
+	ld a, $2 ; number of hits is always 2 for ATTACK_TWICE_EFFECT
 	jr z, .saveNumberOfHits
 ; for TWO_TO_FIVE_ATTACKS_EFFECT 3/8 chance for 2 and 3 hits, and 1/8 chance for 4 and 5 hits
 	call BattleRandom
@@ -9038,7 +9039,8 @@ TwoToFiveAttacksEffect:
 .twineedle
 	ld a, POISON_SIDE_EFFECT1
 	ld [hl], a ; set Twineedle's effect to poison effect
-	jr .saveNumberOfHits
+;	jr .saveNumberOfHits	;this assumes POISON_SIDE_EFFECT1 = 2
+	jr .load_two_hits 	;joenote - jump back a bit further to make sure 2 is loaded into A
 
 FlinchSideEffect:
 	call CheckTargetSubstitute

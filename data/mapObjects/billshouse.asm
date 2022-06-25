@@ -15,3 +15,4 @@ BillsHouseObject:
 	; warp-to
 	warp_to 2, 7, BILLS_HOUSE_WIDTH
 	warp_to 3, 7, BILLS_HOUSE_WIDTH
+	warp_to 3, 2, BILLS_HOUSE_WIDTH	;joenote - back from secret garden

@@ -1,8 +1,10 @@
 Route25Object:
 	db $2c ; border block
 
-	db 1 ; warps
+	;db 1 ; warps
+	db 2
 	warp 45, 3, 0, BILLS_HOUSE
+	warp 45, 0, 2, BILLS_HOUSE	;warp away from Bill's Secret Garden
 
 	db 1 ; signs
 	sign 43, 3, 12 ; Route25Text11	;joenote - reassigning to position 12
@@ -22,3 +24,4 @@ Route25Object:
 
 	; warp-to
 	warp_to 45, 3, ROUTE_25_WIDTH ; BILLS_HOUSE
+	warp_to 45, 0, ROUTE_25_WIDTH ; joenote - warp into the secret garden behind Bill's house

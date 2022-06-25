@@ -362,6 +362,13 @@ v1.23.08
 - Daycare allows HM moves on entered pokemon
 - Added cloning and gene splicing
 - Scaled back fishing, reduced its randomness, and made it more map-dependent
+- If on GBC, intitializing options turns 60 fps ON
+- Minor code correction to Twineedle to prevent future errors 
+- Show Mewtwo to Mr. Fuji after beating the Elite 4 for a M.GENE
+- Added Bill's secret garden behind his house
+  - Put Mew in your top spot and show Bill to gain access
+  - You will encounter the starter pokemon plus some other rarer pokemon
+  - Shiny rates are 1-in-128 in this area
 
 
 #Bugfixes:

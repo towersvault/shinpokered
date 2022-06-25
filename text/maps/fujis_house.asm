@@ -136,3 +136,21 @@ _FujiTextVictorySpeech::
 	line "an old friend, so"
 	cont "battle him too."
 	prompt
+	
+_FujiTextMewtwo::
+	text "That MEWTWO you"
+	line "have with you..."
+	
+	para "...Such an angry"
+	line "disposition. Yet"
+	cont "you have soothed"
+	cont "its wrath."
+	
+	para "You must possess"
+	line "a great love for"
+	cont "your #MON."
+	
+	para "Take this. I have"
+	line "no reason to keep"
+	cont "holding onto it."
+	prompt

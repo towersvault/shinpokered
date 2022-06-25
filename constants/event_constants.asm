@@ -297,7 +297,7 @@ const_value = 0
 	const EVENT_126                                  ; 126, (D76B, bit 6)
 	const EVENT_127                                  ; 127, (D76B, bit 7)
 	const EVENT_GOT_POKE_FLUTE                       ; 128, (D76C, bit 0)
-	const EVENT_129                                  ; 129, (D76C, bit 1)
+	const EVENT_129   ;Fuji gave MGENE                               ; 129, (D76C, bit 1)	;joenote - for free mgene item
 	const EVENT_12A                                  ; 12A, (D76C, bit 2)
 	const EVENT_12B                                  ; 12B, (D76C, bit 3)
 	const EVENT_12C                                  ; 12C, (D76C, bit 4)

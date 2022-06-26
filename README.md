@@ -369,6 +369,8 @@ v1.23.08
   - Put Mew in your top spot and show Bill to gain access
   - You will encounter the starter pokemon plus some other rarer pokemon
   - Shiny rates are 1-in-128 in this area
+- Added more text corrections for JP versions
+- Added sfx variations unique to JP versions
 
 
 #Bugfixes:

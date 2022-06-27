@@ -503,12 +503,22 @@ SetAttackAnimPal:
 	ld b, a
 
 	ld a, [wUnusedC000]
+
 	bit 7, a	;check the bit that is set when hurting self from confusion or crash damage
 	jr z, .noselfdamage
 	;if hurting self, load default palette
 	ld b, PAL_BW
+	jr .resetOBP0
 .noselfdamage
 
+	bit 6, a	;check the bit that is set when absorbing HP due to leech seed
+	jr z, .noleechseed
+	;if absorbing, load default palette
+	ld b, PAL_GREENMON
+	jr .resetOBP0
+.noleechseed
+
+.resetOBP0
 	;make sure to reset palette/shade data into OBP0
 	ld a, %11100100
 	ld [rOBP0], a

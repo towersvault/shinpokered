@@ -371,6 +371,7 @@ v1.23.08
   - Shiny rates are 1-in-128 in this area
 - Added more text corrections for JP versions
 - Added sfx variations unique to JP versions
+- Leech seed health drain animation now has correct coloring on GBC
 
 
 #Bugfixes:

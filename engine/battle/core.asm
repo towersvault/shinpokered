@@ -755,16 +755,17 @@ HandlePoisonBurnLeechSeed_DecreaseOwnHP:
 	ld hl, wEnemyBattleStatus3
 	ld de, wEnemyToxicCounter
 .playersTurn
-	bit BADLY_POISONED, [hl]
-	jr z, .noToxic
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;joenote - If this bit is set, this function is being called for leech seed.
 ;			Do not do Toxic routines
 	ld a, [wUnusedC000]
 	bit 6, a	;check if this is for leech seed
 	res 6, a 	;(reset the bit without affecting flags)
+	ld [wUnusedC000], a
 	jr nz, .noToxic	;if so, then do not increment the toxic counter or multiply the damage for toxic
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+	bit BADLY_POISONED, [hl]
+	jr z, .noToxic
 	ld a, [de]    ; increment toxic counter
 	inc a
 	ld [de], a

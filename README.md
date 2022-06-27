@@ -372,6 +372,7 @@ v1.23.08
 - Added more text corrections for JP versions
 - Added sfx variations unique to JP versions
 - Leech seed health drain animation now has correct coloring on GBC
+- In GBC-mode, when a pokemon is caught, the resting ball now has a defined color
 
 
 #Bugfixes:

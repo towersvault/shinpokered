@@ -1498,13 +1498,17 @@ BattleAnimWriteOAMEntry:
 ; X coordinate = [wBaseCoordX]
 ; tile = d
 ; attributes = variable (dependant on coords)
+;How OBJ is handled:
+;	Start with OBJ1
+;	If wBaseCoordY is >= $40, increment to the next OBJ.
+;	If wBaseCoordX is >= $50, increment to the next OBJ twice.
 	ld a, $1
 	ld [wdeed], a
 	ld a, e
 	add 8
 	ld e, a
 	ld [hli], a
-	cp 40
+	cp 72	;is Y < ?
 	jr c, .asm_793d8
 	ld a, [wdeed]
 	inc a
@@ -1512,7 +1516,7 @@ BattleAnimWriteOAMEntry:
 .asm_793d8
 	ld a, [wBaseCoordX]
 	ld [hli], a
-	cp 88
+	cp 88	;is X < ?
 	jr c, .asm_793e8
 	ld a, [wdeed]
 	add $2
@@ -1923,7 +1927,7 @@ AnimationShootManyBallsUpward:
 	ld a, $50 ; y coordinate for "energy" ball pillar
 	jr z, .player
 	ld hl, UpwardBallsAnimXCoordinatesEnemyTurn
-	ld a, $28 ; y coordinate for "energy" ball pillar
+	ld a, $27 ; y coordinate for "energy" ball pillar
 .player
 	ld [wSavedY], a
 .loop

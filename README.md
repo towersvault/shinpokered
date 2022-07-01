@@ -361,6 +361,7 @@ v1.23.07
 v1.23.08  
 - Daycare allows HM moves on entered pokemon
 - Added cloning and gene splicing
+- ***Not added to beta patch yet***
 - Scaled back fishing, reduced its randomness, and made it more map-dependent
 - If on GBC, intitializing options turns 60 fps ON
 - Minor code correction to Twineedle to prevent future errors 
@@ -375,6 +376,7 @@ v1.23.08
 - In GBC-mode, when a pokemon is caught, the resting ball now has a defined color
 - Tossing pokeballs have color in GBC mode
 - Fixed an issue where the shiny animation has the wrong palette for the opponent on the GBC
+- The move relearner and move deleter code is now tethered to the _MOVENPCS makefile tag
 
 
 #Bugfixes:

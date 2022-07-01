@@ -228,9 +228,12 @@ SECTION "Text 3", ROMX, BANK[TEXT_3]
 
 INCLUDE "text/maps/rock_tunnel_b2f_2.asm"
 INCLUDE "text/maps/seafoam_islands_b4f.asm"
+
+IF DEF(_MOVENPCS)
 ;joenote - adding Mateo's move relearner/deleter files
 INCLUDE "text/move_deleter.asm"
 INCLUDE "text/move_relearner.asm"
+ENDC
 
 _AIBattleWithdrawText::
 	TX_RAM wTrainerName

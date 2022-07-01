@@ -1544,8 +1544,10 @@ DisplayListMenuIDLoop::
 	ld a,[wListMenuID]
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;joenote - needed to make Mateo's move deleter/relearner work
+IF DEF(_MOVENPCS)
 	cp a, MOVESLISTMENU
 	jr z, .skipStoringItemName
+ENDC
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	cp ITEMLISTMENU
 	jr nz, .skipGettingQuantity

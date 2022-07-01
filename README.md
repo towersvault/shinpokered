@@ -377,6 +377,7 @@ v1.23.08
 - Tossing pokeballs have color in GBC mode
 - Fixed an issue where the shiny animation has the wrong palette for the opponent on the GBC
 - The move relearner and move deleter code is now tethered to the _MOVENPCS makefile tag
+- Swapped a trade NPC to a gentleman in Green and RedJP
 
 
 #Bugfixes:

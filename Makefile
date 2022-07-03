@@ -58,7 +58,7 @@ endif
 # _BLUEJP modifies _BLUE. It reverts back certain aspects that were unique to japanese blue.
 # _REDJP modifies _RED. It is for minor things exclusive to japanese red.
 
-# _JPTXT modifies any base rom. It restores some japanese text translations that were censored in english.
+# _JPTXT modifies any base rom. It restores some japanese text translations that were altered in english.
 # _METRIC modifies any base rom. It converts the pokedex data back to metric units.
 
 # _FPLAYER modifies any base rom. It includes code to support a female trainer player option.

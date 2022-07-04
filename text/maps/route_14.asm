@@ -81,8 +81,11 @@ _Route14EndBattleText5::
 
 _Route14AfterBattleText5::
 	text "The 3 legendary"
-	line "#MON are all"
-	cont "birds of prey."
+;	line "#MON are all"			;joenote - slight correction to this translation
+;	cont "birds of prey."
+	line "#MON are said"	
+	cont "to be birds."
+	
 	done
 
 _Route14BattleText6::

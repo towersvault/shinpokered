@@ -808,7 +808,11 @@ _IndigoPlateauHQText::
 
 _RedBedroomSNESText::
 	text "<PLAYER> is"
+IF DEF(_REDGREENJP)
+	line "playing the NES!"	;joenote - the player still had an old famicom in japanese red & green
+ELSE
 	line "playing the SNES!"
+ENDC
 	cont "...Okay!"
 	cont "It's time to go!"
 	done

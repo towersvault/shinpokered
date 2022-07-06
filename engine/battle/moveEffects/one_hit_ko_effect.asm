@@ -1,3 +1,5 @@
+;hl for user's speed
+;de for victim's speed
 OneHitKOEffect_:
 	ld hl, wDamage
 	xor a
@@ -7,11 +9,17 @@ OneHitKOEffect_:
 	ld [wCriticalHitOrOHKO], a
 	ld hl, wBattleMonSpeed + 1
 	ld de, wEnemyMonSpeed + 1
+	ld bc, wPlayerBattleStatus2
 	ld a, [H_WHOSETURN]
 	and a
 	jr z, .compareSpeed
 	ld hl, wEnemyMonSpeed + 1
 	ld de, wBattleMonSpeed + 1
+	ld bc, wEnemyBattleStatus2
+.ohko_xacc ;joenote - make it so using x-accuracy lets a slower user hit with it
+	ld a, [bc]
+	bit USING_X_ACCURACY, a
+	jr nz, .userCanHit
 .compareSpeed
 ; set damage to 65535 and OHKO flag if the user's current speed is higher than the target's
 	ld a, [de]
@@ -24,6 +32,8 @@ OneHitKOEffect_:
 	ld a, [hl]
 	sbc b
 	jr c, .userIsSlower
+.userCanHit
+	;user is allowed to hit with the move, so load 65535 damage
 	ld hl, wDamage
 	ld a, $ff
 	ld [hli], a

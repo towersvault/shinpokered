@@ -48,6 +48,10 @@ Additional changes exist that are not found in the Lite patches:
 Critical hit damage can no longer be less than the non-critical amount, so critical hits can never be a detriment.  
 Furthermore, the effect for Dire Hit and Focus Energy now work correctly and quadruple the critical hit rate.  
 
+**X-Accuracy and One-Hit-K.O. Moves**  
+X-Accuracy no longer gives OHKO moves 100% accuracy.  
+In all but the Lite patches, X-Accuracy now allows OHKO moves to hit a faster opponent.  
+
 
 #New Engine Functions
 -----------------------------------------------

@@ -6062,14 +6062,14 @@ MoveHitTest:
 .skipEnemyMistCheck
 	ld a, [wPlayerBattleStatus2]
 	bit USING_X_ACCURACY, a ; is the player using X Accuracy?
-	jr nz, .player_ohko_xacc ; if so, always hit regardless of accuracy/evasion
-	jr .calcHitChance
+	jr z, .calcHitChance
+	;if so, always hit regardless of accuracy/evasion
 .player_ohko_xacc	;joenote - player ohko moves now ignore x accuracy 
 	;this section is entered if the player is using x accuracy
 	ld a, [wPlayerMoveEffect]	;load the move effect 
 	cp OHKO_EFFECT	;check if it's an ohko move
-	jr z, .calcHitChance	;if so, do normal accuracy checks
-	ret	;else the x accuracy skips hit chance
+	ret	nz ;if not, the x accuracy skips hit chance
+	jr .calcHitChance	;else do normal accuracy checks
 .enemyTurn
 	ld a, [wEnemyMoveEffect]
 	cp ATTACK_DOWN1_EFFECT
@@ -6089,14 +6089,14 @@ MoveHitTest:
 .skipPlayerMistCheck
 	ld a, [wEnemyBattleStatus2]
 	bit USING_X_ACCURACY, a ; is the enemy using X Accuracy?
-	jr nz, .enemy_ohko_xacc ; if so, always hit regardless of accuracy/evasion
-	jr .calcHitChance	;joenote - added this to skip over
+	jr z, .calcHitChance
+	;if so, always hit regardless of accuracy/evasion
 .enemy_ohko_xacc	;joenote - enemy ohko moves now ignore x accuracy 
 	;this section is entered if the enemy is using x accuracy
 	ld a, [wEnemyMoveEffect]	;load the move effect 
 	cp OHKO_EFFECT	;check if it's an ohko move
-	jr z, .calcHitChance	;if so, do normal accuracy checks
-	ret	;else the x accuracy skips hit chance
+	ret	nz ;if not, the x accuracy skips hit chance
+	;jr .calcHitChance	;else do normal accuracy checks
 .calcHitChance
 	call CalcHitChance ; scale the move accuracy according to attacker's accuracy and target's evasion
 	ld a, [wPlayerMoveAccuracy]

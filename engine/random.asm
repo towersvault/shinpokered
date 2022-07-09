@@ -20,19 +20,26 @@ Random_::
 ; Created by Patrik Rak in 2008 and revised in 2011/2012.
 ; See http://www.worldofspectrum.org/forums/showthread.php?t=23070
 
-	;load X[n] into bc
+;Note about the hram locations and how they hold random values:
+;hRandomAdd = x[n]
+;hRandomLast = x[n-1]
+;hRandomSub = x[n-2]
+;hRandomLast+1 = x[n-3]
+;This gives up to 4 random values to pick from so long as this function as been called at least 4 times.
+
+	;load Seed[n] into bc
 	ld hl, hRandomAdd + 1
 	ld a, [hld]
 	ld b, a
 	ld a, [hl]
 	ld c, a
-	;load X[n-1] into de
+	;load Seed[n-1] into de
 	ld hl, hRandomLast + 1
 	ld a, [hld]
 	ld d, a
 	ld a, [hli]
 	ld e, a
-	;X[n-1] = X[n] 
+	;Seed[n-1] = Seed[n] 
 	ld a, b
 	ld [hld], a
 	ld a, c

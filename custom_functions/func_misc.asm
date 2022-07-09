@@ -879,6 +879,7 @@ DVPunnettSquare:
 	ret
 _GetPunnettCEtoL:	
 	call Random
+	call Random
 	
 	ld a, %11110000
 	push af
@@ -911,7 +912,7 @@ _GetPunnettCEtoL:
 	swap a
 	or l
 	ld l, a
-	ld a, [hRandomSub]
+	ld a, [hRandomLast]
 	bit 0, a
 	jr z, .next1
 	swap l
@@ -927,7 +928,7 @@ _GetPunnettCEtoL:
 	swap a
 	or l
 	ld l, a
-	ld a, [hRandomSub]
+	ld a, [hRandomLast]
 	bit 1, a
 	jr z, .next2
 	swap l

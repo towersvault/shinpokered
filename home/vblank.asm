@@ -37,10 +37,7 @@ VBlank::
 .skipOAM
 	; VBlank-sensitive operations end.
 
-	;call Random
-	;joenote - implement RNG from Prism and Polished Crystal
-	callba Random_
-	callba AdvanceRNGState
+	call Random
 
 	ld a, [H_VBLANKOCCURRED]
 	and a

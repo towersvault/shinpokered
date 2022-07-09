@@ -1,4 +1,3 @@
-;joenote - implement RNG from Prism and Polished Crystal
 Random_::
 ; Generate a random 16-bit value.
 ;	ld a, [rDIV]
@@ -13,143 +12,51 @@ Random_::
 ;	ld [hRandomSub], a
 ;	ret
 
-	; just like the stock RNG, this exits with the value in [hRandomSub]
-	; it also stores a random value in [hRandomAdd]
-	push hl
-	push bc
-	push de
-	call UpdateDividerCounters
-	ld hl, wRNGState
-	ld a, [hli]
-	ld b, a
-	ld a, [hli]
-	ld c, a
-	ld a, [hli]
-	ld d, a
-	ld e, [hl]
-	ld a, e
-	add a, a
-	xor b
-	ld b, a
-	ld a, d
-	rla
-	ld l, c
-	rl l
-	ld h, b
-	rl h
-	sbc a
-	and 1
-	xor c
-	ld c, a
-	ld a, h
-	xor d
-	ld d, a
-	ld a, l
-	xor e
-	ld e, a
-	ld h, b
-	ld l, c
-	push hl
-	ld h, d
-	ld a, e
-	rept 2
-		sla e
-		rl d
-		rl c
-		rl b
-	endr
-	xor e
-	ld e, a
-	ld a, h
-	xor d
-	ld d, a
-	pop hl
-	ld a, l
-	xor c
-	ld c, a
-	ld a, h
-	xor b
-	ld hl, wRNGState
-	ld [hli], a
-	ld a, c
-	ld [hli], a
-	ld a, d
-	ld [hli], a
-	ld [hl], e
-	ld a, [rDIV]
-	add a, [hl]
-	ld [hRandomAdd], a
-	ld a, [hli]
-	inc hl
-	inc hl
-	sub [hl]
-	ld [hRandomSub], a
-	pop de
-	pop bc
-	pop hl
-	ret
+;joenote - implementing Patrik Rak's Xor-Shift random number generator
+;Found at https://gist.github.com/raxoft/2275716fea577b48f7f0
+;Patrik Rak released this code into public domain.
 
-UpdateDividerCounters::
-	ld a, [rDIV]
-	ld hl, wRNGCumulativeDividerMinus
-	sbc [hl]
-	ld [hld], a
-	ld a, [rDIV]
-	adc [hl]
-	ld [hld], a
-	ret nc
-	inc [hl]
-	ret
+; 8-bit Xor-Shift random number generator.
+; Created by Patrik Rak in 2008 and revised in 2011/2012.
+; See http://www.worldofspectrum.org/forums/showthread.php?t=23070
 
-AdvanceRNGState::
-	ld hl, wRNGState
-	ld a, [hli]
+	;load X[n] into bc
+	ld hl, hRandomAdd + 1
+	ld a, [hld]
 	ld b, a
-	ld a, [hli]
+	ld a, [hl]
 	ld c, a
-	ld a, [hli]
+	;load X[n-1] into de
+	ld hl, hRandomLast + 1
+	ld a, [hld]
 	ld d, a
 	ld a, [hli]
 	ld e, a
-	ld a, [hli]
-	ld l, [hl]
-	ld h, a
-	ld a, [rDIV]
-	rra
-	jr nc, .try_upper
-.try_lower
-	ld a, h
-	cp d
-	ld a, l
-	jr nz, .lower
-	cp e
-	jr nz, .lower
-.upper
-	xor c
-	ld c, a
-	ld a, h
-	xor b
-	jr .done
-.try_upper
-	ld a, h
-	cp b
-	ld a, l
-	jr nz, .upper
-	cp c
-	jr nz, .upper
-.lower
-	xor e
-	ld e, a
-	ld a, h
-	xor d
-	ld d, a
+	;X[n-1] = X[n] 
 	ld a, b
-.done
-	ld hl, wRNGState
-	ld [hli], a
+	ld [hld], a
 	ld a, c
-	ld [hli], a
-	ld a, d
-	ld [hli], a
-	ld [hl], e
-	ret
+	ld [hl], a
+	
+	ld  a,c         
+    add a,a
+    add a,a
+    add a,a
+    xor c
+    ld  c,a
+    ld  a,d         
+    add a,a
+    xor d
+    ld  b,a
+    rra             
+    xor b
+    xor c
+    ld  b,e         
+    ld  c,a    
+	
+	ld hl, hRandomAdd + 1
+	ld a, b
+	ld [hld], a
+	ld a, c
+	ld [hl], a
+ 	ret

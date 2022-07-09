@@ -1456,11 +1456,8 @@ wPartyMenuHPBarColors:: ; cf1f
 wStatusScreenHPBarColor:: ; cf25
 	ds 1
 
-	;ds 7
-;joenote - implement RNG from Prism and Polished Crystal
-wRNGState:: ds 4
-wRNGCumulativeDividerPlus:: ds 2
-wRNGCumulativeDividerMinus:: ds 1
+;unused space
+	ds 7
 
 wCopyingSGBTileData:: ; cf2d
 

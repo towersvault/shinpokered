@@ -575,7 +575,7 @@ v1.23.08
   - The boulder switches never reset while inside victory road and they will always reset upon leaving
   - While inside victory road, boulders placed on switches will stay there between floor transitions
   - The formula functions for exp now have underflow protection.
-  - General RNG improved to the one used by Prism and Polished Crystal (allows for all possible DVs naturally)
+  - General RNG improved to use the xor-shift method (fast and allows for all possible DVs naturally)
   - Cannot bypass Brock's gym via the start menu
   - Fixed bugged npc movement constraints
   - Fixed the instant-text glitch that can happen in the bike shop
@@ -1182,7 +1182,8 @@ v1.23.08
 - MoriyaFaith's pokejp project for green version assets and code referencing
 - Rangi for the tool Polished Map and the jp-style town map from Red/Blue Star
 - Exp bar coded by Danny-E 33
-- The Pokemon Prism team for the improved RNG
+- The Pokemon Prism team for the improved RNG on previous versions
+- Patrik Rak for the new xor-shift RNG code
 - Move deleter/relearner coded by TheFakeMateo for Pokemon Red++
 - Code contributions and bugfixing by wisp92
 - GLSWV for correcting the metric conversions of height and weight data 

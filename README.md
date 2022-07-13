@@ -1190,6 +1190,7 @@ v1.23.08
 - GLSWV for correcting the metric conversions of height and weight data 
 - SteppoBlazer for the spaceworld-style old man back sprite
 - Poketto for the spaceworld-style Trainer Red back sprite
+- SPazzzi95 for documenting localization changes
 
 The following folks for their great tutorials, glitch videos, and explanations across the internet
 - TheFakeMateo 

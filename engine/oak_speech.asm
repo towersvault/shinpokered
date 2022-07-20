@@ -3,8 +3,8 @@ SetDefaultNames:
 	push af
 	ld a, [wOptions]
 	push af
-	ld a, [wd732]
-	push af
+;	ld a, [wd732]	;joenote - leftover from gamefreak's degug tools. need to clear this.
+;	push af
 	ld a, [wUnusedD721]	;joenote - preserve extra options
 	push af
 	ld hl, wPlayerName
@@ -17,8 +17,8 @@ SetDefaultNames:
 	call FillMemory
 	pop af
 	ld [wUnusedD721], a	;joenote - restore extra options
-	pop af
-	ld [wd732], a
+;	pop af
+;	ld [wd732], a
 	pop af
 	ld [wOptions], a
 	pop af

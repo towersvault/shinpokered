@@ -383,6 +383,7 @@ v1.23.08
 - Fixed translation: Route 14 trainer's comment about the legendary birds
 - Using X-Accuracy with a OHKO move now allows it to hit faster opponents
 - Switched over to the xor-shift method of RNG
+- RAM adress D732 now gets cleared upon a new game
 
 
 #Bugfixes:

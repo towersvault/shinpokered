@@ -12,7 +12,8 @@ IncrementDayCareMonExp:
 	push de
 	
 	;get exp as if an area with an encounter rate of $0A (pretty common value for a lot of maps)
-	ld b, $0A
+	;actually, change it to 7 to account for the time that would be spent during the battle
+	ld b, $07
 	ld a, [hRandomAdd]
 	cp b
 	jr nc, .return

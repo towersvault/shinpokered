@@ -52,6 +52,12 @@ Furthermore, the effect for Dire Hit and Focus Energy now work correctly and qua
 X-Accuracy no longer gives OHKO moves 100% accuracy.  
 In all but the Lite patches, X-Accuracy now allows OHKO moves to hit a faster opponent.  
 
+**New Random Number Engine**  
+The game now uses an XOR-shift-style pseudorandom number generator.  
+This method is a good and speedy solution for 8-bit processors.  
+The random seeds are taken from garbage values in HRAM on boot-up. Power-cycle your game if your luck is bad.  
+Of note, all wild pokemon DV combinations are now possible regardless of the current map.  
+
 
 #New Engine Functions
 -----------------------------------------------
@@ -246,6 +252,7 @@ The falsified encounter starts at level 5, and it increases 5 more levels per ba
 With 8 badges, using the daycare is essentially a faster way of farming level 45 basic pokemon.  
 The downside of not gaining statexp in the daycare still remains as a tradeoff.  
 Consider using the daycare as a way to outsource some grinding while you go focus on other things.  
+And yes, pokemon with HM moves are now allowed in the daycare.  
 
 
 #Trainer-Aiding Features
@@ -433,6 +440,8 @@ Here is an alternative to grinding out battles in the post-game.
 8 - When going to the game corner, try having your 1st-slot pokemon know Pay Day. It may tip you off.  
 9 - Missingno can be activated in either Seafoam or Cinnabar with your pokedex diploma. Prepare your sixth item slot for victory.  
 10 - Mercy is granted if you encounter an enemy trainer with a shiny pokemon.  
+11 - Put Mewtwo at the top of your party in the post-game. How will Mr. Fuji react?  
+12 - Bill's secret garden? He'll never tell! Could showing him a Mew persuade him?  
 
 
 #Built-In Nuzlocke Mode

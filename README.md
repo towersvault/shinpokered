@@ -59,8 +59,10 @@ Rematches
 
 Trainer AI, Shiny Palette & Symbol, Exp Bar, Spaceworld Back Sprites  
 Gender & Caught symbols in Wild Battles, Colored Attacks in GBC-mode  
+Colored tossing animations in GBC-mode  
 ![Battle Screen Upgrades 1](/screenshots/bgb00020.bmp?raw=true)
 ![Battle Screen Upgrades 2](/screenshots/bgb00021.bmp?raw=true)
+![Battle Screen Upgrades 3](/screenshots/shinpokered_colored_tossing.gif?raw=true)
 
 TMs in Marts with Abbreviated Names  
 ![Marts](/screenshots/bgb00016.bmp?raw=true)
@@ -87,6 +89,9 @@ Many new NPCs to toggle features
 Gamma Shader for LCD Screens (Off & On Comparison)  
 ![Shader Off](/screenshots/bgb00035.bmp?raw=true)
 ![Shader On](/screenshots/bgb00036.bmp?raw=true)
+
+Improved FPS Options  
+![HardwareFPS](/screenshots/shinpokeredFPScompare.gif?raw=true)
 
 
 #Summary
@@ -592,6 +597,7 @@ v1.23.08
   - You can Fly and Teleport out of maps with the forest tileset
   - Fixed a grass tile in the Forest tileset not counting for encouner generation
   - Fixed input priority on menus
+  - RAM adress D732 now gets cleared upon starting a new game
 
   
 #TWEAKS:
@@ -626,6 +632,9 @@ v1.23.08
   - Text tweak to route 14 trainer with regards to forgetting HMs
   - Adjusted some of Giovanni's final lines for clarity
   - Clarified "chem" to mean grade in chemistry
+  - Fixed pokemon category translation: "Rat" to "Mouse"
+  - Fixed pokemon category translation: "Shellfish" to "Shell"
+  - Fixed translation: Route 14 trainer's comment about the legendary birds
 
 - Adjustments to moves  
   - Stat-down moves no longer have a 25% miss chance in AI matches
@@ -647,13 +656,15 @@ v1.23.08
   - Changes to Rage
 	- Now only lasts 2 to 3 moves like Bide in order to prevent an infinite loop
 	- As a tradeoff, attack boosts from rage are kept when it ends
+  - Minor code correction to Twineedle to prevent future errors, but this has no effect on gameplay
 
 - Adjustment to stat mods, conditions, and items
   - Sleep does not prevent choosing a move
   - Waking up from sleep does not waste the turn and the chosen move is used
     - The sleep counter's minimum value is increased by +1 to maintain accuracy of sleep moves
   - Badge stat-ups are now only applied in wild pokemon battles to give parity to enemy trainers (only in "SET" style)
-  - The effect of X Accuracy is no longer applied to one-hit K.O. moves (it originally made them auto-hit)
+  - The effect of X-Accuracy is no longer applied to one-hit K.O. moves (it originally made them auto-hit)
+  - Using X-Accuracy with a OHKO move now allows it to hit faster opponents
   - The limiter on vitamins is raised to a max of 62720 stat exp after the elite 4 have been beaten
   - Pkmn added to the player's party (either as a gift or in-game trade) have at the least DVs of 9,8,8,8
   - Upped the power of safari balls
@@ -813,8 +824,10 @@ v1.23.08
     - With 8 badges, using the daycare is essentially a faster way of farming level 45 basic pokemon
     - The downside of not gaining statEXP in the daycare still remains as a tradeoff
   - Added a PC to the daycare
+  - Daycare allows HM moves on entered pokemon
 
 - A regular New Game will default the battle style to SET
+- Starting a New Game while in GBC-mode will default 60FPS mode to ON
 - Yes/No prompt for flute use has been added to blocking snorlax
 - Game corner prize costs re-balanced
 - Slightly increased slot odds
@@ -931,6 +944,9 @@ v1.23.08
   - Scrolling mons on the title screen have their own palettes loaded on the GBC.
   - In the blue version intro, jigglypuff has it's own palette loaded on the GBC.
   - Oak-speech nidorino has its color palette on the GBC.
+  - When playing in GBC-mode, move animations are colored based on their type
+  - In GBC-mode, when a pokemon is caught, the resting ball now has a defined color
+  - Tossing pokeballs have color in GBC mode
 - You can now play as a girl when starting a new game
   - Has front, back, walking, fishing, and cycling sprites
   - Has unique default names when starting a new game
@@ -946,7 +962,6 @@ v1.23.08
   - The symbol is displayed for a party mon in its status screen
   - The symbol is displayed in the battle hud only for wild enemy mon (the only time it matters)
 - Oak's aid at the bottom-left of the lab toggles the caught & gender symbols after obtaining the pokedex
-- When playing in GBC-mode, move animations are colored based on their type
 - Red & Blue versions use the back sprites from spaceworld 97 so as to be cohesive with the front sprites
 - Added spaceworld-style trainer back sprites for consistency with the spaceworld 'mon back sprites 
 
@@ -982,6 +997,16 @@ v1.23.08
 - Can rematch gym leaders and most non gym-leader trainers just by talking to them one or two times
   - Giovanni respawns after leaving the gym so you can rematch him
 - Paras is gifted in the Route 2 house in case the player has no pokemon that can learn Cut
+- Added a scientist and books to the Cinnabar Lab fossil room for cloning and gene splicing
+  - This process clones your 1st spot pokemon and modifies it with DNA from your 2nd spot pokemon.  
+  - It does this by treating a pokemon's two bytes of DV values as if they were two genes with two alleles each.  
+    - Gene-A has the Attack DV as its hi-side allele and the Defense DV as its lo-side allele.  
+	- Gene-B has the Speed DV as its hi-side allele and the Special DV as its lo-side allele.  
+	- The A-genes from the two donor pokemon will be mixed to make the clone's A-gene.  
+	- The B-genes from the two donor pokemon will be mixed to make the clone's B-gene.  
+  - Mixing two genes is done via Punnett Squares, and a random result is chosen based on its ratios.  
+  - Within a Punnett quadrant, a hi allele makes the upper digits and a lo allele makes the lower digits.  
+  - If two hi allels or two lo alleles fall within a Punnet quadrant, their order is randomly selected.  
 
 
 #Post-Game Content  
@@ -1059,6 +1084,11 @@ v1.23.08
   - This catch rate makes it hold a gorgeous box if transferred to Gen 2
   - In case of multiple pikachus, only the first in the roster will be affected
   - Likewise, a pikachu holding a gorgeous box can learn surf if transferred into this rom hack
+- Show Mewtwo to Mr. Fuji after beating the Elite 4 for a M.GENE
+- Added Bill's secret garden behind his house
+  - Put Mew in your top spot and show Bill to gain access
+  - You will encounter the starter pokemon plus some other rarer pokemon
+  - Shiny rates are 1-in-128 in this area
 
 
 #Added Encounter Locations for the following pokemon (rare if not normally in the chosen version):

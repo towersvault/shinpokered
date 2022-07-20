@@ -327,12 +327,12 @@ If two hi allels or two lo alleles fall within a Punnet quadrant, their order is
 
 Example: Mixing gene hexadecimal values of $AB from one pokemon with $CD from another pokemon.  
 One of the four quadrants will be randomly chosen as a new value containing two DVs.  
-		C			D  
-	xxxxxxxxxxxxxxxxxxxxxxx  
-A	| AC or CA |   AD	  |  
-	xxxxxxxxxxxxxxxxxxxxxxx  
-B	|	CB	   | BD or DB |  
-	xxxxxxxxxxxxxxxxxxxxxxx  
+__ __ __ _C_ __ __ __ __ D  
+__ xxxxxxxxxxxxxxxxxxxx  
+A | AC or CA | __ _AD_ __ |  
+__ xxxxxxxxxxxxxxxxxxxx  
+B | __ _CB_ __ | BD or DB |  
+__ xxxxxxxxxxxxxxxxxxxx  
 
 Talk to the new scientist in the fossil room of the Cinnabar Lab to get started.  
 For a small fee, a gene sequence listing the clone's new DV alleles in order is randomly determined.  

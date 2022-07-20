@@ -392,6 +392,7 @@ v1.23.08
 - Fixed a bug having to do with rare instances of bending the audio pitch
 - Cannot use poison to black yourself out of the cable club
 - Cannot use poison to black yourself out of the safari zone
+- Cannot perform the 99-stack glitch anymore
 
 
 #Bugfixes:
@@ -604,6 +605,7 @@ v1.23.08
   - RAM adress D732 now gets cleared upon starting a new game
   - Cannot use poison to black yourself out of the cable club
   - Cannot use poison to black yourself out of the safari zone
+  - Cannot perform the 99-stack glitch anymore
   
   
 #TWEAKS:

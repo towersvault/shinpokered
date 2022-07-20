@@ -11,6 +11,11 @@ AddItemToInventory_:
 	push de
 	push hl
 	push hl
+
+	;joenote - prevent the 99-stack glitch by writing the end-of-bag terminator for a full bag
+	ld a, $FF
+	ld [wBagItemsTerminator], a
+
 	ld d, PC_ITEM_CAPACITY ; how many items the PC can hold
 	ld a, wNumBagItems & $FF
 	cp l

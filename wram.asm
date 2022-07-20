@@ -2406,6 +2406,7 @@ wNumBagItems:: ; d31d
 wBagItems:: ; d31e
 ; item, quantity
 	ds BAG_ITEM_CAPACITY * 2
+wBagItemsTerminator::	;holds FF when the bag becomes full
 	ds 1 ; end
 
 wPlayerMoney:: ; d347

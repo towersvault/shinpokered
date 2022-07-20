@@ -390,6 +390,7 @@ v1.23.08
 - Switched over to the xor-shift method of RNG
 - RAM adress D732 now gets cleared upon a new game
 - Fixed a bug having to do with rare instances of bending the audio pitch
+- Cannot use poison to black yourself out of the cable club
 
 
 #Bugfixes:
@@ -600,6 +601,7 @@ v1.23.08
   - Fixed a grass tile in the Forest tileset not counting for encouner generation
   - Fixed input priority on menus
   - RAM adress D732 now gets cleared upon starting a new game
+  - Cannot use poison to black yourself out of the cable club
 
   
 #TWEAKS:

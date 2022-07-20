@@ -18,8 +18,11 @@ If you are blocked by invisible walls, use the Softlock Warp (detailed below).
 On the old save, before transferring it over, saving outside in Pallet town can solve certain issues.  
 
 
-#Some Particular Battle Mechanic Changes
+#Some Changes to Particular Mechanics
 -----------------------------------------------
+**Trade Evolutions**  
+Except for the Lite patches, pokemon that evolve by trade can also evolve by reaching level 45.  
+
 **Rage**  
 This move now lasts 2 to 3 turns to prevent getting stuck in an infinite loop.  
 Any attack boosts gained during Rage are retained when it ends.  

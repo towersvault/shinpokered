@@ -394,6 +394,7 @@ v1.23.08
 - Cannot use poison to black yourself out of the safari zone
 - Cannot perform the 99-stack glitch anymore
 - Fixed an offset bug with the lucky game corner machine
+- Victory music won't play if a wild 'mon faints but the player has no 'mons remaining; it's a blackout
 
 
 #Bugfixes:
@@ -566,7 +567,8 @@ v1.23.08
   - Bike music stops playing now when going down a hole
   - Assigned a proper forget-move sfx during battle
   - Fixed a bug having to do with rare instances of bending the audio pitch
-  
+  - Victory music won't play if a wild 'mon faints but the player has no 'mons remaining; it's a blackout
+
 
 - Misc. fixes
   - Cinnabar/seafoam islands coast glitch fixed (no more missingo or artificially loading pokemon data)

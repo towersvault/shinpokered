@@ -1428,6 +1428,10 @@ SlideDownFaintedMonPic:
 	push de
 	push hl
 	ld b, 6 ; number of rows
+	
+	xor a	;joenote - fix screen tearing by not letting BG transfer while looping through rows
+	ld [H_AUTOBGTRANSFERENABLED], a
+
 .rowLoop
 	push bc
 	push hl
@@ -1452,6 +1456,10 @@ SlideDownFaintedMonPic:
 	add hl, bc
 	ld de, SevenSpacesText
 	call PlaceString
+	
+	ld a, 1	;joenote - rows done, so let the BG transfer when DelayFrames is called
+	ld [H_AUTOBGTRANSFERENABLED], a
+	
 	ld c, 2
 	call DelayFrames
 	pop hl
@@ -1477,6 +1485,10 @@ SlideTrainerPicOffScreen:
 	push bc
 	push hl
 	ld b, 7 ; number of rows
+	
+	xor a	;joenote - fix screen tearing by not letting BG transfer while looping through rows
+	ld [H_AUTOBGTRANSFERENABLED], a
+
 .rowLoop
 	push hl
 	ld a, [hSlideAmount]
@@ -1502,6 +1514,10 @@ SlideTrainerPicOffScreen:
 	add hl, de
 	dec b
 	jr nz, .rowLoop
+
+	ld a, 1	;joenote - rows done, so let the BG transfer when DelayFrames is called
+	ld [H_AUTOBGTRANSFERENABLED], a
+
 	ld c, 2
 	call DelayFrames
 	pop hl

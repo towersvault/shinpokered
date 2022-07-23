@@ -395,6 +395,7 @@ v1.23.08
 - Cannot perform the 99-stack glitch anymore
 - Fixed an offset bug with the lucky game corner machine
 - Victory music won't play if a wild 'mon faints but the player has no 'mons remaining; it's a blackout
+- Fixed screen tearing in battle when player or 'mon slides off the screen
 
 
 #Bugfixes:
@@ -526,7 +527,8 @@ v1.23.08
   - Adjusted two spin-stop tiles in Viridian Gym
   - Made Agility's animation more apparent
   - Changed border block on route 16 to water to make it consistent with route 17
-
+  - Fixed screen tearing in battle when player or 'mon slides off the screen
+  
 
 - Item Fixes  
   - Great ball has a ball factor of 12 now

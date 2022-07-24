@@ -72,6 +72,7 @@ UpdatePlayerSprite:
 	sub b
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;	
 	ld [hl], a
+IF DEF(_RUNSHOES)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;joenote - If B is being held to go faster and full joypad is enabled (i.e. not in a cutscene),
 ;Then increase player animation speed by 25%
@@ -90,7 +91,9 @@ UpdatePlayerSprite:
 	cp c
 	pop bc
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;	cp 4
+ELSE
+	cp 4
+ENDC
 ;	jr nz, .calcImageIndex
 	jr c, .calcImageIndex	;joenote - prevents interframe counter from increasing forever
 	xor a

@@ -396,6 +396,7 @@ v1.23.08
 - Fixed an offset bug with the lucky game corner machine
 - Victory music won't play if a wild 'mon faints but the player has no 'mons remaining; it's a blackout
 - Fixed screen tearing in battle when player or 'mon slides off the screen
+- The running shoes code is now tethered to the _RUNSHOES makefile tag
 
 
 #Bugfixes:

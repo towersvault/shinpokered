@@ -63,26 +63,27 @@ endif
 
 # _FPLAYER modifies any base rom. It includes code to support a female trainer player option.
 # _MOVENPCS adds move deleter and relearner NPCs in a Saffron house.
+# _RUNSHOES Allows player to run by holding B
 
 %_red.o: dep = $(shell tools/scan_includes $(@D)/$*.asm)
 $(pokered_obj): %_red.o: %.asm $$(dep)
-	rgbasm -D _RED -D _SWBACKS -D _FPLAYER -D _MOVENPCS -h -o $@ $*.asm
+	rgbasm -D _RED -D _SWBACKS -D _FPLAYER -D _MOVENPCS -D _RUNSHOES -h -o $@ $*.asm
 
 %_blue.o: dep = $(shell tools/scan_includes $(@D)/$*.asm)
 $(pokeblue_obj): %_blue.o: %.asm $$(dep)
-	rgbasm -D _BLUE -D _SWBACKS -D _FPLAYER -D _MOVENPCS -h -o $@ $*.asm
+	rgbasm -D _BLUE -D _SWBACKS -D _FPLAYER -D _MOVENPCS -D _RUNSHOES -h -o $@ $*.asm
 
 %_green.o: dep = $(shell tools/scan_includes $(@D)/$*.asm)
 $(pokegreen_obj): %_green.o: %.asm $$(dep)
-	rgbasm -D _GREEN -D _RGSPRITES -D _REDGREENJP -D _JPTXT -D _METRIC -D _FPLAYER -D _MOVENPCS -h -o $@ $*.asm
+	rgbasm -D _GREEN -D _RGSPRITES -D _REDGREENJP -D _JPTXT -D _METRIC -D _FPLAYER -D _MOVENPCS -D _RUNSHOES -h -o $@ $*.asm
 	
 %_red_origback.o: dep = $(shell tools/scan_includes $(@D)/$*.asm)
 $(pokered_origback_obj): %_red_origback.o: %.asm $$(dep)
-	rgbasm -D _RED -D _FPLAYER -D _MOVENPCS -h -o $@ $*.asm
+	rgbasm -D _RED -D _FPLAYER -D _MOVENPCS -D _RUNSHOES -h -o $@ $*.asm
 
 %_blue_origback.o: dep = $(shell tools/scan_includes $(@D)/$*.asm)
 $(pokeblue_origback_obj): %_blue_origback.o: %.asm $$(dep)
-	rgbasm -D _BLUE -D _FPLAYER -D _MOVENPCS -h -o $@ $*.asm
+	rgbasm -D _BLUE -D _FPLAYER -D _MOVENPCS -D _RUNSHOES -h -o $@ $*.asm
 
 %_bluejp.o: dep = $(shell tools/scan_includes $(@D)/$*.asm)
 $(pokebluejp_obj): %_bluejp.o: %.asm $$(dep)

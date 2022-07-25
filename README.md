@@ -397,6 +397,7 @@ v1.23.08
 - Victory music won't play if a wild 'mon faints but the player has no 'mons remaining; it's a blackout
 - Fixed screen tearing in battle when player or 'mon slides off the screen
 - The running shoes code is now tethered to the _RUNSHOES makefile tag
+- Fixed screen whiteouts not looking very smooth in GBC mode (like when entering the 'mon status screen)
 
 
 #Bugfixes:

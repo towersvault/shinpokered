@@ -1565,8 +1565,9 @@ AdjustOAMBlockYPos2:
 	add b
 	cp 112
 	jr c, .skipSettingPreviousEntrysAttribute
-	dec hl
+;	dec hl		;joenote - comment this out to fix the mentioned bug
 	ld a, 160 ; bug, sets previous OAM entry's attribute
+				;it causes the dust cloud when pushing a boulder downward to not show up very well
 	ld [hli], a
 .skipSettingPreviousEntrysAttribute
 	ld [hl], a

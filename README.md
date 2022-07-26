@@ -398,6 +398,7 @@ v1.23.08
 - Fixed screen tearing in battle when player or 'mon slides off the screen
 - The running shoes code is now tethered to the _RUNSHOES makefile tag
 - Fixed screen whiteouts not looking very smooth in GBC mode (like when entering the 'mon status screen)
+- Fixed a bug from the vanilla game where boulder dust clouds do not show up well when pushing downwards
 
 
 #Bugfixes:
@@ -530,7 +531,8 @@ v1.23.08
   - Made Agility's animation more apparent
   - Changed border block on route 16 to water to make it consistent with route 17
   - Fixed screen tearing in battle when player or 'mon slides off the screen
-  
+  - Fixed a bug from the vanilla game where boulder dust clouds do not show up well when pushing downwards
+
 
 - Item Fixes  
   - Great ball has a ball factor of 12 now

@@ -1824,7 +1824,8 @@ CollisionCheckOnWater::
 	ld d, a
 	ld a, [wSpriteStateData1 + 12] ; the player sprite's collision data (bit field) (set in the sprite movement code)
 	and d ; check if a sprite is in the direction the player is trying to go
-	jr nz, .checkIfNextTileIsPassable ; bug?
+	;jr nz, .checkIfNextTileIsPassable ; bug?
+	jr nz, .collision ; joenote - this fixes the aforementioned bug
 	ld hl, TilePairCollisionsWater
 	call CheckForJumpingAndTilePairCollisions
 	jr c, .collision

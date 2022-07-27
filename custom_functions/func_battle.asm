@@ -569,13 +569,11 @@ SetAttackAnimPal:
 	jr .starttransfer
 ;this functions sets z flag if not using a ball item, otherwise clears z flag if using a ball item
 CheckIfBall:
-	ld a, [wcf91]
-	and a
-	jr z, .not_ball
-	cp SAFARI_BALL
+	ld a, [wAnimationID]
+	cp TOSS_ANIM
 	jr z, .is_ball
-	cp POKE_BALL + 1
-	jr nc, .not_ball
+	cp ULTRATOSS_ANIM
+	jr nz, .not_ball
 .is_ball
 	ld a, 1
 	and a

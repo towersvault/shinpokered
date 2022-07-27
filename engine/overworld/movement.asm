@@ -414,6 +414,7 @@ UpdateSpriteInWalkingAnimation:
 	ld l, a
 	ld a, [hRandomAdd]
 	and $7f
+	inc a			;joenote - fix the oversight that can make the delay $100
 	ld [hl], a                       ; c2x8: set next movement delay to a random value in [0,$7f]
 	dec h                            ;       note that value 0 actually makes the delay $100 (bug?)
 	ld a, [H_CURRENTSPRITEOFFSET]

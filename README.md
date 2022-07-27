@@ -534,7 +534,8 @@ v1.23.08
   - Fixed screen tearing in battle when player or 'mon slides off the screen
   - Fixed a bug from the vanilla game where boulder dust clouds do not show up well when pushing downwards
   - Fixed a bug from the vanilla game where random NPC walk delay can underflow to 255 ticks
-
+  - Minor bugfix for CollisionCheckOnWater; no effect on gameplay
+  
 
 - Item Fixes  
   - Great ball has a ball factor of 12 now
@@ -618,6 +619,7 @@ v1.23.08
   - Cannot use poison to black yourself out of the safari zone
   - Cannot perform the 99-stack glitch anymore
   - Fixed an offset bug with the lucky game corner machine
+  - Minor bugfix for CollisionCheckOnWater; no effect on gameplay
   
   
 #TWEAKS:

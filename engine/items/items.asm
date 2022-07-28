@@ -793,6 +793,7 @@ ItemUseSurfboard:
 	dec a
 	ld [wJoyIgnore], a
 	call PlayDefaultMusic ; play walking music
+	call GBPalWhiteOutWithDelay3 ;joenote - fix from pokeyellow that prevents garbled graphics when un-surfing from the menu
 	jp LoadWalkingPlayerSpriteGraphics
 ; uses a simulated button press to make the player move forward
 .makePlayerMoveForward

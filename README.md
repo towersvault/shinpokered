@@ -401,6 +401,7 @@ v1.23.08
 - Fixed a bug from the vanilla game where boulder dust clouds do not show up well when pushing downwards
 - Fixed a bug from the vanilla game where random NPC walk delay can underflow to 255 ticks
 - Cannot surf from the party menu if a NPC is in front of the player (entering or exiting surf)
+- Player now faces up instead of left when stopped in the route 8 guard house
 
 
 #Bugfixes:
@@ -538,7 +539,7 @@ v1.23.08
   - Minor bugfix for CollisionCheckOnWater; no effect on gameplay
   - Fixed minor graphical glitch when surfing from the menu
   - Cannot surf from the party menu if a NPC is in front of the player (entering or exiting surf)
-  
+  - Player now faces up instead of left when stopped in the route 8 guard house
 
 - Item Fixes  
   - Great ball has a ball factor of 12 now

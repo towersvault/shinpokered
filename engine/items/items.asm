@@ -748,6 +748,8 @@ ItemUseSurfboard:
 	ld hl, TilePairCollisionsWater
 	call CheckForTilePairCollisions
 	jp c, SurfingAttemptFailed
+	call .checkSpriteCollision	;joenote - now checks for sprites hidden by menus
+	jp nz, SurfingAttemptFailed
 .surf
 	call .makePlayerMoveForward
 	ld hl, wd730
@@ -758,13 +760,7 @@ ItemUseSurfboard:
 	ld hl, SurfingGotOnText
 	jp PrintText
 .tryToStopSurfing
-	xor a
-	ld [hSpriteIndexOrTextID], a
-	ld d, 16 ; talking range in pixels (normal range)
-	call IsSpriteInFrontOfPlayer2
-	res 7, [hl]
-	ld a, [hSpriteIndexOrTextID]
-	and a ; is there a sprite in the way?
+	call .checkSpriteCollision	;joenote - now checks for sprites hidden by menus
 	jr nz, .cannotStopSurfing
 	ld hl, TilePairCollisionsWater
 	call CheckForTilePairCollisions
@@ -813,6 +809,21 @@ ItemUseSurfboard:
 	ld [wSimulatedJoypadStatesEnd], a
 	ld a, 1
 	ld [wSimulatedJoypadStatesIndex], a
+	ret
+.checkSpriteCollision	;joenote - return nz if sprite is in the way
+	xor a
+	ld [hSpriteIndexOrTextID], a
+	call IsSpriteInFrontOfPlayer	; check with talking range in pixels (normal range of $10)
+	res 7, [hl]
+	ld a, [hSpriteIndexOrTextID]
+	and a ; is there a sprite in the way?
+	ret nz
+	;joenote - this checks for sprites that cannot be seen due to the menu covering them
+	xor a
+	ld [hSpriteIndexOrTextID], a
+	callba IsOffScreenSpriteInFrontOfPlayer	; check with talking range in pixels (normal range of $10)
+	ld a, [hSpriteIndexOrTextID]
+	and a ; is there a sprite in the way?
 	ret
 
 SurfingGotOnText:

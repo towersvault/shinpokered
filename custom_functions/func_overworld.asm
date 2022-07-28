@@ -615,3 +615,108 @@ CheckSouthMap:
 	xor a
 	ret
 ;***************************************************************************************************
+
+
+
+;joenote - this function ONLY checks if a sprite is in front of the player
+;			wherein the sprite is unseen due to a menu (not being hidden)
+IsOffScreenSpriteInFrontOfPlayer:
+	ld d, $10 ; talking range in pixels (normal range)
+	lb bc, $3c, $40 ; Y and X position of player sprite
+	ld a, [wSpriteStateData1 + 9] ; direction the player is facing
+.checkIfPlayerFacingUp
+	cp SPRITE_FACING_UP
+	jr nz, .checkIfPlayerFacingDown
+; facing up
+	ld a, b
+	sub d
+	ld b, a
+	ld a, PLAYER_DIR_UP
+	jr .doneCheckingDirection
+
+.checkIfPlayerFacingDown
+	cp SPRITE_FACING_DOWN
+	jr nz, .checkIfPlayerFacingRight
+; facing down
+	ld a, b
+	add d
+	ld b, a
+	ld a, PLAYER_DIR_DOWN
+	jr .doneCheckingDirection
+
+.checkIfPlayerFacingRight
+	cp SPRITE_FACING_RIGHT
+	jr nz, .playerFacingLeft
+; facing right
+	ld a, c
+	add d
+	ld c, a
+	ld a, PLAYER_DIR_RIGHT
+	jr .doneCheckingDirection
+
+.playerFacingLeft
+; facing left
+	ld a, c
+	sub d
+	ld c, a
+	ld a, PLAYER_DIR_LEFT
+
+.doneCheckingDirection
+	ld [wPlayerDirection], a
+	ld a, [wNumSprites] ; number of sprites
+	and a
+	ret z
+
+; if there are sprites
+	ld hl, wSpriteStateData1 + $10
+	ld d, a
+	ld e, $01
+.spriteLoop
+	push hl
+
+	ld a, e
+	ld [H_CURRENTSPRITEOFFSET], a	
+	push de
+	push bc
+	predef IsObjectHidden
+	pop bc
+	pop de
+	pop hl
+	push hl
+	ld a, [$ffe5]
+	and a
+	jp nz, .nextSprite
+	
+	inc hl
+	inc hl
+	inc hl
+	inc hl
+	ld a, [hli] ; Y location
+	cp b
+	jr nz, .nextSprite
+	
+	inc hl
+	ld a, [hl] ; X location
+	cp c
+	jr z, .foundSpriteInFrontOfPlayer
+	
+.nextSprite
+	pop hl
+	ld a, l
+	add $10
+	ld l, a
+	inc e
+	dec d
+	jr nz, .spriteLoop
+	ret
+
+.foundSpriteInFrontOfPlayer
+	pop hl
+	ld a, l
+	and $f0
+	inc a
+	ld l, a ; hl = $c1x1
+	ld a, e
+	ld [hSpriteIndexOrTextID], a
+	ret
+

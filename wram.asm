@@ -238,9 +238,9 @@ wSpriteStateData1:: ; c100
 ; C1xA: adjusted Y coordinate (read for collision)
 ; C1xB: adjusted X coordinate (read for collision)
 ; C1xC: facing during collision with another sprite
-; C1xD
-; C1xE
-; C1xF
+; C1xD	
+; C1xE	used for collision info
+; C1xF	used for collision info
 spritestatedata1: MACRO
 \1SpriteStateData1::
 \1PictureID:: db

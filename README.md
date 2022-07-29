@@ -5,9 +5,10 @@ Version 1.23.XX
 This is a rom hack of pokemon red & blue based on the Pret team's disassembly.  
 It's a mostly-vanilla hack that focuses on fixing game engine bugs and oversights from the original game.  
 Additionally, trainer AI routines are improved and multiple quality-of-life improvements have been added.  
-Think of it as what the Nintendo Virtual Console re-release of red & blue might have been (plus a few extra goodies). 
+Its purpose is to educationally explore and newly express what the 2016 Nintendo Virtual Console re-release of gen-1 Pokemon could have been; 
+that being a glitch-free player experience close to what was originally intended along with some quality-of-life goodies and enhancements.  
 
-Read the "Guide to New Player Functions" for instructions on all the new stuff the player can do.
+Read the ["Guide to New Player Functions"](https://github.com/jojobear13/shinpokered/blob/master/ips_patches/Guide_to_New_Player_Functions.md) for instructions on all the new stuff the player can do.
 
 Don't like the non-vanilla changes? Prefer only the bugfixes and AI improvements? Want a codebase from which to launch your own rom hack?
 Then the [Lite branch](https://github.com/jojobear13/shinpokered/tree/lite) is what you want. Head on over and start compiling.
@@ -18,7 +19,9 @@ A bash script randomizer, "randoshinred", is now in beta test.
 - The "_origback" BPS patches are alternatives for red & blue that keep the original back sprites. 
 - Use the tool [FLIPS](https://www.romhacking.net/utilities/1040/) to apply the BPS patches.   
 - **Red patches (shin pokemon red, red_origback, and red-jp) are applied to a USA Red ROM.**
+  - MD5 Hash: 3d45c1ee9abd5738df46d2bdda8b57dc
 - **All other patches (Blues and Greens) are applied to a USA Blue ROM.**
+  - MD5 Hash: 50927e843568814f7ed45ec4f944bd8b
 
 
 ***Includes Pokemon Green and Japanese Red!***
@@ -29,6 +32,7 @@ A bash script randomizer, "randoshinred", is now in beta test.
 ***Now Includes Japanese Blue!***
 - Primarily builds the lists for encounters, trades, and prizes that were in the never-localized japanese release.
 - Pokedex uses metric units.
+- Other minor graphical adjustments.
 
 ***Updating Your Save File***
 Deactivate all special options and NPC toggles in the old save if it's from an earlier patch.  
@@ -86,12 +90,9 @@ Many new NPCs to toggle features
 ![NPC 5](/screenshots/bgb00011.bmp?raw=true)
 ![NPC 6](/screenshots/bgb00012.bmp?raw=true)
 
-Gamma Shader for LCD Screens (Off & On Comparison)  
+Gamma Shader for LCD Screens (Left image is Off / Right image is On)  
 ![Shader Off](/screenshots/bgb00035.bmp?raw=true)
 ![Shader On](/screenshots/bgb00036.bmp?raw=true)
-
-Improved FPS Options  
-![HardwareFPS](/screenshots/shinpokeredFPScompare.gif?raw=true)
 
 
 #Summary

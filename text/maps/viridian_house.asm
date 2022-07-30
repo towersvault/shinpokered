@@ -47,7 +47,7 @@ _ClauseBrother_SleepDesc::
 	done
 	
 _ClauseBrother_FreezeIntro::
-	text "Freeze CLAUSE BRO"
+	text "FREEZE CLAUSE BRO"
 	line "at your service."
 	prompt
 _ClauseBrother_FreezeDesc::

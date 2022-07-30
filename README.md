@@ -2,11 +2,11 @@
 
 Version 1.23.XX
 
-This is a rom hack of pokemon red & blue based on the Pret team's disassembly.  
+This is a ROM hack of Pokemon Red & Blue based on the Pret team's disassembly.  
 It's a mostly-vanilla hack that focuses on fixing game engine bugs and oversights from the original game.  
 Additionally, trainer AI routines are improved and multiple quality-of-life improvements have been added.  
 Its purpose is to educationally explore and newly express what the 2016 Nintendo Virtual Console re-release of gen-1 Pokemon could have been; 
-that being a glitch-free player experience close to what was originally intended along with some quality-of-life goodies and enhancements.  
+that being a glitch-free experience close to what was originally intended along with some player-friendly goodies and enhancements.  
 
 Read the ["Guide to New Player Functions"](https://github.com/jojobear13/shinpokered/blob/master/ips_patches/Guide_to_New_Player_Functions.md) for instructions on all the new stuff the player can do.
 

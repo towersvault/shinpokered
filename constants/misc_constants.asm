@@ -5,6 +5,12 @@ HACK_VERSION EQU %00000100
 
 MAX_LEVEL EQU 100
 
+;joenote - use constants to keep everything consistent and avoid missingno glitch
+;			- also set it to 8, 9 so that the bottom-left tile of the player space is used
+;			- doing so will fix the no-encounter spaces in the forest tileset
+ENCOUNTER_TILE_COORD_X EQU 8
+ENCOUNTER_TILE_COORD_Y EQU 9
+
 NUM_MOVES     EQU 4
 NUM_STATS     EQU 5
 NUM_STAT_MODS EQU 8

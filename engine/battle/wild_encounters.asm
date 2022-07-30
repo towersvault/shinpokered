@@ -24,10 +24,12 @@ TryDoWildEncounter:
 	ld [wRepelRemainingSteps], a
 .next
 ; determine if wild pokemon can appear in the half-block we're standing in
-; is the bottom right tile (9,9) of the half-block we're standing in a grass/water tile?
-	coord hl, 9, 9
+; is the encounter tile of the half-block we're standing in a grass/water tile?
+;joenote - modified to use constants to keep everything consistent and avoid missingno glitch
+	coord hl, ENCOUNTER_TILE_COORD_X, ENCOUNTER_TILE_COORD_Y
 	ld c, [hl]
-	call TestGrassTile	;joenote - fix a grass tile not generating encounters
+	ld a, [wGrassTile]
+	cp c
 	ld a, [wGrassRate]
 	jr z, .CanEncounter
 	ld a, $14 ; in all tilesets with a water tile, this is its id
@@ -63,8 +65,9 @@ TryDoWildEncounter:
 ; determine which wild pokemon (grass or water) can appear in the half-block we're standing in
 	ld c, [hl]
 	ld hl, wGrassMons
-	aCoord 9, 9 ;joenote - change this to (9,9) to refer to bottom right tile instead of bottom left (8,9 as originally)
-	cp $14 ; is the bottom right tile (9,9) of the half-block we're standing in a water tile?
+;joenote - modified to use constants to keep everything consistent and avoid missingno glitch
+	aCoord ENCOUNTER_TILE_COORD_X, ENCOUNTER_TILE_COORD_Y
+	cp $14 ; is the encounter tile of the half-block we're standing in a water tile?
 	jr nz, .gotWildEncounterType ; if not, it's treated as a grass tile by default
 	ld hl, wWaterMons
 ; since the bottom right tile of a "left shore" half-block used to be $14 but the bottom left tile was not,
@@ -120,21 +123,22 @@ TryDoWildEncounter:
 	jr nz, .willEncounter
 	jr .CantEncounter2
 
-;joenote - fix a grass tile not generating encounters
+;joenote - This is obsolete and no longer needed.
+;fix a grass tile not generating encounters
 ;c = lower-left tile to check
 ;gives z if grass tile
 ;give nz if not grass tile
-TestGrassTile:
-	ld a, [wGrassTile]
-	cp c
-	jr z, .return
-	ld a, [wCurMapTileset]
-	cp FOREST
-	jr nz, .return
-	ld a, $34	;check for the extra grass tile in the forest tileset
-	cp c
-.return
-	ret
+;TestGrassTile:
+;	ld a, [wGrassTile]
+;	cp c
+;	jr z, .return
+;	ld a, [wCurMapTileset]
+;	cp FOREST
+;	jr nz, .return
+;	ld a, $34	;check for the extra grass tile in the forest tileset
+;	cp c
+;.return
+;	ret
 	
 WildMonEncounterSlotChances:
 ; There are 10 slots for wild pokemon, and this is the table that defines how common each of

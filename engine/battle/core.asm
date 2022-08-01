@@ -962,6 +962,10 @@ FaintEnemyPokemon:
 	coord hl, 0, 0
 	lb bc, 4, 11
 	call ClearScreenArea
+	call AnyPartyAlive		;move the check for alive party members up here
+	ld a, d
+	and a
+	push af		;save the results and flags of the check on the stack
 	ld a, [wIsInBattle]
 	dec a
 	jr z, .wild_win
@@ -980,9 +984,7 @@ FaintEnemyPokemon:
 	jr .sfxplayed
 .wild_win
 	call EndLowHealthAlarm
-	call AnyPartyAlive		;move the check for alive party members up here
-	ld a, d
-	and a
+	pop	af	;get the saved party check off of the stack
 	push af		;save the results and flags of the check on the stack
 	ld a, MUSIC_DEFEATED_WILD_MON
 	call nz, PlayBattleVictoryMusic	;only play the victory music if at least 1 pokemon remains alive

@@ -279,6 +279,7 @@ PlayAnimation:
 	call PlaySubanimation
 	pop af
 	ld [rOBP0], a
+	call DelayFrame	;joenote - delay one frame so the animation has time to clear the objects from the screen
 	call UpdateGBCPal_OBP0
 .nextAnimationCommand
 	pop hl

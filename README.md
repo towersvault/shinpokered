@@ -113,7 +113,7 @@ It swaps prizes, trades, wild encounter data, and some text to replicate the ori
 It also has all the pokedex data in metric.
 
 Engine features from USA Yellow version have been backported.
-Super Gameboy palettes get converted to display on the Gameboy Color. No more monochrome!
+No more duochrome! Yellow's color scheme gets converted to display on the Gameboy Color.
 Attack animations are colored according to type during Gameboy Color play.
 The audio engine is backported for stereo sound support. 
 
@@ -403,6 +403,7 @@ v1.23.08
 - Fixed a bug from the vanilla game where random NPC walk delay can underflow to 255 ticks
 - Cannot surf from the party menu if a NPC is in front of the player (entering or exiting surf)
 - Player now faces up instead of left when stopped in the route 8 guard house
+- Fixed a graphical error when Bide unleashes energy against a 'mon that is not being displayed
 
 
 #Bugfixes:
@@ -541,6 +542,8 @@ v1.23.08
   - Fixed minor graphical glitch when surfing from the menu
   - Cannot surf from the party menu if a NPC is in front of the player (entering or exiting surf)
   - Player now faces up instead of left when stopped in the route 8 guard house
+  - Fixed a graphical error when Bide unleashes energy against a 'mon that is not being displayed
+
 
 - Item Fixes  
   - Great ball has a ball factor of 12 now

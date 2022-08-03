@@ -460,10 +460,13 @@ MainInBattleLoop:
 	ld a, [wEscapedFromBattle]
 	and a
 	ret nz ; return if pokedoll was used to escape from battle
-	ld a, [wBattleMonStatus]
-	;and (1 << FRZ) | SLP ; is mon frozen or asleep?
-	and (1 << FRZ)  ; is mon frozen?	;joedebug - sleep won't waste turn
-	jr nz, .selectEnemyMove ; if so, jump
+;joenote - This whole thing is problematic. Just comment it all out.
+;		-allow the player to select a move even if frozen in order to prevent PP underflow and link desyncs
+;		-also allow the player to select a move if you don't want sleep to waste a turn on wakeup
+;	ld a, [wBattleMonStatus]
+;	;and (1 << FRZ) | SLP ; is mon frozen or asleep?
+;	and (1 << FRZ)  ; is mon frozen?	;joedebug - sleep won't waste turn
+;	jr nz, .selectEnemyMove ; if so, jump
 	ld a, [wPlayerBattleStatus1]
 	and (1 << STORING_ENERGY) | (1 << USING_TRAPPING_MOVE) ; check player is using Bide or using a multi-turn attack like wrap
 	jr nz, .selectEnemyMove ; if so, jump

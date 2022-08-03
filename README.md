@@ -404,6 +404,7 @@ v1.23.08
 - Cannot surf from the party menu if a NPC is in front of the player (entering or exiting surf)
 - Player now faces up instead of left when stopped in the route 8 guard house
 - Fixed a graphical error when Bide unleashes energy against a 'mon that is not being displayed
+- The player can now select a move even if frozen, and this fixes a PP underflow and link desync glitch
 
 
 #Bugfixes:
@@ -443,8 +444,9 @@ v1.23.08
   - Made adjustments to critical hit damage
     - Damage factor is now 2*(2*level)/5 + 4 instead of 2*(2*level)/5 + 2 to simplify some algebra
     - If non-crit damage would be >= crit damage, the regular modified stat values are applied instead
+  - The player can now select a move even if frozen, and this fixes a PP underflow and link desync glitch
 
-	
+
 - Move fixes
   - Transform-related fixes:
       - Move slots cannot be rearranged when transformed (prevents acquiring glitch moves)

@@ -204,7 +204,6 @@ SafariZoneEntranceTextPointers:
 	call SafariZoneEntranceAutoWalk
 	SetEvent EVENT_IN_SAFARI_ZONE
 	ResetEventReuseHL EVENT_SAFARI_GAME_OVER
-	predef HealParty	;joenote - do not allow blacking out in the safari zone
 	ld a, 3
 	ld [wSafariZoneEntranceCurScript], a
 	jr .done

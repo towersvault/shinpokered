@@ -391,8 +391,8 @@ v1.23.08
 - Switched over to the xor-shift method of RNG
 - RAM adress D732 now gets cleared upon a new game
 - Fixed a bug having to do with rare instances of bending the audio pitch
-- Cannot use poison to black yourself out of the cable club
-- Cannot use poison to black yourself out of the safari zone
+- Cannot use poison to black yourself out of the cable club because entering the club now heals your party
+- Cannot use poison to black yourself out of the safari zone because the safari minigame now stops poison damage
 - Cannot perform the 99-stack glitch anymore
 - Fixed an offset bug with the lucky game corner machine
 - Victory music won't play if a wild 'mon faints but the player has no 'mons remaining; it's a blackout
@@ -625,8 +625,8 @@ v1.23.08
   - Fixed a grass tile in the Forest tileset not counting for encouner generation
   - Fixed input priority on menus
   - RAM adress D732 now gets cleared upon starting a new game
-  - Cannot use poison to black yourself out of the cable club
-  - Cannot use poison to black yourself out of the safari zone
+  - Cannot use poison to black yourself out of the cable club because entering the club now heals your party
+  - Cannot use poison to black yourself out of the safari zone because the safari minigame now stops poison damage
   - Cannot perform the 99-stack glitch anymore
   - Fixed an offset bug with the lucky game corner machine
   - Minor bugfix for CollisionCheckOnWater; no effect on gameplay

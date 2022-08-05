@@ -8,8 +8,8 @@ Additionally, trainer AI routines are improved and multiple quality-of-life enha
 The main purpose of this code repository is to study , comment upon, and repair functional errors,  
 and also to document how to restore the game to an error-free state.  
 Additionally, many changes between the different japanese and english releases are researched and documented.  
-Furthermore, it acts as a kind of research-informed speculative work (like paleoart or other such extrapolations).  
-It tries to extrapolate what the 2016 Nintendo Virtual Console re-release of gen-1 Pokemon could have been;  
+Furthermore, it acts as a kind of research-informed speculative work that presents an alternate interpretation.  
+It is an interpretation of what the 2016 Nintendo Virtual Console re-release of gen-1 Pokemon could have been;  
 a glitch-free experience with player-friendly goodies and enhancements common to other modern remasterings.  
 
 Read the ["Guide to New Player Functions"](https://github.com/jojobear13/shinpokered/blob/master/ips_patches/Guide_to_New_Player_Functions.md) for instructions on all the new stuff the player can do.

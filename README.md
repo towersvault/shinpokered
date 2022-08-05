@@ -19,7 +19,7 @@ Then the [Lite branch](https://github.com/jojobear13/shinpokered/tree/lite) is w
 
 A bash script randomizer, "randoshinred", is now in beta test.
 
-**PATCH INFO**
+**PATCH INFO**  
 BPS patches are provided for hard-patching a legal backup ROM of your dumped cartridge or for soft-patching.  
 Download the patch file of the version you want and apply it to the correct USA rom.  
 - The "_origback" BPS patches are alternatives for red & blue that keep the original back sprites. 

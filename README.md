@@ -5,8 +5,12 @@ Version 1.23.XX
 This is a ROM hack of Pokemon Red & Blue based on the Pret team's disassembly.  
 It's a mostly-vanilla hack that focuses on fixing game engine bugs and oversights from the original game.  
 Additionally, trainer AI routines are improved and multiple quality-of-life improvements have been added.  
-Its purpose is to educationally explore and newly express what the 2016 Nintendo Virtual Console re-release of gen-1 Pokemon could have been; 
-that being a glitch-free experience close to what was originally intended along with some player-friendly goodies and enhancements.  
+The primary purpose of this code repository is to research, comment upon, and repair errors  
+and also to document how to restore the games to an error-free state.  
+Additionally, many changes between the different japanese and english releases are researched and documented.
+Furthermore, it acts as a kind of research-informed speculative work like paleoart or other such extrapolations.  
+It tries to extrapolate what the 2016 Nintendo Virtual Console re-release of gen-1 Pokemon could have been;  
+a glitch-free experience with player-friendly goodies and enhancements common to other modern remasterings.  
 
 Read the ["Guide to New Player Functions"](https://github.com/jojobear13/shinpokered/blob/master/ips_patches/Guide_to_New_Player_Functions.md) for instructions on all the new stuff the player can do.
 
@@ -15,12 +19,14 @@ Then the [Lite branch](https://github.com/jojobear13/shinpokered/tree/lite) is w
 
 A bash script randomizer, "randoshinred", is now in beta test.
 
-**IMPORTANT**: Download the BPS patch file of the version you want and apply it to the correct USA rom. 
+**PATCH INFO**
+BPS patches are provided for hard-patching a legal backup ROM of your dumped cartridge or for soft-patching.  
+Download the patch file of the version you want and apply it to the correct USA rom.  
 - The "_origback" BPS patches are alternatives for red & blue that keep the original back sprites. 
-- Use the tool [FLIPS](https://www.romhacking.net/utilities/1040/) to apply the BPS patches.   
-- **Red patches (shin pokemon red, red_origback, and red-jp) are applied to a USA Red ROM.**
+- Use the tool [FLIPS](https://www.romhacking.net/utilities/1040/) to hard-patch the BPS patch files.   
+- **Red patches (shin pokemon red, red_origback, and red-jp) are applied to USA Red.**
   - MD5 Hash: 3d45c1ee9abd5738df46d2bdda8b57dc
-- **All other patches (Blues and Greens) are applied to a USA Blue ROM.**
+- **All other patches (Blues and Greens) are applied to USA Blue.**
   - MD5 Hash: 50927e843568814f7ed45ec4f944bd8b
 
 

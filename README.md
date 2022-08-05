@@ -2,13 +2,13 @@
 
 Version 1.23.XX
 
-This is a ROM hack of Pokemon Red & Blue based on the Pret team's disassembly.  
+This is an enhancement ROM hack of Pokemon Red & Blue based on the Pret team's disassembly.  
 It's a mostly-vanilla hack that focuses on fixing game engine bugs and oversights from the original game.  
-Additionally, trainer AI routines are improved and multiple quality-of-life improvements have been added.  
-The primary purpose of this code repository is to research, comment upon, and repair errors  
-and also to document how to restore the games to an error-free state.  
-Additionally, many changes between the different japanese and english releases are researched and documented.
-Furthermore, it acts as a kind of research-informed speculative work like paleoart or other such extrapolations.  
+Additionally, trainer AI routines are improved and multiple quality-of-life enhancements have been added.  
+The main purpose of this code repository is to study , comment upon, and repair functional errors,  
+and also to document how to restore the game to an error-free state.  
+Additionally, many changes between the different japanese and english releases are researched and documented.  
+Furthermore, it acts as a kind of research-informed speculative work (like paleoart or other such extrapolations).  
 It tries to extrapolate what the 2016 Nintendo Virtual Console re-release of gen-1 Pokemon could have been;  
 a glitch-free experience with player-friendly goodies and enhancements common to other modern remasterings.  
 

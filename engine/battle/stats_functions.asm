@@ -179,6 +179,10 @@ CalcEnemyStatEXP:
 	xor a
 	ld [H_MULTIPLICAND + 2], a
 	ld a, [wCurEnemyLVL]
+	cp 100	;make it so 648 xp / lvl maxes out at lvl 100
+	jr c, .next
+	ld a, 100
+.next
 	ld [H_MULTIPLIER], a
 	call Multiply
 	ld a, [H_MULTIPLICAND]

@@ -413,6 +413,7 @@ v1.23.08
 - The player can now select a move even if frozen, and this fixes a PP underflow and link desync glitch
 - Changed border block in cerulean city to field to make it consistent with route 5
 - Fixed reading the route 16 sign from the other side on route 17 
+- Fixed an oversight to make it so 648 stat exp / lvl function maxes out at lvl 100
 
 
 #Bugfixes:

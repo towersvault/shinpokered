@@ -1,5 +1,6 @@
 CeruleanCityObject:
-	db $f ; border block
+;	db $f ; border block
+	db $a ; change to field to prevent graphical inconsistency with route 5
 
 	db 10 ; warps
 	warp 27, 11, 0, TRASHED_HOUSE

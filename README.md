@@ -411,6 +411,7 @@ v1.23.08
 - Player now faces up instead of left when stopped in the route 8 guard house
 - Fixed a graphical error when Bide unleashes energy against a 'mon that is not being displayed
 - The player can now select a move even if frozen, and this fixes a PP underflow and link desync glitch
+- Changed border block in cerulean city to field to make it consistent with route 5
 
 
 #Bugfixes:
@@ -543,6 +544,7 @@ v1.23.08
   - Adjusted two spin-stop tiles in Viridian Gym
   - Made Agility's animation more apparent
   - Changed border block on route 16 to water to make it consistent with route 17
+  - Changed border block in cerulean city to field to make it consistent with route 5
   - Fixed screen tearing in battle when player or 'mon slides off the screen
   - Fixed a bug from the vanilla game where boulder dust clouds do not show up well when pushing downwards
   - Fixed a bug from the vanilla game where random NPC walk delay can underflow to 255 ticks

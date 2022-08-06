@@ -29,6 +29,8 @@ Route17TextPointers:
 	dw Route17Text14
 	dw Route17Text15
 	dw Route17Text16
+	;joenote get the other side of the sign
+	dw Route17Text17
 
 Route17TrainerHeader0:
 	dbEventFlagBit EVENT_BEAT_ROUTE_17_TRAINER_0
@@ -324,4 +326,9 @@ Route17Text15:
 
 Route17Text16:
 	TX_FAR _Route17Text16
+	db "@"
+
+;joenote get the other side of the sign
+Route17Text17:
+	TX_FAR _Route16Text9
 	db "@"

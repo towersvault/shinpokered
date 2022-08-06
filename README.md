@@ -412,6 +412,7 @@ v1.23.08
 - Fixed a graphical error when Bide unleashes energy against a 'mon that is not being displayed
 - The player can now select a move even if frozen, and this fixes a PP underflow and link desync glitch
 - Changed border block in cerulean city to field to make it consistent with route 5
+- Fixed reading the route 16 sign from the other side on route 17 
 
 
 #Bugfixes:
@@ -553,6 +554,7 @@ v1.23.08
   - Cannot surf from the party menu if a NPC is in front of the player (entering or exiting surf)
   - Player now faces up instead of left when stopped in the route 8 guard house
   - Fixed a graphical error when Bide unleashes energy against a 'mon that is not being displayed
+  - Fixed minor graphical glitch when surfing from the menu
 
 
 - Item Fixes  
@@ -638,7 +640,7 @@ v1.23.08
   - Cannot perform the 99-stack glitch anymore
   - Fixed an offset bug with the lucky game corner machine
   - Minor bugfix for CollisionCheckOnWater; no effect on gameplay
-  - Fixed minor graphical glitch when surfing from the menu
+  - Fixed reading the route 16 sign from the other side on route 17 
   
   
 #TWEAKS:

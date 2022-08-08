@@ -488,10 +488,26 @@ ReadTileFromVram:
 	;b=X window offset
 	;c=Y window offset
 	push bc
+	push hl
 	ld a, [wTempColCoords]
 	ld b, a
 	ld a, [wTempColCoords + 1]
 	ld c, a
+	call GetBGMapVramAddress
+.wait
+	ld a, [hl]
+	cp $ff
+	jr z, .wait
+	pop hl
+	pop bc
+	ret
+
+;joenote - given a window offset in BC, put the address of its 9800 vram section in HL
+GetBGMapVramBaseAddress:
+	ld bc, $0000
+GetBGMapVramAddress:
+	;b=X window offset
+	;c=Y window offset
 	;get the x offset in vram
 	ld a, [rSCX]
 	call .div8
@@ -507,7 +523,6 @@ ReadTileFromVram:
 	call nc, .sub20
 	ld c, a
 	;set vram starting address
-	push hl
 	ld hl, $9800
 	;move to proper y coordinate
 	push de
@@ -522,13 +537,7 @@ ReadTileFromVram:
 	ld d, $00
 	ld e, b
 	add hl, de
-	pop de
-.wait
-	ld a, [hl]
-	cp $ff
-	jr z, .wait
-	pop hl
-	pop bc
+	pop de		
 	ret
 .div8
 	srl a
@@ -538,3 +547,53 @@ ReadTileFromVram:
 .sub20
 	sub $20
 	ret
+
+;joenote - keeping this is comments in case I ever find it useful for something.
+; Copy9800VramWindowToTileMap:
+	; call GetBGMapVramBaseAddress
+	; ld de, wTileMap
+	; ld b, SCREEN_HEIGHT
+; .outerloop
+
+	; push hl
+	; ld c, SCREEN_WIDTH
+; .innerloop
+	; call .load
+	; inc de
+	; call .incHLVramX
+	; dec c
+	; jr nz, .innerloop
+	; pop hl
+	
+	; call .add32toHL
+	; dec b
+	; jr nz, .outerloop
+	; ret
+; .add32toHL	;go to the next y coord row
+	; push bc
+	; ld bc, $0020
+	; add hl, bc
+	; pop bc
+	; ld a, h	
+	; cp $9C
+	; ret nz
+	; sub $04	;loop back around if overflowing into next vram section
+	; ld h, a
+	; ret
+; .load
+	; ld a, [hl]
+	; cp $ff
+	; jr z, .load
+	; ld [de], a
+	; ret
+; .incHLVramX
+	; ld a, $1F 
+	; and l
+	; inc hl
+	; cp $1F
+	; ret nz
+	; push bc		;loop back around if overflowing into next vram column
+	; ld bc, -32
+	; add hl, bc
+	; pop bc
+	; ret

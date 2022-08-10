@@ -414,6 +414,7 @@ v1.23.08
 - Changed border block in cerulean city to field to make it consistent with route 5
 - Fixed reading the route 16 sign from the other side on route 17 
 - Fixed an oversight to make it so 648 stat exp / lvl function maxes out at lvl 100
+- Gamma shader is now 23% faster thanks to optimizations by easyaspi314
 
 
 #Bugfixes:
@@ -1266,6 +1267,7 @@ v1.23.08
 - SteppoBlazer for the spaceworld-style old man back sprite
 - Poketto for the spaceworld-style Trainer Red back sprite
 - SPazzzi95 for documenting localization changes
+- easyaspi314 for optimizations to the gamma shader
 
 The following folks for their great tutorials, glitch videos, and explanations across the internet
 - TheFakeMateo 

@@ -217,7 +217,7 @@ MixColorMatrix:
 	and $F0
 	or l
 	;store now because red isn't used after this
-	ld [hRGB + 0]
+	ld [hRGB + 0], a
 	
 ;calculate green row and store it
 ;this only needs 8-bit math: 31 * 3 + 31 * 1 == 124 < 255

@@ -548,8 +548,8 @@ GetBGMapVramAddress:
 	sub $20
 	ret
 
-;joenote - keeping this is comments in case I ever find it useful for something.
-; Copy9800VramWindowToTileMap:
+; ;joenote - keeping this is comments in case I ever find it useful for something.
+; Copy9800VramWindowToTileMap_cutTrees:
 	; call GetBGMapVramBaseAddress
 	; ld de, wTileMap
 	; ld b, SCREEN_HEIGHT
@@ -558,7 +558,8 @@ GetBGMapVramAddress:
 	; push hl
 	; ld c, SCREEN_WIDTH
 ; .innerloop
-	; call .load
+	; call .treeCmp	;see if the tile is a cut tree tile
+	; call z, .load
 	; inc de
 	; call .incHLVramX
 	; dec c
@@ -569,6 +570,7 @@ GetBGMapVramAddress:
 	; dec b
 	; jr nz, .outerloop
 	; ret
+
 ; .add32toHL	;go to the next y coord row
 	; push bc
 	; ld bc, $0020
@@ -579,6 +581,23 @@ GetBGMapVramAddress:
 	; ret nz
 	; sub $04	;loop back around if overflowing into next vram section
 	; ld h, a
+	; ret
+; .treeCmp
+	; ld a, [de]
+	; cp $2d
+	; jr z, .treeCmp_found
+	; cp $2e
+	; jr z, .treeCmp_found
+	; cp $3d
+	; jr z, .treeCmp_found
+	; cp $3e
+	; jr z, .treeCmp_found
+	; ret
+; .treeCmp_found
+	; ld a, [hl]
+	; cp $ff
+	; jr z, .treeCmp_found
+	; cp $2c
 	; ret
 ; .load
 	; ld a, [hl]

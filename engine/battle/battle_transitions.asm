@@ -121,6 +121,7 @@ GetBattleTransitionID_CompareLevels:
 ; fails to recognize VICTORY_ROAD_2, VICTORY_ROAD_3, all ROCKET_HIDEOUT maps,
 ; MANSION_1, SEAFOAM_ISLANDS_[2-5], POWER_PLANT, DIGLETTS_CAVE
 ; and SILPH_CO_[9-11]F as dungeon maps
+;joenote - added missing maps and did a bit of reorganizing
 GetBattleTransitionID_IsDungeonMap:
 	ld a, [wCurMap]
 	ld e, a
@@ -156,8 +157,11 @@ GetBattleTransitionID_IsDungeonMap:
 DungeonMaps1:
 	db VIRIDIAN_FOREST
 	db ROCK_TUNNEL_1
+	db POWER_PLANT	;added
+	db VICTORY_ROAD_1
+	db MANSION_1	;added
 	db SEAFOAM_ISLANDS_1
-	db ROCK_TUNNEL_2
+	db VICTORY_ROAD_2	;added
 	db $FF
 
 ; GetBattleTransitionID_IsDungeonMap checks if wCurMap
@@ -168,17 +172,35 @@ DungeonMaps2:
 	db MT_MOON_3
 
 	; all SS_ANNE maps, VICTORY_ROAD_1, LANCES_ROOM, and HALL_OF_FAME
+	;revised to only cover the ss anne
 	db SS_ANNE_1
-	db HALL_OF_FAME
+	;db HALL_OF_FAME
+	db SS_ANNE_10
 
 	; all POKEMONTOWER maps and Lavender Town buildings
-	db LAVENDER_POKECENTER
-	db LAVENDER_HOUSE_2
+	;revised to only count lavender tower
+;	db LAVENDER_POKECENTER
+;	db LAVENDER_HOUSE_2
+	db POKEMONTOWER_1
+	db POKEMONTOWER_7
+	
+	;added seafoam islands 2 to 5
+	db SEAFOAM_ISLANDS_2
+	db SEAFOAM_ISLANDS_5
+
+	;added digletts cave, victory road 3, and all rocket hideout floors
+	db DIGLETTS_CAVE
+	db ROCKET_HIDEOUT_4
 
 	; SILPH_CO_[2-8]F, MANSION[2-4], SAFARI_ZONE, and UNKNOWN_DUNGEON maps,
-	; except for SILPH_CO_1F
+	; except for SILPH_CO_1F --> 1st floor is a public lobby and not really a "dungeon"
 	db SILPH_CO_2F
 	db UNKNOWN_DUNGEON_1
+
+	;moved rock tunnel 2 and added the remaining silph floors
+	db ROCK_TUNNEL_2
+	db SILPH_CO_11F
+
 	db $FF
 
 LoadBattleTransitionTile:

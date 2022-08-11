@@ -415,6 +415,7 @@ v1.23.08
 - Fixed reading the route 16 sign from the other side on route 17 
 - Fixed an oversight to make it so 648 stat exp / lvl function maxes out at lvl 100
 - Gamma shader is now 23% faster thanks to optimizations by easyaspi314
+- The jingle for finding a hidden item will no longer be skipped during an audio fadeout
 
 
 #Bugfixes:
@@ -599,6 +600,7 @@ v1.23.08
   - Assigned a proper forget-move sfx during battle
   - Fixed a bug having to do with rare instances of bending the audio pitch
   - Victory music won't play if a wild 'mon faints but the player has no 'mons remaining; it's a blackout
+  - The jingle for finding a hidden item will no longer be skipped during an audio fadeout
 
 
 - Misc. fixes

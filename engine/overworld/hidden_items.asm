@@ -33,9 +33,20 @@ FoundHiddenItemText:
 	ld c, a
 	ld b, FLAG_SET
 	predef FlagActionPredef
+
+	;joenote - back-up and zero the control byte to fix skipping the item jingle during an audio fadeout...
+	ld a, [wAudioFadeOutControl]
+	push af
+	xor a
+	ld [wAudioFadeOutControl], a
+
 	ld a, SFX_GET_ITEM_2
 	call PlaySoundWaitForCurrent
 	call WaitForSoundToFinish
+	
+	pop af	;...then restore the control byte
+	ld [wAudioFadeOutControl], a
+	
 	jp TextScriptEnd
 .bagFull
 	call WaitForTextScrollButtonPress ; wait for button press

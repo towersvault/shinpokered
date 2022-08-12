@@ -419,6 +419,7 @@ v1.23.08
 - Added missing dungeon maps to battle transition functions
 - Fixed using a ledge to land on a NPC
 - The party heal function now detects glitch moves and loads 0 PP for them
+- Exit won't block you when warped to Fuji's house from Pokemon Tower
 
 
 #Bugfixes:
@@ -651,7 +652,7 @@ v1.23.08
   - Fixed reading the route 16 sign from the other side on route 17 
   - Fixed using a ledge to land on a NPC
   - The party heal function now detects glitch moves and loads 0 PP for them
-  
+  - Exit won't block you when warped to Fuji's house from Pokemon Tower
   
 #TWEAKS:
 -----------

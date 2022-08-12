@@ -153,15 +153,15 @@ SaveSAV:
 	and a
 	ret nz
 .save
-	call SaveSAVtoSRAM
 	coord hl, 1, 13
 	lb bc, 4, 18
 	call ClearScreenArea
 	coord hl, 1, 14
 	ld de, NowSavingString
 	call PlaceString
-	ld c, 120
+	ld c, 15
 	call DelayFrames
+	call SaveSAVtoSRAM		;joenote - moved where the save actually happens and reduced delay to 15 frames
 	ld hl, GameSavedText
 	call PrintText
 	ld a, SFX_SAVE
@@ -195,6 +195,9 @@ OlderFileWillBeErasedText:
 	TX_FAR _OlderFileWillBeErasedText
 	db "@"
 
+;this is for saving almost all of the main game data
+;but it does not save the party data (which is done by SaveSAVtoSRAM2)
+;joenote - make it save the party data in order to consolidate
 SaveSAVtoSRAM0:
 	ld a, SRAM_ENABLE
 	ld [MBC1SRamEnable], a
@@ -213,6 +216,10 @@ SaveSAVtoSRAM0:
 	ld de, sSpriteData
 	ld bc, wSpriteDataEnd - wSpriteDataStart
 	call CopyData
+	ld hl, wPartyDataStart
+	ld de, sPartyData
+	ld bc, wPartyDataEnd - wPartyDataStart
+	call CopyData	;copying the party data here helps fix the 255 pokemon clone glitch
 	ld hl, wBoxDataStart
 	ld de, sCurBoxData
 	ld bc, wBoxDataEnd - wBoxDataStart
@@ -228,6 +235,7 @@ SaveSAVtoSRAM0:
 	ld [MBC1SRamEnable], a
 	ret
 
+;this seems to not specifically be used by anything (unlike SaveSAVtoSRAM2)
 SaveSAVtoSRAM1:
 ; stored pokémon
 	ld a, SRAM_ENABLE
@@ -248,6 +256,7 @@ SaveSAVtoSRAM1:
 	ld [MBC1SRamEnable], a
 	ret
 
+;this is specifically used in the cable club for saving the results of a trade
 SaveSAVtoSRAM2:
 	ld a, SRAM_ENABLE
 	ld [MBC1SRamEnable], a
@@ -271,12 +280,13 @@ SaveSAVtoSRAM2:
 	ld [MBC1SRamEnable], a
 	ret
 
-SaveSAVtoSRAM:
+SaveSAVtoSRAM:	;joenote - saving all the data is now handled by SaveSAVtoSRAM0 in order to help maintain data integrity
 	ld a, $2
 	ld [wSaveFileStatus], a
-	call SaveSAVtoSRAM0
-	call SaveSAVtoSRAM1
-	jp SaveSAVtoSRAM2
+;	call SaveSAVtoSRAM0
+;	call SaveSAVtoSRAM1
+;	jp SaveSAVtoSRAM2
+	jp SaveSAVtoSRAM0
 
 SAVCheckSum:
 ;Check Sum (result[1 byte] is complemented)

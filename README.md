@@ -420,6 +420,7 @@ v1.23.08
 - Fixed using a ledge to land on a NPC
 - The party heal function now detects glitch moves and loads 0 PP for them
 - Exit won't block you when warped to Fuji's house from Pokemon Tower
+- Closed 255 clone pokemon glitch and reduced saving delay to 15 frames
 
 
 #Bugfixes:
@@ -653,7 +654,9 @@ v1.23.08
   - Fixed using a ledge to land on a NPC
   - The party heal function now detects glitch moves and loads 0 PP for them
   - Exit won't block you when warped to Fuji's house from Pokemon Tower
+  - Closed 255 clone pokemon glitch
   
+ 
 #TWEAKS:
 -----------
 
@@ -853,6 +856,7 @@ v1.23.08
 	- It keeps a backup of the pokedex-owned flags instead of erasing them
 	- Removed the unused Ivysaur flag
   - Increased the maximum game clock to 32767 hours
+  - Reduced saving delay to 15 frames
 
 - Changes to fishing
   - All rods have an expanded level range

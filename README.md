@@ -19,7 +19,8 @@ Then the [Lite branch](https://github.com/jojobear13/shinpokered/tree/lite) is w
 
 A bash script randomizer, "randoshinred", is now in beta test.
 
-**PATCH INFO**  
+#Patch Info  
+-----------
 BPS patches are provided for hard-patching a legal backup ROM of your dumped cartridge or for soft-patching.  
 Download the patch file of the version you want and apply it to the correct USA rom.  
 - The "_origback" BPS patches are alternatives for red & blue that keep the original back sprites. 
@@ -256,15 +257,16 @@ Cheats and Secrets!
 #Compatibility Notes
 -----------
 
+- **Certain emulators are known to cause bugs due to inaccuracies in replicating the original hardware**
+  - An accurate emulator, preferably a GBC-dedicated emulator, is required in order to avoid unexpected bugs
+  - Goomba and Pizza Boy in particular are known to be problematic
+  - BGB is the supported standard due to its accuracy and debugging tools
 - Compatible with original Gameboy hardware (DMG, Super, Pocket, Color, Advance, SP)
 - Potentially compatible with Pokemon Stadium 1 & 2 (using original Nintendo hardware)
 - Might be possible to use a save from vanilla USA red/blue with this rom hack 
   - Save outside in Pallet Town before transferring over
   - Use the Softlock Warp to clear any invisible walls
 - New builds are tested and debugged with the BGB 1.5.8 emulator and verified using original hardware
-- Certain emulators are known to cause bugs due to inaccuracies in replicating the original hardware
-  - Goomba in particular is known to be problematic
-  - Due to the number of emulators in existence, BGB will be used as the supported standard
 - Link trading with an original retail cartridge appears to work properly on real hardware
 - Link trading between the lite and master branches appears to work properly on real hardware
 - Link battles are still largely untested, and they are unsupported in the following ways:
@@ -274,17 +276,17 @@ Cheats and Secrets!
 - A revision control function has been added that will cancel unsupported cable links
 
 
-#Hack-Induced Bugfixes & Adjustments since last version:
+#Hack-Induced Bugfixes & Adjustments since last version
 -----------
 - 
 
 
-#New features & adjustments since last version:
+#New features & adjustments since last version
 -----------
 -
 
 
-#Changes not yet in the release branch:
+#Changes not yet in the release branch
 -----------
 v1.23.01  
 - Green and Red-JP have the original front sprites for fossil kabutops and fossil aerodactyl
@@ -423,7 +425,7 @@ v1.23.08
 - Closed 255 clone pokemon glitch and reduced saving delay to 15 frames
 
 
-#Bugfixes:
+#Bugfixes
 -----------
 
 - Battle engine fixes
@@ -657,7 +659,7 @@ v1.23.08
   - Closed 255 clone pokemon glitch
   
  
-#TWEAKS:
+#Tweaks
 -----------
 
 - Fixed mistakes in the game text
@@ -912,7 +914,7 @@ v1.23.08
   - The SS Anne encounter
 
   
-#Additions:
+#Additions
 -----------
 
 #Difficulty and scalable trainers
@@ -1266,7 +1268,34 @@ v1.23.08
   - This is usually done via the Gen-2 time capsule and trading it back without a hold item or a different hold item.
 
 
-#CREDITS / SPECIAL THANKS:
+#About Gameshark Codes
+----------------------
+Will they work? Largely, yes...with some rules.  
+Shin Pokemon does not reassign any wram or hram addresses, so cheat codes that modify values within these address ranges will still work.  
+The GB/C's wram is in addresses C000-DFFF, and hram is in FF80-FFFE.  
+
+Gameshark codes for the GB/C have an 8-digit hexadecimal format in the form of LMNOYZWX. The meaning of the separate digits is:  
+- LM - External RAM bank number (typically 01)
+- NO - a 2-digit byte to act as your injected value
+- WXYZ - A 2-byte Memory Address to write the new value to (Note that the gameshark code format reverses the low and high bytes of the address)
+
+So say you want a cheat code that gives you 99 of the first item in the bag.  
+The quantity of the first item in the bag is at address D31F in wram, and 99-decimal equals 63-hex.  
+This gives a gameshark code of 01631FD3.  
+
+Any codes that follow these conventions and only modify the wram or hram should work like they do in the vanilla games.  
+
+
+#Will Not Implement / Out of Scope
+-----------------------------------
+These are things that are commonly requested but fall outside the scope of the project. There are no plans to implement these:  
+- Yellow Version - This is a different rom base, and I have no intention at this time to start all over on numerous features.
+- Gen 2 color / graphics - The goal is to keep art direction and assets within the purview of a pre-1998 direction.
+- Battle mechanics from later generations - Gen 1's gameplay must be generally be preserved, so no special defense, physical-special split, critical hits untied from speed, updated move pools, etc.
+- Later-gen evolutions/forms/variants - I'm keeping this strictly to the original 151.
+
+
+#Credits / Special Thanks
 --------------------------
 - The Pret team for the pokered and pokeyellow disassemblies and all the code comments that came with them
 - MoriyaFaith's pokejp project for green version assets and code referencing

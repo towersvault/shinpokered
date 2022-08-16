@@ -2124,7 +2124,7 @@ AnimationWavyScreen:
 	ld hl, WavyScreenLineOffsets
 .loop
 	;joenote - Sync hSCX to the first line. This avoids the top 3 pixels from being overridden by the vsync interrupt
-	;kudos to aspi for finding this
+	;credit to easyaspi314 for finding this
 	ld a, [hl]
 	ld [hSCX], a
 	push hl

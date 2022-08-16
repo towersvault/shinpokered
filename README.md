@@ -423,7 +423,7 @@ v1.23.08
 - The party heal function now detects glitch moves and loads 0 PP for them
 - Exit won't block you when warped to Fuji's house from Pokemon Tower
 - Closed 255 clone pokemon glitch and reduced saving delay to 15 frames
-- Wavy line animation (psychic/psywave/night shade) now scrolls the top three screen lines
+- Wavy line animation (psychic/psywave/night shade) now scrolls the top three screen lines (by easyaspi314)
 
 
 #Bugfixes
@@ -1311,7 +1311,7 @@ These are things that are commonly requested but fall outside the scope of the p
 - SteppoBlazer for the spaceworld-style old man back sprite
 - Poketto for the spaceworld-style Trainer Red back sprite
 - SPazzzi95 for documenting localization changes
-- easyaspi314 for optimizations to the gamma shader
+- easyaspi314 for optimizations to the gamma shader and wavy-line animation bugfix
 
 The following folks for their great tutorials, glitch videos, and explanations across the internet
 - TheFakeMateo 

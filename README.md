@@ -424,6 +424,7 @@ v1.23.08
 - Exit won't block you when warped to Fuji's house from Pokemon Tower
 - Closed 255 clone pokemon glitch and reduced saving delay to 15 frames
 - Wavy line animation (psychic/psywave/night shade) now scrolls the top three screen lines (by easyaspi314)
+- Fixed glitchy trainer card transition screens on GB-DMG
 
 
 #Bugfixes
@@ -568,6 +569,7 @@ v1.23.08
   - Fixed minor graphical glitch when surfing from the menu
   - Added missing dungeon maps to battle transition functions
   - Wavy line animation (psychic/psywave/night shade) now scrolls the top three screen lines
+  - Fixed glitchy trainer card transition screens on GB-DMG
 
 
 - Item Fixes  

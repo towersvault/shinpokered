@@ -535,6 +535,11 @@ StartMenu_TrainerInfo:
 	predef DrawBadges ; draw badges
 	ld b, SET_PAL_TRAINER_CARD
 	call RunPaletteCommand
+	
+	ld a, [wOnSGB]
+	and a
+	call z, Delay3	;joenote - If on GB-DMG, wait 3 frames for the screen to redraw each third
+	
 	call GBPalNormal
 	call WaitForTextScrollButtonPress ; wait for button press
 	call GBPalWhiteOut
@@ -542,7 +547,12 @@ StartMenu_TrainerInfo:
 	call LoadScreenTilesFromBuffer2 ; restore saved screen
 	call RunDefaultPaletteCommand
 	call ReloadMapData
-	;call LoadGBPal
+	
+	ld a, [wOnSGB]
+	and a
+	call z, Delay3	;joenote - If on GB-DMG, wait 3 frames for the screen to redraw each third
+	
+	;call LoadGBPal		;joenote - moved this to RedisplayStartMenu for smoother whiteout transition
 	pop af
 	ld [hTilesetType], a
 	jp RedisplayStartMenu

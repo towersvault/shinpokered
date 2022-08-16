@@ -425,6 +425,7 @@ v1.23.08
 - Closed 255 clone pokemon glitch and reduced saving delay to 15 frames
 - Wavy line animation (psychic/psywave/night shade) now scrolls the top three screen lines (by easyaspi314)
 - Fixed glitchy trainer card transition screens on GB-DMG
+- Made many TextIDs close when pressing A instead of releasing A
 
 
 #Bugfixes
@@ -570,6 +571,7 @@ v1.23.08
   - Added missing dungeon maps to battle transition functions
   - Wavy line animation (psychic/psywave/night shade) now scrolls the top three screen lines
   - Fixed glitchy trainer card transition screens on GB-DMG
+  - Made many TextIDs close when pressing A instead of releasing A
 
 
 - Item Fixes  

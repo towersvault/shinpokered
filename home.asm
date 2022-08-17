@@ -1176,7 +1176,11 @@ DisplayTextID::
 	call PrintText_NoCreatingTextBox ; display the text
 	ld a, [wDoNotWaitForButtonPressAfterDisplayingText]
 	and a
-	jr nz, HoldTextDisplayOpen
+;	jr nz, HoldTextDisplayOpen
+;joenote - If you don't want to wait for a button press after displaying text, 
+;			then don't hold the text open. It should just be closed.
+;			This fixes some things like gate binoculars pausing the overworld.
+	jr nz, CloseTextDisplay
 
 AfterDisplayingTextID::
 	ld a, [wEnteringCableClub]

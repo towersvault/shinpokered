@@ -17,20 +17,33 @@ EvolveTradeMon:
 
 ; This was fixed in Yellow.
 
-	ld a, [wInGameTradeReceiveMonName]
+;joenote - comment this all out and implement the in-game trade evo fix from pokeyellow
+	; ld a, [wInGameTradeReceiveMonName]
 
-	; GRAVELER
-	cp "G"
-	jr z, .ok
+	; ; GRAVELER
+	; cp "G"
+	; jr z, .ok
 
-	; "SPECTRE" (HAUNTER)
-	cp "S"
-	ret nz
-	ld a, [wInGameTradeReceiveMonName + 1]
-	cp "P"
-	ret nz
+	; ; "SPECTRE" (HAUNTER)
+	; cp "S"
+	; ret nz
+	; ld a, [wInGameTradeReceiveMonName + 1]
+	; cp "P"
+	; ret nz
 
-.ok
+; .ok
+	ld a,[wInGameTradeReceiveMonSpecies]
+	cp KADABRA
+	jr z,.tradeEvo
+	cp GRAVELER
+	jr z,.tradeEvo
+	cp MACHOKE
+	jr z,.tradeEvo
+	cp HAUNTER
+	jr z,.tradeEvo
+	ret
+.tradeEvo
+
 	ld a, [wPartyCount]
 	dec a
 	ld [wWhichPokemon], a

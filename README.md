@@ -426,6 +426,7 @@ v1.23.08
 - Fixed glitchy trainer card transition screens on GB-DMG
 - Made many TextIDs close when pressing A instead of releasing A
 - Binoculars can no longer pause the overworld by holding A from the wrong side
+- Applied the pokeyellow fix for in-game trade evolutions
 
 
 #Bugfixes
@@ -664,6 +665,7 @@ v1.23.08
   - The party heal function now detects glitch moves and loads 0 PP for them
   - Exit won't block you when warped to Fuji's house from Pokemon Tower
   - Closed 255 clone pokemon glitch
+  - Applied the pokeyellow fix for in-game trade evolutions
   
  
 #Tweaks

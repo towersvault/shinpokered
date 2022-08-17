@@ -21,14 +21,13 @@ A bash script randomizer, "randoshinred", is now in beta test.
 
 #Patch Info  
 -----------
-BPS patches are provided for hard-patching a legal backup ROM of your dumped cartridge or for soft-patching.  
-Download the patch file of the version you want and apply it to the correct USA rom.  
-- The "_origback" BPS patches are alternatives for red & blue that keep the original back sprites. 
-- Use the tool [FLIPS](https://www.romhacking.net/utilities/1040/) to hard-patch the BPS patch files.   
-- **Red patches (shin pokemon red, red_origback, and red-jp) are applied to USA Red.**
+BPS patches are provided for entry into your preferred emulator, patching tool, or other accessory that supports the BPS format.  
+Download and enter a patch which corresponds to the ROM of which you own a lawful copy.  
+- **Red patches (shin pokemon red, red_origback, and red-jp) are intended for USA Red.**
   - MD5 Hash: 3d45c1ee9abd5738df46d2bdda8b57dc
-- **All other patches (Blues and Greens) are applied to USA Blue.**
+- **All other patches (Blues and Greens) are intended for USA Blue.**
   - MD5 Hash: 50927e843568814f7ed45ec4f944bd8b
+- The "_origback" patches are alternatives that keep the original back sprites. 
 
 
 ***Includes Pokemon Green and Japanese Red!***

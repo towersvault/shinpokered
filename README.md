@@ -427,6 +427,7 @@ v1.23.08
 - Made many TextIDs close when pressing A instead of releasing A
 - Binoculars can no longer pause the overworld by holding A from the wrong side
 - Applied the pokeyellow fix for in-game trade evolutions
+- Can no longer get blocked at the cinnabar gym door
 
 
 #Bugfixes
@@ -666,6 +667,7 @@ v1.23.08
   - Exit won't block you when warped to Fuji's house from Pokemon Tower
   - Closed 255 clone pokemon glitch
   - Applied the pokeyellow fix for in-game trade evolutions
+  - Can no longer get blocked at the cinnabar gym door
   
  
 #Tweaks

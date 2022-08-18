@@ -427,6 +427,8 @@ GymTrashScript:
 	ld hl, wCurrentMapScriptFlags
 	set 6, [hl]
 
+	tx_pre_id VermilionGymTrashSuccessText2	;joenote - restore unused text
+	call PrintPredefTextID
 	tx_pre_id VermilionGymTrashSuccessText3
 
 .done
@@ -465,11 +467,11 @@ VermilionGymTrashSuccessText1:
 	call WaitForSoundToFinish
 	jp TextScriptEnd
 
+;joenote - put these back into use...
 ; unused
 VermilionGymTrashSuccessText2:
 	TX_FAR _VermilionGymTrashSuccessText2
-	db "@"
-
+;	db "@"		;...and tie them together
 ; unused
 VermilionGymTrashSuccesPlaySfx:
 	TX_ASM

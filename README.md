@@ -429,6 +429,7 @@ v1.23.08
 - Applied the pokeyellow fix for in-game trade evolutions
 - Can no longer get blocked at the cinnabar gym door
 - Tweaked the fly menu to be more responsive and snappy
+- Restored unused text in the vermilion gym puzzle for finding the 2nd switch
 
 
 #Bugfixes
@@ -705,6 +706,7 @@ v1.23.08
   - Fixed pokemon category translation: "Rat" to "Mouse"
   - Fixed pokemon category translation: "Shellfish" to "Shell"
   - Fixed translation: Route 14 trainer's comment about the legendary birds
+  - Restored unused text in the vermilion gym puzzle for finding the 2nd switch
 
 - Adjustments to moves  
   - Stat-down moves no longer have a 25% miss chance in AI matches

@@ -2086,7 +2086,9 @@ DrawPlayerHUDAndHPBar:
 	coord hl, 10, 7
 	call CenterMonName
 	call PlaceString
+IF DEF(_EXPBAR)
 	callba PrintEXPBar	;joenote - added in the exp bar
+ENDC
 	ld hl, wBattleMonSpecies
 	ld de, wLoadedMon
 	ld bc, wBattleMonDVs - wBattleMonSpecies

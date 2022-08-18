@@ -64,34 +64,35 @@ endif
 # _FPLAYER modifies any base rom. It includes code to support a female trainer player option.
 # _MOVENPCS adds move deleter and relearner NPCs in a Saffron house.
 # _RUNSHOES Allows player to run by holding B
+# _EXPBAR Adds an EXP bar to the battle UI
 
 %_red.o: dep = $(shell tools/scan_includes $(@D)/$*.asm)
 $(pokered_obj): %_red.o: %.asm $$(dep)
-	rgbasm -D _RED -D _SWBACKS -D _FPLAYER -D _MOVENPCS -D _RUNSHOES -h -o $@ $*.asm
+	rgbasm -D _RED -D _SWBACKS -D _FPLAYER -D _MOVENPCS -D _RUNSHOES -D _EXPBAR -h -o $@ $*.asm
 
 %_blue.o: dep = $(shell tools/scan_includes $(@D)/$*.asm)
 $(pokeblue_obj): %_blue.o: %.asm $$(dep)
-	rgbasm -D _BLUE -D _SWBACKS -D _FPLAYER -D _MOVENPCS -D _RUNSHOES -h -o $@ $*.asm
+	rgbasm -D _BLUE -D _SWBACKS -D _FPLAYER -D _MOVENPCS -D _RUNSHOES -D _EXPBAR -h -o $@ $*.asm
 
 %_green.o: dep = $(shell tools/scan_includes $(@D)/$*.asm)
 $(pokegreen_obj): %_green.o: %.asm $$(dep)
-	rgbasm -D _GREEN -D _RGSPRITES -D _REDGREENJP -D _JPTXT -D _METRIC -D _FPLAYER -D _MOVENPCS -D _RUNSHOES -h -o $@ $*.asm
+	rgbasm -D _GREEN -D _RGSPRITES -D _REDGREENJP -D _JPTXT -D _METRIC -D _FPLAYER -D _MOVENPCS -D _RUNSHOES -D _EXPBAR -h -o $@ $*.asm
 	
 %_red_origback.o: dep = $(shell tools/scan_includes $(@D)/$*.asm)
 $(pokered_origback_obj): %_red_origback.o: %.asm $$(dep)
-	rgbasm -D _RED -D _FPLAYER -D _MOVENPCS -D _RUNSHOES -h -o $@ $*.asm
+	rgbasm -D _RED -D _FPLAYER -D _MOVENPCS -D _RUNSHOES -D _EXPBAR -h -o $@ $*.asm
 
 %_blue_origback.o: dep = $(shell tools/scan_includes $(@D)/$*.asm)
 $(pokeblue_origback_obj): %_blue_origback.o: %.asm $$(dep)
-	rgbasm -D _BLUE -D _FPLAYER -D _MOVENPCS -D _RUNSHOES -h -o $@ $*.asm
+	rgbasm -D _BLUE -D _FPLAYER -D _MOVENPCS -D _RUNSHOES -D _EXPBAR -h -o $@ $*.asm
 
 %_bluejp.o: dep = $(shell tools/scan_includes $(@D)/$*.asm)
 $(pokebluejp_obj): %_bluejp.o: %.asm $$(dep)
-	rgbasm -D _BLUE -D _BLUEJP -D _JPTXT -D _METRIC -D _FPLAYER -D _MOVENPCS -h -o $@ $*.asm
+	rgbasm -D _BLUE -D _BLUEJP -D _JPTXT -D _METRIC -D _FPLAYER -D _MOVENPCS -D _RUNSHOES -D _EXPBAR -h -o $@ $*.asm
 
 %_redjp.o: dep = $(shell tools/scan_includes $(@D)/$*.asm)
 $(pokeredjp_obj): %_redjp.o: %.asm $$(dep)
-	rgbasm -D _RED -D _RGSPRITES -D _REDGREENJP -D _REDJP -D _JPTXT -D _METRIC -D _FPLAYER -D _MOVENPCS -h -o $@ $*.asm
+	rgbasm -D _RED -D _RGSPRITES -D _REDGREENJP -D _REDJP -D _JPTXT -D _METRIC -D _FPLAYER -D _MOVENPCS -D _RUNSHOES -D _EXPBAR -h -o $@ $*.asm
 
 #gbcnote - use cjsv to compile as GBC+DMG rom
 pokered_opt  = -cjsv -k 01 -l 0x33 -m 0x13 -p 0 -r 03 -t "POKEMON RED"

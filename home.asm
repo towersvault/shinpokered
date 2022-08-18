@@ -3311,11 +3311,13 @@ LoadHpBarAndStatusTilePatterns::
 	ld a, BANK(HpBarAndStatusGraphics)
 ;joenote - load exp bar
 	;jp FarCopyData2 ; if LCD is off, transfer all at once
+IF DEF(_EXPBAR)
 	call FarCopyData2
 	ld hl, EXPBarGraphics
 	ld de, vChars1 + $400
 	ld bc, EXPBarGraphicsEnd - EXPBarGraphics
 	ld a, BANK(EXPBarGraphics)
+ENDC
 	jp FarCopyData2
 .on
 	ld de, HpBarAndStatusGraphics
@@ -3323,10 +3325,12 @@ LoadHpBarAndStatusTilePatterns::
 	lb bc, BANK(HpBarAndStatusGraphics), (HpBarAndStatusGraphicsEnd - HpBarAndStatusGraphics) / $10
 ;joenote - load exp bar
 	;jp CopyVideoData ; if LCD is on, transfer during V-blank
+IF DEF(_EXPBAR)
 	call CopyVideoData
 	ld de,EXPBarGraphics
 	ld hl, vChars1 + $400
 	lb bc, BANK(EXPBarGraphics), (EXPBarGraphicsEnd - EXPBarGraphics) / $10
+ENDC
 	jp CopyVideoData
 
 

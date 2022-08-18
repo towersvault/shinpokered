@@ -255,8 +255,10 @@ INCLUDE "engine/battle/get_trainer_name.asm"
 INCLUDE "engine/random.asm"
 
 ;joenote - adding exp bar
+IF DEF(_EXPBAR)
 EXPBarGraphics:  INCBIN "gfx/exp_bar.2bpp"
 EXPBarGraphicsEnd:
+ENDC
 
 SECTION "NPC Sprites 2", ROMX, BANK[NPC_SPRITES_2]
 
@@ -1869,7 +1871,9 @@ INCLUDE "custom_functions/func_overworld.asm"
 INCLUDE "custom_functions/func_shiny.asm"
 INCLUDE "custom_functions/func_nuzlocke.asm"
 INCLUDE "engine/battle/stats_functions.asm"	
+IF DEF(_EXPBAR)
 INCLUDE "engine/battle/exp_bar_print.asm"	
+ENDC
 INCLUDE "custom_functions/fisher_yates.asm"
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 

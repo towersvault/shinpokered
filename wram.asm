@@ -3372,11 +3372,13 @@ wBoxMonNicksEnd:: ; dee2
 wBoxDataEnd::
 
 ;joenote - exp bar wram values
+IF DEF(_EXPBAR)
 wEXPBarPixelLength::  ds 1
 wEXPBarBaseEXP::      ds 3
 wEXPBarCurEXP::       ds 3
 wEXPBarNeededEXP::    ds 3
 wEXPBarKeepFullFlag:: ds 1
+ENDC
 
 wdeed::
 ds 1

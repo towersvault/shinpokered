@@ -161,6 +161,13 @@ CheckForSmartHMuse:
 	ld hl, TilePairCollisionsWater
 	call CheckForTilePairCollisions
 	jr c, .nosurf
+	xor a
+	ld [hSpriteIndexOrTextID], a
+	call IsSpriteInFrontOfPlayer	; check with talking range in pixels (normal range of $10)
+	res 7, [hl]
+	ld a, [hSpriteIndexOrTextID]
+	and a ; is there a sprite in the way?
+	jr nz, .nosurf
 	;is the surfboard in the bag?
 	ld b, SURFBOARD
 	call IsItemInBag

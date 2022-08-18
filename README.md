@@ -591,7 +591,6 @@ v1.23.08
   - Surfboard bugfixes:
 	  - cannot use the surfboard if being forced to ride the bicycle
 	  - no longer freezes the game when using it from the item menu to get back on land
-	  - the menu text will glitch a little, but only for a split-second and does not impact gameplay
   - The Full Heal used by the AI now undoes brn/par stat changes
   - Condition healing items (including using Full Restore at max hp) no longer reset all stats
     - Burn heal undoes the attack stat changes

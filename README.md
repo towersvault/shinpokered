@@ -2,23 +2,33 @@
 
 Version 1.23
 
-This is a rom hack of pokemon red & blue based on the Pret team's disassembly.  
+This is an enhancement ROM hack of Pokemon Red & Blue based on the Pret team's disassembly.  
 It's a mostly-vanilla hack that focuses on fixing game engine bugs and oversights from the original game.  
-Additionally, trainer AI routines are improved and multiple quality-of-life improvements have been added.  
-Think of it as what the Nintendo Virtual Console re-release of red & blue might have been (plus a few extra goodies). 
+Additionally, trainer AI routines are improved and multiple quality-of-life enhancements have been added.  
+The main purpose of this code repository is to study , comment upon, and repair functional errors,  
+and also to document how to restore the game to an error-free state.  
+Additionally, many changes between the different japanese and english releases are researched and documented.  
+Furthermore, it acts as a kind of research-informed speculative work that presents an alternate interpretation.  
+It is an interpretation of what the 2016 Nintendo Virtual Console re-release of gen-1 Pokemon could have been;  
+a glitch-free experience with player-friendly goodies and enhancements common to other modern remasterings.  
 
-Read the "Guide to New Player Functions" for instructions on all the new stuff the player can do.
+Read the ["Guide to New Player Functions"](https://github.com/jojobear13/shinpokered/blob/master/ips_patches/Guide_to_New_Player_Functions.md) for instructions on all the new stuff the player can do.
 
 Don't like the non-vanilla changes? Prefer only the bugfixes and AI improvements? Want a codebase from which to launch your own rom hack?
 Then the [Lite branch](https://github.com/jojobear13/shinpokered/tree/lite) is what you want. Head on over and start compiling.
 
 A bash script randomizer, "randoshinred", is now in beta test.
 
-**IMPORTANT**: Download the IPS patch file of the version you want and apply it to the correct USA rom. 
-- The "_origback" ips patches are alternatives for red & blue that keep the original back sprites. 
-- Always apply patches to a fresh USA ROM or else strange glitches will occur.  
-- **Red patches are applied to a USA Red ROM.**
-- **All other patches (Blues and Greens) are applied to a USA Blue ROM.**
+#Patch Info  
+-----------
+BPS patches are provided for entry into your preferred emulator, patching tool, or other accessory that supports the BPS format.  
+Download and enter a patch which corresponds to the ROM of which you own a lawful copy.  
+- **Red patches (shin pokemon red, red_origback, and red-jp) are intended for USA Red.**
+  - MD5 Hash: 3d45c1ee9abd5738df46d2bdda8b57dc
+- **All other patches (Blues and Greens) are intended for USA Blue.**
+  - MD5 Hash: 50927e843568814f7ed45ec4f944bd8b
+- The "_origback" patches are alternatives that keep the original back sprites. 
+
 
 ***Includes Pokemon Green and Japanese Red!***
 - The compiler primarily builds the graphics and cerulean cave layout back to the original japanese release.
@@ -28,12 +38,14 @@ A bash script randomizer, "randoshinred", is now in beta test.
 ***Now Includes Japanese Blue!***
 - Primarily builds the lists for encounters, trades, and prizes that were in the never-localized japanese release.
 - Pokedex uses metric units.
+- Other minor graphical adjustments.
 
-***Updating Your Save File***  
-New patches might crash or have issues upon loading a save from a previous patch or an unpatched game.  
-To prevent this from happening, prepare your save file in the following way:  
---> Deactivate all special options (such as 60fps mode and NPC toggles).  
---> Save in the outdoor Pallet Town map.  
+***Updating Your Save File***
+Deactivate all special options and NPC toggles in the old save if it's from an earlier patch.  
+When loading an old save file with the latest patch, the player is automatically warped to Pallet Town.  
+Normally this will be enough to update the save file without doing anything else.  
+It's possible you may still have issues upon loading a save from a previous patch or an unpatched game.  
+To prevent this from happening, save in the outdoor Pallet Town map on the old save.  
 You might be blocked by invisible walls upon loading the game.  
 To fix this, you must use the Softlock Warp detailed below to teleport back to Pallet Town.  
 

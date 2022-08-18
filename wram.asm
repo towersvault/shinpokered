@@ -3378,6 +3378,8 @@ wEXPBarBaseEXP::      ds 3
 wEXPBarCurEXP::       ds 3
 wEXPBarNeededEXP::    ds 3
 wEXPBarKeepFullFlag:: ds 1
+ELSE
+	ds 11
 ENDC
 
 wdeed::

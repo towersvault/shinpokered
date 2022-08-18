@@ -203,8 +203,9 @@ IF (DEF(_REDGREENJP) || DEF(_BLUEJP))
 	call DrawPlayerOrBirdSprite ; draw bird sprite
 	ld de, wcd6d
 	call PlaceMapName
-	ld c, 15
-	call DelayFrames
+;	ld c, 15
+;	call DelayFrames
+	call Delay3		;joenote - make the fly menu more responsive and snappy
 ELSE
 	coord de, 18, 0
 .townMapFlyLoop
@@ -222,8 +223,9 @@ ELSE
 	coord hl, 3, 0
 	ld de, wcd6d
 	call PlaceString
-	ld c, 15
-	call DelayFrames
+;	ld c, 15
+;	call DelayFrames
+	call Delay3		;joenote - make the fly menu more responsive and snappy
 	coord hl, 18, 0
 	ld [hl], "▲"
 	coord hl, 19, 0

@@ -428,6 +428,7 @@ v1.23.08
 - Binoculars can no longer pause the overworld by holding A from the wrong side
 - Applied the pokeyellow fix for in-game trade evolutions
 - Can no longer get blocked at the cinnabar gym door
+- Tweaked the fly menu to be more responsive and snappy
 
 
 #Bugfixes
@@ -870,6 +871,7 @@ v1.23.08
 	- Removed the unused Ivysaur flag
   - Increased the maximum game clock to 32767 hours
   - Reduced saving delay to 15 frames
+  - Tweaked the fly menu to be more responsive and snappy
 
 - Changes to fishing
   - All rods have an expanded level range

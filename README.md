@@ -430,6 +430,7 @@ v1.23.08
 - Can no longer get blocked at the cinnabar gym door
 - Tweaked the fly menu to be more responsive and snappy
 - Restored unused text in the vermilion gym puzzle for finding the 2nd switch
+- Re-fixed the celadon vending machine code
 
 
 #Bugfixes

@@ -36,17 +36,27 @@ VendingMachineMenu:
 	ld a, [wCurrentMenuItem]
 	cp 3 ; chose Cancel?
 	jr z, .notThirsty
-	xor a
+
+;	xor a
+;	ld [hMoney], a
+;	ld [hMoney + 2], a
+;	ld a, $2
+;	ld [hMoney + 1], a
+;joenote - need to account for soda and lemonade as well as water
+	call LoadVendingMachineItem
+	ld a, [hVendingMachinePrice]
 	ld [hMoney], a
-	ld [hMoney + 2], a
-	ld a, $2
+	ld a, [hVendingMachinePrice + 1]
 	ld [hMoney + 1], a
+	ld a, [hVendingMachinePrice + 2]
+	ld [hMoney + 2], a
+	
 	call HasEnoughMoney
 	jr nc, .enoughMoney
 	ld hl, VendingMachineText4
 	jp PrintText
 .enoughMoney
-	call LoadVendingMachineItem
+;	call LoadVendingMachineItem		;joenote - let's load this info earlier
 	ld a, [hVendingMachineItem]
 	ld b, a
 	ld c, 1

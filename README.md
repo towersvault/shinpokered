@@ -431,6 +431,7 @@ v1.23.08
 - Tweaked the fly menu to be more responsive and snappy
 - Restored unused text in the vermilion gym puzzle for finding the 2nd switch
 - Re-fixed the celadon vending machine code
+- Accounted for underflow with switch-out messages
 
 
 #Bugfixes
@@ -471,6 +472,7 @@ v1.23.08
     - Damage factor is now 2*(2*level)/5 + 4 instead of 2*(2*level)/5 + 2 to simplify some algebra
     - If non-crit damage would be >= crit damage, the regular modified stat values are applied instead
   - The player can now select a move even if frozen, and this fixes a PP underflow and link desync glitch
+  - Accounted for underflow with switch-out messages
 
 
 - Move fixes

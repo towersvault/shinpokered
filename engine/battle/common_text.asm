@@ -194,7 +194,8 @@ PlayerMon2Text:
 	dec de
 	ld b, [hl]
 	ld a, [de]
-	sbc b
+	sbc b			;joenote - the carry flag being set here means the opponent has gained HP since last switch,
+	jr c, .gainedHP	;			so we can skip the rest and print a default message.
 	ld [H_MULTIPLICAND + 1], a
 	ld a, 25
 	ld [H_MULTIPLIER], a
@@ -228,6 +229,11 @@ PlayerMon2Text:
 	cp 70
 	ret c
 	ld hl, GoodText ; HP went down 70% or more
+	ret
+.gainedHP	;joenote - add a text selection for when the opponent has gained HP
+	pop bc
+	pop de
+	ld hl, EnoughText	;this could be made into a custom message if desired
 	ret
 
 EnoughText:

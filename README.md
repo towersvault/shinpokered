@@ -1024,6 +1024,15 @@ Cheats and Secrets!
 - cinnabar island has max elixers
 
 
+#Will Not Implement / Out of Scope
+-----------------------------------
+These are things that are commonly requested but fall outside the scope of the project. There are no plans to implement these:  
+- Yellow Version - This is a different rom base, and I have no intention at this time to start all over on numerous features.
+- Gen 2 color / graphics - The goal is to keep art direction and assets within the purview of a pre-1998 direction.
+- Battle mechanics from later generations - Gen 1's gameplay must be generally be preserved, so no special defense, physical-special split, critical hits untied from speed, updated move pools, etc.
+- Later-gen evolutions/forms/variants - I'm keeping this strictly to the original 151.
+
+
 #CREDITS / SPECIAL THANKS:
 --------------------------
 - The Pret team for the pokered and pokeyellow disassemblies and all the code comments that came with them

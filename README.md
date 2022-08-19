@@ -242,15 +242,16 @@ Cheats and Secrets!
 #Compatibility Notes
 -----------
 
+- **Certain emulators are known to cause bugs due to inaccuracies in replicating the original hardware**
+  - An accurate emulator, preferably a GBC-dedicated emulator, is required in order to avoid unexpected bugs
+  - Goomba and Pizza Boy in particular are known to be problematic
+  - BGB is the supported standard due to its accuracy and debugging tools
 - Compatible with original Gameboy hardware (DMG, Super, Pocket, Color, Advance, SP)
 - Potentially compatible with Pokemon Stadium 1 & 2 (using original Nintendo hardware)
 - Might be possible to use a save from vanilla USA red/blue with this rom hack 
   - Save outside in Pallet Town before transferring over
   - Use the Softlock Warp to clear any invisible walls
 - New builds are tested and debugged with the BGB 1.5.8 emulator and verified using original hardware
-- Certain emulators are known to cause bugs due to inaccuracies in replicating the original hardware
-  - Goomba in particular is known to be problematic
-  - Due to the number of emulators in existence, BGB will be used as the supported standard
 - Link trading with an original retail cartridge appears to work properly on real hardware
 - Link trading between the lite and master branches appears to work properly on real hardware
 - Link battles are still largely untested, and they are unsupported in the following ways:

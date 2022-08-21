@@ -181,9 +181,9 @@ AIMoveChoiceModification1:
 	ld a, [wEnemyMoveEffect]	;load the move effect
 	cp SWITCH_AND_TELEPORT_EFFECT	;see if it is a battle-ending effect
 	jp z, .heavydiscourage	;heavily discourage if so
-;and dont try to use rage either
-;	cp RAGE_EFFECT	
-;	jp z, .heavydiscourage
+;and dont try to use splash either
+	cp SPLASH_EFFECT	
+	jp z, .heavydiscourage
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;joenote - do not use dream eater if enemy not asleep, otherwise encourage it
@@ -1349,6 +1349,14 @@ TrainerAI:
 	cp LINK_STATE_BATTLING
 	ret z
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+	ld a, [wPlayerBattleStatus1]
+	bit USING_TRAPPING_MOVE, a ; caught in player's trapping move (e.g. wrap)
+	jr z, .notbeingtrapped
+	call CheckandResetSwitchBit	
+	jp nz, AISwitchIfEnoughMons	;switch if switch bit is set and stuck in the player's trapping move
+.notbeingtrapped
+;	...otherwise
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;joenote - AI should not use actions if the null move has been selected
 	ld a, [wEnemySelectedMove]

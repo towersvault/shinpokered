@@ -3398,13 +3398,13 @@ NoAttackAICall:
 	jr z, .NoAttackAICall_exit ; exit if this is a wild encounter
 	;set the no-attack bit
 	ld a, [wUnusedC000]
-	push af
 	set 2, a 
 	ld [wUnusedC000], a
 	;call ai routines
 	callab AIEnemyTrainerChooseMoves
 	;joenote - reset the no-attack bit
-	pop af
+	ld a, [wUnusedC000]
+	res 2, a 
 	ld [wUnusedC000], a
 .NoAttackAICall_exit
 	pop af ;get flags from stack

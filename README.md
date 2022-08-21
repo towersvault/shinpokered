@@ -432,6 +432,8 @@ v1.23.08
 - Restored unused text in the vermilion gym puzzle for finding the 2nd switch
 - Re-fixed the celadon vending machine code
 - Accounted for underflow with switch-out messages
+- More fixes for AI switching
+- AI switch scoring applies an extra penalty for possibly switching a pokemon into a super-effective move
 
 
 #Bugfixes
@@ -804,6 +806,7 @@ v1.23.08
   - AI scoring for switching puts a heavier penalty on potentially switching in a bad type matchup
   - AI scoring imposes a very heavy penalty for potentially switching in pokemon with less than 1/4 HP
   - AI switch scoring now penalizes bad match-ups between player and enemy 'mon types
+  - AI switch scoring applies an extra penalty for possibly switching a pokemon into a super-effective move
   
 - Trainer ai routine #3 added to the following trainer classes
   - jr trainer M/F, engineer, rocker, juggler, tamer, birdkeeper, black belt, scientist, gentleman

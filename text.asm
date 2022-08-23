@@ -1450,8 +1450,9 @@ _GainedText::
 ;	cont "@@"
 ;joenote - making this less annoying
 _WithExpAllText::
-	text "EXP.ALL gives team"
-	line "@@"
+	text "EXP.ALL gives the"
+	line "team relatively"
+	cont "@@"
 
 _BoostedText::
 	text "a boosted"

@@ -434,6 +434,8 @@ v1.23.08
 - Accounted for underflow with switch-out messages
 - More fixes for AI switching
 - AI switch scoring applies an extra penalty for possibly switching a pokemon into a super-effective move
+- Made adjustment to EXP All message
+- Added an error trap to _Divide function for divide-by-zero calls
 
 
 #Bugfixes
@@ -879,6 +881,7 @@ v1.23.08
   - Increased the maximum game clock to 32767 hours
   - Reduced saving delay to 15 frames
   - Tweaked the fly menu to be more responsive and snappy
+  - Added an error trap to _Divide function for divide-by-zero calls
 
 - Changes to fishing
   - All rods have an expanded level range

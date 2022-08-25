@@ -437,6 +437,7 @@ v1.23.08
 - Made adjustment to EXP All message
 - Added an error trap to _Divide function for divide-by-zero calls
 - Can no longer change facing while pushing a boulder
+- Fixed ball toss sfx not resetting the pitch envelope settings
 
 
 #Bugfixes
@@ -628,6 +629,7 @@ v1.23.08
   - Fixed a bug having to do with rare instances of bending the audio pitch
   - Victory music won't play if a wild 'mon faints but the player has no 'mons remaining; it's a blackout
   - The jingle for finding a hidden item will no longer be skipped during an audio fadeout
+  - Fixed ball toss sfx not resetting the pitch envelope settings
 
 
 - Misc. fixes

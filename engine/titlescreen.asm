@@ -27,7 +27,7 @@ DisplayTitleScreen:
 	ld [H_AUTOBGTRANSFERENABLED], a
 	xor a
 	ld [hTilesetType], a
-IF DEF(_REDGREENJP)
+IF DEF(_RGTITLE)
 	ld [hSCY], a
 	ld a, -112
 	ld [hSCX], a
@@ -100,7 +100,7 @@ ENDC
 
 ; put a pokeball in the player's hand
 	ld hl, wOAMBuffer + $28
-IF DEF(_REDGREENJP)
+IF DEF(_RGTITLE)
 	ld a, $70
 ELSE
 	ld a, $74
@@ -173,7 +173,7 @@ ENDC
 	callba TransferMonPal ;gbcnote - update the bg pal for the new title mon
 	pop de
 
-IF DEF(_REDGREENJP)
+IF DEF(_RGTITLE)
 	ld a, SFX_INTRO_WHOOSH
 	call PlaySound
 	
@@ -201,7 +201,7 @@ ENDC
 	jr .bouncePokemonLogoLoop
 
 ; Controls the bouncing/sliding effect of the Pokemon logo on the title screen
-IF DEF(_REDGREENJP)
+IF DEF(_RGTITLE)
 .TitleScreenPokemonLogoXScrolls:
 	db 4,28  ; y scroll amount, number of times to scroll
 ELSE
@@ -231,7 +231,7 @@ ENDC
 	call LoadScreenTilesFromBuffer1
 	ld c, 36
 	call DelayFrames
-IF DEF(_REDGREENJP)
+IF DEF(_RGTITLE)
 	;do nothing
 ELSE
 	ld a, SFX_INTRO_WHOOSH
@@ -242,7 +242,7 @@ ENDC
 	call PrintGameVersionOnTitleScreen
 	ld a, SCREEN_HEIGHT_PIXELS
 	ld [hWY], a
-IF DEF(_REDGREENJP)
+IF DEF(_RGTITLE)
 	call Delay3
 ELSE
 	ld d, 144
@@ -390,7 +390,7 @@ DrawPlayerCharacter:
 	xor a
 	ld [wPlayerCharacterOAMTile], a
 	ld hl, wOAMBuffer
-IF DEF(_REDGREENJP)
+IF DEF(_RGTITLE)
 	ld de, $6030
 ELSE
 	ld de, $605a
@@ -440,7 +440,7 @@ ClearBothBGMaps:
 LoadTitleMonSprite:
 	ld [wcf91], a
 	ld [wd0b5], a
-IF DEF(_REDGREENJP)
+IF DEF(_RGTITLE)
 	coord hl, 9, 10
 ELSE
 	coord hl, 5, 10
@@ -464,7 +464,7 @@ LoadCopyrightTiles:
 	lb bc, BANK(NintendoCopyrightLogoGraphics), (GamefreakLogoGraphicsEnd - NintendoCopyrightLogoGraphics) / $10
 	call CopyVideoData
 IF DEF(_REDGREENJP)
-	coord hl, 5, 7
+	coord hl, 4, 7
 ELSE
 	coord hl, 2, 7
 ENDC

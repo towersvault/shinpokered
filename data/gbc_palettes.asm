@@ -100,17 +100,17 @@ IF DEF(_GREEN)
 ENDC
 
 	; PAL_LOGO2
-IF DEF(_REDJP)
+IF (DEF(_RED) && DEF(_JPLOGO))
 	RGB 31, 31, 31	;white bg
 	RGB 31, 31,  0	;unused yellow logo text
 	RGB  3,  3, 23	;"pocket monsters" logo text color
 	RGB 23,  3,  3	;japanese logo text color
-ELIF DEF(_GREEN)
+ELIF (DEF(_GREEN) && DEF(_JPLOGO))
 	RGB 31, 31, 31	;white bg
 	RGB 31, 31,  0	;unused yellow logo text
 	RGB  3,  3, 23	;"pocket monsters" logo text color
 	RGB  3, 23,  3	;japanese logo text color
-ELIF DEF(_BLUEJP)
+ELIF (DEF(_BLUE) && DEF(_JPLOGO))
 	RGB 31, 31, 31	;white bg
 	RGB 31, 31,  0	;unused yellow logo text
 	RGB 31,  15, 0	;"pocket monsters" logo text color

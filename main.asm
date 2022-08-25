@@ -183,7 +183,7 @@ LyingOldManSprite:     INCBIN "gfx/sprites/lying_old_man.2bpp"
 
 
 SECTION "Graphics", ROMX, BANK[GFX]
-IF (DEF(_REDGREENJP) || DEF(_BLUEJP))
+IF DEF(_JPLOGO)
 PokemonLogoGraphics:            INCBIN "gfx/pokemon_logo_jp.2bpp"
 ELSE
 PokemonLogoGraphics:            INCBIN "gfx/pokemon_logo.2bpp"
@@ -225,7 +225,7 @@ PokedexTileGraphics:            INCBIN "gfx/pokedex.2bpp"
 PokedexTileGraphicsEnd:
 WorldMapTileGraphics:           INCBIN "gfx/town_map.2bpp"
 WorldMapTileGraphicsEnd:
-IF DEF(_REDGREENJP)
+IF DEF(_RGTITLE)
 PlayerCharacterTitleGraphics:   INCBIN "gfx/player_title_green.2bpp"
 ELSE
 PlayerCharacterTitleGraphics:   INCBIN "gfx/player_title.2bpp"

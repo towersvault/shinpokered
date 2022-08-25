@@ -436,6 +436,7 @@ v1.23.08
 - AI switch scoring applies an extra penalty for possibly switching a pokemon into a super-effective move
 - Made adjustment to EXP All message
 - Added an error trap to _Divide function for divide-by-zero calls
+- Can no longer change facing while pushing a boulding
 
 
 #Bugfixes
@@ -584,6 +585,7 @@ v1.23.08
   - Fixed glitchy trainer card transition screens on GB-DMG
   - Made many TextIDs close when pressing A instead of releasing A
   - Binoculars can no longer pause the overworld by holding A from the wrong side
+  - Can no longer change facing while pushing a boulding
 
 
 - Item Fixes  

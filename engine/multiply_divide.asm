@@ -60,6 +60,9 @@ _Multiply:
 	ret
 
 _Divide:
+	ld a, [H_DIVISOR] ; (aliases: H_DIVISOR, H_MULTIPLIER, H_POWEROFTEN)	
+	and a
+	ret z	;joenote - return if this is a devide by zero
 	xor a
 	ld [H_DIVIDEBUFFER], a
 	ld [H_DIVIDEBUFFER+1], a
@@ -75,10 +78,6 @@ _Divide:
 	sub c
 	ld d, a
 	ld a, [H_DIVISOR] ; (aliases: H_DIVISOR, H_MULTIPLIER, H_POWEROFTEN)
-	
-	and a
-	ret z	;joenote - return if this is a devide by zero
-	
 	ld c, a
 	ld a, [H_DIVIDEND] ; (aliases: H_PRODUCT, H_PASTLEADINGZEROES, H_QUOTIENT)
 	sbc c

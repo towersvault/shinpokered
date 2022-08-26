@@ -4176,11 +4176,7 @@ HandleMenuInput_::
 	ld [wCheckFor180DegreeTurn], a
 	ld a, [hJoy5]
 	ld b, a
-.checkIfAButtonOrBButtonPressed
-	and A_BUTTON | B_BUTTON
-	jr nz, .AButtonOrBButtonPressed
-.checkIfUpPressed
-	bit 6, b;a ; pressed Up key?
+	bit 6, a ; pressed Up key?
 	jr z, .checkIfDownPressed
 .upPressed
 	ld a, [wCurrentMenuItem] ; selected menu item
@@ -4198,7 +4194,7 @@ HandleMenuInput_::
 	ld [wCurrentMenuItem], a ; wrap to the bottom of the menu
 	jr .checkOtherKeys
 .checkIfDownPressed
-	bit 7, b;a
+	bit 7, a
 	jr z, .checkOtherKeys
 .downPressed
 	ld a, [wCurrentMenuItem]
@@ -4219,11 +4215,10 @@ HandleMenuInput_::
 	ld a, [wMenuWatchedKeys]
 	and b ; does the menu care about any of the pressed keys?
 	jp z, .loop1
-;.checkIfAButtonOrBButtonPressed
-;	ld a, [hJoy5]
-;	and A_BUTTON | B_BUTTON
-;	jr z, .skipPlayingSound
-	jr .skipPlayingSound
+.checkIfAButtonOrBButtonPressed
+	ld a, [hJoy5]
+	and A_BUTTON | B_BUTTON
+	jr z, .skipPlayingSound
 .AButtonOrBButtonPressed
 	push hl
 	ld hl, wFlags_0xcd60
@@ -4245,8 +4240,7 @@ HandleMenuInput_::
 	ld a, [wMenuWatchMovingOutOfBounds]
 	and a ; should we return if the user tried to go past the top or bottom?
 	jr z, .checkOtherKeys
-	;jr .checkIfAButtonOrBButtonPressed
-	jr .skipPlayingSound
+	jr .checkIfAButtonOrBButtonPressed
 	
 PlaceMenuCursor::	
 	ld a, [wTopMenuItemY]

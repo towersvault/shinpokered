@@ -438,6 +438,7 @@ v1.23.08
 - Added an error trap to _Divide function for divide-by-zero calls
 - Can no longer change facing while pushing a boulder
 - Fixed ball toss sfx not resetting the pitch envelope settings
+- Downward-moving sprites now get hidden behind text boxes
 
 
 #Bugfixes
@@ -587,6 +588,7 @@ v1.23.08
   - Made many TextIDs close when pressing A instead of releasing A
   - Binoculars can no longer pause the overworld by holding A from the wrong side
   - Can no longer change facing while pushing a boulder
+  - Downward-moving sprites now get hidden behind text boxes
 
 
 - Item Fixes  

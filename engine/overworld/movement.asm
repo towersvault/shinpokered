@@ -801,7 +801,21 @@ GetTileSpriteStandsOn:
 	ld l, a
 	ld a, [hli]     ; c1x4: screen Y position
 	add $4          ; align to 2*2 tile blocks (Y position is always off 4 pixels to the top)
-	and $f0         ; in case object is currently moving
+;	and $f0         ; in case object is currently moving
+;joenote - Simply ANDing with F0 rounds-down the pixel positioning to the starting Y-position of the previous movement space.
+;		- This treats the sprite as standing in a higher position on the screen than where it actually is.
+;		- It allows for downward-moving sprites to stand over text boxes.
+;		- Correct this behavior by rounding-up instead.
+	ld c, a
+	and $F0
+	ld b, a
+	ld a, c
+	and $0F
+	jr z, .next
+	ld a, $10
+.next
+	add b
+	
 	srl a           ; screen Y tile * 4
 	ld c, a
 	ld b, $0

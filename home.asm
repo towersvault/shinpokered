@@ -4176,7 +4176,13 @@ HandleMenuInput_::
 	ld [wCheckFor180DegreeTurn], a
 	ld a, [hJoy5]
 	ld b, a
-	bit 6, a ; pressed Up key?
+
+	;joenote - fix from pokeyellow to prioritize the A button over the directional buttons
+;		- costs 4 bytes
+	bit BIT_A_BUTTON, a ; pressed A key?
+	jr nz, .checkOtherKeys
+
+	bit BIT_D_UP, a ; pressed Up key?
 	jr z, .checkIfDownPressed
 .upPressed
 	ld a, [wCurrentMenuItem] ; selected menu item
@@ -4193,8 +4199,9 @@ HandleMenuInput_::
 	ld a, [wMaxMenuItem]
 	ld [wCurrentMenuItem], a ; wrap to the bottom of the menu
 	jr .checkOtherKeys
+
 .checkIfDownPressed
-	bit 7, a
+	bit BIT_D_DOWN, a
 	jr z, .checkOtherKeys
 .downPressed
 	ld a, [wCurrentMenuItem]
@@ -4211,19 +4218,18 @@ HandleMenuInput_::
 .notAtBottom
 	ld a, c
 	ld [wCurrentMenuItem], a
+
 .checkOtherKeys
 	ld a, [wMenuWatchedKeys]
 	and b ; does the menu care about any of the pressed keys?
 	jp z, .loop1
 .checkIfAButtonOrBButtonPressed
-	ld a, [hJoy5]
+	ld a, b		;joenote - load from b, which contains [hJoy5], to save 1 byte
 	and A_BUTTON | B_BUTTON
 	jr z, .skipPlayingSound
 .AButtonOrBButtonPressed
-	push hl
-	ld hl, wFlags_0xcd60
-	bit 5, [hl]
-	pop hl
+	ld a, [wFlags_0xcd60]	;joenote - remove push/pop with hl to save 2 bytes
+	bit 5, a
 	jr nz, .skipPlayingSound
 	ld a, SFX_PRESS_AB
 	call PlaySound
@@ -4234,13 +4240,15 @@ HandleMenuInput_::
 	ld [H_DOWNARROWBLINKCNT1], a ; restore previous values
 	xor a
 	ld [wMenuWrappingEnabled], a ; disable menu wrapping
-	ld a, [hJoy5]
+	ld a, b	;joenote - load from b, which contains [hJoy5], to save 1 byte
 	ret
+
 .noWrappingAround
 	ld a, [wMenuWatchMovingOutOfBounds]
 	and a ; should we return if the user tried to go past the top or bottom?
 	jr z, .checkOtherKeys
 	jr .checkIfAButtonOrBButtonPressed
+
 	
 PlaceMenuCursor::	
 	ld a, [wTopMenuItemY]

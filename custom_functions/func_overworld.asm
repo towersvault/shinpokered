@@ -1,5 +1,13 @@
 ;This function is for teleporting you home from the start menu if you get stuck
 SoftlockTeleport:
+;make it not work for inside the cable club
+;;;;;;;;;;;;;;;;;;;;;;;;;;;
+	ld a, [wCurMap]
+	cp TRADE_CENTER
+	ret z
+	cp COLOSSEUM
+	ret z
+;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	ld a, [hJoyInput]
 	cp D_DOWN + B_BUTTON + SELECT
 	ret nz

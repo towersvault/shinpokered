@@ -749,8 +749,16 @@ wEnemyNumHits:: ; cd05
 
 wEnemyBideAccumulatedDamage:: ; cd05
 ; the amount of damage accumulated by the enemy while biding (2 bytes)
+	ds 2
 
-	ds 10
+;joenote - block of data that holds a score for the switch desireability of each AI trainer mon
+;gets overwritten with zeroes at the end of battle 
+wAIPartyMonScores:: ;cd07
+	;8 bytes
+	;-->6 bytes for roster scores
+	;-->1 byte for storing the best score (wAIPartyMonScores + 6)
+	;-->1 byte for storing the zero-indexed position with the best score (wAIPartyMonScores + 7)	
+	ds 8
 
 wInGameTradeGiveMonSpecies:: ; cd0f
 
@@ -1127,11 +1135,6 @@ wSlotMachineWheel3BottomTile:: ; cd47
 
 wSlotMachineWheel3MiddleTile:: ; cd48
 
-; wispnote - PKMN Levels at the Begining of a Battle.
-; Required to correctly execute the level-up procedure.
-wStartBattleLevels:: 
-	;ds PARTY_LENGTH which is 6 bytes
-
 wFacingDirectionList:: ; cd48
 ; 4 bytes (also, the byte before the start of the list (cd47) is used a temp
 ;          variable when the list is rotated)
@@ -1193,14 +1196,6 @@ wSlotMachineBet:: ; cd50
 
 wSavedPlayerFacingDirection:: ; cd50
 
-;joenote - block of data that holds a score for the switch desireability of each AI trainer mon
-;gets overwritten with zeroes at the end of battle 
-wAIPartyMonScores:: ;cd50
-	;8 bytes
-	;-->6 bytes for roster scores
-	;-->1 byte for storing the best score (wAIPartyMonScores + 6)
-	;-->1 byte for storing the zero-indexed position with the best score (wAIPartyMonScores + 7)
-	
 wWhichAnimationOffsets:: ; cd50
 ; 0 = cut animation, 1 = boulder dust animation
 	ds 9
@@ -1456,8 +1451,12 @@ wPartyMenuHPBarColors:: ; cf1f
 wStatusScreenHPBarColor:: ; cf25
 	ds 1
 
+; wispnote - PKMN Levels at the Begining of a Battle.
+; Required to correctly execute the level-up procedure.
+wStartBattleLevels:: 
+	ds PARTY_LENGTH ;which is 6 bytes
 ;unused space
-	ds 7
+	ds 1
 
 wCopyingSGBTileData:: ; cf2d
 

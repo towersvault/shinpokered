@@ -233,10 +233,12 @@ vibrato: MACRO
 	db (\2 << 4) | \3
 ENDM
 
+;format: length [1 to 256], octave, pitch
 pitchbend: MACRO
 	db $EB
-	db \1
-	db \2
+	db \1 - 1
+	db (\2 << 4) | \3
+	
 ENDM
 
 duty: MACRO

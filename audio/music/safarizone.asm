@@ -6,13 +6,13 @@ Music_SafariZone_Ch0::
 	duty 2
 	notetype 12, 9, 2
 	octave 3
-	pitchbend 0, 73
+	pitchbend 1, 4, a_
 	C_ 1
-	pitchbend 0, 73
+	pitchbend 1, 4, a_
 	G_ 1
-	pitchbend 0, 73
+	pitchbend 1, 4, a_
 	C_ 1
-	pitchbend 0, 73
+	pitchbend 1, 4, a_
 	G_ 1
 	rest 4
 	duty 3

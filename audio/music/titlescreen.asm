@@ -383,14 +383,14 @@ Music_TitleScreen_branch_7e664::
 	A_ 3
 	callchannel Music_TitleScreen_branch_7e6e5
 	octave 5
-	pitchbend 0, 66
+	pitchbend 1, 4, d_
 	D_ 4
 	rest 4
 	octave 6
-	pitchbend 0, 50
+	pitchbend 1, 3, d_
 	D_ 4
 	octave 5
-	pitchbend 0, 66
+	pitchbend 1, 4, d_
 	D_ 4
 	rest 2
 	notetype 8, 1, 0
@@ -400,11 +400,11 @@ Music_TitleScreen_branch_7e664::
 	C# 4
 	callchannel Music_TitleScreen_branch_7e6e5
 	octave 6
-	pitchbend 0, 50
+	pitchbend 1, 3, d_
 	D_ 4
 	rest 4
 	octave 5
-	pitchbend 0, 66
+	pitchbend 1, 4, d_
 	D_ 4
 	rest 6
 	notetype 8, 1, 0

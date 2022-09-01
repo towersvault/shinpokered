@@ -178,8 +178,8 @@ UpdateNPCSprite:
 	jp z, UpdateSpriteMovementDelay  ; c1x1 == 2
 	cp $3
 	jp z, UpdateSpriteInWalkingAnimation  ; c1x1 == 3
-	ld a, [wWalkCounter]
-	and a
+	ld a, [wWalkCounter]	;joenote - Do the check here and remove the redundancy from CheckSpriteAvailability
+	and a					;			so that npc walking animations get updated while the player is moving.
 	ret nz           ; don't do anything yet if player is currently moving (redundant, already tested in CheckSpriteAvailability)
 	call InitializeSpriteScreenPosition
 	ld h, $c2
@@ -626,9 +626,9 @@ CheckSpriteAvailability:
 	jr .done
 .spriteVisible
 	ld c, a
-	ld a, [wWalkCounter]
-	and a
-	jr nz, .done           ; if player is currently walking, we're done
+;	ld a, [wWalkCounter]	;joenote - remove this and instead rely on it being done in UpdateNPCSprite
+;	and a
+;	jr nz, .done           ; if player is currently walking, we're done
 	call UpdateSpriteImage
 	inc h
 	ld a, [H_CURRENTSPRITEOFFSET]

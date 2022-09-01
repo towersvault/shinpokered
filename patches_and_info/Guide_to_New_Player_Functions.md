@@ -47,7 +47,7 @@ Furthermore, the effect for Dire Hit and Focus Energy now work correctly and qua
 
 **X-Accuracy and One-Hit-K.O. Moves**  
 X-Accuracy no longer gives OHKO moves 100% accuracy.  
-In all but the Lite patches, X-Accuracy now allows OHKO moves to hit a faster opponent.  
+X-Accuracy now allows OHKO moves to hit a faster opponent.  
 
 **New Random Number Engine**  
 The game now uses an XOR-shift-style pseudorandom number generator.  

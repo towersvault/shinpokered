@@ -121,7 +121,7 @@ It also has all the pokedex data in metric.
 Engine features from USA Yellow version have been backported.
 No more duochrome! Yellow's color scheme gets converted to display on the Gameboy Color.
 Attack animations are colored according to type during Gameboy Color play.
-The audio engine is backported for stereo sound support. 
+Yellow's audio engine is backported for stereo sound support. 
 
 New options that can be toggled!
 - Hit SELECT on the options screen to cycle through the audio output types.
@@ -129,12 +129,12 @@ New options that can be toggled!
 - Experimental 60FPS Mode: Place the cursor over CANCEL in the options screen and toggle by pressing left or right.
 - Zero-Delay Text: Text with zero frame delay can be toggled in the options menu; press LEFT with the cursor on FAST.
 
-Trainer AI has been improved and greatly expanded. 
+Trainer AI has been improved and greatly expanded.
 Some trainers will even try to switch pokemon intelligently.
 
 You get notified when a box is filled (either via catching or depositing a pokemon).
 
-Switching out of a trapping move wastes the trapper's turn. 
+Switching out of a trapping move wastes the trapper's turn as per Pokemon Stadium.
 This prevents unbeatable AI scenarios as well as a PP underflow glitch.
 
 Rage is limited to 2-3 turns but attack boosts are kept.
@@ -142,7 +142,7 @@ This is primarily to prevent infinite battle loops.
 
 Sleep does not prevent choosing a move, and the move is used upon waking up.
 To maintain sleep move accuracy, sleep starts with a counter of at least 2.
-And Rest now sets the sleep counter to 3.   
+And Rest now sets the sleep counter to 3.  
    
    
 ***Additional Master features that go beyond engine modifications and fixes***
@@ -244,13 +244,13 @@ Other minor changes to lessen annoyance.
 - Retrieving a daycare pokemon that could have evolved via level will trigger evolution and learn any missed-out moves.
 
 Cheats and Secrets!
-- A pokemon with Pay Day in your top slot will tip you off to a lucky slot machine and when it's in a special payout mode.
-- New item, M.GENE, re-randomizes a pkmn's DVs to values of 9,8,8,8 or more.
-- Defeat all five post-game special trainers to reactivate the legendary pokemon.
-- To more easily find shiny pokemon, put a level-100 Chansey at the top of your roster. Use a repel if you wish!
+- A pokemon with Pay Day in your top slot will might come in handy at the Game Corner.
+- New item, the M.GENE! Could it give low-DV pokemon a boost?
+- Five post-game special trainers to find and defeat! What pokemon may reappear when they are all defeated?
+- If a level-100 Chansey leads your party, you are bound to have some lucky encoutners.
 - New Super Boss: Do you dare to activate Missingno at the Cinnabar shore? Only if you got your 'dex diploma.
-- New Super Boss: Missingno not hard enough for you? Try activating it again at the infamous Seafoam shore!
-- Winning the SS Anne's tournament with a pikachu in your party makes that pikachu eligible for the SURF HM.
+- New Super Boss: Missingno not hard enough for you? Try activating it at the infamous Seafoam shore!
+- The SS Anne has a post-game tournament. Try winning with a pikachu in your party.
 
 
 #Compatibility Notes

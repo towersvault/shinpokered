@@ -2086,7 +2086,7 @@ _AnimationSlideMonOff:
 	sub 7
 ; This has the same problem as above, but it has no visible effect because
 ; the lower right tile is in the first column to slide off the screen.
-	cp $30
+	cp $31	;joenote - fixed
 	ret c
 	ld a, " "
 	ret

@@ -119,6 +119,7 @@ OaksLabScript4:
 	call UpdateSprites
 	ld hl, wFlags_D733
 	res 1, [hl]
+	call DelayFrame	;joenote - Added protection against oak's lab music cutting a channel off
 	call PlayDefaultMusic
 
 	ld a, $5

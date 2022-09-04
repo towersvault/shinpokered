@@ -451,6 +451,7 @@ v1.23.08
 - Fixed NPCs treating the last visible screen column/row as off-screen
 - Slot machine no longer copies too much tile data
 - Fixed wrong amount of stars loaded in Gamefreak logo
+- Added protection against oak's lab music cutting a channel off
 
 
 #Bugfixes
@@ -645,6 +646,7 @@ v1.23.08
   - Victory music won't play if a wild 'mon faints but the player has no 'mons remaining; it's a blackout
   - The jingle for finding a hidden item will no longer be skipped during an audio fadeout
   - Fixed ball toss sfx not resetting the pitch envelope settings
+  - Added protection against oak's lab music cutting a channel off
 
 
 - Misc. fixes

@@ -1368,4 +1368,4 @@ The following folks for bugfix collaberation
 - coltongit
 
   
-The shinpokered repository was branched from pret/pokered at merge pull request #185 committed on Jul 2, 2018
+The shinpokered repository was branched from pret/pokered at [merge pull request #185 committed on Jul 2, 2018](https://github.com/pret/pokered/tree/c8599831992c91e521cf1d467ccae3d9498e42ef)

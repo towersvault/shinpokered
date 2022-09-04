@@ -407,6 +407,7 @@ ENDC
 IF DEF(_GREEN)
 	INCBIN "gfx/green/slotmachine2.2bpp"
 ENDC
+SlotMachineTiles2END:
 
 MoveAnimation:
 	push hl

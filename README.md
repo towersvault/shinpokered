@@ -449,6 +449,7 @@ v1.23.08
 - NPC walking animation now updates during player movement
 - Fixed hidden coins not giving the correct amount
 - Fixed NPCs treating the last visible screen column/row as off-screen
+- Slot machine no longer copies too much tile data
 
 
 #Bugfixes
@@ -695,6 +696,7 @@ v1.23.08
   - Can no longer get blocked at the cinnabar gym door
   - Fixed hidden coins not giving the correct amount
   - Fixed NPCs treating the last visible screen column/row as off-screen
+  - Slot machine no longer copies too much tile data
  
  
 #Tweaks

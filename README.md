@@ -12,7 +12,7 @@ Furthermore, it acts as a kind of research-informed speculative work that presen
 It is an interpretation of what the 2016 Nintendo Virtual Console re-release of gen-1 Pokemon could have been;  
 a glitch-free experience with player-friendly goodies and enhancements common to other modern remasterings.  
 
-Read the ["Guide to New Player Functions"](https://github.com/jojobear13/shinpokered/blob/master/ips_patches/Guide_to_New_Player_Functions.md) for instructions on all the new stuff the player can do.
+Read the ["Guide to New Player Functions"](/patches_and_info/Guide_to_New_Player_Functions.md) for instructions on all the new stuff the player can do.
 
 Don't like the non-vanilla changes? Prefer only the bugfixes and AI improvements? Want a codebase from which to launch your own rom hack?
 Then the [Lite branch](https://github.com/jojobear13/shinpokered/tree/lite) is what you want. Head on over and start compiling.
@@ -52,6 +52,8 @@ To fix this, you must use the Softlock Warp detailed below to teleport back to P
 		
 #Screenshots
 -----------
+<details>
+  <summary>Click to Show/Hide Images</summary>
 
 Title Screens  (GBC Palettes)  
 ![Title Screen 1](/screenshots/bgb00028.bmp?raw=true)
@@ -99,6 +101,8 @@ Many new NPCs to toggle features
 Gamma Shader for LCD Screens (Left image is Off / Right image is On)  
 ![Shader Off](/screenshots/bgb00035.bmp?raw=true)
 ![Shader On](/screenshots/bgb00036.bmp?raw=true)
+
+</details>
 
 
 #Summary
@@ -285,8 +289,10 @@ Cheats and Secrets!
 -
 
 
-#Changes not yet in the release branch
+#Changelog From the Last Full Release
 -----------
+[View the Consolidated Changelog Document](/patches_and_info/changelog_from_v1.23.md)  
+
 v1.23.01  
 - Green and Red-JP have the original front sprites for fossil kabutops and fossil aerodactyl
 - Green and Red-JP have the original text box corners 
@@ -374,7 +380,8 @@ v1.23.07
 v1.23.08  
 - Daycare allows HM moves on entered pokemon
 - Added cloning and gene splicing
-- ***Not added to beta patch yet***
+
+***Not added to beta patch yet***  
 - Scaled back fishing, reduced its randomness, and made it more map-dependent
 - If on GBC, intitializing options turns 60 fps ON
 - Minor code correction to Twineedle to prevent future errors 
@@ -1332,7 +1339,7 @@ These are things that are commonly requested but fall outside the scope of the p
 - MoriyaFaith's pokejp project for green version assets and code referencing
 - Rangi for the tool Polished Map and the jp-style town map from Red/Blue Star
 - Exp bar coded by Danny-E 33
-- The Pokemon Prism team for the improved RNG on previous versions
+- The Pokemon Prism team for the improved RNG used in this project's previous versions
 - Patrik Rak for the new xor-shift RNG code
 - Move deleter/relearner coded by TheFakeMateo for Pokemon Red++
 - Code contributions and bugfixing by wisp92
@@ -1348,7 +1355,7 @@ The following folks for their great tutorials, glitch videos, and explanations a
 - ChickasaurusGL
 - v0id19
 
-The following folks for their help in pointing out and diagnosing bugs 
+The following folks for bugfix collaberation
 - kadetPirx
 - JOBOalthor1992
 - krazsen
@@ -1358,6 +1365,7 @@ The following folks for their help in pointing out and diagnosing bugs
 - MStern
 - TSinnohTrainer 
 - Chirutalis 
+- coltongit
 
   
 The shinpokered repository was branched from pret/pokered at merge pull request #185 committed on Jul 2, 2018

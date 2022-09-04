@@ -447,6 +447,8 @@ v1.23.08
 - Fixed ball toss sfx not resetting the pitch envelope settings
 - Downward-moving sprites now get hidden behind text boxes
 - NPC walking animation now updates during player movement
+- Fixed hidden coins not giving the correct amount
+- Fixed NPCs treating the last visible screen column/row as off-screen
 
 
 #Bugfixes
@@ -691,7 +693,9 @@ v1.23.08
   - Closed 255 clone pokemon glitch
   - Applied the pokeyellow fix for in-game trade evolutions
   - Can no longer get blocked at the cinnabar gym door
-  
+  - Fixed hidden coins not giving the correct amount
+  - Fixed NPCs treating the last visible screen column/row as off-screen
+ 
  
 #Tweaks
 -----------

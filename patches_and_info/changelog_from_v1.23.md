@@ -147,6 +147,7 @@
 - Can no longer change facing while pushing a boulder
 - Downward-moving sprites now get hidden behind text boxes
 - NPC walking animation now updates during player movement
+- Fixed NPCs treating the last visible screen column/row as off-screen
 
 - Assigned a proper forget-move sfx during battle
 - Fixed a bug having to do with rare instances of bending the audio pitch
@@ -173,6 +174,7 @@
 - Applied the pokeyellow fix for in-game trade evolutions
 - Accounted for underflow with switch-out messages
 - Added an error trap to _Divide function for divide-by-zero calls
+- Fixed hidden coins not giving the correct amount
 
 
 ---

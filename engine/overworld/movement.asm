@@ -703,15 +703,18 @@ CanWalkOntoTile:
 	ld a, [H_CURRENTSPRITEOFFSET]
 	add $4
 	ld l, a
+;joenote - needs to be $81 and $91 because the column/row is visible
 	ld a, [hli]        ; c1x4 (screen Y pos)
 	add $4             ; align to blocks (Y pos is always 4 pixels off)
 	add d              ; add Y delta
-	cp $80             ; if value is >$80, the destination is off screen (either $81 or $FF underflow)
+;	cp $80             ; if value is >$80, the destination is off screen (either $81 or $FF underflow)
+	cp $81
 	jr nc, .impassable ; don't walk off screen
 	inc l
 	ld a, [hl]         ; c1x6 (screen X pos)
 	add e              ; add X delta
-	cp $90             ; if value is >$90, the destination is off screen (either $91 or $FF underflow)
+;	cp $90             ; if value is >$90, the destination is off screen (either $91 or $FF underflow)
+	cp $91
 	jr nc, .impassable ; don't walk off screen
 	push de
 	push bc

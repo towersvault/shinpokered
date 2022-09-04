@@ -450,6 +450,7 @@ v1.23.08
 - Fixed hidden coins not giving the correct amount
 - Fixed NPCs treating the last visible screen column/row as off-screen
 - Slot machine no longer copies too much tile data
+- Fixed wrong amount of stars loaded in Gamefreak logo
 
 
 #Bugfixes
@@ -697,6 +698,7 @@ v1.23.08
   - Fixed hidden coins not giving the correct amount
   - Fixed NPCs treating the last visible screen column/row as off-screen
   - Slot machine no longer copies too much tile data
+  - Fixed wrong amount of stars loaded in Gamefreak logo
  
  
 #Tweaks

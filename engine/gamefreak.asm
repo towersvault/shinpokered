@@ -101,7 +101,8 @@ AnimateShootingStar:
 	xor a
 	ld [wMoveDownSmallStarsOAMCount], a
 	ld hl, SmallStarsWaveCoordsPointerTable
-	ld c, 6
+;	ld c, 6	;joenote - this should be 4 stars, as two are not being drawn
+	ld c, 4
 .smallStarsLoop
 	ld a, [hli]
 	ld e, a

@@ -281,7 +281,7 @@ CableClub_DoBattleOrTradeAgain:
 	ld b, $9
 	call RunPaletteCommand ;gbcnote - refresh pal
 	ld hl, wOptions
-	res 7, [hl]
+	res BIT_BATTLE_ANIMATION, [hl]
 	predef InitOpponent
 	predef HealParty
 	jp ReturnToCableClubRoom

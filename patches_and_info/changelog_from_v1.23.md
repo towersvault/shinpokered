@@ -1,6 +1,10 @@
 **New features exclusively for the master branch**
 - Added nuzlocke mode
 
+- Decoupled the harder difficulty to its own option bit
+  - Pressing RIGHT while the cursor is in the BATTLE STYLE box will toggle the feature on/off
+  - Contrasting this, pressing LEFT will let you select a battle style without toggling difficulty
+
 - The girl in Oak's lab toggles a built-in randomizer for wild pokemon and your starters
   - Shuffles all pokemon that can be gained through walking, surfing, fishing, or from the game corner
   - If activated early enough, your starter pokemon options are shuffled as well
@@ -196,3 +200,5 @@
 - Re-fixed the celadon vending machine code
 - More fixes for AI switching
 - Made adjustment to EXP All message
+- Holding B in zero delay text mode will not revert the text to FAST speed
+- Major cleanup of options constants

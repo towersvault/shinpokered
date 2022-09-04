@@ -3,7 +3,7 @@ SetDefaultNames:
 	push af
 	ld a, [wOptions]
 	push af
-;	ld a, [wd732]	;joenote - leftover from gamefreak's degug tools. need to clear this.
+;	ld a, [wd732]	;joenote - leftover from gamefreak's debug tools. need to clear this.
 ;	push af
 	ld a, [wUnusedD721]	;joenote - preserve extra options
 	push af

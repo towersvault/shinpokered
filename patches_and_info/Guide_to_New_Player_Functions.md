@@ -130,8 +130,10 @@ Preserves ONLY the following information (your current party will be lost):
 #Functions for Adjusting Difficulty
 -----------------------------------------------
 **Increase Difficulty**  
-A NEW GAME now defaults to the SET battle style in the options menu.  
-Playing on the SET battle style now imposes several changes to the game's systems that increase difficulty:  
+A NEW GAME now defaults to the SET battle style and hard mode in the options menu.  
+Pressing RIGHT while the cursor is in the BATTLE STYLE box will toggle the feature on/off.  
+Contrasting this, pressing LEFT will let you select a battle style without toggling difficulty.  
+Playing in hard mode imposes several changes to the game's systems that increase difficulty:  
 1 - Enemy trainer pokemon are assigned level-appropriate StatEXP whereas they previously had none.  
 2 - Enemy trainer pokemon have randomized DVs of 8 or better whereas they previously all had values of 8 or 9.  
 3 - Stat boosts granted by badges are disabled during trainer battles.  
@@ -416,7 +418,7 @@ Be sure to purchase a reasonable stock of healing items to counter the increased
 
 **Big EXP Gains**  
 The Catch-Up Booster bonus compounds with other 1.5x EXP bonuses in the game.  
-With this is in mind, activate level-scaling and do trainer rematches in SET mode to gain loads of EXP.  
+With this is in mind, activate level-scaling and do trainer rematches in hard mode to gain loads of EXP.  
 
 **Training in Post-Game Without Battling**  
 Here is an alternative to grinding out battles in the post-game.  
@@ -451,7 +453,7 @@ Here is an alternative to grinding out battles in the post-game.
   
 - Default Options
   - Some options are automatically changed when nuzlocke mode is turned on.
-  - The battle style will change to SET.
+  - The battle style will change to SET and hard mode.
   - Also, the Obedience Level Cap will be activated if the Scale Enemy Trainer Levels feature is inactive.
   - These are not mandatory changes, and you may reconfigure your options as you wish.
   

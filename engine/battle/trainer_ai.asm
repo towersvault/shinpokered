@@ -12,8 +12,8 @@ AIEnemyTrainerChooseMoves:
 	;only do wildmon AI move choice for Mewtwo while in SET mode
 	;after all, it is still a cunning foe even as a wild pokemon
 	ld a, [wOptions]
-	bit 6, a ;0=SHIFT and 1=SET battle style
-	ret z ;wild AI as normal in shift battle
+	bit BIT_BATTLE_HARD, a ;check for hard mode
+	ret z ;wild AI as normal in outside of hard mode
 	ld a, [wEnemyMon]	
 	cp MEWTWO
 	ret nz

@@ -1557,7 +1557,7 @@ Audio1_9972:
 	push af
 	push bc
 	ld a, [wOptions]
-	and %110000 ; channel options
+	and SOUND_STEREO_BITS ; channel options
 	srl a
 	ld c, a
 	ld b, 0

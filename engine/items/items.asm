@@ -220,8 +220,8 @@ ItemUseBall:
 	cp MASTER_BALL
 	jr nz, .not_mball
 	ld a, [wOptions]
-	bit 6, a ;0=SHIFT and 1=SET battle style
-	jp z, .captured	;works as normal in shift battle
+	bit BIT_BATTLE_HARD, a ;check hard mode
+	jp z, .captured	;works as normal outside of hard mode
 	ld a, [wEnemyMon]
 	cp MEWTWO
 	jp nz, .captured ;works as normal if not mewtwo
@@ -1037,14 +1037,14 @@ ItemUseMedicine:
 	and a
 	jr z, .compareCurrentHPToMaxHP
 ;joenote - at this point, trying to revive a fainted 'mon in battle
-;disallow this in SET battle style or in nuzlock mode
+;disallow this in hard mode or in nuzlock mode
 	push bc
 	ld a, [wOptions]
 	ld b, a
 	ld a, [wUnusedD721]
 	or b
 	pop bc
-	bit 6, a
+	bit BIT_BATTLE_HARD, a
 	jr z, .can_revive
 	call ItemUseNotTime
 	jp .done
@@ -1911,9 +1911,9 @@ ItemUseXStat:
 	push af ; save [wPlayerMoveEffect]
 	push hl
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;joenote - ;double the effect if using SET battle
+;joenote - ;double the effect if using hard mode
 	ld a, [wOptions]	;load game options
-	bit 6, a			;check battle style (bit set if SET battle)
+	bit BIT_BATTLE_HARD, a			;check battle style (bit set if hard mode)
 	ld a, [wcf91]	;load item#
 	jr nz, .double_effect
 	

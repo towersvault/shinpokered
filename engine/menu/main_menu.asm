@@ -165,8 +165,9 @@ MainMenu:
 InitOptions:
 	ld a, 1 ; no delay
 	ld [wLetterPrintingDelayFlags], a
-	ld a, 3 ; medium speed
-	set 6, a ;joenote - SET battle style
+	ld a, TEXT_DELAY_MEDIUM ; medium speed
+	set BIT_BATTLE_SHIFT, a ;joenote - SET battle style
+	set BIT_BATTLE_HARD, a ;joenote - hard mode
 	ld [wOptions], a
 	ld a, [hGBC]
 	and a
@@ -571,6 +572,7 @@ DisplayOptionMenu:
 	call PlaceString
 	call PlaceSoundSetting	;joenote - display the sound setting
 	call Show60FPSSetting	;60fps - display current setting
+	call ShowHardModeSetting	;joenote - display marker for hard mode or noty
 	call ShowLaglessTextSetting	;joenote - display marker for lagless text or not
 	call ShowBadgeCap	;joenote - show the level cap depending on badge
 	call ShowNuzlocke
@@ -686,14 +688,20 @@ DisplayOptionMenu:
 	ld [wOptionsBattleAnimCursorX], a
 	jp .eraseOldMenuCursor
 .cursorInBattleStyle
-	bit 0, b	;A pressed
+	bit BIT_A_BUTTON, b	;A pressed
+	push bc
 	push af
 	call nz, ToggleBadgeCap	;joenote - toggle level cap depending on badge
 	pop af
+	pop bc
 	jp nz, .loop
 	ld a, [wOptionsBattleStyleCursorX] ; battle style cursor X coordinate
 	xor $0b ; toggle between 1 and 10
 	ld [wOptionsBattleStyleCursorX], a
+	bit BIT_D_RIGHT, b	;Right button pressed
+	push af
+	call nz, ToggleHardMode	;joenote - for hard mode option
+	pop af
 	jp .eraseOldMenuCursor
 .pressedLeftInTextSpeed
 	ld a, [wOptionsTextSpeedCursorX] ; text speed cursor X coordinate
@@ -730,10 +738,10 @@ DisplayOptionMenu:
 	ld a, [wOptions]
 	push af
 	add $10
-	and %00110000
+	and SOUND_STEREO_BITS
 	ld b, a
 	pop af
-	and %11001111
+	and (SOUND_STEREO_BITS ^ $FF)
 	or b
 	pop bc
 	ld [wOptions], a
@@ -772,7 +780,7 @@ OptionMenuEar3:
 PlaceSoundSetting:
 	ld hl, OptionMenuSoundText
 	ld a, [wOptions]
-	and %00110000
+	and SOUND_STEREO_BITS
 	swap a
 .loop
 	and a
@@ -817,6 +825,34 @@ Show60FPSSetting:
 	call PlaceString
 	ret
 
+;joenote - for hard mode option
+OptionMenuHardMode:
+	dw OptionMenuHardModeON
+	dw OptionMenuHardModeOFF
+OptionMenuHardModeON:
+	db "!@"
+OptionMenuHardModeOFF:
+	db " @"
+ToggleHardMode:
+	ld a, [wOptions]
+	xor BATTLE_HARD_MODE
+	ld [wOptions], a
+	;fall through
+ShowHardModeSetting:
+	ld hl, OptionMenuHardMode
+	ld a, [wOptions]
+	bit BIT_BATTLE_HARD, a
+	jr nz, .print
+	inc hl
+	inc hl
+.print
+	ld e, [hl]
+	inc hl
+	ld d, [hl]
+	coord hl, $0D, $0B
+	call PlaceString
+	ret
+
 ;joenote - for lagless text option
 OptionMenuLaglessText:
 	dw OptionMenuLaglessTextON
@@ -827,13 +863,13 @@ OptionMenuLaglessTextOFF:
 	db " @"
 ToggleLaglessText:
 	ld a, [wOptions]
-	xor %00000001
+	xor TEXT_DELAY_FAST
 	ld [wOptions], a
 	;fall through
 ShowLaglessTextSetting:
 	ld hl, OptionMenuLaglessText
 	ld a, [wOptions]
-	and %00001111
+	and TEXT_DELAY_BITS
 	jr z, .print
 	inc hl
 	inc hl
@@ -901,16 +937,18 @@ OptionMenuNuzlockeText:
 NuzlockeSettings:
 	push hl
 	ld hl, wUnusedD721
-;activate or deactivate level cap if depending on state of trainer scaling
+;activate or deactivate level cap depending on state of trainer scaling
 	set 5, [hl]
 	CheckEvent EVENT_90C
 	jr z, .next
 	res 5, [hl]
 .next
 	call ShowBadgeCap
-	;battle mode SET
+	;battle mode SET and HARD
 	ld hl, wOptions
-	set 6, [hl]
+	set BIT_BATTLE_HARD, [hl]
+	set BIT_BATTLE_SHIFT, [hl]
+	call ShowHardModeSetting
 	call SetCursorPositionsFromOptions
 	coord hl, $01, $0D
 	ld [hl], $7F
@@ -947,22 +985,22 @@ SetOptionsFromCursorPositions:
 	dec a
 	jr z, .battleAnimationOn
 .battleAnimationOff
-	set 7, d
+	set BIT_BATTLE_ANIMATION, d
 	jr .checkBattleStyle
 .battleAnimationOn
-	res 7, d
+	res BIT_BATTLE_ANIMATION, d
 .checkBattleStyle
 	ld a, [wOptionsBattleStyleCursorX] ; battle style cursor X coordinate
 	dec a
 	jr z, .battleStyleShift
 .battleStyleSet
-	set 6, d
+	set BIT_BATTLE_SHIFT, d
 	jr .storeOptions
 .battleStyleShift
-	res 6, d
+	res BIT_BATTLE_SHIFT, d
 .storeOptions
-	ld a, [wOptions]	;joenote - preserve sound settings
-	and %00110000
+	ld a, [wOptions]	;joenote - preserve sound and hard mode settings
+	and (SOUND_STEREO_BITS | BATTLE_HARD_MODE)
 	or d
 	;ld a, d
 	ld [wOptions], a
@@ -972,9 +1010,9 @@ SetOptionsFromCursorPositions:
 SetCursorPositionsFromOptions:
 	ld hl, TextSpeedOptionData + 1
 	ld a, [wOptions]
-	and %11001111	;joenote - bypass sound settings
+	and (SOUND_STEREO_BITS ^ $FF)	;joenote - bypass sound settings
 	ld c, a
-	and $3f
+	and TEXT_DELAY_BITS
 	push bc
 	ld de, 2
 	call IsInArray
@@ -983,7 +1021,7 @@ SetCursorPositionsFromOptions:
 	
 	;joenote - set cursor position for lagless text
 	ld a, [wOptions]
-	and %00001111
+	and TEXT_DELAY_BITS
 	ld a, [hl]
 	jr nz, .settextspeed
 	ld a, 1
@@ -992,17 +1030,17 @@ SetCursorPositionsFromOptions:
 	ld [wOptionsTextSpeedCursorX], a ; text speed cursor X coordinate
 	coord hl, 0, 3
 	call .placeUnfilledRightArrow
-	sla c
+	bit BIT_BATTLE_ANIMATION, c
 	ld a, 1 ; On
-	jr nc, .storeBattleAnimationCursorX
+	jr z, .storeBattleAnimationCursorX
 	ld a, 10 ; Off
 .storeBattleAnimationCursorX
 	ld [wOptionsBattleAnimCursorX], a ; battle animation cursor X coordinate
 	coord hl, 0, 8
 	call .placeUnfilledRightArrow
-	sla c
+	bit BIT_BATTLE_SHIFT, c
 	ld a, 1
-	jr nc, .storeBattleStyleCursorX
+	jr z, .storeBattleStyleCursorX
 	ld a, 10
 .storeBattleStyleCursorX
 	ld [wOptionsBattleStyleCursorX], a ; battle style cursor X coordinate

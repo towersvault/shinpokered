@@ -3762,7 +3762,7 @@ PrintLetterDelay::
 	bit 0, a
 	jr z, .waitOneFrame
 	ld a, [wOptions]
-	and $f
+	and TEXT_DELAY_BITS
 	ld [H_FRAMECOUNTER], a
 	jr .checkButtons
 .waitOneFrame
@@ -3771,15 +3771,21 @@ PrintLetterDelay::
 .checkButtons
 	call Joypad
 	ld a, [hJoyHeld]
-.checkAButton
-	bit 0, a ; is the A button pressed?
-	jr z, .checkBButton
-	jr .endWait
-.checkBButton
-	bit 1, a ; is the B button pressed?
+;.checkAButton
+;	bit 0, a ; is the A button pressed?
+;	jr z, .checkBButton
+;	jr .endWait
+;.checkBButton
+;	bit 1, a ; is the B button pressed?
+;	jr z, .buttonsNotPressed
+;joenote - make this work better when zero text delay is implemented
+	and (A_BUTTON | B_BUTTON)
 	jr z, .buttonsNotPressed
-.endWait
-	call DelayFrame
+	ld a, [wOptions]
+	and TEXT_DELAY_BITS
+	call nz, DelayFrame
+;.endWait
+;	call DelayFrame
 	jr .done
 .buttonsNotPressed ; if neither A nor B is pressed
 	ld a, [H_FRAMECOUNTER]

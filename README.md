@@ -161,11 +161,11 @@ You can hunt for shiny pokemon, and they are valid with Gen 2 games.
 
 No more grinding wild pokemon. Nearly all trainers can be rematched just by talking to them once or twice.
 
-The "SET" battle style gives increased difficulty by making the stats of trainer pokemon more on your level.
+A hard mode option increases difficulty by making the stats of trainer pokemon more on your level.
 It also doubles the effect of the X-stat items that AI trainers are fond of.
 And it disallows the use of Revive items in battle.
 Finally, it makes catching a wild Mewtwo more challenging.
-As compensation, SET mode gives an additional 1.5x EXP boost in trainer battles.
+As compensation, hard mode gives an additional 1.5x EXP boost in trainer battles.
 
 You can choose RUN while holding SELECT in trainer battles to forfeit the match and black yourself out.
 
@@ -452,6 +452,11 @@ v1.23.08
 - Slot machine no longer copies too much tile data
 - Fixed wrong amount of stars loaded in Gamefreak logo
 - Added protection against oak's lab music cutting a channel off
+- Holding B in zero delay text mode will not revert the text to FAST speed
+- Major cleanup of options constants
+- Decoupled the harder difficulty to its own option bit
+  - Pressing RIGHT while the cursor is in the BATTLE STYLE box will toggle the feature on/off
+  - Contrasting this, pressing LEFT will let you select a battle style without toggling difficulty
 
 
 #Bugfixes
@@ -766,14 +771,14 @@ v1.23.08
   - Sleep does not prevent choosing a move
   - Waking up from sleep does not waste the turn and the chosen move is used
     - The sleep counter's minimum value is increased by +1 to maintain accuracy of sleep moves
-  - Badge stat-ups are now only applied in wild pokemon battles to give parity to enemy trainers (only in "SET" style)
+  - Badge stat-ups are now only applied in wild pokemon battles to give parity to enemy trainers (only in hard mode)
   - The effect of X-Accuracy is no longer applied to one-hit K.O. moves (it originally made them auto-hit)
   - Using X-Accuracy with a OHKO move now allows it to hit faster opponents
   - The limiter on vitamins is raised to a max of 62720 stat exp after the elite 4 have been beaten
   - Pkmn added to the player's party (either as a gift or in-game trade) have at the least DVs of 9,8,8,8
   - Upped the power of safari balls
   - Escaping in the safari zone is now based on level instead of speed
-  - In "SET" style, X-stat items have double the effect
+  - In hard mode, X-stat items have double the effect
   
 - Trainer ai routine #1 (recognition of stats, hp, and conditions) has been modified
   - using a move with a dream eater effect is heavily discouraged against non-sleeping opponents
@@ -842,13 +847,13 @@ v1.23.08
   -jr trainer M/F, pokemaniac, hiker, cueball, psychic, tamer, black belt, rocket, cooltrainer M/F, gentleman, channeler
   -all rival phases, all gym leaders, elite-4, prof.oak, chief
   
-- Trainer stat DVs are now randomly generated to a degree (only in "SET" style)
+- Trainer stat DVs are now randomly generated to a degree (only in hard mode)
   - Attack DV is between 9 and 15 and always odd-numbered
   - Defense, special, and speed DVs are between 8 and 15
   - HP DV is a minimum of 8 since attack DV is always odd-numbered
 - Trainer AI battles now track which enemy pkmn have already been sent out, so allows for new functionality:
   - Trainer pkmn DVs are remembered between switching, and new ones won't be generated on every send-out
-  - Trainer pkmn now have stat experience assigned to them that is scaled to their level (only in "SET" style)
+  - Trainer pkmn now have stat experience assigned to them that is scaled to their level (only in hard mode)
   - These are real DVs and statEXP values that utilize the existing enemy party_struct which is normally unused by trainer AI
 - Special trainers, e4, and gym leaders are slightly adjusted in their item use
 - Agatha & cooltrainers will not randomly switch since they now have ai routine 4
@@ -934,7 +939,7 @@ v1.23.08
   - Added a PC to the daycare
   - Daycare allows HM moves on entered pokemon
 
-- A regular New Game will default the battle style to SET
+- A regular New Game will default the battle style to SET and hard mode
 - Starting a New Game while in GBC-mode will default 60FPS mode to ON
 - Yes/No prompt for flute use has been added to blocking snorlax
 - Game corner prize costs re-balanced
@@ -970,14 +975,16 @@ v1.23.08
   - Talk to the right-side aide in Oak's lab to toggle on/off
   - Enemy pkmn will evolve by level if applicable
   - Gym leaders and the E4 scale slightly higher than normal trainers
-- Playing on "SET" style provides increased difficulty
+- Playing on hard mode provides increased difficulty
+  - Pressing RIGHT while the cursor is in the BATTLE STYLE box will toggle the feature on/off
+  - Contrasting this, pressing LEFT will let you select a battle style without toggling difficulty
   - Enemy trainer pokemon are assigned level-appropriate stat exp
   - Enemy trainer pokemon have randomized DVs that are all 8 or better (on a scale of 0 to 15)
   - Badge-granted stat boosts are disabled in trainer battles
   - X-stat items have double the effect like in more recent generations
   - Revive items cannot be used in battles
   - Mewtwo will prevent you from using a master ball on it and use AI to choose moves
-  - SET mode gives an additional 1.5x EXP boost in trainer battles
+  - Hard mode gives an additional 1.5x EXP boost in trainer battles
 - Added the Clause Brothers to Viridian City
   - They toggle enforcement of the item, sleep, and/or freeze clauses
   - The clauses apply to the player and AI equally, and only apply during non-link trainer battles
@@ -1164,7 +1171,7 @@ v1.23.08
   - Repel effects will not block shiny encounters
 - Shiny Mercy 
   - When a player encounters an AI trainer shiny pokemon, the next wild encounter will be shiny
-  - AI trainers can't have shinies in SHIFT mode, so SET mode affords more chances to find wild shinies
+  - AI trainers can only have shinies in hard mode, so it affords more chances to find wild shinies
 - You can now battle missingno on the infamous cinnabar shoreline
   - You must have gotten the pokedex diploma first
   - Activated the traditional way via the "old man in viridian" method
@@ -1257,7 +1264,7 @@ v1.23.08
 - Default Options
   - Some options are automatically changed when nuzlocke mode is turned on.
   - The Obedience Level Cap will be activated if the Scale Enemy Trainer Levels feature is inactive.
-  - Also, the battle style will change to SET.
+  - Also, the battle style will change to SET with hard mode.
   - These are not mandatory changes, and you may reconfigure your options as you wish.
   
 - Rule 1: A pokemon that faints is considered dead and can no longer be used.

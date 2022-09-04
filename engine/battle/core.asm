@@ -1623,7 +1623,7 @@ EnemySendOutFirstMon:
 	cp LINK_STATE_BATTLING
 	jr z, .next4
 	ld a, [wOptions]
-	bit 6, a
+	bit BIT_BATTLE_SHIFT, a
 	jr nz, .next4
 	ld hl, TrainerAboutToUseText
 	call PrintText
@@ -6885,9 +6885,9 @@ LoadEnemyMonData:
 	ld a, [wIsInBattle]
 	cp $2 ; is it a trainer battle?
 	jr nz, .nottrainer	;if not a trainer then skip this part
-;joenote - load default DVs if using "shift" battle style
+;joenote - load default DVs if using "hard" battle style
 	ld a, [wOptions]	;load game options
-	bit 6, a			;check battle style
+	bit BIT_BATTLE_HARD, a			;check battle style
 ; fixed DVs for trainer mon
 	ld a, $98
 	ld b, $88
@@ -7401,8 +7401,8 @@ ApplyBadgeStatBoosts:
 	jr z, .return ; return if link battle
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	ld a, [wOptions]	;load game options
-	bit 6, a			;check battle style
-	jr z, .dobadgeboost	;if shift style, always apply badge boosts
+	bit BIT_BATTLE_HARD, a			;check for hard mode
+	jr z, .dobadgeboost	;if not hard mode, always apply badge boosts
 ;joenote - only apply badge stat boosts in wild battles to keep parity with ai trainers
 	ld a, [wIsInBattle]
 	cp $1 ; is it a wild battle?

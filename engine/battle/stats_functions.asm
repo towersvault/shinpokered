@@ -169,8 +169,8 @@ ReduceSpeed:
 ;requires a, b, de, and wCurEnemyLVL
 CalcEnemyStatEXP:
 	ld a, [wOptions]	;load game options
-	bit 6, a			;check battle style
-	jr z, .loadzero		;load zero stat exp if on shift style
+	bit BIT_BATTLE_HARD, a			;check for hard mode
+	jr z, .loadzero		;load zero stat exp if not on hard mode
 	;This loads 648 stat exp per level. Note that 648 in hex is the two-byte $0288
 	ld a, $02
 	ld [H_MULTIPLICAND], a

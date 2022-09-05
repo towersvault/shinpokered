@@ -167,6 +167,9 @@ ClearAISwitched:
 	ret
 
 SetAISwitched:
+	ld a, [wUnusedC000]
+	bit 5, a
+	ret z	;no point to this function if AIMoveChoiceModification4 is not active
 	ld a, [de]	
 	cp $05
 	jr z, .party5

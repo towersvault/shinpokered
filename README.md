@@ -457,7 +457,8 @@ v1.23.08
 - Decoupled the harder difficulty to its own option bit
   - Pressing RIGHT while the cursor is in the BATTLE STYLE box will toggle the feature on/off
   - Contrasting this, pressing LEFT will let you select a battle style without toggling difficulty
-
+- Fixed a minor issue where the first pokemon an opponent sends out can't be switched
+  
 
 #Bugfixes
 -----------

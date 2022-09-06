@@ -130,8 +130,15 @@ Yellow's audio engine is backported for stereo sound support.
 New options that can be toggled!
 - Hit SELECT on the options screen to cycle through the audio output types.
 - Playing in GBC mode on a backlit LCD screen? Press SELECT at the copyright screen to activate color correction.
-- Experimental 60FPS Mode: Place the cursor over CANCEL in the options screen and toggle by pressing left or right.
+- Experimental 60FPS Mode: Place the cursor over CANCEL in the options screen and toggle by pressing LEFT or RIGHT.
 - Zero-Delay Text: Text with zero frame delay can be toggled in the options menu; press LEFT with the cursor on FAST.
+- Hard Mode: With the cursor in BATTLE STYLE, press RIGHT to toggle hard mode on/off (LEFT will not toggle).
+
+The hard mode option increases difficulty by making the stats of trainer pokemon more on your level.
+It also doubles the effect of the X-stat items that AI trainers are fond of.
+And it disallows the use of Revive items in battle.
+Finally, it makes catching a wild Mewtwo more challenging.
+As compensation, hard mode gives an additional 1.5x EXP boost in trainer battles.
 
 Trainer AI has been improved and greatly expanded.
 Some trainers will even try to switch pokemon intelligently.
@@ -160,12 +167,6 @@ There's an EXP bar in battle.
 You can hunt for shiny pokemon, and they are valid with Gen 2 games.
 
 No more grinding wild pokemon. Nearly all trainers can be rematched just by talking to them once or twice.
-
-A hard mode option increases difficulty by making the stats of trainer pokemon more on your level.
-It also doubles the effect of the X-stat items that AI trainers are fond of.
-And it disallows the use of Revive items in battle.
-Finally, it makes catching a wild Mewtwo more challenging.
-As compensation, hard mode gives an additional 1.5x EXP boost in trainer battles.
 
 You can choose RUN while holding SELECT in trainer battles to forfeit the match and black yourself out.
 

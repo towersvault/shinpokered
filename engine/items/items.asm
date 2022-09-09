@@ -68,7 +68,8 @@ ItemUsePtrTable:
 	dw UnusableItem      ; DOME_FOSSIL
 	dw UnusableItem      ; HELIX_FOSSIL
 	dw UnusableItem      ; SECRET_KEY
-	dw UnusableItem		 ; XXX
+;	dw UnusableItem		 ; XXX
+	dw ItemUseVitamin    ; MIST_STONE	;joenote - custom item
 	dw UnusableItem      ; BIKE_VOUCHER
 	dw ItemUseXAccuracy  ; X_ACCURACY
 	dw ItemUseEvoStone   ; LEAF_STONE
@@ -216,7 +217,7 @@ ItemUseBall:
 ;joenote - Adding an exception for Mewtwo! This is now the ultimate test of the player's catching skills.
 ;		It will play its cry and keep the ball from having any effect.
 ;		The ball is not wasted. Mewtwo's mental might prevents you from throwing it.
-;		This added difficulty is only available in SET battle.
+;		This added difficulty is only available in hard mode.
 	cp MASTER_BALL
 	jr nz, .not_mball
 	ld a, [wOptions]
@@ -1404,10 +1405,12 @@ ItemUseMedicine:
 	pop de
 	pop hl
 	ld a, [wcf91]
-	cp M_GENE	;joenote - custom item
-	jp z, .useMGene
 	cp RARE_CANDY
 	jp z, .useRareCandy
+	
+	jp UseCustomMedicine	;joenote - custom medicine items (m_gene and mist_stone)
+.no_custom_medicine
+	
 	push hl
 	sub HP_UP
 	add a
@@ -1547,55 +1550,7 @@ ItemUseMedicine:
 	ld a, [hl]
 	adc b
 	ld [hl], a
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-	jp .end_mgene
-;joenote - added code for the M_GENE
-.useMGene
-	push hl
-	ld bc, wPartyMon1DVs - wPartyMon1
-	add hl, bc ; hl now points to DVs
-;generate new random DVs and make sure they are at least 9,9,8,8
-	call Random
-	or $98
-	ld [hli], a
-	call Random
-	or $88
-	ld [hl], a
-	pop hl
-
-	ld a, [wWhichPokemon]
-	push af
-	ld a, [wcf91]
-	push af
-	push de
-
-	push hl
-	ld bc, wPartyMon1MaxHP - wPartyMon1
-	add hl, bc ; hl now points to MSB of max HP
-	ld a, [hli]
-	ld b, a
-	ld c, [hl]
-	pop hl
-
-	push hl
-	call .recalculateStats
-	pop hl
-	ld bc, (wPartyMon1MaxHP) - wPartyMon1
-	add hl, bc ; hl now points to MSB of recalculated max HP
-	ld a, [hli]
-	ld b, a
-	ld a, [hld]
-	ld c, a
-	
-; set current hp to new max hp
-	ld de, (wPartyMon1HP) - wPartyMon1MaxHP
-	add hl, de ; hl now points to MSB of current HP
-	ld a, b
-	ld [hli], a
-	ld a, c
-	ld [hld], a
-.end_mgene
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+.returnDVMedicine
 	ld a, RARE_CANDY_MSG
 	ld [wPartyMenuTypeOrMessageID], a
 	call RedrawPartyMenu
@@ -3326,3 +3281,92 @@ CheckMapForMon:
 	jr nz, .loop
 	dec hl
 	ret
+
+;joenote - custom medicine items
+UseCustomMedicine:	
+	;need to do these pushes first, as they are popped later in ItemUseMedicine
+	ld a, [wWhichPokemon]
+	push af
+	ld a, [wcf91]
+	push af
+	push de
+
+	cp M_GENE	
+	jr z, .useMGene
+
+	cp MIST_STONE	
+	jr z, .useMistStone
+
+	jr .exit_no_usage
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;added code for the MIST_STONE
+.useMistStone
+	push hl
+	ld bc, wPartyMon1HPExp - wPartyMon1
+	add hl, bc ; hl now points to stat experience
+	ld a , $ff
+	ld [hli], a	;load max hp exp
+	ld [hli], a
+	ld [hli], a	;load max attack exp
+	ld [hli], a
+	ld [hli], a	;load max defense exp
+	ld [hli], a
+	ld [hli], a	;load max speed exp
+	ld [hli], a
+	ld [hli], a	;load max special exp
+	ld [hli], a
+	pop hl
+	jr .exit_used_meds
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;added code for the M_GENE
+.useMGene
+	push hl
+	ld bc, wPartyMon1DVs - wPartyMon1
+	add hl, bc ; hl now points to DVs
+;generate new random DVs and make sure they are at least 9,9,8,8
+	call Random
+	or $98
+	ld [hli], a
+	call Random
+	or $88
+	ld [hl], a
+	pop hl
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;jump back to the original function after using an item
+.exit_used_meds
+	push hl
+	ld bc, wPartyMon1MaxHP - wPartyMon1
+	add hl, bc ; hl now points to MSB of max HP
+	ld a, [hli]
+	ld b, a
+	ld c, [hl]
+	pop hl
+
+	push hl
+	call ItemUseMedicine.recalculateStats
+	pop hl
+	ld bc, (wPartyMon1MaxHP) - wPartyMon1
+	add hl, bc ; hl now points to MSB of recalculated max HP
+	ld a, [hli]
+	ld b, a
+	ld a, [hld]
+	ld c, a
+	
+; set current hp to new max hp
+	ld de, (wPartyMon1HP) - wPartyMon1MaxHP
+	add hl, de ; hl now points to MSB of current HP
+	ld a, b
+	ld [hli], a
+	ld a, c
+	ld [hld], a
+
+	jp ItemUseMedicine.returnDVMedicine
+	
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;jump back to the original function after not using an item
+.exit_no_usage
+	pop de
+	pop af
+	pop af
+	jp ItemUseMedicine.no_custom_medicine
+	

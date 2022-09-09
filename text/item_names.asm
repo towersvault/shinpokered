@@ -42,7 +42,8 @@ ItemNames:
 	db "DOME FOSSIL@"
 	db "HELIX FOSSIL@"
 	db "SECRET KEY@"
-	db "?????@"
+;	db "?????@"
+	db "MIST STONE@"	;joenote - custom item
 	db "BIKE VOUCHER@"
 	db "X ACCURACY@"
 	db "LEAF STONE@"

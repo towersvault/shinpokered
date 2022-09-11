@@ -399,6 +399,10 @@ There are four special trainers to find and defeat after beating the Elite-4.
 Talk to Oak at his lab. When he asks to rate your pokedex, choose NO.  
 This will start a chain of hints for finding the four trainers.  
 
+**The Secret of the MIST STONE**  
+The MIST STONE will max-out all the stat exp of the pokemon on which it is used.  
+But this assumes you are able to find the secret room for obtaining it.  
+
 
 #Pro-Tips
 -----------------------------------------------
@@ -432,7 +436,7 @@ Here is an alternative to grinding out battles in the post-game.
 1 - Try winning the SS Anne tournament with a Pikachu in your party.  
 2 - After beating the Elite-4, vitamins are no longer limited on your pokemon.  
 3 - The fourth special trainer hints at the method to find Mew. But Mew only appears once.  
-4 - There is a fifth special trainer outside Bill's house. Victory respawns the legendaries including Mew.  
+4 - There is a fifth special trainer outside Bill's house. Victory respawns the legendaries, Mew, and mist stone.  
 5 - The Vermilion Dock has three hidden items.  
 6 - Fish in the lowest level of Cerulean Cave for something strange.  
 7 - Place a level 100 Chansey at the top of your party and use a repel. You're bound to find something shiny.  
@@ -440,7 +444,8 @@ Here is an alternative to grinding out battles in the post-game.
 9 - Missingno can be activated in either Seafoam or Cinnabar with your pokedex diploma. Prepare your sixth item slot for victory.  
 10 - Mercy is granted if you encounter an enemy trainer with a shiny pokemon.  
 11 - Put Mewtwo at the top of your party in the post-game. How will Mr. Fuji react?  
-12 - Bill's secret garden? He'll never tell! Could showing him a Mew persuade him?  
+12 - Bill's secret garden? He'll never tell! Could showing him a new species pokemon persuade him?  
+13 - Search all over the Kanto overworld to find a secret cave room, or else you'll never get a mist stone.  
 
 
 #Built-In Nuzlocke Mode

@@ -62,7 +62,7 @@ KeyItemBitfield:
 	FALSE,  \ ; DOME_FOSSIL
 	FALSE,  \ ; HELIX_FOSSIL
 	TRUE,  \ ; SECRET_KEY
-	TRUE,  \ ; UNUSED_ITEM	;joenote - used for MIST_STONE
+	FALSE,  \ ; UNUSED_ITEM	;joenote - used for MIST_STONE
 	TRUE,  \ ; BIKE_VOUCHER
 	FALSE, \ ; X_ACCURACY
 	FALSE, \ ; LEAF_STONE

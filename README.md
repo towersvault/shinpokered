@@ -251,6 +251,7 @@ Other minor changes to lessen annoyance.
 Cheats and Secrets!
 - A pokemon with Pay Day in your top slot will might come in handy at the Game Corner.
 - New item, the M.GENE! Could it give low-DV pokemon a boost?
+- Find the secret room, and max-out your pokemon's hidden potential with the MIST STONE.
 - Five post-game special trainers to find and defeat! What pokemon may reappear when they are all defeated?
 - If a level-100 Chansey leads your party, you are bound to have some lucky encoutners.
 - New Super Boss: Do you dare to activate Missingno at the Cinnabar shore? Only if you got your 'dex diploma.
@@ -459,7 +460,8 @@ v1.23.08
   - Pressing RIGHT while the cursor is in the BATTLE STYLE box will toggle the feature on/off
   - Contrasting this, pressing LEFT will let you select a battle style without toggling difficulty
 - Fixed a minor issue where the first pokemon an opponent sends out can't be switched
-  
+- Added the mist stone custom item  
+
 
 #Bugfixes
 -----------
@@ -1156,7 +1158,7 @@ v1.23.08
 - Mind battle with future Trainer RED after beating the elite 4 via the new girl outside Bill's villa
   - Must have beaten Oak, Fuji, Silph Chief, and Green (the order doesn't matter)
   - After winning, must re-defeat the four extra trainers before you can challenge again
-  - A win will respawn Mewtwo, the legendary birds, and allow Mew to be found again
+  - A win will respawn Mewtwo, the legendary birds, and allow Mew to be found again, and reset the mist stone events
 
 
 #Tricks and Secrets
@@ -1206,6 +1208,10 @@ v1.23.08
   - Put Mew in your top spot and show Bill to gain access
   - You will encounter the starter pokemon plus some other rarer pokemon
   - Shiny rates are 1-in-128 in this area
+- New item MIST STONE: fully maxes-out a pokemon's stat exp
+  - There is a secret cave on Route 13, and the NPC within tell you to go to Bill's secret garden
+  - Return to this NPC afterwards in order to get a mist stone
+  - The mist stone will max-out all the stat exp of the pokemon on which it is used
 
 
 #Added Encounter Locations for the following pokemon (rare if not normally in the chosen version):

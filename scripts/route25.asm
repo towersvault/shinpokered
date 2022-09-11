@@ -151,6 +151,9 @@ Route25Script3:	;joenote - adding this function to respawn the legendaries if fu
 	ld a, [wBeatGymFlags]
 	and $F0
 	ld [wBeatGymFlags], a
+;reset MIST_STONE events
+	ResetEvent EVENT_8C3
+	ResetEvent EVENT_8C4
 ;reset Mew events
 	ResetEvent EVENT_8C0
 	ResetEvent EVENT_8C2

@@ -29,6 +29,8 @@
   - You will encounter the starter pokemon plus some other rarer pokemon
   - Shiny rates are 1-in-128 in this area
 
+- Added the MIST STONE: it will max-out all the stat exp of the pokemon on which it is used
+
 - Scaled back fishing, reduced its randomness, and made it more map-dependent
 
 - Added spaceworld-style trainer back sprites for consistency with the spaceworld 'mon back sprites 

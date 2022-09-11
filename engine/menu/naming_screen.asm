@@ -337,9 +337,16 @@ DisplayNamingScreen:
 LoadEDTile:
 	ld de, ED_Tile
 	ld hl, vFont + $700
-	ld bc, (ED_TileEnd - ED_Tile) / $8
+;	ld bc, (ED_TileEnd - ED_Tile) / $8
+
 	; to fix the graphical bug on poor emulators
-	;lb bc, BANK(ED_Tile), (ED_TileEnd - ED_Tile) / $8
+	lb bc, BANK(ED_Tile), (ED_TileEnd - ED_Tile) / $8
+;joenote - What's going on here is that the CPU is requesting the MBC to load bank 0 into $4000-$7fff.
+;		- Normally this is complete nonsense because bank 0 is always loaded. 
+;		- And official Nintendo cartridges will see this and load bank 1 instead.
+;		- But inaccurate emulators and cheap flash cartridges will often allow the MBC to load bank 0 anyway.
+;		- This results in a graphical bug.
+
 	jp CopyVideoDataDouble
 
 ED_Tile:

@@ -281,16 +281,6 @@ Cheats and Secrets!
 - A revision control function has been added that will cancel unsupported cable links
 
 
-#Hack-Induced Bugfixes & Adjustments since last version
------------
-- 
-
-
-#New features & adjustments since last version
------------
--
-
-
 #Changelog From the Last Full Release
 -----------
 [View the Consolidated Changelog Document](/patches_and_info/changelog_from_v1.23.md)  
@@ -461,6 +451,7 @@ v1.23.08
   - Contrasting this, pressing LEFT will let you select a battle style without toggling difficulty
 - Fixed a minor issue where the first pokemon an opponent sends out can't be switched
 - Added the mist stone custom item  
+- Fixed a graphical bug on the naming screen that apears on cheapo flash carts
 
 
 #Bugfixes
@@ -612,7 +603,8 @@ v1.23.08
   - Can no longer change facing while pushing a boulder
   - Downward-moving sprites now get hidden behind text boxes
   - NPC walking animation now updates during player movement
-
+  - Fixed a graphical bug on the naming screen that apears on cheapo flash carts
+  
 
 - Item Fixes  
   - Great ball has a ball factor of 12 now

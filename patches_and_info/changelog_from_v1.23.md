@@ -154,6 +154,7 @@
 - Downward-moving sprites now get hidden behind text boxes
 - NPC walking animation now updates during player movement
 - Fixed NPCs treating the last visible screen column/row as off-screen
+- Fixed a graphical bug on the naming screen that apears on cheapo flash carts
 
 - Assigned a proper forget-move sfx during battle
 - Fixed a bug having to do with rare instances of bending the audio pitch

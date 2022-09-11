@@ -1209,8 +1209,8 @@ v1.23.08
   - You will encounter the starter pokemon plus some other rarer pokemon
   - Shiny rates are 1-in-128 in this area
 - New item MIST STONE: fully maxes-out a pokemon's stat exp
-  - There is a secret cave on Route 13, and the NPC within tell you to go to Bill's secret garden
-  - Return to this NPC afterwards in order to get a mist stone
+  - There is a secret cave on Route 13, and the book within tells you to go to Bill's secret garden
+  - Return to this book afterwards in order to find a mist stone
   - The mist stone will max-out all the stat exp of the pokemon on which it is used
 
 

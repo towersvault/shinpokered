@@ -12,7 +12,7 @@ DiglettsCaveObject:
 
 ;	db 0 ; objects	
 	db 1 ; objects	
-	object SPRITE_COOK, 35,  2, WALK, 2, 1 ; person
+	object SPRITE_BOOK_MAP_DEX, 35,  2, STAY, NONE, 1 ; person
 
 	; warp-to
 	warp_to 5, 5, DIGLETTS_CAVE_WIDTH ; DIGLETTS_CAVE_EXIT

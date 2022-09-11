@@ -5122,25 +5122,22 @@ CriticalHitTest:
 	srl b                        ; /2 for regular move (effective (base speed / 2)) --> base crit rate
 	ld a, [H_WHOSETURN]
 	and a
-	ld a, [wPlayerMoveEffect]	;joenote - begin storing player move effect
 	ld hl, wPlayerMovePower
 	ld de, wPlayerBattleStatus2
 	jr z, .calcCriticalHitProbability
-	ld a, [wEnemyMoveEffect]	;joenote - begin storing enemy move effect
 	ld hl, wEnemyMovePower
 	ld de, wEnemyBattleStatus2
 .calcCriticalHitProbability
 ;normal hit is (base speed) / 2
 ;focus energy is 2*(base speed) for a 4x crit rate
 ;high crit move is 4*(base speed) for a 8x crit rate
-;;;;;;;;;;;;
-;joenote - do not do a critical hit if a special damage move is being used (dragon rage, seismic toss, etc)
-	cp SPECIAL_DAMAGE_EFFECT
-	ret z
-;;;;;;;;;;;;
 	ld a, [hld]                  ; read base power from RAM
-	and a
-	ret z                        ; do nothing if zero
+;	and a
+;	ret z                        ; do nothing if zero
+;joenote - Also do not do a critical hit if a special damage move is being used (dragon rage, seismic toss, etc)
+;		- base power of 1 now signifies an expanded range to include moves like bide and counter 
+	cp 2
+	ret c	;do nothing if base power is 0 or 1
 	dec hl
 	ld c, [hl]                   ; read move id
 	ld a, [de]

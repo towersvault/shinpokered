@@ -251,9 +251,9 @@ Other minor changes to lessen annoyance.
 Cheats and Secrets!
 - A pokemon with Pay Day in your top slot will might come in handy at the Game Corner.
 - New item, the M.GENE! Could it give low-DV pokemon a boost?
-- Find the secret room, and max-out your pokemon's hidden potential with the MIST STONE.
-- Five post-game special trainers to find and defeat! What pokemon may reappear when they are all defeated?
-- If a level-100 Chansey leads your party, you are bound to have some lucky encoutners.
+- Max-out your pokemon's hidden potential with the MIST STONE.
+- Five post-game special trainers to find and defeat! What may reappear when they are all defeated?
+- If a level-100 Chansey leads your party, you are bound to have some lucky encounters.
 - New Super Boss: Do you dare to activate Missingno at the Cinnabar shore? Only if you got your 'dex diploma.
 - New Super Boss: Missingno not hard enough for you? Try activating it at the infamous Seafoam shore!
 - The SS Anne has a post-game tournament. Try winning with a pikachu in your party.
@@ -1141,42 +1141,18 @@ v1.23.08
   - Also makes it so there is a rare chance for any pokemon to be encountered in the safari zone (depends on location)
 - The game corner chief will buy pokemon from the player post-e4
 - There is a new NPC in the west-east underground path that generates random battles after beating the elite 4
-- New item M.GENE: re-randomizes a pkmn's DVs to values of 9,8,8,8 or more.
-  - Win 5 matches in a row against the random team NPC to get M.GENE items (leaving the area resets the win streak)
-- Talking to prof oak after beating the elite 4 let's you challenge him to a battle
-- Can battle Mr. Fuji after beating the elite 4
-- Can battle the Silph Chief after beating the elite 4
-- Trainer Green (named Seiga) can be battled next to the ss anne dock truck after beating the elite 4
-- Mind battle with future Trainer RED after beating the elite 4 via the new girl outside Bill's villa
-  - Must have beaten Oak, Fuji, Silph Chief, and Green (the order doesn't matter)
-  - After winning, must re-defeat the four extra trainers before you can challenge again
-  - A win will respawn Mewtwo, the legendary birds, and allow Mew to be found again, and reset the mist stone events
-
-
-#Tricks and Secrets
-- The surfboard, a nugget, and TM 15 are hidden items added to the vermilion dock
-- A pkmn with Pay Day in the 1st party slot will play its cry when interacting with a lucky slot machine
-- A pkmn with Pay Day in the 1st party slot will play its cry when a slot machine enters payout modes
-  - 1 cry for a normal payout on the next pull
-  - 2 cries to signal the possibility of all 7s/bars on the next pull
-  - 3 cries to signal that super payout mode had been entered
-- Pkmn with levels > level cap give 255 stat exp for each stat
-- Pkmn with levels > level cap have 255 base exp yield
-- If a chansey >= level 100 is first in your roster:
-  - Shiny wild random encounters and fishing rod encounters are much more common (1 in 256)
-  - Repel effects will not block shiny encounters
-- Shiny Mercy 
-  - When a player encounters an AI trainer shiny pokemon, the next wild encounter will be shiny
-  - AI trainers can only have shinies in hard mode, so it affords more chances to find wild shinies
-- You can now battle missingno on the infamous cinnabar shoreline
-  - You must have gotten the pokedex diploma first
-  - Activated the traditional way via the "old man in viridian" method
-  - The battle will trigger randomly while surfing on the shore even if you are not moving
-  - Uses trainer battle routines (different music, uses AI, and uncatchable)
+- New item M.GENE: 
+  - Re-randomizes a pkmn's DVs to values of 9,8,8,8 or more.
+  - Win 5 matches in a row against the random team NPC to get a M.GENE (leaving the area resets the win streak)
+- New item MIST STONE: fully maxes-out a pokemon's stat exp
+- There are 5 new trainers to find and battle
+  - Hint 1: Talking to Oak can guide you to the first one
+  - Hint 2: The fifth one can only be fought after beating the first four.
+- There are two missingno superbosses available after completing the pokedex
+  - One for each infamous shore
   - Uses its L-block appearance remade as a proper image and has its own defined base stats data
-  - If defeated, it will set a non-key item in the sixth bag slot to a quantity of 99
-  - Win or lose, you must do the "Old Man" process again to reactivate the encounter
-  - For an even harder battle, try using the eastern shore of the seafoam islands
+  - Uses trainer battle routines (different music, uses AI, and uncatchable)
+- Mew can be found in the wild, and one of the newly-added trainers gives a hint on how to find it
 - New Game Plus has been added (still experimental)
   - Activated under these conditions:
     - Must have an existing non-corrupt game save on-file
@@ -1190,20 +1166,65 @@ v1.23.08
 	- Hall of Fame (experimental)
 	- Option screen selections
   - A new trainer ID and hash is generated, so boxed pokemon are permanently treated as traded pokemon
+
+
+#Cheats and Secrets
+<details>
+  <summary>Click to Reveal Spoilers!</summary>
+
+- The surfboard, a nugget, and TM 15 are hidden items added to the vermilion dock
+- Mew is on the basement level of the unknown dungeon
+  - it is the rarest encounter in the game
+  - only shows up after getting the pokedex diploma
+  - can only be encountered once like static legendaries
+- Using the super rod in the unknown dungeon basement will yield glitch-level experiment dittos (a trap encounter)
+- Pay Day shenanigans
+  - A pkmn with Pay Day in the 1st party slot will play its cry when interacting with a lucky slot machine
+  - A pkmn with Pay Day in the 1st party slot will play its cry when a slot machine enters payout modes
+    - 1 cry for a normal payout on the next pull
+    - 2 cries to signal the possibility of all 7s/bars on the next pull
+    - 3 cries to signal that super payout mode had been entered
+- Secret EXP boosting
+  - Pkmn with levels > level cap give 255 stat exp for each stat
+  - Pkmn with levels > level cap have 255 base exp yield
+- If a chansey >= level 100 is first in your roster:
+  - Shiny wild random encounters and fishing rod encounters are much more common (1 in 256)
+  - Repel effects will not block shiny encounters
+- Shiny Mercy 
+  - When a player encounters an AI trainer shiny pokemon, the next wild encounter will be shiny
+  - AI trainers can only have shinies in hard mode, so it affords more chances to find wild shinies
 - Winning the SS Anne tournament with a pikachu in the party will set its catch rate to 168
   - In this rom hack, a pikachu with this catch rate can be taught Surf via HM
   - This catch rate makes it hold a gorgeous box if transferred to Gen 2
   - In case of multiple pikachus, only the first in the roster will be affected
   - Likewise, a pikachu holding a gorgeous box can learn surf if transferred into this rom hack
-- Show Mewtwo to Mr. Fuji after beating the Elite 4 for a M.GENE
 - Added Bill's secret garden behind his house
   - Put Mew in your top spot and show Bill to gain access
   - You will encounter the starter pokemon plus some other rarer pokemon
   - Shiny rates are 1-in-128 in this area
-- New item MIST STONE: fully maxes-out a pokemon's stat exp
+- Show Mewtwo to Mr. Fuji after beating the Elite 4 to get a M.GENE
+- Obtaining the MIST STONE:
   - There is a secret cave on Route 13, and the book within tells you to go to Bill's secret garden
   - Return to this book afterwards in order to find a mist stone
   - The mist stone will max-out all the stat exp of the pokemon on which it is used
+- The five new trainer battles are as follows
+  - Talking to prof oak after beating the elite 4 and answering "No" let's you challenge him to a battle
+  - Can battle Mr. Fuji after beating the elite 4
+  - Can battle the Silph Chief after beating the elite 4
+  - Trainer Green (named Seiga) can be battled next to the ss anne dock truck after beating the elite 4
+  - Mind battle with future Trainer RED after beating the elite 4 via the new girl outside Bill's villa
+    - Must have beaten Oak, Fuji, Silph Chief, and Green (the order doesn't matter)
+    - After winning, must re-defeat the four extra trainers before you can challenge again
+    - A win will respawn Mewtwo, the legendary birds, and allow Mew to be found again, and reset the mist stone events
+- You can now battle missingno on the infamous cinnabar shoreline
+  - You must have gotten the pokedex diploma first
+  - Activated the traditional way via the "old man in viridian" method
+  - The battle will trigger randomly while surfing on the shore even if you are not moving
+  - If defeated, it will set a non-key item in the sixth bag slot to a quantity of 99
+  - Win or lose, you must do the "Old Man" process again to reactivate the encounter
+  - For an even harder battle, try using the eastern shore of the seafoam islands
+
+</details>
 
 
 #Added Encounter Locations for the following pokemon (rare if not normally in the chosen version):
@@ -1226,12 +1247,7 @@ v1.23.08
 - unknown dungeon changes
   - encounter rates between pokemon slightly re-balanced
   - chansey is rarer
-  - mew is on b1
-    - it is the rarest encounter in the game
-	- only shows up after getting the pokedex diploma
-	- can only be encountered once like static legendaries
   - dittos are rare 
-  - super rod in the unknown dungeon basement will yield glitch-level experiment dittos (a trap encounter)
 - route 22 super rod data has changed to give psyduck & polywag
 - hitmonchan & hitmonlee in victory road 3f
 - lickitung in safari zone 1

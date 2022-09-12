@@ -396,8 +396,7 @@ The M.Gene can be used on a pokemon out of battle in order to re-randomize its D
 
 **Special Trainer Battles**  
 There are four special trainers to find and defeat after beating the Elite-4.  
-Talk to Oak at his lab. When he asks to rate your pokedex, choose NO.  
-This will start a chain of hints for finding the four trainers.  
+Talk to Oak at his lab to start a chain of hints for finding the four trainers.  
 
 **The Secret of the MIST STONE**  
 The MIST STONE will max-out all the stat exp of the pokemon on which it is used.  

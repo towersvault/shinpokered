@@ -207,3 +207,4 @@
 - Holding B in zero delay text mode will not revert the text to FAST speed
 - Major cleanup of options constants
 - Fixed a minor issue where the first pokemon an opponent sends out can't be switched
+- TM/HM name list fixed so it can be in any bank

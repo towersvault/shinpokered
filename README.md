@@ -453,6 +453,7 @@ v1.23.08
 - Added the mist stone custom item  
 - Fixed a graphical bug on the naming screen that apears on cheapo flash carts
 - RemoveItemByID is now able to remove items from the backup bag space
+- TM/HM name list fixed so it can be in any bank
 
 
 #Bugfixes

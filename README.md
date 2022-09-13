@@ -454,6 +454,7 @@ v1.23.08
 - Fixed a graphical bug on the naming screen that apears on cheapo flash carts
 - RemoveItemByID is now able to remove items from the backup bag space
 - TM/HM name list fixed so it can be in any bank
+- Withdrawing or depositing a key item from/to the player's PC will default its quantity to 1
 
 
 #Bugfixes
@@ -910,6 +911,7 @@ v1.23.08
   - Reduced saving delay to 15 frames
   - Tweaked the fly menu to be more responsive and snappy
   - Added an error trap to _Divide function for divide-by-zero calls
+  - Withdrawing or depositing a key item from/to the player's PC will default its quantity to 1
 
 - Changes to fishing
   - All rods have an expanded level range

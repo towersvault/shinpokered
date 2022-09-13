@@ -128,6 +128,7 @@
 - Adjusted some AI anti-spam for status moves
 - AI switch scoring applies an extra penalty for possibly switching a pokemon into a super-effective move
 
+- Withdrawing or depositing a key item from/to the player's PC will default its quantity to 1
 - Tweaked the fly menu to be more responsive and snappy
 - Battle sprite organization updates and extra backs
 - Organized front and back battle sprites to be controlled via assembler tags in the makefile

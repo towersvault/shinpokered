@@ -402,25 +402,8 @@ SwapBagData:
 	ld c, 9
 	call DelayFrames
 	
-	;format the terminator at the end
-	ld a, $FF
-	ld [wBagItemsBackupTerminator], a
+	call BackupBagSwap
 
-	;format the list terminator given the number of items
-	ld a, [wBagNumBackup]
-	ld b, $00
-	ld c, a
-	ld hl, wBagItemsBackup
-	add hl, bc
-	add hl, bc
-	ld [hl], $FF
-	
-	;swap out the items
-	ld c, wBagBackupSpaceEnd - wBagBackupSpace
-	ld de, wBagBackupSpace
-	ld hl, wNumBagItems
-	call SwapDataSmall
-		
 	; update menu info
 	xor a
 	ld [wListScrollOffset], a
@@ -447,6 +430,32 @@ SwapBagData:
 .swaptext
 	db "…swapping…@"
 
+BackupBagSwap:
+	;swap out the items
+	push bc
+	push de
+
+	;format the terminator at the end
+	ld a, $FF
+	ld [wBagItemsBackupTerminator], a
+	;format the list terminator given the number of items
+	ld a, [wBagNumBackup]
+	ld b, $00
+	ld c, a
+	ld hl, wBagItemsBackup
+	add hl, bc
+	add hl, bc
+	ld [hl], $FF
+	
+	ld c, wBagBackupSpaceEnd - wBagBackupSpace
+	ld de, wBagBackupSpace
+	ld hl, wNumBagItems
+	call SwapDataSmall
+
+	pop de
+	pop bc
+	ret
+
 SwapDataSmall:
 ; Swap c bytes from hl to de using a and b.
 	ld a, [hl]
@@ -460,8 +469,7 @@ SwapDataSmall:
 	dec c
 	jr nz, SwapDataSmall
 	ret
-
-
+	
 
 ;joenote - Consolidate horizontal scrolling that uses SCX (such as title screen mons scrolling)
 ;this is prevents two vblanks from happening when waiting on scrolling to update

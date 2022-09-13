@@ -452,6 +452,7 @@ v1.23.08
 - Fixed a minor issue where the first pokemon an opponent sends out can't be switched
 - Added the mist stone custom item  
 - Fixed a graphical bug on the naming screen that apears on cheapo flash carts
+- RemoveItemByID is now able to remove items from the backup bag space
 
 
 #Bugfixes

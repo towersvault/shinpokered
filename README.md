@@ -455,6 +455,7 @@ v1.23.08
 - RemoveItemByID is now able to remove items from the backup bag space
 - TM/HM name list fixed so it can be in any bank
 - Withdrawing or depositing a key item from/to the player's PC will default its quantity to 1
+- Fixed extra options not getting initialized correctly
 
 
 #Bugfixes

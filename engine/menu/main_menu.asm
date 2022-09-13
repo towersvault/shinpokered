@@ -164,6 +164,8 @@ MainMenu:
 	jp SpecialEnterMap
 
 InitOptions:
+	xor a
+	ld [wUnusedD721], a	;joenote - reset any extra optioins
 	ld a, 1 ; no delay
 	ld [wLetterPrintingDelayFlags], a
 	ld a, TEXT_DELAY_MEDIUM ; medium speed

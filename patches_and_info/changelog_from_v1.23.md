@@ -209,3 +209,4 @@
 - Major cleanup of options constants
 - Fixed a minor issue where the first pokemon an opponent sends out can't be switched
 - TM/HM name list fixed so it can be in any bank
+- Fixed extra options not getting initialized correctly

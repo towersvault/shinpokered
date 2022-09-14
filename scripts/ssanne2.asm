@@ -97,6 +97,10 @@ SSAnne2Script1:
 	ld [hSpriteIndexOrTextID], a
 	call DisplayTextID
 	call Delay3
+	
+	;joenote - deactivate the cerulean city fight
+	SetEvent EVENT_BEAT_CERULEAN_RIVAL
+
 	ld a, OPP_SONY2
 	ld [wCurOpponent], a
 

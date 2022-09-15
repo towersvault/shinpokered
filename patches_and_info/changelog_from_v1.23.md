@@ -14,6 +14,8 @@
 
 - Paras is gifted in the Route 2 house in case the player has no pokemon that can learn Cut
 
+- Unused beedrill trade has been restored and placed on Route 22
+
 - Added cloning and gene splicing
 
 - Added shiny mercy

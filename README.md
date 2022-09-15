@@ -456,6 +456,7 @@ v1.23.08
 - TM/HM name list fixed so it can be in any bank
 - Withdrawing or depositing a key item from/to the player's PC will default its quantity to 1
 - Fixed extra options not getting initialized correctly
+- Unused beedrill trade has been restored and placed on Route 22
 
 
 #Bugfixes
@@ -1113,6 +1114,7 @@ v1.23.08
 - Can rematch gym leaders and most non gym-leader trainers just by talking to them one or two times
   - Giovanni respawns after leaving the gym so you can rematch him
 - Paras is gifted in the Route 2 house in case the player has no pokemon that can learn Cut
+- Unused beedrill trade has been restored and placed on Route 22
 - Added a scientist and books to the Cinnabar Lab fossil room for cloning and gene splicing
   - This process clones your 1st spot pokemon and modifies it with DNA from your 2nd spot pokemon.  
   - It does this by treating a pokemon's two bytes of DV values as if they were two genes with two alleles each.  

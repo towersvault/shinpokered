@@ -394,8 +394,16 @@ Route22Script6:
 Route22TextPointers:
 	dw Route22Text1
 	dw Route22Text2
+	dw Route22Text3	;joenote - added trade for chikuchiku
 	dw Route22FrontGateText
 
+Route22Text3:
+	TX_ASM
+	ld a, $2
+	ld [wWhichTrade], a
+	predef DoInGameTradeDialogue
+	jp TextScriptEnd
+	
 Route22Text1:
 	TX_ASM
 	CheckEvent EVENT_BEAT_ROUTE22_RIVAL_1ST_BATTLE

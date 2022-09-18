@@ -101,8 +101,7 @@ AnimateShootingStar:
 	xor a
 	ld [wMoveDownSmallStarsOAMCount], a
 	ld hl, SmallStarsWaveCoordsPointerTable
-;	ld c, 6	;joenote - this should be 4 stars, as two are not being drawn
-	ld c, 4
+	ld c, 6	;joenote - this should indeed be 6 so as to let the 4 sets of stars clear the screen before "Presents" appears
 .smallStarsLoop
 	ld a, [hli]
 	ld e, a

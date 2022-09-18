@@ -188,7 +188,6 @@
 - Added an error trap to _Divide function for divide-by-zero calls
 - Fixed hidden coins not giving the correct amount
 - Slot machine no longer copies too much tile data
-- Fixed wrong amount of stars loaded in Gamefreak logo
 
 
 ---

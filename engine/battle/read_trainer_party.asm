@@ -226,6 +226,18 @@ ReadTrainer:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;	
 
 .FinishUp
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;joenote - check for and load a mirror-match
+	CheckAndResetEvent EVENT_8DF
+	jr z, .end_mirror_match
+	ld bc, wPartyDataEnd - wPartyDataStart
+	ld hl, wPartyDataStart
+	ld de, wEnemyPartyCount
+	call CopyData
+.end_mirror_match
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 ;joenote - prevent prize money from being capped at 9999
 ; clear wAmountMoneyWon addresses
 	xor a

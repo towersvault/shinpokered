@@ -19,6 +19,8 @@ Then the [Lite branch](https://github.com/jojobear13/shinpokered/tree/lite) is w
 
 A bash script randomizer, "randoshinred", is now in beta test.
 
+Feel free to discuss this project on its dedicated [Pokecommunity thread](https://www.pokecommunity.com/showthread.php?t=427398).
+
 #Patch Info  
 -----------
 BPS patches are provided for entry into your preferred emulator, patching tool, or other accessory that supports the BPS format.  
@@ -223,6 +225,7 @@ New NPCs!
 - An NPC in the Celadon Hotel will pay COINS for showing him pokemon as an alternative to slots.
 - After the Elite-4, a new vendor opens up in Celadon allowing the purchase of normally unique items.
 - After the Elite-4, there is an NPC in the east-west underground path that generates random trainer battles.
+- After the Elite-4, there is an NPC in the north-south underground path that generates mirror matches.
 - After the Elite-4, the game corner chief will buy pokemon from the player.
 - There's a tournament being held in the SS Anne's kitchen after the Elite-4 are beaten. Yes, the ship returns!
 - Added some special post-game trainer battles as fun little easter eggs. Can you find and defeat all five?
@@ -456,6 +459,7 @@ v1.23.08
 - Withdrawing or depositing a key item from/to the player's PC will default its quantity to 1
 - Fixed extra options not getting initialized correctly
 - Unused beedrill trade has been restored and placed on Route 22
+- A new NPC is in the north-south underground path for post-game mirror matches
 
 
 #Bugfixes
@@ -1146,6 +1150,7 @@ v1.23.08
   - Also makes it so there is a rare chance for any pokemon to be encountered in the safari zone (depends on location)
 - The game corner chief will buy pokemon from the player post-e4
 - There is a new NPC in the west-east underground path that generates random battles after beating the elite 4
+- There is a new NPC in the north-south underground path that generates mirror matches after beating the elite 4
 - New item M.GENE: 
   - Re-randomizes a pkmn's DVs to values of 9,8,8,8 or more.
   - Win 5 matches in a row against the random team NPC to get a M.GENE (leaving the area resets the win streak)

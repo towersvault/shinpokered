@@ -12,6 +12,8 @@
   - The game's five legendary pokemon are excluded from randomization
   - The AREA feature of the pokedex automatically adjusts to show the new pokemon locations
 
+- A new NPC is in the north-south underground path for post-game mirror matches
+
 - Paras is gifted in the Route 2 house in case the player has no pokemon that can learn Cut
 
 - Unused beedrill trade has been restored and placed on Route 22

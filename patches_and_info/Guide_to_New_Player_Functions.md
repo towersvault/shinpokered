@@ -394,6 +394,10 @@ After the Elite-4 are beaten, he will offer to engage you in randomized battles.
 Win 5 matches in a row against him without leaving the area to get the new M.GENE item.  
 The M.Gene can be used on a pokemon out of battle in order to re-randomize its DVs with values of at least 8.  
 
+**Mirror Match Battle Generator**  
+A pokemaniac with a flair for theatrics has been added to the north-south underground path.  
+After the Elite-4 are beaten, he will offer to engage you in a mirror match against your own party.  
+
 **Special Trainer Battles**  
 There are four special trainers to find and defeat after beating the Elite-4.  
 Talk to Oak at his lab to start a chain of hints for finding the four trainers.  

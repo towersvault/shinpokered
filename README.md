@@ -19,7 +19,7 @@ Then the [Lite branch](https://github.com/jojobear13/shinpokered/tree/lite) is w
 
 A bash script randomizer, "randoshinred", is now in beta test.
 
-Feel free to discuss this project on its dedicated [Pokecommunity thread](https://www.pokecommunity.com/showthread.php?t=427398).
+Feel free to discuss this project in its dedicated [Pokecommunity thread](https://www.pokecommunity.com/showthread.php?t=427398).
 
 #Patch Info  
 -----------
@@ -376,7 +376,7 @@ v1.23.08
 - Daycare allows HM moves on entered pokemon
 - Added cloning and gene splicing
 
-***Not added to beta patch yet***  
+v1.23.09  
 - Scaled back fishing, reduced its randomness, and made it more map-dependent
 - If on GBC, intitializing options turns 60 fps ON
 - Minor code correction to Twineedle to prevent future errors 
@@ -1236,6 +1236,9 @@ v1.23.08
 
 </details>
 
+
+#Location Changes
+-----------------
 
 #Added Encounter Locations for the following pokemon (rare if not normally in the chosen version):
 - charmander on route 25

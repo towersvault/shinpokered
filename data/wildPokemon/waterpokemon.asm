@@ -9,5 +9,5 @@ WaterMons:	;joenote - made some minor adjustments
 	db 15,TENTACOOL
 	db 20,TENTACOOL
 	db 30,TENTACRUEL	
-	db 35,TENTACRUEL
-	db 40,SEAKING
+	db 35,SEAKING
+	db 40,TENTACRUEL

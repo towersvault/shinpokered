@@ -1241,37 +1241,39 @@ v1.23.09
 -----------------
 
 #Added Encounter Locations for the following pokemon (rare if not normally in the chosen version):
-- charmander on route 25
-- squirtle on route 6
-- bulbasaur on route 4 
-- sandshrew/ekans on route 3
+- charmander on route 25 (4.3%)
+- squirtle on route 6 (4.3%)
+- bulbasaur on route 4 (4.3%)
+- sandshrew (5.1%) and ekans (5.1%) on route 3
+- vulpix (4.3%: red, blue-jp) or growlithe (4.3%: blue, green) on route 8
+- bellsprout (4.3%: red, blue-jp) or oddish (4.3%: blue, green) on route 24
+- meowth (9.8%: red) or mankey (9.8%: blue, green, blue-jp) on route 5
+- farfetchd on route 12 (4.3%) and route 13 (1.2%)
+- cubone added to rock tunnel (5.1% floor 1 and 1.2% floor 2)
+- dodrio on route 17 (5.1%)
+- porygon in the power plant in red version (1.2%)
+- electabuzz in power plant in all versions (9.4% red and 5.1% all others)
+- magmar in pokemon mansion basement in all versions (4.3%)
+- snorlax in digletts cave (5.1%)
+- eevee on route 21 grass (4.3%)
+- hitmonchan (5.1%) & hitmonlee (5.1%) in victory road 3f
+- version-swapped pinser/scyther in safari zone central-area
+- lickitung (5.1% red, blue, green) in safari zone 1
+- kangaskhan (5.1% blue-jp) in safari zone 1
+- tauros (5.1% blue-jp) in safari zone 2
+- jynx (5.1% red, blue, green) in safari zone 2
+- mr mime in safari zone 3 (5.1%) 
+- lapras replaces krabby when using super rod in safari zone
+- magnemite on route 10 (5.1%)
+- ponyta on route 7 (9.8%)
+- tentacruel on water routes 19, 20, and 21 (6.3%)
+- seaking on water routes 19, 20, and 21 (4.3%)
+- route 22 super rod data has changed to give psyduck & poliwag
 - version-swapped sandslash/arbok in unknown dungeon 1f
-- vulpix/growlithe on route 8
-- oddish/bellsprout on route 24
-- meowth/mankey on route 5
-- farfetchd on route 12 & 13
-- cubone added as rare encounter in rock tunnel
-- dodrio is rare on route 17
-- version-swapped pinser/scyther in safari zone main
-- electabuzz in power plant in both versions (slightly more encountered in red version)
-- magmar in pkmn mansion basement in both versions
-- snorlax is a rare find in digletts cave
-- eevee is a rare find in the route 21 grass
 - unknown dungeon changes
   - encounter rates between pokemon slightly re-balanced
   - chansey is rarer
   - dittos are rare 
-- route 22 super rod data has changed to give psyduck & polywag
-- hitmonchan & hitmonlee in victory road 3f
-- lickitung in safari zone 1
-- jynx in safari zone 2
-- mr mime in safari zone 3
-- lapras replaces krabby when using super rod in safari zone
-- porygon is in the power plant in red version while blue has increased rate of raichu
-- magnemite on route 10
-- ponyta on route 7
-- tentacruel to routes 19, 20, and 21
-- seaking to routes 19, 20, and 21
 
 
 #Changes to pokemart inventories:

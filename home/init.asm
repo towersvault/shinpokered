@@ -55,12 +55,16 @@ rLCDC_DEFAULT EQU %11100011
 ;Initialize the RNG state. It can be initialized to anything but zero; this is just a simple way of doing it.
 ;Initialize with whatever random garbage is in hram to get an initial seed.
 	ld a, [hJoyLast]	;ffb1
+	and a
 	push af
 	ld a, [H_FRAMECOUNTER]	;ffd5
+	and a
 	push af
 	ld a, [hDividend2]	;ffe5
+	and a
 	push af
 	ld a, [hSpriteAnimFrameCounter]	;ffea
+	and a
 	push af
 	
 	call ClearVram
@@ -73,12 +77,16 @@ rLCDC_DEFAULT EQU %11100011
 
 ;finish initializing RNG
 	pop af
+	call z, .inc_a
 	ld [hRandomAdd], a
 	pop af
+	call z, .inc_a
 	ld [hRandomSub], a
 	pop af
+	call z, .inc_a
 	ld [hRandomLast], a
 	pop af
+	call z, .inc_a
 	ld [hRandomLast + 1], a
 	
 	ld a, Bank(WriteDMACodeToHRAM)
@@ -139,7 +147,10 @@ rLCDC_DEFAULT EQU %11100011
 	ld [rLCDC], a
 
 	jp SetDefaultNamesBeforeTitlescreen
-
+.inc_a
+	inc a
+	ret
+	
 ClearVram:
 	ld hl, $8000
 	ld bc, $2000

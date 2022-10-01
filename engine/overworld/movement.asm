@@ -626,10 +626,12 @@ CheckSpriteAvailability:
 	jr .done
 .spriteVisible
 	ld c, a
-;	ld a, [wWalkCounter]	;joenote - remove this and instead rely on it being done in UpdateNPCSprite
-;	and a
-;	jr nz, .done           ; if player is currently walking, we're done
 	call UpdateSpriteImage
+
+	ld a, [wWalkCounter]	;joenote - move this below UpdateSpriteImage
+	and a
+	jr nz, .done           ; if player is currently walking, do not update the status of grass above the sprite
+
 	inc h
 	ld a, [H_CURRENTSPRITEOFFSET]
 	add $7
@@ -823,7 +825,7 @@ GetTileSpriteStandsOn:
 	ld c, a
 	ld b, $0
 	inc l
-	ld a, [hl]      ; c1x6: screen Y position
+	ld a, [hl]      ; c1x6: screen X position
 	srl a
 	srl a
 	srl a            ; screen X tile

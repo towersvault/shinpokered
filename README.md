@@ -461,6 +461,11 @@ v1.23.09
 - Unused beedrill trade has been restored and placed on Route 22
 - A new NPC is in the north-south underground path for post-game mirror matches
 
+***Not Yet in a Patch***  
+- re-adjusted trainer randomization so that their pokemon evolve a few levels later than normal
+- trainer randomization will not allow the stronger unevolved pokemon below level 30
+- auto-evolution function now handles eevee
+
 
 #Bugfixes
 -----------

@@ -177,7 +177,7 @@ ScaleTrainer:
 	ld [wCurEnemyLVL], a
 .nolvlincrease
 	pop bc
-	callba EnemyMonEvolve
+	call EnemyMonEvolve
 	ret
 .getHighestLevel
 	push hl
@@ -276,47 +276,35 @@ PreventARegOverflow:
 
 
 ;randomizes the 'mon in wcf91 to an unevolved 'mon then tries to evolve it	
+;A bias is applied so that trainer 'mons need more levels to evolve
+;Also, the stronger end of unevolved pokemon will only show up in level-30 or higher trainer teams
 RandomizeRegularTrainerMons:
 	CheckEvent EVENT_8D8
 	ret z
 	push de
+	ld de, ListNonLegendUnEvoPkmn_early
+	ld a, [wCurEnemyLVL]
+	push af
+	ld b, a
+	cp 30
+	jr c, .next
 	ld de, ListNonLegendUnEvoPkmn
+	srl b
+.next
+	srl b
+	srl b
+	sub b
+	ld [wCurEnemyLVL], a
 	call GetRandMon
-	callba EnemyMonEvolve
-	ld a, [wcf91]
-	cp EEVEE
-	call z, .handleeevee
+	call EnemyMonEvolve
+	pop af
+	ld [wCurEnemyLVL], a
 	pop de
-	ret
-.handleeevee
-	call Random
-	and $0F
-	cp $0A
-	ret c	;eevee
-	push af
-	ld a, FLAREON
-	ld [wcf91], a
-	pop af
-	cp $0C
-	ret c ;flareon
-	push af
-	ld a, VAPOREON
-	ld [wcf91], a
-	pop af
-	cp $0E
-	ret c ;vaporeon
-	;else jolteon
-	ld a, JOLTEON
-	ld [wcf91], a
 	ret
 
 
 ;joenote - evolve an enemy mon in wcf91 based on wCurEnemyLVL
 EnemyMonEvolve:
-	ld a, [wcf91]
-	cp EEVEE	;don't deal with evolving EEVEE right now
-	ret z
-	
 	ld hl, EvosMovesPointerTable	;load the address of the pointer table, and worry about the bank later
 	ld b, 0
 	dec a
@@ -359,6 +347,9 @@ EnemyMonEvolve:
 	jr .evoloop
 
 .lvl_evolve
+	ld a, [wcf91]
+	cp EEVEE	;deal with eevee separately
+	jr z, .handleeevee
 	ld a, [hli]
 	ld b, a
 	ld a, [wCurEnemyLVL]
@@ -368,6 +359,27 @@ EnemyMonEvolve:
 	ld [wcf91], a
 	jp EnemyMonEvolve
 
+.handleeevee
+	call Random
+	and $0F
+	cp $0A
+	ret c	;eevee
+	push af
+	ld a, FLAREON
+	ld [wcf91], a
+	pop af
+	cp $0C
+	ret c ;flareon
+	push af
+	ld a, VAPOREON
+	ld [wcf91], a
+	pop af
+	cp $0E
+	ret c ;vaporeon
+	;else jolteon
+	ld a, JOLTEON
+	ld [wcf91], a
+	ret
 	
 
 ;joenote - take the 'mon in wcf91, find its previous evolution, and put it back in wcf91

@@ -131,6 +131,9 @@
 - AI can now handle fly/dig loops between the two pokemon
 - Adjusted some AI anti-spam for status moves
 - AI switch scoring applies an extra penalty for possibly switching a pokemon into a super-effective move
+- AI layer 3 will slightly discourage a move 25% of the time if it hits neutral with no STAB
+  - Wherein a special move is being used on a 'mon with greater attack than special stat
+  - Wherein a physical move is being used on a 'mon with greater special than attack stat
 
 - Withdrawing or depositing a key item from/to the player's PC will default its quantity to 1
 - Tweaked the fly menu to be more responsive and snappy

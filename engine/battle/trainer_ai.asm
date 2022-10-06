@@ -903,9 +903,13 @@ AIMoveChoiceModification3:
 	and a 	;check if it's zero
 	jr nz, .skipout2	;skip if it's not immune
 .heavydiscourage2	;at this line the move has no effect due to immunity or other circumstance
-	ld a, [hl]	
-	add $5 ; heavily discourage move
-	ld [hl], a
+;heavily discourage move
+	inc [hl]
+	inc [hl]
+	inc [hl]
+	inc [hl]
+.lightlydiscourage
+	inc [hl]
 	jp .nextMove
 .skipout2
 	;if thunder wave is being used against a non-immune target, neither encourage nor discourage it
@@ -936,19 +940,18 @@ AIMoveChoiceModification3:
 	jp .nextMove	;else neither encourage nor discourage
 .skipout4
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;jump if the move is not very effective
+;jump if the move is not very effective or is super effective
 	ld a, [wTypeEffectiveness]
 	cp $0A
 	jr c, .notEffectiveMove
+	jr nz, .isSuperEffectiveMove
+;move has neutral effectiveness at this line
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;if the type effectiveness is neutral, randomly apply slight preference if there is STAB
-	jr nz, .notneutraleffective
-	
+;since the type effectiveness is neutral, randomly apply slight preference if there is STAB	
 	;25% chance to check for and prefer a stab move
 	call Random
 	cp 192
-	jp c, .nextMove
-	
+	jr c, .skipout5
 	push bc
 	ld a, [wEnemyMoveType]
 	ld b, a
@@ -963,9 +966,32 @@ AIMoveChoiceModification3:
 	cp b
 	pop bc
 	jp z, .givepref
-	jp .nextMove
-.notneutraleffective
+.skipout5
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;if attack is < special and move is physical, slightly discourage
+;if attack is > special and move is special, slightly discourage
+;25% chance to enact this
+	call Random
+	cp 192
+	jr c, .skipout6
+	call StrCmpAtkSPA
+	push af
+	jr z, .skipout6	;jump if stats equal
+	ld a, [wEnemyMoveType]
+	cp FIRE
+	jr nc, .special_move
+.physical_move
+	pop af
+	jp c, .lightlydiscourage	;jump if attack < special
+	jr .skipout6
+.special_move
+	pop af
+	jp nc, .lightlydiscourage		;jump if special < attack
+.skipout6
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+	jp .nextMove
+.isSuperEffectiveMove
 	;at this line, move is super effective
 .givepref	;joenote - added marker
 	dec [hl] ; slightly encourage this move
@@ -2019,6 +2045,31 @@ StrCmpSpeed:	;joenote - function for AI to compare pkmn speeds
 	;zero flag set means speeds equal
 	;carry flag not set means player pkmn faster
 	;carry flag set means ai pkmn faster
+.return
+	pop hl
+	pop de
+	pop bc
+	ret
+
+StrCmpAtkSPA:	;joenote - function for AI to its attack and special stats
+	push bc
+	push de
+	push hl
+	ld de, wEnemyMonAttack 
+	ld hl, wEnemyMonSpecial
+	ld c, $2	;bytes to copy
+.spdcmploop	
+	ld a, [de]	
+	cp [hl]
+	jr nz, .return
+	inc de
+	inc hl
+	dec c
+	jr nz, .spdcmploop
+	;At this point:
+	;zero flag set means stats equal
+	;carry flag not set means attack is greater
+	;carry flag set means special is greater
 .return
 	pop hl
 	pop de

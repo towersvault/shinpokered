@@ -468,6 +468,7 @@ v1.23.09
 - Ai layer 3 will slightly discourage a move 25% of the time if it hits neutral with no STAB
   - Wherein a special move is being used on a 'mon with greater attack than special stat
   - Wherein a physical move is being used on a 'mon with greater special than attack stat
+- The proper forget-move poof sfx plays during battle
 
 
 #Bugfixes
@@ -658,7 +659,7 @@ v1.23.09
 	- However, there is a unique unused sfx in the battle audio bank that signifies getting some kind of important item
 	- This is likely what was going to be used for getting a badge at some point, and it has been restored
   - Bike music stops playing now when going down a hole
-  - Assigned a proper forget-move sfx during battle
+  - The proper forget-move poof sfx plays during battle
   - Fixed a bug having to do with rare instances of bending the audio pitch
   - Victory music won't play if a wild 'mon faints but the player has no 'mons remaining; it's a blackout
   - The jingle for finding a hidden item will no longer be skipped during an audio fadeout

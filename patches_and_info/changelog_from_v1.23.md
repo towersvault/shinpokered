@@ -165,7 +165,7 @@
 - Fixed NPCs treating the last visible screen column/row as off-screen
 - Fixed a graphical bug on the naming screen that apears on cheapo flash carts
 
-- Assigned a proper forget-move sfx during battle
+- The proper forget-move poof sfx plays during battle
 - Fixed a bug having to do with rare instances of bending the audio pitch
 - Victory music won't play if a wild 'mon faints but the player has no 'mons remaining; it's a blackout
 - The jingle for finding a hidden item will no longer be skipped during an audio fadeout

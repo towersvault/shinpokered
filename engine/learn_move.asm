@@ -222,18 +222,25 @@ TryingToLearnText:
 	TX_FAR _TryingToLearnText
 	db "@"
 
-OneTwoAndText:
+OneTwoAndText:	;joenote - fixed to switch to the correct bank when playing the poof sfx
 	TX_FAR _OneTwoAndText
 	TX_DELAY
 	TX_ASM
-;joenote - play a different SFX if in battle due to having a different audio bank
-	ld a, [wIsInBattle]
-	and a
+	ld a, 1
+	ld [wMuteAudioAndPauseMusic], a
+	ld a, [wAudioROMBank]
+	push af
+	ld a, BANK(SFX_Swap_1)
+	ld [wAudioROMBank], a
+	ld [wAudioSavedROMBank], a
 	ld a, SFX_SWAP
-	jr z, .next
-	ld a, SFX_START_MENU
-.next
 	call PlaySoundWaitForCurrent
+	call WaitForSoundToFinish
+	pop af
+	ld [wAudioROMBank], a
+	ld [wAudioSavedROMBank], a
+	xor a
+	ld [wMuteAudioAndPauseMusic], a
 	ld hl, PoofText
 	ret
 

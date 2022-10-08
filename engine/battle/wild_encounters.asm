@@ -81,9 +81,6 @@ TryDoWildEncounter:
 	ld [wcf91], a
 	ld [wEnemyMonSpecies2], a
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;joenote - disallow mew if pokedex not complete
-	callba DisallowWildMew
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;joenote - expand the safari zone random encounters
 	callba GetRandMonSafari
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -114,6 +111,10 @@ TryDoWildEncounter:
 	and a
 	ret
 .willEncounter
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;joenote - disallow mew if pokedex not complete
+	callba DisallowWildMew
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	xor a
 	ret
 .shinycheck_repel

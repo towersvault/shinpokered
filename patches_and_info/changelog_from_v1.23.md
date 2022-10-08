@@ -63,6 +63,7 @@
 - Fixed an issue where the shiny animation has the wrong palette for the opponent on the GBC
 - Fixed an oversight to make it so 648 stat exp / lvl function maxes out at lvl 100
 - RemoveItemByID is now able to remove items from the backup bag space
+- Repels can no longer waste the mew encounter
 
 
 ---

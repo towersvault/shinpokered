@@ -1,16 +1,16 @@
-# Shin Pokémon Red and Blue
+# Shin Pokémon Red, Blue, Green, Red-JP, & Blue-JP
 
-Version 1.23.XX
+Version 1.23.09
 
-This is an enhancement ROM hack of Pokemon Red & Blue based on the Pret team's disassembly.  
-It's a mostly-vanilla hack that focuses on fixing game engine bugs and oversights from the original game.  
+This is an enhancement ROM hack of Pokemon Red & Blue based on the Pret team's pokered disassembly project.  
+It is a mostly-vanilla hack that focuses on fixing game engine bugs and oversights from the original game.  
 Additionally, trainer AI routines are improved and multiple quality-of-life enhancements have been added.  
-The main purpose of this code repository is to study , comment upon, and repair functional errors,  
-and also to document how to restore the game to an error-free state.  
-Additionally, many changes between the different japanese and english releases are researched and documented.  
 Furthermore, it acts as a kind of research-informed speculative work that presents an alternate interpretation.  
-It is an interpretation of what the 2016 Nintendo Virtual Console re-release of gen-1 Pokemon could have been;  
+That being an interpretation of what the 2016 Nintendo Virtual Console re-release of Gen-1 Pokemon could have been;  
 a glitch-free experience with player-friendly goodies and enhancements common to other modern remasterings.  
+The main purpose of the accompanying source code repository is to study, comment upon, and repair functional errors,  
+and also to record for posterity the methods used for restoring the game to an error-free state.  
+Additionally, the source code documents many changes between the different japanese and english releases.  
 
 Read the ["Guide to New Player Functions"](/patches_and_info/Guide_to_New_Player_Functions.md) for instructions on all the new stuff the player can do.
 

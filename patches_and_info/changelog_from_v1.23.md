@@ -174,6 +174,7 @@
 - Added protection against oak's lab music cutting a channel off
 
 - Fixed input priority on menus
+- Fixed A-button input priority on the left side of the scrolling pokedex list
 - Cannot surf from the party menu if a NPC is in front of the player (entering or exiting surf)
 - The player can now select a move even if frozen, and this fixes a PP underflow and link desync glitch
 - Made many TextIDs close when pressing A instead of releasing A

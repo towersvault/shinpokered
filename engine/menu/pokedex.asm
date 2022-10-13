@@ -283,10 +283,13 @@ HandlePokedexListMenu:
 	call Delay3
 	call GBPalNormal
 	call HandleMenuInput
-	bit 1, a ; was the B button pressed?
+	bit BIT_B_BUTTON, a ; was the B button pressed?
 	jp nz, .buttonBPressed
+;joenote - another input priority fix from Yellow version
+	bit BIT_A_BUTTON, a ; was the A button pressed?
+	jp nz, .buttonAPressed
 .checkIfUpPressed
-	bit 6, a ; was Up pressed?
+	bit BIT_D_UP, a ; was Up pressed?
 	jr z, .checkIfDownPressed
 .upPressed ; scroll up one row
 	ld a, [wListScrollOffset]

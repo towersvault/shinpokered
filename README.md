@@ -2,24 +2,25 @@
 
 Version 1.23.09
 
+*Shin (真) - The kanji for "true". Used in Japanese media to denote a remastering, updated retelling , or a "true form" of something.*  
+
 This is an enhancement ROM hack of Pokemon Red & Blue based on the Pret team's pokered disassembly project.  
 It is a mostly-vanilla hack that focuses on fixing game engine bugs and oversights from the original game.  
 Additionally, trainer AI routines are improved and multiple quality-of-life enhancements have been added.  
-Furthermore, it acts as a kind of research-informed speculative work that presents an alternate interpretation.  
-That being an interpretation of what the 2016 Nintendo Virtual Console re-release of Gen-1 Pokemon could have been;  
-a glitch-free experience with player-friendly goodies and enhancements common to other modern remasterings.  
-The main purpose of the accompanying source code repository is to study, comment upon, and repair functional errors,  
-and also to record for posterity the methods used for restoring the game to an error-free state.  
-Additionally, the source code documents many changes between the different japanese and english releases.  
+It also acts as a kind of research-informed speculative work that presents an alternate interpretation of the games.  
+Specifically, that being what the 2016 Nintendo Virtual Console re-release of Gen-1 Pokemon could have been.  
+It is the image of a glitch-free experience with player-friendly goodies and enhancements common to other modern remasterings.  
+The main purpose of the accompanying source code repository is to study, comment upon, and repair functional errors.  
+It is rather important to record for posterity the methods used for restoring the game to an error-free state.  
+Finally, the source code documents many differences and changes between the various Japanese and English releases.  
 
 Read the ["Guide to New Player Functions"](/patches_and_info/Guide_to_New_Player_Functions.md) for instructions on all the new stuff the player can do.
 
 Don't like the non-vanilla changes? Prefer only the bugfixes and AI improvements? Want a codebase from which to launch your own rom hack?
 Then the [Lite branch](https://github.com/jojobear13/shinpokered/tree/lite) is what you want. Head on over and start compiling.
 
-A bash script randomizer, "randoshinred", is now in beta test.
-
 Feel free to discuss this project in its dedicated [Pokecommunity thread](https://www.pokecommunity.com/showthread.php?t=427398).
+
 
 #Patch Info  
 -----------
@@ -31,13 +32,12 @@ Download and enter a patch which corresponds to the ROM of which you own a lawfu
   - MD5 Hash: 50927e843568814f7ed45ec4f944bd8b
 - The "_origback" patches are alternatives that keep the original back sprites. 
 
-
 ***Includes Pokemon Green and Japanese Red!***
 - The compiler primarily builds the graphics and cerulean cave layout back to the original japanese release.
 - Pokedex entries adapt the original Green version text that was translated in Fire Red.
 - Pokedex uses metric units.
 
-***Now Includes Japanese Blue!***
+***Includes Japanese Blue!***
 - Primarily builds the lists for encounters, trades, and prizes that were in the never-localized japanese release.
 - Pokedex uses metric units.
 - Other minor graphical adjustments.

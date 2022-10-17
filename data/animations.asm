@@ -732,7 +732,7 @@ MeditateAnim:
 
 AgilityAnim:
 	db SE_LIGHT_SCREEN_PALETTE, $60
-	db SE_DELAY_ANIMATION_10, $FF
+	db SE_DELAY_ANIMATION_10, $FF	;joenote - added this to make the animation more obvious
 	db SE_RESET_SCREEN_PALETTE, $FF
 	db $FF
 

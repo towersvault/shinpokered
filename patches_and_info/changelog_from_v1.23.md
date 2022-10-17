@@ -142,6 +142,7 @@
 - Organized front and back battle sprites to be controlled via assembler tags in the makefile
 - The move relearner and move deleter code is now tethered to the _MOVENPCS makefile tag
 - The running shoes code is now tethered to the _RUNSHOES makefile tag
+- Original flashing move animations from Red-JP and Green are tethered to the (unused) _JPFLASHING makefile tag
 
 
 ---

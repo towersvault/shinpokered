@@ -905,16 +905,29 @@ DoRockSlideSpecialEffects:
 
 FlashScreenEveryEightFrameBlocks:
 	ld a, [wSubAnimCounter]
+IF DEF(_JPFLASHING)
+;Japanese red & green had this flash every odd-numbered frame block.
+;The rate was reduce by 4x during localization
+	srl a
+	call c, AnimationFlashScreen
+ELSE
 	and 7 ; is the subanimation counter exactly 8?
 	call z, AnimationFlashScreen ; if so, flash the screen
+ENDC
 	ret
 
 ; flashes the screen if the subanimation counter is divisible by 4
 FlashScreenEveryFourFrameBlocks:
+IF DEF(_JPFLASHING)
+;Japanese red & green had this flash every frame block.
+;The rate was reduce by 4x during localization
+	jp AnimationFlashScreen
+ELSE
 	ld a, [wSubAnimCounter]
 	and 3
 	call z, AnimationFlashScreen
 	ret
+ENDC
 
 ; used for Explosion and Selfdestruct
 DoExplodeSpecialEffects:

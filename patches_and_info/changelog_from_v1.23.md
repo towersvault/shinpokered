@@ -138,6 +138,7 @@
   - Wherein a physical move is being used on a 'mon with greater special than attack stat
 
 - Withdrawing or depositing a key item from/to the player's PC will default its quantity to 1
+- Item evolutions having a level requirement is now supported
 - Tweaked the fly menu to be more responsive and snappy
 - Battle sprite organization updates and extra backs
 - Organized front and back battle sprites to be controlled via assembler tags in the makefile

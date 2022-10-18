@@ -473,6 +473,7 @@ v1.23.09
 - Fixed A-button input priority on the left side of the scrolling pokedex list
 - Original flashing move animations from Red-JP and Green are tethered to the (unused) _JPFLASHING makefile tag
 - Fixed bug in low HP alarm: Some sfx no longer get cut off when the player is at low HP
+- Item evolutions having a level requirement is now supported
 
 
 #Bugfixes
@@ -934,6 +935,7 @@ v1.23.09
   - Tweaked the fly menu to be more responsive and snappy
   - Added an error trap to _Divide function for divide-by-zero calls
   - Withdrawing or depositing a key item from/to the player's PC will default its quantity to 1
+  - Item evolutions having a level requirement is now supported
 
 - Changes to fishing
   - All rods have an expanded level range

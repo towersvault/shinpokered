@@ -472,6 +472,7 @@ v1.23.09
 - Repels can no longer waste the mew encounter
 - Fixed A-button input priority on the left side of the scrolling pokedex list
 - Original flashing move animations from Red-JP and Green are tethered to the (unused) _JPFLASHING makefile tag
+- Fixed bug in low HP alarm: Some sfx no longer get cut off when the player is at low HP
 
 
 #Bugfixes

@@ -160,7 +160,7 @@ And Rest now sets the sleep counter to 3.
    
 ***Additional Master features that go beyond engine modifications and fixes***
 
-All 151 pkmn are available in one version (rarities may vary per version).
+All 151 pkmn are available in one version including trade evolutions (rarities may vary per version).
 
 You can play as a boy or a girl.
 
@@ -286,6 +286,7 @@ Cheats and Secrets!
 
 #Changelog From the Last Full Release
 -----------
+**Changelogs may contain spoilers**  
 [View the Consolidated Changelog Document](/patches_and_info/changelog_from_v1.23.md)  
 
 v1.23.01  
@@ -474,6 +475,20 @@ v1.23.09
 - Original flashing move animations from Red-JP and Green are tethered to the (unused) _JPFLASHING makefile tag
 - Fixed bug in low HP alarm: Some sfx no longer get cut off when the player is at low HP
 - Item evolutions having a level requirement is now supported
+- Trade evolutions no longer evolve at level 45
+- Trade evolutions now alternately evolve with a stone at a certain level with some new hinting NPC text
+  - Kadabra
+    - Use a moon stone at level 35
+	- Hinted at by a NPC in the Pewter Museum that comments on the moon stone
+  - Haunter
+    - Use a thunder stone at level 35
+	- Hinted at by the Lavender Town NPC that asks if you believe in ghosts
+  - Graveler
+    - Use a fire stone at level 35
+	- Hinted at by a NPC on Cinnabar Island that talks about the mansion
+  - Machoke
+    - Use a leaf stone at level 35
+	- Hinted at by a house NPC in Pewter City that talks about trainers teaching pokemon
 
 
 #Bugfixes
@@ -730,6 +745,12 @@ v1.23.09
 #Tweaks
 -----------
 
+- Added NPC text to hint at how to get the trade evolutions
+  - NPC in the Pewter Museum that comments on the moon stone
+  - Lavender Town NPC that asks if you believe in ghosts
+  - NPC on Cinnabar Island that talks about the mansion
+  - House NPC in Pewter City that talks about trainers teaching pokemon
+
 - Fixed mistakes in the game text
   - Attacks reduced to zero damage now say the target is unaffected instead of missing
   - Man in cinnabar won't mention raichu evolving (also applies to the jynx trade in cerulean)
@@ -901,8 +922,7 @@ v1.23.09
   - Wigglytuff gains some attacks back via level
   - Mewtwo can learn Swift by TM 
   - Kakuna and Metapod learn harden by level-up
-  - pikachu and kadabra have their catch rates adjusted to yellow version
-  - Give haunter/machoke/kadabra/graveler an evo by level option (level 45)
+  - Pikachu and Kadabra have their catch rates adjusted to yellow version
   - Butterfree and Beedrill have their prior evolutions' moves added to their level-0 move list
   - Clefable and Wigglytuff get some moves back via level-up
   - Diglett & Dugtrio can learn cut like in yellow version
@@ -1257,8 +1277,8 @@ v1.23.09
 </details>
 
 
-#Location Changes
------------------
+#Availability Changes
+---------------------
 
 #Added Encounter Locations for the following pokemon (rare if not normally in the chosen version):
 - charmander on route 25 (4.3%)
@@ -1296,6 +1316,13 @@ v1.23.09
   - dittos are rare 
 
 
+#Trade evolutions now alternately evolve with a stone at a certain level with some new hinting NPC text
+  - Kadabra: Use a moon stone at >= level 35
+  - Haunter: Use a thunder stone at >= level 35
+  - Graveler: Use a fire stone at >= level 35
+  - Machoke: Use a leaf stone at >= level 35
+
+	
 #Changes to pokemart inventories:
 - TMs of all kinds at all stores. All TMs are now re-purchaseable at various stages of the game.
 - pewter city has ethers

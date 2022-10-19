@@ -11,6 +11,21 @@
   - Scripted events are unaffected (gifts, in-game trades, static encounters, etc)
   - The game's five legendary pokemon are excluded from randomization
   - The AREA feature of the pokedex automatically adjusts to show the new pokemon locations
+  
+- Trade evolutions no longer evolve at level 45
+- Trade evolutions now alternately evolve with a stone at a certain level with some new hinting NPC text
+  - Kadabra
+    - Use a moon stone at level 35
+	- Hinted at by a NPC in the Pewter Museum that comments on the moon stone
+  - Haunter
+    - Use a thunder stone at level 35
+	- Hinted at by the Lavender Town NPC that asks if you believe in ghosts
+  - Graveler
+    - Use a fire stone at level 35
+	- Hinted at by a NPC on Cinnabar Island that talks about the mansion
+  - Machoke
+    - Use a leaf stone at level 35
+	- Hinted at by a house NPC in Pewter City that talks about trainers teaching pokemon
 
 - A new NPC is in the north-south underground path for post-game mirror matches
 

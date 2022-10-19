@@ -13,7 +13,7 @@ _PewterHouse2Text1::
 	cont "a MACHOKE karate"
 	cont "in the forest."
 	
-	para "The pokemon struck"
+	para "The #MON struck"
 	line "the LEAF-fy trees"
 	cont "so much that it"
 	cont "grew extra arms!"

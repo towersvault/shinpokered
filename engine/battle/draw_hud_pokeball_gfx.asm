@@ -231,8 +231,46 @@ PlaceHUDTiles:
 	add hl, de
 	ld a, [wHUDGraphicsTiles + 2] ; rightmost tile
 	ld [hl], a
+	
+	;joenote - show or clear the damage values
+	CheckEvent EVENT_910
+	jr z, .end_printdamage
+	coord hl, 7, 4
+	ld de, wBattleMonHP ; current player HP
+	call .isDEzero
+	jr z, .printwhite
+	ld de, wEnemyMonHP ; current enemy HP
+	call .isDEzero
+	jr z, .printwhite
+	ld de, wDamage ; current damage
+	call .isDEzero
+	jr nz, .printdamage
+.printwhite
+	;load white tiles
+	ld a, $7f
+	ld [hli], a
+	ld [hli], a
+	ld [hli], a
+	ld [hli], a
+	jr .end_printdamage
+.printdamage	
+	lb bc, LEADING_ZEROES | 2, 3 ; 2 bytes, 3 digits
+	call PrintNumber
+	ld [hl], "!"
+.end_printdamage	
+
 	ret
 
+.isDEzero
+	ld a, [de]
+	ld b, a
+	inc de
+	ld a, [de]
+	dec de
+	or b
+	ret
+
+	
 SetupPlayerAndEnemyPokeballs:
 	call LoadPartyPokeballGfx
 	ld hl, wPartyMons

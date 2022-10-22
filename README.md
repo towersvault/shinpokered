@@ -489,6 +489,10 @@ v1.23.09
   - Machoke
     - Use a leaf stone at level 35
 	- Hinted at by a house NPC in Pewter City that talks about trainers teaching pokemon
+- Debug Damage Display: As a debugging cheat, damage values will be displayed in battle as the UI updates
+  - Toggled on/off the same way as the softlock warp, but by using 'A' instead of 'B'
+  - Zero damage is not displayed
+  - Damage is not displayed if either pokemon has zero HP remaining
 
 
 #Bugfixes
@@ -1063,6 +1067,10 @@ v1.23.09
 	- while continuing to hold DOWN, press and hold SELECT
 	- while continuing to hold those two buttons, press B
 	- the start menu should close and you will warp back to your mom's house
+- Debug Damage Display: As a debugging cheat, damage values will be displayed in battle as the UI updates
+  - Toggled on/off the same way as the softlock warp, but by using 'A' instead of 'B'
+  - Zero damage is not displayed
+  - Damage is not displayed if either pokemon has zero HP remaining
 - Context-sensitive SELECT button for using HMs (must have the correct badge and the move on one of your pkmn)
   - press SELECT against a shore to surf
   - press SELECT when facing a shrub or grass tile to use cut

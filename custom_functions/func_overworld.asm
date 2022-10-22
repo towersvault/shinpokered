@@ -9,6 +9,8 @@ SoftlockTeleport:
 	ret z
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	ld a, [hJoyInput]
+	cp D_DOWN + A_BUTTON + SELECT
+	jp z, ShowDamageValues
 	cp D_DOWN + B_BUTTON + SELECT
 	ret nz
 	CheckEvent EVENT_GOT_POKEDEX
@@ -44,8 +46,13 @@ SoftlockTeleport:
 	ld a, $10
 	ld [wPlayerMoney + 1], a
 	ret
-	
 
+
+ShowDamageValues:	;joenote - toggle damage values being shown in battle
+	CheckAndResetEvent EVENT_910
+	ret nz
+	SetEvent EVENT_910
+	ret
 
 TrainerRematch:
 	xor a

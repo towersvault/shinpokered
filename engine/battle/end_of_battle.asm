@@ -72,6 +72,12 @@ EndOfBattle:
 	ld [hli], a
 	ld [hl], a
 	ld [wListScrollOffset], a
+
+;joenote - zero the damage address
+	ld hl, wDamage
+	ld [hli], a
+	ld [hl], a
+
 	ld hl, wPlayerStatsToDouble
 	ld b, $18
 .loop

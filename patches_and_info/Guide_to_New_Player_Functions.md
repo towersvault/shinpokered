@@ -107,6 +107,12 @@ Instructions to perform:
 4 - While still continuing to hold the two aforementioned buttons, press B.  
 5 - The start menu should close and you will warp back to your mom's house.  
 
+**Debug Damage Display**  
+As a debugging cheat, damage values will be displayed in battle as the UI updates.  
+Toggled on/off the same way as the softlock warp, but by using 'A' instead of 'B'.  
+Zero damage is not displayed.  
+Damage is not displayed if either pokemon has zero HP remaining.  
+
 **Regular Trainer Randomization**  
 One of Oak's Aides has been added to the Viridian Pokemon Center. Talk to him to toggle this feature.  
 This randomizes the teams of regular no-name trainers that do not have roster customization.  

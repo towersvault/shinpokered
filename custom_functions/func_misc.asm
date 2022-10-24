@@ -4,17 +4,22 @@ PrintPlayTime:	;joenote - moved this into a predef
 
 	ld a, [wPlayTimeMaxed]
 	push af
-	res 7, a
-	ld [wPlayTimeMaxed], a
+	ld a, [wPlayTimeHours]
+	push af
 
 	push de
-	call .swap
+	ld e, a
+	ld a, [wPlayTimeMaxed]
+	ld [wPlayTimeHours], a
+	ld a, e
+	ld [wPlayTimeMaxed], a
 	ld de, wPlayTimeHours
 	lb bc, 2, 5
 	call PrintNumber
 	pop de
-	call .swap
 
+	pop af
+	ld [wPlayTimeHours], a
 	pop af
 	ld [wPlayTimeMaxed], a
 
@@ -25,14 +30,6 @@ PrintPlayTime:	;joenote - moved this into a predef
 	lb bc, LEADING_ZEROES | 1, 2
 	jp PrintNumber
 
-.swap
-	ld a, [wPlayTimeHours]
-	ld e, a
-	ld a, [wPlayTimeMaxed]
-	ld [wPlayTimeHours], a
-	ld a, e
-	ld [wPlayTimeMaxed], a
-	ret
 
 
 ;sets both of the vermilion gym switches at the same time

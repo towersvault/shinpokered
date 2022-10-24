@@ -37,7 +37,7 @@
 
 - Added shiny mercy
   - When a player encounters an AI trainer shiny pokemon, the next wild encounter will be shiny
-  - Side effect: Because trainer 'mons can't be shiny in SHIFT mode, SET mode gives more chances to find wild shinies
+  - Side effect: Because trainer 'mons can't be shiny in regular difficulty, hard mode gives more chances to find wild shinies
 
 - Added new superboss at the seafoam shore (activated the same as the existing missingno fight)
 

@@ -253,7 +253,22 @@ PlaceHUDTiles:
 	ld [hli], a
 	ld [hli], a
 	jr .end_printdamage
+.printTKO
+	ld a, "9"
+	ld [hli], a
+	ld [hli], a
+	ld [hli], a
+	ld [hl], "!"
+	jr .end_printdamage
 .printdamage	
+	ld a, d
+	cp $03
+	jr c, .printdamage_next
+	jr nz, .printTKO
+	ld a, e
+	cp $e7
+	jr nc, .printTKO
+.printdamage_next
 	lb bc, LEADING_ZEROES | 2, 3 ; 2 bytes, 3 digits
 	call PrintNumber
 	ld [hl], "!"

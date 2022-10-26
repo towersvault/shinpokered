@@ -468,6 +468,13 @@ Here is an alternative to grinding out battles in the post-game.
 12 - Bill's secret garden? He'll never tell! Could showing him a new species pokemon persuade him?  
 13 - Search all over the Kanto overworld to find a secret cave room, or else you'll never get a mist stone.  
 
+**Gameshark Codes**  
+Here are some freshly-baked cheat codes unique to Shin Pokemon.  
+  - 010042DA: If your play-clock was maxed at 255 from a previous save file, this will unlock the expanded game clock.
+These codes do not work on the Lite patches.  
+  - 0180C4CF: The next encounter will be a shiny pokemon.
+  - 01xx21D7: Resets the options and changes the player graphics to male (xx=00) or female (xx=01).
+
 
 #Built-In Nuzlocke Mode
 -----------------------------------------------

@@ -12,8 +12,13 @@ WartortlePicFront::	INCBIN	WARTORTLE_FR
 WartortlePicBack::	INCBIN	WARTORTLE_BK
 CharizardPicFront::	INCBIN	CHARIZARD_FR
 CharizardPicBack::	INCBIN	CHARIZARD_BK
-FossilKabutopsPic::    INCBIN "pic/bmon/fossilkabutops.pic"
-FossilAerodactylPic::  INCBIN "pic/bmon/fossilaerodactyl.pic"
+IF DEF(_RGSPRITES)
+	FossilKabutopsPic::    INCBIN "pic/rgmon/fossilkabutops.pic"
+	FossilAerodactylPic::  INCBIN "pic/rgmon/fossilaerodactyl.pic"
+ELSE
+	FossilKabutopsPic::    INCBIN "pic/bmon/fossilkabutops.pic"
+	FossilAerodactylPic::  INCBIN "pic/bmon/fossilaerodactyl.pic"
+ENDC
 GhostPic::             INCBIN "pic/other/ghost.pic"
 OddishPicFront::	INCBIN	ODDISH_FR
 OddishPicBack::	INCBIN	ODDISH_BK

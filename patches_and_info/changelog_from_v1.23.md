@@ -144,6 +144,8 @@
 - Fixed pokemon category translation: "Rat" to "Mouse"
 - Fixed pokemon category translation: "Shellfish" to "Shell"
 - Fixed translation: Route 14 trainer's comment about the legendary birds
+- Fixed text giving the wrong description of guard spec.
+- Fixed woman on silph co 10F having a blank line in her text 
 
 - The function that shows the dex entry for starter pokemon is now more robust
   - It now works for any pokemon (like if the starters are changed or randomized)

@@ -493,6 +493,8 @@ v1.23.09
   - Toggled on/off the same way as the softlock warp, but by using 'A' instead of 'B'
   - Zero damage is not displayed
   - Damage is not displayed if either pokemon has zero HP remaining
+- Fixed text giving the wrong description of guard spec.
+- Fixed woman on silph co 10F having a blank line in her text 
 
 
 #Bugfixes
@@ -772,6 +774,8 @@ v1.23.09
   - Fixed the flipped text for a girl in Saffron and the letter she is writing
   - Fixed text overlap with Oak giving you pokeballs
   - Reactivated lost text that was meant to play when you lose to your rival
+  - Fixed text giving the wrong description of guard spec.
+  - Fixed woman on silph co 10F having a blank line in her text 
 - Made adjustments to the game text
   - When a pkmn is caught and fills the box, a reminder is printed that the box is full
   - PC has a text prompt to tell you if its full after depositing

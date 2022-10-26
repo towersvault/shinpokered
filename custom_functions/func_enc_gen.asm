@@ -362,19 +362,19 @@ EnemyMonEvolve:
 .handleeevee
 	call Random
 	and $0F
-	cp $0A
+	cp $03
 	ret c	;eevee
 	push af
 	ld a, FLAREON
 	ld [wcf91], a
 	pop af
-	cp $0C
+	cp $07
 	ret c ;flareon
 	push af
 	ld a, VAPOREON
 	ld [wcf91], a
 	pop af
-	cp $0E
+	cp $0B
 	ret c ;vaporeon
 	;else jolteon
 	ld a, JOLTEON

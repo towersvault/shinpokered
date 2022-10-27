@@ -26,7 +26,7 @@ Feel free to discuss this project in its dedicated [Pokecommunity thread](https:
 -----------
 BPS patches are provided for entry into your preferred emulator, patching tool, or other accessory that supports the BPS format.  
 Download and enter a patch which corresponds to the ROM of which you own a lawful copy.  
-- **Red patches (shin pokemon red, red_origback, and red-jp) are intended for USA Red.**
+- **Red patches (Shin Pokemon Red, Red_origback, and Red-JP) are intended for USA Red.**
   - MD5 Hash: 3d45c1ee9abd5738df46d2bdda8b57dc
 - **All other patches (Blues and Greens) are intended for USA Blue.**
   - MD5 Hash: 50927e843568814f7ed45ec4f944bd8b

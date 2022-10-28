@@ -1475,7 +1475,7 @@ So it was decided to whip-up something simple and original that depicted a femal
 
 > **Why can Bide still hit opponents in the Fly/Dig state when Pokemon Stadium fixes this?**
 
-Bide is kinda bad no matter what, but it does gain some strategy in Shin Pokemon.It was purposefully left in as a "feature" to not nerf it further.
+Bide is a crummy move, but it gains a little more strategy in Shin Pokemon. This oversight was purposefully retained as a "feature" to help it out some more.
 
 > **Why is there a brief white frame flash when the screen transitions on Gameboy Color?**
 

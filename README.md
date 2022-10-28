@@ -1447,7 +1447,7 @@ These are things that are commonly requested but fall outside the scope of the p
 
 The gesture is appreciated and highly flattering, but donations of any sort are politely declined.
 	
-> **What are the best ways to support the Shin Pokemon?**
+> **What are the best ways to support Shin Pokemon?**
 
 There are several ways you can support the project:
 - Stream your playthrough.

@@ -5,14 +5,14 @@ Version 1.23.09
 *Shin (真) - The kanji for "true".  
 Used in Japanese media to denote a remastering, updated retelling , or a "true form" of something.*  
 
-This is an enhancement ROM hack of Pokemon Red & Blue based on the Pret team's pokered disassembly project.
+     This is an enhancement ROM hack of Pokemon Red & Blue based on the Pret team's pokered disassembly project.
 It is a mostly-vanilla hack that focuses on fixing game engine bugs and oversights from the original game.
 Additionally, trainer AI routines are improved and multiple quality-of-life enhancements have been added.
 It also acts as a kind of research-informed speculative work that presents an alternate interpretation of the games.
 Specifically, that being what the 2016 Nintendo Virtual Console re-release of Gen-1 Pokemon could have been.
-It is the image of a glitch-free experience with player-friendly goodies and enhancements common to other modern remasterings.
-The main purpose of the accompanying source code repository is to study, comment upon, and repair functional errors.
-It is rather important to record for posterity the methods used for restoring the game to an error-free state.
+It is the image of a glitch-free experience with player-friendly goodies and enhancements common to other modern remasterings.  
+     The main purpose of the accompanying source code repository is to study, comment upon, and repair functional errors.
+It is important to record, for posterity's sake, the methods used for restoring the game to an error-free state.
 Finally, the source code documents many differences and changes between the various Japanese and English releases.
 
 Read the ["Guide to New Player Functions"](/patches_and_info/Guide_to_New_Player_Functions.md) for instructions on all the new stuff the player can do.
@@ -240,12 +240,12 @@ Changes to fishing!
 
 Other minor changes to lessen annoyance.
 - Low HP alarm only plays three times then turns itself off.
-- TMs and HMs now have their attacks (albeit abbreviated) appended to the item names.
+- TMs and HMs now have their move names (albeit abbreviated) appended to the item names.
 - All TMs can be repurchased as they are strategically scattered across all the Kanto pokemarts.
-- The safari zone mechanics run off level instead of speed and safari balls have a boosted catch rate.
+- The safari zone mechanics run off level instead of speed, and safari balls have a boosted catch rate.
 - Slot machines are a little more lucky, so now you can actually win big.
 - CUT is not needed to get to Lt. Surge and Erika (a blocking event replaces the Vermilion shrub).
-- Yellow version learnsets have been integrated and stone evolutions gain back some level-up moves.
+- Yellow version learnsets have been integrated, and stone evolutions gain back some level-up moves.
 - Hitting with a trapping move reduces its user's speed by 25% until recalculated via some other effect.
 - Trapping moves play a 'poof' animation on the move's final turn in order to inform the player.
 - A recalibrated daycare gives experience points scaled to your gym progress.
@@ -253,7 +253,7 @@ Other minor changes to lessen annoyance.
 - Retrieving a daycare pokemon that could have evolved via level will trigger evolution and learn any missed-out moves.
 
 Cheats and Secrets!
-- A pokemon with Pay Day in your top slot will might come in handy at the Game Corner.
+- A pokemon with Pay Day in your top slot might come in handy at the Game Corner.
 - New item, the M.GENE! Could it give low-DV pokemon a boost?
 - Max-out your pokemon's hidden potential with the MIST STONE.
 - Five post-game special trainers to find and defeat! What may reappear when they are all defeated?
@@ -287,7 +287,7 @@ Cheats and Secrets!
 
 #Changelog From the Last Full Release
 -----------
-**Changelogs may contain spoilers**  
+**Note: Changelogs may contain spoilers**  
 [View the Consolidated Changelog Document](/patches_and_info/changelog_from_v1.23.md)  
 
 v1.23.01  
@@ -1439,6 +1439,46 @@ These are things that are commonly requested but fall outside the scope of the p
 - Gen 2 color / graphics - The goal is to keep art direction and assets within the purview of a pre-1998 direction.
 - Battle mechanics from later generations - Gen 1's gameplay must be generally be preserved, so no special defense, physical-special split, critical hits untied from speed, updated move pools, etc.
 - Later-gen evolutions/forms/variants - I'm keeping this strictly to the original 151.
+
+
+#Frequently Asked Questions
+---------------------------
+> **I love your work! How can I donate to you?**
+
+The gesture is appreciated and highly flattering, but donations of any sort are politely declined.
+	
+> **What are the best ways to support the Shin Pokemon?**
+
+There are several ways you can support the project:
+- Stream your playthrough.
+- Make a Let's Play series.
+- Do a review or an analysis piece.
+- Create highly detailed bug reports with an "Issues" ticket.
+- Recording and uploading your gameplay is the best resource for troubleshooting. Let's Plays and stream VODs are routinely searched for and examined. 
+
+> **How do you come up with with new features and their implementations?**
+
+It's primarily based on nostalgic schoolyard rumors, interesting "what if" ideas, and love for secrets and easter eggs from the 1990s gaming era.
+
+> **A separate project used code from Shin Pokemon to do such-and-such feature. Will you backport it into Shin Pokemon?**
+
+Let such projects have their own identity. Other creators need to be able to show off and be proud of what they made.
+
+> **Why did you not use the artwork of Trainer Green from the Adventures comic or the Let's Go games for the female trainer option?**
+
+Internal debate was heated on how to proceed for a female player option, but here's the reasoning that won out:
+- Green's design was never intended to be a playable character. Ken Sugimori created her back-view because he needed to depict a trainer trio for an art piece.
+- Trainer Red was always supposed to be the player. An original female trainer was never considered until gen-2's development phase around Nov-Dec 1997.
+- Others already created original sprite art to include in their own projects, and lifting it might step on their toes or foster ill feelings.
+So it was decided to whip-up something simple and original that depicted a female version of Trainer Red. She also acts as a (private) dev shoutout.
+
+> **Why can Bide still hit opponents in the Fly/Dig state when Pokemon Stadium fixes this?**
+
+Bide is kinda bad no matter what, but it does gain some strategy in Shin Pokemon.It was purposefully left in as a "feature" to not nerf it further.
+
+> **Why is there a brief white frame flash when the screen transitions on Gameboy Color?**
+
+It's a hardware quirk. There is a brief moment where the LCD is disabled. When it is re-enabled, the screen displays blank white for 1 frame.
 
 
 #Credits / Special Thanks

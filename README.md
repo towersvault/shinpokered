@@ -1470,6 +1470,7 @@ Internal debate was heated on how to proceed for a female player option, but her
 - Green's design was never intended to be a playable character. Ken Sugimori created her back-view because he needed to depict a trainer trio for an art piece.
 - Trainer Red was always supposed to be the player. An original female trainer was never considered until gen-2's development phase around Nov-Dec 1997.
 - Others already created original sprite art to include in their own projects, and lifting it might step on their toes or foster ill feelings.
+
 So it was decided to whip-up something simple and original that depicted a female version of Trainer Red. She also acts as a (private) dev shoutout.
 
 > **Why can Bide still hit opponents in the Fly/Dig state when Pokemon Stadium fixes this?**

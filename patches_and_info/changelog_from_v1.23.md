@@ -53,6 +53,7 @@
 - Scaled back fishing, reduced its randomness, and made it more map-dependent
 
 - Added spaceworld-style trainer back sprites for consistency with the spaceworld 'mon back sprites 
+- Blue-JP has spaceworld-style back sprites, and a corresponding _origback patch has been added
 
 - Recalibrated the experience gain at the daycare
 - the daycare lets you select moves to forget (if any) upon retreiving your pokemon

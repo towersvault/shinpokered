@@ -1411,6 +1411,7 @@ ItemUseMedicine:
 	jp UseCustomMedicine	;joenote - custom medicine items (m_gene and mist_stone)
 .no_custom_medicine
 	
+	ld a, [wcf91]	;joenote - 'A' might get clobbered by UseCustomMedicine, so reload wcf91
 	push hl
 	sub HP_UP
 	add a
@@ -3366,7 +3367,7 @@ UseCustomMedicine:
 ;jump back to the original function after not using an item
 .exit_no_usage
 	pop de
-	pop af
-	pop af
+	pop af	;pop off wcf91
+	pop af	;pop off wWhichPokemon
 	jp ItemUseMedicine.no_custom_medicine
 	

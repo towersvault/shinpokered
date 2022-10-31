@@ -463,7 +463,7 @@ v1.23.09
 - Unused beedrill trade has been restored and placed on Route 22
 - A new NPC is in the north-south underground path for post-game mirror matches
 
-***Not Yet in a Patch***  
+v1.23.10  
 - re-adjusted trainer randomization so that their pokemon evolve a few levels later than normal
 - trainer randomization will not allow the stronger unevolved pokemon below level 30
 - auto-evolution function now handles eevee
@@ -496,6 +496,7 @@ v1.23.09
   - Damage is not displayed if either pokemon has zero HP remaining
 - Fixed text giving the wrong description of guard spec.
 - Fixed woman on silph co 10F having a blank line in her text 
+- Blue-JP has spaceworld-style back sprites for the master branch, and a corresponding _origback patch has been added
 
 
 #Bugfixes

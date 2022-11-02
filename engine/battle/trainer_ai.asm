@@ -976,8 +976,8 @@ AIMoveChoiceModification3:
 	cp 192
 	jr c, .skipout6
 	call StrCmpAtkSPA
-	push af
 	jr z, .skipout6	;jump if stats equal
+	push af
 	ld a, [wEnemyMoveType]
 	cp FIRE
 	jr nc, .special_move

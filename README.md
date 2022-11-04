@@ -498,6 +498,9 @@ v1.23.10
 - Fixed woman on silph co 10F having a blank line in her text 
 - Blue-JP has spaceworld-style back sprites for the master branch, and a corresponding _origback patch has been added
 
+**Not yet in patch**
+- Added max revives to post-game shop on celadon mart 3f
+
 
 #Bugfixes
 -----------
@@ -1197,7 +1200,7 @@ v1.23.10
   - Any trainer can appear with any three pokemon (excluding mew and mewtwo)
   - No breaks allowed in-between battles
 - Vendor added to Celadon Dept. Store 3F
-  - Sells moon stones, amber, fossils, exp all, master balls, and rare candy
+  - Sells max revives, moon stones, amber, fossils, exp all, master balls, and rare candy
   - Only opens up after beating elite 4
 - In the safari zone gate, a new NPC can toggle on and off a special safari event after the elite 4
   - All pokemon in the safari zone will have above-average DVs

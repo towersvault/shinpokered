@@ -69,6 +69,8 @@
 
 - Organized the female trainer code to be activated via assembler tags in the makefile (for easy reference)
 
+- Added max revives to post-game shop on celadon mart 3f
+
 
 ---
 **Hack-related fixes exclusively for the master branch**

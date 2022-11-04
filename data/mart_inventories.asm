@@ -52,7 +52,7 @@ FuchsiaCashierText::
 ; unused? joenote - repurposing for a new vendor on celadon dept store floor 3
 CeladonMart3ClerkText::
 	;TX_MART GREAT_BALL, HYPER_POTION, SUPER_POTION, FULL_HEAL, REVIVE
-	TX_MART MOON_STONE, RARE_CANDY, DOME_FOSSIL, HELIX_FOSSIL, OLD_AMBER, EXP_ALL, MASTER_BALL
+	TX_MART MASTER_BALL, MAX_REVIVE, RARE_CANDY, MOON_STONE, DOME_FOSSIL, HELIX_FOSSIL, OLD_AMBER, EXP_ALL
 
 ; Cinnabar
 CinnabarCashierText::

@@ -2140,6 +2140,8 @@ wMonHGrowthRate:: ; d0cb
 wMonHLearnset:: ; d0cc
 ; bit field
 	flag_array 50 + 5
+
+wMonHPicBank::	;joenote - repurpose this filler byte to dynamically lookup the bank of font/back pics
 	ds 1
 
 wSavedTilesetType:: ; d0d4

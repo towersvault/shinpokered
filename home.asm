@@ -752,36 +752,49 @@ UncompressMonSprite::
 	ld [wSpriteInputPtr+1], a
 ;joenote - expanding this to use 7 rom banks to fit the spaceworld back sprites if desired
 ; define (by index number) the bank that a pokemon's image is in
+;joenote - redoing this so that each 'mon header stores the bank of its front and back pic
+;			- now the bank doesn't matter so long as a mon's front and back pic are in the same bank
+;			- also assumes the tower ghost and the fossil front pics are kept together in the same bank
 	ld a, [wcf91] ; XXX name for this ram location
-	ld b, a
-	cp MEW
-	ld a, BANK(MewPicFront)
-	jr z, .GotBank
-	ld a, b
-	cp SHELLDER + 1
-	ld a, BANK(ShellderPicFront)
-	jr c, .GotBank
-	ld a, b
-	cp DROWZEE + 1
-	ld a, BANK(DrowzeePicFront)
-	jr c, .GotBank
-	ld a, b
-	cp NINETALES + 1
-	ld a, BANK(NinetalesPicFront)
-	jr c, .GotBank
-	ld a, b
-	cp KAKUNA + 1
-	ld a, BANK(KakunaPicFront)
-	jr c, .GotBank
-	ld a, b
-	cp CLEFABLE + 1
-	ld a, BANK(ClefablePicFront)
-	jr c, .GotBank
-	ld a, b
-	cp PORYGON + 1
-	ld a, BANK(PorygonPicFront)
-	jr c, .GotBank
-	ld a, BANK(VictreebelPicFront)
+	; ld b, a
+	; cp MEW
+	; ld a, BANK(MewPicFront)
+	; jr z, .GotBank
+	; ld a, b
+	; cp SHELLDER + 1
+	; ld a, BANK(ShellderPicFront)
+	; jr c, .GotBank
+	; ld a, b
+	; cp DROWZEE + 1
+	; ld a, BANK(DrowzeePicFront)
+	; jr c, .GotBank
+	; ld a, b
+	; cp NINETALES + 1
+	; ld a, BANK(NinetalesPicFront)
+	; jr c, .GotBank
+	; ld a, b
+	; cp KAKUNA + 1
+	; ld a, BANK(KakunaPicFront)
+	; jr c, .GotBank
+	; ld a, b
+	; cp CLEFABLE + 1
+	; ld a, BANK(ClefablePicFront)
+	; jr c, .GotBank
+	; ld a, b
+	; cp PORYGON + 1
+	; ld a, BANK(PorygonPicFront)
+	; jr c, .GotBank
+	; ld a, BANK(VictreebelPicFront)
+	cp FOSSIL_KABUTOPS
+	jr z, .bankFossilOrGhost
+	cp FOSSIL_AERODACTYL
+	jr z, .bankFossilOrGhost
+	cp MON_GHOST
+	jr z, .bankFossilOrGhost
+	ld a, [wMonHPicBank]
+	jr .GotBank
+.bankFossilOrGhost
+	ld a, BANK(FossilKabutopsPic)
 .GotBank
 	jp UncompressSpriteData
 

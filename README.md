@@ -500,6 +500,7 @@ v1.23.10
 
 **Not yet in patch**
 - Added max revives to post-game shop on celadon mart 3f
+- Corrected and clarified the quiz text in the cinnabar gym
 
 
 #Bugfixes
@@ -797,6 +798,7 @@ v1.23.10
   - Fixed pokemon category translation: "Shellfish" to "Shell"
   - Fixed translation: Route 14 trainer's comment about the legendary birds
   - Restored unused text in the vermilion gym puzzle for finding the 2nd switch
+  - Corrected and clarified the quiz text in the cinnabar gym
 
 - Adjustments to moves  
   - Stat-down moves no longer have a 25% miss chance in AI matches

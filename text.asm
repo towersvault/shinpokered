@@ -574,7 +574,8 @@ _CinnabarGymQuizIntroText::
 	prompt
 
 _CinnabarQuizQuestionsText1::
-	text "CATERPIE evolves"
+;	text "CATERPIE evolves"	;joenote - this is supposed to be METAPOD
+	text "METAPOD evolves"	
 	line "into BUTTERFREE?"
 	done
 
@@ -589,17 +590,22 @@ _CinnabarQuizQuestionsText3::
 	line "times?"
 	done
 
-_CinnabarQuizQuestionsText4::
-	text "Are thunder moves"
-	line "effective against"
-	cont "ground element-"
+_CinnabarQuizQuestionsText4::	;joenote - re-worded to be less contrived
+;	text "Are thunder moves"
+;	line "effective against"
+;	cont "ground element-"
+;	cont "type #MON?"
+	text "Are electric-type"
+	line "moves effective"
+	cont "against ground-"
 	cont "type #MON?"
 	done
 
 _CinnabarQuizQuestionsText5::
 	text "#MON of the"
 	line "same kind and"
-	cont "level are not"
+;	cont "level are not"	;joenote - re-worded 
+	cont "level are rarely"
 	cont "identical?"
 	done
 

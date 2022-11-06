@@ -11,6 +11,8 @@
   - Scripted events are unaffected (gifts, in-game trades, static encounters, etc)
   - The game's five legendary pokemon are excluded from randomization
   - The AREA feature of the pokedex automatically adjusts to show the new pokemon locations
+
+- Relocated one of the rocket grunts in celadon city, and he now sells bulk coins in the post-game
   
 - Trade evolutions no longer evolve at level 45
 - Trade evolutions now alternately evolve with a stone at a certain level with some new hinting NPC text

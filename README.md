@@ -224,6 +224,7 @@ Lots of quick-key features.
 New NPCs!
 - The move relearner and deleter is in Saffron City.
 - An NPC in the Celadon Hotel will pay COINS for showing him pokemon as an alternative to slots.
+- After the Elite-4, one of the rocket grunts in Celadon City will sell coins in bulk.
 - After the Elite-4, a new vendor opens up in Celadon allowing the purchase of normally unique items.
 - After the Elite-4, there is an NPC in the east-west underground path that generates random trainer battles.
 - After the Elite-4, there is an NPC in the north-south underground path that generates mirror matches.
@@ -501,6 +502,7 @@ v1.23.10
 **Not yet in patch**
 - Added max revives to post-game shop on celadon mart 3f
 - Corrected and clarified the quiz text in the cinnabar gym
+- Relocated one of the rocket grunts in celadon city, and he now sells bulk coins in the post-game
 
 
 #Bugfixes
@@ -1204,6 +1206,7 @@ v1.23.10
 - Vendor added to Celadon Dept. Store 3F
   - Sells max revives, moon stones, amber, fossils, exp all, master balls, and rare candy
   - Only opens up after beating elite 4
+- Relocated one of the rocket grunts in celadon city, and he now sells bulk coins in the post-game
 - In the safari zone gate, a new NPC can toggle on and off a special safari event after the elite 4
   - All pokemon in the safari zone will have above-average DVs
   - Also makes it so there is a rare chance for any pokemon to be encountered in the safari zone (depends on location)

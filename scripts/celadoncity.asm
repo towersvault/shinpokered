@@ -98,7 +98,14 @@ CeladonCityText8:
 	TX_FAR _CeladonCityText8
 	db "@"
 
-CeladonCityText9:
+CeladonCityText9:	;joenote - make this rocket grunt sell coins in the post-game
+	TX_ASM
+	CheckEvent EVENT_908
+	jp nz, BuyCoinsFromRocket	
+	ld hl, CeladonCityText9_continue
+	call PrintText
+	jp TextScriptEnd
+CeladonCityText9_continue:
 	TX_FAR _CeladonCityText9
 	db "@"
 
@@ -133,3 +140,104 @@ CeladonCityText17:
 CeladonCityText18:
 	TX_FAR _CeladonCityText18
 	db "@"
+
+	
+	
+BuyCoinsFromRocket:
+	callba CeladonGameCornerScript_48f1e
+	ld hl, _TXTSolicitCoins
+	call PrintText
+	call YesNoChoice
+	ld a, [wCurrentMenuItem]
+	and a
+	jr nz, .refuse
+	ld b, COIN_CASE
+	call IsItemInBag
+	jr z, .no_case
+	callba Has9990Coins
+	jr nc, .tooManyCoins
+	xor a
+	ld [hMoney], a
+	ld [hMoney + 2], a
+	ld a, $10
+	ld [hMoney + 1], a
+	call HasEnoughMoney
+	jr nc, .havemoney
+	ld hl, _NotEnoughMoney
+	jr .end
+.havemoney
+	xor a
+	ld [hMoney + 2], a
+	ld a, $50
+	ld [hMoney + 1], a
+	ld a, $01
+	ld [hMoney], a
+	ld hl, hMoney + 2
+	ld de, wPlayerMoney + 2
+	ld c, $3
+	predef SubBCDPredef
+	xor a
+	ld [hUnusedCoinsByte], a
+	ld [hCoins + 1], a
+	ld a, $10
+	ld [hCoins], a
+	ld de, wPlayerCoins + 1
+	ld hl, hCoins + 1
+	ld c, $2
+	predef AddBCDPredef
+	callba CeladonGameCornerScript_48f1e
+	ld hl, _TXTBoughtCoins
+	jr .end
+.refuse
+	ld hl, _TXTRefuseCoins
+	jr .end
+.tooManyCoins
+	ld hl, _TXTCoinCaseFull
+	jr .end
+.no_case
+	ld hl, _TXTNeedCoinCase
+.end
+	call PrintText
+	jp TextScriptEnd
+
+_TXTSolicitCoins:
+	text "Pssst! Hey kid."
+	line "Wanna buy some"
+	cont "COINS? 1000 for"
+	cont "only ¥15000."
+	done
+	db "@"
+_TXTRefuseCoins:
+	text "Then make like a"
+	line "BELLSPROUT and"
+	cont "leave!"
+	
+	para "It's hard enough"
+	line "making money now"
+	cont "that TEAM ROCKET"
+	cont "is gone."
+	done
+	db "@"
+_TXTNeedCoinCase:
+	text "Then bring your"
+	line "COIN CASE, dork."
+	done
+	db "@"
+_TXTCoinCaseFull:
+	text "Looks like you"
+	line "don't need any."
+	done
+	db "@"
+_NotEnoughMoney:	
+	text "Come back with"
+	line "the cash or don't"
+	cont "waste my time!"
+	done
+	db "@"
+_TXTBoughtCoins:
+	text "Thanks. Don't ask"
+	line "where I got 'em."
+	done
+	db "@"
+
+

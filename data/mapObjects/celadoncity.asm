@@ -36,7 +36,8 @@ CeladonCityObject:
 	object SPRITE_FISHER2, 32, 12, STAY, LEFT, 6 ; person
 	object SPRITE_SLOWBRO, 30, 12, STAY, RIGHT, 7 ; person
 	object SPRITE_ROCKET, 32, 29, WALK, 2, 8 ; person
-	object SPRITE_ROCKET, 42, 14, WALK, 2, 9 ; person
+;	object SPRITE_ROCKET, 42, 14, WALK, 2, 9 ; person
+	object SPRITE_ROCKET, 4, 2, WALK, 2, 9 ; person	;joenote - moved this rocket to a barren area
 
 	; warp-to
 	warp_to 8, 13, CELADON_CITY_WIDTH ; CELADON_MART_1

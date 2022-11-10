@@ -503,6 +503,7 @@ v1.23.10
 - Added max revives to post-game shop on celadon mart 3f
 - Corrected and clarified the quiz text in the cinnabar gym
 - Relocated one of the rocket grunts in celadon city, and he now sells bulk coins in the post-game
+- Viridian gym statue will not spoil the gym leader's name reveal
 
 
 #Bugfixes
@@ -784,6 +785,7 @@ v1.23.10
   - Reactivated lost text that was meant to play when you lose to your rival
   - Fixed text giving the wrong description of guard spec.
   - Fixed woman on silph co 10F having a blank line in her text 
+  - Viridian gym statue will not spoil the gym leader's name reveal
 - Made adjustments to the game text
   - When a pkmn is caught and fills the box, a reminder is printed that the box is full
   - PC has a text prompt to tell you if its full after depositing

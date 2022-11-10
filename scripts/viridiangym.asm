@@ -13,7 +13,8 @@ ViridianGymScript:
 Gym8CityName:
 	db "VIRIDIAN CITY@"
 Gym8LeaderName:
-	db "GIOVANNI@"
+;	db "GIOVANNI@"	;joenote - let's remove this funny nonsense spoiler
+	db "---@"
 
 ViridianGymScript_748d6:
 	xor a

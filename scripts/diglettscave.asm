@@ -5,6 +5,7 @@ DiglettsCaveScript:
 DiglettsCaveTextPointers:
 ;	db "@"
 	dw Mist_Stone_Text
+	dw BoulderText
 	
 Mist_Stone_Text:
 	TX_ASM

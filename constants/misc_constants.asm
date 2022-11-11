@@ -1,7 +1,7 @@
 FALSE EQU 0
 TRUE  EQU 1
 
-HACK_VERSION EQU %00000100
+HACK_VERSION EQU 6	;master branch is always an even number
 
 MAX_LEVEL EQU 100
 

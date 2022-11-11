@@ -504,6 +504,10 @@ v1.23.10
 - Corrected and clarified the quiz text in the cinnabar gym
 - Relocated one of the rocket grunts in celadon city, and he now sells bulk coins in the post-game
 - Viridian gym statue will not spoil the gym leader's name reveal
+- Added a hidden max revive in celadon city
+- Added a hidden super potion in celadon city
+- Added a hidden moon stone in diglett's cave
+- Added a hidden nugget in diglett's cave
 
 
 #Bugfixes
@@ -1353,6 +1357,13 @@ v1.23.10
 - lavender town has max ethers
 - saffron city has elixers
 - cinnabar island has max elixers
+
+
+#Added hidden items:
+- Added a hidden max revive in celadon city
+- Added a hidden super potion in celadon city
+- Added a hidden moon stone in diglett's cave
+- Added a hidden nugget in diglett's cave
 
 
 #Built-In Nuzlocke Mode

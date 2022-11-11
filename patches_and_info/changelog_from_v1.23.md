@@ -72,6 +72,10 @@
 - Organized the female trainer code to be activated via assembler tags in the makefile (for easy reference)
 
 - Added max revives to post-game shop on celadon mart 3f
+- Added a hidden max revive in celadon city
+- Added a hidden super potion in celadon city
+- Added a hidden moon stone in diglett's cave
+- Added a hidden nugget in diglett's cave
 
 
 ---

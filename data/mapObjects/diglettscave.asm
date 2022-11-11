@@ -11,8 +11,9 @@ DiglettsCaveObject:
 	db 0 ; signs
 
 ;	db 0 ; objects	
-	db 1 ; objects	
+	db 2 ; objects	
 	object SPRITE_BOOK_MAP_DEX, 35,  2, STAY, NONE, 1 ; person
+	object SPRITE_BOULDER, 21, 25, STAY, BOULDER_MOVEMENT_BYTE_2, 2 ; person
 
 	; warp-to
 	warp_to 5, 5, DIGLETTS_CAVE_WIDTH ; DIGLETTS_CAVE_EXIT

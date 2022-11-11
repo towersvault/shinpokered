@@ -37,6 +37,7 @@ HiddenObjectMaps:
 	db ROUTE_9
 	db SS_ANNE_6
 	db SS_ANNE_10
+	db DIGLETTS_CAVE			;joenote - added some hidden items
 	db ROCKET_HIDEOUT_1
 	db ROCKET_HIDEOUT_3
 	db ROCKET_HIDEOUT_4
@@ -128,6 +129,7 @@ HiddenObjectPointers:
 	dw Route9HiddenObjects
 	dw SSAnne6HiddenObjects
 	dw SSAnne10HiddenObjects
+	dw DiglettsCaveHiddenObjects			;joenote - added some hidden items
 	dw RocketHideout1HiddenObjects
 	dw RocketHideout3HiddenObjects
 	dw RocketHideout4HiddenObjects
@@ -581,6 +583,12 @@ Route10HiddenObjects:
 	db $35,$10,MAX_ETHER
 	dbw BANK(HiddenItems),HiddenItems
 	db $FF
+DiglettsCaveHiddenObjects:			;joenote - added some hidden items
+	db 13,30,NUGGET
+	dbw BANK(HiddenItems),HiddenItems
+	db 19,20,MOON_STONE
+	dbw BANK(HiddenItems),HiddenItems
+	db $FF
 RocketHideout1HiddenObjects:
 	db $0f,$15,PP_UP
 	dbw BANK(HiddenItems),HiddenItems
@@ -839,6 +847,11 @@ UndergroundPathWeHiddenObjects:
 	db $FF
 CeladonCityHiddenObjects:
 	db $0f,$30,PP_UP
+	dbw BANK(HiddenItems),HiddenItems
+;joenote - added some hidden items
+	db 7,48,HYPER_POTION
+	dbw BANK(HiddenItems),HiddenItems
+	db 34,48,MAX_REVIVE
 	dbw BANK(HiddenItems),HiddenItems
 	db $FF
 SeafoamIslands4HiddenObjects:

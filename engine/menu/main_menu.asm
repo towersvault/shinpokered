@@ -112,6 +112,9 @@ MainMenu:
 .pressedA
 
 ;joenote - check the rom hack version and give a choice for the pallet warp
+	ld a, [hJoyInput]
+	cp A_BUTTON + SELECT
+;	call z, ClearHackVersion	;this is a debug function to force a warp
 	ld a, [wRomHackVersion]
 	cp HACK_VERSION
 	jr z, .warpcheck_end
@@ -1098,4 +1101,9 @@ CheckForPlayerNameInSRAM:
 	ld [MBC1SRamEnable], a
 	ld [MBC1SRamBankingMode], a
 	scf
+	ret
+
+ClearHackVersion:
+	xor a
+	ld [wRomHackVersion], a
 	ret

@@ -1798,7 +1798,8 @@ Subanimation22:
 	db $47,$b0,$00
 
 Subanimation2d:
-	db $66
+	;db $66		;joenote - this should be $26 instead, else double-edge is off-center for enemy 'mons
+	db $26
 	db $44,$64,$00
 	db $45,$65,$00
 	db $46,$66,$00

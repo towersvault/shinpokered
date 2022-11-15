@@ -508,6 +508,7 @@ v1.23.10
 - Added a hidden super potion in celadon city
 - Added a hidden moon stone in diglett's cave
 - Added a hidden nugget in diglett's cave
+- Fixed double-edge animation being off-center for the enemy pokemon
 
 
 #Bugfixes

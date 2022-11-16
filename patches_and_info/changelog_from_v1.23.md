@@ -72,10 +72,18 @@
 - Organized the female trainer code to be activated via assembler tags in the makefile (for easy reference)
 
 - Added max revives to post-game shop on celadon mart 3f
+- Cerulean mart sells escape rope per Yellow version
+- Fuschia mart sells hyper potions per Yellow version
 - Added a hidden max revive in celadon city
 - Added a hidden super potion in celadon city
 - Added a hidden moon stone in diglett's cave
 - Added a hidden nugget in diglett's cave
+- Added hidden potion on route 22
+- Additional hidden potion in viridian city
+- Added two hidden repels to pewter city
+- Added a hidden great ball and pokedoll on route 6
+- Added hidden max revive on route 11
+- Added hidden ultra ball on route 8
 
 
 ---

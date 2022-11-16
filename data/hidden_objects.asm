@@ -33,7 +33,9 @@ HiddenObjectMaps:
 	db VIRIDIAN_FOREST
 	db MT_MOON_3
 	db INDIGO_PLATEAU
+	db ROUTE_22	;joenote - added hidden item
 	db ROUTE_25
+	db ROUTE_8	;joenote - added hidden item
 	db ROUTE_9
 	db SS_ANNE_6
 	db SS_ANNE_10
@@ -61,6 +63,7 @@ HiddenObjectMaps:
 	db $6F
 	db BILLS_HOUSE
 	db VIRIDIAN_CITY
+	db PEWTER_CITY	;joenote - added hidden items
 	db SAFARI_ZONE_REST_HOUSE_2
 	db SAFARI_ZONE_REST_HOUSE_3
 	db SAFARI_ZONE_REST_HOUSE_4
@@ -85,6 +88,7 @@ HiddenObjectMaps:
 	db VERMILION_CITY
 	db CERULEAN_CITY
 	db ROUTE_4
+	db ROUTE_6	;joenote - added some hidden items
 	db VERMILION_DOCK
 	db DAYCAREM
 	db $FF
@@ -125,7 +129,9 @@ HiddenObjectPointers:
 	dw ViridianForestHiddenObjects
 	dw MtMoon3HiddenObjects
 	dw IndigoPlateauHiddenObjects
-	dw Route25HiddenObjects
+	dw Route22HiddenObjects		;joenote - added hidden item
+	dw Route25HiddenObjects	
+	dw Route8HiddenObjects	;joenote - added hidden item
 	dw Route9HiddenObjects
 	dw SSAnne6HiddenObjects
 	dw SSAnne10HiddenObjects
@@ -153,6 +159,7 @@ HiddenObjectPointers:
 	dw Unused6FHiddenObjects
 	dw BillsHouseHiddenObjects
 	dw ViridianCityHiddenObjects
+	dw PewterCityHiddenObjects	;joenote - added hidden items
 	dw SafariZoneRestHouse2HiddenObjects
 	dw SafariZoneRestHouse3HiddenObjects
 	dw SafariZoneRestHouse4HiddenObjects
@@ -177,6 +184,7 @@ HiddenObjectPointers:
 	dw VermilionCityHiddenObjects
 	dw CeruleanCityHiddenObjects
 	dw Route4HiddenObjects
+	dw Route6HiddenObjects	;joenote - added hidden items
 	dw VermilionDockHiddenObjects
 	dw DaycareHiddenObjects
 	
@@ -553,10 +561,18 @@ IndigoPlateauHiddenObjects:
 	db BANK(PrintIndigoPlateauHQText)
 	dw PrintIndigoPlateauHQText
 	db $FF
-Route25HiddenObjects:
+Route22HiddenObjects:	;joenote - added hidden item
+	db 2,35,POTION
+	dbw BANK(HiddenItems),HiddenItems
+	db $FF
+Route25HiddenObjects:	
 	db $03,$26,ETHER
 	dbw BANK(HiddenItems),HiddenItems
 	db $01,$0a,ELIXER
+	dbw BANK(HiddenItems),HiddenItems
+	db $FF
+Route8HiddenObjects:	;joenote - added hidden item
+	db 4,51,ULTRA_BALL
 	dbw BANK(HiddenItems),HiddenItems
 	db $FF
 Route9HiddenObjects:
@@ -715,6 +731,14 @@ BillsHouseHiddenObjects:
 ViridianCityHiddenObjects:
 	db $04,$0e,POTION
 	dbw BANK(HiddenItems),HiddenItems
+	db $04,$06,POTION	;joenote - added hidden item
+	dbw BANK(HiddenItems),HiddenItems
+	db $FF
+PewterCityHiddenObjects:	;joenote - added hidden items
+	db 3,6,REPEL
+	dbw BANK(HiddenItems),HiddenItems
+	db 2,24,REPEL	
+	dbw BANK(HiddenItems),HiddenItems
 	db $FF
 SafariZoneRestHouse2HiddenObjects:
 	db $04,$00,$08
@@ -811,6 +835,8 @@ BikeShopHiddenObjects:
 Route11HiddenObjects:
 	db $05,$30,ESCAPE_ROPE
 	dbw BANK(HiddenItems),HiddenItems
+	db 17,55,MAX_REVIVE	;joenote - added hidden item
+	dbw BANK(HiddenItems),HiddenItems
 	db $FF
 Route12HiddenObjects:
 	db $3f,$02,HYPER_POTION
@@ -870,6 +896,12 @@ Route4HiddenObjects:
 	db $03,$28,GREAT_BALL
 	dbw BANK(HiddenItems),HiddenItems
 	db $FF
+Route6HiddenObjects: ;joenote - added hidden items
+	db 4,3,GREAT_BALL
+	dbw BANK(HiddenItems),HiddenItems
+	db 4,17,POKE_DOLL
+	dbw BANK(HiddenItems),HiddenItems
+	db $FF
 VermilionDockHiddenObjects: ;joenote - added some hidden goodies
 	db $00,$15,SURFBOARD
 	dbw BANK(HiddenItems),HiddenItems	;joenote - added hidden surfboard
@@ -878,7 +910,7 @@ VermilionDockHiddenObjects: ;joenote - added some hidden goodies
 	db $0A,$1B,TM_15
 	dbw BANK(HiddenItems),HiddenItems
 	db $FF
-DaycareHiddenObjects:	;joentoe - added a PC to the daycare
+DaycareHiddenObjects:	;joenote - added a PC to the daycare
 	db $01,$00,$04
 	db BANK(OpenPokemonCenterPC)
 	dw OpenPokemonCenterPC

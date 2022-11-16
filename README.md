@@ -504,10 +504,17 @@ v1.23.10
 - Corrected and clarified the quiz text in the cinnabar gym
 - Relocated one of the rocket grunts in celadon city, and he now sells bulk coins in the post-game
 - Viridian gym statue will not spoil the gym leader's name reveal
-- Added a hidden max revive in celadon city
-- Added a hidden super potion in celadon city
-- Added a hidden moon stone in diglett's cave
-- Added a hidden nugget in diglett's cave
+- Added max revives to post-game shop on celadon mart 3f
+- Cerulean mart sells escape rope per Yellow version
+- Fuschia mart sells hyper potions per Yellow version
+- Added hidden potion on route 22
+- Additional hidden potion in viridian city
+- Added two hidden repels to pewter city
+- Added a hidden great ball and pokedoll on route 6
+- Added hidden max revive on route 11
+- Added hidden ultra ball on route 8
+- Added a hidden max revive and hyper potion in celadon city
+- Added a hidden moon stone and nugget in diglett's cave
 - Fixed double-edge animation being off-center for the enemy pokemon
 
 
@@ -1354,10 +1361,12 @@ v1.23.10
 	
 #Changes to pokemart inventories:
 - TMs of all kinds at all stores. All TMs are now re-purchaseable at various stages of the game.
-- pewter city has ethers
-- lavender town has max ethers
-- saffron city has elixers
-- cinnabar island has max elixers
+- Pewter city has ethers
+- Lavender town has max ethers
+- Saffron city has elixers
+- Cinnabar island has max elixers
+- Cerulean mart sells escape rope per Yellow version
+- Fuschia mart sells hyper potions per Yellow version
 
 
 #Added hidden items:
@@ -1365,6 +1374,12 @@ v1.23.10
 - Added a hidden super potion in celadon city
 - Added a hidden moon stone in diglett's cave
 - Added a hidden nugget in diglett's cave
+- Added hidden potion on route 22
+- Additional hidden potion in viridian city
+- Added two hidden repels to pewter city
+- Added a hidden great ball and pokedoll on route 6
+- Added hidden max revive on route 11
+- Added hidden ultra ball on route 8
 
 
 #Built-In Nuzlocke Mode

@@ -12,7 +12,7 @@ PewterCashierText::
 
 ; Cerulean
 CeruleanCashierText::
-	TX_MART POKE_BALL, POTION, REPEL, ANTIDOTE, BURN_HEAL, AWAKENING, PARLYZ_HEAL, TM_04, TM_34
+	TX_MART POKE_BALL, POTION, ESCAPE_ROPE, REPEL, ANTIDOTE, BURN_HEAL, AWAKENING, PARLYZ_HEAL, TM_04, TM_34
 
 ; Bike shop
 	TX_MART BICYCLE
@@ -47,7 +47,7 @@ CeladonMart5Clerk2Text::
 
 ; Fuchsia
 FuchsiaCashierText::
-	TX_MART ULTRA_BALL, GREAT_BALL, SUPER_POTION, REVIVE, FULL_HEAL, SUPER_REPEL, TM_30, TM_31, TM_46, TM_49, TM_50
+	TX_MART ULTRA_BALL, GREAT_BALL, SUPER_POTION, HYPER_POTION, REVIVE, FULL_HEAL, SUPER_REPEL, TM_30, TM_31, TM_46, TM_49, TM_50
 
 ; unused? joenote - repurposing for a new vendor on celadon dept store floor 3
 CeladonMart3ClerkText::

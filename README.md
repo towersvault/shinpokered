@@ -516,6 +516,7 @@ v1.23.10
 - Added a hidden max revive and hyper potion in celadon city
 - Added a hidden moon stone and nugget in diglett's cave
 - Fixed double-edge animation being off-center for the enemy pokemon
+- Fixed increment bug in CheckForTilePairCollisions
 
 
 #Bugfixes
@@ -767,6 +768,7 @@ v1.23.10
   - Fixed hidden coins not giving the correct amount
   - Fixed NPCs treating the last visible screen column/row as off-screen
   - Slot machine no longer copies too much tile data
+  - Fixed increment bug in CheckForTilePairCollisions
  
  
 #Tweaks

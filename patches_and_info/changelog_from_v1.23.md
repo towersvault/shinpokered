@@ -240,6 +240,7 @@
 - Slot machine no longer copies too much tile data
 - Corrected and clarified the quiz text in the cinnabar gym
 - Viridian gym statue will not spoil the gym leader's name reveal
+- Fixed increment bug in CheckForTilePairCollisions
 
 
 ---

@@ -1211,15 +1211,15 @@ CheckForTilePairCollisions::
 	jr .retry
 .currentTileMatchesFirstInPair
 	inc hl
-	ld a, [hl]
+	ld a, [hli]	;joenote - bug: this should be [hli] instead of [hl]
 	cp c
 	jr z, .foundMatch
 	jr .tilePairCollisionLoop
 .currentTileMatchesSecondInPair
 	dec hl
 	ld a, [hli]
+	inc hl	;joenote - move the inc up two lines to prevent any potential issues with the flag register
 	cp c
-	inc hl
 	jr nz, .tilePairCollisionLoop
 .foundMatch
 	scf

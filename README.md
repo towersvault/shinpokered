@@ -224,6 +224,7 @@ Lots of quick-key features.
 New NPCs!
 - The move relearner and deleter is in Saffron City.
 - An NPC in the Celadon Hotel will pay COINS for showing him pokemon as an alternative to slots.
+- A new drink stand on the route 19 beach sells vending machine drinks.
 - After the Elite-4, one of the rocket grunts in Celadon City will sell coins in bulk.
 - After the Elite-4, a new vendor opens up in Celadon allowing the purchase of normally unique items.
 - After the Elite-4, there is an NPC in the east-west underground path that generates random trainer battles.
@@ -517,6 +518,7 @@ v1.23.10
 - Added a hidden moon stone and nugget in diglett's cave
 - Fixed double-edge animation being off-center for the enemy pokemon
 - Fixed increment bug in CheckForTilePairCollisions
+- A new drink stand on the route 19 beach sells vending machine drinks
 
 
 #Bugfixes
@@ -1204,6 +1206,7 @@ v1.23.10
   - Mixing two genes is done via Punnett Squares, and a random result is chosen based on its ratios.  
   - Within a Punnett quadrant, a hi allele makes the upper digits and a lo allele makes the lower digits.  
   - If two hi allels or two lo alleles fall within a Punnet quadrant, their order is randomly selected.  
+- A new drink stand on the route 19 beach sells vending machine drinks
 
 
 #Post-Game Content  

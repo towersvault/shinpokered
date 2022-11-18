@@ -331,6 +331,10 @@ Go to the small house on Route 2 just below the exit of Diglett's Cave.
 The Aide NPC inside the house will now gift you a Paras.  
 You can use this Paras if you ever find yourself without a pokemon that can learn Cut.  
 
+**Drink Stand**  
+A new drink stand has been set up on the Route 19 beach below Fuschia City.  
+It sells vending machine drinks in multiples like a pokemart.  
+
 **Cloning Genetically Modified Pokemon**  
 This process clones your 1st spot pokemon and modifies it with DNA from your 2nd spot pokemon.  
 It does this by treating a pokemon's two bytes of DV values as if they were two genes with two alleles each.  
@@ -399,6 +403,9 @@ It sells things like Fossils, Rare Candy, and Moon Stones.
 Find the house with the game corner CHIEF in Celadon City.  
 Talk to him after beating the Elite-4 to find he's in some dire straights.  
 He will offer to buy the pokemon in your team's first slot from you.  
+
+**Bulk Coin Seller**  
+One of the Rocket grunts walking around Celadon City will now sell you 1000 coins at a time.  
 
 **Special Safari Event**  
 A new NPC can be utilized in the Safari Zone Gate after beating the Elite-4.  

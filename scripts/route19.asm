@@ -1,3 +1,4 @@
+;joenote - add a sign and npc for the drink stand
 Route19Script:
 	call EnableAutoTextBoxDrawing
 	ld hl, Route19TrainerHeader0
@@ -23,7 +24,9 @@ Route19TextPointers:
 	dw Route19Text8
 	dw Route19Text9
 	dw Route19Text10
+	dw DrinkStandText
 	dw Route19Text11
+	dw _TXTDrinkStandSign
 
 Route19TrainerHeader0:
 	dbEventFlagBit EVENT_BEAT_ROUTE_19_TRAINER_0
@@ -299,4 +302,10 @@ Route19AfterBattleText10:
 
 Route19Text11:
 	TX_FAR _Route19Text11
+	db "@"
+
+_TXTDrinkStandSign:
+	text "JOE'S DRINK STAND"
+	line "Sip on the shore!"
+	done
 	db "@"

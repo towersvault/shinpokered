@@ -65,3 +65,7 @@ SaffronCashierText::
 ; Indigo
 IndigoCashierText::
 	TX_MART ULTRA_BALL, FULL_RESTORE, MAX_POTION, FULL_HEAL, REVIVE, MAX_REPEL, TM_13, TM_22, TM_25, TM_26, TM_27, TM_38, TM_43, TM_47
+	
+;joenote - add drink stand
+DrinkStandText::
+	TX_MART FRESH_WATER, SODA_POP, LEMONADE

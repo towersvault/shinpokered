@@ -94,8 +94,30 @@ CeladonCityText7:
 	call PlayCry
 	jp TextScriptEnd
 
-CeladonCityText8:
+	
+CeladonCityText8:	;joenote - make this rocket hint about buying master balls
+	TX_ASM
+	CheckEvent EVENT_908
+	ld hl, CeladonCityText8_alternate
+	jr nz, .next	
+	ld hl, CeladonCityText8_continue
+.next
+	call PrintText
+	jp TextScriptEnd
+CeladonCityText8_continue:
 	TX_FAR _CeladonCityText8
+	db "@"
+CeladonCityText8_alternate:
+	text "I got an -in- at"
+	line "SILPH CO. for the"
+	cont "MASTER BALL tech,"
+	cont "and I supply to a"
+	cont "guy at the DEPT."
+	cont "STORE on the sly."
+	
+	para "Who needs TEAM"
+	line "ROCKET for money?"
+	done
 	db "@"
 
 CeladonCityText9:	;joenote - make this rocket grunt sell coins in the post-game

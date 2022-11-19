@@ -26,9 +26,9 @@ _CeladonHouseTextChiefIntro::	;joenote - adding text for selling pokemon
 	line "just reel in the"
 	cont "dough, big time!"
 	
-	para "But with Boss gone"
-	line "I'll run out of"
-	cont "prize #MON."
+	para "But I'll run out"
+	line "of prize #MON"
+	cont "without the BOSS."
 	
 	para "Hey kid! Nice"
 	line "@"

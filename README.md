@@ -519,6 +519,7 @@ v1.23.10
 - Fixed double-edge animation being off-center for the enemy pokemon
 - Fixed increment bug in CheckForTilePairCollisions
 - A new drink stand on the route 19 beach sells vending machine drinks
+- Fixed an issue where pressing a button on a menu while holding A is treated as an A-press
 
 
 #Bugfixes
@@ -754,6 +755,7 @@ v1.23.10
   - Fixed a grass tile in the Forest tileset not counting for encouner generation
   - Fixed input priority on menus
   - Fixed A-button input priority on the left side of the scrolling pokedex list
+  - Fixed an issue where pressing a button on a menu while holding A is treated as an A-press
   - RAM adress D732 now gets cleared upon starting a new game
   - Cannot use poison to black yourself out of the cable club because entering the club now heals your party
   - Cannot use poison to black yourself out of the safari zone because the safari minigame now stops poison damage

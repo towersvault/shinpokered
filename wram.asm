@@ -3135,7 +3135,7 @@ wd728:: ; d728
 			;joenote - repurposed for exp all message now
 	ds 1
 wLowHealthTonePairs::	;d729			;joenote - in battle, used as a counter for low hp alarm tone pairs
-	ds 1
+	ds 1								; bit 7 gets set if tones are actively being played
 
 wBeatGymFlags:: ; d72a
 ; redundant because it matches wObtainedBadges

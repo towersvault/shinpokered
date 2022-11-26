@@ -55,7 +55,15 @@ Route22GateScript2:
 
 Route22GateTextPointers:
 	dw Route22GateText1
+	dw Route22GateText2	;joenote - added trade for chikuchiku
 
+Route22GateText2:
+	TX_ASM
+	ld a, $2
+	ld [wWhichTrade], a
+	predef DoInGameTradeDialogue
+	jp TextScriptEnd
+	
 Route22GateText1:
 	TX_ASM
 	ld a, [wObtainedBadges]

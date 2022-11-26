@@ -274,6 +274,10 @@ Cheats and Secrets!
   - BGB is the supported standard due to its accuracy and debugging tools
 - Compatible with original Gameboy hardware (DMG, Super, Pocket, Color, Advance, SP)
 - Potentially compatible with Pokemon Stadium 1 & 2 (using original Nintendo hardware)
+  - Simpler flash carts (like cheap bootlegs) are recognized, but products with firmware like the EZ Flash JR. will not work.
+  - Works with the save file operations (importing pokemon, item management, and box management) of both Stadium 1 and 2.
+  - Will play and save in the GB Tower of Stadium 2.
+  - Will **not work** with the GB Tower of Stadium 1.
 - Might be possible to use a save from vanilla USA red/blue with this rom hack 
   - Save outside in Pallet Town before transferring over
   - Use the Softlock Warp to clear any invisible walls

@@ -524,6 +524,7 @@ v1.23.10
 - Fixed increment bug in CheckForTilePairCollisions
 - A new drink stand on the route 19 beach sells vending machine drinks
 - Fixed an issue where pressing a button on a menu while holding A is treated as an A-press
+- Holding start or select will no longer print strange HP numbers when not on the status screen
 
 
 #Bugfixes

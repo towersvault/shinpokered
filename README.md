@@ -504,7 +504,7 @@ v1.23.10
 - Fixed woman on silph co 10F having a blank line in her text 
 - Blue-JP has spaceworld-style back sprites for the master branch, and a corresponding _origback patch has been added
 
-**Not yet in patch**
+v1.23.11  
 - Added max revives to post-game shop on celadon mart 3f
 - Corrected and clarified the quiz text in the cinnabar gym
 - Relocated one of the rocket grunts in celadon city, and he now sells bulk coins in the post-game

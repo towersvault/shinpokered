@@ -307,6 +307,7 @@ RandomizeRegularTrainerMons:
 EnemyMonEvolve:
 	ld hl, EvosMovesPointerTable	;load the address of the pointer table, and worry about the bank later
 	ld b, 0
+	ld a, [wcf91]
 	dec a
 	add a
 	rl b

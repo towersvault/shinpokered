@@ -1678,6 +1678,7 @@ AIPlayRestoringSFX:
 	jp PlaySoundWaitForCurrent
 
 AIUseFullRestore:
+	call AIPlayRestoringSFX
 	call AICureStatus
 	ld a, FULL_RESTORE
 	ld [wAIItem], a
@@ -1703,18 +1704,21 @@ AIUseFullRestore:
 
 AIUsePotion:
 ; enemy trainer heals his monster with a potion
+	call AIPlayRestoringSFX
 	ld a, POTION
 	ld b, 20
 	jr AIRecoverHP
 
 AIUseSuperPotion:
 ; enemy trainer heals his monster with a super potion
+	call AIPlayRestoringSFX
 	ld a, SUPER_POTION
 	ld b, 50
 	jr AIRecoverHP
 
 AIUseHyperPotion:
 ; enemy trainer heals his monster with a hyper potion
+	call AIPlayRestoringSFX
 	ld a, HYPER_POTION
 	ld b, 200
 	; fallthrough
@@ -1766,6 +1770,11 @@ AIPrintItemUseAndUpdateHPBar:
 	xor a
 	ld [wHPBarType], a
 	predef UpdateHPBar2
+	
+	push af
+	callba DrawEnemyHUDAndHPBar		;joenote - need to redraw the enemy trainer hud 
+	pop af
+
 	jp DecrementAICount
 
 AISwitchIfEnoughMons:
@@ -1894,10 +1903,14 @@ AICureStatus:	;joenote - modified to be more robust and also undo stat changes o
 	ld [wEnemyToxicCounter], a	;clear toxic counter
 	ld hl, wEnemyBattleStatus3
 	res BADLY_POISONED, [hl]	;clear toxic bit
+
+	push af
+	callba DrawEnemyHUDAndHPBar		;joenote - need to redraw the enemy trainer hud 
+	pop af
+
 	ret
 
 AIUseXAccuracy: 
-	call AIPlayRestoringSFX
 	ld hl, wEnemyBattleStatus2
 	set 0, [hl]
 	ld a, X_ACCURACY

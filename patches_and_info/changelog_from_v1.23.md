@@ -187,6 +187,10 @@
 - The move relearner and move deleter code is now tethered to the _MOVENPCS makefile tag
 - The running shoes code is now tethered to the _RUNSHOES makefile tag
 - Original flashing move animations from Red-JP and Green are tethered to the (unused) _JPFLASHING makefile tag
+- The enemy trainer's HUD is now updated after it uses a healing item
+
+- Removed restore sfx from the AI x-accuracy item
+- Added the restore sfx to all AI hp-recovery items
 
 
 ---

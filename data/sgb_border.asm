@@ -1,16 +1,16 @@
 BorderPalettes:
 IF DEF(_REDJP)
-	INCBIN "gfx/red/sgbborder_jp.map"
+	INCBIN "gfx/red/sgbborder_jp.tilemap"
 ELIF DEF(_RED)
-	INCBIN "gfx/red/sgbborder.map"
+	INCBIN "gfx/red/sgbborder.tilemap"
 ENDC
 IF DEF(_BLUEJP)
-	INCBIN "gfx/blue/sgbborder_jp.map"
+	INCBIN "gfx/blue/sgbborder_jp.tilemap"
 ELIF DEF(_BLUE)
-	INCBIN "gfx/blue/sgbborder.map"
+	INCBIN "gfx/blue/sgbborder.tilemap"
 ENDC
 IF DEF(_GREEN)
-	INCBIN "gfx/green/sgbborder.map"
+	INCBIN "gfx/green/sgbborder.tilemap"
 ENDC
 	ds $100
 

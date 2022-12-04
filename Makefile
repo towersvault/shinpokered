@@ -1,21 +1,48 @@
+roms := \
+	pokered.gbc \
+	pokeblue.gbc \
+	pokegreen.gbc \
+	pokered_origback.gbc \
+	pokeblue_origback.gbc \
+	pokebluejp.gbc \
+	pokeredjp.gbc \
+	pokebluejp_origback.gbc
+
+rom_obj := \
+	audio.o \
+	main.o \
+	text.o \
+	wram.o \
+
+pokered_obj := $(rom_obj:.o=_red.o)
+
+pokered_obj := $(rom_obj:.o=_red.o)
+pokeblue_obj := $(rom_obj:.o=_blue.o)
+pokegreen_obj := $(rom_obj:.o=_green.o)
+pokered_origback_obj := $(rom_obj:.o=_red_origback.o)
+pokeblue_origback_obj := $(rom_obj:.o=_blue_origback.o)
+pokebluejp_obj := $(rom_obj:.o=_bluejp.o)
+pokeredjp_obj := $(rom_obj:.o=_redjp.o)
+pokebluejp_origback_obj := $(rom_obj:.o=_bluejp_origback.o)
+
+### Build tools
+
 MD5 := md5sum -c
 
-pokered_obj := audio_red.o main_red.o text_red.o wram_red.o
-pokeblue_obj := audio_blue.o main_blue.o text_blue.o wram_blue.o
-pokegreen_obj := audio_green.o main_green.o text_green.o wram_green.o
-pokered_origback_obj := audio_red_origback.o main_red_origback.o text_red_origback.o wram_red_origback.o
-pokeblue_origback_obj := audio_blue_origback.o main_blue_origback.o text_blue_origback.o wram_blue_origback.o
-pokebluejp_obj := audio_bluejp.o main_bluejp.o text_bluejp.o wram_bluejp.o
-pokeredjp_obj := audio_redjp.o main_redjp.o text_redjp.o wram_redjp.o
-pokebluejp_origback_obj := audio_bluejp_origback.o main_bluejp_origback.o text_bluejp_origback.o wram_bluejp_origback.o
+RGBDS ?=
+RGBASM  ?= $(RGBDS)rgbasm
+RGBFIX  ?= $(RGBDS)rgbfix
+RGBGFX  ?= $(RGBDS)rgbgfx
+RGBLINK ?= $(RGBDS)rgblink
+
+
+### Build targets
 
 .SUFFIXES:
 .SECONDEXPANSION:
 .PRECIOUS:
 .SECONDARY:
-.PHONY: all clean red blue green red_origback blue_origback bluejp redjp bluejp_origback compare tools
-
-roms := pokered.gbc pokeblue.gbc pokegreen.gbc pokered_origback.gbc pokeblue_origback.gbc pokebluejp.gbc pokeredjp.gbc pokebluejp_origback.gbc
+.PHONY: all red blue green red_origback blue_origback bluejp redjp bluejp_origback clean tidy compare tools
 
 all: $(roms)
 red: pokered.gbc
@@ -28,12 +55,16 @@ redjp: pokeredjp.gbc
 bluejp_origback: pokebluejp_origback.gbc
 
 # For contributors to make sure a change didn't affect the contents of the rom.
-compare: red blue green red_origback blue_origback bluejp redjp bluejp_origback
+compare: $(roms)
 	@$(MD5) roms.md5
 
 clean:
-	rm -f $(roms) $(pokered_obj) $(pokeblue_obj) $(pokegreen_obj) $(pokered_origback_obj) $(pokeblue_origback_obj) $(pokebluejp_obj) $(pokeredjp_obj) $(pokebluejp_origback_obj) $(roms:.gbc=.sym)
+	rm -f $(roms) $(pokered_obj) $(pokeblue_obj) $(pokegreen_obj) $(pokered_origback_obj) $(pokeblue_origback_obj) $(pokebluejp_obj) $(pokeredjp_obj) $(pokebluejp_origback_obj) $(roms:.gbc=.map) $(roms:.gbc=.sym)
 	find . \( -iname '*.1bpp' -o -iname '*.2bpp' -o -iname '*.pic' \) -exec rm {} +
+	$(MAKE) clean -C tools/
+
+tidy:
+	rm -f $(roms) $(pokered_obj) $(pokeblue_obj) $(pokegreen_obj) $(pokered_origback_obj) $(pokeblue_origback_obj) $(pokebluejp_obj) $(pokeredjp_obj) $(pokebluejp_origback_obj) $(roms:.gbc=.map) $(roms:.gbc=.sym)
 	$(MAKE) clean -C tools/
 
 tools:
@@ -78,35 +109,35 @@ endif
 
 %_red.o: dep = $(shell tools/scan_includes $(@D)/$*.asm)
 $(pokered_obj): %_red.o: %.asm $$(dep)
-	rgbasm -D _RED -D _SWBACKS -D _FPLAYER -D _MOVENPCS -D _RUNSHOES -D _EXPBAR -h -o $@ $*.asm
+	$(RGBASM) -D _RED -D _SWBACKS -D _FPLAYER -D _MOVENPCS -D _RUNSHOES -D _EXPBAR -h -o $@ $*.asm
 
 %_blue.o: dep = $(shell tools/scan_includes $(@D)/$*.asm)
 $(pokeblue_obj): %_blue.o: %.asm $$(dep)
-	rgbasm -D _BLUE -D _SWBACKS -D _FPLAYER -D _MOVENPCS -D _RUNSHOES -D _EXPBAR -h -o $@ $*.asm
+	$(RGBASM) -D _BLUE -D _SWBACKS -D _FPLAYER -D _MOVENPCS -D _RUNSHOES -D _EXPBAR -h -o $@ $*.asm
 
 %_green.o: dep = $(shell tools/scan_includes $(@D)/$*.asm)
 $(pokegreen_obj): %_green.o: %.asm $$(dep)
-	rgbasm -D _GREEN -D _RGSPRITES -D _REDGREENJP -D _JPTXT -D _JPLOGO -D _RGTITLE -D _METRIC -D _FPLAYER -D _MOVENPCS -D _RUNSHOES -D _EXPBAR -h -o $@ $*.asm
+	$(RGBASM) -D _GREEN -D _RGSPRITES -D _REDGREENJP -D _JPTXT -D _JPLOGO -D _RGTITLE -D _METRIC -D _FPLAYER -D _MOVENPCS -D _RUNSHOES -D _EXPBAR -h -o $@ $*.asm
 	
 %_red_origback.o: dep = $(shell tools/scan_includes $(@D)/$*.asm)
 $(pokered_origback_obj): %_red_origback.o: %.asm $$(dep)
-	rgbasm -D _RED -D _FPLAYER -D _MOVENPCS -D _RUNSHOES -D _EXPBAR -h -o $@ $*.asm
+	$(RGBASM) -D _RED -D _FPLAYER -D _MOVENPCS -D _RUNSHOES -D _EXPBAR -h -o $@ $*.asm
 
 %_blue_origback.o: dep = $(shell tools/scan_includes $(@D)/$*.asm)
 $(pokeblue_origback_obj): %_blue_origback.o: %.asm $$(dep)
-	rgbasm -D _BLUE -D _FPLAYER -D _MOVENPCS -D _RUNSHOES -D _EXPBAR -h -o $@ $*.asm
+	$(RGBASM) -D _BLUE -D _FPLAYER -D _MOVENPCS -D _RUNSHOES -D _EXPBAR -h -o $@ $*.asm
 
 %_bluejp.o: dep = $(shell tools/scan_includes $(@D)/$*.asm)
 $(pokebluejp_obj): %_bluejp.o: %.asm $$(dep)
-	rgbasm -D _BLUE -D _BLUEJP -D _JPTXT -D _JPLOGO -D _METRIC -D _SWBACKS -D _FPLAYER -D _MOVENPCS -D _RUNSHOES -D _EXPBAR -h -o $@ $*.asm
+	$(RGBASM) -D _BLUE -D _BLUEJP -D _JPTXT -D _JPLOGO -D _METRIC -D _SWBACKS -D _FPLAYER -D _MOVENPCS -D _RUNSHOES -D _EXPBAR -h -o $@ $*.asm
 
 %_redjp.o: dep = $(shell tools/scan_includes $(@D)/$*.asm)
 $(pokeredjp_obj): %_redjp.o: %.asm $$(dep)
-	rgbasm -D _RED -D _RGSPRITES -D _REDGREENJP -D _REDJP -D _JPTXT -D _JPLOGO -D _RGTITLE -D _METRIC -D _FPLAYER -D _MOVENPCS -D _RUNSHOES -D _EXPBAR -h -o $@ $*.asm
+	$(RGBASM) -D _RED -D _RGSPRITES -D _REDGREENJP -D _REDJP -D _JPTXT -D _JPLOGO -D _RGTITLE -D _METRIC -D _FPLAYER -D _MOVENPCS -D _RUNSHOES -D _EXPBAR -h -o $@ $*.asm
 
 %_bluejp_origback.o: dep = $(shell tools/scan_includes $(@D)/$*.asm)
 $(pokebluejp_origback_obj): %_bluejp_origback.o: %.asm $$(dep)
-	rgbasm -D _BLUE -D _BLUEJP -D _JPTXT -D _JPLOGO -D _METRIC -D _FPLAYER -D _MOVENPCS -D _RUNSHOES -D _EXPBAR -h -o $@ $*.asm
+	$(RGBASM) -D _BLUE -D _BLUEJP -D _JPTXT -D _JPLOGO -D _METRIC -D _FPLAYER -D _MOVENPCS -D _RUNSHOES -D _EXPBAR -h -o $@ $*.asm
 
 #gbcnote - use cjsv to compile as GBC+DMG rom
 pokered_opt  = -cjsv -k 01 -l 0x33 -m 0x13 -p 0 -r 03 -t "POKEMON RED"
@@ -119,16 +150,16 @@ pokeredjp_opt = -cjsv -k 01 -l 0x33 -m 0x13 -p 0 -r 03 -t "POKEMON RED"
 pokebluejp_origback_opt = -cjsv -k 01 -l 0x33 -m 0x13 -p 0 -r 03 -t "POKEMON BLUE"
 
 %.gbc: $$(%_obj)
-	rgblink -d -n $*.sym -l pokered.link -o $@ $^
-	rgbfix $($*_opt) $@
-	sort $*.sym -o $*.sym
+	$(RGBLINK) -d -m $*.map -n $*.sym -l layout.link -o $@ $^
+	$(RGBFIX) $($*_opt) $@
 
-gfx/blue/intro_purin_1.2bpp: rgbgfx += -h
-gfx/blue/intro_purin_2.2bpp: rgbgfx += -h
-gfx/blue/intro_purin_3.2bpp: rgbgfx += -h
-gfx/red/intro_nido_1.2bpp: rgbgfx += -h
-gfx/red/intro_nido_2.2bpp: rgbgfx += -h
-gfx/red/intro_nido_3.2bpp: rgbgfx += -h
+
+gfx/blue/intro_purin_1.2bpp: $(RGBGFX) += -h
+gfx/blue/intro_purin_2.2bpp: $(RGBGFX) += -h
+gfx/blue/intro_purin_3.2bpp: $(RGBGFX) += -h
+gfx/red/intro_nido_1.2bpp: $(RGBGFX) += -h
+gfx/red/intro_nido_2.2bpp: $(RGBGFX) += -h
+gfx/red/intro_nido_3.2bpp: $(RGBGFX) += -h
 
 gfx/game_boy.2bpp: tools/gfx += --remove-duplicates
 gfx/theend.2bpp: tools/gfx += --interleave --png=$<
@@ -137,11 +168,11 @@ gfx/tilesets/%.2bpp: tools/gfx += --trim-whitespace
 %.png: ;
 
 %.2bpp: %.png
-	rgbgfx $(rgbgfx) -o $@ $<
+	$(RGBGFX) $(rgbgfx) -o $@ $<
 	$(if $(tools/gfx),\
 		tools/gfx $(tools/gfx) -o $@ $@)
 %.1bpp: %.png
-	rgbgfx -d1 $(rgbgfx) -o $@ $<
+	$(RGBGFX) -d1 $(rgbgfx) -o $@ $<
 	$(if $(tools/gfx),\
 		tools/gfx $(tools/gfx) -d1 -o $@ $@)
 %.pic:  %.2bpp

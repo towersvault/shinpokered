@@ -926,7 +926,7 @@ LoadSlotMachineTiles:
 	jp SlotMachine_AnimWheel3
 
 SlotMachineMap:
-	INCBIN "gfx/tilemaps/slotmachine.map"
+	INCBIN "gfx/tilemaps/slotmachine.tilemap"
 SlotMachineMapEnd:
 
 INCLUDE "data/slot_machine_wheels.asm"

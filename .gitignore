@@ -13,6 +13,7 @@
 
 # rgbds extras
 *.sym
+*.map
 
 # converted image data
 *.2bpp
@@ -30,6 +31,9 @@
 *.sav
 *.sys
 *.sn1
+*.sn2
+*.sn3
+*.sn4
 
 # for vim configuration
 # url: http://www.vim.org/scripts/script.php?script_id=441

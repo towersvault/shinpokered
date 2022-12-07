@@ -60,21 +60,21 @@ clean: tidy
 	find . \( -iname '*.1bpp' -o -iname '*.2bpp' -o -iname '*.pic' \) -exec rm {} +
 
 tidy:
-	rm -f $(roms) $(pokered_obj) $(pokeblue_obj) $(pokegreen_obj) $(pokered_origback_obj) $(pokeblue_origback_obj) $(pokebluejp_obj) $(pokeredjp_obj) $(pokebluejp_origback_obj) $(roms:.gbc=.map) $(roms:.gbc=.sym)
+	rm -f $(roms) $(pokered_obj) $(pokeblue_obj) $(pokegreen_obj) $(pokered_origback_obj) $(pokeblue_origback_obj) $(pokebluejp_obj) $(pokeredjp_obj) $(pokebluejp_origback_obj) $(roms:.gbc=.map) $(roms:.gbc=.sym) rgbdscheck.o 
 	$(MAKE) clean -C tools/
 
 tools:
 	$(MAKE) -C tools/
 
 
-# Build tools when building the rom.
-# This has to happen before the rules are processed, since that's when scan_includes is run.
-ifeq (,$(filter clean tidy tools,$(MAKECMDGOALS)))
-$(info $(shell $(MAKE) -C tools))
+RGBASMFLAGS = -h -Weverything
+# -h makes it so that a nop instruction is NOT automatically added by the compiler after every halt instruction
+# -Weverything makes the compiler print all applicable warnings
+
+# Create a sym/map for debug purposes if `make` run with `DEBUG=1`
+ifeq ($(DEBUG),1)
+RGBASMFLAGS += -E
 endif
-
-
-%.asm: ;
 
 # _RED, _BLUE, and _GREEN are the base rom tags. You can only have one of these.
 # _SWBACKS modifies any base rom. It uses spaceworld 48x48 back sprites.
@@ -97,52 +97,62 @@ endif
 # _RUNSHOES Allows player to run by holding B
 # _EXPBAR Adds an EXP bar to the battle UI
 
-# -D _JPFLASHING modifies any base rom. It restores flashing move animations that were in japanese red and green.
+# _JPFLASHING modifies any base rom. It restores flashing move animations that were in japanese red and green.
 # !!WARNING!! The flashing of the restored moves may be harmful to those with photosensitivity or epilepsy.
 # This tag would normally be added to the GREEN and RED_JP roms, but it remains inactive by default for safety.
 # Please act responsibly should you choose to compile using this tag.
 # Dev Note: The added flashing can become quite displeasing regardless. Leaving it out makes for a better experience.
 
-%_red.o: dep = $(shell tools/scan_includes $(@D)/$*.asm)
-$(pokered_obj): %_red.o: %.asm $$(dep)
-	$(RGBASM) -D _RED -D _SWBACKS -D _FPLAYER -D _MOVENPCS -D _RUNSHOES -D _EXPBAR -h -o $@ $*.asm
+$(pokered_obj): 			RGBASMFLAGS += -D _RED -D _SWBACKS -D _FPLAYER -D _MOVENPCS -D _RUNSHOES -D _EXPBAR 
+$(pokeblue_obj): 			RGBASMFLAGS += -D _BLUE -D _SWBACKS -D _FPLAYER -D _MOVENPCS -D _RUNSHOES -D _EXPBAR 
+$(pokegreen_obj): 			RGBASMFLAGS += -D _GREEN -D _RGSPRITES -D _REDGREENJP -D _JPTXT -D _JPLOGO -D _RGTITLE -D _METRIC -D _FPLAYER -D _MOVENPCS -D _RUNSHOES -D _EXPBAR 
+$(pokered_origback_obj): 	RGBASMFLAGS += -D _RED -D _FPLAYER -D _MOVENPCS -D _RUNSHOES -D _EXPBAR 
+$(pokeblue_origback_obj): 	RGBASMFLAGS += -D _BLUE -D _FPLAYER -D _MOVENPCS -D _RUNSHOES -D _EXPBAR 
+$(pokebluejp_obj): 			RGBASMFLAGS += -D _BLUE -D _BLUEJP -D _JPTXT -D _JPLOGO -D _METRIC -D _SWBACKS -D _FPLAYER -D _MOVENPCS -D _RUNSHOES -D _EXPBAR 
+$(pokeredjp_obj): 			RGBASMFLAGS += -D _RED -D _RGSPRITES -D _REDGREENJP -D _REDJP -D _JPTXT -D _JPLOGO -D _RGTITLE -D _METRIC -D _FPLAYER -D _MOVENPCS -D _RUNSHOES -D _EXPBAR 
+$(pokebluejp_origback_obj): RGBASMFLAGS += -D _BLUE -D _BLUEJP -D _JPTXT -D _JPLOGO -D _METRIC -D _FPLAYER -D _MOVENPCS -D _RUNSHOES -D _EXPBAR 
 
-%_blue.o: dep = $(shell tools/scan_includes $(@D)/$*.asm)
-$(pokeblue_obj): %_blue.o: %.asm $$(dep)
-	$(RGBASM) -D _BLUE -D _SWBACKS -D _FPLAYER -D _MOVENPCS -D _RUNSHOES -D _EXPBAR -h -o $@ $*.asm
 
-%_green.o: dep = $(shell tools/scan_includes $(@D)/$*.asm)
-$(pokegreen_obj): %_green.o: %.asm $$(dep)
-	$(RGBASM) -D _GREEN -D _RGSPRITES -D _REDGREENJP -D _JPTXT -D _JPLOGO -D _RGTITLE -D _METRIC -D _FPLAYER -D _MOVENPCS -D _RUNSHOES -D _EXPBAR -h -o $@ $*.asm
+rgbdscheck.o: rgbdscheck.asm
+	$(RGBASM) -o $@ $<
 	
-%_red_origback.o: dep = $(shell tools/scan_includes $(@D)/$*.asm)
-$(pokered_origback_obj): %_red_origback.o: %.asm $$(dep)
-	$(RGBASM) -D _RED -D _FPLAYER -D _MOVENPCS -D _RUNSHOES -D _EXPBAR -h -o $@ $*.asm
+# The dep rules have to be explicit or else missing files won't be reported.
+# As a side effect, they're evaluated immediately instead of when the rule is invoked.
+# It doesn't look like $(shell) can be deferred so there might not be a better way.
+define DEP
+$1: $2 $$(shell tools/scan_includes $2) | rgbdscheck.o
+	$$(RGBASM) $$(RGBASMFLAGS) -o $$@ $$<
+endef
+	
 
-%_blue_origback.o: dep = $(shell tools/scan_includes $(@D)/$*.asm)
-$(pokeblue_origback_obj): %_blue_origback.o: %.asm $$(dep)
-	$(RGBASM) -D _BLUE -D _FPLAYER -D _MOVENPCS -D _RUNSHOES -D _EXPBAR -h -o $@ $*.asm
+# Build tools when building the rom.
+# This has to happen before the rules are processed, since that's when scan_includes is run.
+ifeq (,$(filter clean tidy tools,$(MAKECMDGOALS)))
+$(info $(shell $(MAKE) -C tools))
 
-%_bluejp.o: dep = $(shell tools/scan_includes $(@D)/$*.asm)
-$(pokebluejp_obj): %_bluejp.o: %.asm $$(dep)
-	$(RGBASM) -D _BLUE -D _BLUEJP -D _JPTXT -D _JPLOGO -D _METRIC -D _SWBACKS -D _FPLAYER -D _MOVENPCS -D _RUNSHOES -D _EXPBAR -h -o $@ $*.asm
+# Dependencies for objects (drop _red and _blue and etc from asm file basenames)
+$(foreach obj, $(pokered_obj), $(eval $(call DEP,$(obj),$(obj:_red.o=.asm))))
+$(foreach obj, $(pokeblue_obj), $(eval $(call DEP,$(obj),$(obj:_blue.o=.asm))))
+$(foreach obj, $(pokegreen_obj), $(eval $(call DEP,$(obj),$(obj:_green.o=.asm))))
+$(foreach obj, $(pokered_origback_obj), $(eval $(call DEP,$(obj),$(obj:_red_origback.o=.asm))))
+$(foreach obj, $(pokeblue_origback_obj), $(eval $(call DEP,$(obj),$(obj:_blue_origback.o=.asm))))
+$(foreach obj, $(pokebluejp_obj), $(eval $(call DEP,$(obj),$(obj:_bluejp.o=.asm))))
+$(foreach obj, $(pokeredjp_obj), $(eval $(call DEP,$(obj),$(obj:_redjp.o=.asm))))
+$(foreach obj, $(pokebluejp_origback_obj), $(eval $(call DEP,$(obj),$(obj:_bluejp_origback.o=.asm))))
 
-%_redjp.o: dep = $(shell tools/scan_includes $(@D)/$*.asm)
-$(pokeredjp_obj): %_redjp.o: %.asm $$(dep)
-	$(RGBASM) -D _RED -D _RGSPRITES -D _REDGREENJP -D _REDJP -D _JPTXT -D _JPLOGO -D _RGTITLE -D _METRIC -D _FPLAYER -D _MOVENPCS -D _RUNSHOES -D _EXPBAR -h -o $@ $*.asm
+endif
 
-%_bluejp_origback.o: dep = $(shell tools/scan_includes $(@D)/$*.asm)
-$(pokebluejp_origback_obj): %_bluejp_origback.o: %.asm $$(dep)
-	$(RGBASM) -D _BLUE -D _BLUEJP -D _JPTXT -D _JPLOGO -D _METRIC -D _FPLAYER -D _MOVENPCS -D _RUNSHOES -D _EXPBAR -h -o $@ $*.asm
+
+%.asm: ;
 
 #gbcnote - use cjsv to compile as GBC+DMG rom
-pokered_opt  = -cjsv -k 01 -l 0x33 -m 0x13 -p 0 -r 03 -t "POKEMON RED"
-pokeblue_opt = -cjsv -k 01 -l 0x33 -m 0x13 -p 0 -r 03 -t "POKEMON BLUE"
-pokegreen_opt = -cjsv -k 01 -l 0x33 -m 0x13 -p 0 -r 03 -t "POKEMON GREEN"
-pokered_origback_opt  = -cjsv -k 01 -l 0x33 -m 0x13 -p 0 -r 03 -t "POKEMON RED"
-pokeblue_origback_opt = -cjsv -k 01 -l 0x33 -m 0x13 -p 0 -r 03 -t "POKEMON BLUE"
-pokebluejp_opt = -cjsv -k 01 -l 0x33 -m 0x13 -p 0 -r 03 -t "POKEMON BLUE"
-pokeredjp_opt = -cjsv -k 01 -l 0x33 -m 0x13 -p 0 -r 03 -t "POKEMON RED"
+pokered_opt  			= -cjsv -k 01 -l 0x33 -m 0x13 -p 0 -r 03 -t "POKEMON RED"
+pokeblue_opt 			= -cjsv -k 01 -l 0x33 -m 0x13 -p 0 -r 03 -t "POKEMON BLUE"
+pokegreen_opt 			= -cjsv -k 01 -l 0x33 -m 0x13 -p 0 -r 03 -t "POKEMON GREEN"
+pokered_origback_opt 	= -cjsv -k 01 -l 0x33 -m 0x13 -p 0 -r 03 -t "POKEMON RED"
+pokeblue_origback_opt 	= -cjsv -k 01 -l 0x33 -m 0x13 -p 0 -r 03 -t "POKEMON BLUE"
+pokebluejp_opt 			= -cjsv -k 01 -l 0x33 -m 0x13 -p 0 -r 03 -t "POKEMON BLUE"
+pokeredjp_opt 			= -cjsv -k 01 -l 0x33 -m 0x13 -p 0 -r 03 -t "POKEMON RED"
 pokebluejp_origback_opt = -cjsv -k 01 -l 0x33 -m 0x13 -p 0 -r 03 -t "POKEMON BLUE"
 
 %.gbc: $$(%_obj) layout.link

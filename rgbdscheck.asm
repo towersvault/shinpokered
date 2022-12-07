@@ -12,4 +12,6 @@ ELIF (__RGBDS_MAJOR__ < MAJOR) || \
 ELIF (__RGBDS_MAJOR__ > MAJOR) || \
 	(__RGBDS_MAJOR__ == MAJOR && __RGBDS_MINOR__ > MINOR)
 	FAIL "This project requires that rgbds be downgraded to {MAJOR}.{MINOR}.{PATCH} at most."
+ELIF (__RGBDS_MAJOR__ == MAJOR && __RGBDS_MINOR__ == MINOR && __RGBDS_PATCH__ > PATCH)
+	WARN "This project may have issues with rgbds versions above {MAJOR}.{MINOR}.{PATCH}."
 ENDC

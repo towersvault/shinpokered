@@ -272,3 +272,6 @@
 - Fixed a minor issue where the first pokemon an opponent sends out can't be switched
 - TM/HM name list fixed so it can be in any bank
 - Fixed extra options not getting initialized correctly
+- Updated Makefile organization
+- Added script that verifies the RGBDS version when compiling
+- Updated the project to build with RGBDS 0.6.0

@@ -528,6 +528,7 @@ v1.23.11
 - Removed restore sfx from the AI x-accuracy item
 - Added the restore sfx to all AI hp-recovery items
 - The enemy trainer's HUD is now updated after it uses a healing item
+- The project now compiles with RGBDS 0.6.0 and has a script to verify the compiler version
 
 
 #Bugfixes

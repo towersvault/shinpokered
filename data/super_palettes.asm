@@ -1,5 +1,5 @@
 ; palettes for overworlds, title screen, monsters
-SGB_WHITE: MACRO
+MACRO SGB_WHITE
 	IF DEF(_GREEN)
 		dw (29 << 10 | 31 << 5 | 30)
 	ELSE

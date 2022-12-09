@@ -1,12 +1,12 @@
 
 INCLUDE "constants.asm"
 
-flag_array: MACRO
+MACRO flag_array
 	ds ((\1) + 7) / 8
 ENDM
 
 box_struct_length EQU 25 + NUM_MOVES * 2
-box_struct: MACRO
+MACRO box_struct
 \1Species::    db	;+$00
 \1HP::         dw	;+$01
 \1BoxLevel::   db	;+$03
@@ -30,7 +30,7 @@ ENDM
 ;		 - <stat>Exp is MSB while <stat>Exp+1 is LSB
 ;        - CalcStat function needs hl to point to LSB to take the stat experience into account
 
-party_struct: MACRO
+MACRO party_struct
 	box_struct \1
 \1Level::      db	;+$21
 \1Stats::
@@ -41,7 +41,7 @@ party_struct: MACRO
 \1Special::    dw	;+$2A
 ENDM
 
-battle_struct: MACRO
+MACRO battle_struct
 \1Species::    db
 \1HP::         dw
 \1PartyPos::	;party position is zero-indexed (first pkmn is position zero)
@@ -241,7 +241,7 @@ wSpriteStateData1:: ; c100
 ; C1xD	
 ; C1xE	used for collision info
 ; C1xF	used for collision info
-spritestatedata1: MACRO
+MACRO spritestatedata1
 \1SpriteStateData1::
 \1PictureID:: db
 \1MovementStatus:: db
@@ -298,7 +298,7 @@ wSpriteStateData2:: ; c200
 ; C2xD: picture ID
 ; C2xE: sprite image base offset (in video ram, player always has value 1, used to compute c1x2)
 ; C2xF
-spritestatedata2: MACRO
+MACRO spritestatedata2
 \1SpriteStateData2::
 \1WalkAnimationCounter:: db
 	ds 1

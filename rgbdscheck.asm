@@ -1,7 +1,7 @@
 ;Make this project require rgbds 0.5.2.
 MAJOR EQU 0
-MINOR EQU 5
-PATCH EQU 2
+MINOR EQU 6
+PATCH EQU 0
 
 IF !DEF(__RGBDS_MAJOR__) || !DEF(__RGBDS_MINOR__) || !DEF(__RGBDS_PATCH__)
 	FAIL "This project requires rgbds {MAJOR}.{MINOR}.{PATCH} to be installed"

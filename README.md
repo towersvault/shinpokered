@@ -531,6 +531,10 @@ v1.23.11
 - The project now compiles with RGBDS 0.6.0 and has a script to verify the compiler version
 
 
+**Not in current patch** 
+- Clarified the text for the super potion on 2F of the celadon dept store
+
+
 #Bugfixes
 -----------
 
@@ -833,6 +837,7 @@ v1.23.11
   - Fixed translation: Route 14 trainer's comment about the legendary birds
   - Restored unused text in the vermilion gym puzzle for finding the 2nd switch
   - Corrected and clarified the quiz text in the cinnabar gym
+  - Clarified the text for the super potion on 2F of the celadon dept store
 
 - Adjustments to moves  
   - Stat-down moves no longer have a 25% miss chance in AI matches

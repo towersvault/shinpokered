@@ -247,6 +247,7 @@
 - Fixed hidden coins not giving the correct amount
 - Slot machine no longer copies too much tile data
 - Corrected and clarified the quiz text in the cinnabar gym
+- Clarified the text for the super potion on 2F of the celadon dept store
 - Viridian gym statue will not spoil the gym leader's name reveal
 - Fixed increment bug in CheckForTilePairCollisions
 

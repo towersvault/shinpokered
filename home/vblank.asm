@@ -35,10 +35,11 @@ VBlank::
 	bit 0, a
 	jr nz, .skipOAM
 	call $ff80 ; hOAMDMA where DMARoutine: is copied
-	ld a, BANK(PrepareOAMData)
-	ld [H_LOADEDROMBANK], a
-	ld [MBC1RomBank], a
-	call PrepareOAMData
+;joenote - doing this in DelayFrame instead
+;	ld a, BANK(PrepareOAMData)
+;	ld [H_LOADEDROMBANK], a
+;	ld [MBC1RomBank], a
+;	call PrepareOAMData
 .skipOAM
 	; VBlank-sensitive operations end.
 
@@ -88,6 +89,40 @@ NOT_VBLANKED EQU 1
 
 	ld a, NOT_VBLANKED
 	ld [H_VBLANKOCCURRED], a
+	
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;joenote - Try to optimize PrepareOAMData so that overworld sprites don't wobble.
+;Inspired by Drenn's work on the pokered-gbc project.
+
+;First preserve the registers.
+	push bc
+	push de
+	push hl
+;I've labeled a free byte and utilized one of its bits as a flag for skipping OAM stuff.
+	ld hl, hFlagsFFFA
+;See if OAM skip has been enabled.
+	bit 0, [hl]
+	jr nz, .skipOAM
+;If disabled, then enable it for now.
+;This is so DMA transfer is skipped in case vblank triggers while PrepareOAMData is running.
+	set 0, [hl]
+;Now prepare the OAM data. 
+	farcall PrepareOAMData
+;Re-disable the OAM skip flag.
+	ld hl, hFlagsFFFA
+	res 0, [hl]
+;Finally, pop the registers.
+.skipOAM
+	pop hl
+	pop de
+	pop bc
+;Notes: 
+; - A good place to test this is the row of four trainers on route 8.
+; - There may be a rare 1-frame flicker due to instances where DMA transfer gets skipped for 1 frame.
+; --> But trying to do DMA transfer here is worse because audio noise gets injected when drawing the screen.
+; --> A real gameboy's TFT screen might be able to hide this.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 .halt
 	halt
 	nop	;joenote - due to a processor bug, nop after halt is best practice

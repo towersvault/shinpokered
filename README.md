@@ -532,7 +532,7 @@ v1.23.11
 
 
 **Not in current patch** 
-- Clarified the text for the super potion on 2F of the celadon dept store
+- Clarified the text for the super repel on 2F of the celadon dept store
 
 
 #Bugfixes
@@ -687,6 +687,7 @@ v1.23.11
   - Fixed a graphical bug on the naming screen that apears on cheapo flash carts
   - Original flashing move animations from Red-JP and Green are tethered to the (unused) _JPFLASHING makefile tag  
   - The enemy trainer's HUD is now updated after it uses a healing item
+  - Added optimizations to how OAM data is prepared so that overworld sprites wobble less
 
 
 - Item Fixes  
@@ -837,7 +838,7 @@ v1.23.11
   - Fixed translation: Route 14 trainer's comment about the legendary birds
   - Restored unused text in the vermilion gym puzzle for finding the 2nd switch
   - Corrected and clarified the quiz text in the cinnabar gym
-  - Clarified the text for the super potion on 2F of the celadon dept store
+  - Clarified the text for the super repel on 2F of the celadon dept store
 
 - Adjustments to moves  
   - Stat-down moves no longer have a 25% miss chance in AI matches

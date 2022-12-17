@@ -127,6 +127,8 @@
 - The 60fps mode has better performance when playing in GBC-mode
   - Does this by using the double-speed feature of the GBC's processor 
   - Uses more battery as a trade-off
+  
+- Added optimizations to how OAM data is prepared so that overworld sprites wobble less
 
 - Added rom hack version tracking for save files
   - It's a single byte in the save file that gets incremented each version
@@ -247,7 +249,7 @@
 - Fixed hidden coins not giving the correct amount
 - Slot machine no longer copies too much tile data
 - Corrected and clarified the quiz text in the cinnabar gym
-- Clarified the text for the super potion on 2F of the celadon dept store
+- Clarified the text for the super repel on 2F of the celadon dept store
 - Viridian gym statue will not spoil the gym leader's name reveal
 - Fixed increment bug in CheckForTilePairCollisions
 

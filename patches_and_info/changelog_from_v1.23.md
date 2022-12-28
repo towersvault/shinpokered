@@ -278,3 +278,4 @@
 - Updated Makefile organization
 - Added script that verifies the RGBDS version when compiling
 - Updated the project to build with RGBDS 0.6.0
+- Readjusted enemy stat exp accumulation and removed reduntant lines in CriticalHitTest

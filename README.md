@@ -533,6 +533,7 @@ v1.23.11
 
 **Not in current patch** 
 - Clarified the text for the super repel on 2F of the celadon dept store
+- Readjusted enemy stat exp accumulation and removed reduntant lines in CriticalHitTest
 
 
 #Bugfixes
@@ -954,6 +955,8 @@ v1.23.11
   - Trainer pkmn now have stat experience assigned to them that is scaled to their level (only in hard mode)
   - These are real DVs and statEXP values that utilize the existing enemy party_struct which is normally unused by trainer AI
 - Special trainers, e4, and gym leaders are slightly adjusted in their item use
+- Special trainers, e4, and gym leaders have slightly adjusted and buffed rosters for flavor and difficulty
+- Many trainers have recieved slight roster adjustments so that almost all pokemon can be registered as seen
 - Agatha & cooltrainers will not randomly switch since they now have ai routine 4
 - Flags for dividing exp among active pokemon are now only reset after fainting an enemy pkmn
   - Originally these get reset every time the opponent send out a pkmn (even swithing)

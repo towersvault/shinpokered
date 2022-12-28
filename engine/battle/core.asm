@@ -5170,9 +5170,10 @@ CriticalHitTest:
 	ld b, $ff					 ; cap at 255/256
 .finishcalc
 	call BattleRandom            ; generates a random value, in "a"
-	rlc a
-	rlc a
-	rlc a
+;joenote - this is redundant and seems like its messing with the statistical uniformity (somehow...)
+;	rlc a
+;	rlc a
+;	rlc a
 	cp b                         ; check a against calculated crit rate
 	ret nc                       ; no critical hit if no borrow
 	ld a, $1

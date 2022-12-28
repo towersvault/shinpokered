@@ -166,68 +166,82 @@ ReduceSpeed:
 	ret
 
 ;joenote - this function puts statexp per enemy pkmn level into de
-;requires a, b, de, and wCurEnemyLVL
+;requires a, b, hl, de, and wCurEnemyLVL
 CalcEnemyStatEXP:
 	ld a, [wOptions]	;load game options
 	bit BIT_BATTLE_HARD, a			;check for hard mode
 	jr z, .loadzero		;load zero stat exp if not on hard mode
-	;This loads 648 stat exp per level. Note that 648 in hex is the two-byte $0288
-	ld a, $02
-	ld [H_MULTIPLICAND], a
-	ld a, $88
-	ld [H_MULTIPLICAND + 1], a
-	xor a
-	ld [H_MULTIPLICAND + 2], a
 	ld a, [wCurEnemyLVL]
-	cp 100	;make it so 648 xp / lvl maxes out at lvl 100
+	cp 6
+	jr c, .loadzero	;no stat exp for levels 5 or lower
+	cp 100	;make it so lvl maxes out at lvl 100
 	jr c, .next
 	ld a, 100
 .next
-	ld [H_MULTIPLIER], a
-	call Multiply
-	ld a, [H_MULTIPLICAND]
-	ld d, a
-	ld a, [H_MULTIPLICAND+1]
-	ld e, a
+
+	ld b, a
+	inc b
+	ld a, 6
+	ld hl, $0000
+
+.loop
+	ld de, $0000
+	ld e, a	;load level into low nybble of de
+	sla e	;multiply de by 4
+	rl d
+	sla e	
+	rl d
+	add hl, de	;add 12[level] + 50 to hl
+	add hl, de
+	add hl, de
+	ld de, $0032
+	add hl, de
+
+	inc a
+	cp b
+	jr nz, .loop
+
+.done
+	ld d, h
+	ld e, l
 	ret
 .loadzero
 	xor a
 	ld d, a
 	ld e, a
 	ret
-	
-;	;Alternative algorithm: adds (12 stat exp * current level) per level.
-;	ld a, [wCurEnemyLVL]
-;	ld b, a	;put the enemy's level into b. it will be used as a loop counter
-;	xor a	;make a = 0
-;	ld d, a	;clear d (use for MSB)
-;	ld e, a ;clear e (use for LSB)
-;.loop
-;	ld a, d
-;	cp a, $FF	;see if the current value of de is 65280 or more
-;	jr z, .skipadder
-;	push hl
-;	push bc
-;	xor a
+
+;the old formula
+;CalcEnemyStatEXP2:
+;	ld a, [wOptions]	;load game options
+;	bit BIT_BATTLE_HARD, a			;check for hard mode
+;	jr z, .loadzero		;load zero stat exp if not on hard mode
+;	;This loads 648 stat exp per level. Note that 648 in hex is the two-byte $0288
+;	ld a, $02
 ;	ld [H_MULTIPLICAND], a
-;	ld a, [wCurEnemyLVL]
+;	ld a, $88
 ;	ld [H_MULTIPLICAND + 1], a
-;	ld a, $C
+;	xor a
+;	ld [H_MULTIPLICAND + 2], a
+;	ld a, [wCurEnemyLVL]
+;	cp 100	;make it so 648 xp / lvl maxes out at lvl 100
+;	jr c, .next
+;	ld a, 100
+;.next
 ;	ld [H_MULTIPLIER], a
 ;	call Multiply
-;	ld a, e
-;	add l
-;	ld e, a
-;	ld a, d
-;	adc h
+;	ld a, [H_MULTIPLICAND]
 ;	ld d, a
-;	pop bc
-;	pop hl
-;.skipadder
-;	dec b; decrement b 
-;	jr nz, .loop	;loop back if b is not zero
+;	ld a, [H_MULTIPLICAND+1]
+;	ld e, a
+;	ret
+;.loadzero
+;	xor a
+;	ld d, a
+;	ld e, a
 ;	ret
 	
+
 CalculateModifiedStats:
 	ld c, 0
 .loop

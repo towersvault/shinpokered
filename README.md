@@ -534,6 +534,7 @@ v1.23.11
 **Not in current patch** 
 - Clarified the text for the super repel on 2F of the celadon dept store
 - Readjusted enemy stat exp accumulation and removed reduntant lines in CriticalHitTest
+- Fixed trainer escape glitch via blacking out from a wild battle
 
 
 #Bugfixes
@@ -751,6 +752,7 @@ v1.23.11
   - The lift key in the rocket hideout drops during the end of battle text like in Yellow-version
   - An unused bit is now used to determine the ghost marowak battle
   - Can't use surf/teleport/escape rope to escape from trainer encounters
+  - Fixed trainer escape glitch via blacking out from a wild battle
   - Can't fish or surf in the bases of statues
   - Seafoam islands fast current applied to the right steps on floor B3
   - Each of the two boulder puzzles in seafoam islands will fully reset until completed

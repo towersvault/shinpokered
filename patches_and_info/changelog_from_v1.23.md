@@ -239,6 +239,7 @@
 - RAM adress D732 now gets cleared upon a new game
 - The party heal function now detects glitch moves and loads 0 PP for them
 - Closed 255 clone pokemon glitch and reduced saving delay to 15 frames
+- Fixed trainer escape glitch via blacking out from a wild battle
 
 - Fixed a bug from the vanilla game where random NPC walk delay can underflow to 255 ticks
 - Fixed an offset bug with the lucky game corner machine

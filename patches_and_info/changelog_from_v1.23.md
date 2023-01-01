@@ -257,6 +257,7 @@
 - Clarified the text for the super repel on 2F of the celadon dept store
 - Viridian gym statue will not spoil the gym leader's name reveal
 - Fixed increment bug in CheckForTilePairCollisions
+- Fixed inaccurate text when getting the rock slide TM
 
 
 ---

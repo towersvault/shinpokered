@@ -141,7 +141,6 @@ The hard mode option increases difficulty by making the stats of trainer pokemon
 It also doubles the effect of the X-stat items that AI trainers are fond of.
 And it disallows the use of Revive items in battle.
 Finally, it makes catching a wild Mewtwo more challenging.
-As compensation, hard mode gives an additional 1.5x EXP boost in trainer battles.
 
 Trainer AI has been improved and greatly expanded.
 Some trainers will even try to switch pokemon intelligently.
@@ -533,8 +532,10 @@ v1.23.11
 
 **Not in current patch** 
 - Clarified the text for the super repel on 2F of the celadon dept store
-- Readjusted enemy stat exp accumulation and removed reduntant lines in CriticalHitTest
+- Readjusted enemy stat exp accumulation in hard mode
+- Removed reduntant lines in CriticalHitTest
 - Fixed trainer escape glitch via blacking out from a wild battle
+- Hard mode no longer gives an exp bonus
 
 
 #Bugfixes
@@ -1088,7 +1089,6 @@ v1.23.11
   - X-stat items have double the effect like in more recent generations
   - Revive items cannot be used in battles
   - Mewtwo will prevent you from using a master ball on it and use AI to choose moves
-  - Hard mode gives an additional 1.5x EXP boost in trainer battles
 - Added the Clause Brothers to Viridian City
   - They toggle enforcement of the item, sleep, and/or freeze clauses
   - The clauses apply to the player and AI equally, and only apply during non-link trainer battles

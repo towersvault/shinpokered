@@ -114,6 +114,10 @@
 - Decoupled the harder difficulty to its own option bit and added the hard mode to the Lite branch
   - Pressing RIGHT while the cursor is in the BATTLE STYLE box will toggle the feature on/off
   - Contrasting this, pressing LEFT will let you select a battle style without toggling difficulty
+  
+- Hard mode adjustments
+  - Trainer stat exp has been re-scaled to be more realistic to attainable amounts per level
+  - No longer gives an exp bonus
 
 - Debug Damage Display: Damage values will be displayed in battle as the UI updates as a debug cheat
   - Toggled on/off the same way as the softlock warp, but by using 'A' instead of 'B'.

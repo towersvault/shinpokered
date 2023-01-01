@@ -158,7 +158,6 @@ Playing in hard mode imposes several changes to the game's systems that increase
 4 - X-stat items increase by two stages instead of one like in more recent generations.  
 5 - Revive items can only be used outside of battle.  
 6 - Wild Mewtwo uses trainer AI to choose its moves, and it also blocks you from using a Master Ball.  
-7 - EXP is boosted by an additional 50% in trainer battles as compensation to the player.  
 
 **Scale Enemy Trainer Levels**  
 Talk to the aide in the lower-right section of Oak's lab to toggle this feature.  
@@ -450,7 +449,7 @@ Be sure to purchase a reasonable stock of healing items to counter the increased
 
 **Big EXP Gains**  
 The Catch-Up Booster bonus compounds with other 1.5x EXP bonuses in the game.  
-With this is in mind, activate level-scaling and do trainer rematches in hard mode to gain loads of EXP.  
+With this is in mind, activate level-scaling and do trainer rematches to gain loads of EXP.  
 
 **Training in Post-Game Without Battling**  
 Here is an alternative to grinding out battles in the post-game.  

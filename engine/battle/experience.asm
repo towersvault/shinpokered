@@ -123,10 +123,10 @@ GainExperience:
 	dec a ; is it a trainer battle?
 	jr z, .nottrainerbattle
 	call BoostExp ; if so, boost exp
-;joenote - boost exp again in trainer battls if in hard mode
-	ld a, [wOptions]
-	bit BIT_BATTLE_HARD, a
-	call nz, BoostExp
+;joenote - boost exp again in trainer battles if in hard mode
+;	ld a, [wOptions]
+;	bit BIT_BATTLE_HARD, a
+;	call nz, BoostExp
 .nottrainerbattle
 	call CatchUpBoost	;joenote - boost exp if underlevelled
 	inc hl

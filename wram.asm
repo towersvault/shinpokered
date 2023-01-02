@@ -2230,6 +2230,7 @@ wEvolutionOccurred:: ; d121
 wVBlankSavedROMBank:: ; d122
 	ds 1
 
+wDelayFrameBank:: ;d123		;joenote - added for bank backing-up
 	ds 1
 
 wIsKeyItem:: ; d124

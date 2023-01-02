@@ -7,6 +7,14 @@ VBlank::
 
 	ld a, [H_LOADEDROMBANK]
 	ld [wVBlankSavedROMBank], a
+	
+	;joenote - set the correct backed-up bank if vblank happened during a DelayFrame function
+	ld a, [wDelayFrameBank]
+	and a
+	jr z, .no_delay_bank
+	ld [H_LOADEDROMBANK], a
+	ld [MBC1RomBank], a
+.no_delay_bank
 
 	ld a, [hSCX]
 	ld [rSCX], a
@@ -89,7 +97,25 @@ NOT_VBLANKED EQU 1
 
 	ld a, NOT_VBLANKED
 	ld [H_VBLANKOCCURRED], a
+
+;joenote - If you want to run functions in DelayFrame, then there is a need to back up the loaded bank.
+; This is because it's originally assumed that you don't switch banks in DelayFrame.
+	ld a, [H_LOADEDROMBANK]
+	ld [wDelayFrameBank], a
 	
+	call home_PrepareOAMData
+	
+	xor a
+	ld [wDelayFrameBank], a
+.halt
+	halt
+	nop	;joenote - due to a processor bug, nop after halt is best practice
+	ld a, [H_VBLANKOCCURRED]
+	and a
+	jr nz, .halt
+	ret
+
+home_PrepareOAMData::
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;joenote - Try to optimize PrepareOAMData so that overworld sprites don't wobble.
 ;Inspired by Drenn's work on the pokered-gbc project.
@@ -122,11 +148,4 @@ NOT_VBLANKED EQU 1
 ; --> But trying to do DMA transfer here is worse because audio noise gets injected when drawing the screen.
 ; --> A real gameboy's TFT screen might be able to hide this.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-.halt
-	halt
-	nop	;joenote - due to a processor bug, nop after halt is best practice
-	ld a, [H_VBLANKOCCURRED]
-	and a
-	jr nz, .halt
 	ret

@@ -1251,6 +1251,7 @@ wActionResultOrTookBattleTurn:: ; cd6a
 ; something other than a move (e.g. using an item or switching pokemon).
 ; So, when an item is successfully used in battle, this value becomes non-zero
 ; and the player is not allowed to make a move and the two uses are compatible.
+;jooenote - in battle player switching makes this value $A
 	ds 1
 
 wJoyIgnore:: ; cd6b

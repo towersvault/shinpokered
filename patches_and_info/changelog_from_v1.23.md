@@ -184,6 +184,10 @@
 - AI layer 3 will slightly discourage a move 25% of the time if it hits neutral with no STAB
   - Wherein a special move is being used on a 'mon with greater attack than special stat
   - Wherein a physical move is being used on a 'mon with greater special than attack stat
+- AI layer 3: There is a 79.68% chance per damaging move that the AI is blind to a player switching
+  - Prevents situations where AI will always pick the ideal move against a switch-in
+  - 'Blind' in this case means the AI will act as if the move being considered has neutral effectiveness
+  - The AI might still favor a STAB move or a move that works better with its own stats
 
 - Withdrawing or depositing a key item from/to the player's PC will default its quantity to 1
 - Item evolutions having a level requirement is now supported

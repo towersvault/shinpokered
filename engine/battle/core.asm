@@ -2688,7 +2688,7 @@ PartyMenuOrRockOrRun:
 .notAlreadyOut
 	call HasMonFainted
 	jp z, .partyMonDeselected ; can't switch to fainted mon
-	ld a, $1
+	ld a, $A	;joenote - load $A instead of 1 so signify that the player is switching
 	ld [wActionResultOrTookBattleTurn], a
 	call GBPalWhiteOut
 	call ClearSprites

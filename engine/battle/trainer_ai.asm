@@ -886,6 +886,17 @@ AIMoveChoiceModification3:
 .specialBPend
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+	;79.68% chance that AI is blind to the fact that the player switched, so treat the move as neutrally effective
+	ld a, [wActionResultOrTookBattleTurn]
+	cp $A
+	jr nz, .blind_end
+	call Random
+	cp 204
+	jr c, .neutral_effective	; if < 204, treat move as neutral damage
+	;else proceed as normal
+.blind_end
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;joenote - heavily discourage attack moves that have no effect due to typing
 	push hl
 	push bc
@@ -946,6 +957,7 @@ AIMoveChoiceModification3:
 	jr c, .notEffectiveMove
 	jr nz, .isSuperEffectiveMove
 ;move has neutral effectiveness at this line
+.neutral_effective
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;since the type effectiveness is neutral, randomly apply slight preference if there is STAB	
 	;25% chance to check for and prefer a stab move

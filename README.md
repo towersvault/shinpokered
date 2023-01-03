@@ -906,7 +906,9 @@ v1.23.11
 	- heavily discourages 0-power moves if below 1/3 hp
   - Discourage exploding effects if faster than a player in fly/dig state
   - Randomly discourage usage of 2-turn moves when confused/paralyzed
-  - 50% chance that the AI is blind to a player switching or using an item
+  - 79.68% chance per status move that the AI is blind to a player switching or using an item
+    - Prevents situations where AI will always re-status the player after the player switches or heals
+	- An AI mon with three status moves will have about a 50% chance of ignoring item-use or switching
   - Discourage using fly/dig if faster than the player who is also picking fly/dig
 
 - Trainer ai routine #3 (choosing effective moves) has been modified
@@ -920,6 +922,11 @@ v1.23.11
   - Slightly discourage a move 25% of the time if it hits neutral with no STAB
     - Wherein a special move is being used on a 'mon with greater attack than special stat
     - Wherein a physical move is being used on a 'mon with greater special than attack stat
+  - Slightly discourage a move 25% of the time if it hits neutral with no STAB
+  - 79.68% chance per damaging move that the AI is blind to a player switching
+    - Prevents situations where AI will always pick the ideal move against a switch-in
+	- 'Blind' in this case means the AI will act as if the move being considered has neutral effectiveness
+	- The AI might still favor a STAB move or a move that works better with its own stats
 
 - Trainer ai routine #4 is no longer unused. It now does rudimentary trainer switching.
   - 25% chance to switch if active pkmn is below 1/3 HP and player also outspeeds AI

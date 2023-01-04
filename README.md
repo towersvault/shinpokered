@@ -288,6 +288,7 @@ Cheats and Secrets!
   - Link battling between a lite branch build and any other non-lite branch build
   - Link battling between builds of dissimilar revisions
 - A revision control function has been added that will cancel unsupported cable links
+- Link functions via 3DS hardware and its Virtual Console emulator are not supported at this time
 
 
 #Changelog From the Last Full Release
@@ -963,10 +964,13 @@ v1.23.11
   - Attack DV is between 9 and 15 and always odd-numbered
   - Defense, special, and speed DVs are between 8 and 15
   - HP DV is a minimum of 8 since attack DV is always odd-numbered
-- Trainer AI battles now track which enemy pkmn have already been sent out, so allows for new functionality:
-  - Trainer pkmn DVs are remembered between switching, and new ones won't be generated on every send-out
-  - Trainer pkmn now have stat experience assigned to them that is scaled to their level (only in hard mode)
-  - These are real DVs and statEXP values that utilize the existing enemy party_struct which is normally unused by trainer AI
+- Trainer pkmn now have stat experience assigned to them that is scaled to their level (only in hard mode)
+  - The stat experience total for a given level 'L' is SIGMA[n=6,L](12n+50)
+  - No stat experience is given for level 5 and below.
+  - Outside of hard mode, trainer pokemon have 0 stat experience per the vanilla games
+- These are real DVs and statEXP values that utilize the existing enemy party_struct which is normally unused by trainer AI
+- Trainer pkmn DVs are remembered between switching, and new ones won't be generated on every send-out
+- Trainer AI battles now track which enemy pkmn have already been sent out, so it supports the new DVs and stat exp
 - Special trainers, e4, and gym leaders are slightly adjusted in their item use
 - Special trainers, e4, and gym leaders have slightly adjusted and buffed rosters for flavor and difficulty
 - Many trainers have recieved slight roster adjustments so that almost all pokemon can be registered as seen
@@ -1099,6 +1103,7 @@ v1.23.11
   - X-stat items have double the effect like in more recent generations
   - Revive items cannot be used in battles
   - Mewtwo will prevent you from using a master ball on it and use AI to choose moves
+  - Warning: The difficulty will be compounded if both trainer scaling and hard mode are active
 - Added the Clause Brothers to Viridian City
   - They toggle enforcement of the item, sleep, and/or freeze clauses
   - The clauses apply to the player and AI equally, and only apply during non-link trainer battles
@@ -1554,6 +1559,10 @@ So it was decided to whip-up something simple and original that depicted a femal
 > **Why can Bide still hit opponents in the Fly/Dig state when Pokemon Stadium fixes this?**
 
 Bide is a crummy move, but it gains a little more strategy in Shin Pokemon. This oversight was purposefully retained as a "feature" to help it out some more.
+
+> **Why does Hyper Beam recharge work like it does in gen-2 instead of always needing to recharge like in Stadium?**
+
+Shin Pokemon did do always-recharge at one point, bit it was hated by *literally every player*. Removing recharge on a miss was done as a compromise.
 
 > **Why is there a brief white frame flash when the screen transitions on Gameboy Color?**
 

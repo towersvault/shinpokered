@@ -529,6 +529,10 @@ v1.23.11
 - Added the restore sfx to all AI hp-recovery items
 - The enemy trainer's HUD is now updated after it uses a healing item
 - The project now compiles with RGBDS 0.6.0 and has a script to verify the compiler version
+- AI layer 3: There is a 79.68% chance per damaging move that the AI is blind to a player switching
+  - Prevents situations where AI will always pick the ideal move against a switch-in
+  - 'Blind' in this case means the AI will act as if the move being considered has neutral effectiveness
+  - The AI might still favor a STAB move or a move that works better with its own stats
 
 
 **Not in current patch** 

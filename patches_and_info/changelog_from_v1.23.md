@@ -249,9 +249,11 @@
 - Closed 255 clone pokemon glitch and reduced saving delay to 15 frames
 - Fixed trainer escape glitch via blacking out from a wild battle
 
+- Minor code correction to Twineedle to prevent future errors 
+- Fixed an issue where the counter for the Disable effect had the wrong distribution if the target was slower
+
 - Fixed a bug from the vanilla game where random NPC walk delay can underflow to 255 ticks
 - Fixed an offset bug with the lucky game corner machine
-- Minor code correction to Twineedle to prevent future errors 
 - Applied the pokeyellow fix for in-game trade evolutions
 - Accounted for underflow with switch-out messages
 - Added an error trap to _Divide function for divide-by-zero calls

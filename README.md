@@ -537,6 +537,7 @@ v1.23.11
 - Fixed trainer escape glitch via blacking out from a wild battle
 - Hard mode no longer gives an exp bonus
 - Fixed inaccurate text when getting the rock slide TM
+- Fixed an issue where the counter for the Disable effect had the wrong distribution if the target was slower
 
 
 #Bugfixes
@@ -635,7 +636,7 @@ v1.23.11
     - Crash damage from jump kicks and pkmn hurting itself cannot be Countered
   - To prevent infinite loops, Rage ends after 2 to 3 turns (attack boosts are kept)
   - Non-link enemy mons now have PP, so always run checks for 0 PP during the disable effect
-  - Fixed an issue with Disable's counter on slower 'mons
+  - Fixed an issue with Disable's counter on slower 'mons and also corrected the statistical outcomes of the counter
 
   
 - Graphical Fixes

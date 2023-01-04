@@ -5,8 +5,14 @@ _Route24Text_51510::
 
 _Route24Text_51515::
 	db $0
+IF DEF(_JPTXT)	;joenote - dirty joke lost in translation
+	para "Open up your hand"
+	line "while I whip out"
+	cont "my nuggets."
+ELSE
 	para "You just earned a"
 	line "fabulous prize!"
+ENDC
 	prompt
 
 _Route24Text_5151a::
@@ -56,9 +62,4 @@ _Route24Text_51530::
 	line "you could become"
 	cont "a top leader in"
 	cont "TEAM ROCKET!"
-	done
-
-_Route24BattleText1::
-	text "I saw your feat"
-	line "from the grass!"
 	done

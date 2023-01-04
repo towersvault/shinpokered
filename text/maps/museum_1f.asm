@@ -53,9 +53,18 @@ _Museum1FText_5c242::
 	done
 
 _Museum1FText_5c251::
+IF DEF(_JPTXT)	;joenote - this guy thinks the aerodactyl fossil is Ryujin-sama of japanese legend
+	text "Oh thank you!"
+	line "Oh thank you!"
+	
+	para "I'm praying to"
+	line "the dragon bones"
+	cont "of Lord Ryujin."
+ELSE
 	text "That is one"
 	line "magnificent"
 	cont "fossil!"
+ENDC
 	done
 
 _Museum1FText_5c28e::

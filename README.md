@@ -545,6 +545,7 @@ v1.23.11
 - Fixed an issue where the counter for the Disable effect had the wrong distribution if the target was slower
 - Restored the saucy innuendo for the Nugget bridge dialogue in the jp builds
 - Restored the religious text in the Pewter museum in the jp builds
+- Updating a save to a new hack version now checks to see if the elite-4 were already defeated
 
 
 #Bugfixes

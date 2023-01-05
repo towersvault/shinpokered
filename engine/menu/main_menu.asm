@@ -116,6 +116,8 @@ MainMenu:
 	cp A_BUTTON + SELECT
 ;	call z, ClearHackVersion	;this is a debug function to force a warp
 	ld a, [wRomHackVersion]
+	ld b, a		;use register b for temporarily holding the rom hack version
+	push bc
 	cp HACK_VERSION
 	jr z, .warpcheck_end
 	ld hl, RomHackVersionText
@@ -125,7 +127,9 @@ MainMenu:
 	and a
 	jr z, .warpcheck_end
 	ld a, HACK_VERSION
-	ld [wRomHackVersion], a
+	pop bc		;if picking "no", overwrite the temp value so that the warp won't happen
+	ld b, a
+	push bc
 .warpcheck_end
 	
 	call GBPalWhiteOutWithDelay3
@@ -146,10 +150,9 @@ MainMenu:
 ;joenote - check the rom hack version of the save and update if necessary
 ;Special warp to pallet town if the save is from a different version number
 ;This will prevent a number of crashes and collision issues
-	ld a, [wRomHackVersion]
+	pop bc
+	ld a, b
 	cp HACK_VERSION
-	ld a, HACK_VERSION
-	ld [wRomHackVersion], a
 	jr nz, .pallet_warp
 
 	ld a, [wNumHoFTeams]
@@ -159,6 +162,14 @@ MainMenu:
 	cp HALL_OF_FAME
 	jp nz, SpecialEnterMap
 .pallet_warp
+	;doing the special warp to pallet town so update some save-able parameters
+	ld a, HACK_VERSION
+	ld [wRomHackVersion], a	;update the working ram with the current rom hack version
+	ld a, [wNumHoFTeams]
+	and a
+	jr z, .noHoF
+	SetEvent EVENT_908	;if the elite 4 have been beaten, set the event flag for it
+.noHoF
 	xor a
 	ld [wDestinationMap], a
 	ld hl, wd732

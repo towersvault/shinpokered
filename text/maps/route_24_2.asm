@@ -28,7 +28,7 @@ _Route24EndBattleText2::
 	text "Whoa!"
 IF DEF(_JPTXT)	;joenote - dirty joke lost in translation
 	line "You're too wild"
-	cont "to ride!"
+	cont "for me!"
 ELSE
 	line "Too much!"
 ENDC
@@ -83,10 +83,8 @@ _Route24AfterBattleText4::
 _Route24BattleText5::
 	text "I'm second!"
 IF DEF(_JPTXT)	;joenote - dirty joke lost in translation
-	line "No more gentle-"
-	cont "play, because I'm"
-	cont "ready for the"
-	cont "real thing!"
+	line "I'm ready to go"
+	cont "all the way!"
 ELSE
 	line "Now it's serious!"
 ENDC

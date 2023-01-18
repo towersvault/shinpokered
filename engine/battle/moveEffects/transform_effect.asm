@@ -66,8 +66,8 @@ TransformEffect_:
 	inc de	;point to type 1
 	inc bc
 	inc bc
-	;call CopyData
-	call CopyDataTransform	;joenote - want to do a special copy that doesn't copy the transform move and replaces it
+	call CopyData
+;	call CopyDataTransform	;joenote - want to do a special copy that doesn't copy the transform move and replaces it
 	;de is now pointing to DVs
 	ld a, [H_WHOSETURN]
 	and a
@@ -135,7 +135,39 @@ TransformEffect_:
 	ld a, [hli]
 	and a
 	jr z, .lessThanFourMoves
+	
+;joenote - going to try to force an end to transform loops
+	cp TRANSFORM
+	jr nz, .next2
+	;pull the enemy's PP for their transform move
+	push hl
+	ld h, d
+	ld l, e
+	push bc
+	ld bc, wEnemyMonPP - wBattleMonPP
+	ld a, [H_WHOSETURN]
+	and a
+	jr z, .next3
+	ld bc, wBattleMonPP - wEnemyMonPP
+.next3
+	add hl, bc
+	pop bc
+	ld a, [hl]
+	pop hl
+	and %00111111
+	;if it's value is 0, then load 0 PP
+	jr z, .loadPP
+	;if it's >= 6, then load 5 PP like normal.
+	cp $6
+	jr nc, .next2
+	;otherwise, decrement the value and load that number
+	;this makes transform have a finite amount of uses in any one battle
+	dec a
+	jr .loadPP
+
+.next2
 	ld a, $5
+.loadPP
 	ld [de], a
 	inc de
 	dec b
@@ -186,20 +218,20 @@ TransformedText:
 ;joenote - custom-edited function just for copying transform moves.
 ;Insted of copying the move Transform, it will replace it with Struggle.
 ;This prevents endless battles between two pokemon with Transform
-CopyDataTransform:
-; Copy bc bytes from hl to de.
-	ld a, c	;load counter into a
-	cp $5 ;is a < 5? set carry if true
-	ld a, [hli] ;load current byte into a. increment to next byte
-	jr nc, .notatrans	;skip down if carry not set
-	cp TRANSFORM	;is the current byte the transform move?
-	jr nz, .notatrans	; if not, then skip down
-	ld a, STRUGGLE	;if transform move, replace it with Struggle
-.notatrans
-	ld [de], a	;load a into de
-	inc de	;increment de to next byte
-	dec bc	;decrement the counter
-	ld a, c
-	or b	;is counter zero?
-	jr nz, CopyDataTransform
-	ret
+;CopyDataTransform:
+;; Copy bc bytes from hl to de.
+;	ld a, c	;load counter into a
+;	cp $5 ;is a < 5? set carry if true
+;	ld a, [hli] ;load current byte into a. increment to next byte
+;	jr nc, .notatrans	;skip down if carry not set
+;	cp TRANSFORM	;is the current byte the transform move?
+;	jr nz, .notatrans	; if not, then skip down
+;	ld a, STRUGGLE	;if transform move, replace it with Struggle
+;.notatrans
+;	ld [de], a	;load a into de
+;	inc de	;increment de to next byte
+;	dec bc	;decrement the counter
+;	ld a, c
+;	or b	;is counter zero?
+;	jr nz, CopyDataTransform
+;	ret

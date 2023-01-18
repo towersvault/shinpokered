@@ -547,6 +547,7 @@ v1.23.11
 - Restored the religious text in the Pewter museum in the jp builds
 - Updating a save to a new hack version now checks to see if the elite-4 were already defeated
 - Fixed problem with the menu selection byte changing if opponent switches first (affects mimic and others)
+- If Transform copies an opponent's Transform move, and the the PP of that move is < 6, it will copy that move's instantaneous PP less 1.
 
 
 #Bugfixes
@@ -593,7 +594,11 @@ v1.23.11
 - Move fixes
   - Transform-related fixes:
       - Move slots cannot be rearranged when transformed (prevents acquiring glitch moves)
-      - Transform will no longer copy the opponent's Transform move. It's swapped-out for Struggle.
+      - Fixing Transformation loops
+	    - If Transform copies an opponent's Transform move, 
+		- and the the PP of that move is < 6, 
+		- it will copy that move's instantaneous PP less 1.
+		- This limits the PP of using transform repeatedly between two pokemon
       - Enemy DVs can no longer be manipulated by having it use transform multiple times
 	  - Fixed a conflict where transforming while disabled can leave the new moves disabled
 	  - Fixed transformed 'mons reseting their moves when learning a level-up move

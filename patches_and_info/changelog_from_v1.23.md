@@ -294,3 +294,4 @@
 - Updated the project to build with RGBDS 0.6.0
 - Readjusted enemy stat exp accumulation and removed reduntant lines in CriticalHitTest
 - Updating a save to a new hack version now checks to see if the elite-4 were already defeated
+- Fixed problem with the menu selection byte changing if opponent switches first (affects mimic and others)

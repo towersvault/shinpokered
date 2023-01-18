@@ -1611,6 +1611,10 @@ EnemySendOutFirstMon:
 	ld [wLastSwitchInEnemyMonHP], a
 	ld a, [hl]
 	ld [wLastSwitchInEnemyMonHP + 1], a
+	
+	ld a, [wCurrentMenuItem]	;joenote - need to back this up in case the opponent switches-in first.
+	push af
+	
 	ld a, 1
 	ld [wCurrentMenuItem], a
 	ld a, [wFirstMonsNotOutYet]
@@ -1687,12 +1691,24 @@ EnemySendOutFirstMon:
 	callba ShinyEnemyAnimation
 	ld a, [wCurrentMenuItem]
 	and a
-	ret nz
+;	ret nz
+
+	jr nz, .returnNZ	;joenote - need restore this in case the opponent switches-in first.
+	pop af
+	ld [wCurrentMenuItem], a
+
 	xor a
 	ld [wPartyGainExpFlags], a
 	ld [wPartyFoughtCurrentEnemyFlags], a
 	call SaveScreenTilesToBuffer1
 	jp SwitchPlayerMon
+	
+.returnNZ
+	pop af
+	ld [wCurrentMenuItem], a
+	ld a, 1
+	and a
+	ret
 
 TrainerAboutToUseText:
 	TX_FAR _TrainerAboutToUseText
@@ -9380,6 +9396,9 @@ MimicEffect:
 	ld a, [wEnemyBattleStatus1]
 	bit INVULNERABLE, a
 	jr nz, .mimicMissed
+	
+	call SaveScreenTilesToBuffer1	;joenote - need to save the tiles in case the opponent switched before mimic
+	
 	ld a, [wCurrentMenuItem]
 	push af
 	ld a, $1

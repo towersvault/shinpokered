@@ -109,8 +109,8 @@ _TXTBookP3:
 	cont "a #MON."
 	
 	para "Where to find it?"
-	line "I think one could"
-	cont "could be in here."
+	line "Perhaps here, in"
+	cont "this very room."
 	
 	para "The misty air of"
 	line "this cave might"

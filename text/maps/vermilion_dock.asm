@@ -73,7 +73,7 @@ _VermilionDockSeigaVictory::
 	
 	para "Your 'DEX is much"
 	line "more advanced"
-	cont "than my locater."
+	cont "than my locator."
 	
 	para "Maybe the #MON"
 	line "will appear when"

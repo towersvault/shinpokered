@@ -551,6 +551,7 @@ v1.23.11
 - Fixed a problem where multi-hit moves could overflow the damage effectiveness multiplier
 - Fixed *thud* sfx playing when exiting via a warp tile
 - Fixed a wall in cerulean cave level 3 that violated the mapping rules so was walkable
+- Decreased time to encounter missingno by an exponential amount
 
 
 #Bugfixes

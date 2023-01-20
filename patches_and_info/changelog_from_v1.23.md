@@ -100,7 +100,7 @@
 - Repels can no longer waste the mew encounter
 - Fixed bug in low HP alarm: Some sfx no longer get cut off when the player is at low HP
 - Holding start or select will no longer print strange HP numbers when not on the status screen
-
+- Decreased time to encounter missingno by an exponential amount
 
 ---
 **Hack-related fixes exclusively for the lite branch**

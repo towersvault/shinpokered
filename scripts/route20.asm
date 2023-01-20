@@ -27,9 +27,6 @@ MissingnoShore:
 	ld a, [hRandomAdd]
 	and a 
 	jr nz, .return
-	ld a, [hRandomSub]
-	cp $F0
-	jr c, .return
 	ResetEvent EVENT_8DA	;clear cinnabar shore activation
 
 	ld a, 2	;get the right roster

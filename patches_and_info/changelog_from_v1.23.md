@@ -227,6 +227,7 @@
 - Fixed NPCs treating the last visible screen column/row as off-screen
 - Fixed a graphical bug on the naming screen that apears on cheapo flash carts
 - Fixed double-edge animation being off-center for the enemy pokemon
+- Fixed a wall in cerulean cave level 3 that violated the mapping rules so was walkable
 
 - The proper forget-move poof sfx plays during battle
 - Fixed a bug having to do with rare instances of bending the audio pitch

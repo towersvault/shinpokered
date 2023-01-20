@@ -550,6 +550,7 @@ v1.23.11
 - If Transform copies an opponent's Transform move, and the the PP of that move is < 6, it will copy that move's instantaneous PP less 1.
 - Fixed a problem where multi-hit moves could overflow the damage effectiveness multiplier
 - Fixed *thud* sfx playing when exiting via a warp tile
+- Fixed a wall in cerulean cave level 3 that violated the mapping rules so was walkable
 
 
 #Bugfixes
@@ -665,6 +666,7 @@ v1.23.11
   - PC graphic restored to celadon hotel
   - A tile in cinnabar mansion 3f is slightly modified to prevent getting permanently stuck
   - A tile in cerulean cave 1f adjusted so there isn't a walkable cliff tile
+  - Fixed a wall in cerulean cave level 3 that violated the mapping rules so was walkable
   - Added ledge to route 25 to prevent softlock
   - After defeating the cerulean burglar rocket, the guard itself always moves to prevent getting stuck in the front door
   - No more ABCD glitched sprites when using teleport without a super gameboy

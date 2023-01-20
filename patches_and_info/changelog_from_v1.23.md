@@ -234,6 +234,7 @@
 - The jingle for finding a hidden item will no longer be skipped during an audio fadeout
 - Fixed ball toss sfx not resetting the pitch envelope settings
 - Added protection against oak's lab music cutting a channel off
+- Fixed *thud* sfx playing when exiting via a warp tile
 
 - Fixed input priority on menus
 - Fixed A-button input priority on the left side of the scrolling pokedex list

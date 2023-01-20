@@ -549,6 +549,7 @@ v1.23.11
 - Fixed problem with the menu selection byte changing if opponent switches first (affects mimic and others)
 - If Transform copies an opponent's Transform move, and the the PP of that move is < 6, it will copy that move's instantaneous PP less 1.
 - Fixed a problem where multi-hit moves could overflow the damage effectiveness multiplier
+- Fixed *thud* sfx playing when exiting via a warp tile
 
 
 #Bugfixes
@@ -754,7 +755,8 @@ v1.23.11
   - Added protection against oak's lab music cutting a channel off
   - Removed restore sfx from the AI x-accuracy item
   - Added the restore sfx to all AI hp-recovery items
-
+  - Fixed *thud* sfx playing when exiting via a warp tile
+  
 
 - Misc. fixes
   - Cinnabar/seafoam islands coast glitch fixed (no more missingo or artificially loading pokemon data)

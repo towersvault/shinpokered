@@ -8,12 +8,14 @@ Route20Script:
 	call nz, Route20Script_50cc6
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	call EnableAutoTextBoxDrawing
-	call MissingnoShore
 	ld hl, Route20TrainerHeader0
 	ld de, Route20ScriptPointers
 	ld a, [wRoute20CurScript]
 	call ExecuteCurMapScriptInTable
 	ld [wRoute20CurScript], a
+	
+	and a
+	call z, MissingnoShore
 	ret
 
 MissingnoShore:
@@ -29,6 +31,9 @@ MissingnoShore:
 	jr nz, .return
 	ResetEvent EVENT_8DA	;clear cinnabar shore activation
 
+	ld hl, wFlags_D733
+	set 4, [hl]
+	
 	ld a, 2	;get the right roster
 	ld [wTrainerNo], a
 	ld hl, MissingnoCoordsData2
@@ -50,6 +55,7 @@ MissingnoShore:
 	ld [wCurOpponent], a	;set as the current opponent
 	ld a, 3
 	ld [wRoute20CurScript], a
+	ld [wCurMapScript], a
 	xor a
 	ld [hJoyHeld], a
 	jp TextScriptEnd
@@ -60,6 +66,7 @@ MissingnoShore:
 EndMissingnoBattle:
 	xor a
 	ld [wRoute20CurScript], a
+	ld [wCurMapScript], a
 	;return of battle was a loss or draw
 	ld a, [wBattleResult]
 	and a

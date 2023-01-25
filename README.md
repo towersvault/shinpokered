@@ -552,6 +552,7 @@ v1.23.11
 - Fixed *thud* sfx playing when exiting via a warp tile
 - Fixed a wall in cerulean cave level 3 that violated the mapping rules so was walkable
 - Decreased time to encounter missingno by an exponential amount
+- Fixed a scripting error on route 20
 
 
 #Bugfixes

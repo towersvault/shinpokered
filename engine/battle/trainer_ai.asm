@@ -190,6 +190,9 @@ AIMoveChoiceModification1:
 	ld a, [wEnemyMoveEffect]	;load the move effect
 	cp DREAM_EATER_EFFECT	;see if it is dream eater
 	jr nz, .notdreameater	;skip out if move is not dream eater
+	ld a, [wActionResultOrTookBattleTurn]
+	and a
+	jp nz, .nextMove	;if player switched or used an item, AI should be blind to the change
 	ld a, [wBattleMonStatus]	;load the player pkmn non-volatile status
 	and $7	;check bits 0 to 2 for sleeping turns
 	jp z, .heavydiscourage	;heavily discourage using dream eater on non-sleeping pkmn
@@ -790,6 +793,9 @@ AIMoveChoiceModification3:
 	ld a, [wEnemyMoveEffect]
 	cp POISON_EFFECT
 	jr nz, .notpoisoneffect
+	ld a, [wActionResultOrTookBattleTurn]
+	cp $A
+	jp nz, .notpoisoneffect	;if player switched blind the AI to the player mon status
 	ld a, [wBattleMonType]
 	cp POISON
 	jp z, .heavydiscourage2
@@ -886,13 +892,13 @@ AIMoveChoiceModification3:
 .specialBPend
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-	;79.68% chance that AI is blind to the fact that the player switched, so treat the move as neutrally effective
+	;90.625% chance per move that AI is blind to the player switching, so treat the move as neutrally effective
 	ld a, [wActionResultOrTookBattleTurn]
 	cp $A
 	jr nz, .blind_end
 	call Random
-	cp 204
-	jr c, .neutral_effective	; if < 204, treat move as neutral damage
+	cp 232
+	jr c, .neutral_effective	; if <, treat move as neutral damage
 	;else proceed as normal
 .blind_end
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

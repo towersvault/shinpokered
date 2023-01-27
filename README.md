@@ -553,6 +553,9 @@ v1.23.11
 - Fixed a wall in cerulean cave level 3 that violated the mapping rules so was walkable
 - Decreased time to encounter missingno by an exponential amount
 - Fixed a scripting error on route 20
+- AI layer 3: The enemy is blind to the player type if considering a poisoning effect move and the payer just switched
+- AI layer 3: There is a 90.625% chance per damaging move that AI is blind to player type after player switches
+- AI layer 1: If the player used and item or switched, AI is blind to the player's sleep counter when considering dream eater
 
 
 #Bugfixes
@@ -932,6 +935,7 @@ v1.23.11
     - Prevents situations where AI will always re-status the player after the player switches or heals
 	- An AI mon with three status moves will have about a 50% chance of ignoring item-use or switching
   - Discourage using fly/dig if faster than the player who is also picking fly/dig
+  - If the player used and item or switched, AI is blind to the player's sleep counter when considering dream eater
 
 - Trainer ai routine #3 (choosing effective moves) has been modified
   - It now heavily discourages moves that would have no effect due to type immunity
@@ -945,7 +949,8 @@ v1.23.11
     - Wherein a special move is being used on a 'mon with greater attack than special stat
     - Wherein a physical move is being used on a 'mon with greater special than attack stat
   - Slightly discourage a move 25% of the time if it hits neutral with no STAB
-  - 79.68% chance per damaging move that the AI is blind to a player switching
+  - The enemy is blind to the player type if considering a poisoning effect move and the player just switched
+  - 90.625% chance per damaging move that AI is blind to player type after player switches
     - Prevents situations where AI will always pick the ideal move against a switch-in
 	- 'Blind' in this case means the AI will act as if the move being considered has neutral effectiveness
 	- The AI might still favor a STAB move or a move that works better with its own stats

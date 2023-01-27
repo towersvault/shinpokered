@@ -185,10 +185,12 @@
 - AI can now handle fly/dig loops between the two pokemon
 - Adjusted some AI anti-spam for status moves
 - AI switch scoring applies an extra penalty for possibly switching a pokemon into a super-effective move
+- AI layer 1: If the player used and item or switched, AI is blind to the player's sleep counter when considering dream eater
 - AI layer 3 will slightly discourage a move 25% of the time if it hits neutral with no STAB
   - Wherein a special move is being used on a 'mon with greater attack than special stat
   - Wherein a physical move is being used on a 'mon with greater special than attack stat
-- AI layer 3: There is a 79.68% chance per damaging move that the AI is blind to a player switching
+- AI layer 3: The enemy is blind to the player type if considering a poisoning effect move and the player just switched
+- AI layer 3: There is a 90.625% chance per damaging move that AI is blind to player type after player switches
   - Prevents situations where AI will always pick the ideal move against a switch-in
   - 'Blind' in this case means the AI will act as if the move being considered has neutral effectiveness
   - The AI might still favor a STAB move or a move that works better with its own stats

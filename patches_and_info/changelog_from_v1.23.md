@@ -109,6 +109,7 @@
 - Cleaned up compiler tags and made it easy to compile with spaceworld-style sprites
 - Female trainer can be activated by compiling with the _FPLAYER tag
 - TMs and HMs have their names determined by a list now
+- Fixed the wrong text pointer in vermilion city
 
 
 ---

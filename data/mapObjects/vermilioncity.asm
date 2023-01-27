@@ -13,13 +13,13 @@ VermilionCityObject:
 	warp 7, 3, 0, VERMILION_HOUSE_2
 
 	db 7 ; signs
-	sign 27, 3, 14 ; VermilionCityText7	;joenote - reassigning to text pointer position 14
 	sign 37, 13, 8 ; VermilionCityText8
 	sign 24, 13, 9 ; MartSignText
 	sign 12, 3, 10 ; PokeCenterSignText
 	sign 7, 13, 11 ; VermilionCityText11
 	sign 7, 19, 12 ; VermilionCityText12
 	sign 29, 15, 13 ; VermilionCityText13
+	sign 27, 3, 14 ; VermilionCityText7	;joenote - reassigning to text pointer position 14
 
 	db 7 ; objects
 	object SPRITE_FOULARD_WOMAN, 19, 7, WALK, 2, 1 ; person

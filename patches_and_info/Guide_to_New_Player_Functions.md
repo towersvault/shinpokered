@@ -253,6 +253,7 @@ You will be asked to confirm your decision. Choose YES to forfeit or NO to cance
 - The Old Rod can fish up two kinds of pokemon (depending on the current map).  
   - Magikarp or Goldeen
   - Magikarp or Poliwag 
+- When using the Old Rod, press and hold B within about 1 second to always hook a magikarp.  
 - The Good Rod can fish up three or four kinds of pokemon (depending on the current map).  
   - Poliwag, Horsea, Krabby
   - Poliwag, Krabby, Goldeen, Psyduck

@@ -2067,6 +2067,9 @@ ItemUseOldRod:
 	;		-but 50% chance to hook a lvl 5 to 12 magikarp
 	call FishingInit
 	jp c, ItemUseNotTime
+	ld a, [hJoyHeld]
+	bit BIT_B_BUTTON, a
+	jr nz, .magikarp
 	call Random
 	srl a
 	jr c, .magikarp

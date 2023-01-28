@@ -55,6 +55,7 @@
 - Added the MIST STONE: it will max-out all the stat exp of the pokemon on which it is used
 
 - Scaled back fishing, reduced its randomness, and made it more map-dependent
+- When using the old rod, press and hold B within about 1 second to always hook a magikarp
 
 - Added spaceworld-style trainer back sprites for consistency with the spaceworld 'mon back sprites 
 - Blue-JP has spaceworld-style back sprites, and a corresponding _origback patch has been added

@@ -556,6 +556,7 @@ v1.23.11
 - AI layer 3: The enemy is blind to the player type if considering a poisoning effect move and the payer just switched
 - AI layer 3: There is a 90.625% chance per damaging move that AI is blind to player type after player switches
 - AI layer 1: If the player used and item or switched, AI is blind to the player's sleep counter when considering dream eater
+- When using the old rod, press and hold B within about 1 second to always hook a magikarp
 
 
 #Bugfixes
@@ -1062,6 +1063,7 @@ v1.23.11
   - Old rod can fish up two kinds of pokemon (depending on the current map constant value)
     - Magikarp or Goldeen
 	- Magikarp or Poliwag 
+  - When using the old rod, press and hold B within about 1 second to always hook a magikarp
   - Good rod can fish up three or four kinds of pokemon (depending on the current map constant value)
     - Poliwag, Horsea, Krabby
 	- Poliwag, Krabby, Goldeen, Psyduck

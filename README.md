@@ -1034,6 +1034,24 @@ Cheats and Secrets!
 - cinnabar island has max elixers
 
 
+#About Gameshark Codes
+----------------------
+Will they work? Largely, yes...with some rules.  
+Shin Pokemon does not reassign any wram or hram addresses, so cheat codes that modify values within these address ranges will still work.  
+The GB/C's wram is in addresses C000-DFFF, and hram is in FF80-FFFE.  
+
+Gameshark codes for the GB/C have an 8-digit hexadecimal format in the form of LMNOYZWX. The meaning of the separate digits is:  
+- LM - External RAM bank number (typically 01)
+- NO - a 2-digit byte to act as your injected value
+- WXYZ - A 2-byte Memory Address to write the new value to (Note that the gameshark code format reverses the low and high bytes of the address)
+
+So say you want a cheat code that gives you 99 of the first item in the bag.  
+The quantity of the first item in the bag is at address D31F in wram, and 99-decimal equals 63-hex.  
+This gives a gameshark code of 01631FD3.  
+
+Any codes that follow these conventions and only modify the wram or hram should work like they do in the vanilla games.  
+
+
 #Will Not Implement / Out of Scope
 -----------------------------------
 These are things that are commonly requested but fall outside the scope of the project. There are no plans to implement these:  

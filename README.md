@@ -1,29 +1,34 @@
-# Shin Pokémon Red and Blue
+# Shin Pokémon Red, Blue, Green, Red-JP, & Blue-JP
 
 Version 1.23
 
-This is an enhancement ROM hack of Pokemon Red & Blue based on the Pret team's disassembly.  
-It's a mostly-vanilla hack that focuses on fixing game engine bugs and oversights from the original game.  
-Additionally, trainer AI routines are improved and multiple quality-of-life enhancements have been added.  
-The main purpose of this code repository is to study , comment upon, and repair functional errors,  
-and also to document how to restore the game to an error-free state.  
-Additionally, many changes between the different japanese and english releases are researched and documented.  
-Furthermore, it acts as a kind of research-informed speculative work that presents an alternate interpretation.  
-It is an interpretation of what the 2016 Nintendo Virtual Console re-release of gen-1 Pokemon could have been;  
-a glitch-free experience with player-friendly goodies and enhancements common to other modern remasterings.  
+*Shin (真) - The kanji for "true".  
+Used in Japanese media to denote a remastering, updated retelling , or a "true form" of something.*  
+
+     This is an enhancement ROM hack of Pokemon Red & Blue based on the Pret team's pokered disassembly project.
+It is a mostly-vanilla hack that focuses on fixing game engine bugs and oversights from the original game.
+Additionally, trainer AI routines are improved and multiple quality-of-life enhancements have been added.
+It also acts as a kind of research-informed speculative work that presents an alternate interpretation of the games.
+Specifically, that being what the 2016 Nintendo Virtual Console re-release of Gen-1 Pokemon could have been.
+It is the image of a glitch-free experience with player-friendly goodies and enhancements common to other modern remasterings.  
+     The main purpose of the accompanying source code repository is to study, comment upon, and repair functional errors.
+It is important to record, for posterity's sake, the methods used for restoring the game to an error-free state.
+Finally, the source code documents many differences and changes between the various Japanese and English releases.
 
 Read the ["Guide to New Player Functions"](https://github.com/jojobear13/shinpokered/blob/master/ips_patches/Guide_to_New_Player_Functions.md) for instructions on all the new stuff the player can do.
 
 Don't like the non-vanilla changes? Prefer only the bugfixes and AI improvements? Want a codebase from which to launch your own rom hack?
 Then the [Lite branch](https://github.com/jojobear13/shinpokered/tree/lite) is what you want. Head on over and start compiling.
 
-A bash script randomizer, "randoshinred", is now in beta test.
+Oh Snap! Check out the [Master_dev](https://github.com/jojobear13/shinpokered/tree/master_dev) and [Lite_dev](https://github.com/jojobear13/shinpokered/tree/lite_dev) branches for beta patches and development builds.
+
+Feel free to discuss this project in its dedicated [Pokecommunity thread](https://www.pokecommunity.com/showthread.php?t=427398).
 
 #Patch Info  
 -----------
 BPS patches are provided for entry into your preferred emulator, patching tool, or other accessory that supports the BPS format.  
 Download and enter a patch which corresponds to the ROM of which you own a lawful copy.  
-- **Red patches (shin pokemon red, red_origback, and red-jp) are intended for USA Red.**
+- **Red patches (Shin Pokemon Red, Red_origback, and Red-JP) are intended for USA Red.**
   - MD5 Hash: 3d45c1ee9abd5738df46d2bdda8b57dc
 - **All other patches (Blues and Greens) are intended for USA Blue.**
   - MD5 Hash: 50927e843568814f7ed45ec4f944bd8b
@@ -35,7 +40,7 @@ Download and enter a patch which corresponds to the ROM of which you own a lawfu
 - Pokedex entries adapt the original Green version text that was translated in Fire Red.
 - Pokedex uses metric units.
 
-***Now Includes Japanese Blue!***
+***Includes Japanese Blue!***
 - Primarily builds the lists for encounters, trades, and prizes that were in the never-localized japanese release.
 - Pokedex uses metric units.
 - Other minor graphical adjustments.
@@ -52,6 +57,8 @@ To fix this, you must use the Softlock Warp detailed below to teleport back to P
 		
 #Screenshots
 -----------
+<details>
+  <summary>Click to Show/Hide Images</summary>
 
 Title Screens  (GBC Palettes)  
 ![Title Screen 1](/screenshots/bgb00028.bmp?raw=true)
@@ -94,9 +101,11 @@ Many new NPCs to toggle features
 ![NPC 5](/screenshots/bgb00011.bmp?raw=true)
 ![NPC 6](/screenshots/bgb00012.bmp?raw=true)
 
-Gamma Shader for LCD Screens (Off & On Comparison)  
+Gamma Shader for LCD Screens (Left image is Off / Right image is On)  
 ![Shader Off](/screenshots/bgb00035.bmp?raw=true)
 ![Shader On](/screenshots/bgb00036.bmp?raw=true)
+
+</details>
 
 
 #Summary
@@ -117,9 +126,9 @@ It swaps prizes, trades, wild encounter data, and some text to replicate the ori
 It also has all the pokedex data in metric.
 
 Engine features from USA Yellow version have been backported.
-Super Gameboy palettes get converted to display on the Gameboy Color. No more monochrome!
+No more duochrome! Yellow's color scheme gets converted to display on the Gameboy Color.
 Attack animations are colored according to type during Gameboy Color play.
-The audio engine is backported for stereo sound support. 
+Yellow's audio engine is backported for stereo sound support. 
 
 New options that can be toggled!
 - Hit SELECT on the options screen to cycle through the audio output types.
@@ -1034,7 +1043,52 @@ These are things that are commonly requested but fall outside the scope of the p
 - Later-gen evolutions/forms/variants - I'm keeping this strictly to the original 151.
 
 
-#CREDITS / SPECIAL THANKS:
+#Frequently Asked Questions
+---------------------------
+> **I love your work! How can I donate to you?**
+
+The gesture is appreciated and highly flattering, but donations of any sort are politely declined.
+	
+> **What are the best ways to support Shin Pokemon?**
+
+There are several ways you can support the project:
+- Stream your playthrough.
+- Make a Let's Play series.
+- Do a review or an analysis piece.
+- Create highly detailed bug reports with an "Issues" ticket.
+- Recording and uploading your gameplay is the best resource for troubleshooting. Let's Plays and stream VODs are routinely searched for and examined. 
+
+> **How do you come up with with new features and their implementations?**
+
+It's primarily based on nostalgic schoolyard rumors, interesting "what if" ideas, and love for secrets and easter eggs from the 1990s gaming era.
+
+> **A separate project used code from Shin Pokemon to do such-and-such feature. Will you backport it into Shin Pokemon?**
+
+Let such projects have their own identity. Other creators need to be able to show off and be proud of what they made.
+
+> **Why did you not use the artwork of Trainer Green from the Adventures comic or the Let's Go games for the female trainer option?**
+
+Internal debate was heated on how to proceed for a female player option, but here's the reasoning that won out:
+- Green's design was never intended to be a playable character. Ken Sugimori created her back-view because he needed to depict a trainer trio for an art piece.
+- Trainer Red was always supposed to be the player. An original female trainer was never considered until gen-2's development phase around Nov-Dec 1997.
+- Others already created original sprite art to include in their own projects, and lifting it might step on their toes or foster ill feelings.
+
+So it was decided to whip-up something simple and original that depicted a female version of Trainer Red. She also acts as a (private) dev shoutout.
+
+> **Why can Bide still hit opponents in the Fly/Dig state when Pokemon Stadium fixes this?**
+
+Bide is a crummy move, but it gains a little more strategy in Shin Pokemon. This oversight was purposefully retained as a "feature" to help it out some more.
+
+> **Why does Hyper Beam recharge work like it does in gen-2 instead of always needing to recharge like in Stadium?**
+
+Shin Pokemon did do always-recharge at one point, bit it was hated by *literally every player*. Removing recharge on a miss was done as a compromise.
+
+> **Why is there a brief white frame flash when the screen transitions on Gameboy Color?**
+
+It's a hardware quirk. There is a brief moment where the LCD is disabled. When it is re-enabled, the screen displays blank white for 1 frame.
+
+
+#Credits / Special Thanks
 --------------------------
 - The Pret team for the pokered and pokeyellow disassemblies and all the code comments that came with them
 - MoriyaFaith's pokejp project for green version assets and code referencing
@@ -1062,4 +1116,4 @@ The following folks for their help in pointing out and diagnosing bugs
 - TSinnohTrainer 
 
   
-The shinpokered repository was branched from pret/pokered at merge pull request #185 committed on Jul 2, 2018
+The shinpokered repository was branched from pret/pokered at [merge pull request #185 committed on Jul 2, 2018](https://github.com/pret/pokered/tree/c8599831992c91e521cf1d467ccae3d9498e42ef)

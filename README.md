@@ -1081,7 +1081,7 @@ Bide is a crummy move, but it gains a little more strategy in Shin Pokemon. This
 
 > **Why does Hyper Beam recharge work like it does in gen-2 instead of always needing to recharge like in Stadium?**
 
-Shin Pokemon did do always-recharge at one point, bit it was hated by *literally every player*. Removing recharge on a miss was done as a compromise.
+Shin Pokemon did do always-recharge at one point, but it was hated by *literally every player*. Removing recharge on a miss was done as a compromise.
 
 > **Why is there a brief white frame flash when the screen transitions on Gameboy Color?**
 

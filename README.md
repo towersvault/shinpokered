@@ -557,6 +557,7 @@ v1.23.11
 - AI layer 3: There is a 90.625% chance per damaging move that AI is blind to player type after player switches
 - AI layer 1: If the player used and item or switched, AI is blind to the player's sleep counter when considering dream eater
 - When using the old rod, press and hold B within about 1 second to always hook a magikarp
+- Defeat Lance with a Dragonite on your top spot and it will be allowed to learn Fly
 
 
 #Bugfixes
@@ -1356,6 +1357,11 @@ v1.23.11
   - This catch rate makes it hold a gorgeous box if transferred to Gen 2
   - In case of multiple pikachus, only the first in the roster will be affected
   - Likewise, a pikachu holding a gorgeous box can learn surf if transferred into this rom hack
+- Defeat Lance with a Dragonite in your top spot and it will be given a catch rate of 168
+  - Dragonite's cry will play to confirm that this has happened
+  - In this rom hack, a dragonite with this catch rate can be taught Fly via HM
+  - This catch rate makes it hold a gorgeous box if transferred to Gen 2
+  - Likewise, a dragonite holding a gorgeous box can learn fly if transferred into this rom hack
 - Added Bill's secret garden behind his house
   - Put Mew in your top spot and show Bill to gain access
   - You will encounter the starter pokemon plus some other rarer pokemon
@@ -1589,7 +1595,7 @@ Bide is a crummy move, but it gains a little more strategy in Shin Pokemon. This
 
 > **Why does Hyper Beam recharge work like it does in gen-2 instead of always needing to recharge like in Stadium?**
 
-Shin Pokemon did do always-recharge at one point, bit it was hated by *literally every player*. Removing recharge on a miss was done as a compromise.
+Shin Pokemon did do always-recharge at one point, but it was hated by *literally every player*. Removing recharge on a miss was done as a compromise.
 
 > **Why is there a brief white frame flash when the screen transitions on Gameboy Color?**
 

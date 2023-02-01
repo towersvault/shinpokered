@@ -475,6 +475,7 @@ Here is an alternative to grinding out battles in the post-game.
 11 - Put Mewtwo at the top of your party in the post-game. How will Mr. Fuji react?  
 12 - Bill's secret garden? He'll never tell! Could showing him a new species pokemon persuade him?  
 13 - Search all over the Kanto overworld to find a secret cave room, or else you'll never get a mist stone.  
+14 - Want your #1 Dragonite to fly? Maybe Lance can help you.  
 
 **Gameshark Codes**  
 Here are some freshly-baked cheat codes unique to Shin Pokemon.  

@@ -54,6 +54,13 @@
 
 - Added the MIST STONE: it will max-out all the stat exp of the pokemon on which it is used
 
+- Defeat Lance with a Dragonite in your top spot and it will be given a catch rate of 168
+  - Dragonite's cry will play to confirm that this has happened
+  - You can swap with another Dragonite in your party and listen to his after-battle text again to repeat the process
+  - In this rom hack, a dragonite with this catch rate can be taught Fly via HM
+  - This catch rate makes it hold a gorgeous box if transferred to Gen 2
+  - Likewise, a dragonite holding a gorgeous box can learn fly if transferred into this rom hack
+
 - Scaled back fishing, reduced its randomness, and made it more map-dependent
 - When using the old rod, press and hold B within about 1 second to always hook a magikarp
 

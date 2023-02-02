@@ -1246,12 +1246,20 @@ AnimationFlashScreen:
 	ld a, %00011011 ; 0, 1, 2, 3 (inverted colors)
 	ld [rBGP], a
 	call UpdateGBCPal_BGP
+IF DEF(_JPFLASHING)
+	ld c, 1
+ELSE
 	ld c, 2
+ENDC
 	call DelayFrames
 	xor a ; white out background
 	ld [rBGP], a
 	call UpdateGBCPal_BGP
+IF DEF(_JPFLASHING)
+	ld c, 1
+ELSE
 	ld c, 2
+ENDC
 	call DelayFrames
 	pop af
 	ld [rBGP], a ; restore initial palette

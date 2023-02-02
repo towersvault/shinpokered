@@ -535,7 +535,7 @@ v1.23.11
   - The AI might still favor a STAB move or a move that works better with its own stats
 
 
-**Not in current patch** 
+v1.23.12  
 - Clarified the text for the super repel on 2F of the celadon dept store
 - Readjusted enemy stat exp accumulation in hard mode
 - Removed reduntant lines in CriticalHitTest
@@ -559,6 +559,10 @@ v1.23.11
 - When using the old rod, press and hold B within about 1 second to always hook a magikarp
 - Defeat Lance with a Dragonite on your top spot and it will be allowed to learn Fly
 - Restored the gray pokemon coloring used in red/blue/green versions if using red/blue/green-style front sprites.
+
+
+**Not in current patch** 
+- Made the speed of japanese flashing animations more accurate to the original
 
 
 #Bugfixes

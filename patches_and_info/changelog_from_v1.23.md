@@ -313,3 +313,4 @@
 - If Transform copies an opponent's Transform move, and the the PP of that move is < 6, it will copy that move's instantaneous PP less 1.
 - Fixed a problem where multi-hit moves could overflow the damage effectiveness multiplier
 - Restored the gray pokemon coloring used in red/blue/green versions if using red/blue/green-style front sprites.
+- Made the speed of japanese flashing animations more accurate to the original

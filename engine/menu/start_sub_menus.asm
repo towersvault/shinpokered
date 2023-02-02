@@ -510,7 +510,8 @@ UsableItems_PartyMenu:
 	db MAX_ETHER
 	db ELIXER
 	db MAX_ELIXER
-	db M_GENE	;joenote - custom item
+	db M_GENE	;joenote - custom items
+	db MIST_STONE
 	db $ff
 
 ; items which close the item menu when used

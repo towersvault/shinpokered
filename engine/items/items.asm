@@ -1517,6 +1517,9 @@ ItemUseMedicine:
 	ld a, [hExperience + 2]
 	ld [hl], a
 	pop hl
+	
+.returnDVMedicine
+
 	ld a, [wWhichPokemon]
 	push af
 	ld a, [wcf91]
@@ -1551,7 +1554,6 @@ ItemUseMedicine:
 	ld a, [hl]
 	adc b
 	ld [hl], a
-.returnDVMedicine
 	ld a, RARE_CANDY_MSG
 	ld [wPartyMenuTypeOrMessageID], a
 	call RedrawPartyMenu
@@ -3292,13 +3294,10 @@ CheckMapForMon:
 	ret
 
 ;joenote - custom medicine items
+;HL points to wPartyMonxSpecies on entry and exit
+;DE must be preserved
 UseCustomMedicine:	
-	;need to do these pushes first, as they are popped later in ItemUseMedicine
-	ld a, [wWhichPokemon]
-	push af
-	ld a, [wcf91]
-	push af
-	push de
+;	ld a, [wcf91]
 
 	cp M_GENE	
 	jr z, .useMGene
@@ -3343,6 +3342,8 @@ UseCustomMedicine:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;jump back to the original function after using an item
 .exit_used_meds
+	push de
+	
 	push hl
 	ld bc, wPartyMon1MaxHP - wPartyMon1
 	add hl, bc ; hl now points to MSB of max HP
@@ -3354,6 +3355,7 @@ UseCustomMedicine:
 	push hl
 	call ItemUseMedicine.recalculateStats
 	pop hl
+	push hl
 	ld bc, (wPartyMon1MaxHP) - wPartyMon1
 	add hl, bc ; hl now points to MSB of recalculated max HP
 	ld a, [hli]
@@ -3368,14 +3370,13 @@ UseCustomMedicine:
 	ld [hli], a
 	ld a, c
 	ld [hld], a
+	pop hl
 
+	pop de
 	jp ItemUseMedicine.returnDVMedicine
 	
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;jump back to the original function after not using an item
 .exit_no_usage
-	pop de
-	pop af	;pop off wcf91
-	pop af	;pop off wWhichPokemon
 	jp ItemUseMedicine.no_custom_medicine
 	

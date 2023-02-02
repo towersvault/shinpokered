@@ -183,8 +183,13 @@ ENDC
 
 	; PAL_GREYMON
 	RGB 31, 31, 31
+IF DEF(_YSPRITES)	;Use Yellow's version of gray if using yellow sprites
 	RGB 20, 23, 10
 	RGB 11, 11,  5
+ELSE				;Else use the converted R/B stye of gray
+	RGB 21, 14, 16	
+	RGB 10,  9, 12
+ENDC
 	RGB  3,  3,  3
 
 ;gbcnote - retouched all the slot palettes to match the red/blue coloring

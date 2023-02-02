@@ -558,6 +558,7 @@ v1.23.11
 - AI layer 1: If the player used and item or switched, AI is blind to the player's sleep counter when considering dream eater
 - When using the old rod, press and hold B within about 1 second to always hook a magikarp
 - Defeat Lance with a Dragonite on your top spot and it will be allowed to learn Fly
+- Restored the gray pokemon coloring used in red/blue/green versions if using red/blue/green-style front sprites.
 
 
 #Bugfixes

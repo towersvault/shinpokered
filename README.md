@@ -565,6 +565,7 @@ v1.23.12
 - Made the speed of japanese flashing animations more accurate to the original
 - Removal of the limits on vitamins in the post-game now only applies to pokemon lvl > 30
 - Mist stone is restricted to pokemon over lvl 30
+- Adjusted the level-up moves of starmie, cloyster, poliwrath, and exeggcutor for legality with gen-2 time-capsule
 
 
 #Bugfixes

@@ -310,10 +310,11 @@ ExeggutorEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset:joenote-made this more interesting for Trainer Green
+	db 19, EGG_BOMB
 	db 25, REFLECT
 	db 28, STOMP
 	db 42, SOLARBEAM
-	db 48, SLEEP_POWDER
+	db 48, HYPNOSIS
 	db 0
 
 LickitungEvosMoves:
@@ -1434,11 +1435,11 @@ PoliwrathEvosMoves:
 	db 0
 ;joenote - modified for fun
 ; Learnset
-	db 16, HYPNOSIS
-	db 19, WATER_GUN
+	db 16, WATER_GUN
+	db 19, HYPNOSIS
 	db 27, DOUBLESLAP
-	db 35, BODY_SLAM
-	db 53, HYDRO_PUMP
+	db 35, SUBMISSION
+	db 44, BUBBLEBEAM
 	db 0
 
 WeedleEvosMoves:
@@ -1705,7 +1706,8 @@ CloysterEvosMoves:
 ; Learnset
 	db 18, SUPERSONIC
 	db 23, CLAMP
-	db 30, AURORA_BEAM
+	db 30, WATER_GUN
+	db 39, AURORA_BEAM
 	db 50, SPIKE_CANNON
 	db 0
 
@@ -1843,8 +1845,8 @@ StarmieEvosMoves:
 	db 26, HARDEN
 	db 31, RECOVER
 	db 36, SWIFT
-	db 46, LIGHT_SCREEN
-	db 51, HYDRO_PUMP
+	db 46, BUBBLEBEAM
+	db 51, REFLECT
 	db 0
 
 BulbasaurEvosMoves:

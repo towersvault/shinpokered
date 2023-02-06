@@ -429,7 +429,7 @@ There are four special trainers to find and defeat after beating the Elite-4.
 Talk to Oak at his lab to start a chain of hints for finding the four trainers.  
 
 **The Secret of the MIST STONE**  
-The MIST STONE will max-out all the stat exp of the pokemon on which it is used.  
+The MIST STONE will max-out all the stat exp of the lvl > 30 pokemon on which it is used.  
 But this assumes you are able to find the secret room for obtaining it.  
 
 
@@ -458,12 +458,12 @@ Here is an alternative to grinding out battles in the post-game.
 1 - Catch some pokemon.  
 2 - Sell them to the game corner chief.  
 3 - Buy rare candies and vitamins with the proceeds.  
-4 - Take note that vitamins are uncapped in the post-game.  
+4 - Take note that vitamins are uncapped in the post-game for 'mons with lvl > 30.  
 5 - Use your purchases to train your roster pokemon without battling.  
 
 **Secret Hints**  
 1 - Try winning the SS Anne tournament with a Pikachu in your party.  
-2 - After beating the Elite-4, vitamins are no longer limited on your pokemon.  
+2 - After beating the Elite-4, vitamins are no longer limited on your lvl > 30 pokemon.  
 3 - The fourth special trainer hints at the method to find Mew. But Mew only appears once.  
 4 - There is a fifth special trainer outside Bill's house. Victory respawns the legendaries, Mew, and mist stone.  
 5 - The Vermilion Dock has three hidden items.  

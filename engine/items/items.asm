@@ -1407,12 +1407,15 @@ ItemUseMedicine:
 	ld a, [wcf91]
 	cp RARE_CANDY
 	jp z, .useRareCandy
-	
+	push hl
+		
 	jp UseCustomMedicine	;joenote - custom medicine items (m_gene and mist_stone)
 .no_custom_medicine
+
+	call VitaminLevelCheck
+	push af
 	
 	ld a, [wcf91]	;joenote - 'A' might get clobbered by UseCustomMedicine, so reload wcf91
-	push hl
 	sub HP_UP
 	add a
 	ld bc, wPartyMon1HPExp - wPartyMon1
@@ -1422,6 +1425,8 @@ ItemUseMedicine:
 	jr nc, .noCarry2
 	inc h
 .noCarry2
+	pop af
+	jr c, .e4notbeaten
 	CheckEvent EVENT_908	;joenote - has elite 4 been beaten?
 	jr z, .e4notbeaten 	;if not, do default compare
 	;else remove the vitamin limiter
@@ -1516,10 +1521,10 @@ ItemUseMedicine:
 	ld [hli], a
 	ld a, [hExperience + 2]
 	ld [hl], a
-	pop hl
-	
+
 .returnDVMedicine
 
+	pop hl
 	ld a, [wWhichPokemon]
 	push af
 	ld a, [wcf91]
@@ -3309,6 +3314,9 @@ UseCustomMedicine:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;added code for the MIST_STONE
 .useMistStone
+	call VitaminLevelCheck
+	jp c, ItemUseMedicine.vitaminNoEffect
+
 	push hl
 	ld bc, wPartyMon1HPExp - wPartyMon1
 	add hl, bc ; hl now points to stat experience
@@ -3379,4 +3387,13 @@ UseCustomMedicine:
 ;jump back to the original function after not using an item
 .exit_no_usage
 	jp ItemUseMedicine.no_custom_medicine
+	
+VitaminLevelCheck:
+	push hl
+	ld bc, wPartyMon1Level - wPartyMon1
+	add hl, bc
+	ld a, [hl]
+	pop hl
+	cp 31
+	ret
 	

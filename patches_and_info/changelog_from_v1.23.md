@@ -52,7 +52,7 @@
   - You will encounter the starter pokemon plus some other rarer pokemon
   - Shiny rates are 1-in-128 in this area
 
-- Added the MIST STONE: it will max-out all the stat exp of the pokemon on which it is used
+- Added the MIST STONE: it will max-out all the stat exp of the lvl > 30 pokemon on which it is used
 
 - Defeat Lance with a Dragonite in your top spot and it will be given a catch rate of 168
   - Dragonite's cry will play to confirm that this has happened
@@ -110,6 +110,7 @@
 - Holding start or select will no longer print strange HP numbers when not on the status screen
 - Decreased time to encounter missingno by an exponential amount
 - Fixed a scripting error on route 20
+- Removal of the limits on vitamins in the post-game now only applies to pokemon lvl > 30
 
 
 ---

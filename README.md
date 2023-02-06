@@ -563,6 +563,8 @@ v1.23.12
 
 **Not in current patch** 
 - Made the speed of japanese flashing animations more accurate to the original
+- Removal of the limits on vitamins in the post-game now only applies to pokemon lvl > 30
+- Mist stone is restricted to pokemon over lvl 30
 
 
 #Bugfixes
@@ -907,7 +909,7 @@ v1.23.12
   - Badge stat-ups are now only applied in wild pokemon battles to give parity to enemy trainers (only in hard mode)
   - The effect of X-Accuracy is no longer applied to one-hit K.O. moves (it originally made them auto-hit)
   - Using X-Accuracy with a OHKO move now allows it to hit faster opponents
-  - The limiter on vitamins is raised to a max of 62720 stat exp after the elite 4 have been beaten
+  - The limiter on vitamins is raised to a max of 62720 stat exp after the elite 4 have been beaten for 'mons with lvl > 30
   - Pkmn added to the player's party (either as a gift or in-game trade) have at the least DVs of 9,8,8,8
   - Upped the power of safari balls
   - Escaping in the safari zone is now based on level instead of speed
@@ -1308,7 +1310,7 @@ v1.23.12
 - New item M.GENE: 
   - Re-randomizes a pkmn's DVs to values of 9,8,8,8 or more.
   - Win 5 matches in a row against the random team NPC to get a M.GENE (leaving the area resets the win streak)
-- New item MIST STONE: fully maxes-out a pokemon's stat exp
+- New item MIST STONE: fully maxes-out a lvl > 30 pokemon's stat exp
 - There are 5 new trainers to find and battle
   - Hint 1: Talking to Oak can guide you to the first one
   - Hint 2: The fifth one can only be fought after beating the first four.
@@ -1375,7 +1377,7 @@ v1.23.12
 - Obtaining the MIST STONE:
   - There is a secret cave on Route 13, and the book within tells you to go to Bill's secret garden
   - Return to this book afterwards in order to find a mist stone
-  - The mist stone will max-out all the stat exp of the pokemon on which it is used
+  - The mist stone will max-out all the stat exp of the lvl > 30 pokemon on which it is used
 - The five new trainer battles are as follows
   - Talking to prof oak after beating the elite 4 and answering "No" let's you challenge him to a battle
   - Can battle Mr. Fuji after beating the elite 4

@@ -251,6 +251,7 @@
 - Fixed ball toss sfx not resetting the pitch envelope settings
 - Added protection against oak's lab music cutting a channel off
 - Fixed *thud* sfx playing when exiting via a warp tile
+- Fixed certain text sfx not playing when using zero-delay text
 
 - Fixed input priority on menus
 - Fixed A-button input priority on the left side of the scrolling pokedex list

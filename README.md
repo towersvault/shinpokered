@@ -566,6 +566,7 @@ v1.23.12
 - Removal of the limits on vitamins in the post-game now only applies to pokemon lvl > 30
 - Mist stone is restricted to pokemon over lvl 30
 - Adjusted the level-up moves of starmie, cloyster, poliwrath, and exeggcutor for legality with gen-2 time-capsule
+- Fixed certain text sfx not playing when using zero-delay text
 
 
 #Bugfixes
@@ -773,6 +774,7 @@ v1.23.12
   - Removed restore sfx from the AI x-accuracy item
   - Added the restore sfx to all AI hp-recovery items
   - Fixed *thud* sfx playing when exiting via a warp tile
+  - Fixed certain text sfx not playing when using zero-delay text
   
 
 - Misc. fixes

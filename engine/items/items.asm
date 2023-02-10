@@ -1407,7 +1407,7 @@ ItemUseMedicine:
 	ld a, [wcf91]
 	cp RARE_CANDY
 	jp z, .useRareCandy
-	push hl
+	push hl		;push wPartyMonX
 		
 	jp UseCustomMedicine	;joenote - custom medicine items (m_gene and mist_stone)
 .no_custom_medicine
@@ -1448,7 +1448,7 @@ ItemUseMedicine:
 	ld a, 255
 .noCarry3
 	ld [hl], a
-	pop hl
+	pop hl		;pop wPartyMonX
 	call .recalculateStats
 	ld hl, VitaminText
 	ld a, [wcf91]
@@ -1473,12 +1473,24 @@ ItemUseMedicine:
 	ld hl, VitaminStatRoseText
 	call PrintText
 	jp RemoveUsedItem
+
 .vitaminNoEffect
-	pop hl
+	pop hl	;pop wPartyMonX
 	ld hl, VitaminNoEffectText
 	call PrintText
 	jp GBPalWhiteOut
+
 .recalculateStats
+	push hl		;push wPartyMonX
+	ld bc, wPartyMon1MaxHP - wPartyMon1
+	add hl, bc ; hl now points to MSB of max HP
+	ld a, [hli]
+	ld b, a
+	ld c, [hl]
+	pop hl		;pop wPartyMonX
+	push bc
+	push hl		;push wPartyMonX
+
 	ld bc, wPartyMon1Stats - wPartyMon1
 	add hl, bc
 	ld d, h
@@ -1486,9 +1498,31 @@ ItemUseMedicine:
 	ld bc, (wPartyMon1Exp + 2) - wPartyMon1Stats
 	add hl, bc ; hl now points to LSB of experience
 	ld b, 1
-	jp CalcStats ; recalculate stats
+	call CalcStats ; recalculate stats
+
+	pop hl		;pop wPartyMonX
+	ld bc, (wPartyMon1MaxHP + 1) - wPartyMon1
+	add hl, bc ; hl now points to LSB of max HP
+	pop bc
+	ld a, [hld]
+	sub c
+	ld c, a
+	ld a, [hl]
+	sbc b
+	ld b, a ; bc = the amount of max HP gained from leveling up
+; add the amount gained to the current HP
+	ld de, (wPartyMon1HP + 1) - wPartyMon1MaxHP
+	add hl, de ; hl now points to LSB of current HP
+	ld a, [hl]
+	add c
+	ld [hld], a
+	ld a, [hl]
+	adc b
+	ld [hl], a
+	ret
+
 .useRareCandy
-	push hl
+	push hl	;push wPartyMonX
 	ld bc, wPartyMon1Level - wPartyMon1
 	add hl, bc ; hl now points to level
 	ld a, [hl] ; a = level
@@ -1524,41 +1558,16 @@ ItemUseMedicine:
 
 .returnDVMedicine
 
-	pop hl
+	pop hl	;pop wPartyMonX
+	
 	ld a, [wWhichPokemon]
 	push af
 	ld a, [wcf91]
 	push af
 	push de
-	push hl
-	ld bc, wPartyMon1MaxHP - wPartyMon1
-	add hl, bc ; hl now points to MSB of max HP
-	ld a, [hli]
-	ld b, a
-	ld c, [hl]
-	pop hl
-	push bc
-	push hl
+
 	call .recalculateStats
-	pop hl
-	ld bc, (wPartyMon1MaxHP + 1) - wPartyMon1
-	add hl, bc ; hl now points to LSB of max HP
-	pop bc
-	ld a, [hld]
-	sub c
-	ld c, a
-	ld a, [hl]
-	sbc b
-	ld b, a ; bc = the amount of max HP gained from leveling up
-; add the amount gained to the current HP
-	ld de, (wPartyMon1HP + 1) - wPartyMon1MaxHP
-	add hl, de ; hl now points to LSB of current HP
-	ld a, [hl]
-	add c
-	ld [hld], a
-	ld a, [hl]
-	adc b
-	ld [hl], a
+
 	ld a, RARE_CANDY_MSG
 	ld [wPartyMenuTypeOrMessageID], a
 	call RedrawPartyMenu

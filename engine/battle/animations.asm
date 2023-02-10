@@ -1246,8 +1246,8 @@ AnimationFlashScreen:
 	ld a, %00011011 ; 0, 1, 2, 3 (inverted colors)
 	ld [rBGP], a
 	call UpdateGBCPal_BGP
-IF DEF(_JPFLASHING)
-	ld c, 1
+IF DEF(_JPFLASHING) 
+	ld c, 2
 ELSE
 	ld c, 2
 ENDC
@@ -1256,7 +1256,7 @@ ENDC
 	ld [rBGP], a
 	call UpdateGBCPal_BGP
 IF DEF(_JPFLASHING)
-	ld c, 1
+	ld c, 2
 ELSE
 	ld c, 2
 ENDC

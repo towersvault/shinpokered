@@ -3359,37 +3359,6 @@ UseCustomMedicine:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;jump back to the original function after using an item
 .exit_used_meds
-	push de
-	
-	push hl
-	ld bc, wPartyMon1MaxHP - wPartyMon1
-	add hl, bc ; hl now points to MSB of max HP
-	ld a, [hli]
-	ld b, a
-	ld c, [hl]
-	pop hl
-
-	push hl
-	call ItemUseMedicine.recalculateStats
-	pop hl
-	push hl
-	ld bc, (wPartyMon1MaxHP) - wPartyMon1
-	add hl, bc ; hl now points to MSB of recalculated max HP
-	ld a, [hli]
-	ld b, a
-	ld a, [hld]
-	ld c, a
-	
-; set current hp to new max hp
-	ld de, (wPartyMon1HP) - wPartyMon1MaxHP
-	add hl, de ; hl now points to MSB of current HP
-	ld a, b
-	ld [hli], a
-	ld a, c
-	ld [hld], a
-	pop hl
-
-	pop de
 	jp ItemUseMedicine.returnDVMedicine
 	
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

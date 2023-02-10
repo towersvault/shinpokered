@@ -161,6 +161,7 @@
 - Increased the maximum game clock to 32767 hours
 
 - Using X-Accuracy with a OHKO move now allows it to hit faster opponents
+- HP-UP item now preserves your HP ratio
 
 - The position of both switches in Vermilion Gym are now determined at the same time
 - The switches in Vermilion Gym can now be discovered independently from one another

@@ -567,6 +567,7 @@ v1.23.12
 - Mist stone is restricted to pokemon over lvl 30
 - Adjusted the level-up moves of starmie, cloyster, poliwrath, and exeggcutor for legality with gen-2 time-capsule
 - Fixed certain text sfx not playing when using zero-delay text
+- HP-UP item now preserves your HP ratio
 
 
 #Bugfixes
@@ -917,6 +918,7 @@ v1.23.12
   - Upped the power of safari balls
   - Escaping in the safari zone is now based on level instead of speed
   - In hard mode, X-stat items have double the effect
+  - HP-UP item now preserves your HP ratio
   
 - Trainer ai routine #1 (recognition of stats, hp, and conditions) has been modified
   - using a move with a dream eater effect is heavily discouraged against non-sleeping opponents

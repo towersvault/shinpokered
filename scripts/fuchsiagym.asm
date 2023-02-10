@@ -169,12 +169,12 @@ FuchsiaGymText1:
 	ld hl, KogaAfterBattleText
 	ld de, KogaAfterBattleText
 	call SaveEndBattleTextPointers
+	ld a, $5
+	ld [wGymLeaderNo], a
 	ld a, [H_SPRITEINDEX]
 	ld [wSpriteIndex], a
 	call EngageMapTrainer
 	call InitBattleEnemyParameters
-	ld a, $5
-	ld [wGymLeaderNo], a
 	xor a
 	ld [hJoyHeld], a
 ;;;;joenote - added for rematch to skip gym leader tm

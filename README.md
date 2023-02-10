@@ -568,6 +568,7 @@ v1.23.12
 - Adjusted the level-up moves of starmie, cloyster, poliwrath, and exeggcutor for legality with gen-2 time-capsule
 - Fixed certain text sfx not playing when using zero-delay text
 - HP-UP item now preserves your HP ratio
+- Meet Trainer jingle should not play before loading into the gym leader battle music
 
 
 #Bugfixes
@@ -776,6 +777,7 @@ v1.23.12
   - Added the restore sfx to all AI hp-recovery items
   - Fixed *thud* sfx playing when exiting via a warp tile
   - Fixed certain text sfx not playing when using zero-delay text
+  - Meet Trainer jingle should not play before loading into the gym leader battle music
   
 
 - Misc. fixes

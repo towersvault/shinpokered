@@ -144,9 +144,9 @@ LanceTrainerHeader0:
 LanceText1:
 	TX_ASM
 	ld hl, LanceTrainerHeader0
-	call TalkToTrainer
 	ld a, 8
 	ld [wGymLeaderNo], a	;joenote - use gym leader music
+	call TalkToTrainer
 	jp TextScriptEnd
 
 LanceBeforeBattleText:

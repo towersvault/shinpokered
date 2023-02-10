@@ -19,7 +19,7 @@ _Route10BattleText2::
 	text "Ha-hahah-ah-ha!"
 	done
 
-IF DEF(_REDGREENJP)
+IF DEF(_JPTXT)
 _Route10EndBattleText2::
 	text "Ha-haha!"
 	line "Hahhhhh ...!"

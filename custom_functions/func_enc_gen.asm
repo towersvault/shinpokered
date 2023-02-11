@@ -147,12 +147,32 @@ ScaleTrainer:
 	CheckEvent EVENT_90C
 	ret z
 	push bc
-	jr .getHighestLevel
+;	jr .getHighestLevel
+
+.getHighestLevel
+	push hl
+	ld hl, wStartBattleLevels
+	ld a, [wPartyCount]	;1 to 6
+	ld b, a	;use b for countdown
+.loadHigher
+	ld a, [hl]
+.keepCurrent
+	dec b
+	jr z, .highestLVLfound
+	inc hl
+	cp a, [hl]
+	jr c, .loadHigher
+	jr .keepCurrent
+.highestLVLfound
+	pop hl
+;	jr .backFromLVLCheck
+	
 .backFromLVLCheck
 	push af
 	ld a, [wCurEnemyLVL]
 	ld b, a
 	pop af
+	;at this line, B holds current enemy level and A holds highest party level
 	cp b
 	jr c, .nolvlincrease
 	jr z, .nolvlincrease
@@ -175,27 +195,25 @@ ScaleTrainer:
 	add b
 	call PreventARegOverflow
 	ld [wCurEnemyLVL], a
+	ld b, a
 .nolvlincrease
-	pop bc
+	;proceed to bias the enemy mon level against evolving for the sake of progression balance
+	;B holds the enemy current level at this line
+	ld a, b
+	push af
+	cp 30
+	jr c, .next
+	srl b
+.next
+	srl b
+	srl b
+	sub b
+	ld [wCurEnemyLVL], a
 	call EnemyMonEvolve
+	pop af
+	ld [wCurEnemyLVL], a
+	pop bc
 	ret
-.getHighestLevel
-	push hl
-	ld hl, wStartBattleLevels
-	ld a, [wPartyCount]	;1 to 6
-	ld b, a	;use b for countdown
-.loadHigher
-	ld a, [hl]
-.keepCurrent
-	dec b
-	jr z, .highestLVLfound
-	inc hl
-	cp a, [hl]
-	jr c, .loadHigher
-	jr .keepCurrent
-.highestLVLfound
-	pop hl
-	jr .backFromLVLCheck
 
 
 ; return a = 0 if not in safari zone, else a = 1 if in safari zone

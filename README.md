@@ -570,6 +570,7 @@ v1.23.12
 - HP-UP item now preserves your HP ratio
 - Meet Trainer jingle should not play before loading into the gym leader battle music
 - Systems that generate above-average DVs now use a statistical bias instead of using 9,8,8,8 minimum
+- Enemy trainer level scaling biases the levels upwards for determining if a pokemon should be evolved
 
 
 #Bugfixes
@@ -1133,6 +1134,8 @@ v1.23.12
 - There is an option to scale trainer rosters to the level of your strongest roster pkmn
   - Talk to the right-side aide in Oak's lab to toggle on/off
   - Enemy pkmn will evolve by level if applicable
+    - Pokemon that evolve below level 30 will evolve at 4/3x the original level 
+    - Pokemon that evolve >= level 30 will evolve at 8/7x the original level 
   - Gym leaders and the E4 scale slightly higher than normal trainers
 - Playing on hard mode provides increased difficulty
   - Pressing RIGHT while the cursor is in the BATTLE STYLE box will toggle the feature on/off
@@ -1259,6 +1262,8 @@ v1.23.12
   - Only affects regular trainers that use one level for all 'mons and have no custom movesets
   - Will replace their roster 'mons with random non-evolved 'mons (legendaries are excluded)
   - The new mons will be swapped with their evolved forms if at a high enough level
+    - Pokemon that evolve below level 30 will evolve at 4/3x the original level 
+    - Pokemon that evolve >= level 30 will evolve at 8/7x the original level   
   - This feature was added with the intent of spicing-up subsequent Gen-1 playthroughs
 - New NPC in celadon hotel will reward coins for showing him requested pkmn
 - Move deleter/relearner added to the saffron house below COPYCAT's house

@@ -163,7 +163,7 @@ Warning - The difficulty will be compounded if both trainer scaling and hard mod
 **Scale Enemy Trainer Levels**  
 Talk to the aide in the lower-right section of Oak's lab to toggle this feature.  
 While active, enemy trainer roster levels will scale upwards relative to the highest-level pokemon in your party.  
-Enemy pokemon will evolve by level if applicable.  
+Enemy pokemon will evolve by level if applicable (biased to higher levels).  
 Gym leaders and the Elite-4 scale slightly higher than normal trainers.  
 
 **Obedience Level Cap**  

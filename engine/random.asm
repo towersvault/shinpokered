@@ -67,3 +67,74 @@ Random_::
 	ld a, c
 	ld [hl], a
  	ret
+
+
+;joenote - rolls 1d16-1	twice and keeps the higher result for each of the four DV values
+_Random_BiasDV::
+	
+	call Random
+	ld b, a
+	and $F0
+	ld h, a
+	ld a, b
+	and $0F
+	ld l, a
+	
+	call Random
+	ld b, a
+	and $F0
+	ld d, a
+	ld a, b
+	and $0F
+	ld e, a
+	
+	call Random
+	ld b, a
+	and $F0
+	cp h
+	jr c, .next1
+	ld h, a
+.next1
+	ld a, b
+	and $0F
+	cp l
+	jr c, .next2
+	ld l, a
+.next2
+	
+	call Random
+	ld b, a
+	and $F0
+	cp d
+	jr c, .next3
+	ld d, a
+.next3
+	ld a, b
+	and $0F
+	cp e
+	jr c, .next4
+	ld e, a
+.next4
+	
+	ld a, h
+	or l
+	ld b, a
+	
+	ld a, d
+	or e
+	ld d, a
+	ld e, b
+	
+	ret
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

@@ -77,11 +77,7 @@ DetermineWildMonDVs:
 	call Random
 	jr .load
 .do_random_safari	;special safari zone pokemon have better DVs
-	call Random
-	or $88
-	ld b, a
-	call Random
-	or $98
+	call Random_BiasDV
 .load
 	push hl
 	ld hl, wEnemyMonDVs

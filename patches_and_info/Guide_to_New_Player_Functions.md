@@ -153,7 +153,7 @@ Pressing RIGHT while the cursor is in the BATTLE STYLE box will toggle the featu
 Contrasting this, pressing LEFT will let you select a battle style without toggling difficulty.  
 Playing in hard mode imposes several changes to the game's systems that increase difficulty:  
 1 - Enemy trainer pokemon are assigned level-appropriate StatEXP whereas they previously had none.  
-2 - Enemy trainer pokemon have randomized DVs of 8 or better whereas they previously all had values of 8 or 9.  
+2 - Enemy trainer pokemon have above-average DVs whereas they previously all had values of 8 or 9.  
 3 - Stat boosts granted by badges are disabled during trainer battles.  
 4 - X-stat items increase by two stages instead of one like in more recent generations.  
 5 - Revive items can only be used outside of battle.  
@@ -411,14 +411,14 @@ One of the Rocket grunts walking around Celadon City will now sell you 1000 coin
 **Special Safari Event**  
 A new NPC can be utilized in the Safari Zone Gate after beating the Elite-4.  
 Talk to him to toggle special parameters that have the following effects on the Safari Zone:  
-1 - All pokemon encountered will have DVs of 8 or more.  
+1 - All pokemon encountered will have above-average DVs.  
 2 - There is a rare chance for any non-legendary pokemon to appear.  
 
 **Random Battle Generator and the M.GENE**  
 There is a sketchy guy added to the west-east underground path.  
 After the Elite-4 are beaten, he will offer to engage you in randomized battles.  
 Win 5 matches in a row against him without leaving the area to get the new M.GENE item.  
-The M.Gene can be used on a pokemon out of battle in order to re-randomize its DVs with values of at least 8.  
+The M.Gene can be used on a pokemon out of battle in order to re-randomize its DVs with above-average values.  
 
 **Mirror Match Battle Generator**  
 A pokemaniac with a flair for theatrics has been added to the north-south underground path.  
@@ -436,7 +436,7 @@ But this assumes you are able to find the secret room for obtaining it.
 #Pro-Tips
 -----------------------------------------------
 **Gift, Prize, and Trade Pokemon**  
-Pokemon that are given to you by NPCs always have at least 8 for every DV.  
+Pokemon that are given to you by NPCs have above-average DVs.  
 This applies whether it is a gift, in-game trade, or a purchase.  
 This means that prize pokemon from the game corner will always have good stats.  
 And buying a magikarp from a shady figure might not be such a bad investment.  

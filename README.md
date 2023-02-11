@@ -569,6 +569,7 @@ v1.23.12
 - Fixed certain text sfx not playing when using zero-delay text
 - HP-UP item now preserves your HP ratio
 - Meet Trainer jingle should not play before loading into the gym leader battle music
+- Systems that generate above-average DVs now use a statistical bias instead of using 9,8,8,8 minimum
 
 
 #Bugfixes
@@ -916,7 +917,7 @@ v1.23.12
   - The effect of X-Accuracy is no longer applied to one-hit K.O. moves (it originally made them auto-hit)
   - Using X-Accuracy with a OHKO move now allows it to hit faster opponents
   - The limiter on vitamins is raised to a max of 62720 stat exp after the elite 4 have been beaten for 'mons with lvl > 30
-  - Pkmn added to the player's party (either as a gift or in-game trade) have at the least DVs of 9,8,8,8
+  - Pkmn added to the player's party (either as a gift or in-game trade) have above-average DVs
   - Upped the power of safari balls
   - Escaping in the safari zone is now based on level instead of speed
   - In hard mode, X-stat items have double the effect
@@ -1001,10 +1002,7 @@ v1.23.12
   -jr trainer M/F, pokemaniac, hiker, cueball, psychic, tamer, black belt, rocket, cooltrainer M/F, gentleman, channeler
   -all rival phases, all gym leaders, elite-4, prof.oak, chief
   
-- Trainer stat DVs are now randomly generated to a degree (only in hard mode)
-  - Attack DV is between 9 and 15 and always odd-numbered
-  - Defense, special, and speed DVs are between 8 and 15
-  - HP DV is a minimum of 8 since attack DV is always odd-numbered
+- Trainer stat DVs are now randomly generated to a degree (only in hard mode) to be above-average
 - Trainer pkmn now have stat experience assigned to them that is scaled to their level (only in hard mode)
   - The stat experience total for a given level 'L' is SIGMA[n=6,L](12n+50)
   - No stat experience is given for level 5 and below.
@@ -1140,7 +1138,7 @@ v1.23.12
   - Pressing RIGHT while the cursor is in the BATTLE STYLE box will toggle the feature on/off
   - Contrasting this, pressing LEFT will let you select a battle style without toggling difficulty
   - Enemy trainer pokemon are assigned level-appropriate stat exp
-  - Enemy trainer pokemon have randomized DVs that are all 8 or better (on a scale of 0 to 15)
+  - Enemy trainer pokemon have randomized DVs that are above-average
   - Badge-granted stat boosts are disabled in trainer battles
   - X-stat items have double the effect like in more recent generations
   - Revive items cannot be used in battles
@@ -1315,7 +1313,7 @@ v1.23.12
 - There is a new NPC in the west-east underground path that generates random battles after beating the elite 4
 - There is a new NPC in the north-south underground path that generates mirror matches after beating the elite 4
 - New item M.GENE: 
-  - Re-randomizes a pkmn's DVs to values of 9,8,8,8 or more.
+  - Re-randomizes a pkmn's DVs to above-average values.
   - Win 5 matches in a row against the random team NPC to get a M.GENE (leaving the area resets the win streak)
 - New item MIST STONE: fully maxes-out a lvl > 30 pokemon's stat exp
 - There are 5 new trainers to find and battle

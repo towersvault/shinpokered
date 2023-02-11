@@ -6935,16 +6935,10 @@ LoadEnemyMonData:
 	pop bc
 	jr nz, .storeDVs	;if bit for that pkmn position is already set, then store its DVs that were just loaded
 ;not sent out before, so generate special random DVs
-	call Random ; generate random IVs
-	or $88	;joenote - makes trainer pkmn have average IVs at minimum
-	ld b, a
-	call Random
-	or $98	;joenote - makes trainer pkmn have average IVs at minimum
+	call Random_BiasDV
 	;save DVs to the party data structure, to which hl is still pointing, so that they can be recalled on a switch-in
-	ld [hl], a
-	inc hl
-	ld [hl], b
-	dec hl
+	ld [hli], a
+	ld [hld], b
 	jr .storeDVs
 .nottrainer
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;

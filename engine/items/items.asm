@@ -3348,13 +3348,10 @@ UseCustomMedicine:
 	push hl
 	ld bc, wPartyMon1DVs - wPartyMon1
 	add hl, bc ; hl now points to DVs
-;generate new random DVs and make sure they are at least 9,9,8,8
-	call Random
-	or $98
+;generate new random DVs and make sure they are biased to be more than average
+	call Random_BiasDV
 	ld [hli], a
-	call Random
-	or $88
-	ld [hl], a
+	ld [hl], b
 	pop hl
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;jump back to the original function after using an item

@@ -6938,7 +6938,8 @@ LoadEnemyMonData:
 	call Random_BiasDV
 	;save DVs to the party data structure, to which hl is still pointing, so that they can be recalled on a switch-in
 	ld [hli], a
-	ld [hld], b
+	ld [hl], b
+	dec hl
 	jr .storeDVs
 .nottrainer
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;

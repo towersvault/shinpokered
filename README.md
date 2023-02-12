@@ -842,73 +842,6 @@ v1.23.12
  
 #Tweaks
 -----------
-<<<<<<< HEAD
-=======
-- Added built-in gamma shader for backlit LCD screens in GBC mode (press SELECT at the copyright screen)
-	- Gamma shader defaults ON if the destination code in the rom header is set to 00 (JP)
-	- Pressing SELECT at the copyright info now switches the shader from its default state
-	- The default state of the gamma shader can be changed with any gameboy rom header editor
-	- Alternately, remove the 'j' in 'cjsv' in the Makefile to compile with a JP destination code
-- The Gameboy Color palette functionality from pokemon Yellow has been back-ported into the game
-  - Scrolling mons on the title screen have their own palettes loaded on the GBC.
-  - In the blue version intro, jigglypuff has it's own palette loaded on the GBC. 
-  - Oak-speech nidorino has its color palette on the GBC.
-- Additional GBC color additions
-  - Scrolling mons on the title screen have their own palettes loaded on the GBC.
-  - In the blue version intro, jigglypuff has it's own palette loaded on the GBC.
-  - Oak-speech nidorino has its color palette on the GBC.
-  - When playing in GBC-mode, move animations are colored based on their type
-  - In GBC-mode, when a pokemon is caught, the resting ball now has a defined color
-  - Tossing pokeballs have color in GBC mode
-- Added an option to make the overworld run in 60fps
-  - Feature is a proof-of-concept and is still a bit rusty
-  - Toggle by placing the cursor in the options screen over CANCEL and pressing left or right
-  - Takes advantage of double-speed CPU mode when played as a GBC game
-- Starting a New Game while in GBC-mode will default 60FPS mode to ON
-- Text with zero frame delay can be toggled in the options menu; press LEFT with the cursor on FAST
-- A hard mode option has been added to provide increased difficulty
-  - Pressing RIGHT while the cursor is in the BATTLE STYLE box will toggle the feature on/off
-  - Contrasting this, pressing LEFT will let you select a battle style without toggling difficulty
-  - Enemy trainer pokemon are assigned level-appropriate stat exp
-  - Enemy trainer pokemon have randomized DVs that are above-average
-  - Badge-granted stat boosts are disabled in trainer battles
-  - X-stat items have double the effect like in more recent generations
-  - Revive items cannot be used in battles
-  - Mewtwo will prevent you from using a master ball on it and use AI to choose moves
-- Softlock Warp 
-  - instantly teleport back to your mom's house if you get stuck or are unable to move after updating to a new patch
-  - sets money to at least 1000 if you have less than that
-  - Intructions to perform:
-    - go to the start menu and put the cursor on OPTION
-	- press and hold DOWN on the d-pad (the cursor will now be on EXIT)
-	- while continuing to hold DOWN, press and hold SELECT
-	- while continuing to hold those two buttons, press B
-	- the start menu should close and you will warp back to your mom's house
-- Vanilla Options Reset 
-  - Deactivates all special options (such as in preparation to update to a new patch)
-  - Intructions to perform:
-    - go to the start menu and put the cursor on the top option (usually POKEDEX)
-	- press and hold UP on the d-pad (the cursor will now be on EXIT)
-	- while continuing to hold UP, press and hold SELECT
-	- while continuing to hold those two buttons, press B
-	- the start menu should close and you will hear a jingle confirming that the option reset worked
-- Debug Damage Display: As a debugging cheat, damage values will be displayed in battle as the UI updates
-  - Toggled on/off the same way as the softlock warp, but by using 'A' instead of 'B'
-  - Zero damage is not displayed
-  - Damage is not displayed if either pokemon has zero HP remaining
-- Slot machine coin counter runs twice as fast
-- Interaction of slot reel modes tweaked for better gameplay
-- The surfboard, a nugget, and TM 15 are hidden items added to the vermilion dock
-- Blaine has a touched-up battle sprite so he doesn't look like an alien
-  - Snagged this off reddit, but original artist unknown (let me know if this is yours)
-- L: block doesn't disappear when level hits three digits
-- Greatly increased the speed and performance of spin tiles
-- Can cut the grass on the plateau tileset
-- Initiating the Pokemon Tower rival battle will deactivate the following skippable rival battles
-  - The Cerulean encounter
-  - The SS Anne encounter
-- Daycare allows HM moves on entered pokemon
->>>>>>> 1df1c482 (added option reset)
 
 - Added NPC text to hint at how to get the trade evolutions
   - NPC in the Pewter Museum that comments on the moon stone
@@ -1249,6 +1182,14 @@ v1.23.12
 	- while continuing to hold DOWN, press and hold SELECT
 	- while continuing to hold those two buttons, press B
 	- the start menu should close and you will warp back to your mom's house
+- Vanilla Options Reset 
+  - Deactivates all special options (such as in preparation to update to a new patch)
+  - Intructions to perform:
+    - go to the start menu and put the cursor on the top option (usually POKEDEX)
+	- press and hold UP on the d-pad (the cursor will now be on EXIT)
+	- while continuing to hold UP, press and hold SELECT
+	- while continuing to hold those two buttons, press B
+	- the start menu should close and you will hear a jingle confirming that the option reset worked
 - Debug Damage Display: As a debugging cheat, damage values will be displayed in battle as the UI updates
   - Toggled on/off the same way as the softlock warp, but by using 'A' instead of 'B'
   - Zero damage is not displayed

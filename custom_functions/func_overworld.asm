@@ -13,8 +13,6 @@ SoftlockTeleport:
 	jp z, ResetAllOptions
 	cp D_DOWN + A_BUTTON + SELECT
 	jp z, ShowDamageValues
-	cp D_DOWN + START + SELECT
-	jp z, ResetAllOptions
 	cp D_DOWN + B_BUTTON + SELECT
 	ret nz
 	CheckEvent EVENT_GOT_POKEDEX

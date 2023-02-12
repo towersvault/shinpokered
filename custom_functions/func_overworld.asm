@@ -9,8 +9,12 @@ SoftlockTeleport:
 	ret z
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	ld a, [hJoyInput]
+	cp D_UP + B_BUTTON + SELECT
+	jp z, ResetAllOptions
 	cp D_DOWN + A_BUTTON + SELECT
 	jp z, ShowDamageValues
+	cp D_DOWN + START + SELECT
+	jp z, ResetAllOptions
 	cp D_DOWN + B_BUTTON + SELECT
 	ret nz
 	CheckEvent EVENT_GOT_POKEDEX
@@ -52,6 +56,35 @@ ShowDamageValues:	;joenote - toggle damage values being shown in battle
 	CheckAndResetEvent EVENT_910
 	ret nz
 	SetEvent EVENT_910
+	ret
+	
+ResetAllOptions: ;joenote - reset all the special options (like for patching-up)
+	ld a, SFX_LEVEL_UP
+	call PlaySound
+	
+	ld a, [wOptions]
+	and %11000000
+	set 0, a
+	ld [wOptions], a
+
+	ld a, [wUnusedD721]
+	and %10001111
+	ld [wUnusedD721], a
+	
+	ResetEvent EVENT_8D8
+	ResetEvent EVENT_8D9
+	ResetEvent EVENT_8DA
+	ResetEvent EVENT_8DB
+	ResetEvent EVENT_8DC
+	ResetEvent EVENT_8DD
+	ResetEvent EVENT_8DE
+	
+	ResetEvent EVENT_909
+	ResetEvent EVENT_90A
+	ResetEvent EVENT_90C
+	ResetEvent EVENT_90E
+	ResetEvent EVENT_90F
+	ResetEvent EVENT_910
 	ret
 
 TrainerRematch:

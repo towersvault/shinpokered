@@ -107,6 +107,15 @@ Instructions to perform:
 4 - While still continuing to hold the two aforementioned buttons, press B.  
 5 - The start menu should close and you will warp back to your mom's house.  
 
+**Vanilla Options Reset**  
+This will undo all of the special options in case you are updating to a new patch.  
+Instructions to perform:  
+1 - Go to the start menu and put the cursor on the top option (usually POKEDEX).  
+2 - Press and hold UP on the d-pad. The cursor will now be on EXIT.  
+3 - While continuing to hold UP, press and hold SELECT.  
+4 - While still continuing to hold the two aforementioned buttons, press B.  
+5 - The start menu should close and you will will hear a jingle.  
+
 **Debug Damage Display**  
 As a debugging cheat, damage values will be displayed in battle as the UI updates.  
 Toggled on/off the same way as the softlock warp, but by using 'A' instead of 'B'.  

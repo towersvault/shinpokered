@@ -134,6 +134,13 @@
   - Trainer stat exp has been re-scaled to be more realistic to attainable amounts per level
   - No longer gives an exp bonus
 
+- Vanilla Options Reset: Deactivates all special options (such as in preparation to update to a new patch)
+  - go to the start menu and put the cursor on the top option (usually POKEDEX)
+  - press and hold UP on the d-pad (the cursor will now be on EXIT)
+  - while continuing to hold UP, press and hold SELECT
+  - while continuing to hold those two buttons, press B
+  - the start menu should close and you will hear a jingle confirming that the option reset worked
+	
 - Debug Damage Display: Damage values will be displayed in battle as the UI updates as a debug cheat
   - Toggled on/off the same way as the softlock warp, but by using 'A' instead of 'B'.
   - Zero damage is not displayed

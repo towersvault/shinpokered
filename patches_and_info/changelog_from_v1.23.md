@@ -112,7 +112,6 @@
 - Fixed a scripting error on route 20
 - Removal of the limits on vitamins in the post-game now only applies to pokemon lvl > 30
 - Adjusted the level-up moves of starmie, cloyster, poliwrath, and exeggcutor for legality with gen-2 time-capsule
-- Systems that generate above-average DVs now use a statistical bias instead of using 9,8,8,8 minimum
 - Enemy trainer level scaling biases the levels upwards for determining if a pokemon should be evolved
 
 
@@ -133,6 +132,7 @@
 - Hard mode adjustments
   - Trainer stat exp has been re-scaled to be more realistic to attainable amounts per level
   - No longer gives an exp bonus
+  - Critical hit chance in non-link battles use the Stadium 1 formula
 
 - Vanilla Options Reset: Deactivates all special options (such as in preparation to update to a new patch)
   - go to the start menu and put the cursor on the top option (usually POKEDEX)
@@ -328,3 +328,4 @@
 - Fixed a problem where multi-hit moves could overflow the damage effectiveness multiplier
 - Restored the gray pokemon coloring used in red/blue/green versions if using red/blue/green-style front sprites.
 - Made the speed of japanese flashing animations more accurate to the original
+- Systems that generate above-average DVs now use a statistical bias instead of using 9,8,8,8 minimum

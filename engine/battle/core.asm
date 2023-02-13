@@ -5144,47 +5144,51 @@ CriticalHitTest:
 	ld hl, wEnemyMovePower
 	ld de, wEnemyBattleStatus2
 .calcCriticalHitProbability
-;normal hit is (base speed) / 2
-;focus energy is 2*(base speed) for a 4x crit rate
-;high crit move is 4*(base speed) for a 8x crit rate
-	ld a, [hld]                  ; read base power from RAM
-;	and a
-;	ret z                        ; do nothing if zero
-;joenote - Also do not do a critical hit if a special damage move is being used (dragon rage, seismic toss, etc)
-;		- base power of 1 now signifies an expanded range to include moves like bide and counter 
-	cp 2
-	ret c	;do nothing if base power is 0 or 1
-	dec hl
-	ld c, [hl]                   ; read move id
-	ld a, [de]
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-	bit GETTING_PUMPED, a        ; test for focus energy
-	jr z, .noFocusEnergyUsed	 ;if getting pumped bit not set, then focus energy not used
-	;else focus energy was used
-	sla b						 ;*2 for focus energy (effective +2x crit rate)
-	jr c, .capcritical
-	sla b						 ;*2 again for focus energy (effective +4x crit rate)
-	jr c, .capcritical
-.noFocusEnergyUsed
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-	ld hl, HighCriticalMoves     ; table of high critical hit moves
-.Loop
-	ld a, [hli]                  ; read move from move table
-	cp c                         ; does it match the move about to be used?
-	jr z, .HighCritical          ; if so, the move about to be used is a high critical hit ratio move
-	inc a                        ; move on to the next move, FF terminates loop
-	jr nz, .Loop                 ; check the next move in HighCriticalMoves
-	jr .finishcalc         		 ; continue as a normal move
-.HighCritical
-	sla b                        ; *2 for high critical hit moves (effective +2x crit rate)
-	jr c, .capcritical
-	sla b                        ; *2 again for high critical hit moves (effective +4x crit rate)
-	jr c, .capcritical
-	sla b                        ; *2 again for high critical hit moves (effective +8x crit rate)
-	jr nc, .finishcalc
-.capcritical
-	ld b, $ff					 ; cap at 255/256
-.finishcalc
+;joenote - this whole section is now moved into a predef in stats_functions.asm to give more versatility
+	predef GetCriticalHitProbability
+
+; ;normal hit is (base speed) / 2
+; ;focus energy is 2*(base speed) for a 4x crit rate
+; ;high crit move is 4*(base speed) for a 8x crit rate
+	; ld a, [hld]                  ; read base power from RAM
+; ;	and a
+; ;	ret z                        ; do nothing if zero
+; ;joenote - Also do not do a critical hit if a special damage move is being used (dragon rage, seismic toss, etc)
+; ;		- base power of 1 now signifies an expanded range to include moves like bide and counter 
+	; cp 2
+	; ret c	;do nothing if base power is 0 or 1
+	; dec hl
+	; ld c, [hl]                   ; read move id
+	; ld a, [de]
+; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+	; bit GETTING_PUMPED, a        ; test for focus energy
+	; jr z, .noFocusEnergyUsed	 ;if getting pumped bit not set, then focus energy not used
+	; ;else focus energy was used
+	; sla b						 ;*2 for focus energy (effective +2x crit rate)
+	; jr c, .capcritical
+	; sla b						 ;*2 again for focus energy (effective +4x crit rate)
+	; jr c, .capcritical
+; .noFocusEnergyUsed
+; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+	; ld hl, HighCriticalMoves     ; table of high critical hit moves
+; .Loop
+	; ld a, [hli]                  ; read move from move table
+	; cp c                         ; does it match the move about to be used?
+	; jr z, .HighCritical          ; if so, the move about to be used is a high critical hit ratio move
+	; inc a                        ; move on to the next move, FF terminates loop
+	; jr nz, .Loop                 ; check the next move in HighCriticalMoves
+	; jr .finishcalc         		 ; continue as a normal move
+; .HighCritical
+	; sla b                        ; *2 for high critical hit moves (effective +2x crit rate)
+	; jr c, .capcritical
+	; sla b                        ; *2 again for high critical hit moves (effective +4x crit rate)
+	; jr c, .capcritical
+	; sla b                        ; *2 again for high critical hit moves (effective +8x crit rate)
+	; jr nc, .finishcalc
+; .capcritical
+	; ld b, $ff					 ; cap at 255/256
+; .finishcalc
+
 	call BattleRandom            ; generates a random value, in "a"
 ;joenote - this is redundant and seems like its messing with the statistical uniformity (somehow...)
 ;	rlc a
@@ -5196,13 +5200,14 @@ CriticalHitTest:
 	ld [wCriticalHitOrOHKO], a   ; set critical hit flag
 	ret
 
+;joenote - moved this to go with the above predef 
 ; high critical hit moves
-HighCriticalMoves:
-	db KARATE_CHOP
-	db RAZOR_LEAF
-	db CRABHAMMER
-	db SLASH
-	db $FF
+; HighCriticalMoves:
+	; db KARATE_CHOP
+	; db RAZOR_LEAF
+	; db CRABHAMMER
+	; db SLASH
+	; db $FF
 
 
 ;joenote

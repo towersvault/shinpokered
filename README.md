@@ -140,6 +140,7 @@ New options that can be toggled!
 The hard mode option increases difficulty by making the stats of trainer pokemon more on your level.
 It also doubles the effect of the X-stat items that AI trainers are fond of.
 And it disallows the use of Revive items in battle.
+Non-link battles will use the Stadium 1 critical hit chance formulas.
 Finally, it makes catching a wild Mewtwo more challenging.
 
 Trainer AI has been improved and greatly expanded.
@@ -572,6 +573,7 @@ v1.23.12
 - Systems that generate above-average DVs now use a statistical bias instead of using 9,8,8,8 minimum
 - Enemy trainer level scaling biases the levels upwards for determining if a pokemon should be evolved
 - Added Vanilla Options Reset
+- Non-link battles in hard mode use the Stadium 1 formulas for critical hit probability
 
 
 #Bugfixes
@@ -924,6 +926,7 @@ v1.23.12
   - Escaping in the safari zone is now based on level instead of speed
   - In hard mode, X-stat items have double the effect
   - HP-UP item now preserves your HP ratio
+  - Non-link battles in hard mode use the Stadium 1 formulas for critical hit probability
   
 - Trainer ai routine #1 (recognition of stats, hp, and conditions) has been modified
   - using a move with a dream eater effect is heavily discouraged against non-sleeping opponents
@@ -1147,6 +1150,7 @@ v1.23.12
   - X-stat items have double the effect like in more recent generations
   - Revive items cannot be used in battles
   - Mewtwo will prevent you from using a master ball on it and use AI to choose moves
+  - Non-link battles in hard mode use the Stadium 1 formulas for critical hit probability
   - Warning: The difficulty will be compounded if both trainer scaling and hard mode are active
 - Added the Clause Brothers to Viridian City
   - They toggle enforcement of the item, sleep, and/or freeze clauses

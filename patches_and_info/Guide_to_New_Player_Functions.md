@@ -167,6 +167,7 @@ Playing in hard mode imposes several changes to the game's systems that increase
 4 - X-stat items increase by two stages instead of one like in more recent generations.  
 5 - Revive items can only be used outside of battle.  
 6 - Wild Mewtwo uses trainer AI to choose its moves, and it also blocks you from using a Master Ball.  
+7 - Non-link battles in hard mode use the Stadium 1 formulas for critical hit probability.  
 Warning - The difficulty will be compounded if both trainer scaling and hard mode are active.  
 
 **Scale Enemy Trainer Levels**  

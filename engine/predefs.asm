@@ -175,3 +175,4 @@ PredefPointers::
 	add_predef SingleCPUSpeed
 	add_predef PrintPlayTime
 	add_predef DVPunnettSquare
+	add_predef GetCriticalHitProbability

@@ -802,3 +802,55 @@ FieldMoveDisplayData:
 	db TELEPORT, $08, $0A
 	db SOFTBOILED, $09, $08
 	db $ff ; list terminator
+
+	
+PrintLetterDelay_:
+	ld a, [wLetterPrintingDelayFlags]
+	bit 0, a
+	jr z, .waitOneFrame
+	ld a, [wOptions]
+	and TEXT_DELAY_BITS
+	ld [H_FRAMECOUNTER], a
+	
+	;	joenote - set a flag to indicate if a sfx is playing while printing text
+	jr nz, .checkButtons
+	ld hl, wChannelSoundIDs + Ch4
+	ld a, [hli]
+	add [hl]
+	inc hl
+	add [hl]
+	inc hl
+	add [hl]
+	jr z, .checkButtons
+	ld hl, hFlagsFFFA
+	set 2, [hl]
+	
+	jr .checkButtons
+.waitOneFrame
+	ld a, 1
+	ld [H_FRAMECOUNTER], a
+.checkButtons
+	call Joypad
+	ld a, [hJoyHeld]
+;.checkAButton
+;	bit 0, a ; is the A button pressed?
+;	jr z, .checkBButton
+;	jr .endWait
+;.checkBButton
+;	bit 1, a ; is the B button pressed?
+;	jr z, .buttonsNotPressed
+;joenote - make this work better when zero text delay is implemented
+	and (A_BUTTON | B_BUTTON)
+	jr z, .buttonsNotPressed
+	ld a, [wOptions]
+	and TEXT_DELAY_BITS
+	call nz, DelayFrame
+;.endWait
+;	call DelayFrame
+	jr .done
+.buttonsNotPressed ; if neither A nor B is pressed
+	ld a, [H_FRAMECOUNTER]
+	and a
+	jr nz, .checkButtons
+.done
+	ret

@@ -3796,40 +3796,9 @@ PrintLetterDelay::
 	push hl
 	push de
 	push bc
-	ld a, [wLetterPrintingDelayFlags]
-	bit 0, a
-	jr z, .waitOneFrame
-	ld a, [wOptions]
-	and TEXT_DELAY_BITS
-	ld [H_FRAMECOUNTER], a
-	jr .checkButtons
-.waitOneFrame
-	ld a, 1
-	ld [H_FRAMECOUNTER], a
-.checkButtons
-	call Joypad
-	ld a, [hJoyHeld]
-;.checkAButton
-;	bit 0, a ; is the A button pressed?
-;	jr z, .checkBButton
-;	jr .endWait
-;.checkBButton
-;	bit 1, a ; is the B button pressed?
-;	jr z, .buttonsNotPressed
-;joenote - make this work better when zero text delay is implemented
-	and (A_BUTTON | B_BUTTON)
-	jr z, .buttonsNotPressed
-	ld a, [wOptions]
-	and TEXT_DELAY_BITS
-	call nz, DelayFrame
-;.endWait
-;	call DelayFrame
-	jr .done
-.buttonsNotPressed ; if neither A nor B is pressed
-	ld a, [H_FRAMECOUNTER]
-	and a
-	jr nz, .checkButtons
-.done
+	push af
+	callba PrintLetterDelay_	;joenote - moved to text_box.asm to free up space in bank 0
+	pop af
 	pop bc
 	pop de
 	pop hl

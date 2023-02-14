@@ -612,7 +612,6 @@ TextCommand0B::	;joenote - modified to make SFX_GET_KEY_ITEM play a previously u
 .playnormally
 	ld a, [wOptions]
 	and TEXT_DELAY_BITS
-	call z, WaitForSoundToFinish	;joenote - fixes skipped sfx if using zero text delay bug/option
 	ld a, [hl]
 	call PlaySound
 	call WaitForSoundToFinish

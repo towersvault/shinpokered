@@ -251,6 +251,7 @@ ENDC
 	jr nz, .pressedDown
 	jr .pressedB
 .pressedA
+	call WaitForSoundToFinish
 	ld a, SFX_HEAL_AILMENT
 	call PlaySound
 	ld a, [hl]

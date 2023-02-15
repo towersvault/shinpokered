@@ -114,6 +114,7 @@
 - Adjusted the level-up moves of starmie, cloyster, poliwrath, and exeggcutor for legality with gen-2 time-capsule
 - Enemy trainer level scaling biases the levels upwards for determining if a pokemon should be evolved
 - Strength hotkey requires facing a boulder to activate
+- Trapping moves no longer apply a speed penalty
 
 
 ---

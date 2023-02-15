@@ -9246,7 +9246,7 @@ TrappingEffect:
 	inc a
 	ld [de], a
 ;joenote - have the trapping effect user get its speed temporarily reduced until stats get recalculated
-	callba ReduceSpeed
+;	callba ReduceSpeed
 	ret
 
 MistEffect:

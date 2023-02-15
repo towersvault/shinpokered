@@ -49,9 +49,7 @@ Overall, the only loss is that sleep has a maximum possible lost-turn number of 
 Switching out of trapping moves (Wrap, Clamp, Fire Spin, etc) ends the move and wastes the trapper's turn.  
 This matches what Pokemon Stadium enforces upon trapping moves.  
 Additional changes exist that are not found in the Lite patches:  
-- Landing a trapping move gives the user a compounding -25% speed until recalculated via other mechanics.  
 - A 'poof' animation plays to signal the last turn of a trapping move.  
-- These changes help to remove the "infinite combo" that could be done by high-speed users of trapping moves.  
 
 **Critical Hits**  
 Critical hit damage can no longer be less than the non-critical amount, so critical hits can never be a detriment.  

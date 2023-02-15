@@ -248,7 +248,6 @@ Other minor changes to lessen annoyance.
 - Slot machines are a little more lucky, so now you can actually win big.
 - CUT is not needed to get to Lt. Surge and Erika (a blocking event replaces the Vermilion shrub).
 - Yellow version learnsets have been integrated, and stone evolutions gain back some level-up moves.
-- Hitting with a trapping move reduces its user's speed by 25% until recalculated via some other effect.
 - Trapping moves play a 'poof' animation on the move's final turn in order to inform the player.
 - A recalibrated daycare gives experience points scaled to your gym progress.
 - The daycare lets you select moves to forget (if any) upon retreiving your pokemon.
@@ -897,7 +896,6 @@ v1.23.12
   - Moves that hit multiple times in a turn now calculate damage and critical hits for each individual attack
   - Trapping moves nerfed big time to prevent the new AI from cheesing them:
     - Switching out of a trapping move ends it immediately and wastes its user's turn (prevents PP underflow glitch too)
-	- Each time a trapping move is used and hits, user's speed reduced 25% until recalculated through other mechanics
     - A 'poof' animation plays to signal the last turn of the trapping move
   - Ghost moves (i.e. just Lick) do 2x against psychic as was always intended
   - Pay Day upped to 5x multiplier of later generations

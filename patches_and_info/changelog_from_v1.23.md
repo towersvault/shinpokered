@@ -95,6 +95,14 @@
 - Added hidden max revive on route 11
 - Added hidden ultra ball on route 8
 
+- Lance now has 2 hyper potions per pokemon like the rest of the elite 4
+- The Rival battles from the SS Anne through Pokemon Tower use super potions
+- The Rival battles after Pokemon Tower and up through Route 22 2nd-round use hyper potions
+- The Champion can use Full Heals in response to a status effect with a 25% chance
+- All trainers that use any kind of potion now use it with a 50% chance if their HP is low enough
+  - Gym Leaders and mid-game Rival: below 1/5th total
+  - Elite-4 and Champion: below 1/3th total
+
 
 ---
 **Hack-related fixes exclusively for the master branch**

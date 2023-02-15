@@ -1507,7 +1507,7 @@ TrainerAIPointers:
 	dbw 2,LoreleiAI ; lorelei
 	dbw 3,GenericAI
 	dbw 2,AgathaAI ; agatha
-	dbw 1,LanceAI ; lance
+	dbw 2,LanceAI ; lance	;increased items from 1 to 2
 
 ;joenote - reorganizing these AI routines to jump on carry instead of returning on not-carry
 ;also adding recognition of a switch-pkmn bit
@@ -1576,7 +1576,8 @@ LtSurgeAI:
 ErikaAI:
 	cp $80
 	jr nc, .erikareturn
-	ld a, $A
+;	ld a, $A
+	ld a, 5	;joenote - increased to 1/5th
 	call AICheckIfHPBelowFraction
 	jp c, AIUseSuperPotion
 .erikareturn
@@ -1588,36 +1589,53 @@ KogaAI:
 	ret
 	
 BlaineAI:	;blaine needs to check HP. this was an oversight	
-	cp $20
+;	cp $20
+	cp $80 ;joenote - increased to 50% chance of healing
 	jr nc, .blainereturn
-	ld a, $A
+;	ld a, $A
+	ld a, 5 ;joenote - increased to 1/5th
 	call AICheckIfHPBelowFraction	
 	jp c, AIUseHyperPotion	;joenote - changed to hyper potion
 .blainereturn
 	ret
 
 SabrinaAI:
-	cp $20
+;	cp $20
+	cp $80 ;joenote - increased to 50% chance of healing
 	jr nc, .sabrinareturn
-	ld a, $A
+;	ld a, $A
+	ld a, 5 ;joenote - increased to 1/5th
 	call AICheckIfHPBelowFraction
 	jp c, AIUseHyperPotion
 .sabrinareturn
 	ret
 
 Sony2AI:
-	cp $20
+;	cp $20
+	cp $80 ;joenote - increased to 50% chance of healing
 	jr nc, .rival2return
 	ld a, 5
 	call AICheckIfHPBelowFraction
-	jp c, AIUsePotion
+	jr nc, .rival2return
+	CheckEvent EVENT_BEAT_POKEMON_TOWER_RIVAL
+	jp z, AIUseSuperPotion
+	jp AIUseHyperPotion
 .rival2return
 	ret
 
 Sony3AI:
-	cp $40	;joenote - doubled the chance of use
+;	cp $20
+	cp $80	;joenote - made this like the rest of the elite 4
 	jr nc, .rival3return
-	ld a, 5
+	cp $40
+	jr nc, .health
+.status 	;joenote - has 25% chance to remove a status with his full restore
+	ld a, [wEnemyMonStatus]
+	and a
+	jp nz, AIUseFullRestore
+.health
+;	ld a, 5
+	ld a, 3	;joenote - made this 1/3rd
 	call AICheckIfHPBelowFraction
 	jp c, AIUseFullRestore
 .rival3return
@@ -1626,7 +1644,8 @@ Sony3AI:
 LoreleiAI:
 	cp $80
 	jr nc, .loreleireturn
-	ld a, 5
+;	ld a, 5
+	ld a, 3	;joenote - made this 1/3rd
 	call AICheckIfHPBelowFraction
 	jp c, AIUseHyperPotion	;joenote - changed to hyper potion
 .loreleireturn
@@ -1638,7 +1657,8 @@ BrunoAI:
 ;	jp c, AIUseXDefend
 	cp $80
 	jr nc, .brunoreturn
-	ld a, 5
+;	ld a, 5
+	ld a, 3	;joenote - made this 1/3rd
 	call AICheckIfHPBelowFraction
 	jp c, AIUseHyperPotion
 .brunoreturn
@@ -1649,7 +1669,8 @@ AgathaAI:
 ;	jp c, AISwitchIfEnoughMons
 	cp $80
 	jr nc, .agathareturn
-	ld a, 5	;joenote - upped to 5
+;	ld a, 5
+	ld a, 3	;joenote - made this 1/3rd
 	call AICheckIfHPBelowFraction
 	jp c, AIUseHyperPotion	;joenote - changed to hyper potion
 .agathareturn
@@ -1658,7 +1679,8 @@ AgathaAI:
 LanceAI:
 	cp $80
 	jr nc, .lancereturn
-	ld a, 5
+;	ld a, 5
+	ld a, 3	;joenote - made this 1/3rd
 	call AICheckIfHPBelowFraction
 	jp c, AIUseHyperPotion
 .lancereturn

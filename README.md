@@ -574,8 +574,16 @@ v1.23.12
 - Added Vanilla Options Reset
 - Non-link battles in hard mode use the Stadium 1 formulas for critical hit probability
 - Strength hotkey requires facing a boulder to activate
+- Adjustements to how trainers use healing items
+  - Lance now has 2 hyper potions per pokemon like the rest of the elite 4
+  - The Rival battles from the SS Anne through Pokemon Tower use super potions
+  - The Rival battles after Pokemon Tower and up through Route 22 2nd-round use hyper potions
+  - The Champion can use Full Heals in response to a status effect with a 25% chance
+  - All trainers that use any kind of potion now use it with a 50% chance if their HP is low enough
+    - Gym Leaders and mid-game Rival: below 1/5th total
+    - Elite-4 and Champion: below 1/3th total
 
-
+	
 #Bugfixes
 -----------
 
@@ -1022,6 +1030,14 @@ v1.23.12
   - Originally these get reset every time the opponent send out a pkmn (even swithing)
   - Was never really noticed since most trainers never switch nor would have the opportunity
   - Changed based on user feedback since many trainers now try to switch
+- Adjustements to how trainers use healing items
+  - Lance now has 2 hyper potions per pokemon like the rest of the elite 4
+  - The Rival battles from the SS Anne through Pokemon Tower use super potions
+  - The Rival battles after Pokemon Tower and up through Route 22 2nd-round use hyper potions
+  - The Champion can use Full Heals in response to a status effect with a 25% chance
+  - All trainers that use any kind of potion now use it with a 50% chance if their HP is low enough
+    - Gym Leaders and mid-game Rival: below 1/5th total
+    - Elite-4 and Champion: below 1/3th total
   
 - Adjustments to learnsets and base stats
   - Slight additions to explodo-mon movesets to play nicer with AI at higer levels

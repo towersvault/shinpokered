@@ -229,7 +229,7 @@ You must still have the correct badge and move on one of your pokemon to use a H
 HM01 - Press SELECT when facing a shrub or grass tile to use CUT.  
 HM03 - Press SELECT when facing a shore to use SURF.  
 HM05 - Press SELECT in a dark area to light it with FLASH.  
-HM04 - In all other instances, pressing SELECT activates STRENGTH. Your pokemon's cry plays and the screen will flash.  
+HM04 - Press SELECT while facing a boulder to activate STRENGTH. Your pokemon's cry plays and the screen will flash.  
 
 **Quick Fishing Button Combo**  
 You must have a fishing rod in your bag.  

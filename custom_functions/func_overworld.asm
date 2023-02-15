@@ -278,6 +278,37 @@ CheckForSmartHMuse:
 	bit 3, a ; does the player have the Rainbow Badge?
 	jr z, .nostrength
 
+	;must be facing a boulder to use strength
+	push hl
+	push bc
+	push de
+	xor a
+	ld [hSpriteIndexOrTextID], a
+	call IsSpriteInFrontOfPlayer
+	pop de
+	pop bc
+	pop hl
+	ld a, [hSpriteIndexOrTextID]
+	and a
+	jr z, .nostrength
+	push hl
+	push bc
+	push de
+	ld hl, wSpriteStateData1 + 1
+	ld d, $0
+	ld a, [hSpriteIndexOrTextID]
+	swap a
+	ld e, a
+	add hl, de
+	res 7, [hl]
+	call GetSpriteMovementByte2Pointer
+	ld a, [hl]
+	cp BOULDER_MOVEMENT_BYTE_2
+	pop de
+	pop bc
+	pop hl
+	jr nz, .nostrength
+
 	;check if a party member has strength
 	ld c, STRENGTH
 	call PartyMoveTest
@@ -294,6 +325,7 @@ CheckForSmartHMuse:
 	call AddNTimes
 	ld a, [hl]
 	call PlayCry
+	call WaitForSoundToFinish
 	pop bc
 	pop hl
 	

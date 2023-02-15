@@ -574,6 +574,7 @@ v1.23.12
 - Enemy trainer level scaling biases the levels upwards for determining if a pokemon should be evolved
 - Added Vanilla Options Reset
 - Non-link battles in hard mode use the Stadium 1 formulas for critical hit probability
+- Strength hotkey requires facing a boulder to activate
 
 
 #Bugfixes
@@ -1202,7 +1203,7 @@ v1.23.12
   - press SELECT against a shore to surf
   - press SELECT when facing a shrub or grass tile to use cut
   - press SELECT in a dark area to light it with flash
-  - in all other instances, pressing select activates strength
+  - press SELECT while facing a boulder to activate strength
 - Press and hold A then press SELECT to automatically get on/off your bike or use the best rod in your inventory
 - You can now check DVs or stat exp by holding down a button and entering the status screen
   - hold SELECT for stat exp

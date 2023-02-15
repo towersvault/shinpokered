@@ -113,6 +113,7 @@
 - Removal of the limits on vitamins in the post-game now only applies to pokemon lvl > 30
 - Adjusted the level-up moves of starmie, cloyster, poliwrath, and exeggcutor for legality with gen-2 time-capsule
 - Enemy trainer level scaling biases the levels upwards for determining if a pokemon should be evolved
+- Strength hotkey requires facing a boulder to activate
 
 
 ---

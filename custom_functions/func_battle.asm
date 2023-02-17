@@ -43,7 +43,7 @@ LowPriorityMoves:
 	ld a, [wLinkState]
 	cp LINK_STATE_BATTLING
 	jr z, .next3
-	ret		;CheckEvent EVENT_xxx
+	CheckEvent EVENT_8C5
 .next3
 	;invert the z flag bit at this point
 	jr nz, .retz

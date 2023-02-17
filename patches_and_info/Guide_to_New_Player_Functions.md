@@ -190,6 +190,16 @@ Each one toggles enforcement of either the item, sleep, or freeze clause from Po
 The sleep clause in particular works like it does in Stadium with respect to using the Rest move.  
 The clauses apply to the player and AI equally, and they only apply during non-link trainer battles.  
 
+**Trapping Move Clause**  
+- A fourth brother has been added for this new clause.
+  - A counter tracks if the player or the opponent use trapping moves like Wrap multiple times in a row. 
+  - The counter increments only if a trapping effect move is selected to be used and it does not miss.
+  - After the counter has incremented to 2, 
+    - selecting a trapping effect move additional times will make the move to go 2nd in the round. 
+	- this is the same priority as the move Counter.
+  - The counter only gets reset by switching or using a move that does not have the trapping effect. 
+  - Reseting the counter will restore normal priority to trapping effect moves.
+
 
 #New Gameplay Features
 -----------------------------------------------

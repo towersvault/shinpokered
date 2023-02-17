@@ -192,7 +192,7 @@ Another aide npc is in the Viridian pokemon center. He will toggle on/off random
 
 An aide is in the Celadon Diner. He will toggle on/off a catch-up EXP boost function for under-leveled pokemon.
 
-Item, Sleep, and Freeze clauses can each be toggled by the Clause Brothers in Viridian City.
+Item, Sleep, Freeze, and Trapping clauses can each be toggled by the Clause Brothers in Viridian City.
  
 The bag now supports an additional item list for an extra 20 slots of space!
 Press START on the bag menu to hot-swap the item list that populates the active bag.
@@ -582,7 +582,15 @@ v1.23.12
   - All trainers that use any kind of potion now use it with a 50% chance if their HP is low enough
     - Gym Leaders and mid-game Rival: below 1/5th total
     - Elite-4 and Champion: below 1/3th total
-
+- Trapping Move Clause
+  - A counter tracks if the player or the opponent use trapping moves like Wrap multiple times in a row 
+  - The counter increments only if a trapping effect move is selected to be used and it does not miss
+  - After the counter has incremented to 2, 
+    - selecting a trapping effect move additional times will make the move to go 2nd in the round 
+	- this is the same priority as the move Counter
+  - The counter only gets reset by switching or using a move that does not have the trapping effect 
+  - Reseting the counter will restore normal priority to trapping effect moves.
+	
 	
 #Bugfixes
 -----------
@@ -1171,6 +1179,14 @@ v1.23.12
   - They toggle enforcement of the item, sleep, and/or freeze clauses
   - The clauses apply to the player and AI equally, and only apply during non-link trainer battles
   - Sleep and freeze clauses work like they do in Pokemon Stadium
+- Added a fourth brother for the Trapping Move Clause
+  - A counter tracks if the player or the opponent use trapping moves like Wrap multiple times in a row 
+  - The counter increments only if a trapping effect move is selected to be used and it does not miss
+  - After the counter has incremented to 2, 
+    - selecting a trapping effect move additional times will make the move to go 2nd in the round 
+	- this is the same priority as the move Counter
+  - The counter only gets reset by switching or using a move that does not have the trapping effect 
+  - Reseting the counter will restore normal priority to trapping effect moves.
 - There is now an obedience level-cap that can be toggled in the options menu
   - With the cursor in the BATTLE STYLE section, press A to toggle it on and off
   - While active, the current maximum obedience level will display in the options menu

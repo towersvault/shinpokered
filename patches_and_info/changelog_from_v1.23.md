@@ -31,6 +31,15 @@
 
 - A new NPC is in the north-south underground path for post-game mirror matches
 
+- Added a new Clause Brother for activating the Trapping Move Clause
+  - A counter tracks if the player or the opponent use trapping moves like Wrap multiple times in a row 
+  - The counter increments only if a trapping effect move is selected to be used and it does not miss
+  - After the counter has incremented to 2, 
+    - selecting a trapping effect move additional times will make the move to go 2nd in the round 
+	- this is the same priority as the move Counter
+  - The counter only gets reset by switching or using a move that does not have the trapping effect 
+  - Reseting the counter will restore normal priority to trapping effect moves.
+  
 - A new drink stand on the route 19 beach sells vending machine drinks
 
 - Paras is gifted in the Route 2 house in case the player has no pokemon that can learn Cut

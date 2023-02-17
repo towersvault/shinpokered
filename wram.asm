@@ -1777,6 +1777,8 @@ wPlayerBattleStatus3:: ; d064
 ; bit 1 - light screen
 ; bit 2 - reflect
 ; bit 3 - transformed
+; bit 4 & 5 - unused?
+; bit 6 & 7 - partial trapping spam counter
 	ds 1
 
 wEnemyStatsToDouble:: ; d065

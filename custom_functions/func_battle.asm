@@ -1,13 +1,32 @@
 ;joenote - custom functions to handle move priority. Sets zero flag if priority lowered/raised.
 CheckLowerPlayerPriority:	
 	ld a, [wPlayerSelectedMove]
-	call LowPriorityMoves
-	ret
+	ld hl, wPlayerBattleStatus3
+	ld bc, wPlayerMoveEffect
+	jr LowPriorityMoves
 CheckLowerEnemyPriority:
 	ld a, [wEnemySelectedMove]
-	call LowPriorityMoves
-	ret
+	ld hl, wEnemyBattleStatus3
+	ld bc, wEnemyMoveEffect
+;	jp LowPriorityMoves
+;fall through
 LowPriorityMoves:
+;joenote - handle trapping spam counter and implement the trapping clause
+	push af
+	ld a, [bc]
+	cp TRAPPING_EFFECT
+	jr nz, .next1	;reset the number of consecutive trapping moves and continue if this is not a trapping move
+
+	bit TRAPPING_NEGATIVE, [hl]
+	jr nz, .CheckTrappingClause	;if the bit indicating two consecutive uses is set, ret immediately with z flag for negative priority
+	jr .next2
+	
+.next1
+	res TRAPPING_COUNT, [hl]
+	res TRAPPING_NEGATIVE, [hl]
+.next2
+	pop af
+
 	cp COUNTER
 ;	ret z
 ;	cp BIND
@@ -18,15 +37,31 @@ LowPriorityMoves:
 ;	ret z
 ;	cp CLAMP
 	ret
+.CheckTrappingClause
+	res TRAPPING_COUNT, [hl]
+	pop af
+	ld a, [wLinkState]
+	cp LINK_STATE_BATTLING
+	jr z, .next3
+	ret		;CheckEvent EVENT_xxx
+.next3
+	;invert the z flag bit at this point
+	jr nz, .retz
+.retnz
+	ld a, 1
+	and a
+	ret
+.retz
+	xor a
+	ret
 
 CheckHigherPlayerPriority:	
 	ld a, [wPlayerSelectedMove]
-	call HighPriorityMoves
-	ret
+	jr HighPriorityMoves
 CheckHigherEnemyPriority:
 	ld a, [wEnemySelectedMove]
-	call HighPriorityMoves
-	ret
+;	jr HighPriorityMoves
+; fall through
 HighPriorityMoves:
 	cp QUICK_ATTACK
 ;	ret z

@@ -6191,11 +6191,16 @@ MoveHitTest:
 	jr z, .playerTurn2
 .enemyTurn2
 	ld hl, wEnemyBattleStatus1
-	res USING_TRAPPING_MOVE, [hl] ; end multi-turn attack e.g. wrap
-	ret
+	jr .endTrapping
 .playerTurn2
 	ld hl, wPlayerBattleStatus1
+.endTrapping
 	res USING_TRAPPING_MOVE, [hl] ; end multi-turn attack e.g. wrap
+	inc hl
+	inc hl
+	ld a, [hl]
+	sub TRAPPING_COUNT_BIT
+	ld [hl], a	;joenote - undo increment trapping spam counter
 	ret
 
 ; values for player turn
@@ -9247,6 +9252,12 @@ TrappingEffect:
 	ld [de], a
 ;joenote - have the trapping effect user get its speed temporarily reduced until stats get recalculated
 ;	callba ReduceSpeed
+;joenote - increment a trapping spam counter that checks for consecutive usage of trapping moves
+	inc hl
+	inc hl	;now points to xBattleStatus3
+	ld a, [hl]
+	add TRAPPING_COUNT_BIT
+	ld [hl], a	;else increment the consecutive use counter
 	ret
 
 MistEffect:

@@ -127,6 +127,12 @@ StatusScreen:
 	push de
 	ld bc, SCREEN_WIDTH + 1
 	add hl, bc
+	call DVParse
+	call Joypad
+	
+	ld a, [hJoyHeld]
+	and SELECT | START
+	jr z, .noblank
 	push hl
 	ld a, " "
 	ld [hli], a
@@ -137,16 +143,16 @@ StatusScreen:
 	ld [hli], a
 	ld [hli], a
 	pop hl
-	call DVParse
-	call Joypad
+.noblank
+	
 	ld a, [hJoyHeld]
-	bit 2, a
+	bit BIT_SELECT, a
 	jr z, .checkstart
 	ld de, wLoadedMonHPExp
 	lb bc, 2, 5
 	jr .printnum
 .checkstart	;print DVs if start is held
-	bit 3, a
+	bit BIT_START, a
 	jr z, .doregular
 	ld de, wUnusedD726  
 	lb bc, 1, 2

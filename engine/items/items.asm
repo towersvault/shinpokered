@@ -3251,7 +3251,8 @@ INCLUDE "data/super_rod.asm"
 ; for items that cause the overworld to be displayed
 ItemUseReloadOverworldData:
 	call LoadCurrentMapView
-	jp UpdateSprites
+	call UpdateSprites
+	jp DelayFrame	;joenote - need to make sure OAM data gets updated too
 
 ; creates a list at wBuffer of maps where the mon in [wd11e] can be found.
 ; this is used by the pokedex to display locations the mon can be found on the map.

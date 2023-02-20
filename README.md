@@ -561,7 +561,7 @@ v1.23.12
 - Restored the gray pokemon coloring used in red/blue/green versions if using red/blue/green-style front sprites.
 
 
-**Not in current patch** 
+v1.23.13  
 - Made the speed of japanese flashing animations more accurate to the original
 - Removal of the limits on vitamins in the post-game now only applies to pokemon lvl > 30
 - Mist stone is restricted to pokemon over lvl 30
@@ -590,6 +590,10 @@ v1.23.12
 	- this is the same priority as the move Counter
   - The counter only gets reset by switching or using a move that does not have the trapping effect 
   - Reseting the counter will restore normal priority to trapping effect moves.
+
+
+**Not in current patch** 
+-
 	
 	
 #Bugfixes

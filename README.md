@@ -1,6 +1,6 @@
 # Shin Pokémon Red, Blue, Green, Red-JP, & Blue-JP
 
-Version 1.23.12
+Version 1.23.13
 
 *Shin (真) - The kanji for "true".  
 Used in Japanese media to denote a remastering, updated retelling , or a "true form" of something.*  
@@ -486,16 +486,16 @@ v1.23.10
 - Trade evolutions now alternately evolve with a stone at a certain level with some new hinting NPC text
   - Kadabra
     - Use a moon stone at level 35
-	- Hinted at by a NPC in the Pewter Museum that comments on the moon stone
+    - Hinted at by a NPC in the Pewter Museum that comments on the moon stone
   - Haunter
     - Use a thunder stone at level 35
-	- Hinted at by the Lavender Town NPC that asks if you believe in ghosts
+    - Hinted at by the Lavender Town NPC that asks if you believe in ghosts
   - Graveler
     - Use a fire stone at level 35
-	- Hinted at by a NPC on Cinnabar Island that talks about the mansion
+    - Hinted at by a NPC on Cinnabar Island that talks about the mansion
   - Machoke
     - Use a leaf stone at level 35
-	- Hinted at by a house NPC in Pewter City that talks about trainers teaching pokemon
+    - Hinted at by a house NPC in Pewter City that talks about trainers teaching pokemon
 - Debug Damage Display: As a debugging cheat, damage values will be displayed in battle as the UI updates
   - Toggled on/off the same way as the softlock warp, but by using 'A' instead of 'B'
   - Zero damage is not displayed
@@ -587,13 +587,13 @@ v1.23.13
   - The counter increments only if a trapping effect move is selected to be used and it does not miss
   - After the counter has incremented to 2, 
     - selecting a trapping effect move additional times will make the move to go 2nd in the round 
-	- this is the same priority as the move Counter
+    - this is the same priority as the move Counter
   - The counter only gets reset by switching or using a move that does not have the trapping effect 
   - Reseting the counter will restore normal priority to trapping effect moves.
 
 
 **Not in current patch** 
--
+- n/a
 	
 	
 #Bugfixes
@@ -604,24 +604,24 @@ v1.23.13
   - Moves no longer have a default 1/256 chance to miss
   - Fixed freeze that occurs in defense stat scaling (def < 4 glitch)
   - Enemy ai ignores type effectiveness for moves that have zero power
-     - prevents things like spamming agility against poison pkmn
+    - prevents things like spamming agility against poison pkmn
   - Enemy ai ignores super-effectiveness for moves that do static amounts of damage
   - Fixed skipping move-learn on level-up glitch. 
-     - when gaining multiple levels at a time, each in-between level is incrementally checked for moves learned
-     - this prevents a pkmn from skipping learnable moves if gaining multiple levels in battle
-	 - also does this when evolving via level-up for the new evolution's movelist
+    - when gaining multiple levels at a time, each in-between level is incrementally checked for moves learned
+    - this prevents a pkmn from skipping learnable moves if gaining multiple levels in battle
+    - also does this when evolving via level-up for the new evolution's movelist
   - Burn & Paralyze stat penalties are now properly applied after Speed & Attack stats get updated/recalculated
   - Badge stat-ups don't get stacked anymore
   - The function that applies badge stat-ups now selectively boosts the correct stat when called during a stat-up/down effect
   - If player is frozen, the hyperbeam recharge bit is now cleared
-     - now matches how enemy mon's recharge bit is cleared upon being frozen
-     - this prevents getting stuck in a loop unable to do anything on your turn
+    - now matches how enemy mon's recharge bit is cleared upon being frozen
+    - this prevents getting stuck in a loop unable to do anything on your turn
   - Blaine will not use a healing item at full HP
   - The BIRD type has been reinstated and renamed to TYPELESS. It acts as a universally neutral type (particularly for Struggle)
   - AI trainers have priority on switching or using an item
   - AI type effectiveness function now takes type 1 and 2 into account together 
-	 - Before AI would only look at the type it encountered first in a list search
-     - AI will now treat a move as neutral if type 1 makes it supereffective but type 2 makes it not effective
+    - Before AI would only look at the type it encountered first in a list search
+    - AI will now treat a move as neutral if type 1 makes it supereffective but type 2 makes it not effective
   - Stat changes from burn and paralyze are applied when the ai sends out a pkmn with those conditions
   - AI routine #2 (prioritize buffing or use a status move) now activates on the 1st turn after sendout instead of the 2nd
   - New custom function for undoing the stat changes of burn and paralysis
@@ -641,10 +641,10 @@ v1.23.13
   - Transform-related fixes:
       - Move slots cannot be rearranged when transformed (prevents acquiring glitch moves)
       - Fixing Transformation loops
-	    - If Transform copies an opponent's Transform move, 
-		- and the the PP of that move is < 6, 
-		- it will copy that move's instantaneous PP less 1.
-		- This limits the PP of using transform repeatedly between two pokemon
+        - If Transform copies an opponent's Transform move, 
+	- and the the PP of that move is < 6, 
+	  - it will copy that move's instantaneous PP less 1.
+	  - This limits the PP of using transform repeatedly between two pokemon
       - Enemy DVs can no longer be manipulated by having it use transform multiple times
 	  - Fixed a conflict where transforming while disabled can leave the new moves disabled
 	  - Fixed transformed 'mons reseting their moves when learning a level-up move
@@ -659,7 +659,7 @@ v1.23.13
     - substitute will not work if it would bring you to exactly 0 hp
     - zero power moves that inflict stat-downs, sleep, or paralyze will not affect a substitute
     - the confusion side-effect of damaging moves is blocked by a substitute
-	- recoil damage from jump kicks or hurting oneself in confusion is now applied to user's substitute
+    - recoil damage from jump kicks or hurting oneself in confusion is now applied to user's substitute
   - healing moves work with restoring exactly 255 or 511 hp 
   - light screen and reflect now have a cap of 999
   - Haze removing sleep/freeze will not prevent a multi-turn move from getting stuck (also fixes the sleep-trap glitch)
@@ -767,8 +767,8 @@ v1.23.13
 	- handles exp correctly when all your battle participants are knocked out
   - Fixed a bug where itemfinder can't locate objects with a zero x or y coord
   - Surfboard bugfixes:
-	  - cannot use the surfboard if being forced to ride the bicycle
-	  - no longer freezes the game when using it from the item menu to get back on land
+    - cannot use the surfboard if being forced to ride the bicycle
+    - no longer freezes the game when using it from the item menu to get back on land
   - The Full Heal used by the AI now undoes brn/par stat changes
   - Condition healing items (including using Full Restore at max hp) no longer reset all stats
     - Burn heal undoes the attack stat changes
@@ -811,7 +811,7 @@ v1.23.13
   - Vending machine now checks for the correct amount of money
   - Vermilion Gym switch puzzle fixes
     - Prevented byte overflow when determining the trash can with 2nd switch in vermilion gym
-	- The position of both switches in Vermilion Gym are now determined at the same time
+    - The position of both switches in Vermilion Gym are now determined at the same time
     - The switches in Vermilion Gym can now be discovered independently from one another
   - Hidden nugget in safari entrance now obtainable
   - Slot machine reel bug fixed
@@ -921,15 +921,15 @@ v1.23.13
   - Pay Day upped to 5x multiplier of later generations
   - Changes to Bide
     - damage accumulation is done after taking a damaging hit instead of during turn execution (less room for glitches)
-	- side effect: bide is buffed because multi-hit moves now add damage to bide for each of the 2 to 5 hits
-	- changed to Typeless to play nicer with AI routine 3 (it ignores the type chart regardless)
+      - side effect: bide is buffed because multi-hit moves now add damage to bide for each of the 2 to 5 hits
+    - changed to Typeless to play nicer with AI routine 3 (it ignores the type chart regardless)
   - Rest's sleep condition increased to 3 turns since attacking on wakeup is now allowed.
   - Acid armor's animation changed so that does not make its user disappear
   - Metronome now classified as a Typeless special damage move to play better with the AI
   - Type immunity prevents trapping moves from taking hold at all
   - Changes to Rage
-	- Now only lasts 2 to 3 moves like Bide in order to prevent an infinite loop
-	- As a tradeoff, attack boosts from rage are kept when it ends
+    - Now only lasts 2 to 3 moves like Bide in order to prevent an infinite loop
+    - As a tradeoff, attack boosts from rage are kept when it ends
   - Minor code correction to Twineedle to prevent future errors, but this has no effect on gameplay
 
 - Adjustment to stat mods, conditions, and items
@@ -969,12 +969,12 @@ v1.23.13
   - Will heavily discourage boosting defense against special, OHKO, or static-damaging attacks
   - AI layer changes that affect most 0-power moves (with only a few exceptions like heal effects)
     - now has a hard stop on using 0-power moves on consecutive turns with a few effect exceptions
-	- heavily discourages 0-power moves if below 1/3 hp
+    - heavily discourages 0-power moves if below 1/3 hp
   - Discourage exploding effects if faster than a player in fly/dig state
   - Randomly discourage usage of 2-turn moves when confused/paralyzed
   - 79.68% chance per status move that the AI is blind to a player switching or using an item
     - Prevents situations where AI will always re-status the player after the player switches or heals
-	- An AI mon with three status moves will have about a 50% chance of ignoring item-use or switching
+    - An AI mon with three status moves will have about a 50% chance of ignoring item-use or switching
   - Discourage using fly/dig if faster than the player who is also picking fly/dig
   - If the player used and item or switched, AI is blind to the player's sleep counter when considering dream eater
 
@@ -993,8 +993,8 @@ v1.23.13
   - The enemy is blind to the player type if considering a poisoning effect move and the player just switched
   - 90.625% chance per damaging move that AI is blind to player type after player switches
     - Prevents situations where AI will always pick the ideal move against a switch-in
-	- 'Blind' in this case means the AI will act as if the move being considered has neutral effectiveness
-	- The AI might still favor a STAB move or a move that works better with its own stats
+    - 'Blind' in this case means the AI will act as if the move being considered has neutral effectiveness
+    - The AI might still favor a STAB move or a move that works better with its own stats
 
 - Trainer ai routine #4 is no longer unused. It now does rudimentary trainer switching.
   - 25% chance to switch if active pkmn is below 1/3 HP and player also outspeeds AI
@@ -1006,8 +1006,8 @@ v1.23.13
   - 25% chance to switch if active pkmn is confused
   - on the lowest stat mod, 12.5% chance to switch per lowered stage
   - There is a chance for the AI to switch a sleeping pokemon based on the sleep counter
-    -chance is 0% if counter <= 3
-	-chance is 12.5% if counter > 3
+    - chance is 0% if counter <= 3
+    - chance is 12.5% if counter > 3
   - Additionally, every pokemon in the enemy roster is scored 
     - based on various criteria to determine which mon gets sent out
 	- score might dictate that the current mon is the best choice and abort switching
@@ -1107,13 +1107,13 @@ v1.23.13
   - All rods have an expanded level range
   - Old rod can fish up two kinds of pokemon (depending on the current map constant value)
     - Magikarp or Goldeen
-	- Magikarp or Poliwag 
+    - Magikarp or Poliwag 
   - When using the old rod, press and hold B within about 1 second to always hook a magikarp
   - Good rod can fish up three or four kinds of pokemon (depending on the current map constant value)
     - Poliwag, Horsea, Krabby
-	- Poliwag, Krabby, Goldeen, Psyduck
-	- Goldeen, Psyduck, Shellder
-	- Goldeen, Shellder, Horsea, Tentacool
+    - Poliwag, Krabby, Goldeen, Psyduck
+    - Goldeen, Psyduck, Shellder
+    - Goldeen, Shellder, Horsea, Tentacool
   - The Route 12 Fishing Guru is now visitable upon first reaching Lavender Town
   - Swapped location of Good and Super Rod
 
@@ -1188,7 +1188,7 @@ v1.23.13
   - The counter increments only if a trapping effect move is selected to be used and it does not miss
   - After the counter has incremented to 2, 
     - selecting a trapping effect move additional times will make the move to go 2nd in the round 
-	- this is the same priority as the move Counter
+    - this is the same priority as the move Counter
   - The counter only gets reset by switching or using a move that does not have the trapping effect 
   - Reseting the counter will restore normal priority to trapping effect moves.
 - There is now an obedience level-cap that can be toggled in the options menu
@@ -1203,10 +1203,10 @@ v1.23.13
 #Quick Keys / Options / Menu-Related
 - Press SELECT on the option screen to change the audio type
 - Added built-in gamma shader for backlit LCD screens (press SELECT at the copyright screen)
-	- Gamma shader defaults ON if the destination code in the rom header is set to 00 (JP)
-	- Pressing SELECT at the copyright info now switches the shader from its default state
-	- The default state of the gamma shader can be changed with any gameboy rom header editor
-	- Alternately, remove the 'j' in 'cjsv' in the Makefile to compile with a JP destination code
+  - Gamma shader defaults ON if the destination code in the rom header is set to 00 (JP)
+  - Pressing SELECT at the copyright info now switches the shader from its default state
+  - The default state of the gamma shader can be changed with any gameboy rom header editor
+  - Alternately, remove the 'j' in 'cjsv' in the Makefile to compile with a JP destination code
 - Added an option to make the overworld run in 60fps
   - Place the cursor over CANCEL in the options screen and toggle by pressing left or right
   - This feature is more of a proof-of-concept and is still kinda rusty
@@ -1217,18 +1217,18 @@ v1.23.13
   - Sets money to at least 1000 if you have less than that
   - Instructions to perform:
     - go to the start menu and put the cursor on OPTION
-	- press and hold DOWN on the d-pad (the cursor will now be on EXIT)
-	- while continuing to hold DOWN, press and hold SELECT
-	- while continuing to hold those two buttons, press B
-	- the start menu should close and you will warp back to your mom's house
+    - press and hold DOWN on the d-pad (the cursor will now be on EXIT)
+    - while continuing to hold DOWN, press and hold SELECT
+    - while continuing to hold those two buttons, press B
+    - the start menu should close and you will warp back to your mom's house
 - Vanilla Options Reset 
   - Deactivates all special options (such as in preparation to update to a new patch)
   - Intructions to perform:
     - go to the start menu and put the cursor on the top option (usually POKEDEX)
-	- press and hold UP on the d-pad (the cursor will now be on EXIT)
-	- while continuing to hold UP, press and hold SELECT
-	- while continuing to hold those two buttons, press B
-	- the start menu should close and you will hear a jingle confirming that the option reset worked
+    - press and hold UP on the d-pad (the cursor will now be on EXIT)
+    - while continuing to hold UP, press and hold SELECT
+    - while continuing to hold those two buttons, press B
+    - the start menu should close and you will hear a jingle confirming that the option reset worked
 - Debug Damage Display: As a debugging cheat, damage values will be displayed in battle as the UI updates
   - Toggled on/off the same way as the softlock warp, but by using 'A' instead of 'B'
   - Zero damage is not displayed
@@ -1250,11 +1250,11 @@ v1.23.13
 - The bag now supports an additional item list for an extra 20 slots of space
   - Press START on the bag menu to hot-swap the item list that populates the active bag
     - Also works in battle
-	- Also works when depositing items in the PC
+    - Also works when depositing items in the PC
   - The game's systems will generally detect items in the non-active bag space
     - For example, you can enter the Cinnabar Gym even if the Secret Key is in the non-active bag space
   - Certain unique systems may only recognize the active bag's item list
-	- For example, the Pokemon Stadium games detect only the bag list that was active when last saved
+    - For example, the Pokemon Stadium games detect only the bag list that was active when last saved
 - The player's party 'mons now have temporary field move slots for HM moves
   - Each party 'mon has 1 slot separate from its regular move list
   - A field move in this slot can be used in the overworld as normal
@@ -1263,7 +1263,7 @@ v1.23.13
   - A slot is cleared when its 'mon leaves the party (such as being put in the PC)
   - In the case of a 'mon with 4 regular field moves:
     - The slotted temporary move cannot be menu-selected
-	- The slotted temporary move, if it's a HM move, can be used via quick-key
+    - The slotted temporary move, if it's a HM move, can be used via quick-key
   - Teaching a TM as a field move will not consume the TM
 
  
@@ -1333,9 +1333,9 @@ v1.23.13
   - This process clones your 1st spot pokemon and modifies it with DNA from your 2nd spot pokemon.  
   - It does this by treating a pokemon's two bytes of DV values as if they were two genes with two alleles each.  
     - Gene-A has the Attack DV as its hi-side allele and the Defense DV as its lo-side allele.  
-	- Gene-B has the Speed DV as its hi-side allele and the Special DV as its lo-side allele.  
-	- The A-genes from the two donor pokemon will be mixed to make the clone's A-gene.  
-	- The B-genes from the two donor pokemon will be mixed to make the clone's B-gene.  
+    - Gene-B has the Speed DV as its hi-side allele and the Special DV as its lo-side allele.  
+    - The A-genes from the two donor pokemon will be mixed to make the clone's A-gene.  
+    - The B-genes from the two donor pokemon will be mixed to make the clone's B-gene.  
   - Mixing two genes is done via Punnett Squares, and a random result is chosen based on its ratios.  
   - Within a Punnett quadrant, a hi allele makes the upper digits and a lo allele makes the lower digits.  
   - If two hi allels or two lo alleles fall within a Punnet quadrant, their order is randomly selected.  

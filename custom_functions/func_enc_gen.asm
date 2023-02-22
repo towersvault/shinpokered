@@ -305,9 +305,14 @@ RandomizeRegularTrainerMons:
 	push af
 	ld b, a
 	cp 30
-	jr c, .next
+	jr c, .check15
 	ld de, ListNonLegendUnEvoPkmn
 	srl b
+	jr .next
+.check15
+	cp 15
+	jr c, .next
+	ld de, ListNonLegendUnEvoPkmn_mid
 .next
 	srl b
 	srl b

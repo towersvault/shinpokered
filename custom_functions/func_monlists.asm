@@ -433,7 +433,7 @@ ListGameItems:
 	db $00
 
 
-ListNonLegendUnEvoPkmn:
+ListNonLegendUnEvoPkmn:			;lvl 30+
 	db LAPRAS
 	db TAUROS
 	db AERODACTYL
@@ -451,8 +451,13 @@ ListNonLegendUnEvoPkmn:
 	db MR_MIME
 	db RHYHORN
 	db LICKITUNG
-ListNonLegendUnEvoPkmn_early:
+ListNonLegendUnEvoPkmn_mid:		;lvl 15+
 	db ONIX
+	db GASTLY
+	db SLOWPOKE
+	db CUBONE
+	db MACHOP
+ListNonLegendUnEvoPkmn_early:	;any time
 	db PONYTA
 	db PORYGON
 	db KABUTO
@@ -471,15 +476,11 @@ ListNonLegendUnEvoPkmn_early:
 	db SEEL
 	db SHELLDER
 	db DODUO
-	db GASTLY
 	db GRIMER
-	db SLOWPOKE
 	db VOLTORB
 	db BELLSPROUT
-	db CUBONE
 	db GEODUDE
 	db HORSEA
-	db MACHOP
 	db MAGNEMITE
 	db MANKEY
 	db PIKACHU

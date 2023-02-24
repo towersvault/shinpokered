@@ -171,6 +171,18 @@ Route22Script2:
 	ld a, $f0
 	ld [wJoyIgnore], a
 	SetEvent EVENT_BEAT_ROUTE22_RIVAL_1ST_BATTLE
+	
+	;joenote - set more event flags to give more information
+	ld a, [wPartyCount]
+	cp 2
+	jr nc, .next1
+	SetEvent EVENT_01B
+	ld a, [wOptions]
+	bit BIT_BATTLE_HARD, a
+	jr z, .next1
+	SetEvent EVENT_01C
+.next1	
+	
 	ld a, $1
 	ld [hSpriteIndexOrTextID], a
 	call DisplayTextID

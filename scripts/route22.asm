@@ -173,9 +173,12 @@ Route22Script2:
 	SetEvent EVENT_BEAT_ROUTE22_RIVAL_1ST_BATTLE
 	
 	;joenote - set more event flags to give more information
+	CheckEvent EVENT_90C	;no need to solo if trainer scaling is turned on
+	jr nz, .next2
 	ld a, [wPartyCount]
 	cp 2
 	jr nc, .next1
+.next2
 	SetEvent EVENT_01B
 	ld a, [wOptions]
 	bit BIT_BATTLE_HARD, a

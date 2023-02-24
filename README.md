@@ -593,7 +593,9 @@ v1.23.13
 
 
 **Not in current patch** 
-- n/a
+- You can now get Oak's pokeballs even if you evolve your starter
+- Oak's pokeballs will be upgraded to great balls if you beat the route 22 rival in hard mode
+- If trainer scaling is on, you do not need to beat the 1st route 22 rival solo to get oak's pokeballs
 	
 	
 #Bugfixes
@@ -860,6 +862,7 @@ v1.23.13
   - Fixed NPCs treating the last visible screen column/row as off-screen
   - Slot machine no longer copies too much tile data
   - Fixed increment bug in CheckForTilePairCollisions
+  - You can now get Oak's pokeballs even if you evolve your starter
  
  
 #Tweaks
@@ -1168,6 +1171,7 @@ v1.23.13
     - Pokemon that evolve below level 30 will evolve at 4/3x the original level 
     - Pokemon that evolve >= level 30 will evolve at 8/7x the original level 
   - Gym leaders and the E4 scale slightly higher than normal trainers
+  - If trainer scaling is on, you do not need to beat the 1st route 22 rival solo to get oak's pokeballs
 - Playing on hard mode provides increased difficulty
   - Pressing RIGHT while the cursor is in the BATTLE STYLE box will toggle the feature on/off
   - Contrasting this, pressing LEFT will let you select a battle style without toggling difficulty
@@ -1179,6 +1183,7 @@ v1.23.13
   - Mewtwo will prevent you from using a master ball on it and use AI to choose moves
   - Non-link battles in hard mode use the Stadium 1 formulas for critical hit probability
   - Warning: The difficulty will be compounded if both trainer scaling and hard mode are active
+  - Oak's pokeballs will be upgraded to great balls if you beat the route 22 rival in hard mode
 - Added the Clause Brothers to Viridian City
   - They toggle enforcement of the item, sleep, and/or freeze clauses
   - The clauses apply to the player and AI equally, and only apply during non-link trainer battles

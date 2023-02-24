@@ -132,6 +132,7 @@
 - Enemy trainer level scaling biases the levels upwards for determining if a pokemon should be evolved
 - Strength hotkey requires facing a boulder to activate
 - Trapping moves no longer apply a speed penalty
+- If trainer scaling is on, you do not need to beat the 1st route 22 rival solo to get oak's pokeballs
 
 
 ---
@@ -152,6 +153,7 @@
   - Trainer stat exp has been re-scaled to be more realistic to attainable amounts per level
   - No longer gives an exp bonus
   - Critical hit chance in non-link battles use the Stadium 1 formula
+  - Oak's pokeballs will be upgraded to great balls if you beat the route 22 rival in hard mode
 
 - Vanilla Options Reset: Deactivates all special options (such as in preparation to update to a new patch)
   - go to the start menu and put the cursor on the top option (usually POKEDEX)
@@ -301,6 +303,7 @@
 
 - Minor code correction to Twineedle to prevent future errors 
 - Fixed an issue where the counter for the Disable effect had the wrong distribution if the target was slower
+- You can now get Oak's pokeballs even if you evolve your starter
 
 - Fixed a bug from the vanilla game where random NPC walk delay can underflow to 255 ticks
 - Fixed an offset bug with the lucky game corner machine

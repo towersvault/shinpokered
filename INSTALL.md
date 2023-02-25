@@ -112,13 +112,13 @@ If you want to compile and install **rgbds** yourself instead, then follow the [
 To download the **shinpokered master** branch source files:
 
 ```bash
-git clone https://github.com/jojobear13/shinpokered/ -b master --single-branch
+git clone https://github.com/jojobear13/shinpokered/ --branch master
 cd shinpokered
 ```
 To download the **shinpokered lite** branch source files:
 
 ```bash
-git clone https://github.com/jojobear13/shinpokered/ -b lite --single-branch
+git clone https://github.com/jojobear13/shinpokered/ --branch lite
 cd shinpokered
 ```
 

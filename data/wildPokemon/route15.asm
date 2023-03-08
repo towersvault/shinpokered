@@ -1,6 +1,6 @@
 Route15Mons:
 	db $0F
-	IF DEF(_RED)
+	IF DEF(_ENCRED)
 		db 24,ODDISH
 		db 26,DITTO
 		db 23,PIDGEY
@@ -11,7 +11,7 @@ Route15Mons:
 		db 30,GLOOM
 		db 28,PIDGEOTTO
 		db 30,PIDGEOTTO
-	ELIF DEF(_BLUEJP)
+	ELIF DEF(_ENCBLUEJP)
 		db 24, ODDISH
 		db 26, DITTO
 		db 23, PIDGEY
@@ -22,7 +22,7 @@ Route15Mons:
 		db 30, GLOOM
 		db 28, PIDGEOTTO
 		db 30, PIDGEOTTO
-	ELIF (DEF(_BLUE) || DEF(_GREEN))
+	ELIF DEF(_ENCBLUEGREEN)
 		db 24,BELLSPROUT
 		db 26,DITTO
 		db 23,PIDGEY

@@ -1,6 +1,6 @@
 MansionMons3:
 	db $0A
-	IF DEF(_RED)
+	IF DEF(_ENCRED)
 		db 31,KOFFING
 		db 33,GROWLITHE
 		db 35,KOFFING
@@ -11,7 +11,7 @@ MansionMons3:
 		db 38,WEEZING
 		db 36,PONYTA
 		db 42,MUK
-	ELIF DEF(_BLUEJP)
+	ELIF DEF(_ENCBLUEJP)
 		db 31, GRIMER
 		db 33, GROWLITHE
 		db 35, GRIMER
@@ -22,7 +22,7 @@ MansionMons3:
 		db 38, MUK
 		db 36, PONYTA
 		db 42, WEEZING
-	ELIF (DEF(_BLUE) || DEF(_GREEN))
+	ELIF DEF(_ENCBLUEGREEN)
 		db 31,GRIMER
 		db 33,VULPIX
 		db 35,GRIMER

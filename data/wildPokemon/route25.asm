@@ -1,6 +1,6 @@
 Route25Mons:;joenote - added charmander
 	db $0F
-	IF DEF(_RED)
+	IF DEF(_ENCRED)
 		db 8,WEEDLE
 		db 9,KAKUNA
 		db 13,PIDGEY
@@ -11,7 +11,7 @@ Route25Mons:;joenote - added charmander
 		db 7,METAPOD
 		db 10,CHARMANDER
 		db 8,CATERPIE
-	ELIF DEF(_BLUEJP)
+	ELIF DEF(_ENCBLUEJP)
 		db  8, CATERPIE
 		db  9, METAPOD
 		db 13, PIDGEY
@@ -22,7 +22,7 @@ Route25Mons:;joenote - added charmander
 		db  7, KAKUNA
 		db 10,CHARMANDER
 		db  8, WEEDLE
-	ELIF (DEF(_BLUE) || DEF(_GREEN))
+	ELIF DEF(_ENCBLUEGREEN)
 		db 8,CATERPIE
 		db 9,METAPOD
 		db 13,PIDGEY

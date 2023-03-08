@@ -1,6 +1,6 @@
 ForestMons:
 	db $08
-	IF DEF(_RED)
+	IF DEF(_ENCRED)
 		db 4,WEEDLE
 		db 5,KAKUNA
 		db 3,WEEDLE
@@ -9,7 +9,7 @@ ForestMons:
 		db 6,KAKUNA
 		db 4,METAPOD
 		db 3,CATERPIE
-	ELIF DEF(_BLUEJP)
+	ELIF DEF(_ENCBLUEJP)
 		db  4, CATERPIE
 		db  5, METAPOD
 		db  3, CATERPIE
@@ -18,7 +18,7 @@ ForestMons:
 		db  6, METAPOD
 		db  4, KAKUNA
 		db  3, WEEDLE
-	ELIF (DEF(_BLUE) || DEF(_GREEN))
+	ELIF DEF(_ENCBLUEGREEN)
 		db 4,CATERPIE
 		db 5,METAPOD
 		db 3,CATERPIE

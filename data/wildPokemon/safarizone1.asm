@@ -2,7 +2,7 @@ ZoneMons1:	;Safari Zone East
 ;joenote - added lickitung & tweaked encounter tables
 ;			-added kangaskhan to bluejp
 	db $1E
-	IF DEF(_RED)
+	IF DEF(_ENCRED)
 		db 24,NIDORAN_M
 		db 26,DODUO
 		db 22,PARAS
@@ -13,7 +13,7 @@ ZoneMons1:	;Safari Zone East
 		db 22,LICKITUNG
 		db 25,KANGASKHAN
 		db 25,PARASECT
-	ELIF DEF(_BLUEJP)
+	ELIF DEF(_ENCBLUEJP)
 		db 24, NIDORAN_M
 		db 26, DODUO
 		db 22, PARAS
@@ -24,7 +24,7 @@ ZoneMons1:	;Safari Zone East
 		db 22,KANGASKHAN
 		db 25, LICKITUNG
 		db 28, SCYTHER
-	ELIF (DEF(_BLUE) || DEF(_GREEN))
+	ELIF DEF(_ENCBLUEGREEN)
 		db 24,NIDORAN_F
 		db 26,DODUO
 		db 22,PARAS

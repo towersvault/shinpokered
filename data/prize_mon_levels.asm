@@ -1,6 +1,6 @@
 ;joenote - rebalanced prizes
 PrizeMonLevelDictionary:
-IF DEF(_RED)
+IF DEF(_ENCRED)
 	db ABRA,9
 	db CLEFAIRY,8
 	db NIDORINA,17
@@ -8,7 +8,7 @@ IF DEF(_RED)
 	db SCYTHER,22
 	db DRATINI,24
 	db PORYGON,26
-ELIF DEF(_BLUEJP)
+ELIF DEF(_ENCBLUEJP)
 	db ABRA,      8
 	db PIKACHU, 12
 	db HORSEA, 18
@@ -16,7 +16,7 @@ ELIF DEF(_BLUEJP)
 	db CLEFABLE,   24
 	db DRAGONAIR,  30
 	db PORYGON,  22
-ELIF (DEF(_BLUE) || DEF(_GREEN))
+ELIF DEF(_ENCBLUEGREEN)
 	db ABRA,6
 	db CLEFAIRY,12
 	db NIDORINO,17

@@ -1,6 +1,6 @@
 TradeMons:
 ; givemonster, getmonster, textstring, nickname (11 bytes), 14 bytes total
-IF DEF(_BLUEJP)
+IF DEF(_ENCBLUEJP)
 	db RHYDON,		KANGASKHAN,	0, "RODAN@@@@@@"
 	db JIGGLYPUFF,	MR_MIME,   	0, "MASARU@@@@@"
 	db BUTTERFREE,	BEEDRILL,  	2, "CHIKUCHIKU@";japanese onomatopoeia for a needle-like type of prickling pain

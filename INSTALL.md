@@ -128,10 +128,11 @@ To build **pokered.gbc** and **pokeblue.gbc** and **pokegreen.gbc**:
 make
 ```
 
-### Build with a local rgbds version
+Lol Nope. This is broken at the moment.  
+~~### Build with a local rgbds version~~
 
-If you have different projects that require different versions of `rgbds`, it might not be convenient to install rgbds 0.5.1 globally. Instead, you can put its files in a directory within shinpokered, such as `shinpokered/rgbds-0.5.1/`. Then specify it when you run `make`:
+~~If you have different projects that require different versions of `rgbds`, it might not be convenient to install rgbds 0.5.1 globally. Instead, you can put its files in a directory within shinpokered, such as `shinpokered/rgbds-0.5.1/`. Then specify it when you run `make`:~~
 
 ```bash
 make RGBDS=rgbds-0.5.1/
-```
+``` 

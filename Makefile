@@ -66,11 +66,12 @@ tidy:
 tools:
 	$(MAKE) -C tools/
 
+RGBASMFLAGS = -Weverything
 rgbdscheck.o: rgbdscheck.asm
 	$(RGBASM) -o $@ $<
 	
 
-RGBASMFLAGS = -h -l -Weverything
+RGBASMFLAGS += -h -l
 # -h makes it so that a nop instruction is NOT automatically added by the compiler after every halt instruction
 # -l automatically optimizes the ld instruction to ldh where applicable
 # -Weverything makes the compiler print all applicable warnings

@@ -66,6 +66,9 @@ tidy:
 tools:
 	$(MAKE) -C tools/
 
+rgbdscheck.o: rgbdscheck.asm
+	$(RGBASM) -o $@ $<
+	
 
 RGBASMFLAGS = -h -l -Weverything
 # -h makes it so that a nop instruction is NOT automatically added by the compiler after every halt instruction
@@ -119,9 +122,6 @@ $(pokeredjp_obj): 			RGBASMFLAGS += -D _RED -D _ENCRED -D _RGSPRITES -D _REDGREE
 $(pokebluejp_origback_obj): RGBASMFLAGS += -D _BLUE -D _ENCBLUEJP -D _BLUEJP -D _JPTXT -D _JPLOGO -D _METRIC -D _FPLAYER -D _MOVENPCS -D _RUNSHOES -D _EXPBAR 
 
 
-rgbdscheck.o: rgbdscheck.asm
-	$(RGBASM) -o $@ $<
-	
 # The dep rules have to be explicit or else missing files won't be reported.
 # As a side effect, they're evaluated immediately instead of when the rule is invoked.
 # It doesn't look like $(shell) can be deferred so there might not be a better way.

@@ -19,3 +19,4 @@
 *.ips binary
 *.gif binary
 *.bps binary
+*.dll binary

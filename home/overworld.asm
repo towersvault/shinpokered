@@ -2247,7 +2247,12 @@ CopyMapConnectionHeader::
 LoadMapData::
 	ld a, [H_LOADEDROMBANK]
 	push af
-	call DisableLCD
+
+;joenote - No need to disable/enable lcd. Pick a spare bit to use as a flag instead.
+;	call DisableLCD
+	ld hl, hFlagsFFFA
+	set 3, [hl]
+
 	ld a, $98
 	ld [wMapViewVRAMPointer + 1], a
 	xor a
@@ -2271,8 +2276,28 @@ LoadMapData::
 .vramCopyLoop
 	ld c, 20
 .vramCopyInnerLoop
+
+;joenote - loop until we're in a safe period to transfer to VRAM
+.waitForAccessibleVRAMLoop1
+	ld a, [rSTAT]
+	and %10 ; are we in HBlank or VBlank?
+	jr nz, .waitForAccessibleVRAMLoop1
+
+	;now write to VRAM
 	ld a, [hli]
 	ld [de], a
+	
+	;joenote - There are rare instances where the write happens just as you enter into the non-writeable Mode 3 Status.
+	;		- Check to see if we're in mode 3 right now. If so the last write didn't work. Go back and redo it.
+	ld a, [rSTAT]
+	and %11
+	cp 3
+	jr nz, .next
+	dec hl
+	dec e
+	inc c
+.next
+	
 	inc e
 	dec c
 	jr nz, .vramCopyInnerLoop
@@ -2286,7 +2311,12 @@ LoadMapData::
 	jr nz, .vramCopyLoop
 	ld a, $01
 	ld [wUpdateSpritesEnabled], a
-	call EnableLCD
+
+;joenote - No need to disable/enable lcd. Pick a spare bit to use as a flag instead.
+;	call EnableLCD
+	ld hl, hFlagsFFFA
+	res 3, [hl]
+
 	ld b, SET_PAL_OVERWORLD
 	call RunPaletteCommand
 	call LoadPlayerSpriteGraphics
@@ -2296,7 +2326,8 @@ LoadMapData::
 	ld a, [wFlags_D733]
 	bit 1, a
 	jr nz, .restoreRomBank
-	call UpdateMusic6Times
+;joenote - No longer needed since the LCD is not being turned off
+;	call UpdateMusic6Times
 	call PlayDefaultMusicFadeOutCurrent
 .restoreRomBank
 	pop af

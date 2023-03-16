@@ -330,6 +330,7 @@ hJoyInput EQU $FFF8
 hFlagsFFFA EQU $FFFA	;joenote - added for various uses
 ;bit 0 - PrepareOAMData and DMARoutine will not run in Vblank while this bit is set
 ;bit 1 - BGmap update functions will not run in Vblank while this bit is set
-;bit 2: this gets set to indicate that a sfx is playing while printing text
+;bit 2 - This gets set to indicate that a sfx is playing while printing text
+;bit 3 - Set this to write in CopyData function only when it is during h blank or vblank
 hRGB EQU $FFFB	; FFFC, FFFD	;3 bytes ;joenote - used to store color RGB color values for color correction
-hGBC EQU $FFFE ;gbcnote - 0 if DMG, != 0 if GBC, =2 for gamma shader
+hGBC EQU $FFFE ;gbcnote - 0 if DMG or SGB, != 0 if GBC, =2 for gamma shader

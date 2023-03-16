@@ -245,6 +245,7 @@
 - The move relearner and move deleter code is now tethered to the _MOVENPCS makefile tag
 - The running shoes code is now tethered to the _RUNSHOES makefile tag
 - Original flashing move animations from Red-JP and Green are tethered to the (unused) _JPFLASHING makefile tag
+- Version encounters, trades, and game corner prizes are now tied to their own dedicated assembler tags
 - The enemy trainer's HUD is now updated after it uses a healing item
 
 - Removed restore sfx from the AI x-accuracy item
@@ -274,6 +275,7 @@
 - Fixed a graphical bug on the naming screen that apears on cheapo flash carts
 - Fixed double-edge animation being off-center for the enemy pokemon
 - Fixed a wall in cerulean cave level 3 that violated the mapping rules so was walkable
+- Fixed the white flash on screen transitions when playing on GBC
 
 - The proper forget-move poof sfx plays during battle
 - Fixed a bug having to do with rare instances of bending the audio pitch
@@ -351,3 +353,4 @@
 - Restored the gray pokemon coloring used in red/blue/green versions if using red/blue/green-style front sprites.
 - Made the speed of japanese flashing animations more accurate to the original
 - Systems that generate above-average DVs now use a statistical bias instead of using 9,8,8,8 minimum
+- Updated installation instructions and RBGDS version checking

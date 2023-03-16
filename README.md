@@ -596,6 +596,7 @@ v1.23.13
 - You can now get Oak's pokeballs even if you evolve your starter
 - Oak's pokeballs will be upgraded to great balls if you beat the route 22 rival in hard mode
 - If trainer scaling is on, you do not need to beat the 1st route 22 rival solo to get oak's pokeballs
+- Fixed the white flash on screen transitions when playing on GBC
 	
 	
 #Bugfixes

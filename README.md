@@ -1671,6 +1671,7 @@ Shin Pokemon did do always-recharge at one point, but it was hated by *literally
 > **Why is there a brief white frame flash when the screen transitions on Gameboy Color?**
 
 It's a hardware quirk. There is a brief moment where the LCD is disabled. When it is re-enabled, the screen displays blank white for 1 frame.
+EDIT: I was able to remove the flash from map-loading transitions by removing its need for disabling the LCD.
 
 
 #Credits / Special Thanks

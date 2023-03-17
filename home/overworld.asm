@@ -2280,19 +2280,18 @@ LoadMapData::
 ;joenote - loop until we're in a safe period to transfer to VRAM
 .waitForAccessibleVRAMLoop1
 	ld a, [rSTAT]
-	and %10 ; are we in HBlank or VBlank?
+	and %11 ; are we in HBlank?
 	jr nz, .waitForAccessibleVRAMLoop1
 
 	;now write to VRAM
 	ld a, [hli]
 	ld [de], a
 	
-	;joenote - There are rare instances where the write happens just as you enter into the non-writeable Mode 3 Status.
-	;		- Check to see if we're in mode 3 right now. If so the last write didn't work. Go back and redo it.
+	;joenote - There are rare instances where the write happens just as you exit HBLANK
+	;		- Check to see if we're out of mode 0. If so, go back and redo the last write.
 	ld a, [rSTAT]
 	and %11
-	cp 3
-	jr nz, .next
+	jr z, .next
 	dec hl
 	dec e
 	inc c

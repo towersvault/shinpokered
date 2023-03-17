@@ -19,7 +19,7 @@ CopyData::
 	jr z, .next
 .waitForAccessibleVRAMLoop1
 	ld a, [rSTAT]
-	and %10 ; are we in HBlank or VBlank?
+	and %11 ; are we in HBlank?
 	jr nz, .waitForAccessibleVRAMLoop1 ; loop until we're in a safe period to transfer to VRAM	
 .next
 

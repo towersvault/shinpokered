@@ -276,6 +276,7 @@
 - Fixed double-edge animation being off-center for the enemy pokemon
 - Fixed a wall in cerulean cave level 3 that violated the mapping rules so was walkable
 - Fixed the white flash on screen transitions when playing on GBC
+- Improved the tile block replacement function (improves cinnabar gym lag)
 
 - The proper forget-move poof sfx plays during battle
 - Fixed a bug having to do with rare instances of bending the audio pitch

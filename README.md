@@ -597,6 +597,7 @@ v1.23.13
 - Oak's pokeballs will be upgraded to great balls if you beat the route 22 rival in hard mode
 - If trainer scaling is on, you do not need to beat the 1st route 22 rival solo to get oak's pokeballs
 - Fixed the white flash on screen transitions when playing on GBC
+- Improved the tile block replacement function (improves cinnabar gym lag)
 	
 	
 #Bugfixes

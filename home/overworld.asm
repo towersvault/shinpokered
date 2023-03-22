@@ -2247,12 +2247,6 @@ CopyMapConnectionHeader::
 LoadMapData::
 	ld a, [H_LOADEDROMBANK]
 	push af
-
-;joenote - No need to disable/enable lcd. Pick a spare bit to use as a flag instead.
-;	call DisableLCD
-	ld hl, hFlagsFFFA
-	set 3, [hl]
-
 	ld a, $98
 	ld [wMapViewVRAMPointer + 1], a
 	xor a
@@ -2265,6 +2259,12 @@ LoadMapData::
 	ld [wSpriteSetID], a
 	call LoadTextBoxTilePatterns
 	call LoadMapHeader
+
+;joenote - No need to disable/enable lcd. Pick a spare bit to use as a flag instead.
+;	call DisableLCD
+	ld hl, hFlagsFFFA
+	set 3, [hl]
+
 	callba InitMapSprites ; load tile pattern data for sprites
 	call LoadTileBlockMap
 	call LoadTilesetTilePatternData
@@ -2287,11 +2287,12 @@ LoadMapData::
 	ld a, [hli]
 	ld [de], a
 	
-	;joenote - There are rare instances where the write happens just as you exit HBLANK
-	;		- Check to see if we're out of mode 0. If so, go back and redo the last write.
+	;joenote - There are rare instances where the write happens and you accidentally overshot into mode 3.
+	;		- Check to see if we're in the invalid mode 3. If so, go back and redo the last write.
 	ld a, [rSTAT]
 	and %11
-	jr z, .next
+	cp 3
+	jr nz, .next
 	dec hl
 	dec e
 	inc c

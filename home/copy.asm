@@ -27,20 +27,6 @@ CopyData::
 	ld a, [hli]
 	ld [de], a
 
-	;joenote - There are rare instances where the write happens and you accidentally overshot into mode 3.
-	;		- Check to see if we're in the invalid mode 3. If so, go back and redo the last write.
-	ld a, [hFlagsFFFA]
-	bit 3, a
-	jr z, .next2
-	ld a, [rSTAT]
-	and %11
-	cp 3
-	jr nz, .next2
-	dec hl
-	dec de
-	inc bc
-.next2
-
 	inc de
 	dec bc
 	ld a, c

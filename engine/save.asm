@@ -59,22 +59,34 @@ LoadSAV0:
 	ld de, wPlayerName
 	ld bc, NAME_LENGTH
 	call CopyData
+
 	ld hl, sMainData
 	ld de, wMainDataStart
 	ld bc, wMainDataEnd - wMainDataStart
 	call CopyData
+
 	ld hl, wCurMapTileset
 	set 7, [hl]
+
 	ld hl, sSpriteData
 	ld de, wSpriteDataStart
 	ld bc, wSpriteDataEnd - wSpriteDataStart
 	call CopyData
+
 	ld a, [sTilesetType]
 	ld [hTilesetType], a
+	
+	;joenote - added to be consistent with changes to SaveSAVtoSRAM0
+	ld hl, wPartyDataStart
+	ld de, sPartyData
+	ld bc, wPartyDataEnd - wPartyDataStart
+	call CopyData
+
 	ld hl, sCurBoxData
 	ld de, wBoxDataStart
 	ld bc, wBoxDataEnd - wBoxDataStart
 	call CopyData
+
 	and a
 	jp SAVGoodChecksum
 
@@ -153,15 +165,15 @@ SaveSAV:
 	and a
 	ret nz
 .save
+	call SaveSAVtoSRAM
 	coord hl, 1, 13
 	lb bc, 4, 18
 	call ClearScreenArea
 	coord hl, 1, 14
 	ld de, NowSavingString
 	call PlaceString
-	ld c, 15
+	ld c, 20	;joenote - reduced delay
 	call DelayFrames
-	call SaveSAVtoSRAM		;joenote - moved where the save actually happens and reduced delay to 15 frames
 	ld hl, GameSavedText
 	call PrintText
 	ld a, SFX_SAVE
@@ -197,35 +209,46 @@ OlderFileWillBeErasedText:
 
 ;this is for saving almost all of the main game data
 ;but it does not save the party data (which is done by SaveSAVtoSRAM2)
-;joenote - make it save the party data in order to consolidate
+;it does not seem to be called by anything other than SaveSAVtoSRAM
+;joenote - make it save the party data in order to fix the 255 clone pokemon glitch
 SaveSAVtoSRAM0:
 	ld a, SRAM_ENABLE
 	ld [MBC1SRamEnable], a
 	ld a, $1
 	ld [MBC1SRamBankingMode], a
 	ld [MBC1SRamBank], a
+
 	ld hl, wPlayerName
 	ld de, sPlayerName
 	ld bc, NAME_LENGTH
 	call CopyData
+
 	ld hl, wMainDataStart
 	ld de, sMainData
 	ld bc, wMainDataEnd - wMainDataStart
 	call CopyData
+
 	ld hl, wSpriteDataStart
 	ld de, sSpriteData
 	ld bc, wSpriteDataEnd - wSpriteDataStart
 	call CopyData
+
+	;copying the party data here helps fix the 255 pokemon clone glitch
+	;this makes it so that all the data is copied
+	;without this, the checksum gets calculated on inconsistent party data
 	ld hl, wPartyDataStart
 	ld de, sPartyData
 	ld bc, wPartyDataEnd - wPartyDataStart
-	call CopyData	;copying the party data here helps fix the 255 pokemon clone glitch
+	call CopyData
+
 	ld hl, wBoxDataStart
 	ld de, sCurBoxData
 	ld bc, wBoxDataEnd - wBoxDataStart
 	call CopyData
+
 	ld a, [hTilesetType]
 	ld [sTilesetType], a
+
 	ld hl, sPlayerName
 	ld bc, sMainDataCheckSum - sPlayerName
 	call SAVCheckSum
@@ -235,18 +258,20 @@ SaveSAVtoSRAM0:
 	ld [MBC1SRamEnable], a
 	ret
 
-;this seems to not specifically be used by anything (unlike SaveSAVtoSRAM2)
+;This does not seem to be called by anything other than SaveSAVtoSRAM
+;It only saves box data, unlike SaveSAVtoSRAM0 which saves many more things
 SaveSAVtoSRAM1:
-; stored pokémon
 	ld a, SRAM_ENABLE
 	ld [MBC1SRamEnable], a
 	ld a, $1
 	ld [MBC1SRamBankingMode], a
 	ld [MBC1SRamBank], a
+
 	ld hl, wBoxDataStart
 	ld de, sCurBoxData
 	ld bc, wBoxDataEnd - wBoxDataStart
 	call CopyData
+
 	ld hl, sPlayerName
 	ld bc, sMainDataCheckSum - sPlayerName
 	call SAVCheckSum
@@ -256,21 +281,24 @@ SaveSAVtoSRAM1:
 	ld [MBC1SRamEnable], a
 	ret
 
-;this is specifically used in the cable club for saving the results of a trade
+;This is specifically used in the cable club for saving the results of a trade
 SaveSAVtoSRAM2:
 	ld a, SRAM_ENABLE
 	ld [MBC1SRamEnable], a
 	ld a, $1
 	ld [MBC1SRamBankingMode], a
 	ld [MBC1SRamBank], a
+
 	ld hl, wPartyDataStart
 	ld de, sPartyData
 	ld bc, wPartyDataEnd - wPartyDataStart
 	call CopyData
-	ld hl, wPokedexOwned ; pokédex only
+
+	ld hl, wPokedexOwned ; Only save the pokédex portion of the main data
 	ld de, sMainData
 	ld bc, wPokedexSeenEnd - wPokedexOwned
 	call CopyData
+
 	ld hl, sPlayerName
 	ld bc, sMainDataCheckSum - sPlayerName
 	call SAVCheckSum
@@ -280,13 +308,12 @@ SaveSAVtoSRAM2:
 	ld [MBC1SRamEnable], a
 	ret
 
-SaveSAVtoSRAM:	;joenote - saving all the data is now handled by SaveSAVtoSRAM0 in order to help maintain data integrity
+SaveSAVtoSRAM:
 	ld a, $2
 	ld [wSaveFileStatus], a
-;	call SaveSAVtoSRAM0
-;	call SaveSAVtoSRAM1
-;	jp SaveSAVtoSRAM2
-	jp SaveSAVtoSRAM0
+	call SaveSAVtoSRAM0
+	call SaveSAVtoSRAM1	;not needed since SaveSAVtoSRAM0 already saves the box data | left in as a redundancy
+	jp SaveSAVtoSRAM2	;not needed since SaveSAVtoSRAM0 saves full man data and now the party data | left in as a redundancy
 
 SAVCheckSum:
 ;Check Sum (result[1 byte] is complemented)

@@ -355,3 +355,4 @@
 - Made the speed of japanese flashing animations more accurate to the original
 - Systems that generate above-average DVs now use a statistical bias instead of using 9,8,8,8 minimum
 - Updated installation instructions and RBGDS version checking
+- Minor tweaks to saving/loading code

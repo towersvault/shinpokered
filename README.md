@@ -598,6 +598,7 @@ v1.23.13
 - If trainer scaling is on, you do not need to beat the 1st route 22 rival solo to get oak's pokeballs
 - Fixed the white flash on screen transitions when playing on GBC
 - Improved the tile block replacement function (improves cinnabar gym lag)
+- Minor tweaks to saving/loading code
 	
 	
 #Bugfixes

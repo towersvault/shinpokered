@@ -77,8 +77,8 @@ LoadSAV0:
 	ld [hTilesetType], a
 	
 	;joenote - added to be consistent with changes to SaveSAVtoSRAM0
-	ld hl, wPartyDataStart
-	ld de, sPartyData
+	ld hl, sPartyData
+	ld de, wPartyDataStart
 	ld bc, wPartyDataEnd - wPartyDataStart
 	call CopyData
 

@@ -17,6 +17,13 @@ PlayIntro:
 	ld [H_AUTOBGTRANSFERENABLED], a
 	call PlayShootingStar
 	call PlayIntroScene
+
+;credit Dracrius/pocketrgb-en/commit/04c4fc74344c35fcb5179a6509a73dd380a16d97
+IF DEF(_REDGREENJP) ; jp Red and Green hung on the hit for much longer before fading
+	ld c, 80
+	call DelayFrames
+ENDC
+
 	call GBFadeOutToWhite
 	xor a
 	ld [hSCX], a
@@ -50,7 +57,14 @@ ENDC
 	ld [hSCX], a
 	ld b, GENGAR_INTRO_TILES1
 	call IntroCopyTiles
+	
+;credit Dracrius/pocketrgb-en/commit/04c4fc74344c35fcb5179a6509a73dd380a16d97
+IF DEF(_REDGREENJP)
+	ld a, 8	; Nidorino is 8px further over than Jigglypuff in the JP Red and Green
+ELSE 
 	ld a, 0
+ENDC
+
 	ld [wBaseCoordX], a
 	ld a, 80
 	ld [wBaseCoordY], a

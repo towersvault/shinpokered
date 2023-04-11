@@ -599,6 +599,7 @@ v1.23.13
 - Fixed the white flash on screen transitions when playing on GBC
 - Improved the tile block replacement function (improves cinnabar gym lag)
 - Minor tweaks to saving/loading code
+- Adjusted intro and title screen and palettes slightly in JP red & green for accuracy
 	
 	
 #Bugfixes
@@ -1691,6 +1692,7 @@ EDIT: I was able to remove the flash from map-loading transitions by removing it
 - Poketto for the spaceworld-style Trainer Red back sprite
 - SPazzzi95 for documenting localization changes
 - easyaspi314 for optimizations to the gamma shader and wavy-line animation bugfix
+- Dracrius' pocketrgb-en project for finding corrections to jp-build inaccuracies
 
 The following folks for their great tutorials, glitch videos, and explanations across the internet
 - TheFakeMateo 

@@ -284,7 +284,14 @@ ENDC
 	
 ; Keep scrolling in new mons indefinitely until the user performs input.
 .awaitUserInterruptionLoop
+
+;credit Dracrius/pocketrgb-en/commit/04c4fc74344c35fcb5179a6509a73dd380a16d97
+IF DEF(_RGTITLE)	;Pokemon scroll fast in jp Red and Green
+	ld c, 255
+ELIF
 	ld c, 200
+ENDC
+
 	call CheckForUserInterruption
 	jr c, .finishedWaiting
 	call TitleScreenScrollInMon

@@ -212,6 +212,7 @@
 - Swapped a trade NPC to a gentleman in Green and RedJP
 - Restored the saucy innuendo for the Nugget bridge dialogue in the jp builds
 - Restored the religious text in the Pewter museum in the jp builds
+- Adjusted intro and title screen and palettes slightly in JP red & green for accuracy
 
 - Fixed pokemon category translation: "Rat" to "Mouse"
 - Fixed pokemon category translation: "Shellfish" to "Shell"

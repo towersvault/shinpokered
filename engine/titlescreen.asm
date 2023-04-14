@@ -288,7 +288,7 @@ ENDC
 ;credit Dracrius/pocketrgb-en/commit/04c4fc74344c35fcb5179a6509a73dd380a16d97
 IF DEF(_RGTITLE)	;Pokemon scroll fast in jp Red and Green
 	ld c, 255
-ELIF
+ELSE
 	ld c, 200
 ENDC
 

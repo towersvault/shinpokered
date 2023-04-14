@@ -1,6 +1,6 @@
 # Shin Pokémon Red, Blue, Green, Red-JP, & Blue-JP
 
-Version 1.23.13
+Version 1.23.14
 
 *Shin (真) - The kanji for "true".  
 Used in Japanese media to denote a remastering, updated retelling , or a "true form" of something.*  
@@ -592,7 +592,7 @@ v1.23.13
   - Reseting the counter will restore normal priority to trapping effect moves.
 
 
-**Not in current patch** 
+v1.23.14  
 - You can now get Oak's pokeballs even if you evolve your starter
 - Oak's pokeballs will be upgraded to great balls if you beat the route 22 rival in hard mode
 - If trainer scaling is on, you do not need to beat the 1st route 22 rival solo to get oak's pokeballs

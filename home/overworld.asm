@@ -2283,20 +2283,27 @@ LoadMapData::
 	and %11 ; are we in HBlank?
 	jr nz, .waitForAccessibleVRAMLoop1
 
+.write_vram
 	;now write to VRAM
-	ld a, [hli]
+	ld a, [hl]
 	ld [de], a
 	
-	;joenote - There are rare instances where the write happens and you accidentally overshot into mode 3.
-	;		- Check to see if we're in the invalid mode 3. If so, go back and redo the last write.
-	ld a, [rSTAT]
-	and %11
-	cp 3
-	jr nz, .next
-	dec hl
-	dec e
-	inc c
-.next
+;	;joenote - There are rare instances where the write happens and you accidentally overshot into mode 3.
+;	;		- Check to see if we're in the invalid mode 3. If so, go back and redo the last write.
+;	ld a, [rSTAT]
+;	and %11
+;	cp 3
+;	jr nz, .next
+;	dec hl
+;	dec e
+;	inc c
+;.next
+	
+	;joenote - make sure that the values between the source and destination match.
+	ld a, [de]
+	cp [hl]
+	jr nz, .write_vram
+	inc hl
 	
 	inc e
 	dec c

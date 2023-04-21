@@ -106,8 +106,28 @@ GetRandRoster3:	;3-mon party
 	ld de, ListNonMewPkmn
 	ld b, 3
 GetRandRosterLoop:
-	ld a, [wPartyMon1Level]
+	call GetHighestLevel
+
+	push bc
+	ld b, a
+	ld c, 4
+.calibrate1	;subtract 3 from the highest party level or make it zero if it underflows
+	ld a, b
+	dec c
+	sub c
+	jr c, .calibrate1
+	ld b, a	
+.calibrate2
+	call Random
+	and %11
+	add b	;add 0 to 3 to the adjusted highest party level
+	cp 2
+	jr c, .calibrate2	;do not allow the adjusted highest party level to be less than 2
+	pop bc
+	
+.loadbaselvl	
 	ld [wCurEnemyLVL], a
+
 .loop	
 	push bc
 	push de
@@ -140,17 +160,10 @@ GetRandRosterLoop:
 	xor a	;set the zero flag before returning
 	ret	
 
-	
 
-;implement a function to scale trainer levels
-ScaleTrainer:
-	CheckEvent EVENT_90C
-	ret z
-	push bc
-;	jr .getHighestLevel
-
-.getHighestLevel
+GetHighestLevel:	;gets the highest party level into A
 	push hl
+	push bc
 	ld hl, wStartBattleLevels
 	ld a, [wPartyCount]	;1 to 6
 	ld b, a	;use b for countdown
@@ -164,9 +177,19 @@ ScaleTrainer:
 	jr c, .loadHigher
 	jr .keepCurrent
 .highestLVLfound
+	pop bc
 	pop hl
-;	jr .backFromLVLCheck
+	ret
 	
+	
+;implement a function to scale trainer levels
+ScaleTrainer:
+	CheckEvent EVENT_90C
+	ret z
+	push bc
+
+	call GetHighestLevel
+
 .backFromLVLCheck
 	push af
 	ld a, [wCurEnemyLVL]

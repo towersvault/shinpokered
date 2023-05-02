@@ -190,6 +190,12 @@ SlidePlayerAndEnemySilhouettesOnScreen:
 	ld [hStartTileID], a
 	coord hl, 1, 5
 	predef CopyUncompressedPicToTilemap
+	
+;joenote - this fixes the bottom window disappearing for 1 frame when playing on a DMG gameboy
+	xor a
+	ld [hSCX], a
+	call Delay3
+	
 	xor a
 	ld [hWY], a
 	ld [rWY], a

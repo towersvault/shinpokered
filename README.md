@@ -600,7 +600,11 @@ v1.23.14
 - Improved the tile block replacement function (improves cinnabar gym lag)
 - Minor tweaks to saving/loading code
 - Adjusted intro and title screen and palettes slightly in JP red & green for accuracy
-	
+
+
+**Not in current patch**	
+- On battle slide-in, fixed the bottom window disappearing for 1 frame when playing on a DMG gameboy
+
 	
 #Bugfixes
 -----------
@@ -760,6 +764,7 @@ v1.23.14
   - Original flashing move animations from Red-JP and Green are tethered to the (unused) _JPFLASHING makefile tag  
   - The enemy trainer's HUD is now updated after it uses a healing item
   - Added optimizations to how OAM data is prepared so that overworld sprites wobble less
+  - On battle slide-in, fixed the bottom window disappearing for 1 frame when playing on a DMG gameboy
 
 
 - Item Fixes  

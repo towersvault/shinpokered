@@ -30,7 +30,7 @@ CopyData::
 	;joenote - make sure that the values between the source and destination match.
 	ld a, [de]
 	cp [hl]
-	jr nz, .write_vram
+	jr nz, .waitForAccessibleVRAMLoop1
 	inc hl
 	jr .next
 

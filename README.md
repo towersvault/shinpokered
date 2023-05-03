@@ -604,6 +604,7 @@ v1.23.14
 
 **Not in current patch**	
 - On battle slide-in, fixed the bottom window disappearing for 1 frame when playing on a DMG gameboy
+- Fixed the 1-frame white flash during battle transitions caused by LCD turning off
 
 	
 #Bugfixes
@@ -765,6 +766,7 @@ v1.23.14
   - The enemy trainer's HUD is now updated after it uses a healing item
   - Added optimizations to how OAM data is prepared so that overworld sprites wobble less
   - On battle slide-in, fixed the bottom window disappearing for 1 frame when playing on a DMG gameboy
+  - Fixed the 1-frame white flash during battle transitions caused by LCD turning off
 
 
 - Item Fixes  

@@ -279,6 +279,7 @@
 - Fixed the white flash on screen transitions when playing on GBC
 - Improved the tile block replacement function (improves cinnabar gym lag)
 - On battle slide-in, fixed the bottom window disappearing for 1 frame when playing on a DMG gameboy
+- Fixed the 1-frame white flash during battle transitions caused by LCD turning off
 
 - The proper forget-move poof sfx plays during battle
 - Fixed a bug having to do with rare instances of bending the audio pitch

@@ -105,12 +105,64 @@ SlidePlayerAndEnemySilhouettesOnScreen:
 	coord hl, 1, 5
 	lb bc, 3, 7
 	call ClearScreenArea
-	call DisableLCD
+
+	; call DisableLCD
+	; call LoadFontTilePatterns	;this can account for the LCD being on
+	; call LoadHudAndHpBarAndStatusTilePatterns	;this can account for the LCD being on
+	; ld hl, vBGMap0
+	; ld bc, $400
+; .clearBackgroundLoop
+	; ld a, " "
+	; ld [hli], a
+	; dec bc
+	; ld a, b
+	; or c
+	; jr nz, .clearBackgroundLoop
+; ; copy the work RAM tile map to VRAM
+	; coord hl, 0, 0
+	; ld de, vBGMap0
+	; ld b, 18 ; number of rows
+; .copyRowLoop
+	; ld c, 20 ; number of columns
+; .copyColumnLoop
+	; ld a, [hli]
+	; ld [de], a
+	; inc e
+	; dec c
+	; jr nz, .copyColumnLoop
+	; ld a, 12 ; number of off screen tiles to the right of screen in VRAM
+	; add e ; skip the off screen tiles
+	; ld e, a
+	; jr nc, .noCarry
+	; inc d
+; .noCarry
+	; dec b
+	; jr nz, .copyRowLoop
+	; call EnableLCD
+	
+;joenote - try to recode this so that the LCD does not need to be disabled and cause a white flash
 	call LoadFontTilePatterns	;this can account for the LCD being on
 	call LoadHudAndHpBarAndStatusTilePatterns	;this can account for the LCD being on
+	ld hl, hFlagsFFFA
+	set 3, [hl]
 	ld hl, vBGMap0
 	ld bc, $400
 .clearBackgroundLoop
+
+;joenote - loop until we're in a safe period to transfer to VRAM
+;wait if in mode 2 or mode 3
+;HBLANK length (mode 0) is highly variable. Worst case scenario is 21 cycles.
+;Can also write VRAM during OAM scan (mode 2) which is always 20 cycles.
+.waitMode3
+	ldh a, [rSTAT]		;read from stat register to get the mode
+	and %11				;4 cycles
+	cp 3				;4 cycles
+	jr nz, .waitMode3	;6 cycles to pass or 10 to loop
+.waitVRAM
+	ldh a, [rSTAT]		;2 cycles - read from stat register to get the mode
+	and %10				;4 cycles
+	jr nz, .waitVRAM	;6 cycles to pass or 10 to loop
+
 	ld a, " "
 	ld [hli], a
 	dec bc
@@ -121,14 +173,13 @@ SlidePlayerAndEnemySilhouettesOnScreen:
 	coord hl, 0, 0
 	ld de, vBGMap0
 	ld b, 18 ; number of rows
-.copyRowLoop
 	ld c, 20 ; number of columns
-.copyColumnLoop
-	ld a, [hli]
-	ld [de], a
-	inc e
-	dec c
-	jr nz, .copyColumnLoop
+.copyRowLoop
+	push bc
+	ld b, 0
+	call CopyData
+	pop bc
+	
 	ld a, 12 ; number of off screen tiles to the right of screen in VRAM
 	add e ; skip the off screen tiles
 	ld e, a
@@ -137,7 +188,10 @@ SlidePlayerAndEnemySilhouettesOnScreen:
 .noCarry
 	dec b
 	jr nz, .copyRowLoop
-	call EnableLCD
+	ld hl, hFlagsFFFA
+	res 3, [hl]
+
+
 	ld a, $90
 	ld [hWY], a
 	ld [rWY], a

@@ -21,6 +21,7 @@ CopyData::
 ;wait if in mode 2 or mode 3
 ;HBLANK length (mode 0) is highly variable. Worst case scenario is 21 cycles.
 ;Can also write VRAM during OAM scan (mode 2) which is always 20 cycles.
+;For more info about timing the HBLANK, see https://gbdev.io/guides/lyc_timing.html
 .waitMode3
 	ldh a, [rSTAT]		;read from stat register to get the mode
 	and %11				;4 cycles

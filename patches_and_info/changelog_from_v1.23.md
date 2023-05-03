@@ -276,10 +276,8 @@
 - Fixed a graphical bug on the naming screen that apears on cheapo flash carts
 - Fixed double-edge animation being off-center for the enemy pokemon
 - Fixed a wall in cerulean cave level 3 that violated the mapping rules so was walkable
-- Fixed the white flash on screen transitions when playing on GBC
 - Improved the tile block replacement function (improves cinnabar gym lag)
 - On battle slide-in, fixed the bottom window disappearing for 1 frame when playing on a DMG gameboy
-- Fixed the 1-frame white flash during battle transitions caused by LCD turning off
 
 - The proper forget-move poof sfx plays during battle
 - Fixed a bug having to do with rare instances of bending the audio pitch

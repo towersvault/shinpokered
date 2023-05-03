@@ -2261,9 +2261,11 @@ LoadMapData::
 	call LoadMapHeader
 
 ;joenote - No need to disable/enable lcd. Pick a spare bit to use as a flag instead.
-;	call DisableLCD
-	ld hl, hFlagsFFFA
-	set 3, [hl]
+	call DisableLCD
+	nop
+	nop	;debugging padding
+;	ld hl, hFlagsFFFA
+;	set 3, [hl]
 
 	callba InitMapSprites ; load tile pattern data for sprites
 	call LoadTileBlockMap
@@ -2273,31 +2275,14 @@ LoadMapData::
 	coord hl, 0, 0
 	ld de, vBGMap0
 	ld b, 18
-.vramCopyLoop
 	ld c, 20
-.vramCopyInnerLoop
+.vramCopyLoop
 
-;joenote - loop until we're in a safe period to transfer to VRAM
-;wait if in mode 2 or mode 3
-;HBLANK length (mode 0) is highly variable. Worst case scenario is 21 cycles.
-;Can also write VRAM during OAM scan (mode 2) which is always 20 cycles.
-.waitMode3
-	ldh a, [rSTAT]		;read from stat register to get the mode
-	and %11				;4 cycles
-	cp 3				;4 cycles
-	jr nz, .waitMode3	;6 cycles to pass or 10 to loop
-.waitVRAM
-	ldh a, [rSTAT]		;2 cycles - read from stat register to get the mode
-	and %10				;4 cycles
-	jr nz, .waitVRAM	;6 cycles to pass or 10 to loop
-; Copy bc bytes from hl to de.
-	ld a, [hli]			;4 cycles
-	ld [de], a			;2 cycles
+	push bc
+	ld b, 0
+	call CopyData
+	pop bc
 
-	
-	inc e
-	dec c
-	jr nz, .vramCopyInnerLoop
 	ld a, 32 - 20
 	add e
 	ld e, a
@@ -2310,9 +2295,11 @@ LoadMapData::
 	ld [wUpdateSpritesEnabled], a
 
 ;joenote - No need to disable/enable lcd. Pick a spare bit to use as a flag instead.
-;	call EnableLCD
-	ld hl, hFlagsFFFA
-	res 3, [hl]
+	call EnableLCD
+	nop
+	nop	;debugging padding
+;	ld hl, hFlagsFFFA
+;	res 3, [hl]
 
 	ld b, SET_PAL_OVERWORLD
 	call RunPaletteCommand

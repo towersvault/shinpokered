@@ -141,10 +141,11 @@ SlidePlayerAndEnemySilhouettesOnScreen:
 	; call EnableLCD
 	
 ;joenote - try to recode this so that the LCD does not need to be disabled and cause a white flash
+	call DisableLCD
 	call LoadFontTilePatterns	;this can account for the LCD being on
 	call LoadHudAndHpBarAndStatusTilePatterns	;this can account for the LCD being on
-	ld hl, hFlagsFFFA
-	set 3, [hl]
+;	ld hl, hFlagsFFFA
+;	set 3, [hl]
 	ld hl, vBGMap0
 	ld bc, $400
 .clearBackgroundLoop
@@ -153,15 +154,15 @@ SlidePlayerAndEnemySilhouettesOnScreen:
 ;wait if in mode 2 or mode 3
 ;HBLANK length (mode 0) is highly variable. Worst case scenario is 21 cycles.
 ;Can also write VRAM during OAM scan (mode 2) which is always 20 cycles.
-.waitMode3
-	ldh a, [rSTAT]		;read from stat register to get the mode
-	and %11				;4 cycles
-	cp 3				;4 cycles
-	jr nz, .waitMode3	;6 cycles to pass or 10 to loop
-.waitVRAM
-	ldh a, [rSTAT]		;2 cycles - read from stat register to get the mode
-	and %10				;4 cycles
-	jr nz, .waitVRAM	;6 cycles to pass or 10 to loop
+;.waitMode3
+;	ldh a, [rSTAT]		;read from stat register to get the mode
+;	and %11				;4 cycles
+;	cp 3				;4 cycles
+;	jr nz, .waitMode3	;6 cycles to pass or 10 to loop
+;.waitVRAM
+;	ldh a, [rSTAT]		;2 cycles - read from stat register to get the mode
+;	and %10				;4 cycles
+;	jr nz, .waitVRAM	;6 cycles to pass or 10 to loop
 
 	ld a, " "
 	ld [hli], a
@@ -188,9 +189,9 @@ SlidePlayerAndEnemySilhouettesOnScreen:
 .noCarry
 	dec b
 	jr nz, .copyRowLoop
-	ld hl, hFlagsFFFA
-	res 3, [hl]
-
+;	ld hl, hFlagsFFFA
+;	res 3, [hl]
+	call EnableLCD
 
 	ld a, $90
 	ld [hWY], a

@@ -331,6 +331,6 @@ hFlagsFFFA EQU $FFFA	;joenote - added for various uses
 ;bit 0 - PrepareOAMData and DMARoutine will not run in Vblank while this bit is set
 ;bit 1 - BGmap update functions will not run in Vblank while this bit is set
 ;bit 2 - This gets set to indicate that a sfx is playing while printing text
-;bit 3 - When set, the CopyData function will only copy when safe to do so for VRAM and then also verifies
+;bit 3 - When set, the CopyData function will only copy when safe to do so for VRAM
 hRGB EQU $FFFB	; FFFC, FFFD	;3 bytes ;joenote - used to store color RGB color values for color correction
 hGBC EQU $FFFE ;gbcnote - 0 if DMG or SGB, != 0 if GBC, =2 for gamma shader

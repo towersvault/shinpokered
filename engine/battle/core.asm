@@ -106,8 +106,8 @@ SlidePlayerAndEnemySilhouettesOnScreen:
 	lb bc, 3, 7
 	call ClearScreenArea
 	call DisableLCD
-	call LoadFontTilePatterns
-	call LoadHudAndHpBarAndStatusTilePatterns
+	call LoadFontTilePatterns	;this can account for the LCD being on
+	call LoadHudAndHpBarAndStatusTilePatterns	;this can account for the LCD being on
 	ld hl, vBGMap0
 	ld bc, $400
 .clearBackgroundLoop

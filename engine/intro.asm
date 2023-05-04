@@ -410,6 +410,17 @@ PlayShootingStar:
 	ld a, $02
 	sub b 	;A is now 01 for JP or 02 for !JP
 	ld [hGBC], a	;Toggle the shader state from the default
+	
+;	Play a SFX and print some tiles to confirm that it worked
+	coord hl, $12, $11
+	ld a, $7D
+	ld [hl], a
+	coord hl, $13, $11
+	ld a, $7E
+	ld [hl], a
+	ld a, SFX_SNARE_1
+	call PlaySound
+	
 	jr .endgammaloop
 
 .skipgamma	

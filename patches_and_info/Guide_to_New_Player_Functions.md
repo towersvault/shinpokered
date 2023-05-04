@@ -72,7 +72,9 @@ Of note, all wild pokemon DV combinations are now possible regardless of the cur
 This applies when playing or emulating as a Gameboy Color game.  
 It's assumed you are using a modern backlit screen with no other color correction.  
 Under these stated conditions, the colors will be highly saturated.  
-Press SELECT at the copyright screen when the game first boots. This will fix the saturated colors.  
+Press SELECT at the copyright screen when the game first boots (before the Gamefreak logo). 
+- A sfx will play and a symbol with appear at the bottom right to let you know that it worked.  
+- This will fix the saturated colors.  
 Changing the destination code of the rom header to 00 (JP) defaults this to ON and pressing SELECT turns it OFF.  
 Use the Gameboy Rom Analyzer to change the destination code (https://www.romhacking.net/utilities/1343/).  
 Or use the BGB emulator to easily change the destination code and fix the header checksum (https://youtu.be/2AaCkM597iU?t=70).  

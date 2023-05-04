@@ -605,6 +605,7 @@ v1.23.14
 **Not in current patch**	
 - On battle slide-in, fixed the bottom window disappearing for 1 frame when playing on a DMG gameboy
 - Undo the fix for disabling the LCD during LoadMapData since it creates about 250ms of lag
+- Added a sfx and symbol for the color correction
 
 	
 #Bugfixes

@@ -107,12 +107,19 @@ NOT_VBLANKED EQU 1
 	
 	xor a
 	ld [wDelayFrameBank], a
+	
+	ld a, [rLCDC]
+	bit 7, a
+	jr z, .lcd_off
 .halt
 	halt
 	nop	;joenote - due to a processor bug, nop after halt is best practice
 	ld a, [H_VBLANKOCCURRED]
 	and a
 	jr nz, .halt
+	ret
+.lcd_off	;You will never enter the vblank interrupt if the LCD is disabled, so call it manually
+	call VBlank
 	ret
 
 home_PrepareOAMData::

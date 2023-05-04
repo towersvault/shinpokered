@@ -140,7 +140,7 @@ SlidePlayerAndEnemySilhouettesOnScreen:
 	; jr nz, .copyRowLoop
 	; call EnableLCD
 	
-;joenote - try to recode this so that the LCD does not need to be disabled and cause a white flash
+;joenote - try to recode this to give a little more control over things
 	call DisableLCD
 	call LoadFontTilePatterns	;this can account for the LCD being on
 	call LoadHudAndHpBarAndStatusTilePatterns	;this can account for the LCD being on
@@ -189,9 +189,6 @@ SlidePlayerAndEnemySilhouettesOnScreen:
 .noCarry
 	dec b
 	jr nz, .copyRowLoop
-;	ld hl, hFlagsFFFA
-;	res 3, [hl]
-	call EnableLCD
 
 	ld a, $90
 	ld [hWY], a
@@ -216,6 +213,11 @@ SlidePlayerAndEnemySilhouettesOnScreen:
 	ld [rOBP1], a
 	call UpdateGBCPal_OBP0
 	call UpdateGBCPal_OBP1
+
+	call EnableLCD	;joenote - re-enable the LCD way down here where the battle screen is ready to go
+;	ld hl, hFlagsFFFA
+;	res 3, [hl]
+
 .slideSilhouettesLoop ; slide silhouettes of the player's pic and the enemy's pic onto the screen
 	ld h, b
 	ld l, $40

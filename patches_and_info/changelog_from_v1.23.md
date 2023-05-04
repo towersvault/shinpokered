@@ -177,6 +177,8 @@
   
 - Added optimizations to how OAM data is prepared so that overworld sprites wobble less
 
+- DelayFrame now manualy calls VBlank if it runs while the LCD is disabled
+
 - Added rom hack version tracking for save files
   - It's a single byte in the save file that gets incremented each version
   - If the save byte does not match, the player is automatically warped back to Pallet Town
@@ -278,6 +280,7 @@
 - Fixed a wall in cerulean cave level 3 that violated the mapping rules so was walkable
 - Improved the tile block replacement function (improves cinnabar gym lag)
 - On battle slide-in, fixed the bottom window disappearing for 1 frame when playing on a DMG gameboy
+- White 1-frame flash on battle load (affecting DMG and GBC modes) as been removed
 
 - The proper forget-move poof sfx plays during battle
 - Fixed a bug having to do with rare instances of bending the audio pitch

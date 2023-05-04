@@ -418,7 +418,7 @@ HandshakeList:
 	db $a
 	db $ff
 VersionText:
-	db "v1.23.14M0504230203@"
+	db "v1.23.14M0504230336@"
 
 WhereWouldYouLikeText:
 	TX_FAR _WhereWouldYouLikeText

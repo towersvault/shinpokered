@@ -606,6 +606,8 @@ v1.23.14
 - On battle slide-in, fixed the bottom window disappearing for 1 frame when playing on a DMG gameboy
 - Undo the fix for disabling the LCD during LoadMapData since it creates about 250ms of lag
 - Added a sfx and symbol for the color correction
+- DelayFrame now manualy calls VBlank if it runs while the LCD is disabled
+- White 1-frame flash on battle load (affecting DMG and GBC modes) as been removed
 
 	
 #Bugfixes
@@ -767,6 +769,7 @@ v1.23.14
   - The enemy trainer's HUD is now updated after it uses a healing item
   - Added optimizations to how OAM data is prepared so that overworld sprites wobble less
   - On battle slide-in, fixed the 1-frame flicker when playing on a DMG gameboy
+  - White 1-frame flash on battle load (affecting DMG and GBC modes) as been removed
 
 
 - Item Fixes  
@@ -1116,6 +1119,7 @@ v1.23.14
   - Added an error trap to _Divide function for divide-by-zero calls
   - Withdrawing or depositing a key item from/to the player's PC will default its quantity to 1
   - Item evolutions having a level requirement is now supported
+  - DelayFrame now manualy calls VBlank if it runs while the LCD is disabled
 
 - Changes to fishing
   - All rods have an expanded level range

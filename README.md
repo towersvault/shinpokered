@@ -608,6 +608,7 @@ v1.23.14
 - Added a sfx and symbol for the color correction
 - DelayFrame now manualy calls VBlank if it runs while the LCD is disabled
 - White 1-frame flash on battle load (affecting DMG and GBC modes) as been removed
+- White 1-frame flash on map load (affecting DMG and GBC modes) as been removed
 
 	
 #Bugfixes
@@ -770,6 +771,7 @@ v1.23.14
   - Added optimizations to how OAM data is prepared so that overworld sprites wobble less
   - On battle slide-in, fixed the 1-frame flicker when playing on a DMG gameboy
   - White 1-frame flash on battle load (affecting DMG and GBC modes) as been removed
+  - White 1-frame flash on map load (affecting DMG and GBC modes) as been removed
 
 
 - Item Fixes  
@@ -1682,9 +1684,10 @@ Bide is a crummy move, but it gains a little more strategy in Shin Pokemon. This
 
 Shin Pokemon did do always-recharge at one point, but it was hated by *literally every player*. Removing recharge on a miss was done as a compromise.
 
-> **Why is there a brief white frame flash when the screen transitions on Gameboy Color?**
+> **Why is there a brief white frame flash when the screen transitions on Gameboy or Gameboy Color?**
 
-It's a hardware quirk. There is a brief moment where the LCD is disabled. When it is re-enabled, the screen displays blank white for 1 frame.
+It's a hardware quirk. There is a brief moment where the LCD is disabled. When it is re-enabled, the screen displays blank white for 1 frame. The LCD gets disabled because it allows writing to VRAM at any time.  
+EDIT: I believe I've found a workaround by writing to VRAM during the HBLANK and VBLANK periods. The timing is a little tricky.
 
 
 #Credits / Special Thanks

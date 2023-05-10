@@ -154,6 +154,7 @@
   - No longer gives an exp bonus
   - Critical hit chance in non-link battles use the Stadium 1 formula
   - Oak's pokeballs will be upgraded to great balls if you beat the route 22 rival in hard mode
+  - Wild pokemon DVs get 1 re-roll each if less than 4, biasing them upwards a little bit
 
 - Vanilla Options Reset: Deactivates all special options (such as in preparation to update to a new patch)
   - go to the start menu and put the cursor on the top option (usually POKEDEX)

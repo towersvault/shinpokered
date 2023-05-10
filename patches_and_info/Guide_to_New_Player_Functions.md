@@ -168,6 +168,7 @@ Playing in hard mode imposes several changes to the game's systems that increase
 5 - Revive items can only be used outside of battle.  
 6 - Wild Mewtwo uses trainer AI to choose its moves, and it also blocks you from using a Master Ball.  
 7 - Non-link battles in hard mode use the Stadium 1 formulas for critical hit probability.  
+8 - Wild pokemon DVs get 1 re-roll each if less than 4, biasing them upwards a little bit
 Warning - The difficulty will be compounded if both trainer scaling and hard mode are active.  
 
 **Scale Enemy Trainer Levels**  

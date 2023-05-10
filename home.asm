@@ -4733,7 +4733,18 @@ Random_BiasDV::
 	pop de
 	pop hl
 	ret
-
+Random_DV::
+; Return a random number 0-15 in A and B with a adjustments for being a wild pokemon DV
+	push hl
+	push de
+	push bc
+	callba _Random_DV
+	pop bc
+	ld b, e
+	ld a, d
+	pop de
+	pop hl
+	ret
 
 StatModifierRatios:
 ; first byte is numerator, second byte is denominator

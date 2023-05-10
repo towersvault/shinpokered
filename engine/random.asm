@@ -127,8 +127,55 @@ _Random_BiasDV::
 	
 	ret
 	
+_Random_DV::	;generates four 0 to 15 DVs in DE, and rerolls 1 time for each DV below the value placed in L
+	ld l, 0
 	
+	ld a, [wOptions]	;load game options
+	bit BIT_BATTLE_HARD, a			;check for hard mode
+	jr z, .begin	;if in hard mode, bias the DV upwards a little bit
+	ld l, 4
 	
+.begin
+	ld c, 4
+.loop
+	call Random
+	ld b, a
+	and $0F
+	cp l
+	jr nc, .next
+	swap b
+.next
+	ld a, b
+	push af
+	dec c
+	jr nz, .loop
+
+	ld de, $0000
+
+	pop af
+	and $0F
+	swap a
+	or d
+	ld d, a
+
+	pop af
+	and $0F
+	or d
+	ld d, a
+
+	pop af
+	and $0F
+	swap a
+	or e
+	ld e, a
+
+	pop af
+	and $0F
+	or e
+	ld e, a
+	
+	ret
+
 	
 	
 	

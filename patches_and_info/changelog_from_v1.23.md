@@ -70,6 +70,10 @@
   - This catch rate makes it hold a gorgeous box if transferred to Gen 2
   - Likewise, a dragonite holding a gorgeous box can learn fly if transferred into this rom hack
 
+- Implemented the old Down+B urban legend for pokeballs as a cheat code
+  - The timing is different. You have to hold Down+B before the "[PLAYER] used [ITEM]" text finishes printing.
+  - If successful, the ball tossed will be twice as effective as normal
+
 - Scaled back fishing, reduced its randomness, and made it more map-dependent
 - When using the old rod, press and hold B within about 1 second to always hook a magikarp
 

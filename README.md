@@ -262,6 +262,7 @@ Cheats and Secrets!
 - New Super Boss: Do you dare to activate Missingno at the Cinnabar shore? Only if you got your 'dex diploma.
 - New Super Boss: Missingno not hard enough for you? Try activating it at the infamous Seafoam shore!
 - The SS Anne has a post-game tournament. Try winning with a pikachu in your party.
+- And several others!
 
 
 #Compatibility Notes
@@ -610,6 +611,9 @@ v1.23.14
 - White 1-frame flash on battle load (affecting DMG and GBC modes) as been removed
 - White 1-frame flash on map load (affecting DMG and GBC modes) as been removed
 - In hard mode, wild pokemon DVs get 1 re-roll each if less than 4, biasing them upwards a little bit
+- Implemented the old Down+B urban legend for pokeballs as a cheat code
+  - The timing is different. You have to hold Down+B before the "[PLAYER] used [ITEM]" text finishes printing.
+  - If successful, the ball tossed will be twice as effective as normal
 
 	
 #Bugfixes
@@ -1476,6 +1480,9 @@ v1.23.14
   - If defeated, it will set a non-key item in the sixth bag slot to a quantity of 99
   - Win or lose, you must do the "Old Man" process again to reactivate the encounter
   - For an even harder battle, try using the eastern shore of the seafoam islands
+- Implemented the old Down+B urban legend for pokeballs as a cheat code
+  - The timing is different. You have to hold Down+B before the "[PLAYER] used [ITEM]" text finishes printing.
+  - If successful, the ball tossed will be twice as effective as normal
 
 </details>
 

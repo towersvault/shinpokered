@@ -208,7 +208,7 @@ ItemUseBall:
 .loop
 	call Random
 	ld b, a
-
+	
 ; Get the item ID.
 	ld hl, wcf91
 	ld a, [hl]
@@ -262,6 +262,9 @@ ItemUseBall:
 	jr c, .loop
 
 .checkForAilments
+
+	call .ballcheat
+
 ; Pokémon can be caught more easily with a status ailment.
 ; Depending on the status ailment, a certain value will be subtracted from
 ; Rand1. Let this value be called Status.
@@ -302,8 +305,8 @@ ItemUseBall:
 	ld a, [wcf91]
 	;cp GREAT_BALL
 	cp SAFARI_BALL ;joenote - great balls now have factor of 12 and safari balls now have factor of 8
-	ld a, 12
-	jr nz, .skip1
+	ld a, 12		; This is because a lower ball factor helps catch pokemon that have fuller HP
+	jr nz, .skip1	; So this was probably intended for the safari zone since pokemon there can't be weakened
 	ld a, 8
 
 .skip1
@@ -360,6 +363,9 @@ ItemUseBall:
 
 ; If Rand2 > X, the ball fails to capture the Pokémon.
 	ld b, a
+	
+	call .ballcheat
+	
 	ld a, [H_QUOTIENT + 3]
 	cp b
 	jr c, .failedToCapture
@@ -655,6 +661,16 @@ ItemUseBall:
 	inc a
 	ld [wItemQuantity], a
 	jp RemoveItemFromInventory
+
+.ballcheat
+;joenote - let's add in an old urban legend as a cheat code
+	ld a, [hJoyHeld]
+	and B_BUTTON + D_DOWN
+	cp B_BUTTON + D_DOWN
+	ret nz
+	srl b	;halve the randomly generated number in order to double the ball's effectiveness
+	ret
+
 
 ItemUseBallText00:
 ;"It dodged the thrown ball!"

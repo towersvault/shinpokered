@@ -615,6 +615,7 @@ v1.23.14
   - The timing is different. You have to hold Down+B before the "[PLAYER] used [ITEM]" text finishes printing.
   - If successful, the ball tossed will be twice as effective as normal
 - Fixed garbage tiles display for 1 frame after a battle on the DMG
+- The silhouette effect at the start of battle now displays when playing on a DMG gameboy
 
 	
 #Bugfixes
@@ -1323,6 +1324,7 @@ v1.23.14
 - Oak's aid at the bottom-left of the lab toggles the caught & gender symbols after obtaining the pokedex
 - Red & Blue versions use the back sprites from spaceworld 97 so as to be cohesive with the front sprites
 - Added spaceworld-style trainer back sprites for consistency with the spaceworld 'mon back sprites 
+- The silhouette effect at the start of battle now displays when playing on a DMG gameboy
 
 
 #Pre-E4 NPCs

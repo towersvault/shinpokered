@@ -80,6 +80,8 @@
 - Added spaceworld-style trainer back sprites for consistency with the spaceworld 'mon back sprites 
 - Blue-JP has spaceworld-style back sprites, and a corresponding _origback patch has been added
 
+- The silhouette effect at the start of battle now displays when playing on a DMG gameboy
+
 - Recalibrated the experience gain at the daycare
 - the daycare lets you select moves to forget (if any) upon retreiving your pokemon
 - Retrieving a daycare pokemon that could have evolved via level will trigger evolution and learn any missed-out moves

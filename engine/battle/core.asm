@@ -207,7 +207,13 @@ SlidePlayerAndEnemySilhouettesOnScreen:
 	ld [hSCX], a
 	call DelayFrame
 	call DelayFrame	;joenote - do one extra frame to make sure the screen can update.
-	ld a, %11100100 ; inverted palette for silhouette effect
+; inverted palette for silhouette effect
+	ld a, [wOnSGB]
+	and a
+	ldPal a, BLACK, BLACK, BLACK, WHITE	;joenote - add the silhouette when playing on the DMG
+	jr z, .silhouette
+	ldPal a, BLACK, DARK_GRAY, LIGHT_GRAY, WHITE
+.silhouette
 	ld [rBGP], a
 	ld [rOBP0], a
 	ld [rOBP1], a
@@ -258,6 +264,13 @@ SlidePlayerAndEnemySilhouettesOnScreen:
 	ld [rWY], a
 	inc a
 	ld [H_AUTOBGTRANSFERENABLED], a
+
+	;joenote - restore proper palette if playing on DMG
+	ldPal a, BLACK, DARK_GRAY, LIGHT_GRAY, WHITE
+	ld [rBGP], a
+	ld [rOBP0], a
+	ld [rOBP1], a
+
 	call Delay3
 	ld b, SET_PAL_BATTLE
 	call RunPaletteCommand

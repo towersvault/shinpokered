@@ -614,6 +614,7 @@ v1.23.14
 - Implemented the old Down+B urban legend for pokeballs as a cheat code
   - The timing is different. You have to hold Down+B before the "[PLAYER] used [ITEM]" text finishes printing.
   - If successful, the ball tossed will be twice as effective as normal
+- Fixed garbage tiles display for 1 frame after a battle on the DMG
 
 	
 #Bugfixes
@@ -777,6 +778,7 @@ v1.23.14
   - On battle slide-in, fixed the 1-frame flicker when playing on a DMG gameboy
   - White 1-frame flash on battle load (affecting DMG and GBC modes) as been removed
   - White 1-frame flash on map load (affecting DMG and GBC modes) as been removed
+  - Fixed garbage tiles display for 1 frame after a battle on the DMG
 
 
 - Item Fixes  

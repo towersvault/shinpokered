@@ -635,6 +635,7 @@ ExtraWarpCheck::
 	jp Bankswitch
 
 MapEntryAfterBattle::
+	call DelayFrame	;joenote - delay 1 frame to clear out the garbage tiles when playing on the DMG
 	callba IsPlayerStandingOnWarp ; for enabling warp testing after collisions
 	ld a, [wMapPalOffset]
 	and a

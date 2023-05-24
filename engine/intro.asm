@@ -17,13 +17,6 @@ PlayIntro:
 	ld [H_AUTOBGTRANSFERENABLED], a
 	call PlayShootingStar
 	call PlayIntroScene
-
-;credit Dracrius/pocketrgb-en/commit/04c4fc74344c35fcb5179a6509a73dd380a16d97
-IF DEF(_REDGREENJP) ; jp Red and Green hung on the hit for much longer before fading
-	ld c, 80
-	call DelayFrames
-ENDC
-
 	call GBFadeOutToWhite
 	xor a
 	ld [hSCX], a
@@ -201,7 +194,7 @@ ENDC
 	ld de, IntroNidorinoAnimation7
 IF DEF(_REDGREENJP)	;redjp and green have a delay after the leap for some reason
 	call AnimateIntroNidorino
-	ld c, $40
+	ld c, 80
 	call DelayFrames
 	ret
 ELSE

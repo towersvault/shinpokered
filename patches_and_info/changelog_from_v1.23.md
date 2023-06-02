@@ -333,6 +333,8 @@
 - Viridian gym statue will not spoil the gym leader's name reveal
 - Fixed increment bug in CheckForTilePairCollisions
 - Fixed inaccurate text when getting the rock slide TM
+- Fixed the tiles in Mt. Moon floor 3 that prevent encounters
+- Fixed picking a fossil causing all trainers on Mt. Moon floor 3 to lose line of sight
 
 
 ---

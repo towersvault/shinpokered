@@ -106,6 +106,9 @@ Gamma Shader for LCD Screens (Left image is Off / Right image is On)
 ![Shader On](/screenshots/bgb00036.bmp?raw=true)
 
 **Stats for Nerds**  
+<dvstats>
+  <summary>Click to Show/Hide DV Stats</summary>
+
 Consecutive calls to the RNG function were performed in order to fill the memory with 8192 bytes of RNG data.  
 These bytes were dumped and then then parsed into nybbles in order to simulate random DV values for pokemon.  
 The following are histograms and statistical information on the various ways this project generates DVs.  
@@ -119,6 +122,8 @@ Hard mode wild pokemon DVs
 
 Hard mode trainer DVs  
 ![Standard](/screenshots/hard_mode_trainer_DVs.PNG?raw=true)
+
+</dvstats>
 
 </details>
 

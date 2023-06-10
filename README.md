@@ -640,8 +640,8 @@ v1.23.15
 - Fixed picking a fossil causing all trainers on Mt. Moon floor 3 to lose line of sight
 
 	
-**Not in current patch**	
--
+*Not in current patch*	
+- N/A
 
 
 #Bugfixes

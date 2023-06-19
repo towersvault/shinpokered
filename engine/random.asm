@@ -136,41 +136,82 @@ _Random_DV::	;generates four 0 to 15 DVs in DE, and rerolls 1 time for each DV b
 	ld l, 4
 	
 .begin
-	ld c, 4
-.loop
 	call Random
-	ld b, a
-	and $0F
-	cp l
-	jr nc, .next
-	swap b
-.next
-	ld a, b
-	push af
-	dec c
-	jr nz, .loop
-
-	ld de, $0000
-
-	pop af
-	and $0F
-	swap a
-	or d
 	ld d, a
-
-	pop af
-	and $0F
-	or d
-	ld d, a
-
-	pop af
-	and $0F
-	swap a
-	or e
+	call Random
 	ld e, a
+	
+	ld a, l
+	and a
+	ret z
+	
+	ld bc, $FFFF
+	
+	;check atk dv
+	ld a, d
+	swap a
+	and $F
+	cp l
+	jr nc, .atkdone
+	ld a, $0F
+	and b
+	ld b, a
+.atkdone
+	
+	;check def dv
+	ld a, d
+	and $F
+	cp l
+	jr nc, .defdone
+	ld a, $F0
+	and b
+	ld b, a
+.defdone
 
-	pop af
-	and $0F
+	;check spd dv
+	ld a, e
+	swap a
+	and $F
+	cp l
+	jr nc, .spddone
+	ld a, $0F
+	and c
+	ld c, a
+.spddone
+	
+	;check spe dv
+	ld a, e
+	and $F
+	cp l
+	jr nc, .spedone
+	ld a, $F0
+	and c
+	ld c, a
+.spedone
+
+	;mask out DVs less than L
+	ld a, d
+	and b
+	ld d, a
+	ld a, e
+	and c
+	ld e, a
+	
+	;invert the mask
+	ld a, b
+	xor $FF
+	ld b, a
+	ld a, c
+	xor $FF
+	ld c, a
+	
+	;Get replacement DVs
+	call Random
+	and b
+	or d
+	ld d, a
+	call Random
+	and c
 	or e
 	ld e, a
 	

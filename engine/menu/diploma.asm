@@ -7,6 +7,7 @@ DisplayDiploma:
 	ld hl, wd730
 	set 6, [hl]
 	call DisableLCD
+	call DelayFrame	;joenote - the overworld sprite wobble fix makes the player sprites hidden unless a delay is added
 	ld hl, CircleTile
 	ld de, vChars2 + $700
 	ld bc, $0010

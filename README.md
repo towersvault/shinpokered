@@ -641,7 +641,7 @@ v1.23.15
 
 	
 *Not in current patch*	
-- N/A
+- Fixed an underflow issue which caused trainers above the player to not see beyond 3 spaces downward
 
 
 #Bugfixes
@@ -915,6 +915,7 @@ v1.23.15
   - You can now get Oak's pokeballs even if you evolve your starter
   - Fixed the tiles in Mt. Moon floor 3 that prevent encounters
   - Fixed picking a fossil causing all trainers on Mt. Moon floor 3 to lose line of sight
+  - Fixed an underflow issue which caused trainers above the player to not see beyond 3 spaces downward
  
  
 #Tweaks

@@ -88,9 +88,19 @@ TrainerWalkUpToPlayer:
 	jr z, .facingLeft
 	jr .facingRight
 .facingDown
+;joenote - There is a bug here.
+;Sprites are offset by 4 pixels towards the top of the screen for perspective.
+;Top of the player's hat is always Y=$3C pixels from the top of the screen.
+;Vertical distance is always calculated between the top of the player's head and the top of the NPC's head.
+;When the NPC is 4 spaces above the player, the top of its head is off of the screen. 
+;The top of the screen is Y=0, so this means the top of the NPC's head underflows by 4 pixels to Y=$FC.
+;This results in the distance being calculated wrong: $3C - $FC = $C0 instead of the expected $40.
+;It also means that trainers can never see downwards more than 3 spaces.
+;Undo the offset by adding 4 pixels to the Y positions of the player and NPC
 	ld a, [wTrainerScreenY]
+	add 4
 	ld b, a
-	ld a, $3c           ; (fixed) player screen Y pos
+	ld a, $3c + $04           ; (fixed) player screen Y pos
 	call CalcDifference
 	cp $10              ; trainer is right above player
 	ret z
@@ -207,9 +217,19 @@ TrainerEngage:
 	xor a
 	jr .noEngage
 .linedUpX
+;joenote - There is a bug here.
+;Sprites are offset by 4 pixels towards the top of the screen for perspective.
+;Top of the player's hat is always Y=$3C pixels from the top of the screen.
+;Vertical distance is always calculated between the top of the player's head and the top of the NPC's head.
+;When the NPC is 4 spaces above the player, the top of its head is off of the screen. 
+;The top of the screen is Y=0, so this means the top of the NPC's head underflows by 4 pixels to Y=$FC.
+;This results in the distance being calculated wrong: $3C - $FC = $C0 instead of the expected $40.
+;It also means that trainers can never see downwards more than 3 spaces.
+;Undo the offset by adding 4 pixels to the Y positions of the player and NPC
 	ld a, [wTrainerScreenY]        ; sprite screen Y pos
+	add 4
 	ld b, a
-	ld a, $3c            ; (fixed) player Y position
+	ld a, $3c + $04           ; (fixed) player Y position
 	call CalcDifference  ; calc distance
 	jr z, .noEngage      ; exact same position as player
 	call CheckSpriteCanSeePlayer

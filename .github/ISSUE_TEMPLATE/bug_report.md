@@ -14,7 +14,7 @@ In particular, not all emulators or non-official hardware solutions are supporte
 As is relevant, please give the name and/or model number along with the software/firmware version. If possible, include the PCB revision for any hardware.
 
 **Which patch are you using?**
-Please give the name of the patch that you downloaded. If possible, please provide the patch's date-of-upload and the location of where you downloaded it. Ideally you downloaded the patch from this repository. Downloading a pre-patched rom is neither condoned nor supported by the project, and bug reports related to such will receive only a minimal amount of investigation.
+Please give the name of the patch that you downloaded. If possible, please provide the patch's date-of-upload and the location of where you downloaded it. If relevant, please include the git commit of the build. Ideally you downloaded the patch from this repository. Downloading a pre-patched rom is neither condoned nor supported by the project, and bug reports related to such will receive only a minimal amount of investigation.
 
 **What ROM base are you using?**
 Please review the [Patch Info](https://github.com/jojobear13/shinpokered/#patch-info). Patches are intended for a copy of ROM that you lawfully own. Please state the name of your copy, and if possible, please generate and include its MD5 hash.

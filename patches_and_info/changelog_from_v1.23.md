@@ -308,6 +308,7 @@
 - Made many TextIDs close when pressing A instead of releasing A
 - Binoculars can no longer pause the overworld by holding A from the wrong side
 - Fixed an issue where pressing a button on a menu while holding A is treated as an A-press
+- Fixed the pokeflute posting the wrong message in wild pokemon battles
 
 - Cannot use poison to black yourself out of the cable club because entering the club now heals your party
 - Cannot use poison to black yourself out of the safari zone because the safari minigame now stops poison damage

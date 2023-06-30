@@ -51,9 +51,14 @@ SoftlockTeleport:
 
 
 ShowDamageValues:	;joenote - toggle damage values being shown in battle
+	call WaitForSoundToFinish
 	CheckAndResetEvent EVENT_910
-	ret nz
+	ld a, SFX_TURN_OFF_PC
+	jr nz, .return
 	SetEvent EVENT_910
+	ld a, SFX_ENTER_PC
+.return
+	call PlaySound	
 	ret
 	
 ResetAllOptions: ;joenote - reset all the special options (like for patching-up)

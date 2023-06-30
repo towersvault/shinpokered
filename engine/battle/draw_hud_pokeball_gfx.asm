@@ -235,7 +235,7 @@ PlaceHUDTiles:
 	;joenote - show or clear the damage values
 	CheckEvent EVENT_910
 	jr z, .end_printdamage
-	coord hl, 7, 4
+	coord hl, 6, 4
 	ld de, wBattleMonHP ; current player HP
 	call .isDEzero
 	jr z, .printwhite
@@ -252,26 +252,11 @@ PlaceHUDTiles:
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
-	jr .end_printdamage
-.printTKO
-	ld a, "9"
 	ld [hli], a
-	ld [hli], a
-	ld [hli], a
-	ld [hl], "!"
 	jr .end_printdamage
 .printdamage	
-	ld a, d
-	cp $03
-	jr c, .printdamage_next
-	jr nz, .printTKO
-	ld a, e
-	cp $e7
-	jr nc, .printTKO
-.printdamage_next
-	lb bc, LEADING_ZEROES | 2, 3 ; 2 bytes, 3 digits
+	lb bc, LEADING_ZEROES | 2, 5 ; 2 bytes, 5 digits
 	call PrintNumber
-	ld [hl], "!"
 .end_printdamage	
 
 	ret

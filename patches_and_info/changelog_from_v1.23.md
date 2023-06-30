@@ -174,6 +174,8 @@
   - Zero damage is not displayed
   - Damage is not displayed if either pokemon has zero HP remaining
 
+- Press and hold A+SELECT at the title screen to print the current RNG seed at the main menu
+
 - Switched over to the xor-shift method of RNG
 - If a zero-value random seed is detected, a new random seed gets generated using the original DIV register method
 

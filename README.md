@@ -644,6 +644,8 @@ v1.23.15
 - Fixed an underflow issue which caused trainers above the player to not see beyond 3 spaces downward
 - Fixed the pokeflute posting the wrong message in wild pokemon battles
 - If a zero-value random seed is detected, a new random seed gets generated using the original DIV register method 
+- Fixed some debugging features
+- Press and hold A+SELECT at the title screen to print the current RNG seed at the main menu
 
 
 #Bugfixes

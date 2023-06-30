@@ -76,18 +76,24 @@ rLCDC_DEFAULT EQU %11100011
 	call ClearSprites
 
 ;finish initializing RNG
+;joenote - added lines to save the RNG seed
+	ld hl, $DEF0
 	pop af
 	call z, .inc_a
 	ld [hRandomAdd], a
+	ld [hli], a
 	pop af
 	call z, .inc_a
 	ld [hRandomSub], a
+	ld [hli], a
 	pop af
 	call z, .inc_a
 	ld [hRandomLast], a
+	ld [hli], a
 	pop af
 	call z, .inc_a
 	ld [hRandomLast + 1], a
+	ld [hli], a
 	
 	ld a, Bank(WriteDMACodeToHRAM)
 	ld [H_LOADEDROMBANK], a
@@ -167,3 +173,4 @@ StopAllSounds::
 	ld [wNewSoundID], a
 	ld [wLastMusicSoundID], a
 	jp StopAllMusic
+

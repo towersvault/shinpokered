@@ -175,6 +175,7 @@
   - Damage is not displayed if either pokemon has zero HP remaining
 
 - Switched over to the xor-shift method of RNG
+- If a zero-value random seed is detected, a new random seed gets generated using the original DIV register method
 
 - Gamma shader is now 23% faster thanks to optimizations by easyaspi314
 

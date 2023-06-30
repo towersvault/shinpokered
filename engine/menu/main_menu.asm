@@ -55,6 +55,42 @@ MainMenu:
 	ld de, VersionText
 	call PlaceString
 	
+	
+;joenote - detect a random seed of 01 01 01 01 and do something to help correct it
+	callba RNG_Correction
+
+;joedebug - print the random seed
+;	ld hl, $DEF3
+;	ld c, 4
+;.seedloop
+;	ld a, [hld]
+;	push af
+;	dec c
+;	jr nz, .seedloop
+;	coord hl, $00, $10
+;	ld c, 4
+;.seedloop2
+;	pop af
+;	push af
+;	and $F0
+;	swap a
+;	call .printnybble
+;	pop af
+;	and $0F
+;	call .printnybble
+;	dec c
+;	jr nz, .seedloop2
+;	jr .endseed
+;.printnybble
+;	add $F6
+;	jr nc, .printnybble_next
+;	add $80
+;.printnybble_next
+;	ld [hli], a
+;	ret
+;.endseed
+	
+	
 	ld hl, wd730
 	res 6, [hl]
 	call UpdateSprites

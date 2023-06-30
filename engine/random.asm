@@ -218,8 +218,62 @@ _Random_DV::	;generates four 0 to 15 DVs in DE, and rerolls 1 time for each DV b
 	ret
 
 	
+RNG_Correction::
+	ld hl, $DEF0
+	ld d, 4
+.seedloop
+	ld a, [hli]
+	ld b, a
+	push bc
+	dec d
+	jr nz, .seedloop
+	ld d, 4
+	xor a
+.seedloop2
+	pop bc
+	or b
+	dec d
+	jr nz, .seedloop2
+	cp $01
+	ret nz
 	
+	ld hl, $DEF0
 	
+	ld a, [rDIV]
+	ld b, a
+	ld a, [hl]
+	adc b
+	call z, .inc_a
+	ld [hRandomAdd], a
+	ld [hli], a
+	
+	ld a, [rDIV]
+	ld b, a
+	ld a, [hl]
+	sbc b
+	call z, .inc_a
+	ld [hRandomSub], a
+	ld [hli], a
+
+	ld a, [rDIV]
+	ld b, a
+	ld a, [hRandomAdd]
+	adc b
+	call z, .inc_a
+	ld [hRandomLast], a
+	ld [hli], a
+
+	ld a, [rDIV]
+	ld b, a
+	ld a, [hRandomSub]
+	sbc b
+	call z, .inc_a
+	ld [hRandomLast+1], a
+	ld [hli], a
+	ret	
+.inc_a
+	inc a
+	ret
 	
 	
 	

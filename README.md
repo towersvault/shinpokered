@@ -643,6 +643,7 @@ v1.23.15
 *Not in current patch*	
 - Fixed an underflow issue which caused trainers above the player to not see beyond 3 spaces downward
 - Fixed the pokeflute posting the wrong message in wild pokemon battles
+- If a zero-value random seed is detected, a new random seed gets generated using the original DIV register method 
 
 
 #Bugfixes
@@ -881,6 +882,8 @@ v1.23.15
   - While inside victory road, boulders placed on switches will stay there between floor transitions
   - The formula functions for exp now have underflow protection.
   - General RNG improved to use the xor-shift method (fast and allows for all possible DVs naturally)
+    - Poor emulators and flash carts with loader GUIs often clear the RAM resulting in a random seed of zero
+	- If this problem is detected, an attempt is made to generate a random seed using the original DIV register method
   - Cannot bypass Brock's gym via the start menu
   - Fixed bugged npc movement constraints
   - Fixed the instant-text glitch that can happen in the bike shop

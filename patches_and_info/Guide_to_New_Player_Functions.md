@@ -15,18 +15,10 @@ On the old save, before transferring it over, saving outside in Pallet town can 
 -----------------------------------------------
 **Trade Evolutions**  
 Except for the Lite patches, pokemon that evolve by trade can also evolve by other means.  
-  - Kadabra
-    - Use a moon stone at level 35
-	- Hinted at by a NPC in the Pewter Museum that comments on the moon stone
-  - Haunter
-    - Use a thunder stone at level 35
-	- Hinted at by the Lavender Town NPC that asks if you believe in ghosts
-  - Graveler
-    - Use a fire stone at level 35
-	- Hinted at by a NPC on Cinnabar Island that talks about the mansion
-  - Machoke
-    - Use a leaf stone at level 35
-	- Hinted at by a house NPC in Pewter City that talks about trainers teaching pokemon
+  - Kadabra: Hinted at by a Pewter Museum NPC that comments on the moon stone
+  - Haunter: Hinted at by the Lavender Town NPC that asks if you believe in ghosts
+  - Graveler: Hinted at by a Cinnabar Island NPC that talks about the mansion
+  - Machoke: Hinted at by a house NPC in Pewter City that talks about trainers teaching pokemon
 
 **Rage**  
 This move now lasts 2 to 3 turns to prevent getting stuck in an infinite loop.  

@@ -1529,6 +1529,8 @@ v1.23.15
 
 #Availability Changes
 ---------------------
+<details>
+  <summary>Click to Reveal Spoilers!</summary>
 
 #Added Encounter Locations for the following pokemon (rare if not normally in the chosen version):
 - charmander on route 25 (4.3%)
@@ -1594,6 +1596,8 @@ v1.23.15
 - Added a hidden great ball and pokedoll on route 6
 - Added hidden max revive on route 11
 - Added hidden ultra ball on route 8
+
+</details>
 
 
 #Built-In Nuzlocke Mode

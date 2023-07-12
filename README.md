@@ -646,6 +646,7 @@ v1.23.15
 - If a zero-value random seed is detected, a new random seed gets generated using the original DIV register method 
 - Fixed some debugging features
 - Press and hold A+SELECT at the title screen to print the current RNG seed at the main menu
+- Fixed a bug where HP bar animation can print the wrong tile for 1 frame
 
 
 #Bugfixes
@@ -810,6 +811,7 @@ v1.23.15
   - White 1-frame flash on battle load (affecting DMG and GBC modes) as been removed
   - White 1-frame flash on map load (affecting DMG and GBC modes) as been removed
   - Fixed garbage tiles display for 1 frame after a battle on the DMG
+  - Fixed a bug where HP bar animation can print the wrong tile for 1 frame
 
 
 - Item Fixes  

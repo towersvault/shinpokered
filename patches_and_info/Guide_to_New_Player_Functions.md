@@ -493,6 +493,7 @@ Here is an alternative to grinding out battles in the post-game.
 **Gameshark Codes**  
 Here are some freshly-baked cheat codes unique to Shin Pokemon.  
   - 010042DA: If your play-clock was maxed at 255 from a previous save file, this will unlock the expanded game clock.  
+
 These codes do not work on the Lite patches.  
   - 0180C4CF: The next encounter will be a shiny pokemon.
   - 01xx21D7: Resets the options and changes the player graphics to male (xx=00) or female (xx=01).

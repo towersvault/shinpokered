@@ -44,7 +44,7 @@ Additional changes exist that are not found in the Lite patches:
 - A 'poof' animation plays to signal the last turn of a trapping move.  
 
 **Critical Hits**  
-Critical hit damage can no longer be less than the non-critical amount, so critical hits can never be a detriment.  
+If a critical hit would do less damage than its non-critical value, the non-critical value will be used instead.  
 Furthermore, the effect for Dire Hit and Focus Energy now work correctly and quadruple the critical hit rate.  
 
 **X-Accuracy and One-Hit-K.O. Moves**  
@@ -67,6 +67,7 @@ Under these stated conditions, the colors will be highly saturated.
 Press SELECT at the copyright screen when the game first boots (before the Gamefreak logo). 
 - A sfx will play and a symbol with appear at the bottom right to let you know that it worked.  
 - This will fix the saturated colors.  
+
 Changing the destination code of the rom header to 00 (JP) defaults this to ON and pressing SELECT turns it OFF.  
 Use the Gameboy Rom Analyzer to change the destination code (https://www.romhacking.net/utilities/1343/).  
 Or use the BGB emulator to easily change the destination code and fix the header checksum (https://youtu.be/2AaCkM597iU?t=70).  
@@ -113,6 +114,10 @@ As a debugging cheat, damage values will be displayed in battle as the UI update
 Toggled on/off the same way as the softlock warp, but by using 'A' instead of 'B'.  
 Zero damage is not displayed.  
 Damage is not displayed if either pokemon has zero HP remaining.  
+
+**Debug RNG Seed Display**  
+At the title screen, press and hold A + SELECT.  
+This will display the 4-byte RNG seed at the main menu for debugging purposes.  
 
 **Regular Trainer Randomization**  
 One of Oak's Aides has been added to the Viridian Pokemon Center. Talk to him to toggle this feature.  
@@ -161,6 +166,7 @@ Playing in hard mode imposes several changes to the game's systems that increase
 6 - Wild Mewtwo uses trainer AI to choose its moves, and it also blocks you from using a Master Ball.  
 7 - Non-link battles in hard mode use the Stadium 1 formulas for critical hit probability.  
 8 - Wild pokemon DVs get 1 re-roll each if less than 4, biasing them upwards a little bit
+
 Warning - The difficulty will be compounded if both trainer scaling and hard mode are active.  
 
 **Scale Enemy Trainer Levels**  
@@ -492,7 +498,8 @@ Here is an alternative to grinding out battles in the post-game.
 
 **Gameshark Codes**  
 Here are some freshly-baked cheat codes unique to Shin Pokemon.  
-  - 010042DA: If your play-clock was maxed at 255 from a previous save file, this will unlock the expanded game clock.
+  - 010042DA: If your play-clock was maxed at 255 from a previous save file, this will unlock the expanded game clock.  
+
 These codes do not work on the Lite patches.  
   - 0180C4CF: The next encounter will be a shiny pokemon.
   - 01xx21D7: Resets the options and changes the player graphics to male (xx=00) or female (xx=01).

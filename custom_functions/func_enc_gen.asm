@@ -184,21 +184,29 @@ GetHighestLevel:	;gets the highest party level into A
 	
 ;implement a function to scale trainer levels
 ScaleTrainer:
+	call ScaleTrainer_level
+	call ScaleTrainer_evolution
+	ret
+	
+ScaleTrainer_level:
 	CheckEvent EVENT_90C
 	ret z
 	push bc
 
 	call GetHighestLevel
 
-.backFromLVLCheck
 	push af
 	ld a, [wCurEnemyLVL]
 	ld b, a
 	pop af
+	
 	;at this line, B holds current enemy level and A holds highest party level
 	cp b
-	jr c, .nolvlincrease
-	jr z, .nolvlincrease
+	pop bc
+	ret c
+	ret z
+	
+	push bc
 	ld [wCurEnemyLVL], a
 	call Random
 	and $03
@@ -218,11 +226,18 @@ ScaleTrainer:
 	add b
 	call PreventARegOverflow
 	ld [wCurEnemyLVL], a
+	pop bc
+	ret
+
+ScaleTrainer_evolution:
+	CheckEvent EVENT_90C
+	ret z
+	
+	push bc
+	ld a, [wCurEnemyLVL]
 	ld b, a
-.nolvlincrease
 	;proceed to bias the enemy mon level against evolving for the sake of progression balance
 	;B holds the enemy current level at this line
-	ld a, b
 	push af
 	cp 30
 	jr c, .next

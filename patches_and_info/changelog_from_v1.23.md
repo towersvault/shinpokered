@@ -139,6 +139,7 @@
 - Strength hotkey requires facing a boulder to activate
 - Trapping moves no longer apply a speed penalty
 - If trainer scaling is on, you do not need to beat the 1st route 22 rival solo to get oak's pokeballs
+- Fixed an issue with the level scaling feature that inadvertantly biased non-special trainers to higher levels
 
 
 ---

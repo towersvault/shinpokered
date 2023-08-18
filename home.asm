@@ -1641,7 +1641,7 @@ ENDC
 	dec [hl]
 	jp DisplayListMenuIDLoop
 .startPressed	
-	homecall SwapBagData	;joenote - adding swappable bag space
+	homecall HandleBagData	;joenote - adding swappable bag space and organization
 	jp DisplayListMenuIDLoop
 
 DisplayChooseQuantityMenu::

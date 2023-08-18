@@ -95,6 +95,8 @@ hNPCSpriteOffset EQU $FF95
 
 ; temp value used when swapping bytes
 hSwapTemp EQU $FF95
+hSwapItemID EQU $FF95
+hSwapItemQuantity EQU $FF96
 
 hExperience EQU $FF96 ; 3 bytes, big endian
 

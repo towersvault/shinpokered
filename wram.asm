@@ -1423,8 +1423,12 @@ wScriptedNPCWalkCounter:: ; cf18
 
 	ds 1
 
-;gbcnote - moved to hram
-;wGBC:: ; cf1a
+;joenote - used for temporary GBC color control settings
+wGBCColorControl:: ; cf1a
+	;bits 0 & 1 --> a value from 0 to 3 to select color 0 through 3
+	;bits 2, 3, & 4 --> a value from 0 to 7 to select BGP/OBP 0 through 7
+	;bit 5 --> 0 = BGP | 1 = OBP
+	;bits 6 & 7 are unused
 	ds 1
 
 wOnSGB:: ; cf1b

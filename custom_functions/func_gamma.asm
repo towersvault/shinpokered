@@ -44,7 +44,7 @@ GBCGamma:
 	cp 4	
 	ret
 
-;get the RGB values out of color in de into a spots pointed to by hRGB
+;get the RGB values out of color in de into a spot pointed to by hRGB
 GetRGB:
 ;GetRed:	
 	;red bits in e are %00011111
@@ -266,3 +266,142 @@ MixColorMatrix:
 	ld [hRGB + 1], a	; green
 	; red was stored earlier
 	ret
+
+;This sets the GBC palette index for read/writes directly from the hardware
+;Uses A, HL, and B
+;Accepts settings which determine the color to work with using the value in wGBCColorControl	
+	;bits 0 & 1 --> a value from 0 to 3 to select color 0 through 3
+	;bits 2, 3, & 4 --> a value from 0 to 7 to select BGP/OBP 0 through 7
+	;bit 5 --> 0 = BGP | 1 = OBP
+	;bits 6 & 7 are unused
+;When it returns with the z flag cleared, HL points to the BGP or OBP data address and B holds the final color offset
+;Returns with the z flag set if not successful
+SetGBCPalIndex:	
+	;Check if playing on a GBC and return if not so
+	ld a, [hGBC]
+	and a
+	ret z
+	
+	ld a, [wGBCColorControl]	;copy the settings into A
+
+	ld hl, rBGPI	;point HL to the BGP index-setting address $ff68
+	bit 5, a	;check to see if BGP or OBP is desired
+	jr z, .next
+	ld hl, rOBPI	;point HL to the BGP index-setting address $ff6a
+.next
+
+	and %00011100	;mask the bits to leave A with just the index value
+	;rotate A two bits to the right so we can do math on it properly
+	rrca	
+	rrca
+	;each index step has four colors of two bytes each, so we need to multiply A by 8 to get the correct index offset
+	add a
+	add a
+	add a
+	ld b, a	;store the index into B for now
+	
+	ld a, [wGBCColorControl]	;copy the settings into A
+	and %00000011	;mask the bits to leave A with just the color number offset
+	add a	;each color is two bytes, so double the value to get the correct offset
+	
+	add b	;add the index offset in B to the color number offset
+	ld b, a		;save the final offset in B for later functions
+; Now load in order to point at the correct overall offset (for example, color 2 of BGP 3)
+	ld [hli], a		;we do a ld [hli] so that HL increments to the proper data address afterwards
+	;HL now points to either rBGPD or rOBPD
+	
+	;return with z flag cleared to signal success
+	ld a, 1
+	and a
+	ret
+	
+;Based on the settings used for SetGBCPalIndex, this function will read the desired color into DE
+;Like VRAM, the color data of the GBC can only be read/written during VBLANK, HBLANK, or OAM Scan
+ReadColorGBC:
+	call SetGBCPalIndex	;set the color index to read
+	ret z	;return if there was a problem
+	;HL should now point to either rBGPD or rOBPD
+	;The final offset should be in B
+	
+	di	;disable interrupts so that the VBLANK functions don't mess up the timing
+	;wait for mode 0 or 1 (HBLANK or VBLANK)
+.waitVRAM
+	ldh a, [rSTAT]		
+	and %10		; mask for non-V-blank/non-H-blank STAT mode
+	jr nz, .waitVRAM
+	;we are now in a viable mode
+	ld a, [hld]		;read the color's low byte from the data address then decrement back to the indexing address
+	ei	;re-enable interrupts
+	
+	push af	;push the low byte on the stack for later
+	inc b	;increment the offset so that we can read the color's high byte
+	ld a, b
+	ld [hli], a		;update the indexing address with the high byte's offset and increment to the data address
+	
+	di	;disable interrupts so that the VBLANK functions don't mess up the timing
+	;wait for mode 0 or 1 (HBLANK or VBLANK)
+.waitVRAM2
+	ldh a, [rSTAT]		
+	and %10		; mask for non-V-blank/non-H-blank STAT mode
+	jr nz, .waitVRAM2
+	;we are now in a viable mode
+	ld a, [hl]	;read the color's high byte from the data address
+	ei	;re-enable interrupts
+	
+	ld d, a	;store the high byte in D
+	pop af
+	ld e, a	;store the low byte in E
+	ret
+	
+;Based on the settings used for SetGBCPalIndex, this function will write the desired color from DE
+;Like VRAM, the color data of the GBC can only be read/written during VBLANK, HBLANK, or OAM Scan
+WriteColorGBC:
+	call SetGBCPalIndex	;set the color index to read
+	ret z	;return if there was a problem
+	;HL should now point to either rBGPD or rOBPD
+	;The final offset should be in B
+	
+	di	;disable interrupts so that the VBLANK functions don't mess up the timing
+	;wait for mode 0 or 1 (HBLANK or VBLANK)
+.waitVRAM
+	ldh a, [rSTAT]		
+	and %10		; mask for non-V-blank/non-H-blank STAT mode
+	jr nz, .waitVRAM
+	;we are now in a viable mode
+	ld a, e
+	ld [hld], a		;write the color's low byte to the data address then decrement back to the indexing address
+	ei	;re-enable interrupts
+	
+	inc b	;increment the offset so that we can write the color's high byte
+	ld a, b
+	ld [hli], a		;update the indexing address with the high byte's offset and increment to the data address
+	
+	di	;disable interrupts so that the VBLANK functions don't mess up the timing
+	;wait for mode 0 or 1 (HBLANK or VBLANK)
+.waitVRAM2
+	ldh a, [rSTAT]		
+	and %10		; mask for non-V-blank/non-H-blank STAT mode
+	jr nz, .waitVRAM2
+	;we are now in a viable mode
+	ld a, d
+	ld [hl], a		;write the color's high byte to the data address then decrement back to the indexing address
+	ei	;re-enable interrupts
+	ret
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

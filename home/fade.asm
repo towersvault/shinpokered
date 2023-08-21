@@ -27,10 +27,17 @@ GBFadeInFromBlack::
 	jr GBFadeIncCommon
 
 GBFadeOutToWhite::
+	callba GBCFadeOutToWhite
+	ld hl, FadePal8
+	ld b, 1
+	ld c, 1
+	jr z, GBFadeIncCommon.delayset
 	ld hl, FadePal6
 	ld b, 3
 
 GBFadeIncCommon:
+	ld c, 8
+.delayset
 	ld a, [hli]
 	ld [rBGP], a
 	ld a, [hli]
@@ -40,13 +47,17 @@ GBFadeIncCommon:
 	call UpdateGBCPal_BGP
 	call UpdateGBCPal_OBP0
 	call UpdateGBCPal_OBP1
-	ld c, 8
 	call DelayFrames
 	dec b
 	jr nz, GBFadeIncCommon
 	ret
 
 GBFadeOutToBlack::
+	callba GBCFadeOutToBlack
+	ld hl, FadePal1 + 2
+	ld b, 1
+	ld c, 1
+	jr z, GBFadeDecCommon.delayset
 	ld hl, FadePal4 + 2
 	ld b, 4
 	jr GBFadeDecCommon
@@ -56,6 +67,8 @@ GBFadeInFromWhite::
 	ld b, 3
 
 GBFadeDecCommon:
+	ld c, 8
+.delayset
 	ld a, [hld]
 	ld [rOBP1], a
 	ld a, [hld]
@@ -65,7 +78,6 @@ GBFadeDecCommon:
 	call UpdateGBCPal_BGP
 	call UpdateGBCPal_OBP0
 	call UpdateGBCPal_OBP1
-	ld c, 8
 	call DelayFrames
 	dec b
 	jr nz, GBFadeDecCommon

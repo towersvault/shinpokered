@@ -323,21 +323,33 @@ ReadColorGBC:
 	;HL should now point to either rBGPD or rOBPD
 	;The final offset should be in B
 	
-	di	;disable interrupts so that the VBLANK functions don't mess up the timing
-	;wait for mode 0 or 1 (HBLANK or VBLANK)
+	call .read		;read the color's low byte from the data address then decrement back to the indexing address
+	
+	push af			;push the low byte on the stack for later
+	inc b			;increment the offset so that we can read the color's high byte
+	ld a, b
+	ld [hli], a		;update the indexing address with the high byte's offset and increment to the data address
+	
+	call .read		;read the color's high byte from the data address then decrement back to the indexing address
+	
+	ld d, a	;store the high byte in D
+	pop af
+	ld e, a	;store the low byte in E
+	ret
+
+.read
+	ldh a, [rIE]
+	rrca	;see if vblank interrupt is already disabled (bit 0 of rIE)
+	jr c, .read_DI		;if enabled right now, jump to disable it while doing the read
 .waitVRAM
 	ldh a, [rSTAT]		
 	and %10		; mask for non-V-blank/non-H-blank STAT mode
 	jr nz, .waitVRAM
 	;we are now in a viable mode
-	ld a, [hld]		;read the color's low byte from the data address then decrement back to the indexing address
-	ei	;re-enable interrupts
-	
-	push af	;push the low byte on the stack for later
-	inc b	;increment the offset so that we can read the color's high byte
-	ld a, b
-	ld [hli], a		;update the indexing address with the high byte's offset and increment to the data address
-	
+	ld a, [hld]	
+	ret	
+
+.read_DI
 	di	;disable interrupts so that the VBLANK functions don't mess up the timing
 	;wait for mode 0 or 1 (HBLANK or VBLANK)
 .waitVRAM2
@@ -345,12 +357,8 @@ ReadColorGBC:
 	and %10		; mask for non-V-blank/non-H-blank STAT mode
 	jr nz, .waitVRAM2
 	;we are now in a viable mode
-	ld a, [hl]	;read the color's high byte from the data address
+	ld a, [hld]		
 	ei	;re-enable interrupts
-	
-	ld d, a	;store the high byte in D
-	pop af
-	ld e, a	;store the low byte in E
 	ret
 	
 ;Based on the settings used for SetGBCPalIndex, this function will write the desired color from DE
@@ -361,21 +369,35 @@ WriteColorGBC:
 	;HL should now point to either rBGPD or rOBPD
 	;The final offset should be in B
 	
-	di	;disable interrupts so that the VBLANK functions don't mess up the timing
-	;wait for mode 0 or 1 (HBLANK or VBLANK)
+	push de	;save the value in DE
+	
+	call .write		;write the color's low byte to the data address then decrement back to the indexing address
+	
+	inc b			;increment the offset so that we can write the color's high byte
+	ld a, b
+	ld [hli], a		;update the indexing address with the high byte's offset and increment to the data address
+	
+	ld e, d			
+	call .write		;write the color's high byte to the data address then decrement back to the indexing address
+	
+	pop de	;get the saved DE value back for preservation's sake
+	
+	ret
+
+.write
+	ldh a, [rIE]
+	rrca	;see if vblank interrupt is already disabled (bit 0 of rIE)
+	jr c, .write_DI		;if enabled right now, jump to disable it while doing the read
 .waitVRAM
 	ldh a, [rSTAT]		
 	and %10		; mask for non-V-blank/non-H-blank STAT mode
 	jr nz, .waitVRAM
 	;we are now in a viable mode
 	ld a, e
-	ld [hld], a		;write the color's low byte to the data address then decrement back to the indexing address
-	ei	;re-enable interrupts
+	ld [hld], a		
+	ret
 	
-	inc b	;increment the offset so that we can write the color's high byte
-	ld a, b
-	ld [hli], a		;update the indexing address with the high byte's offset and increment to the data address
-	
+.write_DI
 	di	;disable interrupts so that the VBLANK functions don't mess up the timing
 	;wait for mode 0 or 1 (HBLANK or VBLANK)
 .waitVRAM2
@@ -383,8 +405,8 @@ WriteColorGBC:
 	and %10		; mask for non-V-blank/non-H-blank STAT mode
 	jr nz, .waitVRAM2
 	;we are now in a viable mode
-	ld a, d
-	ld [hl], a		;write the color's high byte to the data address then decrement back to the indexing address
+	ld a, e
+	ld [hld], a		
 	ei	;re-enable interrupts
 	ret
 	
@@ -392,16 +414,261 @@ WriteColorGBC:
 	
 	
 	
+;This function does a few decrements to all the colors of the GBC in BGP 0-3 and OBP 0-7.
+;It's used for fading to black or other things that need darkening.
+;Returns the z-flag state: set = invalid | cleared = successful
+DecrementAllColorsGBC:	
+	;Check if playing on a GBC and return if not so
+	ld a, [hGBC]
+	and a
+	ret z
+
+	ld a, [rIE]		;manually disable interrupts and wait until the first scanline of vblank is reached
+	push af
+	xor a
+	ld [rIE], a
+.wait
+	ldh a, [rLY]		
+	cp $90
+	jr nz, .wait
+	
+	xor a	;load zero to start with the very first color of BGP 0 so we can loop through everything
+.mainLoop
+	ld [wGBCColorControl], a
+	and %00100011
+	cp 32
+	jr z, .skipTransparent	;color 0 of OBP 0 to 7 are always transparent, so skip these ones
+
+	call ReadColorGBC	;get the color into DE
+	call GetRGB			;Split color in DE to RGB values in hRGB
+	
+	ld hl, hRGB
+	call .decrement		;reduce red
+	ld [hli], a
+	call .decrement		;reduce green
+	ld [hli], a
+	call .decrement		;reduce blue
+	ld [hl], a
+	
+	call WriteRGB		;combine RGB values back into DE
+	call WriteColorGBC	;write the color in DE back to the hardware address
+	
+.skipTransparent
+	ld a, [wGBCColorControl]
+	inc a
+	cp 64
+	jr nc, .return	;return if finished with OBP 7
+	cp 16
+	jr z, .unusedBGP	;increment past unused color locations and loop if at BGP 4
+	jr .next
+
+.unusedBGP
+	add a	;add 16 to the location so we skip to color 32 which is OBP 0
+	inc a	; color 0 of OBP 0 to 7 are always transparent, so increment to color 33
+.next
+	ld [wGBCColorControl], a
+	jr .mainLoop
+
+.decrement
+	ld a, [hl]	;get either R, G, or B value into A
+;c = max number of times to decrement per function call
+;b = [minimum number + 1] threshold to stop decrementing
+	ld c, 3
+	ld b, 1
+.loopC
+	cp b
+	ret c	;return if value is below threshold
+	dec a	;if not, decrement the value
+	dec c	;and also decrement the counter
+	ret z	;return if the counter hit zero
+	jr .loopC
+
+.return
+	pop af		;re-enable interrupts
+	ld [rIE], a
+
+;If not in 2x CPU mode, everything updates in less than 144 scanlines
+;Therefore, normal mode needs an audio update but 60 fps mode does not
+	ld a, [rKEY1]
+	bit 7, a
+	push af
+	call nz, DelayFrame	;Delay a frame in 60 fps mode to get the timing down right for any fades
+	pop af
+	jr nz, .return_next
+	callba Audio1_UpdateMusic
+	
+.return_next
+	ld a, 1
+	and a
+	ret
+
+;This function does a few increments to all the colors of the GBC in BGP 0-3 and OBP 0-7.
+;It's used for fading to white or other things that need lightening.
+;Returns the z-flag state: set = invalid | cleared = successful
+IncrementAllColorsGBC:	
+	;Check if playing on a GBC and return if not so
+	ld a, [hGBC]
+	and a
+	ret z
+
+	ld a, [rIE]		;manually disable interrupts and wait until the first scanline of vblank is reached
+	push af
+	xor a
+	ld [rIE], a
+.wait
+	ldh a, [rLY]		
+	cp $90
+	jr nz, .wait
+	
+	xor a	;load zero to start with the very first color of BGP 0 so we can loop through everything
+.mainLoop
+	ld [wGBCColorControl], a
+	and %00100011
+	cp 32
+	jr z, .skipTransparent	;color 0 of OBP 0 to 7 are always transparent, so skip these ones
+
+	call ReadColorGBC	;get the color into DE
+	call GetRGB			;Split color in DE to RGB values in hRGB
+	
+	ld hl, hRGB
+	call .increment		;increase red
+	ld [hli], a
+	call .increment		;increase green
+	ld [hli], a
+	call .increment		;increase blue
+	ld [hl], a
+	
+	call WriteRGB		;combine RGB values back into DE
+	call WriteColorGBC	;write the color in DE back to the hardware address
+	
+.skipTransparent
+	ld a, [wGBCColorControl]
+	inc a
+	cp 64
+	jr nc, .return	;return if finished with OBP 7
+	cp 16
+	jr z, .unusedBGP	;increment past unused color locations and loop if at BGP 4
+	jr .next
+
+.unusedBGP
+	add a	;add 16 to the location so we skip to color 32 which is OBP 0
+	inc a	; color 0 of OBP 0 to 7 are always transparent, so increment to color 33
+.next
+	ld [wGBCColorControl], a
+	jr .mainLoop
+
+.increment
+	ld a, [hl]	;get either R, G, or B value into A
+;c = max number of times to increment per function call
+;b = [maximum number] threshold to stop decrementing
+	ld c, 3
+	ld b, 31
+.loopC
+	cp b
+	ret nc	;return if value is at or above threshold
+	inc a	;if not, increment the value
+	dec c	;and also decrement the counter
+	ret z	;return if the counter hit zero
+	jr .loopC
+
+.return
+	pop af		;re-enable interrupts
+	ld [rIE], a
+
+;If not in 2x CPU mode, everything updates in less than 144 scanlines
+;Therefore, normal mode needs an audio update but 60 fps mode does not
+	ld a, [rKEY1]
+	bit 7, a
+	push af
+	call nz, DelayFrame	;Delay a frame in 60 fps mode to get the timing down right for any fades
+	pop af
+	jr nz, .return_next
+	callba Audio1_UpdateMusic
+	
+.return_next
+	ld a, 1
+	and a
+	ret
 	
 	
 	
 	
 	
 	
+;Functions for smooth fades utilizing the GBC's palette hardware
+;Returns the z-flag state: set = success | cleared = invalid
+GBCFadeOutToBlack:
+	;Check if playing on a GBC and return if not so
+	ld a, [hGBC]
+	and a
+	jr z, .notGBC
 	
+	;personal preference - only do smooth fade in 2x cpu mode
+	ld a, [rKEY1]
+	bit 7, a
+	jr z, .notGBC
 	
+	ld a, [hFlagsFFFA]	;need to set a flag that skips the $FF80 OAM call in VBLANK
+	push af
+	set 0, a
+	ld [hFlagsFFFA], a
+
+	push de
+	ld c, 11
+.loop
+	push bc
+	call DecrementAllColorsGBC
+	pop bc
+	dec c
+	jr nz, .loop
+	pop de
+
+	pop af
+	ld [hFlagsFFFA], a
 	
+	xor a
+	ret
 	
+.notGBC
+	ld a, 1
+	and a
+	ret
 	
+;Functions for smooth fades utilizing the GBC's palette hardware
+;Returns the z-flag state: set = success | cleared = invalid
+GBCFadeOutToWhite:
+	;Check if playing on a GBC and return if not so
+	ld a, [hGBC]
+	and a
+	jr z, .notGBC
 	
+	;personal preference - only do smooth fade in 2x cpu mode
+	ld a, [rKEY1]
+	bit 7, a
+	jr z, .notGBC
+		
+	ld a, [hFlagsFFFA]	;need to set a flag that skips the $FF80 OAM call in VBLANK
+	push af
+	set 0, a
+	ld [hFlagsFFFA], a
+
+	push de
+	ld c, 11
+.loop
+	push bc
+	call IncrementAllColorsGBC
+	pop bc
+	dec c
+	jr nz, .loop
+	pop de
+
+	pop af
+	ld [hFlagsFFFA], a
+
+	xor a
+	ret
 	
+.notGBC
+	ld a, 1
+	and a
+	ret

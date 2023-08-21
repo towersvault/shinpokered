@@ -502,6 +502,8 @@ SortItems:
 ;	ld hl, NothingToSort
 .printResultText
 ;	call PrintText
+	ld a, SFX_START_MENU
+	call PlaySound
 .done
 	call UpdateMenuInfo
 	xor a ; Zeroes a

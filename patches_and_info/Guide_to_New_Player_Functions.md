@@ -199,7 +199,7 @@ The clauses apply to the player and AI equally, and they only apply during non-l
     - selecting a trapping effect move additional times will make the move to go 2nd in the round. 
 	- this is the same priority as the move Counter.
   - The counter only gets reset by switching or using a move that does not have the trapping effect. 
-  - Reseting the counter will restore normal priority to trapping effect moves.
+  - Resetting the counter will restore normal priority to trapping effect moves.
 
 
 #New Gameplay Features

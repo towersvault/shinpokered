@@ -651,6 +651,7 @@ v1.23.15
 - Fixed a bug where HP bar animation can print the wrong tile for 1 frame
 - Hold SELECT and press START while on the bag menu to auto-sort your items
 - Improved fade-to-black and fade-to-white transitions when playing on GBC in 60FPS mode
+- Fixed junk tiles displaying for 1 frame when the game resets after displaying THE END
 
 
 #Bugfixes
@@ -816,6 +817,7 @@ v1.23.15
   - White 1-frame flash on map load (affecting DMG and GBC modes) as been removed
   - Fixed garbage tiles display for 1 frame after a battle on the DMG
   - Fixed a bug where HP bar animation can print the wrong tile for 1 frame
+  - Fixed junk tiles displaying for 1 frame when the game resets after displaying THE END
 
 
 - Item Fixes  

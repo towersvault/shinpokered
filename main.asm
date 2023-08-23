@@ -1692,7 +1692,7 @@ Underground_Block: INCBIN "gfx/blocksets/underground.bst"
 SECTION "bank1C",ROMX,BANK[$1C]
 
 ;INCLUDE "engine/gamefreak.asm"	;gbcnote - moved to another bank to make space
-INCLUDE "engine/hall_of_fame.asm"
+;INCLUDE "engine/hall_of_fame.asm"	;joenote - moved to another bank to make space
 INCLUDE "engine/overworld/healing_machine.asm"
 INCLUDE "engine/overworld/player_animations.asm"
 INCLUDE "engine/battle/ghost_marowak_anim.asm"
@@ -1917,13 +1917,15 @@ INCLUDE "engine/items/tm_prices.asm"
 INCLUDE "engine/learn_move.asm"	;joenote - moved in order to have more space
 
 SECTION "bank2E",ROMX,BANK[$2E]	
-;gbcnote - This bank with hold the bg map attributes for the gameboy color among other stuff
+;gbcnote - This bank will hold the bg map attributes for the gameboy color among other stuff
 
 ;include the bgmap files from pokemon yellow
 INCLUDE "data/bg_map_attributes.asm"
 INCLUDE "engine/bg_map_attributes.asm"
 
 INCLUDE "engine/gamefreak.asm"	;gbcnote - moved here to make space
+INCLUDE "engine/hall_of_fame.asm"	;joenote - moved here to make space
+
 INCLUDE "custom_functions/func_gamma.asm"
 
 SECTION "Pics 1", ROMX, BANK[PICS_1]

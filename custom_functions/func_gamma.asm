@@ -630,15 +630,16 @@ GBCFadeOutToBlack:
 	ld a, [rKEY1]
 	bit 7, a
 	jr z, .notGBC
-	
-	call BufferAllColorsGBC		;back up all colors to a buffer space in wram
+
+	push de
+	ld de, FadePal4
+	callba BufferAllPokeyellowColorsGBC		;back up all colors to a buffer space in wram
 	
 	ld a, [hFlagsFFFA]	;need to set a flag that skips the $FF80 OAM call in VBLANK
 	push af
 	set 0, a
 	ld [hFlagsFFFA], a
 
-	push de
 	ld c, 3
 .loop
 	push bc
@@ -649,11 +650,12 @@ GBCFadeOutToBlack:
 	ld c, a
 	cp 32
 	jr c, .loop
-	pop de
 
 	pop af
 	ld [hFlagsFFFA], a
 	
+	pop de
+
 	xor a
 	ret
 	
@@ -675,14 +677,15 @@ GBCFadeOutToWhite:
 	bit 7, a
 	jr z, .notGBC
 		
-	call BufferAllColorsGBC		;back up all colors to a buffer space in wram
+	push de
+	ld de, FadePal4
+	callba BufferAllPokeyellowColorsGBC		;back up all colors to a buffer space in wram
 	
 	ld a, [hFlagsFFFA]	;need to set a flag that skips the $FF80 OAM call in VBLANK
 	push af
 	set 0, a
 	ld [hFlagsFFFA], a
 
-	push de
 	ld c, 3
 .loop
 	push bc
@@ -693,10 +696,11 @@ GBCFadeOutToWhite:
 	ld c, a
 	cp 32
 	jr c, .loop
-	pop de
 
 	pop af
 	ld [hFlagsFFFA], a
+
+	pop de
 
 	xor a
 	ret
@@ -709,24 +713,24 @@ GBCFadeOutToWhite:
 	
 	
 ;This function uses DE as a passthrough to buffer all the BGP 0-7 and OBP 0-7 colors at wGBCFullPalBuffer	
-BufferAllColorsGBC:
-	ld hl, wGBCFullPalBuffer
-	xor a	;load zero to start with the very first color of BGP 0 so we can loop through everything
-.mainLoop
-	ld [wGBCColorControl], a
-	push hl
-	call ReadColorGBC	;get the color into DE
-	pop hl
-	ld a, d
-	ld [hli], a		;buffer high byte
-	ld a, e
-	ld [hli], a		;buffer low byte
+; BufferAllColorsGBC:
+	; ld hl, wGBCFullPalBuffer
+	; xor a	;load zero to start with the very first color of BGP 0 so we can loop through everything
+; .mainLoop
+	; ld [wGBCColorControl], a
+	; push hl
+	; call ReadColorGBC	;get the color into DE
+	; pop hl
+	; ld a, d
+	; ld [hli], a		;buffer high byte
+	; ld a, e
+	; ld [hli], a		;buffer low byte
 	
-	ld a, [wGBCColorControl]
-	inc a
-	cp 64
-	jr c, .mainLoop
-	ret
+	; ld a, [wGBCColorControl]
+	; inc a
+	; cp 64
+	; jr c, .mainLoop
+	; ret
 
 ;Read a specific color from the buffer into DE, similar to ReadColorGBC
 ReadBufferColorGBC:
@@ -741,6 +745,71 @@ ReadBufferColorGBC:
 	ld a, [hl]		;read low byte
 	ld e, a
 	ret
+	
+	
+	
+;Alternate version of this function that is more specific	
+; BufferAllColorsGBC:
+	; push de
+	
+	; call .BGP0to3Loop
+
+	; call .OBP0to3Loop
+	
+	; call .OBP4to7Loop
+
+	; pop de
+	; ret	
+	
+; .BGP0to3Loop
+	; ld hl, wGBCFullPalBuffer
+	; xor a
+; .BGP0to3Loop_back
+	; call .readwriteinc
+	; cp 16
+	; jr c, .BGP0to3Loop_back
+	; ret
+
+; .OBP0to3Loop
+	; ld hl, wGBCFullPalBuffer+64
+	; ld a, 32
+; .OBP0to3Loop_back
+	; call .readwriteinc
+	; cp 48
+	; jr c, .OBP0to3Loop_back
+	; ret
+
+; .OBP4to7Loop
+	; ld hl, wGBCFullPalBuffer+96
+	; ld a, 48
+; .OBP4to7Loop_back
+	; call .readwriteinc
+	; cp 64
+	; jr c, .OBP4to7Loop_back
+	; ret
+
+; .readwriteinc
+	; ld [wGBCColorControl], a
+	; push hl
+	; call ReadColorGBC	;get the color into DE
+	; pop hl
+	; ld a, d
+	; ld [hli], a		;buffer high byte
+	; ld a, e
+	; ld [hli], a		;buffer low byte	
+	; ld a, [wGBCColorControl]
+	; inc a
+	; ret	
+	
+	
+
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

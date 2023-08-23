@@ -485,7 +485,7 @@ DecrementAllColorsGBC:
 ;c = max number of times to decrement per function call
 ;b = [minimum number + 1] threshold to stop decrementing
 ;	ld c, 3
-	ld b, 1
+	ld b, 4
 .loopC
 	cp b
 	ret c	;return if value is below threshold

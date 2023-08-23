@@ -417,6 +417,7 @@ WriteColorGBC:
 ;This function does a few decrements to all the colors of the GBC in BGP 0-3 and OBP 0-7.
 ;It's used for fading to black or other things that need darkening.
 ;Returns the z-flag state: set = invalid | cleared = successful
+;Reads all the relevant colors from wGBCFullPalBuffer, then decrements them C times, and writes to hardware.
 DecrementAllColorsGBC:	
 	;Check if playing on a GBC and return if not so
 	ld a, [hGBC]
@@ -439,20 +440,30 @@ DecrementAllColorsGBC:
 	cp 32
 	jr z, .skipTransparent	;color 0 of OBP 0 to 7 are always transparent, so skip these ones
 
-	call ReadColorGBC	;get the color into DE
+	push bc	;save the value in C, which is the number of times to iterate
+
+	call ReadBufferColorGBC	;get the color into DE
 	call GetRGB			;Split color in DE to RGB values in hRGB
 	
 	ld hl, hRGB
+	pop bc	;get the number of times to iterate
+	push bc	;then save it again
 	call .decrement		;reduce red
 	ld [hli], a
+	pop bc	;get the number of times to iterate
+	push bc	;then save it again
 	call .decrement		;reduce green
 	ld [hli], a
+	pop bc	;get the number of times to iterate
+	push bc	;then save it again
 	call .decrement		;reduce blue
 	ld [hl], a
 	
 	call WriteRGB		;combine RGB values back into DE
 	call WriteColorGBC	;write the color in DE back to the hardware address
 	
+	pop bc	;get the number of times to iterate
+
 .skipTransparent
 	ld a, [wGBCColorControl]
 	inc a
@@ -473,7 +484,7 @@ DecrementAllColorsGBC:
 	ld a, [hl]	;get either R, G, or B value into A
 ;c = max number of times to decrement per function call
 ;b = [minimum number + 1] threshold to stop decrementing
-	ld c, 3
+;	ld c, 3
 	ld b, 1
 .loopC
 	cp b
@@ -505,6 +516,7 @@ DecrementAllColorsGBC:
 ;This function does a few increments to all the colors of the GBC in BGP 0-3 and OBP 0-7.
 ;It's used for fading to white or other things that need lightening.
 ;Returns the z-flag state: set = invalid | cleared = successful
+;Uses the value in C to increment that number of times
 IncrementAllColorsGBC:	
 	;Check if playing on a GBC and return if not so
 	ld a, [hGBC]
@@ -515,6 +527,7 @@ IncrementAllColorsGBC:
 	push af
 	xor a
 	ld [rIE], a
+
 .wait
 	ldh a, [rLY]		
 	cp $90
@@ -527,19 +540,29 @@ IncrementAllColorsGBC:
 	cp 32
 	jr z, .skipTransparent	;color 0 of OBP 0 to 7 are always transparent, so skip these ones
 
-	call ReadColorGBC	;get the color into DE
+	push bc	;save the value in C, which is the number of times to iterate
+	
+	call ReadBufferColorGBC	;get the color into DE
 	call GetRGB			;Split color in DE to RGB values in hRGB
 	
 	ld hl, hRGB
+	pop bc	;get the number of times to iterate
+	push bc	;then save it again
 	call .increment		;increase red
 	ld [hli], a
+	pop bc	;get the number of times to iterate
+	push bc	;then save it again
 	call .increment		;increase green
 	ld [hli], a
+	pop bc	;get the number of times to iterate
+	push bc	;then save it again
 	call .increment		;increase blue
 	ld [hl], a
 	
 	call WriteRGB		;combine RGB values back into DE
 	call WriteColorGBC	;write the color in DE back to the hardware address
+	
+	pop bc	;get the number of times to iterate
 	
 .skipTransparent
 	ld a, [wGBCColorControl]
@@ -561,7 +584,7 @@ IncrementAllColorsGBC:
 	ld a, [hl]	;get either R, G, or B value into A
 ;c = max number of times to increment per function call
 ;b = [maximum number] threshold to stop decrementing
-	ld c, 3
+;	ld c, 3
 	ld b, 31
 .loopC
 	cp b
@@ -608,19 +631,24 @@ GBCFadeOutToBlack:
 	bit 7, a
 	jr z, .notGBC
 	
+	call BufferAllColorsGBC		;back up all colors to a buffer space in wram
+	
 	ld a, [hFlagsFFFA]	;need to set a flag that skips the $FF80 OAM call in VBLANK
 	push af
 	set 0, a
 	ld [hFlagsFFFA], a
 
 	push de
-	ld c, 11
+	ld c, 3
 .loop
 	push bc
-	call DecrementAllColorsGBC
+	call DecrementAllColorsGBC	;read buffered colors, decrement them C times, and write them to hardware
 	pop bc
-	dec c
-	jr nz, .loop
+	ld a, c
+	add 3	;step size of C
+	ld c, a
+	cp 32
+	jr c, .loop
 	pop de
 
 	pop af
@@ -647,19 +675,24 @@ GBCFadeOutToWhite:
 	bit 7, a
 	jr z, .notGBC
 		
+	call BufferAllColorsGBC		;back up all colors to a buffer space in wram
+	
 	ld a, [hFlagsFFFA]	;need to set a flag that skips the $FF80 OAM call in VBLANK
 	push af
 	set 0, a
 	ld [hFlagsFFFA], a
 
 	push de
-	ld c, 11
+	ld c, 3
 .loop
 	push bc
-	call IncrementAllColorsGBC
+	call IncrementAllColorsGBC	;read buffered colors, decrement them C times, and write them to hardware
 	pop bc
-	dec c
-	jr nz, .loop
+	ld a, c
+	add 3	;step size of C
+	ld c, a
+	cp 32
+	jr c, .loop
 	pop de
 
 	pop af
@@ -672,3 +705,43 @@ GBCFadeOutToWhite:
 	ld a, 1
 	and a
 	ret
+	
+	
+	
+;This function uses DE as a passthrough to buffer all the BGP 0-7 and OBP 0-7 colors at wGBCFullPalBuffer	
+BufferAllColorsGBC:
+	ld hl, wGBCFullPalBuffer
+	xor a	;load zero to start with the very first color of BGP 0 so we can loop through everything
+.mainLoop
+	ld [wGBCColorControl], a
+	push hl
+	call ReadColorGBC	;get the color into DE
+	pop hl
+	ld a, d
+	ld [hli], a		;buffer high byte
+	ld a, e
+	ld [hli], a		;buffer low byte
+	
+	ld a, [wGBCColorControl]
+	inc a
+	cp 64
+	jr c, .mainLoop
+	ret
+
+;Read a specific color from the buffer into DE, similar to ReadColorGBC
+ReadBufferColorGBC:
+	ld de, $0000
+	ld a, [wGBCColorControl]
+	add a	;double A since each color is 2 bytes
+	ld e, a
+	ld hl, wGBCFullPalBuffer
+	add hl, de
+	ld a, [hli]		;read high byte
+	ld d, a
+	ld a, [hl]		;read low byte
+	ld e, a
+	ret
+	
+	
+	
+	

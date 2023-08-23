@@ -2660,6 +2660,7 @@ wDestinationWarpID:: ; d42f
 ; if $ff, the player's coordinates are not updated when entering the map
 	ds 1
 
+wGBCFullPalBuffer::	; d430	joenote - added for backing-up all GBC palettes
 	ds 128
 
 wNumSigns:: ; d4b0

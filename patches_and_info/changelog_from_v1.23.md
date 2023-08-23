@@ -187,7 +187,7 @@
 - The 60fps mode has better performance when playing in GBC-mode
   - Does this by using the double-speed feature of the GBC's processor 
   - Uses more battery as a trade-off
-- Improved fade-to-black and fade-to-white transitions when playing on GBC in 60FPS mode
+- Improved fade-in and fade-out to black/white transitions when playing on GBC in 60FPS mode
   
 - Added optimizations to how OAM data is prepared so that overworld sprites wobble less
 

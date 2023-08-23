@@ -650,7 +650,7 @@ v1.23.15
 - Press and hold A+SELECT at the title screen to print the current RNG seed at the main menu
 - Fixed a bug where HP bar animation can print the wrong tile for 1 frame
 - Hold SELECT and press START while on the bag menu to auto-sort your items
-- Improved fade-to-black and fade-to-white transitions when playing on GBC in 60FPS mode
+- Improved fade-in and fade-out to black/white transitions when playing on GBC in 60FPS mode
 - Fixed junk tiles displaying for 1 frame when the game resets after displaying THE END
 
 
@@ -1370,7 +1370,7 @@ v1.23.15
 - Red & Blue versions use the back sprites from spaceworld 97 so as to be cohesive with the front sprites
 - Added spaceworld-style trainer back sprites for consistency with the spaceworld 'mon back sprites 
 - The silhouette effect at the start of battle now displays when playing on a DMG gameboy
-- Improved fade-to-black and fade-to-white transitions when playing on GBC in 60FPS mode
+- Improved fade-in and fade-out to black/white transitions when playing on GBC in 60FPS mode
 
 
 #Pre-E4 NPCs

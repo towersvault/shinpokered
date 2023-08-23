@@ -626,11 +626,21 @@ GBCFadeOutToBlack:
 	and a
 	jr z, .notGBC
 	
-	;personal preference - only do smooth fade in 2x cpu mode
-	ld a, [rKEY1]
-	bit 7, a
+	;personal preference - only do smooth fade in 60fps mode
+	ld a, [wUnusedD721]
+	bit 4, a
 	jr z, .notGBC
 
+;	if 60fps option enabled but in 1x cpu mode, then enable 2x cpu mode just for this fade
+	ld a, [rKEY1]
+	bit 7, a
+	ld a, $ff
+	jr nz, .doublespeed	
+	predef SetCPUSpeed
+	xor a
+.doublespeed
+	push af
+	
 	push de
 	ld de, FadePal4
 	callba BufferAllPokeyellowColorsGBC		;back up all colors to a buffer space in wram
@@ -656,6 +666,11 @@ GBCFadeOutToBlack:
 	
 	pop de
 
+	pop af
+	inc a
+	ret z	;return now if 2x cpu mode was already active at the start of this function
+	;otherwise return to single cpu mode and return
+	predef SingleCPUSpeed
 	xor a
 	ret
 	
@@ -672,11 +687,21 @@ GBCFadeOutToWhite:
 	and a
 	jr z, .notGBC
 	
-	;personal preference - only do smooth fade in 2x cpu mode
+	;personal preference - only do smooth fade in 60fps mode
+	ld a, [wUnusedD721]
+	bit 4, a
+	jr z, .notGBC
+
+;	if 60fps option enabled but in 1x cpu mode, then enable 2x cpu mode just for this fade
 	ld a, [rKEY1]
 	bit 7, a
-	jr z, .notGBC
-		
+	ld a, $ff
+	jr nz, .doublespeed	
+	predef SetCPUSpeed
+	xor a
+.doublespeed
+	push af
+	
 	push de
 	ld de, FadePal4
 	callba BufferAllPokeyellowColorsGBC		;back up all colors to a buffer space in wram
@@ -689,7 +714,7 @@ GBCFadeOutToWhite:
 	ld c, 3
 .loop
 	push bc
-	call IncrementAllColorsGBC	;read buffered colors, decrement them C times, and write them to hardware
+	call IncrementAllColorsGBC	;read buffered colors, increment them C times, and write them to hardware
 	pop bc
 	ld a, c
 	add 3	;step size of C
@@ -702,6 +727,131 @@ GBCFadeOutToWhite:
 
 	pop de
 
+	pop af
+	inc a
+	ret z	;return now if 2x cpu mode was already active at the start of this function
+	;otherwise return to single cpu mode and return
+	predef SingleCPUSpeed
+	xor a
+	ret
+	
+.notGBC
+	ld a, 1
+	and a
+	ret
+	
+	
+	
+GBCFadeInFromWhite:
+	;Check if playing on a GBC and return if not so
+	ld a, [hGBC]
+	and a
+	jr z, .notGBC
+	
+	;personal preference - only do smooth fade in 60fps mode
+	ld a, [wUnusedD721]
+	bit 4, a
+	jr z, .notGBC
+
+;	if 60fps option enabled but in 1x cpu mode, then enable 2x cpu mode just for this fade
+	ld a, [rKEY1]
+	bit 7, a
+	ld a, $ff
+	jr nz, .doublespeed	
+	predef SetCPUSpeed
+	xor a
+.doublespeed
+	push af
+	
+	push de
+	ld de, FadePal4
+	callba BufferAllPokeyellowColorsGBC		;back up all colors to a buffer space in wram
+	
+	ld a, [hFlagsFFFA]	;need to set a flag that skips the $FF80 OAM call in VBLANK
+	push af
+	set 0, a
+	ld [hFlagsFFFA], a
+
+	ld c, 28
+.loop
+	push bc
+	call IncrementAllColorsGBC	;read buffered colors, increment them C times, and write them to hardware
+	pop bc
+	ld a, c
+	sub 3	;step size of C
+	ld c, a
+	jr nc, .loop
+
+	pop af
+	ld [hFlagsFFFA], a
+
+	pop de
+
+	pop af
+	inc a
+	ret z	;return now if 2x cpu mode was already active at the start of this function
+	;otherwise return to single cpu mode and return
+	predef SingleCPUSpeed
+	xor a
+	ret
+	
+.notGBC
+	ld a, 1
+	and a
+	ret
+	
+	
+	
+GBCFadeInFromBlack:
+	;Check if playing on a GBC and return if not so
+	ld a, [hGBC]
+	and a
+	jr z, .notGBC
+	
+	;personal preference - only do smooth fade in 60fps mode
+	ld a, [wUnusedD721]
+	bit 4, a
+	jr z, .notGBC
+
+;	if 60fps option enabled but in 1x cpu mode, then enable 2x cpu mode just for this fade
+	ld a, [rKEY1]
+	bit 7, a
+	ld a, $ff
+	jr nz, .doublespeed	
+	predef SetCPUSpeed
+	xor a
+.doublespeed
+	push af
+	
+	push de
+	ld de, FadePal4
+	callba BufferAllPokeyellowColorsGBC		;back up all colors to a buffer space in wram
+	
+	ld a, [hFlagsFFFA]	;need to set a flag that skips the $FF80 OAM call in VBLANK
+	push af
+	set 0, a
+	ld [hFlagsFFFA], a
+
+	ld c, 28
+.loop
+	push bc
+	call DecrementAllColorsGBC	;read buffered colors, increment them C times, and write them to hardware
+	pop bc
+	ld a, c
+	sub 3	;step size of C
+	ld c, a
+	jr nc, .loop
+
+	pop af
+	ld [hFlagsFFFA], a
+
+	pop de
+
+	pop af
+	inc a
+	ret z	;return now if 2x cpu mode was already active at the start of this function
+	;otherwise return to single cpu mode and return
+	predef SingleCPUSpeed
 	xor a
 	ret
 	

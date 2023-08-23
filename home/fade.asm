@@ -22,6 +22,11 @@ LoadGBPal::
 	ret
 
 GBFadeInFromBlack::
+	callba GBCFadeInFromBlack
+	ld hl, FadePal4
+	ld b, 1
+	ld c, 1
+	jr z, GBFadeIncCommon.delayset
 	ld hl, FadePal1
 	ld b, 4
 	jr GBFadeIncCommon
@@ -63,6 +68,11 @@ GBFadeOutToBlack::
 	jr GBFadeDecCommon
 
 GBFadeInFromWhite::
+	callba GBCFadeInFromWhite
+	ld hl, FadePal5 + 2
+	ld b, 1
+	ld c, 1
+	jr z, GBFadeDecCommon.delayset
 	ld hl, FadePal7 + 2
 	ld b, 3
 

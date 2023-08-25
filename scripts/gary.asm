@@ -52,6 +52,8 @@ GaryScript2:
 	call Delay3
 	xor a
 	ld [wJoyIgnore], a
+	ld a, 9
+	ld [wGymLeaderNo], a	;joenote - manually set final battle music
 	ld hl, wFlags_D733
 	set 5, [hl]	;joenote - set a flag to tell the battle engine that this is the final boss
 	ld hl, wOptions

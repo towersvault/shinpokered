@@ -131,7 +131,21 @@ _Random_BiasDV::
 	cp MUSIC_GYM_LEADER_BATTLE
 	jr z, .bossmusic
 	cp MUSIC_FINAL_BATTLE
-	jr z, .bossmusic
+	jr z, .isboss
+	
+	;check for lorelei, bruno, agatha, giovanni, and rival2
+	ld a, [wCurOpponent]
+	cp SONY2
+	jr z, .isboss
+	cp GIOVANNI
+	jr z, .isboss
+	cp LORELEI
+	jr z, .isboss
+	cp BRUNO
+	jr z, .isboss
+	cp AGATHA
+	jr z, .isboss
+
 	ret
 .bossmusic
 	ld a, d

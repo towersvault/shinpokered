@@ -132,7 +132,6 @@ _Random_BiasDV::
 	jr z, .bossmusic
 	cp MUSIC_FINAL_BATTLE
 	jr z, .bossmusic
-	cp MUSIC_FINAL_BATTLE
 	ret
 .bossmusic
 	ld a, d

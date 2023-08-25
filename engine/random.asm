@@ -70,6 +70,7 @@ Random_::
 
 
 ;joenote - rolls 1d16-1	twice and keeps the higher result for each of the four DV values
+;if boss music is playing, the minimum DVs are 8
 _Random_BiasDV::
 	
 	call Random
@@ -125,6 +126,16 @@ _Random_BiasDV::
 	ld d, a
 	ld e, b
 	
+	;if gym leader or champion music playing, make it so values cannot be below 8
+	ld a, [wGymLeaderNo]
+	and a
+	ret z
+	ld a, d
+	or $98
+	ld d, a
+	ld a, e
+	or $88
+	ld e, a
 	ret
 	
 _Random_DV::	;generates four 0 to 15 DVs in DE, and rerolls 1 time for each DV below the value placed in L

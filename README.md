@@ -219,7 +219,7 @@ Press START on the bag menu to hot-swap the item list that populates the active 
 The game's systems will generally detect items in the non-active bag space.
 Unique systems, such as Pokemon Stadium, will only recognize the active bag's item list.
 
-Hold SELECT and press START while on the bag menu to auto-sort your items.
+Hold SELECT and press START while on the bag menu or PC item box menu to auto-sort your items
 
 Each pokemon on your team has a field move slot.
 These slots can temporarily hold a HM move for overworld-use only.
@@ -649,7 +649,7 @@ v1.23.15
 - Fixed some debugging features
 - Press and hold A+SELECT at the title screen to print the current RNG seed at the main menu
 - Fixed a bug where HP bar animation can print the wrong tile for 1 frame
-- Hold SELECT and press START while on the bag menu to auto-sort your items
+- Hold SELECT and press START while on the bag menu or PC item box menu to auto-sort your items
 - Improved fade-in and fade-out to black/white transitions when playing on GBC in 60FPS mode
 - Fixed junk tiles displaying for 1 frame when the game resets after displaying THE END
 
@@ -1322,7 +1322,7 @@ v1.23.15
   - Press the SELECT button
   - The enemy pokemon will play its cry if registered as owned
 - Added ability to forfeit trainer battles by choosing RUN in battle while holding SELECT
-- Hold SELECT and press START while on the bag menu to auto-sort your items
+- Hold SELECT and press START while on the bag menu or PC item box menu to auto-sort your items
 - The bag now supports an additional item list for an extra 20 slots of space
   - Press START on the bag menu to hot-swap the item list that populates the active bag
     - Also works in battle

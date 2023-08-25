@@ -221,8 +221,8 @@ For example, you can enter the Cinnabar Gym even if the Secret Key is in the non
 For certain unique systems, like Pokemon Stadium compatibility, only the active bag list is detected.  
 
 **Bag Auto-Sort**  
-You can now automatically sort all the items in the active bag space.  
-Hold SELECT and press START while on the bag menu to auto-sort your items.  
+You can now automatically sort all the items in the active bag space or the PC item box.  
+Hold SELECT and press START while on the bag or box menu to auto-sort your items.  
 
 **Temporary Field Move Slots**  
 When teaching a pokemon a field move outside of battle, such as with a HM, this feature becomes apparent.  

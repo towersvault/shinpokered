@@ -1,7 +1,7 @@
 **New features exclusively for the master branch**
 - Added nuzlocke mode
 
-- Hold SELECT and press START on the bag menu to auto-sort your items
+- Hold SELECT and press START while on the bag menu or PC item box menu to auto-sort your items
 
 - The girl in Oak's lab toggles a built-in randomizer for wild pokemon and your starters
   - Shuffles all pokemon that can be gained through walking, surfing, fishing, or from the game corner

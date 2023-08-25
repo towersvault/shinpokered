@@ -383,10 +383,6 @@ HandleBagData:
 	ld a, [wListMenuID]
 	cp ITEMLISTMENU
 	ret nz
-	ld a, [wFlags_0xcd60]
-	bit 4, a
-	ret nz
-	
 	ld a, [hJoyHeld]
 	bit BIT_SELECT, a
 	jp nz, SortItems
@@ -395,6 +391,10 @@ HandleBagData:
 
 ;joenote - This function swaps the primary bag data with a second set of stored bag data
 SwapBagData:
+	ld a, [wFlags_0xcd60]
+	bit 4, a
+	ret nz
+	
 	push bc
 	push de
 	push hl
@@ -479,6 +479,7 @@ UpdateMenuInfo:
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;Implementing the bag sorting feature written by devolov
+;Wasn't hard to also make this work with the PC item box
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 SortItems:
 	push de
@@ -494,7 +495,7 @@ SortItems:
 	jp .beginSorting
 .finishedSwapping
 	ld a, [hSwapTemp] ; If not 0, then a swap of items did occur
-	cp 0
+	and a
 	jr z, .nothingSorted
 ;	ld hl, SortComplete
 	jr .printResultText
@@ -517,7 +518,7 @@ SortItems:
 	ld de, 0
 	ld hl, ItemSortList
 	ld b, [hl] ; This is the first item to check for
-	ld hl, wBagItems
+	call .ldHLbagorbox
 	ld c, 0 ; Relative to wBagItems, this is where we'd like to begin swapping
 .loopCurrItemInBag
 	ld a, [hl] ; Load the value of hl to a (which is an item number)
@@ -535,7 +536,7 @@ SortItems:
 	ld hl, ItemSortList
 	add hl, de
 	ld b, [hl]
-	ld hl, wBagItems ; Resets hl to start at the beginning of the bag
+	call .ldHLbagorbox ; Resets hl to start at the beginning of the bag
 	ld a, b
 	cp $FF ; Check if we got through all of the items, to the last one
 	jr z, .finishedSwapping
@@ -546,7 +547,7 @@ SortItems:
 	push de
 	ld d, h
 	ld e, l
-	ld hl, wBagItems
+	call .ldHLbagorbox
 	ld a, b
 	ld b, 0
 	add hl, bc ; hl now holds where we'd like to swap to
@@ -579,11 +580,23 @@ SortItems:
 	pop de
 	jr .findNextItem
 
+;joenote - allow for sorting both the bag and the item PC box
+.ldHLbagorbox
+	ld hl, wBagItems
+	push af
+	ld a, [wFlags_0xcd60]
+	bit 4, a
+	jr z, .ldHLbagorbox_next
+	ld hl, wBoxItems
+.ldHLbagorbox_next
+	pop af
+	ret
+
+
 ItemSortList::
-	; Used Key Items
+	; Active-Usage Key Items
 	db BICYCLE
 	db ITEMFINDER
-	db EXP_ALL
 	db TOWN_MAP
 	; Rods
 	db OLD_ROD
@@ -654,7 +667,8 @@ ItemSortList::
 	db COIN_CASE
 	db COIN
 	db NUGGET
-	; Fossils
+	; Gift Passives
+	db EXP_ALL
 	db DOME_FOSSIL
 	db HELIX_FOSSIL
 	db OLD_AMBER

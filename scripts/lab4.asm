@@ -160,6 +160,7 @@ Lab4Text3:
 	cp MOLTRES
 	jp z, .done
 
+	callba GenericMoneyDisplayScript
 	ld hl, Lab4Text_Clone0
 	call PrintText
 	call YesNoChoice
@@ -190,7 +191,8 @@ Lab4Text3:
 	ld de, wPlayerMoney + 2
 	ld c, $3
 	predef SubBCDPredef
-
+	
+	callba GenericMoneyDisplayScript
 	ld a, SFX_PURCHASE
 	call PlaySoundWaitForCurrent
 	call WaitForSoundToFinish
@@ -250,19 +252,21 @@ Lab4Text3:
 	jr .done
 .enoughMoney2
 	; Charge 10000 money
-	xor a
-	ld [wPriceTemp], a
-	ld [wPriceTemp + 1], a	
 	ld a, $01
+	ld [wPriceTemp], a
+	xor a
+	ld [wPriceTemp + 1], a	
 	ld [wPriceTemp + 2], a	
 	ld hl, wPriceTemp + 2
 	ld de, wPlayerMoney + 2
 	ld c, $3
 	predef SubBCDPredef
 	
+	callba GenericMoneyDisplayScript
 	ld a, SFX_PURCHASE
 	call PlaySoundWaitForCurrent
 	call WaitForSoundToFinish
+	
 
 	ld a, [wPartyMon1Species]
 	ld [wFossilMon], a

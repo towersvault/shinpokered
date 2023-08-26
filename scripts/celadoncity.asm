@@ -208,6 +208,9 @@ BuyCoinsFromRocket:
 	ld c, $2
 	predef AddBCDPredef
 	callba CeladonGameCornerScript_48f1e
+	ld a, SFX_PURCHASE
+	call PlaySoundWaitForCurrent
+	call WaitForSoundToFinish
 	ld hl, _TXTBoughtCoins
 	jr .end
 .refuse

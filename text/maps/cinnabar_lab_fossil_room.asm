@@ -79,8 +79,8 @@ _Lab4Text_610bd::
 
 ;joenote - text for cloning guy
 _Lab4Text_Clone0::
-	text "¥100 for Punnett"
-	line "Square analysis."
+	text "A Punnett Square"
+	line "analysis is ¥200."
 	cont "You interested?"
 	done
 	
@@ -101,7 +101,7 @@ _Lab4Text_Clone1::
 	
 _Lab4Text_Clone2::
 	text "To clone these"
-	line "genes is ¥6000."
+	line "genes is ¥10000."
 	cont "Still interested?"
 	done
 

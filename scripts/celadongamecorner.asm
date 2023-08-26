@@ -508,6 +508,33 @@ CeladonGameCornerScript_48f1e:
 	res 6, [hl]
 	ret
 
+;joenote - copying and making a few modifications in order to create a general-use money display function
+GenericMoneyDisplayScript:
+	ld hl, wd730
+	set 6, [hl]
+	coord hl, 11, 0
+	ld b, $2
+	ld c, $7
+	call TextBoxBorder
+	call UpdateSprites
+	coord hl, 12, 1
+	ld b, 2
+	ld c, 7
+	call ClearScreenArea
+	coord hl, 12, 1
+	ld de, GameCornerMoneyText
+	call PlaceString
+	coord hl, 12, 2
+	ld de, GameCornerBlankText1
+	call PlaceString
+	coord hl, 12, 2
+	ld de, wPlayerMoney
+	ld c, $a3
+	call PrintBCDNumber
+	ld hl, wd730
+	res 6, [hl]
+	ret
+
 GameCornerMoneyText:
 	db "MONEY@"
 

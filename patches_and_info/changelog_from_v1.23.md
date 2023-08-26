@@ -142,6 +142,7 @@
 - Trapping moves no longer apply a speed penalty
 - If trainer scaling is on, you do not need to beat the 1st route 22 rival solo to get oak's pokeballs
 - Fixed an issue with the level scaling feature that inadvertantly biased non-special trainers to higher levels
+- Fixed a problem where the champion whould not work with level scaling
 
 
 ---
@@ -164,6 +165,8 @@
   - Critical hit chance in non-link battles use the Stadium 1 formula
   - Oak's pokeballs will be upgraded to great balls if you beat the route 22 rival in hard mode
   - Wild pokemon DVs get 1 re-roll each if less than 4, biasing them upwards a little bit
+  - Trainers now roll their DVs twice and use the better result
+  - Only boss trainers (giovanni, elite 4, gym leaders, later-game rival) cannot have DVs below 8 in hard mode
 
 - Vanilla Options Reset: Deactivates all special options (such as in preparation to update to a new patch)
   - go to the start menu and put the cursor on the top option (usually POKEDEX)

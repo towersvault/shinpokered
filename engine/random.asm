@@ -134,6 +134,7 @@ _Random_BiasDV::
 	jr z, .isboss
 	
 	;check for lorelei, bruno, agatha, giovanni, and rival2
+	;in the vanilla game, these boss trainers are fought with regular trainer battle music
 	ld a, [wCurOpponent]
 	cp SONY2
 	jr z, .isboss

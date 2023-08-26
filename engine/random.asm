@@ -129,7 +129,7 @@ _Random_BiasDV::
 	;if gym leader or champion music playing, make it so values cannot be below 8
 	ld a, [wChannelSoundIDs]
 	cp MUSIC_GYM_LEADER_BATTLE
-	jr z, .bossmusic
+	jr z, .isboss
 	cp MUSIC_FINAL_BATTLE
 	jr z, .isboss
 	
@@ -147,7 +147,7 @@ _Random_BiasDV::
 	jr z, .isboss
 
 	ret
-.bossmusic
+.isboss
 	ld a, d
 	or $98
 	ld d, a

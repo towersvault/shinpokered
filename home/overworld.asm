@@ -494,17 +494,28 @@ WarpFound2::
 	ld [wLastMap], a
 	;ld a, [wCurMapWidth]
 	;ld [wUnusedD366], a ; not read
-	ld a, [hWarpDestinationMap]
+
+;joenote - this order is kinda wonky and makes the map sound play after the fade-out when entering rock tunnel
+	; ld a, [hWarpDestinationMap]
+	; ld [wCurMap], a
+	; cp ROCK_TUNNEL_1
+	; jr nz, .notRockTunnel
+	; ld a, $06
+	; ld [wMapPalOffset], a
+	; call GBFadeOutToBlack
+; .notRockTunnel
+	; call PlayMapChangeSound
+	; jr .done
+;joenote - let's fix the order of things
+	call PlayMapChangeSound		;wCurMap is not needed right now, so play the map sound first (along with fade-out)
+	ld a, [hWarpDestinationMap]	;now update wCurMap
 	ld [wCurMap], a
-	cp ROCK_TUNNEL_1
-	jr nz, .notRockTunnel
+	cp ROCK_TUNNEL_1	;if rock tunnel, set wMapPalOffset to 6
+	jr nz, .done		;done here if not rock tunnel since the map sound already played and the view faded out
 	ld a, $06
 	ld [wMapPalOffset], a
-	call GBFadeOutToBlack
-.notRockTunnel
-	call PlayMapChangeSound
 	jr .done
-
+	
 ; for maps that can have the 0xFF destination map, which means to return to the outside map
 ; not all these maps are necessarily indoors, though
 .indoorMaps
@@ -587,8 +598,17 @@ PlayMapChangeSound::
 	call PlaySound
 	ld a, [wMapPalOffset]
 	and a
-	ret nz
-	jp GBFadeOutToBlack
+;	ret nz
+;	jp GBFadeOutToBlack
+;joenote - failure to black out the palette makes the color look strange when exiting a dark cave to outside
+	jp z, GBFadeOutToBlack
+	push af
+	inc a
+	ld [wMapPalOffset], a
+	call LoadGBPal
+	pop af
+	ld [wMapPalOffset], a
+	ret
 
 CheckIfInOutsideMap::
 ; If the player is in an outside map (a town or route), set the z flag

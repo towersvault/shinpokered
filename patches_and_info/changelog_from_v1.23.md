@@ -302,6 +302,7 @@
 - Fixed garbage tiles display for 1 frame after a battle on the DMG
 - Fixed a bug where HP bar animation can print the wrong tile for 1 frame
 - Fixed junk tiles displaying for 1 frame when the game resets after displaying THE END
+- Fixed transitions when entering and exiting Rock Tunnel
 
 - The proper forget-move poof sfx plays during battle
 - Fixed a bug having to do with rare instances of bending the audio pitch

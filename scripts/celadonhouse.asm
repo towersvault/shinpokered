@@ -89,8 +89,9 @@ CeladonHouseText1:	;joenote - adding offer to buy pokemon
 	ld [wRemoveMonFromBox], a
 	call RemovePokemon
 	
-	ld a, SFX_GET_ITEM_1
-	call PlaySound
+	ld a, SFX_PURCHASE
+	call PlaySoundWaitForCurrent
+	call WaitForSoundToFinish
 	
 	xor a 
 	ld [wPartyAndBillsPCSavedMenuItem], a	;reset the cursor

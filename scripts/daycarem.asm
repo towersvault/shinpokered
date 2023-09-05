@@ -113,7 +113,7 @@ DayCareMText1:
 	inc de
 	ld [de], a
 	ld hl, wDayCarePerLevelCost
-	ld a, $1
+	ld a, $1		;loading $0100 into wDayCarePerLevelCost & wDayCarePerLevelCost+1 for 100 money
 	ld [hli], a
 	ld [hl], $0
 	ld a, [wDayCareNumLevelsGrown]

@@ -939,6 +939,9 @@ AIMoveChoiceModification3:
 	ld a, [wEnemyMoveEffect]	;load the move effect
 	cp OHKO_EFFECT	;see if it is ohko move
 	jr nz, .skipout3	;skip ahead if not ohko move
+	ld a, [wEnemyBattleStatus2]
+	bit USING_X_ACCURACY, a
+	jr nz, .nextMove	;X-accuracy is being used so ohko move viable
 	call StrCmpSpeed	;do a speed compare
 	jp c, .nextMove	;ai is fast enough so ohko move viable
 	;else ai is slower so don't bother

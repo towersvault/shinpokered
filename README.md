@@ -133,7 +133,7 @@ Hard mode trainer DVs
 
 ***Lite features for a cleaned-up purist experience***
 
-A huge number of bugs, glitches, oversights, and text errors of all sorts have been fixed. 
+Over 200 bugs, glitches, oversights, and text errors of all sorts have been fixed! 
 There are too many to enumerate in a simple summary, and some of them are very obscure or previously undiscovered.
 
 Includes english builds of Green and Red-JP versions. 

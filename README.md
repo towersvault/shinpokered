@@ -703,9 +703,9 @@ v1.23.15
       - Move slots cannot be rearranged when transformed (prevents acquiring glitch moves)
       - Fixing Transformation loops
         - If Transform copies an opponent's Transform move,
-        - and the the PP of that move is < 6, 
-	  - it will copy that move's instantaneous PP less 1.
-	  - This limits the PP of using transform repeatedly between two pokemon
+        - and the the PP of that move is < 6,
+          - it will copy that move's instantaneous PP less 1.
+          - This limits the PP of using transform repeatedly between two pokemon
       - Enemy DVs can no longer be manipulated by having it use transform multiple times
 	  - Fixed a conflict where transforming while disabled can leave the new moves disabled
 	  - Fixed transformed 'mons reseting their moves when learning a level-up move

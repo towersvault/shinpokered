@@ -44,7 +44,20 @@ DisplayDiploma:
 	coord hl, 10, 4
 	ld de, wPlayerName
 	call PlaceString
+
+;joenote - support female player character
+IF DEF(_FPLAYER)	
+	ld a, [wUnusedD721]
+	bit 0, a	;check if girl
+	jr nz, .is_fplayer
 	callba DrawPlayerCharacter
+	jr .fplayer_end
+.is_fplayer
+	callba DrawPlayerCharacter_F
+.fplayer_end
+ELSE
+	callba DrawPlayerCharacter
+ENDC
 
 ; Move the player 33 pixels right and set the priority bit so he appears
 ; behind the background layer.

@@ -1891,6 +1891,8 @@ INCLUDE "data/trainer_parties.asm"
 
 IF DEF(_FPLAYER)
 ;joenote - adding female trainer sprites
+	FPlayerCharacterTitleGraphics:   INCBIN "gfx/player_title_f.2bpp"
+	FPlayerCharacterTitleGraphicsEnd:
 	IF DEF(_SWBACKS)
 	RedPicFBack::           INCBIN "pic/swtrainerback/redb_f.pic"
 	ELSE

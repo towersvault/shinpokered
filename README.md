@@ -656,6 +656,7 @@ v1.23.15
 - Only boss trainers (giovanni, elite 4, gym leaders, later-game rival) cannot have DVs below 8 in hard mode
 - Fixed transitions when entering and exiting Rock Tunnel
 - Mist Stone: If all the stat exp is already at max, then it will set all the DVs to maximum instead
+- Beating the seafoam missingo battle adds an achievement to your diploma
 
 
 #Bugfixes
@@ -1538,6 +1539,8 @@ v1.23.15
   - If defeated, it will set a non-key item in the sixth bag slot to a quantity of 99
   - Win or lose, you must do the "Old Man" process again to reactivate the encounter
   - For an even harder battle, try using the eastern shore of the seafoam islands
+    - Again, victory will set the quanitity of your sixth bag item to 99
+	- Beating the seafoam missingo battle adds an achievement to your diploma
 - Implemented the old Down+B urban legend for pokeballs as a cheat code
   - The timing is different. You have to hold Down+B before the "[PLAYER] used [ITEM]" text finishes printing.
   - If successful, the ball tossed will be twice as effective as normal

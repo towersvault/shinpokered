@@ -67,10 +67,12 @@ EndMissingnoBattle:
 	xor a
 	ld [wRoute20CurScript], a
 	ld [wCurMapScript], a
-	;return of battle was a loss or draw
+	;return if battle was a loss or draw
 	ld a, [wBattleResult]
 	and a
 	ret nz
+	;set the event to indicate that the player won
+	SetEvent EVENT_8C6
 	;return if less than 6 items in bag
 	ld a, [wNumBagItems]
 	cp 6

@@ -16,6 +16,13 @@ DisplayDiploma:
 	coord hl, 0, 0
 	lb bc, 16, 18
 	predef Diploma_TextBoxBorder
+	
+	;joenote - adding master text if the seafoam missingno battle is beaten
+	ld hl, DiplomaTextPointersAndCoords_master
+	ld c, $6
+	CheckEvent EVENT_8C6
+	jr nz, .asm_56715
+	
 	ld hl, DiplomaTextPointersAndCoords
 	ld c, $5
 .asm_56715
@@ -83,6 +90,9 @@ UnusedPlayerNameLengthFunc:
 	dec c
 	jr .loop
 
+DiplomaTextPointersAndCoords_master:	;joenote - adding master text
+	dw MasterText
+	dwCoord 1, 1	
 DiplomaTextPointersAndCoords:
 	dw DiplomaText
 	dwCoord 5, 2
@@ -94,6 +104,9 @@ DiplomaTextPointersAndCoords:
 	dwCoord 2, 6
 	dw DiplomaGameFreak
 	dwCoord 9, 16
+
+MasterText:	;joenote - adding master text
+	db "<SHINY> #MON MASTER <SHINY>@"
 
 DiplomaText:
 	db $70,"Diploma",$70,"@"

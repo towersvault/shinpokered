@@ -494,7 +494,7 @@ Here is an alternative to grinding out battles in the post-game.
 6 - Fish in the lowest level of Cerulean Cave for something strange.  
 7 - Place a level 100 Chansey at the top of your party and use a repel. You're bound to find something shiny.  
 8 - When going to the game corner, try having your 1st-slot pokemon know Pay Day. It may tip you off.  
-9 - Missingno can be activated in either Seafoam or Cinnabar with your pokedex diploma. Prepare your sixth item slot for victory.  
+9 - Missingno can be activated in either Seafoam or Cinnabar with your pokedex diploma. Prepare your sixth item slot for victory. Beating the seafoam missingo battle will add an achievement to your diploma.  
 10 - Mercy is granted if you encounter an enemy trainer with a shiny pokemon.  
 11 - Put Mewtwo at the top of your party in the post-game. How will Mr. Fuji react?  
 12 - Bill's secret garden? He'll never tell! Could showing him a new species pokemon persuade him?  

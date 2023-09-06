@@ -2246,7 +2246,7 @@ const_value = 0
 	const EVENT_8C3   ;event for MIST_STONE          ; 8C3, (D85F, bit 3)	;joenote
 	const EVENT_8C4   ;got MIST_STONE                ; 8C4, (D85F, bit 4)
 	const EVENT_8C5   ;activate trapping clause      ; 8C5, (D85F, bit 5)
-	const EVENT_8C6                                  ; 8C6, (D85F, bit 6)
+	const EVENT_8C6   ;defeated seafoam missingno    ; 8C6, (D85F, bit 6)
 	const EVENT_8C7                                  ; 8C7, (D85F, bit 7)
 	const EVENT_8C8                                  ; 8C8, (D860, bit 0)
 	const EVENT_8C9                                  ; 8C9, (D860, bit 1)

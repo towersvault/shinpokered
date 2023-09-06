@@ -55,6 +55,7 @@
   - Side effect: Because trainer 'mons can't be shiny in regular difficulty, hard mode gives more chances to find wild shinies
 
 - Added new superboss at the seafoam shore (activated the same as the existing missingno fight)
+- Beating the seafoam missingo battle will certify you as a pokemon master on your diploma
 
 - Show Mewtwo to Mr. Fuji after beating the Elite 4 for a M.GENE
 

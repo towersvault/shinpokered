@@ -247,6 +247,8 @@
   - It keeps a backup of the pokedex-owned flags instead of erasing them
   - Removed the unused Ivysaur flag
 
+- The female trainer pic will now display on the diploma if applicable
+
 - AI can now handle fly/dig loops between the two pokemon
 - Adjusted some AI anti-spam for status moves
 - AI switch scoring applies an extra penalty for possibly switching a pokemon into a super-effective move

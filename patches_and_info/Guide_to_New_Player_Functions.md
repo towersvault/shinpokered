@@ -453,6 +453,7 @@ Talk to Oak at his lab to start a chain of hints for finding the four trainers.
 
 **The Secret of the MIST STONE**  
 The MIST STONE will max-out all the stat exp of the lvl > 30 pokemon on which it is used.  
+If all the stat exp is already at max, then it will set all the DVs to maximum instead.  
 But this assumes you are able to find the secret room for obtaining it.  
 
 

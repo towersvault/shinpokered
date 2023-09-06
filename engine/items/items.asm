@@ -1442,17 +1442,24 @@ ItemUseMedicine:
 	inc h
 .noCarry2
 	pop af
-	jr c, .e4notbeaten
+	jr c, .e4notbeaten		;apply vitamin limiter of less than the level threshold
 	CheckEvent EVENT_908	;joenote - has elite 4 been beaten?
-	jr z, .e4notbeaten 	;if not, do default compare
+	jr z, .e4notbeaten 	;if not, apply the vitamin limiter
+
 	;else remove the vitamin limiter
 	ld a, 10
 	ld b, a
+	call CheckMaxStatExp
+	jr c, .vitaminNoEffect ; if stat exp was already at 65535, then can't add any more
+
 	ld a, [hl] ; a = MSB of stat experience of the appropriate stat
-	cp $F5 ; is there already at least 62720 stat experience?
-	jr nc, .vitaminNoEffect ; if so, vitamins can't add any more
 	add b ; add 2560 (256 * 10) stat experience
-	jr .noCarry3	;carry should be impossible here
+	jr nc, .noCarry3	;if there is an overflow, load 65535 stat exp
+	ld a, $ff
+	inc hl
+	ld [hld], a
+	jr .noCarry3
+	
 .e4notbeaten
 	ld a, 10
 	ld b, a
@@ -1460,8 +1467,8 @@ ItemUseMedicine:
 	cp 100 ; is there already at least 25600 (256 * 100) stat experience?
 	jr nc, .vitaminNoEffect ; if so, vitamins can't add any more
 	add b ; add 2560 (256 * 10) stat experience
-	jr nc, .noCarry3 ; a carry should be impossible here, so this will always jump
-	ld a, 255
+;	jr nc, .noCarry3 ; a carry should be impossible here, so this will always jump
+;	ld a, 255
 .noCarry3
 	ld [hl], a
 	pop hl		;pop wPartyMonX
@@ -3359,18 +3366,22 @@ UseCustomMedicine:
 	push hl
 	ld bc, wPartyMon1HPExp - wPartyMon1
 	add hl, bc ; hl now points to stat experience
+	ld b, 5
+	ld c, 5
+.useMistStone_loop
+	call CheckMaxStatExp
+	call c, .decB
 	ld a , $ff
-	ld [hli], a	;load max hp exp
 	ld [hli], a
-	ld [hli], a	;load max attack exp
 	ld [hli], a
-	ld [hli], a	;load max defense exp
-	ld [hli], a
-	ld [hli], a	;load max speed exp
-	ld [hli], a
-	ld [hli], a	;load max special exp
-	ld [hli], a
+	dec c
+	jr nz, .useMistStone_loop
+	ld a, b
+	sub 1
 	pop hl
+	
+	call c, .maxDVs	;if stat exp is all at max, try to max the DVs
+	jp c, ItemUseMedicine.vitaminNoEffect	;no effect if everything is already at max
 	jr .exit_used_meds
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;added code for the M_GENE
@@ -3387,6 +3398,7 @@ UseCustomMedicine:
 	or $88
 	ld [hl], a
 	pop hl
+	;fall through
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;jump back to the original function after using an item
 .exit_used_meds
@@ -3396,6 +3408,39 @@ UseCustomMedicine:
 ;jump back to the original function after not using an item
 .exit_no_usage
 	jp ItemUseMedicine.no_custom_medicine
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;max out the DVs
+.maxDVs	
+	push hl
+	ld bc, wPartyMon1DVs - wPartyMon1
+	add hl, bc ; hl now points to DVs
+	ld b, 2
+	ld a, [hli]
+	add 1
+	call c, .decB
+	ld a, [hld]
+	add 1
+	call c, .decB
+	ld a, b
+	sub 1
+	pop hl
+	ret c	;return with carry bit set if DVs are already at max
+	
+	push hl
+	ld bc, wPartyMon1DVs - wPartyMon1
+	add hl, bc ; hl now points to DVs
+	ld a, $ff
+	ld [hli], a
+	ld [hl], a
+	pop hl
+	ret
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;general decrement for conditionals
+.decB
+	dec b
+	ret
 	
 VitaminLevelCheck:
 	push hl
@@ -3406,3 +3451,17 @@ VitaminLevelCheck:
 	cp 31
 	ret
 	
+CheckMaxStatExp:
+	push de
+	ld a, [hli] ; a = MSB of stat experience of the appropriate stat
+	ld d, a
+	ld a, [hld]	; a = LSB of stat experience of the appropriate stat
+	ld e, a
+	ld a, 1
+	add e
+	ld a, 0
+	adc a, d
+	pop de
+	ret		;carry bit is set if there is an overflow
+
+

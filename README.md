@@ -1014,7 +1014,7 @@ v1.23.15
   - Badge stat-ups are now only applied in wild pokemon battles to give parity to enemy trainers (only in hard mode)
   - The effect of X-Accuracy is no longer applied to one-hit K.O. moves (it originally made them auto-hit)
   - Using X-Accuracy with a OHKO move now allows it to hit faster opponents
-  - The limiter on vitamins is raised to a max of 62720 stat exp after the elite 4 have been beaten for 'mons with lvl > 30
+  - The limiter on vitamins is raised to a max of 65535 stat exp after the elite 4 have been beaten for 'mons with lvl > 30
   - Pkmn added to the player's party (either as a gift or in-game trade) have above-average DVs
   - Upped the power of safari balls
   - Escaping in the safari zone is now based on level instead of speed
@@ -1114,7 +1114,7 @@ v1.23.15
 - Many trainers have recieved slight roster adjustments so that almost all pokemon can be registered as seen
 - Agatha & cooltrainers will not randomly switch since they now have ai routine 4
 - Flags for dividing exp among active pokemon are now only reset after fainting an enemy pkmn
-  - Originally these get reset every time the opponent send out a pkmn (even swithing)
+  - Originally these get reset every time the opponent send out a pkmn (even switching)
   - Was never really noticed since most trainers never switch nor would have the opportunity
   - Changed based on user feedback since many trainers now try to switch
 - Adjustements to how trainers use healing items
@@ -1129,7 +1129,7 @@ v1.23.15
 - Adjustments to learnsets and base stats
   - Slight additions to explodo-mon movesets to play nicer with AI at higer levels
   - Pokemon have gained their TMs and Moves from yellow
-  - Kadabra & Alakazam can access Kinesis via the move relearner
+  - Kadabra & Alakazam can access Kinesis via the move relearner and by level
   - Raichu gains some attacks back via level
   - Arcanine gains some attacks back via level
   - Ninetails gains some attacks back via level
@@ -1451,7 +1451,9 @@ v1.23.15
 - New item M.GENE: 
   - Re-randomizes a pkmn's DVs to above-average values.
   - Win 5 matches in a row against the random team NPC to get a M.GENE (leaving the area resets the win streak)
-- New item MIST STONE: fully maxes-out a lvl > 30 pokemon's stat exp
+- New item MIST STONE
+  - Fully maxes-out a lvl > 30 pokemon's stat exp
+  - If all the stat exp is already at max, then it will set all the DVs to maximum instead.
 - There are 5 new trainers to find and battle
   - Hint 1: Talking to Oak can guide you to the first one
   - Hint 2: The fifth one can only be fought after beating the first four.

@@ -657,6 +657,7 @@ v1.23.15
 - Fixed transitions when entering and exiting Rock Tunnel
 - Mist Stone: If all the stat exp is already at max, then it will set all the DVs to maximum instead
 - Beating the seafoam missingo battle adds an achievement to your diploma
+- The female trainer pic will now display on the diploma if applicable
 
 
 #Bugfixes

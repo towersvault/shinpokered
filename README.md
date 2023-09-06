@@ -655,6 +655,7 @@ v1.23.15
 - Fixed a problem where the champion whould not work with level scaling
 - Only boss trainers (giovanni, elite 4, gym leaders, later-game rival) cannot have DVs below 8 in hard mode
 - Fixed transitions when entering and exiting Rock Tunnel
+- Mist Stone: If all the stat exp is already at max, then it will set all the DVs to maximum instead
 
 
 #Bugfixes

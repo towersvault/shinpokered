@@ -63,7 +63,9 @@
   - You will encounter the starter pokemon plus some other rarer pokemon
   - Shiny rates are 1-in-128 in this area
 
-- Added the MIST STONE: it will max-out all the stat exp of the lvl > 30 pokemon on which it is used
+- Added the MIST STONE
+  - It will max-out all the stat exp of the lvl > 30 pokemon on which it is used
+  - If all the stat exp is already at max, then it will set all the DVs to maximum instead
 
 - Defeat Lance with a Dragonite in your top spot and it will be given a catch rate of 168
   - Dragonite's cry will play to confirm that this has happened

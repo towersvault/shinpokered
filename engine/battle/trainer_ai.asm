@@ -1525,13 +1525,22 @@ BlackbeltAI:
 	jp c, AIUseXAttack	
 	ret
 
-GiovanniAI:	;joenote - uses dire hit now, but only if it's not active
+GiovanniAI:	;joenote - can now use dire hit or x-accuracy, but uses x-special if one of those are active
 	cp $20
 	ret nc
+	cp $10
+	jr c, .useXAcc
+.useDireHit
 	ld a, [wEnemyBattleStatus2]
-	and %00000100
-	ret z
-	jp AIUseDireHit
+	bit GETTING_PUMPED, a
+	jp z, AIUseDireHit
+	jr .otherwise
+.useXAcc
+	ld a, [wEnemyBattleStatus2]
+	bit USING_X_ACCURACY, a
+	jp z, AIUseXAccuracy
+.otherwise
+	jp AIUseXSpecial
 
 CooltrainerMAI:	;joenote - changed item to x-special and guard spec
 	cp $20

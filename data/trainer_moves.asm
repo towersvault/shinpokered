@@ -217,7 +217,7 @@ SpecialTrainerMoves:
 	db 2,1,THUNDER_WAVE
 	db 2,2,REFLECT
 	db 2,3,THUNDERBOLT
-	;dragonair - surf, bodyslam, ice beam, hyperbeam
+	;dragonair - surf, body slam, ice beam, hyperbeam
 	db 3,1,SURF
 	db 3,2,BODY_SLAM
 	db 3,3,ICE_BEAM
@@ -306,7 +306,7 @@ SpecialTrainerMoves:
 	;tauros - tail whip, earthquake, thunderbolt, hyperbeam
 	db 1,2,EARTHQUAKE
 	db 1,3,THUNDERBOLT
-	db 1,3,HYPER_BEAM
+	db 1,4,HYPER_BEAM
 	;exeggutor - reflect, stomp, solarbeam, hypnosis
 	;arcanine - bite, fire blast, takedown, flamethrower
 	db 3,2,FIRE_BLAST
@@ -321,7 +321,7 @@ SpecialTrainerMoves:
 	;tauros - tail whip, earthquake, thunderbolt, hyperbeam
 	db 1,2,EARTHQUAKE
 	db 1,3,THUNDERBOLT
-	db 1,3,HYPER_BEAM
+	db 1,4,HYPER_BEAM
 	;exeggutor - reflect, stomp, solarbeam, hypnosis
 	;arcanine - bite, fire blast, takedown, flamethrower
 	db 3,2,FIRE_BLAST
@@ -336,7 +336,7 @@ SpecialTrainerMoves:
 	;tauros - tail whip, earthquake, thunderbolt, hyperbeam
 	db 1,2,EARTHQUAKE
 	db 1,3,THUNDERBOLT
-	db 1,3,HYPER_BEAM
+	db 1,4,HYPER_BEAM
 	;exeggutor - reflect, stomp, solarbeam, hypnosis
 	;arcanine - bite, fire blast, takedown, flamethrower
 	db 3,2,FIRE_BLAST

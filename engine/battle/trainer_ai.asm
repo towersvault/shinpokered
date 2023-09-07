@@ -1963,6 +1963,7 @@ AICureStatus:	;joenote - modified to be more robust and also undo stat changes o
 	ret
 
 AIUseXAccuracy: 
+	call AIPlayRestoringSFX
 	ld hl, wEnemyBattleStatus2
 	set 0, [hl]
 	ld a, X_ACCURACY

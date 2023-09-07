@@ -875,6 +875,7 @@ v1.23.15
   - Fixed *thud* sfx playing when exiting via a warp tile
   - Fixed certain text sfx not playing when using zero-delay text
   - Meet Trainer jingle should not play before loading into the gym leader battle music
+  - AI using dire hit item now plays a SFX
   
 
 - Misc. fixes

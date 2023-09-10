@@ -57,6 +57,24 @@ This method is a good and speedy solution for 8-bit processors.
 The random seeds are taken from garbage values in HRAM on boot-up. Power-cycle your game if your luck is bad.  
 Of note, all wild pokemon DV combinations are now possible regardless of the current map.  
 
+**Fixes/Improvements to Catching Mechanics and Safari Zone**  
+- The ball factors of 8 for Great balls and 12 for Safari balls have been swapped.  
+  - This means that Great balls are no better at catching full-health pokemon than its peers.  
+  - It also means that Safari balls are much better for catching full-health pokemon, as was likely intended.  
+- The catch rate in Safari battles will now reset when either the "eating" or "angry" state end.  
+- Throwing a Safari ball in the Safari Zone simplifies to the following process.  
+  - Generate two random numbers: Rand1 in the range of [0, 125] and Rand2 in the range of [0, 255].  
+  - A catch is made if (Rand1 <= pokemon's catch rate) and (Rand2 <= 127), effectively a chance of [catch rate / 252].  
+- Except for the Lite patches, pokemon fleeing in the Safari Zone now use [1.5x Level] instead of [current speed].  
+  - This greatly reins in fleeing by fast pokemon and slightly boosts fleeing by slow pokemon.  
+  - The "angry" state flees at about 26%-36% per turn.  
+  - Likewise, the "eating" state flees at about 3%-5% percent per turn.  
+  - Therefore, rocks are fewer-turns-high-risk while bait is more-turns-low-risk.  
+  - Try the following strategy:
+    - Push your luck with the "angry" state by throwing rocks, doubling the catch rate each time.  
+	- Then throw a single bait, switching to the "eating" state at the cost halving the catch rate once.  
+	- Now throw Safari balls while enjoying a low flee chance with a doubled catch rate.  
+
 
 #New Engine Functions
 -----------------------------------------------

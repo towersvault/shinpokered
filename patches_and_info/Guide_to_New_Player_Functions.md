@@ -71,9 +71,9 @@ Of note, all wild pokemon DV combinations are now possible regardless of the cur
   - Likewise, the "eating" state flees at about 3%-5% percent per turn.  
   - Therefore, rocks are fewer-turns-high-risk while bait is more-turns-low-risk.  
   - Try the following strategy:
-    - Push your luck with the "angry" state by throwing rocks, doubling the catch rate each time.  
-	- Then throw a single bait, switching to the "eating" state at the cost halving the catch rate once.  
-	- Now throw Safari balls while enjoying a low flee chance with a doubled catch rate.  
+    - Push your luck with the "angry" state by throwing rocks, doubling the catch rate each time.
+    - Then throw a single bait, switching to the "eating" state at the cost halving the catch rate once.
+    - Now throw Safari balls while enjoying a low flee chance with an increased catch rate.  
 
 
 #New Engine Functions
@@ -427,7 +427,7 @@ Example of selecting for a shiny pokemon:
 -----------------------------------------------
 **SS Anne Tournament**  
 You can return to the SS Anne after beating the Elite-4. Find the Gym Guy hanging out in the kitchen.  
-He is organizing a little tournament with the follwoing rules:  
+He is organizing a little tournament with the following rules:  
 1 - Seven matches to win.  
 2 - Must use a team of exactly three pokemon.  
 3 - Your pokemon are healed after every match.  

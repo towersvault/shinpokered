@@ -178,7 +178,7 @@ Sleep does not prevent choosing a move, and the move is used upon waking up.
 To maintain sleep move accuracy, sleep starts with a counter of at least 2.
 And Rest now sets the sleep counter to 3.  
    
-   
+---  
 ***Additional Master features that go beyond engine modifications and fixes***
 
 All 151 pkmn are available in one version including trade evolutions (rarities may vary per version).

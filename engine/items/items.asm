@@ -1670,6 +1670,13 @@ BaitRockCommon:
 	cp 5
 	jr nc, .randomLoop
 	inc a ; increment the random number, giving a range from 1 to 5 inclusive
+	
+;joenote - There is a bug here. 
+;		- The 1-to-5 number is always decremented when PrintSafariZoneBattleText runs.
+;		- So getting a number of 1 will decrement immediately to zero and do nothing to the eating/angry state.
+;		- To get an effective 1-to-5 turns, increment once more to bump the range to 2-to-6
+	inc a
+	
 	ld b, a
 	ld a, [hl]
 	add b ; increase bait factor (for bait), increase escape factor (for rock)

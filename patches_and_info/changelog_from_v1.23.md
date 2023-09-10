@@ -341,6 +341,10 @@
 - Fixed an issue where the counter for the Disable effect had the wrong distribution if the target was slower
 - You can now get Oak's pokeballs even if you evolve your starter
 
+- The eating/angry message in safari battles will no longer display incorrectly when returning to neutral
+- The eating/angry safari state counter correctly increases by 1-5 turns instead of 0-4 turns
+- Safari battles correctly reset the catch rate when either eating/angry state returns to neutral
+
 - Fixed a bug from the vanilla game where random NPC walk delay can underflow to 255 ticks
 - Fixed an offset bug with the lucky game corner machine
 - Applied the pokeyellow fix for in-game trade evolutions

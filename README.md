@@ -658,6 +658,9 @@ v1.23.15
 - Mist Stone: If all the stat exp is already at max, then it will set all the DVs to maximum instead
 - Beating the seafoam missingo battle adds an achievement to your diploma
 - The female trainer pic will now display on the diploma if applicable
+- The eating/angry message in safari battles will no longer display incorrectly when returning to neutral
+- The eating/angry safari state counter correctly increases by 1-5 turns instead of 0-4 turns
+- Safari battles correctly reset the catch rate when either eating/angry state returns to neutral
 
 
 #Bugfixes
@@ -699,6 +702,10 @@ v1.23.15
     - If non-crit damage would be >= crit damage, the regular modified stat values are applied instead
   - The player can now select a move even if frozen, and this fixes a PP underflow and link desync glitch
   - Accounted for underflow with switch-out messages
+  - Safari Zone engine fixes:
+    - The eating/angry message in safari battles will no longer display incorrectly when returning to neutral
+	- The eating/angry safari state counter correctly increases by 1-5 turns instead of 0-4 turns
+	- Safari battles correctly reset the catch rate when either eating/angry state returns to neutral
 
 
 - Move fixes

@@ -123,6 +123,20 @@
   - Gym Leaders and mid-game Rival: below 1/5th total
   - Elite-4 and Champion: below 1/3th total
 
+- Added "The Shimmer", a cheat feature for those who want viability when using certain low-regarded pokemon.
+  - Toggled ON/OFF via the glass pokeball decoration in the rival's house.
+  - Pokemon Eligible: EKANS, CATERPIE, METAPOD, WEEDLE, KAKUNA, ZUBAT, PSYDUCK, PARAS, PONYTA, RATTATA, SANDSHREW, HORSEA, GOLDEEN, VENONAT, JIGGLYPUFF, ARBOK, BEEDRILL, BUTTERFREE, DITTO, FARFETCHD, GOLBAT, GOLDUCK, HITMONCHAN, LICKITUNG, ONIX, PARASECT, PINSIR, PORYGON, RAPIDASH, RATICATE, SANDSLASH, SEADRA, SEAKING, VENOMOTH, WIGGLYTUFF
+  - The shimmer factor appears randomly and secretly, and is more likely to occur if you favor sending out eligible 'mons.
+  - The shimmer only manifests in 'mons that are fully evolved, even if their pre-evos gained the secret shimmer factor.
+  - When the shimmer manifests as a 'mon gets sent out, that 'mon gets a large boost to stats that are low-to-poor.
+- Technical details of the shimmer
+  - A 'mon eligible for shimmer that is sent out, either by player or enemy trainer, can get the shimmer factor.
+  - The chance of getting the shimmer factor is 1-in-256 per send-out, rewarding a player that uses the 'mon frequently.
+  - The shimmer factor is defined via the pokemon's catch rate byte and is a value of $6D (held Miracle Berry in Gen-2).
+  - The manifestation of the shimmer boosts one-to-four of a 'mons unmodified stats.
+	- If 3/8ths of an unmodified stat is less than the mon's level, then the level value is added to that stat.
+    - Stats that can be boosted are: attack, defense, speed, or special.
+
 
 ---
 **Hack-related fixes exclusively for the master branch**

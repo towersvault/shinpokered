@@ -661,6 +661,7 @@ v1.23.15
 - The eating/angry message in safari battles will no longer display incorrectly when returning to neutral
 - The eating/angry safari state counter correctly increases by 1-5 turns instead of 0-4 turns
 - Safari battles correctly reset the catch rate when either eating/angry state returns to neutral
+- Added cheat feature "The Shimmer"
 
 
 #Bugfixes
@@ -1553,6 +1554,20 @@ v1.23.15
 - Implemented the old Down+B urban legend for pokeballs as a cheat code
   - The timing is different. You have to hold Down+B before the "[PLAYER] used [ITEM]" text finishes printing.
   - If successful, the ball tossed will be twice as effective as normal
+
+- Added "The Shimmer", a cheat feature for those who want viability when using certain low-regarded pokemon.
+  - Toggled ON/OFF via the glass pokeball decoration in the rival's house.
+  - Pokemon Eligible: EKANS, CATERPIE, METAPOD, WEEDLE, KAKUNA, ZUBAT, PSYDUCK, PARAS, PONYTA, RATTATA, SANDSHREW, HORSEA, GOLDEEN, VENONAT, JIGGLYPUFF, ARBOK, BEEDRILL, BUTTERFREE, DITTO, FARFETCHD, GOLBAT, GOLDUCK, HITMONCHAN, LICKITUNG, ONIX, PARASECT, PINSIR, PORYGON, RAPIDASH, RATICATE, SANDSLASH, SEADRA, SEAKING, VENOMOTH, WIGGLYTUFF
+  - The shimmer factor appears randomly and secretly, and is more likely to occur if you favor sending out eligible 'mons.
+  - The shimmer only manifests in 'mons that are fully evolved, even if their pre-evos gained the secret shimmer factor.
+  - When the shimmer manifests as a 'mon gets sent out, that 'mon gets a large boost to stats that are low-to-poor.
+- Technical details of the shimmer
+  - A 'mon eligible for shimmer that is sent out, either by player or enemy trainer, can get the shimmer factor.
+  - The chance of getting the shimmer factor is 1-in-256 per send-out, rewarding a player that uses the 'mon frequently.
+  - The shimmer factor is defined via the pokemon's catch rate byte and is a value of $6D (held Miracle Berry in Gen-2).
+  - The manifestation of the shimmer boosts one-to-four of a 'mons unmodified stats.
+	- If 3/8ths of an unmodified stat is less than the mon's level, then the level value is added to that stat.
+    - Stats that can be boosted are: attack, defense, speed, or special.
 
 </details>
 

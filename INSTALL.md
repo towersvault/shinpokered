@@ -1,5 +1,4 @@
 UPDATE: This repository compiles with RGBDS v0.6.0
-		RGBDS v0.6.0 and higher are currently unsupported
 
 # Instructions
 

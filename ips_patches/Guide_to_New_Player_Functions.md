@@ -17,7 +17,7 @@ It's assumed you are using a modern backlit screen with no other color correctio
 Under these stated conditions, the colors will be highly saturated.  
 Press SELECT at the copyright screen when the game first boots. This will fix the saturated colors.  
 Changing the destination code of the rom header to 00 (JP) defaults this to ON and pressing SELECT turns it OFF.  
-Use the BGB emulator to easily change the destination code and fix the header checksum (https://youtu.be/2AaCkM597iU?t=70).  
+Use the BGB emulator to easily change the destination code and fix the header checksum (https://youtu.be/2AaCkM597iU).  
 
 **Change the Audio Type**  
 Updated Audio mixing has been ported over from Pokemon Yellow.  

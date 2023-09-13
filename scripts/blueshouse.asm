@@ -108,12 +108,12 @@ ShimmerToggleText:
 .done
 	jp TextScriptEnd
 _TXTShimmerON:
-	text "A glass # BALL"
+	text "A glass #BALL"
 	line "shimmers faintly."
 	done
 	db "@"
 _TXTShimmerOFF:
-	text "A glass # BALL"
+	text "A glass #BALL"
 	line "...just a nice"
 	cont "decoration."
 	done

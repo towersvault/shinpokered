@@ -1,6 +1,6 @@
 # Shin Pokémon Red, Blue, Green, Red-JP, & Blue-JP
 
-Version 1.23.15
+Version 1.24.0
 
 *Shin (真) - The kanji for "true".  
 Used in Japanese media to denote a remastering, updated retelling , or a "true form" of something.*  

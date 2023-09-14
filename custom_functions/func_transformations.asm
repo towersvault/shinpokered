@@ -20,6 +20,10 @@ ShimmerTransformationEnemy:
 	ld de, wEnemyMon1CatchRate
 	;fall through
 ShimmerTransformationCommon:
+	ld a, [wLinkState]
+	cp LINK_STATE_BATTLING
+	jr z, .return	;if link battle, then don't do anything
+	
 	CheckEvent EVENT_8C7	;event flag for this feature to run
 	jr z, .return
 	

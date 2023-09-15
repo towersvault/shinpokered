@@ -93,12 +93,13 @@ CheckForShimmerVal:
 ;uses BC
 ;sets z flag if 6D is written to the catch rate
 ;chance of this happening is 1-in-256 each time the pokemon becomes the active combatant
+;This chance increases by +(1-in-256) per 2048 HP stat experience
 WillGetShimmerVal:
 	call Random
+.gotnum	
 	cp $6D
-	ret nz
+	jr nz, WillGetShimmerVal_tryagain
 	push af
-	
 	ld bc, (wBattleMonCatchRate - wBattleMon)
 	add hl, bc
 	ld [hl], a
@@ -117,6 +118,42 @@ WillGetShimmerVal:
 	
 	pop af
 	ld [hl], a
+	ret
+
+WillGetShimmerVal_tryagain:
+	push hl
+	push af
+	
+	ld h, d
+	ld l, e
+	ld bc, (wPartyMon2 - wPartyMon1)
+	ld a, [wWhichPokemon]
+.loop
+	and a
+	jr z, .next
+	dec a
+	add hl, bc
+	jr .loop
+.next
+	;HL currently points to enemy or player party catch rate
+	ld bc, (wPartyMon1HPExp - wPartyMon1CatchRate)
+	add hl, bc	
+	;HL now points to enemy or player party HP EXP high byte
+	ld a, [hl]	;get the high byte
+	ld b, a
+	srl b
+	srl b
+	srl b
+		
+	pop af
+	pop hl
+	cp b
+	jr nc, .fail 
+	ld a, $6D
+	jr WillGetShimmerVal.gotnum
+.fail
+	ld a, 1
+	and a
 	ret
 
 	

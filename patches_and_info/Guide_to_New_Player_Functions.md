@@ -316,7 +316,7 @@ And yes, pokemon with HM moves are now allowed in the daycare.
 - This is a cheat feature for those who want more viability when using certain low-regarded pokemon.
   - Toggled ON/OFF via the glass pokeball decoration in the rival's house.
   - Pokemon Eligible: EKANS, CATERPIE, METAPOD, WEEDLE, KAKUNA, ZUBAT, PSYDUCK, PARAS, PONYTA, RATTATA, SANDSHREW, HORSEA, GOLDEEN, VENONAT, JIGGLYPUFF, ARBOK, BEEDRILL, BUTTERFREE, DITTO, FARFETCHD, GOLBAT, GOLDUCK, HITMONCHAN, LICKITUNG, ONIX, PARASECT, PINSIR, PORYGON, RAPIDASH, RATICATE, SANDSLASH, SEADRA, SEAKING, VENOMOTH, WIGGLYTUFF
-  - The shimmer factor appears randomly and secretly, and is more likely to occur if you favor sending out eligible 'mons.
+  - The shimmer factor appears randomly and secretly, being more likely to occur by training and sending out eligible 'mons.
   - The shimmer only manifests in 'mons that are fully evolved, even if their pre-evos gained the secret shimmer factor.
   - When the shimmer manifests as a 'mon gets sent out, that 'mon gets a large boost to some stats that are low-to-poor.
 

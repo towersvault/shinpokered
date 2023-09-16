@@ -5,13 +5,13 @@ Version 1.23.15
 *Shin (真) - The kanji for "true".  
 Used in Japanese media to denote a remastering, updated retelling , or a "true form" of something.*  
 
-     This is an enhancement ROM hack of Pokemon Red & Blue based on the Pret team's pokered disassembly project.
+     This is an enhancement ROM hack of Pokemon Red & Blue based on the Pret team's pokered disassembly project.
 It is a mostly-vanilla hack that focuses on fixing game engine bugs and oversights from the original game.
 Additionally, trainer AI routines are improved and multiple quality-of-life enhancements have been added.
 It also acts as a kind of research-informed speculative work that presents an alternate interpretation of the games.
 Specifically, that being what the 2016 Nintendo Virtual Console re-release of Gen-1 Pokemon could have been.
-It is the image of a glitch-free experience with player-friendly goodies and enhancements common to other modern remasterings.  
-     The main purpose of the accompanying source code repository is to study, comment upon, and repair functional errors.
+     It is the image of a glitch-free experience with player-friendly goodies and enhancements common to other modern remasterings.  
+The main purpose of the accompanying source code repository is to study, comment upon, and repair functional errors.
 It is important to record, for posterity's sake, the methods used for restoring the game to an error-free state.
 Finally, the source code documents many differences and changes between the various Japanese and English releases.
 

@@ -76,7 +76,7 @@ OakSpeech:
 IF DEF(_FPLAYER)
 	ld hl, AskIfGirlText
 	call PrintText
-	call NoYesChoice
+	call BoyGirlChoice
 	ld a, [wCurrentMenuItem]
 	ld b, a
 	ld a, [wUnusedD721]
@@ -384,4 +384,13 @@ IF DEF(_FPLAYER)
 AskIfGirlText::	;joenote - text to ask if female trainer
 	TX_FAR _AskIfGirlText
 	db "@"
+	
+BoyGirlChoice::	;joenote - added this
+	call SaveScreenTilesToBuffer1
+	ld a, BOY_GIRL_MENU
+	ld [wTwoOptionMenuID], a
+	coord hl, 13, 7
+	ld bc, $080E
+	jp DisplayYesNoChoice
 ENDC
+

@@ -132,6 +132,7 @@
 - Technical details of the shimmer
   - A 'mon eligible for shimmer that is sent out, either by player or enemy trainer, can get the shimmer factor.
   - The chance of getting the shimmer factor is 1-in-256 per send-out, rewarding a player that uses the 'mon frequently.
+  - The odds increase by +(1-in-256) per 2048 HP-StatExp that the sent-out pokemon has, encouraging player investment.
   - The shimmer factor is defined via the pokemon's catch rate byte and is a value of $6D (held Miracle Berry in Gen-2).
   - The manifestation of the shimmer boosts one-to-four of a 'mons unmodified stats.
 	- If 3/8ths of an unmodified stat is less than the mon's level, then the level value is added to that stat.

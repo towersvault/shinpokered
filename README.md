@@ -29,9 +29,11 @@ Follow media related to Shin Pokemon on [YouTube](https://www.youtube.com/@13joj
 BPS patches are provided for entry into your preferred emulator, patching tool, or other accessory that supports the BPS format.  
 Download and enter a patch which corresponds to the ROM of which you own a lawful copy.  
 - **Red patches (Shin Pokemon Red, Red_origback, and Red-JP) are intended for USA Red.**
-  - MD5 Hash: 3d45c1ee9abd5738df46d2bdda8b57dc
+  - File/ROM SHA-1: EA9BCAE617FDF159B045185467AE58B2E4A48B9A
+  - File/ROM CRC32: 9F7FDD53
 - **All other patches (Blues and Greens) are intended for USA Blue.**
-  - MD5 Hash: 50927e843568814f7ed45ec4f944bd8b
+  - File/ROM SHA-1: D7037C83E1AE5B39BDE3C30787637BA1D4C48CE2
+  - File/ROM CRC32: D6DA8A1A
 - The "_origback" patches are alternatives that keep the original back sprites. 
 
 ***Includes Pokemon Green and Japanese Red!***

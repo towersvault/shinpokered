@@ -238,7 +238,6 @@ TestMultiAttackMoveUse:
 	ld h, a
 	ld a, [wEnemyNumAttacksLeft]
 	ld l, a
-	ld a, [wEnemyBattleStatus2]
 .next1
 	ld a, h
 	cp ATTACK_TWICE_EFFECT

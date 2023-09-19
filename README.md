@@ -17,10 +17,11 @@ Finally, the source code documents many differences and changes between the vari
 
 Read the ["Guide to New Player Functions"](/patches_and_info/Guide_to_New_Player_Functions.md) for instructions on all the new stuff the player can do.
 
-Don't like the non-vanilla changes? Prefer only the bugfixes and AI improvements? Want a codebase from which to launch your own rom hack?
-Then the [Lite branch](https://github.com/jojobear13/shinpokered/tree/lite) is what you want. Head on over and start compiling.
+Don't like the non-vanilla changes? Prefer only the bugfixes and AI improvements? Want a codebase from which to launch your own rom hack? Then the [Lite branch](https://github.com/jojobear13/shinpokered/tree/lite) is what you want. Head on over and start compiling.
 
-Feel free to discuss this project in its dedicated [Pokecommunity thread](https://www.pokecommunity.com/showthread.php?t=427398).
+Discuss Shin Pokemon in its dedicated [PokéCommunity Showcase](https://www.pokecommunity.com/showthread.php?t=427398).
+
+Follow media related to Shin Pokemon on [YouTube](https://www.youtube.com/@13jojobear).
 
 
 #Patch Info  
@@ -53,8 +54,11 @@ You might be blocked by invisible walls upon loading the game.
 To fix this, you must use the Softlock Warp detailed below to teleport back to Pallet Town.  
 
 		
-#Screenshots
+#Media
 -----------
+
+[![Shin Pokemon Trailer](https://img.youtube.com/vi/AIzEfIpXX_c/0.jpg)](https://www.youtube.com/watch?v=AIzEfIpXX_c "Shin Pokemon Trailer")
+
 <details>
   <summary>Click to Show/Hide Images</summary>
 

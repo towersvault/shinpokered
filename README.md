@@ -659,6 +659,11 @@ Cheats and Secrets!
   - Restored unused text in the vermilion gym puzzle for finding the 2nd switch
   - Corrected and clarified the quiz text in the cinnabar gym
   - Clarified the text for the super repel on 2F of the celadon dept store
+- Adjustments to multi-attack moves animation and messaging to improve battle flow
+  - Multi-attack moves only print the effectiveness message after the last attack
+  - 2-attack moves do not print "hit 2 times" because its obvious that they always hit twice
+  - Multi-attack moves hide the substitute sprite on the first attack and only restore it after the last attack
+  - Twineedle is unaffected by all this due to how it swaps out its effect on the fly to a poison side-effect
 
 - Adjustments to moves  
   - Stat-down moves no longer have a 25% miss chance in AI matches

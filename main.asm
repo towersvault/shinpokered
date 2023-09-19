@@ -1852,7 +1852,7 @@ INCLUDE "data/animations.asm"
 
 INCLUDE "engine/evolution.asm"
 
-INCLUDE "engine/overworld/elevator.asm"
+;INCLUDE "engine/overworld/elevator.asm"	;joenote - moving this to make space
 
 
 SECTION "bank2D",ROMX,BANK[$2D]	;joenote - This is a known empty bank. Going to start moving stuff here
@@ -1918,6 +1918,7 @@ ENDC
 INCLUDE "engine/items/tm_prices.asm"
 
 INCLUDE "engine/learn_move.asm"	;joenote - moved in order to have more space
+INCLUDE "engine/overworld/elevator.asm"	;joenote - moving this to make space
 
 SECTION "bank2E",ROMX,BANK[$2E]	
 ;gbcnote - This bank will hold the bg map attributes for the gameboy color among other stuff

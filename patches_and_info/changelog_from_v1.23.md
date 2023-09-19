@@ -210,6 +210,12 @@
   - Uses more battery as a trade-off
 - Improved fade-in and fade-out to black/white transitions when playing on GBC in 60FPS mode
   
+- Adjustments to multi-attack moves animation and messaging to improve battle flow
+  - Multi-attack moves only print the effectiveness message after the last attack
+  - 2-attack moves do not print "hit 2 times" because its obvious that they always hit twice
+  - Multi-attack moves hide the substitute sprite on the first attack and only restore it after the last attack
+  - Twineedle is unaffected by all this due to how it swaps out its effect on the fly to a poison side-effect
+  
 - Added optimizations to how OAM data is prepared so that overworld sprites wobble less
 
 - DelayFrame now manualy calls VBlank if it runs while the LCD is disabled

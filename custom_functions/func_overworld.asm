@@ -81,6 +81,7 @@ ResetAllOptions: ;joenote - reset all the special options (like for patching-up)
 	ResetEvent EVENT_8DC
 	ResetEvent EVENT_8DD
 	ResetEvent EVENT_8DE
+	ResetEvent EVENT_8DF
 	
 	ResetEvent EVENT_909
 	ResetEvent EVENT_90A
@@ -88,6 +89,9 @@ ResetAllOptions: ;joenote - reset all the special options (like for patching-up)
 	ResetEvent EVENT_90E
 	ResetEvent EVENT_90F
 	ResetEvent EVENT_910
+	
+	ResetEvent EVENT_8C5
+	ResetEvent EVENT_8C7
 	ret
 
 TrainerRematch:

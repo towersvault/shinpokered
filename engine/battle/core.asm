@@ -2861,8 +2861,9 @@ BattleMenu_RunWasSelected:
 	pop bc
 	jr z, .no_forfeit
 	call HandlePlayerMonFainted
-	scf
-	jr .retc_menu
+	pop hl	;normally you never want to pop like this without corresponding pushes!
+	pop hl	;however, popping twice is needed here to put the stack pointer at the right place when we jump
+	jp _InitBattleCommon.endbattle
 .no_forfeit
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;	
 	ld a, $3
@@ -7907,6 +7908,7 @@ _InitBattleCommon:
 	dec a ; is it a wild battle?
 	call z, DrawEnemyHUDAndHPBar ; draw enemy HUD and HP bar if it's a wild battle
 	call StartBattle
+.endbattle
 	callab EndOfBattle
 	pop af
 	ld [wLetterPrintingDelayFlags], a

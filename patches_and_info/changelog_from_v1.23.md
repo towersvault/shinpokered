@@ -161,6 +161,7 @@
 - If trainer scaling is on, you do not need to beat the 1st route 22 rival solo to get oak's pokeballs
 - Fixed an issue with the level scaling feature that inadvertantly biased non-special trainers to higher levels
 - Fixed a problem where the champion whould not work with level scaling
+- Fixed a minor bug when forfeiting a rival battle
 
 
 ---

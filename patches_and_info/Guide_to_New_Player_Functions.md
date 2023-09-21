@@ -218,6 +218,12 @@ The clauses apply to the player and AI equally, and they only apply during non-l
   - The counter only gets reset by switching or using a move that does not have the trapping effect. 
   - Resetting the counter will restore normal priority to trapping effect moves.
 
+**Deactivate Intelligent Trainer Switching**  
+- This feature disallows enemy trainers to switch intelligently, just like in the original retail games.
+- With the cursor in the TEXT SPEED section of the option menu, press A to toggle this feature on and off.
+- the letters "x sw" will appear in the corner of the option menu to indicate that trainer switching is inactive.
+- Note that Jugglers are unaffected because their official gimmick is that they switch randomly.
+
 
 #New Gameplay Features
 -----------------------------------------------

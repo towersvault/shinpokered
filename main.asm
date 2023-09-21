@@ -1917,9 +1917,6 @@ ENDC
 
 INCLUDE "engine/items/tm_prices.asm"
 
-INCLUDE "engine/learn_move.asm"	;joenote - moved in order to have more space
-INCLUDE "engine/overworld/elevator.asm"	;joenote - moving this to make space
-
 SECTION "bank2E",ROMX,BANK[$2E]	
 ;gbcnote - This bank will hold the bg map attributes for the gameboy color among other stuff
 
@@ -1929,6 +1926,8 @@ INCLUDE "engine/bg_map_attributes.asm"
 
 INCLUDE "engine/gamefreak.asm"	;gbcnote - moved here to make space
 INCLUDE "engine/hall_of_fame.asm"	;joenote - moved here to make space
+INCLUDE "engine/learn_move.asm"	;joenote - moved in order to have more space
+INCLUDE "engine/overworld/elevator.asm"	;joenote - moving this to make space
 
 INCLUDE "custom_functions/func_gamma.asm"
 

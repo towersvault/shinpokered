@@ -162,6 +162,7 @@ New options that can be toggled!
 - Experimental 60FPS Mode: Place the cursor over CANCEL in the options screen and toggle by pressing LEFT or RIGHT.
 - Zero-Delay Text: Text with zero frame delay can be toggled in the options menu; press LEFT with the cursor on FAST.
 - Hard Mode: With the cursor in BATTLE STYLE, press RIGHT to toggle hard mode on/off (LEFT will not toggle).
+- Deactivate Intelligent Trainer Switching: With the cursor in TEXT SPEED, press A to toggle this option.
 
 The hard mode option increases difficulty by making the stats of trainer pokemon more on your level.
 It also doubles the effect of the X-stat items that AI trainers are fond of.
@@ -170,7 +171,7 @@ Non-link battles will use the Stadium 1 critical hit chance formulas.
 Finally, it makes catching a wild Mewtwo more challenging.
 
 Trainer AI has been improved and greatly expanded.
-Some trainers will even try to switch pokemon intelligently.
+Some trainers will even try to switch pokemon intelligently if you haven't disabled it in the options.
 
 You get notified when a box is filled (either via catching or depositing a pokemon).
 
@@ -218,14 +219,17 @@ Another aide npc is in the Viridian pokemon center. He will toggle on/off random
 
 An aide is in the Celadon Diner. He will toggle on/off a catch-up EXP boost function for under-leveled pokemon.
 
-Item, Sleep, Freeze, and Trapping clauses can each be toggled by the Clause Brothers in Viridian City.
+Item, Sleep, Freeze, Trapping, and Hyper Beam clauses can each be toggled by the Clause Brothers in Viridian City.
  
 The bag now supports an additional item list for an extra 20 slots of space!
 Press START on the bag menu to hot-swap the item list that populates the active bag.
 The game's systems will generally detect items in the non-active bag space.
 Unique systems, such as Pokemon Stadium, will only recognize the active bag's item list.
 
-Hold SELECT and press START while on the bag menu or PC item box menu to auto-sort your items
+Hold SELECT and press START while on the bag menu or PC item box menu to auto-sort your items.
+
+The itemfinder now points you in the right direction. 
+You can always hold SELECT while choosing to USE it to get its original function back.
 
 Each pokemon on your team has a field move slot.
 These slots can temporarily hold a HM move for overworld-use only.

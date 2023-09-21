@@ -466,6 +466,30 @@ EnemyDisableHandler:
 	ret
 
 
+;check hyper beam clause
+;when active, hyperbeam does not need to recharge when scoring a KO
+;set z flag if not applicable 
+;clear z flag if confirmed
+_HandleHyperbeamClause:
+	ld a, [wLinkState]
+	cp LINK_STATE_BATTLING
+	ret z	;do not enforce for link battles
+	CheckEvent EVENT_8C8	
+	ret z
+	ld hl, wEnemyMonHP	;check enemy hp if it's the player's turn
+	ld a, [H_WHOSETURN]
+	and a
+	jr z, .next
+	ld hl, wBattleMonHP	;check player hp if its the enemy's turn
+.next
+	ld a, [hli]
+	or [hl]
+	jr nz, .noKO
+	inc a
+	ret
+.noKO
+	xor a
+	ret
 
 ;return z and nc if nothing detected
 ;return nz for sleep clause triggered

@@ -72,6 +72,19 @@ _ClauseBrother_TrapDesc::
 	cont "in a row."
 	done
 
+_ClauseBrother_HyperbeamIntro::
+	text "H.BEAM CLAUSE BRO"
+	line "at your service."
+	prompt
+_ClauseBrother_HyperbeamDesc::
+	text "With my stamp,"
+	line "the powerful move"
+	cont "HYPER BEAM need"
+	cont "not recharge if"
+	cont "it knocks-out the"
+	cont "opposing #MON!"
+	done
+
 _ClauseBrother_OFF::
 	text "Do you no longer"
 	line "want my stamp?"

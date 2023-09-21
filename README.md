@@ -957,6 +957,7 @@ Cheats and Secrets!
     - this is the same priority as the move Counter
   - The counter only gets reset by switching or using a move that does not have the trapping effect 
   - Reseting the counter will restore normal priority to trapping effect moves.
+- Added a fifth Clause Brother for the hyper beam clause; hyper beam will recharge if it KOs the opponent
 - There is now an obedience level-cap that can be toggled in the options menu
   - With the cursor in the BATTLE STYLE section, press A to toggle it on and off
   - While active, the current maximum obedience level will display in the options menu

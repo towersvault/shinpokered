@@ -10,6 +10,7 @@ ViridianHouseTextPointers:
 	dw ClauseBrother_Sleep
 	dw ClauseBrother_Freeze
 	dw ClauseBrother_Trap
+	dw ClauseBrother_Hyperbeam
 
 ViridianHouseText1:
 	TX_FAR _ViridianHouseText1
@@ -177,6 +178,41 @@ ClauseBrother_Trap:
 	and a
 	ret
 	
+ClauseBrother_Hyperbeam:
+	TX_ASM
+	ld hl, ClauseBrother_HyperbeamIntro
+	call PrintText
+
+	CheckEvent EVENT_8C8
+	jr z, .ask_turn_on
+	
+	ld hl, ClauseBrother_OFF
+	call PrintText
+	call .choose
+	ld hl, ClauseBrother_REJECT
+	jr z, .end
+	ResetEvent EVENT_8C8
+	jr .print_done
+
+.ask_turn_on
+	ld hl, ClauseBrother_HyperbeamDesc
+	call PrintText
+	call .choose
+	ld hl, ClauseBrother_REJECT
+	jr z, .end
+	SetEvent EVENT_8C8
+	
+.print_done
+	ld hl, ClauseBrother_DONE
+.end
+	call PrintText
+	jp TextScriptEnd
+.choose
+	call NoYesChoice
+	ld a, [wCurrentMenuItem]
+	and a
+	ret
+	
 ClauseBrother_OFF:
 	TX_FAR _ClauseBrother_OFF
 	db "@"
@@ -209,4 +245,10 @@ ClauseBrother_TrapIntro:
 	db "@"
 ClauseBrother_TrapDesc:
 	TX_FAR _ClauseBrother_TrapDesc
+	db "@"
+ClauseBrother_HyperbeamIntro:
+	TX_FAR _ClauseBrother_HyperbeamIntro
+	db "@"
+ClauseBrother_HyperbeamDesc:
+	TX_FAR _ClauseBrother_HyperbeamDesc
 	db "@"

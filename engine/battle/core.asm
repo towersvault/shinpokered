@@ -9446,6 +9446,8 @@ SubstituteEffect:
 	jpab SubstituteEffect_
 
 HyperBeamEffect:
+	callba _HandleHyperbeamClause	;joenote - handle hyper beam clause
+	ret nz
 	ld hl, wPlayerBattleStatus2
 	ld a, [H_WHOSETURN]
 	and a

@@ -628,7 +628,8 @@ DisplayOptionMenu:
 	call PlaceString
 	call PlaceSoundSetting	;joenote - display the sound setting
 	call Show60FPSSetting	;60fps - display current setting
-	call ShowHardModeSetting	;joenote - display marker for hard mode or noty
+	call ShowHardModeSetting	;joenote - display marker for hard mode or not
+	call ShowNoSwitchSetting	;joenote - display marker for deactivated trainer switching or not
 	call ShowLaglessTextSetting	;joenote - display marker for lagless text or not
 	call ShowBadgeCap	;joenote - show the level cap depending on badge
 	call ShowNuzlocke
@@ -693,6 +694,9 @@ DisplayOptionMenu:
 	jr z, .loop
 .cursorInTextSpeed
 	bit 0, b	;A pressed
+	push af
+	call nz, ToggleNoSwitch
+	pop af
 	jp nz, .loop
 	bit 5, b ; Left pressed?
 	jp nz, .pressedLeftInTextSpeed
@@ -878,6 +882,34 @@ Show60FPSSetting:
 	inc hl
 	ld d, [hl]
 	coord hl, $0E, $0F
+	call PlaceString
+	ret
+
+;joenote - for deactivating intelligent trainer switching
+OptionMenuNoSwitch:
+	dw OptionMenuNoSwitchON
+	dw OptionMenuNoSwitchOFF
+OptionMenuNoSwitchON:
+	db "×sw@"
+OptionMenuNoSwitchOFF:
+	db "   @"
+ToggleNoSwitch:
+	ld a, [wUnusedD721]
+	xor BATTLE_NOSWITCH
+	ld [wUnusedD721], a
+	;fall through
+ShowNoSwitchSetting:
+	ld hl, OptionMenuNoSwitch
+	ld a, [wUnusedD721]
+	bit BIT_BATTLE_NOSWITCH, a
+	jr nz, .print
+	inc hl
+	inc hl
+.print
+	ld e, [hl]
+	inc hl
+	ld d, [hl]
+	coord hl, $10, $1
 	call PlaceString
 	ret
 

@@ -780,6 +780,12 @@ Cheats and Secrets!
   -jr trainer M/F, pokemaniac, hiker, cueball, psychic, tamer, black belt, rocket, cooltrainer M/F, gentleman, channeler
   -all rival phases, all gym leaders, elite-4, prof.oak, chief
   
+- Trainer switching (ai routine #4)can now be deactivated
+  - This feature disallows enemy trainers to switch intelligently, just like in the original retail games.
+  - With the cursor in the TEXT SPEED section of the option menu, press A to toggle this feature on and off.
+  - the letters "x sw" will appear in the corner of the option menu to indicate that trainer switching is inactive.
+  - Note that Jugglers are unaffected because their official gimmick is that they switch randomly.
+
 - Trainer stat DVs are now randomly generated to a degree (only in hard mode) to be above-average
 - Trainer pkmn now have stat experience assigned to them that is scaled to their level (only in hard mode)
   - The stat experience total for a given level 'L' is SIGMA[n=6,L](12n+50)

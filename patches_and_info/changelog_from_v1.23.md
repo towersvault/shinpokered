@@ -84,6 +84,12 @@
 - Scaled back fishing, reduced its randomness, and made it more map-dependent
 - When using the old rod, press and hold B within about 1 second to always hook a magikarp
 
+- Improved itemfinder function
+  - If an item is detected, it will play 1 to 3 chimes depending on how close it is (more chimes means closer to the item).
+  - Lines will point in the direction of the item and flash with the chimes.
+  - If the player is right on top of the item, no lines will show and the chime till play four times.
+  - If the SELECT button is held while selecting to USE the itemfinder, then the original itemfinder function is used.
+
 - Added spaceworld-style trainer back sprites for consistency with the spaceworld 'mon back sprites 
 - Blue-JP has spaceworld-style back sprites, and a corresponding _origback patch has been added
 

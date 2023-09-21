@@ -865,6 +865,12 @@ Cheats and Secrets!
   - Item evolutions having a level requirement is now supported
   - DelayFrame now manualy calls VBlank if it runs while the LCD is disabled
 
+- Improved itemfinder function
+  - If an item is detected, it will play 1 to 3 chimes depending on how close it is (more chimes means closer to the item).
+  - Lines will point in the direction of the item and flash with the chimes.
+  - If the player is right on top of the item, no lines will show and the chime till play four times.
+  - If the SELECT button is held while selecting to USE the itemfinder, then the original itemfinder function is used.
+
 - Changes to fishing
   - All rods have an expanded level range
   - Old rod can fish up two kinds of pokemon (depending on the current map constant value)

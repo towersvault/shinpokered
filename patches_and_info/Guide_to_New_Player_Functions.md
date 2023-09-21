@@ -309,6 +309,12 @@ You will be asked to confirm your decision. Choose YES to forfeit or NO to cance
   - Poliwag, Krabby, Goldeen, Psyduck
   - Goldeen, Psyduck, Shellder
   - Goldeen, Shellder, Horsea, Tentacool
+  
+**Improved itemfinder function**  
+- If an item is detected, it will play 1 to 3 chimes depending on how close it is (more chimes means closer to the item).
+- Lines will point in the direction of the item and flash with the chimes.
+- If the player is right on top of the item, no lines will show and the chime till play four times.
+- If the SELECT button is held while selecting to USE the itemfinder, then the original itemfinder function is used.
 	
 **Reworked Daycare**  
 The daycare lets you select moves to forget (if any) upon retreiving your pokemon.  

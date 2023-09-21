@@ -2500,6 +2500,11 @@ wXBlockCoord:: ; d364
 wLastMap:: ; d365
 	ds 1
 
+wItemFinderAttributes:: ; d366	;joenote - also use this byte for improved itemfinder functions
+;bit 0 - above
+;bit 1 - below
+;bit 2 - left
+;bit 3 - right
 wUnusedD366:: ; d366	;joenote - use this to track which ai pokemon have switched & shiny state
 	ds 1
 ;bit 0: set if player mon shiny

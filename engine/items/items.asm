@@ -2265,7 +2265,15 @@ ItemUseItemfinder:
 	and a
 	jp nz, ItemUseNotTime
 	call ItemUseReloadOverworldData
+	ld a, [hJoyHeld]	;joenote - if SELECT is held while USE was chosen, then the original itemfinder is used
+	bit BIT_SELECT, a
+	jr nz, .original_finder
+	callba HiddenItemNear_Improved	;joenote - wrote a better itemfinder with better functionality
+	jr c, .print_found
+	jr .print_nothing
+.original_finder
 	callba HiddenItemNear ; check for hidden items
+.print_nothing
 	ld hl, ItemfinderFoundNothingText
 	jr nc, .printText ; if no hidden items
 	ld c, 4
@@ -2276,6 +2284,7 @@ ItemUseItemfinder:
 	call PlaySoundWaitForCurrent
 	dec c
 	jr nz, .loop
+.print_found
 	ld hl, ItemfinderFoundItemText
 .printText
 	jp PrintText

@@ -41,7 +41,9 @@
 	- this is the same priority as the move Counter
   - The counter only gets reset by switching or using a move that does not have the trapping effect 
   - Reseting the counter will restore normal priority to trapping effect moves.
-  
+
+- Added a fifth Clause Brother for the hyper beam clause; hyper beam will recharge if it KOs the opponent
+
 - A new drink stand on the route 19 beach sells vending machine drinks
 
 - Paras is gifted in the Route 2 house in case the player has no pokemon that can learn Cut

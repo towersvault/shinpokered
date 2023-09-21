@@ -298,6 +298,12 @@
 - Removed restore sfx from the AI x-accuracy item
 - Added the restore sfx to all AI hp-recovery items
 
+- Trainer switching (ai routine #4)can now be deactivated
+  - This feature disallows enemy trainers to switch intelligently, just like in the original retail games.
+  - With the cursor in the TEXT SPEED section of the option menu, press A to toggle this feature on and off.
+  - the letters "x sw" will appear in the corner of the option menu to indicate that trainer switching is inactive.
+  - Note that Jugglers are unaffected because their official gimmick is that they switch randomly.
+
 
 ---
 **New fixes for original game bugs for both branches**

@@ -1692,14 +1692,14 @@ Underground_Block: INCBIN "gfx/blocksets/underground.bst"
 SECTION "bank1C",ROMX,BANK[$1C]
 
 ;INCLUDE "engine/gamefreak.asm"	;gbcnote - moved to another bank to make space
-;INCLUDE "engine/hall_of_fame.asm"	;joenote - moved to another bank to make space
+INCLUDE "engine/hall_of_fame.asm"
 INCLUDE "engine/overworld/healing_machine.asm"
 INCLUDE "engine/overworld/player_animations.asm"
 INCLUDE "engine/battle/ghost_marowak_anim.asm"
 INCLUDE "engine/battle/battle_transitions.asm"
 INCLUDE "engine/town_map.asm"
 INCLUDE "engine/mon_party_sprites.asm"
-INCLUDE "engine/in_game_trades.asm"
+;INCLUDE "engine/in_game_trades.asm"	;joenote - moved to another bank to make space
 INCLUDE "engine/palettes.asm"
 INCLUDE "engine/save.asm"
 
@@ -1925,7 +1925,7 @@ INCLUDE "data/bg_map_attributes.asm"
 INCLUDE "engine/bg_map_attributes.asm"
 
 INCLUDE "engine/gamefreak.asm"	;gbcnote - moved here to make space
-INCLUDE "engine/hall_of_fame.asm"	;joenote - moved here to make space
+INCLUDE "engine/in_game_trades.asm"	;joenote - moved here to make space
 INCLUDE "engine/learn_move.asm"	;joenote - moved in order to have more space
 INCLUDE "engine/overworld/elevator.asm"	;joenote - moving this to make space
 

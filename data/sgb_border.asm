@@ -1,17 +1,21 @@
 BorderPalettes:
-IF DEF(_RED)
-	INCBIN "gfx/red/sgbborder.map"
+IF DEF(_REDJP)
+	INCBIN "gfx/red/sgbborder_jp.tilemap"
+ELIF DEF(_RED)
+	INCBIN "gfx/red/sgbborder.tilemap"
 ENDC
-IF DEF(_BLUE)
-	INCBIN "gfx/blue/sgbborder.map"
+IF DEF(_BLUEJP)
+	INCBIN "gfx/blue/sgbborder_jp.tilemap"
+ELIF DEF(_BLUE)
+	INCBIN "gfx/blue/sgbborder.tilemap"
 ENDC
 IF DEF(_GREEN)
-	INCBIN "gfx/green/sgbborder.map"
+	INCBIN "gfx/green/sgbborder.tilemap"
 ENDC
 	ds $100
 
 IF DEF(_BLUE)
-	RGB 0,0,0 ; PAL_SGB1 (the first color is not defined, but if used, turns up as 30,29,29... o_O)
+	RGB 30,29,29 ; PAL_SGB1 (the first color is not defined, but if used, turns up as 30,29,29... o_O) ;joenote - fixed
 	RGB 10,17,26
 	RGB 5,9,20
 	RGB 16,20,27
@@ -22,11 +26,12 @@ IF DEF(_RED)
 	RGB 25,17,21
 	RGB 24,14,12
 ENDC
+;credit Dracrius/pocketrgb-en/commit/b7750e2ded2b8acd0b507c7358057591d4c0351b for correct values
 IF DEF(_GREEN)
 	RGB 30,29,29 ; PAL_SGB1
-	RGB 23,29,17
-	RGB 17,24,11
-	RGB 11,18,8
+	RGB 25,31,18
+	RGB 18,25,12
+	RGB 12,20,9
 ENDC
 
 	ds $18
@@ -64,11 +69,12 @@ IF DEF(_RED)
 	RGB 18,21,29
 	RGB 15,15,15
 ENDC
+;credit Dracrius/pocketrgb-en/commit/b7750e2ded2b8acd0b507c7358057591d4c0351b for correct values
 IF DEF(_GREEN)
 	RGB 30,29,29 ; PAL_SGB3
-	RGB 28,25,4
-	RGB 27,17,19
-	RGB 15,15,15
+	RGB 30,27,4
+	RGB 29,18,20
+	RGB 13,15,16
 ENDC
 
 	ds $18

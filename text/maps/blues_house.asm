@@ -35,7 +35,16 @@ _BluesHouseText2::
 	cont "them a rest!"
 	done
 
+IF DEF(_JPTXT)
+_BluesHouseText3::
+	text "A map of Kanto!"
+	line "...... Wouldn't"
+	cont "it be nice if you"
+	cont "could have it?"
+	done
+ELSE
 _BluesHouseText3::
 	text "It's a big map!"
 	line "This is useful!"
 	done
+ENDC

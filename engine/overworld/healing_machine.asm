@@ -1,7 +1,8 @@
 AnimateHealingMachine:
 	ld de, PokeCenterFlashingMonitorAndHealBall
 	ld hl, vChars0 + $7c0
-	lb bc, BANK(PokeCenterFlashingMonitorAndHealBall), $03 ; loads one too many tiles
+;	lb bc, BANK(PokeCenterFlashingMonitorAndHealBall), $03 ; loads one too many tiles
+	lb bc, BANK(PokeCenterFlashingMonitorAndHealBall), $02 ; joenote - fix this
 	call CopyVideoData
 	ld hl, wUpdateSpritesEnabled
 	ld a, [hl]

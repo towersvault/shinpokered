@@ -1,7 +1,15 @@
 FALSE EQU 0
 TRUE  EQU 1
 
+HACK_VERSION EQU 6	;master branch is always an even number
+
 MAX_LEVEL EQU 100
+
+;joenote - use constants to keep everything consistent and avoid missingno glitch
+;			- also set it to 8, 9 so that the bottom-left tile of the player space is used
+;			- doing so will fix the no-encounter spaces in the forest tileset
+ENCOUNTER_TILE_COORD_X EQU 8
+ENCOUNTER_TILE_COORD_Y EQU 9
 
 NUM_MOVES     EQU 4
 NUM_STATS     EQU 5
@@ -32,7 +40,7 @@ D_LEFT   EQU %00100000
 D_UP     EQU %01000000
 D_DOWN   EQU %10000000
 
-const_value set 0
+	const_def
 	const BIT_A_BUTTON
 	const BIT_B_BUTTON
 	const BIT_SELECT
@@ -89,6 +97,9 @@ NORTH_EAST_MENU   EQU 4
 TRADE_CANCEL_MENU EQU 5
 HEAL_CANCEL_MENU  EQU 6
 NO_YES_MENU       EQU 7
+IF DEF(_FPLAYER)		;joenote - for female player selection
+BOY_GIRL_MENU       EQU 8
+ENDC
 
 ; menu exit method constants for list menus and the buy/sell/quit menu
 CHOSE_MENU_ITEM   EQU 1 ; pressed A
@@ -218,3 +229,21 @@ CONVERT_OBP1 EQU 2
 NUM_COLORS EQU 4
 PAL_SIZE EQU NUM_COLORS * 2
 NUM_ACTIVE_PALS EQU 4
+
+;joenote - catch rate given to pokemon marked as dead for nuzlocke mode
+DEAD EQU $05
+
+; wOptions
+DEF TEXT_DELAY_FAST   		EQU %00000001	; 1
+DEF TEXT_DELAY_MEDIUM 		EQU %00000011	; 3
+DEF TEXT_DELAY_SLOW   		EQU %00000101 	; 5
+DEF TEXT_DELAY_BITS	  		EQU %00000111 	; bits 0 to 2
+DEF BIT_BATTLE_HARD  		EQU 3		  	; bit 3
+DEF BATTLE_HARD_MODE  		EQU %00001000	; bit 3
+DEF SOUND_STEREO_BITS		EQU %00110000 	; bits 4 to 5
+DEF BIT_BATTLE_SHIFT  		EQU 6		 	; bit 6
+DEF BIT_BATTLE_ANIMATION 	EQU 7		 	; bit 7
+; wUnusedD721
+DEF BIT_BATTLE_NOSWITCH		EQU 3		  	; bit 3
+DEF BATTLE_NOSWITCH  		EQU %00001000	; bit 3
+

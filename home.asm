@@ -565,25 +565,26 @@ GetMonHeader::
 	push af
 	ld a, [wd0b5]
 	ld [wd11e], a
-;joenote - modifying for a stable missingno that can be loaded
-	cp MISSINGNO_B5 ; stablized missingno with actual stats
-	jr z, .missingno	
+;joenote - checks for special ID
+	
+	
 	ld de, FossilKabutopsPic
-	ld b, $66 ; size of Kabutops fossil and Ghost sprites
+	ld b, Bank(FossilKabutopsPic)
 	cp FOSSIL_KABUTOPS
 	jr z, .specialID
 	ld de, GhostPic
-	cp MON_GHOST ; Ghost
+	ld b, Bank(GhostPic)
+	cp MON_GHOST
 	jr z, .specialID
 	ld de, FossilAerodactylPic
-	ld b, $77 ; size of Aerodactyl fossil sprite
-	cp FOSSIL_AERODACTYL ; Aerodactyl fossil
+	ld b, Bank(FossilAerodactylPic)
+	cp FOSSIL_AERODACTYL
 	jr z, .specialID
-	;cp MEW	
-	;jr z, .mew
+
 	predef IndexToPokedex   ; convert pokemon ID in [wd11e] to pokedex number
 	ld a, [wd11e]
-	dec a
+	sub $01
+	jr c, .missingno	;joenote - missingno has a pokedex index of 0
 	ld bc, MonBaseStatsEnd - MonBaseStats
 	ld hl, BaseStats
 	call AddNTimes
@@ -592,6 +593,13 @@ GetMonHeader::
 	call CopyData
 	jr .done
 .specialID
+	;joenote - dynamically get pic size of special ID
+	ld a, b
+	call BankswitchHome
+	ld a, [de]
+	ld b, a
+	call BankswitchBack
+
 	ld hl, wMonHSpriteDim
 	ld [hl], b ; write sprite dimensions
 	inc hl
@@ -637,13 +645,13 @@ GetPartyMonName::
 	call SkipFixedLengthTextEntries ; add NAME_LENGTH to hl, a times
 
 ;joenote - if the names are glitched, let's at least make them stable
-	push hl
-	push de
-	ld d, h
-	ld e, l
-	callba FixNickNames
-	pop de
-	pop hl
+;	push hl
+;	push de
+;	ld d, h
+;	ld e, l
+;	callba FixNickNames
+;	pop de
+;	pop hl
 	
 	ld de, wcd6d
 	push de
@@ -744,36 +752,49 @@ UncompressMonSprite::
 	ld [wSpriteInputPtr+1], a
 ;joenote - expanding this to use 7 rom banks to fit the spaceworld back sprites if desired
 ; define (by index number) the bank that a pokemon's image is in
+;joenote - redoing this so that each 'mon header stores the bank of its front and back pic
+;			- now the bank doesn't matter so long as a mon's front and back pic are in the same bank
+;			- also assumes the tower ghost and the fossil front pics are kept together in the same bank
 	ld a, [wcf91] ; XXX name for this ram location
-	ld b, a
-	cp MEW
-	ld a, BANK(MewPicFront)
-	jr z, .GotBank
-	ld a, b
-	cp SHELLDER + 1
-	ld a, BANK(ShellderPicFront)
-	jr c, .GotBank
-	ld a, b
-	cp DROWZEE + 1
-	ld a, BANK(DrowzeePicFront)
-	jr c, .GotBank
-	ld a, b
-	cp NINETALES + 1
-	ld a, BANK(NinetalesPicFront)
-	jr c, .GotBank
-	ld a, b
-	cp KAKUNA + 1
-	ld a, BANK(KakunaPicFront)
-	jr c, .GotBank
-	ld a, b
-	cp CLEFABLE + 1
-	ld a, BANK(ClefablePicFront)
-	jr c, .GotBank
-	ld a, b
-	cp PORYGON + 1
-	ld a, BANK(PorygonPicFront)
-	jr c, .GotBank
-	ld a, BANK(VictreebelPicFront)
+	; ld b, a
+	; cp MEW
+	; ld a, BANK(MewPicFront)
+	; jr z, .GotBank
+	; ld a, b
+	; cp SHELLDER + 1
+	; ld a, BANK(ShellderPicFront)
+	; jr c, .GotBank
+	; ld a, b
+	; cp DROWZEE + 1
+	; ld a, BANK(DrowzeePicFront)
+	; jr c, .GotBank
+	; ld a, b
+	; cp NINETALES + 1
+	; ld a, BANK(NinetalesPicFront)
+	; jr c, .GotBank
+	; ld a, b
+	; cp KAKUNA + 1
+	; ld a, BANK(KakunaPicFront)
+	; jr c, .GotBank
+	; ld a, b
+	; cp CLEFABLE + 1
+	; ld a, BANK(ClefablePicFront)
+	; jr c, .GotBank
+	; ld a, b
+	; cp PORYGON + 1
+	; ld a, BANK(PorygonPicFront)
+	; jr c, .GotBank
+	; ld a, BANK(VictreebelPicFront)
+	cp FOSSIL_KABUTOPS
+	jr z, .bankFossilOrGhost
+	cp FOSSIL_AERODACTYL
+	jr z, .bankFossilOrGhost
+	cp MON_GHOST
+	jr z, .bankFossilOrGhost
+	ld a, [wMonHPicBank]
+	jr .GotBank
+.bankFossilOrGhost
+	ld a, BANK(FossilKabutopsPic)
 .GotBank
 	jp UncompressSpriteData
 
@@ -1168,13 +1189,20 @@ DisplayTextID::
 	call PrintText_NoCreatingTextBox ; display the text
 	ld a, [wDoNotWaitForButtonPressAfterDisplayingText]
 	and a
-	jr nz, HoldTextDisplayOpen
+;	jr nz, HoldTextDisplayOpen
+;joenote - If you don't want to wait for a button press after displaying text, 
+;			then don't hold the text open. It should just be closed.
+;			This fixes some things like gate binoculars pausing the overworld.
+	jr nz, CloseTextDisplay
 
 AfterDisplayingTextID::
 	ld a, [wEnteringCableClub]
 	and a
 	jr nz, HoldTextDisplayOpen
 	call WaitForTextScrollButtonPress ; wait for a button press after displaying all the text
+	; The fall-through to HoldTextDisplayOpen means that the text waits until A button is pressed,
+	; but then it closes the text only upon the button's release. 
+	jr CloseTextDisplay	;joenote - this will make the text close when pressing A down instead of releasing it
 
 ; loop to hold the dialogue box open as long as the player keeps holding down the A button
 HoldTextDisplayOpen::
@@ -1536,8 +1564,10 @@ DisplayListMenuIDLoop::
 	ld a,[wListMenuID]
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;joenote - needed to make Mateo's move deleter/relearner work
+IF DEF(_MOVENPCS)
 	cp a, MOVESLISTMENU
 	jr z, .skipStoringItemName
+ENDC
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	cp ITEMLISTMENU
 	jr nz, .skipGettingQuantity
@@ -1548,8 +1578,17 @@ DisplayListMenuIDLoop::
 .skipGettingQuantity
 	ld a, [wcf91]
 	ld [wd0b5], a
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;joenote need to load the proper bank for TM/HM
+	cp HM_01
 	ld a, BANK(ItemNames)
 	ld [wPredefBank], a
+	jr c, .go_get_name
+	;else it's a tm/hm
+	ld a, BANK(tmhmNames)
+	ld [wPredefBank], a
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+.go_get_name
 	call GetName
 	jr .storeChosenEntry
 .pokemonList
@@ -1602,7 +1641,7 @@ DisplayListMenuIDLoop::
 	dec [hl]
 	jp DisplayListMenuIDLoop
 .startPressed	
-	homecall SwapBagData	;joenote - adding swappable bag space
+	homecall HandleBagData	;joenote - adding swappable bag space and organization
 	jp DisplayListMenuIDLoop
 
 DisplayChooseQuantityMenu::
@@ -2477,10 +2516,21 @@ TalkToTrainer::
 
 ; checks if any trainers are seeing the player and wanting to fight
 CheckFightingMapTrainers::
+;joenote - This allows for the trainer escape glitch to occur. 
+;			The player has to enter a wild battle on the exact space that would also result in being spotted.
+;			The player must then lose the wild battle and black out.
+;			This function will run regardless and the player will black out and escape being spotted.
+
+	;this will plug-up the escape glitch
+	ld a, [wIsInBattle]
+	cp $ff		;If the player has lost the last battle (blacking out), then don't even check and just exit.
+	jr z, .skip_and_exit
+	
 	call CheckForEngagingTrainers
 	ld a, [wSpriteIndex]
 	cp $ff
 	jr nz, .trainerEngaging
+.skip_and_exit
 	xor a
 	ld [wSpriteIndex], a
 	ld [wTrainerHeaderFlagBit], a
@@ -3294,11 +3344,13 @@ LoadHpBarAndStatusTilePatterns::
 	ld a, BANK(HpBarAndStatusGraphics)
 ;joenote - load exp bar
 	;jp FarCopyData2 ; if LCD is off, transfer all at once
+IF DEF(_EXPBAR)
 	call FarCopyData2
 	ld hl, EXPBarGraphics
 	ld de, vChars1 + $400
 	ld bc, EXPBarGraphicsEnd - EXPBarGraphics
 	ld a, BANK(EXPBarGraphics)
+ENDC
 	jp FarCopyData2
 .on
 	ld de, HpBarAndStatusGraphics
@@ -3306,10 +3358,12 @@ LoadHpBarAndStatusTilePatterns::
 	lb bc, BANK(HpBarAndStatusGraphics), (HpBarAndStatusGraphicsEnd - HpBarAndStatusGraphics) / $10
 ;joenote - load exp bar
 	;jp CopyVideoData ; if LCD is on, transfer during V-blank
+IF DEF(_EXPBAR)
 	call CopyVideoData
 	ld de,EXPBarGraphics
 	ld hl, vChars1 + $400
 	lb bc, BANK(EXPBarGraphics), (EXPBarGraphicsEnd - EXPBarGraphics) / $10
+ENDC
 	jp CopyVideoData
 
 
@@ -3391,8 +3445,12 @@ PlaySoundWaitForCurrent::
 
 ; Wait for sound to finish playing
 WaitForSoundToFinish::
-	ld a, [wLowHealthAlarm]
-	and $80
+;	ld a, [wLowHealthAlarm]
+;	and $80
+;joenote - more adjustments for the modified low HP alarm
+	ld a, [wLowHealthTonePairs]
+	bit 7, a
+
 	ret nz
 	push hl
 .waitLoop
@@ -3614,6 +3672,7 @@ JoypadLowSensitivity::
 	and a ; have any buttons been newly pressed since last check?
 	jr z, .noNewlyPressedButtons
 .newlyPressedButtons
+	ld [hJoy5], a
 	ld a, 30 ; half a second delay
 	ld [H_FRAMECOUNTER], a
 	ret
@@ -3737,34 +3796,9 @@ PrintLetterDelay::
 	push hl
 	push de
 	push bc
-	ld a, [wLetterPrintingDelayFlags]
-	bit 0, a
-	jr z, .waitOneFrame
-	ld a, [wOptions]
-	and $f
-	ld [H_FRAMECOUNTER], a
-	jr .checkButtons
-.waitOneFrame
-	ld a, 1
-	ld [H_FRAMECOUNTER], a
-.checkButtons
-	call Joypad
-	ld a, [hJoyHeld]
-.checkAButton
-	bit 0, a ; is the A button pressed?
-	jr z, .checkBButton
-	jr .endWait
-.checkBButton
-	bit 1, a ; is the B button pressed?
-	jr z, .buttonsNotPressed
-.endWait
-	call DelayFrame
-	jr .done
-.buttonsNotPressed ; if neither A nor B is pressed
-	ld a, [H_FRAMECOUNTER]
-	and a
-	jr nz, .checkButtons
-.done
+	push af
+	callba PrintLetterDelay_	;joenote - moved to text_box.asm to free up space in bank 0
+	pop af
 	pop bc
 	pop de
 	pop hl
@@ -4106,6 +4140,7 @@ HandleMenuInput::
 	xor a
 	ld [wPartyMenuAnimMonEnabled], a
 
+;joenote - adjusted this so that pressing A or B has priority over pressing up or down
 HandleMenuInput_::
 	ld a, [H_DOWNARROWBLINKCNT1]
 	push af
@@ -4154,7 +4189,13 @@ HandleMenuInput_::
 	ld [wCheckFor180DegreeTurn], a
 	ld a, [hJoy5]
 	ld b, a
-	bit 6, a ; pressed Up key?
+
+	;joenote - fix from pokeyellow to prioritize the A button over the directional buttons
+;		- costs 4 bytes
+	bit BIT_A_BUTTON, a ; pressed A key?
+	jr nz, .checkOtherKeys
+
+	bit BIT_D_UP, a ; pressed Up key?
 	jr z, .checkIfDownPressed
 .upPressed
 	ld a, [wCurrentMenuItem] ; selected menu item
@@ -4171,8 +4212,9 @@ HandleMenuInput_::
 	ld a, [wMaxMenuItem]
 	ld [wCurrentMenuItem], a ; wrap to the bottom of the menu
 	jr .checkOtherKeys
+
 .checkIfDownPressed
-	bit 7, a
+	bit BIT_D_DOWN, a
 	jr z, .checkOtherKeys
 .downPressed
 	ld a, [wCurrentMenuItem]
@@ -4189,19 +4231,18 @@ HandleMenuInput_::
 .notAtBottom
 	ld a, c
 	ld [wCurrentMenuItem], a
+
 .checkOtherKeys
 	ld a, [wMenuWatchedKeys]
 	and b ; does the menu care about any of the pressed keys?
 	jp z, .loop1
 .checkIfAButtonOrBButtonPressed
-	ld a, [hJoy5]
+	ld a, b		;joenote - load from b, which contains [hJoy5], to save 1 byte
 	and A_BUTTON | B_BUTTON
 	jr z, .skipPlayingSound
 .AButtonOrBButtonPressed
-	push hl
-	ld hl, wFlags_0xcd60
-	bit 5, [hl]
-	pop hl
+	ld a, [wFlags_0xcd60]	;joenote - remove push/pop with hl to save 2 bytes
+	bit 5, a
 	jr nz, .skipPlayingSound
 	ld a, SFX_PRESS_AB
 	call PlaySound
@@ -4212,15 +4253,17 @@ HandleMenuInput_::
 	ld [H_DOWNARROWBLINKCNT1], a ; restore previous values
 	xor a
 	ld [wMenuWrappingEnabled], a ; disable menu wrapping
-	ld a, [hJoy5]
+	ld a, b	;joenote - load from b, which contains [hJoy5], to save 1 byte
 	ret
+
 .noWrappingAround
 	ld a, [wMenuWatchMovingOutOfBounds]
 	and a ; should we return if the user tried to go past the top or bottom?
 	jr z, .checkOtherKeys
 	jr .checkIfAButtonOrBButtonPressed
 
-PlaceMenuCursor::
+	
+PlaceMenuCursor::	
 	ld a, [wTopMenuItemY]
 	and a ; is the y coordinate 0?
 	jr z, .adjustForXCoord
@@ -4678,6 +4721,31 @@ HandleSlpFrzClause::	;joenote - move to the main function
 	pop bc
 	ret
 	
+Random_BiasDV::
+; Return a random number 0-15 in A and B with a bias towards higher numbers
+	push hl
+	push de
+	push bc
+	callba _Random_BiasDV
+	pop bc
+	ld b, e
+	ld a, d
+	pop de
+	pop hl
+	ret
+Random_DV::
+; Return a random number 0-15 in A and B with a adjustments for being a wild pokemon DV
+	push hl
+	push de
+	push bc
+	callba _Random_DV
+	pop bc
+	ld b, e
+	ld a, d
+	pop de
+	pop hl
+	ret
+
 StatModifierRatios:
 ; first byte is numerator, second byte is denominator
 	db 25, 100  ; 0.25

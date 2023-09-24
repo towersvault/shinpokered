@@ -6,6 +6,13 @@ _LavenderTownText_4413c::
 _LavenderTownText_44141::
 	text "Really? So there"
 	line "are believers..."
+	
+;joenote - added text to hint at evolving haunter
+	para "So you'll believe"
+	line "that I once saw a"
+	cont "HAUNTER evolve"
+	cont "during an awful"
+	cont "THUNDER storm."
 	done
 
 _LavenderTownText_44146::

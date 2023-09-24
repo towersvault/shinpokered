@@ -50,7 +50,14 @@ ENDC
 	ld [hSCX], a
 	ld b, GENGAR_INTRO_TILES1
 	call IntroCopyTiles
+	
+;credit Dracrius/pocketrgb-en/commit/04c4fc74344c35fcb5179a6509a73dd380a16d97
+IF DEF(_REDGREENJP)
+	ld a, 8	; Nidorino is 8px further over than Jigglypuff in the JP Red and Green
+ELSE 
 	ld a, 0
+ENDC
+
 	ld [wBaseCoordX], a
 	ld a, 80
 	ld [wBaseCoordY], a
@@ -185,7 +192,14 @@ ENDC
 	ld a, (FightIntroFrontMon3 - FightIntroFrontMon) / BYTES_PER_TILE
 	ld [wIntroNidorinoBaseTile], a
 	ld de, IntroNidorinoAnimation7
+IF DEF(_REDGREENJP)	;redjp and green have a delay after the leap for some reason
+	call AnimateIntroNidorino
+	ld c, 80
+	call DelayFrames
+	ret
+ELSE
 	jp AnimateIntroNidorino
+ENDC
 
 AnimateIntroNidorino:
 	ld a, [de]
@@ -389,6 +403,17 @@ PlayShootingStar:
 	ld a, $02
 	sub b 	;A is now 01 for JP or 02 for !JP
 	ld [hGBC], a	;Toggle the shader state from the default
+	
+;	Play a SFX and print some tiles to confirm that it worked
+	coord hl, $12, $11
+	ld a, $7D
+	ld [hl], a
+	coord hl, $13, $11
+	ld a, $7E
+	ld [hl], a
+	ld a, SFX_SNARE_1
+	call PlaySound
+	
 	jr .endgammaloop
 
 .skipgamma	
@@ -413,7 +438,6 @@ PlayShootingStar:
 	callba AnimateShootingStar
 	push af
 
-IF (DEF(_REDGREENJP) || DEF(_BLUEJP))
 ;joenote - restore "Presents" for the japanese builds
 	coord hl, 7, 11
 	ld de, .presentsTiles
@@ -428,7 +452,6 @@ IF (DEF(_REDGREENJP) || DEF(_BLUEJP))
 .presentsTiles
 	db $67,$68,$69,$6A,$6B,$6C ; "Presents"
 .presentEnd
-ENDC
 
 	pop af
 	jr c, .next ; skip the delay if the user interrupted the animation

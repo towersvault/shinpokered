@@ -184,23 +184,30 @@ HoFMonInfoText:
 	next "TYPE2/@"
 
 HoFLoadPlayerPics:
-;joenote - support female trainer sprite
-	ld de, RedPicFFront
-	ld a, BANK(RedPicFFront)
-	
-	;need to preserve the bank value in A
-	push de
-	ld d, a
+;joenote - support female trainer sprites
+IF DEF(_FPLAYER)
 	ld a, [wUnusedD721]
 	bit 0, a	;check if girl
-	;need to get the bank value back in A
-	ld a, d
-	pop de
-	
-	jr nz, .donefemale_front
+	jr z, .loadmale
+.loadfemale
+	ld de, RedPicFBack
+	ld a, BANK(RedPicFBack)
+	push de	;push back pic
+	push af ;push back bank
+	ld de, RedPicFFront
+	ld a, BANK(RedPicFFront)
+	jr .doneload
+ENDC
+.loadmale
+	ld de, RedPicBack
+	ld a, BANK(RedPicBack)
+	push de ;push back pic
+	push af ; push back bank
 	ld de, RedPicFront
 	ld a, BANK(RedPicFront)
-.donefemale_front
+.doneload
+
+;load the front pic
 	call UncompressSpriteFromDE
 	ld hl, sSpriteBuffer1
 	ld de, sSpriteBuffer0
@@ -208,29 +215,21 @@ HoFLoadPlayerPics:
 	call CopyData
 	ld de, vFrontPic
 	call InterlaceMergeSpriteBuffers
-;joenote - support female trainer sprite
-	ld de, RedPicFBack
-	ld a, BANK(RedPicFBack)
-	
-	;need to preserve the bank value in A
-	push de
-	ld d, a
-	ld a, [wUnusedD721]
-	bit 0, a	;check if girl
-	;need to get the bank value back in A
-	ld a, d
-	pop de
-	
-	jr nz, .donefemale_back
-	ld de, RedPicBack
-	ld a, BANK(RedPicBack)
-.donefemale_back
+
+;load the back pic
+	pop af ;pop bank bank
+	pop de ;pop back pic
 	call UncompressSpriteFromDE
+IF DEF(_SWBACKS)
+	callba LoadUncompressedBackPics
+ELSE
 	predef ScaleSpriteByTwo
 	ld de, vBackPic
 	call InterlaceMergeSpriteBuffers
+ENDC
 	ld c, $1
-
+	;fall through
+	
 HoFLoadMonPlayerPicTileIDs:
 ; c = base tile ID
 	ld b, 0
@@ -254,15 +253,17 @@ HoFDisplayPlayerStats:
 	coord hl, 1, 6
 	ld de, HoFPlayTimeText
 	call PlaceString
-	coord hl, 5, 7
-	ld de, wPlayTimeHours
-	lb bc, 1, 3
-	call PrintNumber
-	ld [hl], $6d
-	inc hl
-	ld de, wPlayTimeMinutes
-	lb bc, LEADING_ZEROES | 1, 2
-	call PrintNumber
+	coord hl, 3, 7
+;	ld de, wPlayTimeHours
+;	lb bc, 1, 3
+;	call PrintNumber
+;	ld [hl], $6d
+;	inc hl
+;	ld de, wPlayTimeMinutes
+;	lb bc, LEADING_ZEROES | 1, 2
+;	call PrintNumber
+	ld d, $6d
+	predef PrintPlayTime
 	coord hl, 1, 9
 	ld de, HoFMoneyText
 	call PlaceString

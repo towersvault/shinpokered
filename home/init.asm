@@ -51,18 +51,22 @@ rLCDC_DEFAULT EQU %11100011
 	or c
 	jr nz, .loop
 
-;joenote - implement RNG from Prism and Polished Crystal
+;joenote - implement xor shift RNG
 ;Initialize the RNG state. It can be initialized to anything but zero; this is just a simple way of doing it.
-;First two bytes of the state are taken from whatever random garbage is in hram to get an initial seed.
-	ld hl, wRNGState
-	ld a, [$ffb1]
-	ld [hli], a
-	ld a, [$ffd5]
-	ld [hli], a
-	ld a, $be
-	ld [hli], a
-	ld [hl], $ef
-
+;Initialize with whatever random garbage is in hram to get an initial seed.
+	ld a, [hJoyLast]	;ffb1
+	and a
+	push af
+	ld a, [H_FRAMECOUNTER]	;ffd5
+	and a
+	push af
+	ld a, [hDividend2]	;ffe5
+	and a
+	push af
+	ld a, [hSpriteAnimFrameCounter]	;ffea
+	and a
+	push af
+	
 	call ClearVram
 
 	ld hl, $ff80
@@ -71,6 +75,26 @@ rLCDC_DEFAULT EQU %11100011
 
 	call ClearSprites
 
+;finish initializing RNG
+;joenote - added lines to save the RNG seed
+	ld hl, $DEF0
+	pop af
+	call z, .inc_a
+	ld [hRandomAdd], a
+	ld [hli], a
+	pop af
+	call z, .inc_a
+	ld [hRandomSub], a
+	ld [hli], a
+	pop af
+	call z, .inc_a
+	ld [hRandomLast], a
+	ld [hli], a
+	pop af
+	call z, .inc_a
+	ld [hRandomLast + 1], a
+	ld [hli], a
+	
 	ld a, Bank(WriteDMACodeToHRAM)
 	ld [H_LOADEDROMBANK], a
 	ld [MBC1RomBank], a
@@ -129,7 +153,10 @@ rLCDC_DEFAULT EQU %11100011
 	ld [rLCDC], a
 
 	jp SetDefaultNamesBeforeTitlescreen
-
+.inc_a
+	inc a
+	ret
+	
 ClearVram:
 	ld hl, $8000
 	ld bc, $2000
@@ -146,3 +173,4 @@ StopAllSounds::
 	ld [wNewSoundID], a
 	ld [wLastMusicSoundID], a
 	jp StopAllMusic
+

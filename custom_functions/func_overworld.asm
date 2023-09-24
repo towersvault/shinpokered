@@ -1,6 +1,18 @@
 ;This function is for teleporting you home from the start menu if you get stuck
 SoftlockTeleport:
+;make it not work for inside the cable club
+;;;;;;;;;;;;;;;;;;;;;;;;;;;
+	ld a, [wCurMap]
+	cp TRADE_CENTER
+	ret z
+	cp COLOSSEUM
+	ret z
+;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	ld a, [hJoyInput]
+	cp D_UP + B_BUTTON + SELECT
+	jp z, ResetAllOptions
+	cp D_DOWN + A_BUTTON + SELECT
+	jp z, ShowDamageValues
 	cp D_DOWN + B_BUTTON + SELECT
 	ret nz
 	CheckEvent EVENT_GOT_POKEDEX
@@ -36,8 +48,52 @@ SoftlockTeleport:
 	ld a, $10
 	ld [wPlayerMoney + 1], a
 	ret
-	
 
+
+ShowDamageValues:	;joenote - toggle damage values being shown in battle
+	call WaitForSoundToFinish
+	CheckAndResetEvent EVENT_910
+	ld a, SFX_TURN_OFF_PC
+	jr nz, .return
+	SetEvent EVENT_910
+	ld a, SFX_ENTER_PC
+.return
+	call PlaySound	
+	ret
+	
+ResetAllOptions: ;joenote - reset all the special options (like for patching-up)
+	ld a, SFX_LEVEL_UP
+	call PlaySound
+	
+	ld a, [wOptions]
+	and %11000000
+	set 0, a
+	ld [wOptions], a
+
+	ld a, [wUnusedD721]
+	and %10000111
+	ld [wUnusedD721], a
+	
+	ResetEvent EVENT_8D8
+	ResetEvent EVENT_8D9
+	ResetEvent EVENT_8DA
+	ResetEvent EVENT_8DB
+	ResetEvent EVENT_8DC
+	ResetEvent EVENT_8DD
+	ResetEvent EVENT_8DE
+	ResetEvent EVENT_8DF
+	
+	ResetEvent EVENT_909
+	ResetEvent EVENT_90A
+	ResetEvent EVENT_90C
+	ResetEvent EVENT_90E
+	ResetEvent EVENT_90F
+	ResetEvent EVENT_910
+	
+	ResetEvent EVENT_8C5
+	ResetEvent EVENT_8C7
+	ResetEvent EVENT_8C8
+	ret
 
 TrainerRematch:
 	xor a
@@ -65,9 +121,11 @@ TrackRunBikeSpeed:
 	ld a, [wWalkBikeSurfState]
 	dec a ; riding a bike? (0 value = TRUE)
 	call z, IsRidingBike
+IF DEF(_RUNSHOES)
 	ld a, [hJoyHeld]
 	and B_BUTTON	;holding B to speed up? (non-zero value = TRUE)
-	call nz, IsRunning
+	call nz, IsRunning	;joenote - make holding B do double-speed while walking/surfing/biking
+ENDC
 	ld a, [wd736]
 	bit 7, a
 	call nz, IsSpinArrow	;player sprite spinning due to spin tiles (Rocket hideout / Viridian Gym)
@@ -159,6 +217,13 @@ CheckForSmartHMuse:
 	ld hl, TilePairCollisionsWater
 	call CheckForTilePairCollisions
 	jr c, .nosurf
+	xor a
+	ld [hSpriteIndexOrTextID], a
+	call IsSpriteInFrontOfPlayer	; check with talking range in pixels (normal range of $10)
+	res 7, [hl]
+	ld a, [hSpriteIndexOrTextID]
+	and a ; is there a sprite in the way?
+	jr nz, .nosurf
 	;is the surfboard in the bag?
 	ld b, SURFBOARD
 	call IsItemInBag
@@ -223,6 +288,37 @@ CheckForSmartHMuse:
 	bit 3, a ; does the player have the Rainbow Badge?
 	jr z, .nostrength
 
+	;must be facing a boulder to use strength
+	push hl
+	push bc
+	push de
+	xor a
+	ld [hSpriteIndexOrTextID], a
+	call IsSpriteInFrontOfPlayer
+	pop de
+	pop bc
+	pop hl
+	ld a, [hSpriteIndexOrTextID]
+	and a
+	jr z, .nostrength
+	push hl
+	push bc
+	push de
+	ld hl, wSpriteStateData1 + 1
+	ld d, $0
+	ld a, [hSpriteIndexOrTextID]
+	swap a
+	ld e, a
+	add hl, de
+	res 7, [hl]
+	call GetSpriteMovementByte2Pointer
+	ld a, [hl]
+	cp BOULDER_MOVEMENT_BYTE_2
+	pop de
+	pop bc
+	pop hl
+	jr nz, .nostrength
+
 	;check if a party member has strength
 	ld c, STRENGTH
 	call PartyMoveTest
@@ -239,6 +335,7 @@ CheckForSmartHMuse:
 	call AddNTimes
 	ld a, [hl]
 	call PlayCry
+	call WaitForSoundToFinish
 	pop bc
 	pop hl
 	
@@ -321,12 +418,14 @@ PartyMoveTest:
 
 ;Overworld female trainer sprite functions
 LoadRedSpriteToDE:
-	ld de, RedFSprite
 	ld a, [wUnusedD721]
+IF DEF(_FPLAYER)
+	ld de, RedFSprite
 	bit 0, a	;check if girl
-	jr nz, .donefemale
+	jr nz, .next
+ENDC
 	ld de, RedSprite
-.donefemale
+.next
 	res 2, a
 	ld [wUnusedD721], a
 	ret
@@ -339,10 +438,12 @@ LoadSeelSpriteToDE:
 	ret
 
 LoadRedCyclingSpriteToDE:
-	ld de, RedFCyclingSprite
 	ld a, [wUnusedD721]
+IF DEF(_FPLAYER)
+	ld de, RedFCyclingSprite
 	bit 0, a	;check if girl
 	jr nz, .donefemale
+ENDC
 	ld de, RedCyclingSprite
 .donefemale
 	res 2, a
@@ -609,3 +710,108 @@ CheckSouthMap:
 	xor a
 	ret
 ;***************************************************************************************************
+
+
+
+;joenote - this function ONLY checks if a sprite is in front of the player
+;			wherein the sprite is unseen due to a menu (not being hidden)
+IsOffScreenSpriteInFrontOfPlayer:
+	ld d, $10 ; talking range in pixels (normal range)
+	lb bc, $3c, $40 ; Y and X position of player sprite
+	ld a, [wSpriteStateData1 + 9] ; direction the player is facing
+.checkIfPlayerFacingUp
+	cp SPRITE_FACING_UP
+	jr nz, .checkIfPlayerFacingDown
+; facing up
+	ld a, b
+	sub d
+	ld b, a
+	ld a, PLAYER_DIR_UP
+	jr .doneCheckingDirection
+
+.checkIfPlayerFacingDown
+	cp SPRITE_FACING_DOWN
+	jr nz, .checkIfPlayerFacingRight
+; facing down
+	ld a, b
+	add d
+	ld b, a
+	ld a, PLAYER_DIR_DOWN
+	jr .doneCheckingDirection
+
+.checkIfPlayerFacingRight
+	cp SPRITE_FACING_RIGHT
+	jr nz, .playerFacingLeft
+; facing right
+	ld a, c
+	add d
+	ld c, a
+	ld a, PLAYER_DIR_RIGHT
+	jr .doneCheckingDirection
+
+.playerFacingLeft
+; facing left
+	ld a, c
+	sub d
+	ld c, a
+	ld a, PLAYER_DIR_LEFT
+
+.doneCheckingDirection
+	ld [wPlayerDirection], a
+	ld a, [wNumSprites] ; number of sprites
+	and a
+	ret z
+
+; if there are sprites
+	ld hl, wSpriteStateData1 + $10
+	ld d, a
+	ld e, $01
+.spriteLoop
+	push hl
+
+	ld a, e
+	ld [H_CURRENTSPRITEOFFSET], a	
+	push de
+	push bc
+	predef IsObjectHidden
+	pop bc
+	pop de
+	pop hl
+	push hl
+	ld a, [$ffe5]
+	and a
+	jp nz, .nextSprite
+	
+	inc hl
+	inc hl
+	inc hl
+	inc hl
+	ld a, [hli] ; Y location
+	cp b
+	jr nz, .nextSprite
+	
+	inc hl
+	ld a, [hl] ; X location
+	cp c
+	jr z, .foundSpriteInFrontOfPlayer
+	
+.nextSprite
+	pop hl
+	ld a, l
+	add $10
+	ld l, a
+	inc e
+	dec d
+	jr nz, .spriteLoop
+	ret
+
+.foundSpriteInFrontOfPlayer
+	pop hl
+	ld a, l
+	and $f0
+	inc a
+	ld l, a ; hl = $c1x1
+	ld a, e
+	ld [hSpriteIndexOrTextID], a
+	ret
+

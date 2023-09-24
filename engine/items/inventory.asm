@@ -11,6 +11,7 @@ AddItemToInventory_:
 	push de
 	push hl
 	push hl
+
 	ld d, PC_ITEM_CAPACITY ; how many items the PC can hold
 	ld a, wNumBagItems & $FF
 	cp l
@@ -34,6 +35,7 @@ AddItemToInventory_:
 	cp b ; does the current item in the table match the item being added?
 	jp z, .increaseItemQuantity ; if so, increase the item's quantity
 	inc hl
+.checkIfEndOfInventory
 	ld a, [hl]
 	cp $ff ; is it the end of the table?
 	jr nz, .loop
@@ -73,7 +75,8 @@ AddItemToInventory_:
 ; if so, store 99 in the current slot and store the rest in a new slot
 	ld a, 99
 	ld [hli], a
-	jp .loop
+;	jp .loop
+	jp .checkIfEndOfInventory	;joenote - prevents the 99-stack glitch by verifying the end of inventory first
 .increaseItemQuantityFailed
 	pop hl
 	and a

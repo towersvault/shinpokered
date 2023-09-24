@@ -1,3 +1,4 @@
+;joenote - Implement the japanese map layout based on Rangi's Red/Blue Star project
 DisplayTownMap:
 	call LoadTownMap
 	ld hl, wUpdateSpritesEnabled
@@ -11,9 +12,14 @@ DisplayTownMap:
 	push af
 	ld b, $0
 	call DrawPlayerOrBirdSprite ; player sprite
+IF (DEF(_REDGREENJP) || DEF(_BLUEJP))
+	ld de, wcd6d
+	call PlaceMapName
+ELSE
 	coord hl, 1, 0
 	ld de, wcd6d
 	call PlaceString
+ENDC
 	ld hl, wOAMBuffer
 	ld de, wTileMapBackup
 	ld bc, $10
@@ -29,7 +35,11 @@ DisplayTownMap:
 
 .townMapLoop
 	coord hl, 0, 0
+IF (DEF(_REDGREENJP) || DEF(_BLUEJP))
+	lb bc, 2, 10
+ELSE
 	lb bc, 1, 20
+ENDC
 	call ClearScreenArea
 	ld hl, TownMapOrder
 	ld a, [wWhichTownMapLocation]
@@ -55,9 +65,14 @@ DisplayTownMap:
 	inc de
 	cp $50
 	jr nz, .copyMapName
+IF (DEF(_REDGREENJP) || DEF(_BLUEJP))
+	ld de, wcd6d
+	call PlaceMapName
+ELSE
 	coord hl, 1, 0
 	ld de, wcd6d
 	call PlaceString
+ENDC
 	ld hl, wOAMBuffer + $10
 	ld de, wTileMapBackup + 16
 	ld bc, $10
@@ -118,11 +133,18 @@ LoadTownMap_Nest:
 	push hl
 	call DisplayWildLocations
 	call GetMonName
+IF (DEF(_REDGREENJP) || DEF(_BLUEJP))
+	coord hl, 0, 0
+ELSE
 	coord hl, 1, 0
+ENDC
 	call PlaceString
 	ld h, b
 	ld l, c
 	ld de, MonsNestText
+IF (DEF(_REDGREENJP) || DEF(_BLUEJP))
+	coord hl, 5, 1
+ENDC
 	call PlaceString
 	call WaitForTextScrollButtonPress
 	call ExitTownMap
@@ -132,7 +154,11 @@ LoadTownMap_Nest:
 	ret
 
 MonsNestText:
+IF (DEF(_REDGREENJP) || DEF(_BLUEJP))
+	db "NESTS@"
+ELSE
 	db "'s NEST@"
+ENDC
 
 LoadTownMap_Fly:
 	call ClearSprites
@@ -153,13 +179,34 @@ LoadTownMap_Fly:
 	push af
 	ld [hl], $ff
 	push hl
+IF (DEF(_REDGREENJP) || DEF(_BLUEJP))
+	;do nothing
+ELSE
 	coord hl, 0, 0
 	ld de, ToText
 	call PlaceString
+ENDC
 	ld a, [wCurMap]
 	ld b, $0
 	call DrawPlayerOrBirdSprite
 	ld hl, wFlyLocationsList
+IF (DEF(_REDGREENJP) || DEF(_BLUEJP))
+.townMapFlyLoop
+	push hl
+	push hl
+	coord hl, 0, 0
+	lb bc, 2, 10
+	call ClearScreenArea
+	pop hl
+	ld a, [hl]
+	ld b, $4
+	call DrawPlayerOrBirdSprite ; draw bird sprite
+	ld de, wcd6d
+	call PlaceMapName
+;	ld c, 15
+;	call DelayFrames
+	call Delay3		;joenote - make the fly menu more responsive and snappy
+ELSE
 	coord de, 18, 0
 .townMapFlyLoop
 	ld a, " "
@@ -176,12 +223,14 @@ LoadTownMap_Fly:
 	coord hl, 3, 0
 	ld de, wcd6d
 	call PlaceString
-	ld c, 15
-	call DelayFrames
+;	ld c, 15
+;	call DelayFrames
+	call Delay3		;joenote - make the fly menu more responsive and snappy
 	coord hl, 18, 0
 	ld [hl], "▲"
 	coord hl, 19, 0
 	ld [hl], "▼"
+ENDC
 	pop hl
 .inputLoop
 	push hl
@@ -202,6 +251,7 @@ LoadTownMap_Fly:
 	jr nz, .pressedDown
 	jr .pressedB
 .pressedA
+	call WaitForSoundToFinish
 	ld a, SFX_HEAL_AILMENT
 	call PlaySound
 	ld a, [hl]
@@ -243,8 +293,12 @@ LoadTownMap_Fly:
 	ld hl, wFlyLocationsList + 11
 	jr .pressedDown
 
+IF (DEF(_REDGREENJP) || DEF(_BLUEJP))
+;nothing
+ELSE
 ToText:
 	db "To@"
+ENDC
 
 BuildFlyLocationsList:
 	ld hl, wFlyLocationsList - 1
@@ -326,7 +380,11 @@ LoadTownMap:
 
 CompressedMap:
 ; you can decompress this file with the redrle program in the extras/ dir
+IF (DEF(_REDGREENJP) || DEF(_BLUEJP))
+	INCBIN "gfx/town_map_jp.rle"
+ELSE
 	INCBIN "gfx/town_map.rle"
+ENDC
 
 ExitTownMap:
 ; clear town map graphics data and load usual graphics data
@@ -552,6 +610,13 @@ ZeroOutDuplicatesInList:
 	inc hl
 	jr .zeroDuplicatesLoop
 
+LoadTownMapEntryFromD:	;joenote - for more versatility, like with using callba
+	ld a, d
+	ld de, wTownMapCoords
+	call LoadTownMapEntry
+	ld a, [de]
+	ld d, a
+	ret
 LoadTownMapEntry:
 ; in: a = map number
 ; out: lower nybble of [de] = x, upper nybble of [de] = y, hl = address of name
@@ -584,7 +649,11 @@ LoadTownMapEntry:
 
 INCLUDE "data/town_map_entries.asm"
 
+IF (DEF(_REDGREENJP) || DEF(_BLUEJP))
+INCLUDE "text/map_names_jp.asm"
+ELSE
 INCLUDE "text/map_names.asm"
+ENDC
 
 MonNestIcon:
 	INCBIN "gfx/mon_nest_icon.1bpp"
@@ -617,3 +686,11 @@ TownMapSpriteBlinkingAnimation:
 .done
 	ld [wAnimCounter], a
 	jp DelayFrame
+
+IF (DEF(_REDGREENJP) || DEF(_BLUEJP))
+PlaceMapName:
+	coord hl, 0, 0
+	ld [hl], "<UPDN>"
+	inc hl
+	jp PlaceString
+ENDC

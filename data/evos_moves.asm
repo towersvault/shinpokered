@@ -192,6 +192,7 @@ EvosMovesPointerTable:
 	dw BellsproutEvosMoves
 	dw WeepinbellEvosMoves
 	dw VictreebelEvosMoves
+	dw $FFFF	;joenote - added a list terminator for specific uses
 
 RhydonEvosMoves:
 ; Evolutions
@@ -217,7 +218,7 @@ KangaskhanEvosMoves:
 	db 0
 
 NidoranMEvosMoves:
-;joenote-modified the moveliest of nidoqueen line to be like yellow
+;joenote-modified the moveliest of nidoking line to be like yellow
 ; Evolutions
 	db EV_LEVEL, 16, NIDORINO
 	db 0
@@ -309,10 +310,11 @@ ExeggutorEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset:joenote-made this more interesting for Trainer Green
+	db 19, EGG_BOMB
 	db 25, REFLECT
 	db 28, STOMP
 	db 42, SOLARBEAM
-	db 48, SLEEP_POWDER
+	db 48, HYPNOSIS
 	db 0
 
 LickitungEvosMoves:
@@ -429,6 +431,7 @@ ArcanineEvosMoves:
 	db 0
 ; Learnset
 	db 20, EMBER
+	db 20, BITE
 	db 30, LEER
 	db 40, TAKE_DOWN
 	db 50, FLAMETHROWER
@@ -631,9 +634,10 @@ SlowpokeEvosMoves:
 KadabraEvosMoves:
 ; Evolutions
 	db EV_TRADE, 1, ALAKAZAM
-	db EV_LEVEL, 45, ALAKAZAM
+	db EV_ITEM, MOON_STONE, 35, ALAKAZAM
 	db 0
-; Learnset
+; Learnset	;joenote - added Kinesis to be learned upon evolving
+	db 16, KINESIS
 	db 16, CONFUSION
 	db 20, DISABLE
 	db 27, PSYBEAM
@@ -645,7 +649,7 @@ KadabraEvosMoves:
 GravelerEvosMoves:
 ; Evolutions
 	db EV_TRADE, 1, GOLEM
-	db EV_LEVEL, 45, GOLEM
+	db EV_ITEM, FIRE_STONE, 35, GOLEM
 	db 0
 ; Learnset
 	db 11, DEFENSE_CURL
@@ -673,7 +677,7 @@ ChanseyEvosMoves:
 MachokeEvosMoves:
 ; Evolutions
 	db EV_TRADE, 1, MACHAMP
-	db EV_LEVEL, 45, MACHAMP
+	db EV_ITEM, LEAF_STONE, 35, MACHAMP
 	db 0
 ; Learnset
 	db 20, LOW_KICK
@@ -928,7 +932,7 @@ VenonatEvosMoves:
 ; Learnset;joenote-modified for yellow
 	db 11, SUPERSONIC
 	db 19, CONFUSION
-	db 24, POISONPOWDER
+	db 22, POISONPOWDER
 	db 27, LEECH_LIFE
 	db 30, STUN_SPORE
 	db 35, PSYBEAM
@@ -1109,6 +1113,7 @@ PikachuEvosMoves:
 	db 6, TAIL_WHIP
 	db 8, THUNDER_WAVE
 	db 11, QUICK_ATTACK
+	db 11, THUNDERSHOCK
 	db 15, DOUBLE_TEAM
 	db 20, SLAM
 	db 26, THUNDERBOLT
@@ -1432,11 +1437,11 @@ PoliwrathEvosMoves:
 	db 0
 ;joenote - modified for fun
 ; Learnset
-	db 16, HYPNOSIS
-	db 19, WATER_GUN
+	db 16, WATER_GUN
+	db 19, HYPNOSIS
 	db 27, DOUBLESLAP
-	db 35, BODY_SLAM
-	db 53, HYDRO_PUMP
+	db 35, SUBMISSION
+	db 44, BUBBLEBEAM
 	db 0
 
 WeedleEvosMoves:
@@ -1515,7 +1520,7 @@ VenomothEvosMoves:
 ; Learnsetjoenote-modified for yellow
 	db 11, SUPERSONIC
 	db 19, CONFUSION
-	db 24, POISONPOWDER
+	db 22, POISONPOWDER
 	db 27, LEECH_LIFE
 	db 30, STUN_SPORE
 	db 38, PSYBEAM
@@ -1565,12 +1570,12 @@ ButterfreeEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db 12, CONFUSION
-	db 15, POISONPOWDER
-	db 16, STUN_SPORE
-	db 17, SLEEP_POWDER
-	db 21, SUPERSONIC
-	db 26, WHIRLWIND
+	db 10, CONFUSION
+	db 13, POISONPOWDER
+	db 14, STUN_SPORE
+	db 15, SLEEP_POWDER
+	db 18, SUPERSONIC
+	db 23, WHIRLWIND
 	db 28, GUST;joenote - yellow update
 	db 32, PSYBEAM
 	db 0
@@ -1703,7 +1708,8 @@ CloysterEvosMoves:
 ; Learnset
 	db 18, SUPERSONIC
 	db 23, CLAMP
-	db 30, AURORA_BEAM
+	db 30, WATER_GUN
+	db 39, AURORA_BEAM
 	db 50, SPIKE_CANNON
 	db 0
 
@@ -1762,7 +1768,7 @@ PersianEvosMoves:
 MarowakEvosMoves:
 ; Evolutions
 	db 0
-; Learnsetjoenote-modified for yellow
+; Learnset	joenote-modified for yellow
 	db 13, TAIL_WHIP
 	db 16, HEADBUTT
 	db 25, LEER
@@ -1781,7 +1787,7 @@ MissingNo92EvosMoves:
 HaunterEvosMoves:
 ; Evolutions
 	db EV_TRADE, 1, GENGAR
-	db EV_LEVEL, 45, GENGAR
+	db EV_ITEM, THUNDER_STONE, 35, GENGAR
 	db 0
 ; Learnset
 	db 29, HYPNOSIS
@@ -1841,8 +1847,8 @@ StarmieEvosMoves:
 	db 26, HARDEN
 	db 31, RECOVER
 	db 36, SWIFT
-	db 46, LIGHT_SCREEN
-	db 51, HYDRO_PUMP
+	db 46, BUBBLEBEAM
+	db 51, REFLECT
 	db 0
 
 BulbasaurEvosMoves:

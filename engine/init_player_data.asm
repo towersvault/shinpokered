@@ -11,17 +11,31 @@ InitPlayerData2:
 	jr nz, .newgameplus	;skip the next few things if NG+
 	
 	;generate a new player ID
+	;call Random
+	;ld a, [hRandomSub]
+	;ld [wPlayerID], a
+	;call Random
+	;ld a, [hRandomAdd]
+	;ld [wPlayerID + 1], a
+
+	;joenote - changing this to be more optimal
 	call Random
-	ld a, [hRandomSub]
 	ld [wPlayerID], a
 	call Random
-	ld a, [hRandomAdd]
 	ld [wPlayerID + 1], a
+	
+	;joenote - generate a random seed for fisher-yates randomizer functions
+	call Random
+	ld [wRandomizerSeed], a
 	
 	;write a new box terminator to empty the box list
 	ld hl, wNumInBox
 	call InitializeEmptyList
 .newgameplus
+	ld [wPlayerID+1], a
+	
+	ld a, $ff
+	ld [wUnusedD71B], a
 
 	ld hl, wPartyCount
 	call InitializeEmptyList

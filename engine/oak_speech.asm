@@ -3,8 +3,8 @@ SetDefaultNames:
 	push af
 	ld a, [wOptions]
 	push af
-	ld a, [wd732]
-	push af
+;	ld a, [wd732]	;joenote - leftover from gamefreak's debug tools. need to clear this.
+;	push af
 	ld a, [wUnusedD721]	;joenote - preserve extra options
 	push af
 	ld hl, wPlayerName
@@ -17,8 +17,8 @@ SetDefaultNames:
 	call FillMemory
 	pop af
 	ld [wUnusedD721], a	;joenote - restore extra options
-	pop af
-	ld [wd732], a
+;	pop af
+;	ld [wd732], a
 	pop af
 	ld [wOptions], a
 	pop af
@@ -66,11 +66,17 @@ OakSpeech:
 	predef InitPlayerData2
 .newgamedone
 	call RunDefaultPaletteCommand	;gbcnote - reinitialize the default palette in case the pointers got cleared
+;joenote - initialize hack version byte as well as...
+	ld a, HACK_VERSION
+	ld [wRomHackVersion], a
+	predef SingleCPUSpeed	;...deactivate 2x speed das it may cause visual bugs during Oak's speech
+	
 ;joenote - give option to play as a female trainer here
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+IF DEF(_FPLAYER)
 	ld hl, AskIfGirlText
 	call PrintText
-	call NoYesChoice
+	call BoyGirlChoice
 	ld a, [wCurrentMenuItem]
 	ld b, a
 	ld a, [wUnusedD721]
@@ -78,6 +84,7 @@ OakSpeech:
 	or b
 	ld [wUnusedD721], a
 	call ClearScreen
+ENDC
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	ld a, $FF
 	call PlaySound ; stop music
@@ -139,14 +146,17 @@ OakSpeech:
 	call GBFadeOutToWhite
 	call ClearScreen
 ;joenote - support female sprite
+IF DEF(_FPLAYER)
 	ld de, RedPicFFront
 	lb bc, BANK(RedPicFFront), $00
 	ld a, [wUnusedD721]
 	bit 0, a	;check if girl
 	jr nz, .donefemale_front
+ENDC
 	ld de, RedPicFront
 	lb bc, BANK(RedPicFront), $00
-.donefemale_front	call IntroDisplayPicCenteredOrUpperRight
+.donefemale_front	
+	call IntroDisplayPicCenteredOrUpperRight
 	call MovePicLeft
 	ld hl, IntroducePlayerText
 	call PrintText
@@ -164,14 +174,17 @@ OakSpeech:
 	call GBFadeOutToWhite
 	call ClearScreen
 ;joenote - support female sprite
+IF DEF(_FPLAYER)
 	ld de, RedPicFFront
 	lb bc, BANK(RedPicFFront), $00
 	ld a, [wUnusedD721]
 	bit 0, a	;check if girl
 	jr nz, .donefemale_front2
+ENDC
 	ld de, RedPicFront
 	lb bc, BANK(RedPicFront), $00
-.donefemale_front2	call IntroDisplayPicCenteredOrUpperRight
+.donefemale_front2	
+	call IntroDisplayPicCenteredOrUpperRight
 	call GBFadeInFromWhite
 	ld a, [wd72d]
 	and a
@@ -190,14 +203,16 @@ OakSpeech:
 	call DelayFrames
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	;joenote - support female trainer
+IF DEF(_FPLAYER)
 	ld de, RedFSprite
 	lb bc, BANK(RedFSprite), $0C
 	ld a, [wUnusedD721]
 	bit 0, a	;check if girl
-	jr nz, .donefemale_sprite
+	jr nz, .sprite_next
+ENDC
 	ld de, RedSprite
 	lb bc, BANK(RedSprite), $0C
-.donefemale_sprite
+.sprite_next
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	ld hl, vSprites
 	call CopyVideoData
@@ -365,6 +380,17 @@ DoNewGamePlus: ;joenote - selective wram clearing for new game plus
 	
 	ret
 
+IF DEF(_FPLAYER)
 AskIfGirlText::	;joenote - text to ask if female trainer
 	TX_FAR _AskIfGirlText
 	db "@"
+	
+BoyGirlChoice::	;joenote - added this
+	call SaveScreenTilesToBuffer1
+	ld a, BOY_GIRL_MENU
+	ld [wTwoOptionMenuID], a
+	coord hl, 13, 7
+	ld bc, $080E
+	jp DisplayYesNoChoice
+ENDC
+

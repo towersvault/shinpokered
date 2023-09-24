@@ -129,12 +129,12 @@ CeruleanGymText1:
 	ld hl, CeruleanGymText_5c7d8
 	ld de, CeruleanGymText_5c7d8
 	call SaveEndBattleTextPointers
+	ld a, $2
+	ld [wGymLeaderNo], a
 	ld a, [H_SPRITEINDEX]
 	ld [wSpriteIndex], a
 	call EngageMapTrainer
 	call InitBattleEnemyParameters
-	ld a, $2
-	ld [wGymLeaderNo], a
 	xor a
 	ld [hJoyHeld], a
 ;;;;joenote - added for rematch to skip gym leader tm

@@ -70,6 +70,11 @@ ReadTrainer:
 	cp $FF ; is the trainer special?
 	jr z, .SpecialTrainer ; if so, check for special moves
 	ld [wCurEnemyLVL], a
+	
+	push hl
+	callba ScaleTrainer_level	;joenote - scale the level of the non-special trainer party if active
+	pop hl
+	
 .LoopTrainerData
 	ld a, [hli]
 	and a ; have we reached the end of the trainer data?
@@ -80,7 +85,7 @@ ReadTrainer:
 ;;;adding a custom function here
 	push hl
 	callba RandomizeRegularTrainerMons
-	callba ScaleTrainer
+	callba ScaleTrainer_evolution	;joenote - scale the evolution of the non-special trainer party if active
 	pop hl
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	ld a, ENEMY_PARTY_DATA
@@ -226,6 +231,18 @@ ReadTrainer:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;	
 
 .FinishUp
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;joenote - check for and load a mirror-match
+	CheckAndResetEvent EVENT_8DF
+	jr z, .end_mirror_match
+	ld bc, wPartyDataEnd - wPartyDataStart
+	ld hl, wPartyDataStart
+	ld de, wEnemyPartyCount
+	call CopyData
+.end_mirror_match
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 ;joenote - prevent prize money from being capped at 9999
 ; clear wAmountMoneyWon addresses
 	xor a

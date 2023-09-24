@@ -72,6 +72,7 @@ UpdatePlayerSprite:
 	sub b
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;	
 	ld [hl], a
+IF DEF(_RUNSHOES)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;joenote - If B is being held to go faster and full joypad is enabled (i.e. not in a cutscene),
 ;Then increase player animation speed by 25%
@@ -90,7 +91,9 @@ UpdatePlayerSprite:
 	cp c
 	pop bc
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;	cp 4
+ELSE
+	cp 4
+ENDC
 ;	jr nz, .calcImageIndex
 	jr c, .calcImageIndex	;joenote - prevents interframe counter from increasing forever
 	xor a
@@ -175,8 +178,8 @@ UpdateNPCSprite:
 	jp z, UpdateSpriteMovementDelay  ; c1x1 == 2
 	cp $3
 	jp z, UpdateSpriteInWalkingAnimation  ; c1x1 == 3
-	ld a, [wWalkCounter]
-	and a
+	ld a, [wWalkCounter]	;joenote - Do the check here and remove the redundancy from CheckSpriteAvailability
+	and a					;			so that npc walking animations get updated while the player is moving.
 	ret nz           ; don't do anything yet if player is currently moving (redundant, already tested in CheckSpriteAvailability)
 	call InitializeSpriteScreenPosition
 	ld h, $c2
@@ -411,6 +414,7 @@ UpdateSpriteInWalkingAnimation:
 	ld l, a
 	ld a, [hRandomAdd]
 	and $7f
+	inc a			;joenote - fix the oversight that can make the delay $100
 	ld [hl], a                       ; c2x8: set next movement delay to a random value in [0,$7f]
 	dec h                            ;       note that value 0 actually makes the delay $100 (bug?)
 	ld a, [H_CURRENTSPRITEOFFSET]
@@ -622,10 +626,12 @@ CheckSpriteAvailability:
 	jr .done
 .spriteVisible
 	ld c, a
-	ld a, [wWalkCounter]
-	and a
-	jr nz, .done           ; if player is currently walking, we're done
 	call UpdateSpriteImage
+
+	ld a, [wWalkCounter]	;joenote - move this below UpdateSpriteImage
+	and a
+	jr nz, .done           ; if player is currently walking, do not update the status of grass above the sprite
+
 	inc h
 	ld a, [H_CURRENTSPRITEOFFSET]
 	add $7
@@ -699,15 +705,18 @@ CanWalkOntoTile:
 	ld a, [H_CURRENTSPRITEOFFSET]
 	add $4
 	ld l, a
+;joenote - needs to be $81 and $91 because the column/row is visible
 	ld a, [hli]        ; c1x4 (screen Y pos)
 	add $4             ; align to blocks (Y pos is always 4 pixels off)
 	add d              ; add Y delta
-	cp $80             ; if value is >$80, the destination is off screen (either $81 or $FF underflow)
+;	cp $80             ; if value is >$80, the destination is off screen (either $81 or $FF underflow)
+	cp $81
 	jr nc, .impassable ; don't walk off screen
 	inc l
 	ld a, [hl]         ; c1x6 (screen X pos)
 	add e              ; add X delta
-	cp $90             ; if value is >$90, the destination is off screen (either $91 or $FF underflow)
+;	cp $90             ; if value is >$90, the destination is off screen (either $91 or $FF underflow)
+	cp $91
 	jr nc, .impassable ; don't walk off screen
 	push de
 	push bc
@@ -797,12 +806,26 @@ GetTileSpriteStandsOn:
 	ld l, a
 	ld a, [hli]     ; c1x4: screen Y position
 	add $4          ; align to 2*2 tile blocks (Y position is always off 4 pixels to the top)
-	and $f0         ; in case object is currently moving
+;	and $f0         ; in case object is currently moving
+;joenote - Simply ANDing with F0 rounds-down the pixel positioning to the starting Y-position of the previous movement space.
+;		- This treats the sprite as standing in a higher position on the screen than where it actually is.
+;		- It allows for downward-moving sprites to stand over text boxes.
+;		- Correct this behavior by rounding-up instead.
+	ld c, a
+	and $F0
+	ld b, a
+	ld a, c
+	and $0F
+	jr z, .next
+	ld a, $10
+.next
+	add b
+	
 	srl a           ; screen Y tile * 4
 	ld c, a
 	ld b, $0
 	inc l
-	ld a, [hl]      ; c1x6: screen Y position
+	ld a, [hl]      ; c1x6: screen X position
 	srl a
 	srl a
 	srl a            ; screen X tile

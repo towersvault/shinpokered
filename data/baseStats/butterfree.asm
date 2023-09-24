@@ -25,4 +25,7 @@ db 0 ; growth rate
 	tmlearn 33,34,39
 	tmlearn 44,46
 	tmlearn 50,55;joenote - learns flash in yellow
-db 0 ; padding
+;	db 0 ; padding
+	db BANK(ButterfreePicFront)
+	assert BANK(ButterfreePicFront) == BANK(ButterfreePicBack)
+

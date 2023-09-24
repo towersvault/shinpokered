@@ -510,7 +510,8 @@ UsableItems_PartyMenu:
 	db MAX_ETHER
 	db ELIXER
 	db MAX_ELIXER
-	db M_GENE	;joenote - custom item
+	db M_GENE	;joenote - custom items
+	db MIST_STONE
 	db $ff
 
 ; items which close the item menu when used
@@ -535,6 +536,11 @@ StartMenu_TrainerInfo:
 	predef DrawBadges ; draw badges
 	ld b, SET_PAL_TRAINER_CARD
 	call RunPaletteCommand
+	
+	ld a, [wOnSGB]
+	and a
+	call z, Delay3	;joenote - If on GB-DMG, wait 3 frames for the screen to redraw each third
+	
 	call GBPalNormal
 	call WaitForTextScrollButtonPress ; wait for button press
 	call GBPalWhiteOut
@@ -542,7 +548,12 @@ StartMenu_TrainerInfo:
 	call LoadScreenTilesFromBuffer2 ; restore saved screen
 	call RunDefaultPaletteCommand
 	call ReloadMapData
-	;call LoadGBPal
+	
+	ld a, [wOnSGB]
+	and a
+	call z, Delay3	;joenote - If on GB-DMG, wait 3 frames for the screen to redraw each third
+	
+	;call LoadGBPal		;joenote - moved this to RedisplayStartMenu for smoother whiteout transition
 	pop af
 	ld [hTilesetType], a
 	jp RedisplayStartMenu
@@ -550,14 +561,16 @@ StartMenu_TrainerInfo:
 ; loads tile patterns and draws everything except for gym leader faces / badges
 DrawTrainerInfo:
 ;joenote - support female trainer sprite
+IF DEF(_FPLAYER)
 	ld de, RedPicFFront
 	lb bc, BANK(RedPicFFront), $01
 	ld a, [wUnusedD721]
 	bit 0, a	;check if girl
-	jr nz, .donefemale_front
+	jr nz, .next
+ENDC
 	ld de, RedPicFront
 	lb bc, BANK(RedPicFront), $01
-.donefemale_front
+.next
 	predef DisplayPicCenteredOrUpperRight
 	call DisableLCD
 	coord hl, 0, 2
@@ -639,15 +652,18 @@ DrawTrainerInfo:
 	ld de, wPlayerMoney
 	ld c, $e3
 	call PrintBCDNumber
-	coord hl, 9, 6
-	ld de, wPlayTimeHours ; hours
-	lb bc, LEFT_ALIGN | 1, 3
-	call PrintNumber
-	ld [hl], $d6 ; colon tile ID
-	inc hl
-	ld de, wPlayTimeMinutes ; minutes
-	lb bc, LEADING_ZEROES | 1, 2
-	jp PrintNumber
+	coord hl, 7, 6
+;	ld de, wPlayTimeHours ; hours
+;	lb bc, LEFT_ALIGN | 1, 3
+;	call PrintNumber
+;	ld [hl], $d6 ; colon tile ID
+;	inc hl
+;	ld de, wPlayTimeMinutes ; minutes
+;	lb bc, LEADING_ZEROES | 1, 2
+;	jp PrintNumber
+	ld d, $d6
+	predef PrintPlayTime
+	ret
 
 TrainerInfo_FarCopyData:
 	ld a, BANK(TrainerInfoTextBoxTileGraphics)

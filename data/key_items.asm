@@ -1,4 +1,4 @@
-key_item_bits: MACRO
+MACRO key_item_bits
 _bit = 0
 _byte = 0
 REPT _NARG
@@ -62,7 +62,7 @@ KeyItemBitfield:
 	FALSE,  \ ; DOME_FOSSIL
 	FALSE,  \ ; HELIX_FOSSIL
 	TRUE,  \ ; SECRET_KEY
-	TRUE,  \ ; UNUSED_ITEM
+	FALSE,  \ ; UNUSED_ITEM	;joenote - used for MIST_STONE
 	TRUE,  \ ; BIKE_VOUCHER
 	FALSE, \ ; X_ACCURACY
 	FALSE, \ ; LEAF_STONE
@@ -94,7 +94,7 @@ KeyItemBitfield:
 	TRUE,  \ ; POKE_FLUTE
 	TRUE,  \ ; LIFT_KEY
 	FALSE, \ ; EXP_ALL
-	FALSE,  \ ; OLD_ROD
+	TRUE,  \ ; OLD_ROD
 	TRUE,  \ ; GOOD_ROD
 	TRUE,  \ ; SUPER_ROD
 	FALSE, \ ; PP_UP

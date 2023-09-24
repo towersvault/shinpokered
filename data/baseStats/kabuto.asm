@@ -25,4 +25,7 @@ db 0 ; growth rate
 	tmlearn 33,34
 	tmlearn 44
 	tmlearn 50,53
-db 0 ; padding
+;	db 0 ; padding
+	db BANK(KabutoPicFront)
+	assert BANK(KabutoPicFront) == BANK(KabutoPicBack)
+

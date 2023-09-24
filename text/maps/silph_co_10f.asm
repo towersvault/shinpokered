@@ -1,6 +1,7 @@
 _SilphCo10Text_5a1d3::
 	text "Waaaaa!"
-	cont "I'm scared!"
+;	cont "I'm scared!"	;joenote - 'cont' is a bug. It should be 'line'
+	line "I'm scared!"
 	done
 
 _SilphCo10Text_5a1d8::

@@ -3,6 +3,15 @@ _Museum2FText1::
 
 	para "What's so special"
 	line "about it?"
+
+;joenote - added text to hint at evolving kadabra
+	para "I heard that some"
+	line "GYM LEADER had a"
+	cont "KADABRA evolve by"
+	cont "meditating under"
+	cont "the MOON's light,"
+	cont "so why a STONE?"
+
 	done
 
 _Museum2FText2::

@@ -732,7 +732,7 @@ MeditateAnim:
 
 AgilityAnim:
 	db SE_LIGHT_SCREEN_PALETTE, $60
-	db SE_DELAY_ANIMATION_10, $FF
+	db SE_DELAY_ANIMATION_10, $FF	;joenote - added this to make the animation more obvious
 	db SE_RESET_SCREEN_PALETTE, $FF
 	db $FF
 
@@ -1798,7 +1798,8 @@ Subanimation22:
 	db $47,$b0,$00
 
 Subanimation2d:
-	db $66
+	;db $66		;joenote - this should be $26 instead, else double-edge is off-center for enemy 'mons
+	db $26
 	db $44,$64,$00
 	db $45,$65,$00
 	db $46,$66,$00

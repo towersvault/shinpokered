@@ -107,9 +107,9 @@ UNION
 hSpriteOffset2:: db
 ;FF90
 hOAMBufferOffset:: db
-;FF8F91
+;FF91
 hSpriteScreenX:: db
-;FF8F92
+;FF92
 hSpriteScreenY:: db
 
 NEXTU

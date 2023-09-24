@@ -1,6 +1,7 @@
 Route25Script:
 	call Route25Script_515e1
 	call EnableAutoTextBoxDrawing
+	call BillSecretGarden	;joenote - fun little easter egg
 	ld hl, Route25TrainerHeader0
 	ld de, Route25ScriptPointers
 	ld a, [wRoute25CurScript]
@@ -150,6 +151,9 @@ Route25Script3:	;joenote - adding this function to respawn the legendaries if fu
 	ld a, [wBeatGymFlags]
 	and $F0
 	ld [wBeatGymFlags], a
+;reset MIST_STONE events
+	ResetEvent EVENT_8C3
+	ResetEvent EVENT_8C4
 ;reset Mew events
 	ResetEvent EVENT_8C0
 	ResetEvent EVENT_8C2
@@ -282,6 +286,68 @@ Route25TextRed:
 	ld hl, RedText_decline
 	call PrintText
 	jp TextScriptEnd
+	
+BillSecretGarden:
+	ld hl, GardenCoordsData	;load the table of coordinates defining the garden
+	call ArePlayerCoordsInArray	;check player coordinates and set the carry flag if a match is found
+	jr nc, .return	;leave if the carry flag is not set
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;everything checks out, so do stuff
+	;generate an encounter if the random number adder is 0
+	ld a, [hRandomAdd]
+	and a
+	jr nz, .return
+
+	;make it shiny if random number subtracter is below 2 (that's 1 in 128 odds)
+	ld a, [hRandomSub]
+	cp 2
+	jr nc, .noshiny
+	ld a, [wFontLoaded]
+	set 7, a 
+	ld [wFontLoaded], a
+.noshiny
+
+	;load the pokemon level
+	ld a, 5
+	ld [wCurEnemyLVL], a
+
+	;set the current opponent
+	call Random
+	and $07
+	ld b, 0
+	ld c, a
+	ld hl, GardenList
+	add hl, bc
+	ld a, [hl]
+	ld [wCurOpponent], a
+
+	ld hl, wd72d;set the bits for triggering battle
+	set 6, [hl]	;
+	set 7, [hl]	;
+	xor a
+	ld [hJoyHeld], a
+	jp TextScriptEnd
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+.return
+	ret
+
+GardenList:
+	db PIKACHU
+	db EEVEE
+	db CLEFAIRY
+	db BULBASAUR
+	db SQUIRTLE
+	db CHARMANDER
+	db ABRA
+	db PORYGON
+
+GardenCoordsData:
+		;Y,X
+	db $00,$2F
+	db $00,$2E
+	db $00,$2D
+	db $00,$2C
+	db $ff
 
 Route25BattleText1:
 	TX_FAR _Route25BattleText1

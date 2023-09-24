@@ -4,7 +4,7 @@ TrackPlayTime:
 	bit 0, a
 	ret z
 	ld a, [wPlayTimeMaxed]
-	and a
+	bit 7, a
 	ret nz
 	ld a, [wPlayTimeFrames]
 	inc a
@@ -28,11 +28,11 @@ TrackPlayTime:
 	xor a
 	ld [wPlayTimeMinutes], a
 	ld a, [wPlayTimeHours]
-	inc a
+	add 1	;use add instead of inc in order to get the carry bit on overflow
 	ld [wPlayTimeHours], a
-	cp $ff
-	ret nz
-	ld a, $ff
+	ret nc
+	ld a, [wPlayTimeMaxed]
+	adc 0 ;add 0 + the carry bit from the overflowed hours
 	ld [wPlayTimeMaxed], a
 	ret
 

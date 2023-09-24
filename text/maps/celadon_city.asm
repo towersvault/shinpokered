@@ -128,11 +128,17 @@ _CeladonCityText15::
 _CeladonCityText16::
 	text "TRAINER TIPS"
 
+;joenote - this description is totally wrong about guard spec
+;	para "GUARD SPEC."
+;	line "protects #MON"
+;	cont "against SPECIAL"
+;	cont "attacks such as"
+;	cont "fire and water!"
 	para "GUARD SPEC."
 	line "protects #MON"
-	cont "against SPECIAL"
+	cont "from STAT-down"
 	cont "attacks such as"
-	cont "fire and water!"
+	cont "LEER and GROWL!"
 
 	para "Get your items at"
 	line "CELADON DEPT."

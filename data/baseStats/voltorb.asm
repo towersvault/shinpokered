@@ -25,4 +25,7 @@ db 0 ; growth rate
 	tmlearn 33,34,36,39
 	tmlearn 44,45,47
 	tmlearn 50,55
-db 0 ; padding
+;	db 0 ; padding
+	db BANK(VoltorbPicFront)
+	assert BANK(VoltorbPicFront) == BANK(VoltorbPicBack)
+

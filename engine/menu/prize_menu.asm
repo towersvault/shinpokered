@@ -107,6 +107,7 @@ GetPrizeMenuId:
 	call PlaceString
 	jr .putNoThanksText
 .putMonName
+	predef randomMonPrizes	;joenote - randomize the game corner pokemon prizes
 	ld a, [wPrize1]
 	ld [wd11e], a
 	call GetMonName

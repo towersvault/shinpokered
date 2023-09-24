@@ -12,9 +12,11 @@
 *.rle binary
 *.tilecoll binary
 *.bst binary
-*.map binary
+*.tilemap binary
 *.wav binary
 *.blk binary
 *.pic binary
 *.ips binary
 *.gif binary
+*.bps binary
+*.dll binary

@@ -11,6 +11,7 @@ BillsHouseScriptPointers:
 	dw BillsHouseScript3
 	dw BillsHouseScript4
 	dw BillsHouseScript5
+	dw BillsGarden	;joenote - adding this as an easter egg
 
 BillsHouseScript0:
 	ret
@@ -205,10 +206,37 @@ BillsHouseText_1e8cb:
 
 BillsHouseText3:
 	TX_ASM
+
+	ld a, [wPartyMon1Species]
+	cp MEW
+	jr nz, .next
+	ld a, 6
+	ld [wBillsHouseCurScript], a	;joenote - warp to bill's garden
+	ld hl, BillGardenText
+	jr .done
+	
+.next
 	ld hl, BillsHouseText_1e8da
+.done
 	call PrintText
 	jp TextScriptEnd
 
+BillsGarden:	;joenote - adding this as an easter egg
+	SetEvent EVENT_8C3	;make it so you can get the mist_stone
+	xor a
+	ld [wBillsHouseCurScript], a
+	ld a, 1
+	ld [wDestinationWarpID], a
+	ld a, -1
+	ld [hWarpDestinationMap], a
+	ld hl, wd72d
+	set 3, [hl]	;set bit for a scripted warp
+	ret
+
 BillsHouseText_1e8da:
 	TX_FAR _BillsHouseText_1e8da
+	db "@"
+
+BillGardenText:
+	TX_FAR _BillGardenText
 	db "@"

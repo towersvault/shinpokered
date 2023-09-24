@@ -1,13 +1,32 @@
 ;joenote - custom functions to handle move priority. Sets zero flag if priority lowered/raised.
 CheckLowerPlayerPriority:	
 	ld a, [wPlayerSelectedMove]
-	call LowPriorityMoves
-	ret
+	ld hl, wPlayerBattleStatus3
+	ld bc, wPlayerMoveEffect
+	jr LowPriorityMoves
 CheckLowerEnemyPriority:
 	ld a, [wEnemySelectedMove]
-	call LowPriorityMoves
-	ret
+	ld hl, wEnemyBattleStatus3
+	ld bc, wEnemyMoveEffect
+;	jp LowPriorityMoves
+;fall through
 LowPriorityMoves:
+;joenote - handle trapping spam counter and implement the trapping clause
+	push af
+	ld a, [bc]
+	cp TRAPPING_EFFECT
+	jr nz, .next1	;reset the number of consecutive trapping moves and continue if this is not a trapping move
+
+	bit TRAPPING_NEGATIVE, [hl]
+	jr nz, .CheckTrappingClause	;if the bit indicating two consecutive uses is set, ret immediately with z flag for negative priority
+	jr .next2
+	
+.next1
+	res TRAPPING_COUNT, [hl]
+	res TRAPPING_NEGATIVE, [hl]
+.next2
+	pop af
+
 	cp COUNTER
 ;	ret z
 ;	cp BIND
@@ -18,15 +37,31 @@ LowPriorityMoves:
 ;	ret z
 ;	cp CLAMP
 	ret
+.CheckTrappingClause
+	res TRAPPING_COUNT, [hl]
+	pop af
+	ld a, [wLinkState]
+	cp LINK_STATE_BATTLING
+	jr z, .next3
+	CheckEvent EVENT_8C5
+.next3
+	;invert the z flag bit at this point
+	jr nz, .retz
+.retnz
+	ld a, 1
+	and a
+	ret
+.retz
+	xor a
+	ret
 
 CheckHigherPlayerPriority:	
 	ld a, [wPlayerSelectedMove]
-	call HighPriorityMoves
-	ret
+	jr HighPriorityMoves
 CheckHigherEnemyPriority:
 	ld a, [wEnemySelectedMove]
-	call HighPriorityMoves
-	ret
+;	jr HighPriorityMoves
+; fall through
 HighPriorityMoves:
 	cp QUICK_ATTACK
 ;	ret z
@@ -72,16 +107,10 @@ DetermineWildMonDVs:
 	call IsInSafariZone
 	jr nz, .do_random_safari
 .notsafari
-	call Random
-	ld b, a
-	call Random
+	call Random_DV
 	jr .load
 .do_random_safari	;special safari zone pokemon have better DVs
-	call Random
-	or $88
-	ld b, a
-	call Random
-	or $98
+	call Random_BiasDV
 .load
 	push hl
 	ld hl, wEnemyMonDVs
@@ -179,6 +208,53 @@ SetExpAllFlags:
 
 
 
+;returns z flag if on the first attack
+;returns z flag cleared if not on the first or not applicable
+TestMultiAttackMoveUse_firstAttack:
+	call TestMultiAttackMoveUse
+	ret nz
+	ld a, l
+	and a
+	ret
+;returns z flag set if on the last attack
+;returns z flag cleared if not on the last attack or not applicable
+TestMultiAttackMoveUse_lastAttack:
+	call TestMultiAttackMoveUse
+	ret nz
+	ld a, l
+	cp 1
+	ret
+;returns with z flag set if using a multi-attack move 
+;returns with L = attacks left
+TestMultiAttackMoveUse:
+	ld a, [H_WHOSETURN]
+	and a
+	ld a, [wPlayerMoveEffect]
+	ld h, a
+	ld a, [wPlayerNumAttacksLeft]
+	ld l, a
+	jr z, .next1
+	ld a, [wEnemyMoveEffect]
+	ld h, a
+	ld a, [wEnemyNumAttacksLeft]
+	ld l, a
+.next1
+	ld a, h
+	cp ATTACK_TWICE_EFFECT
+	jr z, .multi_attack
+	cp TWO_TO_FIVE_ATTACKS_EFFECT
+	jr nz, .done_multi
+.multi_attack
+	;at this line, we are dealing with a multi-attack or two-attack move
+	xor a
+	ret
+.done_multi
+	ld a, 1
+	and a
+	ret
+
+
+
 EnemyBideAccum:
 	ld hl, wEnemyBattleStatus1
 	bit STORING_ENERGY, [hl] ; is mon using bide?
@@ -235,7 +311,9 @@ ForfeitTrainerMatch:
 	call NoYesChoice
 	ld a, [wCurrentMenuItem]
 	and a
-	call nz, FaintAllMons
+	push af
+	call nz, ForfeitConfirmed
+	pop af
 	ret
 ForfeitTrainerMatchText:
 	TX_FAR _ForfeitTrainerMatchText
@@ -244,7 +322,15 @@ _ForfeitTrainerMatchText::
 	text "Forfeit?"
 	done
 
-FaintAllMons:	
+ForfeitConfirmed:
+	;set the flag for forfeiting
+	ld a, [wUnusedD721]
+	set 1, a
+	ld [wUnusedD721], a
+	call ForfeitConfirmed_NuzlockeHandler	;joenote - mark already KO'ed pokemon as dead for nuzlocke mode
+	;fall through
+FaintAllMons:
+	;now KO the whole party
 	ld a, $00
 	ld [wBattleMonHP], a
 	ld [wBattleMonHP + 1], a
@@ -271,31 +357,54 @@ PlayerDisableHandler:
 	call GetPredefRegisters
 	;hl points to wPlayerDisabledMove at this line
 	
+	;continue if the counter nybble is not valid: either it is 0 or between 9 and F
+	;else return because a valid counter of 1-8 exists
 	ld a, [hl]
-	bit 3, a	;bit 3 is set if this is the first round of the effect
-	ret z	;return if not first round
-	;else reset the bit and increment the counter
-	res 3, a
-	inc a
-	ld [hl], a
-	;counter is now 1 to 8 for the rest of the duration
-	
-	;now see if the counter is > 1 and return if true
 	and $0F
-	cp $02
-	ret nc
+	cp 9
+	jr nc, .continue
+	and a
+	ret nz
+	
+.continue
+	;now restore the counter values to a valid 1-8 distribution
+	sub 8 
+	jr nc, .valid_count
+	;if there was an underflow because of subtracting from 0, then make the value 8
+	ld a, 8
+.valid_count
+	push bc
+	ld b, a
+	ld a, [hl]
+	and $F0
+	or b
+	pop bc
+	ld [hl], a
+	;counter is now 1 to 8
 	
 	;now test to see if going second in the round
 	ld a, [H_WHOFIRST]
 	and a
-	ret z	;return if going first
+	ret z	;return if player going first
+	
+	;The player is going second at this line.
+	;So the counter will have one of the following outcomes at the start of the next round: [0,1,2,3,4,5,6,7].
+	;This is because it's assumed the counter will decrement after returning from this function.
+	;But said distribution is really supposed to be [1,2,3,4,5,6,7,8] like it is if going first.
+	;If the counter is 1 right now, it will decrement to zero. A value of 8 is also unattainable. Both are undesireable. 
+
+	;See if the counter is = 1 and return if not
+	ld a, [hl]
+	and $0F
+	cp $01
+	ret nz
 	
 	;now confirmed that: 
 	;--> the counter is initialized to 1 this round. 
 	;--> going second this round.
-	;Therefore, increment the counter 
+	;so covert the 1 into an 9 so it can be decremented to 8 after returning
 	ld a, [hl]
-	inc a
+	add 8
 	ld [hl], a
 .return
 	ret
@@ -304,36 +413,83 @@ EnemyDisableHandler:
 	call GetPredefRegisters
 	;hl points to wEnemyDisabledMove at this line
 	
+	;continue if the counter nybble is not valid: either it is 0 or between 9 and F
+	;else return because a valid counter of 1-8 exists
 	ld a, [hl]
-	bit 3, a	;bit 3 is set if this is the first round of the effect
-	ret z	;return if not first round
-	;else reset the bit and increment the counter
-	res 3, a
-	inc a
-	ld [hl], a
-	;counter is now 1 to 8 for the rest of the duration
-	
-	;now see if the counter is > 1 and return if true
 	and $0F
-	cp $02
-	ret nc
+	cp 9
+	jr nc, .continue
+	and a
+	ret nz
+	
+.continue
+	;now restore the counter values to a valid 1-8 distribution
+	sub 8 
+	jr nc, .valid_count
+	;if there was an underflow because of subtracting from 0, then make the value 8
+	ld a, 8
+.valid_count
+	push bc
+	ld b, a
+	ld a, [hl]
+	and $F0
+	or b
+	pop bc
+	ld [hl], a
+	;counter is now 1 to 8
 	
 	;now test to see if going second in the round
 	ld a, [H_WHOFIRST]
 	and a
-	ret nz	;return if going first
+	ret nz	;return if enemy going first
+	
+	;The enemy is going second at this line.
+	;So the counter will have one of the following outcomes at the start of the next round: [0,1,2,3,4,5,6,7].
+	;This is because it's assumed the counter will decrement after returning from this function.
+	;But said distribution is really supposed to be [1,2,3,4,5,6,7,8] like it is if going first.
+	;If the counter is 1 right now, it will decrement to zero. A value of 8 is also unattainable. Both are undesireable. 
+
+	;See if the counter is = 1 and return if not
+	ld a, [hl]
+	and $0F
+	cp $01
+	ret nz
 	
 	;now confirmed that: 
 	;--> the counter is initialized to 1 this round. 
 	;--> going second this round.
-	;Therefore, increment the counter 
+	;so covert the 1 into an 9 so it can be decremented to 8 after returning
 	ld a, [hl]
-	inc a
+	add 8
 	ld [hl], a
 .return
 	ret
 
 
+;check hyper beam clause
+;when active, hyperbeam does not need to recharge when scoring a KO
+;set z flag if not applicable 
+;clear z flag if confirmed
+_HandleHyperbeamClause:
+	ld a, [wLinkState]
+	cp LINK_STATE_BATTLING
+	ret z	;do not enforce for link battles
+	CheckEvent EVENT_8C8	
+	ret z
+	ld hl, wEnemyMonHP	;check enemy hp if it's the player's turn
+	ld a, [H_WHOSETURN]
+	and a
+	jr z, .next
+	ld hl, wBattleMonHP	;check player hp if its the enemy's turn
+.next
+	ld a, [hli]
+	or [hl]
+	jr nz, .noKO
+	inc a
+	ret
+.noKO
+	xor a
+	ret
 
 ;return z and nc if nothing detected
 ;return nz for sleep clause triggered
@@ -449,10 +605,17 @@ _HandleSlpFrzClause:
 	
 SetAttackAnimPal:
 	call GetPredefRegisters
-	
+
+	;set wAnimPalette based on if in grayscale or color
+	ld a, $e4
+	ld [wAnimPalette], a
+	ld a, [wOnSGB]
+	and a
+	ret z
 	ld a, $f0
 	ld [wAnimPalette], a
 	
+	;return if not on a GBC
 	ld a, [hGBC]
 	and a
 	ret z 
@@ -465,8 +628,9 @@ SetAttackAnimPal:
 	ld a, [wAnimationID]
 	and a
 	ret z
-	cp STRUGGLE
-	jp nc, SetAttackAnimPal_otheranim	;reset battle pals for non-move battle animations
+	cp STRUGGLE		;check for non-move battle animations
+	call nc, CheckIfBall
+	jp z, SetAttackAnimPal_otheranim	;reset battle pals for any other battle animations
 	
 	ld a, $e4
 	ld [wAnimPalette], a
@@ -476,6 +640,9 @@ SetAttackAnimPal:
 	push de
 	ld a, [wcf91]
 	push af
+	
+	call CheckIfBall
+	jr nz, .do_ball_color
 	
 ;doing a move animation, so find its type and apply color
 	ld a, [H_WHOSETURN]
@@ -493,15 +660,29 @@ SetAttackAnimPal:
 	ld b, a
 
 	ld a, [wUnusedC000]
+
 	bit 7, a	;check the bit that is set when hurting self from confusion or crash damage
 	jr z, .noselfdamage
 	;if hurting self, load default palette
 	ld b, PAL_BW
+	jr .starttransfer
 .noselfdamage
 
+	bit 6, a	;check the bit that is set when absorbing HP due to leech seed
+	jr z, .noleechseed
+	;if absorbing, load default palette
+	ld b, PAL_GREENMON
+	jr .starttransfer
+.noleechseed
+
+	nop		;debugging placeholder
+.starttransfer
 	;make sure to reset palette/shade data into OBP0
-	ld a, %11100100
-	ld [rOBP0], a
+	;have to do this so colors transfer to the proper positions
+;	ld a, %11100100
+;	ld [rOBP0], a
+;NOTE: rOBP0 value is now set before entering this function, and colors will transfer based on its value
+;		;Typically this will be $E4 or a complemented version of it
 	
 	ld c, 4
 .transfer
@@ -523,6 +704,29 @@ SetAttackAnimPal:
 	pop bc
 	pop hl
 	ret	
+.do_ball_color
+	ld a, [wcf91]
+	ld hl, ItemPalList
+	ld b, 0
+	ld c, a
+	add hl, bc
+	ld a, [hl]
+	ld b, a
+	jr .starttransfer
+;this functions sets z flag if not using a ball item, otherwise clears z flag if using a ball item
+CheckIfBall:
+	ld a, [wAnimationID]
+	cp TOSS_ANIM
+	jr z, .is_ball
+	cp ULTRATOSS_ANIM
+	jr nz, .not_ball
+.is_ball
+	ld a, 1
+	and a
+	ret
+.not_ball
+	xor a
+	ret
 ;This function copies BGP colors 0-3 into OBP colors 0-3
 ;It is meant to reset the object palettes on the fly
 SetAttackAnimPal_otheranim:
@@ -611,6 +815,16 @@ TypePalColorList:
 	db PAL_PINKMON;psychic
 	db PAL_CYANMON;ice
 	db PAL_REDMON;dragon
+ItemPalList:
+	db PAL_BW	;null item
+	db PAL_PURPLEMON	;master ball
+	db PAL_UBALL	;ultra ball
+	db PAL_BLUEMON	;great ball
+	db PAL_REDMON	;pokeball
+	db PAL_BW	;town map
+	db PAL_BW	;bike
+	db PAL_BW	;surfboard
+	db PAL_GREENMON	;safari ball
 
 ;Note: calls GetBadgeCap and preserves D so that this too returns the level cap based on badges back into D
 DoDisobeyLevelCheck:

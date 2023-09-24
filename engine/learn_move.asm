@@ -16,7 +16,7 @@ DontAbandonLearning:
 	
 	;joenote - for field move slot
 	call LearnToFieldSlot
-	jp nz, PrintLearnedMove
+	jp nz, PrintLearnedFieldMove
 	
 	ld d, h
 	ld e, l
@@ -97,13 +97,18 @@ AbandonLearning:
 	jp nz, DontAbandonLearning
 	ld hl, DidNotLearnText
 	call PrintText
-	ld b, 0
+	ld bc, $0000
 	ret
 
 PrintLearnedMove:
 	ld hl, LearnedMove1Text
 	call PrintText
-	ld b, 1
+	ld bc, $0100
+	ret
+PrintLearnedFieldMove:
+	ld hl, LearnedMove1Text
+	call PrintText
+	ld bc, $0101	;make c=1 to indicate the move was learned as a field move
 	ret
 
 TryingToLearn:
@@ -131,6 +136,11 @@ TryingToLearn:
 	ld b, 4
 	ld c, 14
 	call TextBoxBorder
+
+	ld a, [wFlags_D733]
+	bit 6, a
+	call nz, UpdateSprites ; joenote - disable sprites behind the text box
+
 	coord hl, 6, 8
 	ld de, wMovesString
 	ld a, [hFlags_0xFFF6]
@@ -212,12 +222,25 @@ TryingToLearnText:
 	TX_FAR _TryingToLearnText
 	db "@"
 
-OneTwoAndText:
+OneTwoAndText:	;joenote - fixed to switch to the correct bank when playing the poof sfx
 	TX_FAR _OneTwoAndText
 	TX_DELAY
 	TX_ASM
+	ld a, 1
+	ld [wMuteAudioAndPauseMusic], a
+	ld a, [wAudioROMBank]
+	push af
+	ld a, BANK(SFX_Swap_1)
+	ld [wAudioROMBank], a
+	ld [wAudioSavedROMBank], a
 	ld a, SFX_SWAP
 	call PlaySoundWaitForCurrent
+	call WaitForSoundToFinish
+	pop af
+	ld [wAudioROMBank], a
+	ld [wAudioSavedROMBank], a
+	xor a
+	ld [wMuteAudioAndPauseMusic], a
 	ld hl, PoofText
 	ret
 

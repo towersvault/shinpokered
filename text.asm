@@ -228,9 +228,12 @@ SECTION "Text 3", ROMX, BANK[TEXT_3]
 
 INCLUDE "text/maps/rock_tunnel_b2f_2.asm"
 INCLUDE "text/maps/seafoam_islands_b4f.asm"
+
+IF DEF(_MOVENPCS)
 ;joenote - adding Mateo's move relearner/deleter files
 INCLUDE "text/move_deleter.asm"
 INCLUDE "text/move_relearner.asm"
+ENDC
 
 _AIBattleWithdrawText::
 	TX_RAM wTrainerName
@@ -571,7 +574,8 @@ _CinnabarGymQuizIntroText::
 	prompt
 
 _CinnabarQuizQuestionsText1::
-	text "CATERPIE evolves"
+;	text "CATERPIE evolves"	;joenote - this is supposed to be METAPOD
+	text "METAPOD evolves"	
 	line "into BUTTERFREE?"
 	done
 
@@ -586,17 +590,22 @@ _CinnabarQuizQuestionsText3::
 	line "times?"
 	done
 
-_CinnabarQuizQuestionsText4::
-	text "Are thunder moves"
-	line "effective against"
-	cont "ground element-"
+_CinnabarQuizQuestionsText4::	;joenote - re-worded to be less contrived
+;	text "Are thunder moves"
+;	line "effective against"
+;	cont "ground element-"
+;	cont "type #MON?"
+	text "Are electric-type"
+	line "moves effective"
+	cont "against ground-"
 	cont "type #MON?"
 	done
 
 _CinnabarQuizQuestionsText5::
 	text "#MON of the"
 	line "same kind and"
-	cont "level are not"
+;	cont "level are not"	;joenote - re-worded 
+	cont "level are rarely"
 	cont "identical?"
 	done
 
@@ -805,7 +814,11 @@ _IndigoPlateauHQText::
 
 _RedBedroomSNESText::
 	text "<PLAYER> is"
+IF DEF(_REDGREENJP)
+	line "playing the NES!"	;joenote - the player still had an old famicom in japanese red & green
+ELSE
 	line "playing the SNES!"
+ENDC
 	cont "...Okay!"
 	cont "It's time to go!"
 	done
@@ -1443,8 +1456,9 @@ _GainedText::
 ;	cont "@@"
 ;joenote - making this less annoying
 _WithExpAllText::
-	text "EXP.ALL gives team"
-	line "@@"
+	text "EXP.ALL gives the"
+	line "team relatively"
+	cont "@@"
 
 _BoostedText::
 	text "a boosted"
@@ -3164,8 +3178,8 @@ _AfterTrade2Text::
 	text " you"
 	line "traded to me"
 
-IF DEF(_BLUEJP)
-	para "went and evolved!"	;Blue-JP uses Kadabra so this makes sense
+IF DEF(_ENCBLUEJP)
+	para "went and evolved!"	;Blue-JP trade uses Kadabra so this makes sense
 ELSE
 	para "is learning fast!"	;joenote - fixed nonsense about evolving
 ENDC
@@ -3239,6 +3253,15 @@ _LearnTempFieldMoveTextDenied::
 	line "in a PC BOX to"
 	cont "erase it."
 	prompt
+
+_RomHackVersionText::
+	text "This SAVE is from"
+	line "a different rev"
+	cont "of this game."
+	
+	para "Warp to PALLET"
+	line "TOWN for safety?"
+	done
 
 SECTION "Pokedex Text", ROMX, BANK[POKEDEX_TEXT]
 

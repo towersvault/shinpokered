@@ -28,6 +28,7 @@ CeladonCityObject:
 	sign 27, 21, 18 ; CeladonCityText18
 
 	db 9 ; objects
+;joenote - add some items to encourage exploration of the dead areas
 	object SPRITE_LITTLE_GIRL, 8, 17, WALK, 0, 1 ; person
 	object SPRITE_OLD_PERSON, 11, 28, STAY, UP, 2 ; person
 	object SPRITE_GIRL, 14, 19, WALK, 1, 3 ; person
@@ -36,7 +37,9 @@ CeladonCityObject:
 	object SPRITE_FISHER2, 32, 12, STAY, LEFT, 6 ; person
 	object SPRITE_SLOWBRO, 30, 12, STAY, RIGHT, 7 ; person
 	object SPRITE_ROCKET, 32, 29, WALK, 2, 8 ; person
-	object SPRITE_ROCKET, 42, 14, WALK, 2, 9 ; person
+;	object SPRITE_ROCKET, 42, 14, WALK, 2, 9 ; person
+	object SPRITE_ROCKET, 4, 2, WALK, 2, 9 ; person	;joenote - moved this rocket to a barren area
+
 
 	; warp-to
 	warp_to 8, 13, CELADON_CITY_WIDTH ; CELADON_MART_1

@@ -12,10 +12,10 @@ INCBIN MEWTWO_FR,0,1 ; 77, sprite dimensions
 dw MewtwoPicFront
 dw MewtwoPicBack
 ; attacks known at lvl 0
+db PSYCHIC_M
 db CONFUSION
 db DISABLE
 db SWIFT
-db PSYCHIC_M
 db 5 ; growth rate
 ; learnset
 	tmlearn 1,5,6,8
@@ -25,4 +25,7 @@ db 5 ; growth rate
 	tmlearn 33,34,35,36,38,39,40
 	tmlearn 44,45,46
 	tmlearn 49,50,54,55
-db 0 ; padding
+;	db 0 ; padding
+	db BANK(MewtwoPicFront)
+	assert BANK(MewtwoPicFront) == BANK(MewtwoPicBack)
+

@@ -1,14 +1,14 @@
 Moves:
 ; Characteristics of each move.
 
-move: macro
+MACRO move
 	db \1 ; animation (interchangeable with move id)
 	db \2 ; effect
 	db \3 ; power
 	db \4 ; type
 	db \5 percent ; accuracy
 	db \6 ; pp
-endm
+ENDM
 
 	move POUND,        NO_ADDITIONAL_EFFECT,        40, NORMAL,   100, 35
 MoveEnd:
@@ -176,3 +176,4 @@ MoveEnd:
 	move SLASH,        NO_ADDITIONAL_EFFECT,        70, NORMAL,   100, 20
 	move SUBSTITUTE,   SUBSTITUTE_EFFECT,            0, NORMAL,   100, 10
 	move STRUGGLE,     RECOIL_EFFECT,               50, BIRD,   100, 10	;joenote - changed from normal to BIRD type (acts as typless)
+MovesEndOfList:

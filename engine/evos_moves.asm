@@ -1,53 +1,4 @@
 
-;joenote - evolve an enemy mon in wcf91 based on wCurEnemyLVL
-EnemyMonEvolve:
-	push bc	
-.start
-	ld hl, EvosMovesPointerTable
-	ld a, [wcf91]
-	cp EEVEE
-	jr z, .return
-	dec a
-	add a
-	ld c, a
-	ld b, 0
-	rl b
-	add hl, bc
-	ld a, [hli]
-	ld h, [hl]
-	ld l, a
-.evoloop
-	ld a, [hli]
-	and a
-	jr z, .return
-	cp EV_LEVEL
-	jr z, .lvl_evolve
-	cp EV_TRADE
-	jr z, .trade_evolve
-	;else item evolve
-	inc hl
-	;only item evolve if lvl 40 or more
-	ld b, 40
-	ld a, [wCurEnemyLVL]
-	cp b
-	jr nc, .lvl_evolve ;after incrementing hl one space, maintains the same structure as lvl evolving
-.trade_evolve
-	inc hl
-	inc hl
-	jr .evoloop
-.lvl_evolve
-	ld a, [hli]
-	ld b, a
-	ld a, [wCurEnemyLVL]
-	cp b
-	jr c, .return
-	ld a, [hl]
-	ld [wcf91], a
-	jr .start
-.return
-	pop bc
-	ret
-
 ; try to evolve the mon in [wWhichPokemon]
 TryEvolvingMon:
 	ld hl, wCanEvolveFlags
@@ -165,11 +116,29 @@ Evolution_PartyMonLoop: ; loop over party mons
 	ld a, [wcf91] ; *fixed above* this is supposed to be the last item used, but it is also used to hold species numbers
 	cp b ; was the evolution item in this entry used?
 	jp nz, .nextEvoEntry1 ; if not, go to the next evolution entry
-.checkLevel
+
+;joenote - make it so a message is printed if the level requirement for an item evolution is not met
+	push hl
+	ld a, [wCurEnemyLVL]
+	push af
+	ld a, [hl] 	; level requirement
+	ld [wCurEnemyLVL], a
+	ld b, a
+	ld a, [wLoadedMonLevel]
+	cp b ; is the mon's level less than the evolution requirement?
+	jr nc, .skip_level_req_print
+	ld hl, _NeededLevelText
+	call PrintText
+.skip_level_req_print
+	pop af
+	ld [wCurEnemyLVL], a
+	pop hl
+
+	.checkLevel
 	ld a, [hli] ; level requirement
 	ld b, a
 	ld a, [wLoadedMonLevel]
-	cp b ; is the mon's level greater than the evolution requirement?
+	cp b ; is the mon's level less than the evolution requirement?
 	jp c, .nextEvoEntry2 ; if so, go the next evolution entry
 .doEvolution	
 	ld [wCurEnemyLVL], a
@@ -291,9 +260,15 @@ Evolution_PartyMonLoop: ; loop over party mons
 	ld [wMonDataLocation], a
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	;joenote - fixing skip move-learn on level-up evolution
+	ld a, [wFlags_D733]
+	bit 6, a
+	jr nz, .learn_missed_moves
+	
 	ld a, [wIsInBattle]
 	and a
 	jr z, .notinbattle
+	
+.learn_missed_moves
 	push bc
 	
 	ld a, [wCurEnemyLVL]	; load the final level into a.
@@ -631,6 +606,7 @@ Evolution_FlagAction:
 	predef_jump FlagActionPredef
 
 ;joenote - custom function by Mateo for move relearner
+IF DEF(_MOVENPCS)
 PrepareRelearnableMoveList:	
 ; Loads relearnable move list to wRelearnableMoves.
 ; Input: party mon index = [wWhichPokemon]
@@ -820,5 +796,13 @@ PrepareRelearnableMoveList:
 	ld hl, wMoveBuffer
 	ld [hl], c
 	ret
+ENDC
 	
+;joenote - make it so a message is printed if the level requirement for an item evolution is not met
+_NeededLevelText:
+	text "Level @"
+	TX_NUM wCurEnemyLVL, 1, 3
+	text " needed!"
+	prompt
+
 INCLUDE "data/evos_moves.asm"

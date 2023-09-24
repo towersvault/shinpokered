@@ -60,8 +60,9 @@ CeladonHotelCoinGuy:
 	predef AddBCDPredef	;add value in hl location to value in de location
 	ld hl, CeladonHotelCoinGuyText_recieved
 	call PrintText
-	ld a, SFX_GET_ITEM_1
-	call PlaySound
+	ld a, SFX_PURCHASE
+	call PlaySoundWaitForCurrent
+	call WaitForSoundToFinish
 	xor a
 	ld [wUnusedD5A3], a
 	jr .endscript

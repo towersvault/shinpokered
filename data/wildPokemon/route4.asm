@@ -1,6 +1,6 @@
 Route4Mons:;joenote - added bubasaur
 	db $14
-	IF DEF(_RED)
+	IF DEF(_ENCRED)
 		db 10,RATTATA
 		db 10,SPEAROW
 		db 8,RATTATA
@@ -11,7 +11,7 @@ Route4Mons:;joenote - added bubasaur
 		db 8,EKANS
 		db 10,BULBASAUR
 		db 12,EKANS
-	ELIF DEF(_BLUEJP)
+	ELIF DEF(_ENCBLUEJP)
 		db 10,RATTATA
 		db 10,SPEAROW
 		db 8,RATTATA
@@ -22,7 +22,7 @@ Route4Mons:;joenote - added bubasaur
 		db  8, SANDSHREW
 		db 10,BULBASAUR
 		db 12, SANDSHREW
-	ELIF(DEF(_BLUE) || DEF(_GREEN))
+	ELIF DEF(_ENCBLUEGREEN)
 		db 10,RATTATA
 		db 10,SPEAROW
 		db 8,RATTATA

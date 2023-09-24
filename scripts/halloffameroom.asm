@@ -20,6 +20,8 @@ HallofFameRoomScript3:
 	ret
 
 HallofFameRoomScript2:
+	predef SingleCPUSpeed	;deactivate 2x speed during hall of fame and credits as it may cause visual bugs
+	
 	call Delay3
 	ld a, [wLetterPrintingDelayFlags]
 	push af
@@ -54,7 +56,8 @@ HallofFameRoomScript2:
 	dec b
 	jr nz, .delayLoop
 	call WaitForTextScrollButtonPress
-	jp Init
+;	jp Init
+	jp SoftReset	;joenote - fix an issue where junk tiles display for 1 frame because SoftReset whites-out the screen
 
 HallofFameRoomScript0:
 	ld a, $ff

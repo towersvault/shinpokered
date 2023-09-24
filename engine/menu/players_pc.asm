@@ -108,11 +108,7 @@ PlayerPCDeposit:
 	ld [wListMenuID], a
 	call DisplayListMenuID
 	jp c, PlayerPCMenu
-	call IsKeyItem
-	ld a, 1
-	ld [wItemQuantity], a
-	ld a, [wIsKeyItem]
-	and a
+	call RectifyKeyItems
 	jr nz, .next
 ; if it's not a key item, there can be more than one of the item
 	ld hl, DepositHowManyText
@@ -166,11 +162,7 @@ PlayerPCWithdraw:
 	ld [wListMenuID], a
 	call DisplayListMenuID
 	jp c, PlayerPCMenu
-	call IsKeyItem
-	ld a, 1
-	ld [wItemQuantity], a
-	ld a, [wIsKeyItem]
-	and a
+	call RectifyKeyItems
 	jr nz, .next
 ; if it's not a key item, there can be more than one of the item
 	ld hl, WithdrawHowManyText
@@ -244,6 +236,35 @@ PlayerPCToss:
 .next
 	call TossItem ; disallows tossing key items
 	jp .loop
+	
+
+;joenote - This function not only checks for key items, but resets any of their quantities to 1
+RectifyKeyItems:
+	call IsKeyItem
+	ld a, 1
+	ld [wItemQuantity], a
+	ld a, [wIsKeyItem]
+	and a
+	ret z
+	push af
+	ld a, [wListPointer]
+	ld l, a
+	ld a, [wListPointer + 1]
+	ld h, a
+	inc hl
+	inc hl
+	ld a, [wWhichPokemon]
+	push bc
+	ld c, a
+	ld b, 0
+	add hl, bc
+	add hl, bc
+	pop bc
+	ld a, 1
+	ld [hl], a
+	pop af
+	ret
+
 
 PlayersPCMenuEntries:
 	db   "WITHDRAW ITEM"

@@ -7,6 +7,7 @@ DisplayDiploma:
 	ld hl, wd730
 	set 6, [hl]
 	call DisableLCD
+	call DelayFrame	;joenote - the overworld sprite wobble fix makes the player sprites hidden unless a delay is added
 	ld hl, CircleTile
 	ld de, vChars2 + $700
 	ld bc, $0010
@@ -15,6 +16,13 @@ DisplayDiploma:
 	coord hl, 0, 0
 	lb bc, 16, 18
 	predef Diploma_TextBoxBorder
+	
+	;joenote - adding master text if the seafoam missingno battle is beaten
+	ld hl, DiplomaTextPointersAndCoords_master
+	ld c, $6
+	CheckEvent EVENT_8C6
+	jr nz, .asm_56715
+	
 	ld hl, DiplomaTextPointersAndCoords
 	ld c, $5
 .asm_56715
@@ -36,7 +44,20 @@ DisplayDiploma:
 	coord hl, 10, 4
 	ld de, wPlayerName
 	call PlaceString
+
+;joenote - support female player character
+IF DEF(_FPLAYER)	
+	ld a, [wUnusedD721]
+	bit 0, a	;check if girl
+	jr nz, .is_fplayer
 	callba DrawPlayerCharacter
+	jr .fplayer_end
+.is_fplayer
+	callba DrawPlayerCharacter_F
+.fplayer_end
+ELSE
+	callba DrawPlayerCharacter
+ENDC
 
 ; Move the player 33 pixels right and set the priority bit so he appears
 ; behind the background layer.
@@ -82,6 +103,9 @@ UnusedPlayerNameLengthFunc:
 	dec c
 	jr .loop
 
+DiplomaTextPointersAndCoords_master:	;joenote - adding master text
+	dw MasterText
+	dwCoord 1, 1	
 DiplomaTextPointersAndCoords:
 	dw DiplomaText
 	dwCoord 5, 2
@@ -93,6 +117,9 @@ DiplomaTextPointersAndCoords:
 	dwCoord 2, 6
 	dw DiplomaGameFreak
 	dwCoord 9, 16
+
+MasterText:	;joenote - adding master text
+	db "<SHINY> #MON MASTER <SHINY>@"
 
 DiplomaText:
 	db $70,"Diploma",$70,"@"

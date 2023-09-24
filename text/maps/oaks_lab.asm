@@ -179,7 +179,8 @@ _OaksLabText_1d340::
 	para "Many #MON"
 	line "trainers hold him"
 	cont "in high regard!"
-	done
+	;done
+	prompt
 
 _OaksLabRivalWaitingText::
 	text "<RIVAL>: Gramps!"
@@ -529,6 +530,25 @@ _OaksLabText_scalingOFF::
 	line "I can set weaker"
 	cont "trainers back to"
 	cont "normal for you."
+	done
+
+_OaksLabText_randwildON::
+	text "Under the correct"
+	line "conditions, many"
+	cont "#MON appear in"
+	cont "totally different"
+	cont "locations!"
+	
+	para "I can talk to the"
+	line "professor and get"
+	cont "you set up."
+	done
+	
+_OaksLabText_randwildOFF::
+	text "Prefer the normal"
+	line "#MON areas?"
+	cont "Want me to change"
+	cont "it back?"
 	done
 
 _OaksLabText_symbolsON::

@@ -27,9 +27,15 @@ DisplayTitleScreen:
 	ld [H_AUTOBGTRANSFERENABLED], a
 	xor a
 	ld [hTilesetType], a
+IF DEF(_RGTITLE)
+	ld [hSCY], a
+	ld a, -112
+	ld [hSCX], a
+ELSE
 	ld [hSCX], a
 	ld a, $40
 	ld [hSCY], a
+ENDC
 	ld a, $90
 	ld [hWY], a
 	call ClearScreen
@@ -94,7 +100,7 @@ DisplayTitleScreen:
 
 ; put a pokeball in the player's hand
 	ld hl, wOAMBuffer + $28
-IF DEF(_REDGREENJP)
+IF DEF(_RGTITLE)
 	ld a, $70
 ELSE
 	ld a, $74
@@ -154,20 +160,31 @@ ENDC
 	call TitleScreenCopyTileMapToVRAM
 	ld b, SET_PAL_TITLE_SCREEN
 	call RunPaletteCommand
-	call GBPalNormal
-	ld a, %11100100
-	ld [rOBP0], a
-	call UpdateGBCPal_OBP0
 	
+	ld a, %11100100
+	ld [rBGP], a
+	ld [rOBP0], a
+	call UpdateGBCPal_BGP
+	call UpdateGBCPal_OBP0
+		
 	push de
 	ld d, CONVERT_BGP
 	ld e, 2
 	callba TransferMonPal ;gbcnote - update the bg pal for the new title mon
 	pop de
 
+IF DEF(_RGTITLE)
+	ld a, SFX_INTRO_WHOOSH
+	call PlaySound
+	
+; make pokemon logo slide in from the right
+	ld bc, hSCX ; background scroll X
+	ld hl, .TitleScreenPokemonLogoXScrolls
+ELSE
 ; make pokemon logo bounce up and down
 	ld bc, hSCY ; background scroll Y
 	ld hl, .TitleScreenPokemonLogoYScrolls
+ENDC
 .bouncePokemonLogoLoop
 	ld a, [hli]
 	and a
@@ -183,8 +200,12 @@ ENDC
 	call .ScrollTitleScreenPokemonLogo
 	jr .bouncePokemonLogoLoop
 
+; Controls the bouncing/sliding effect of the Pokemon logo on the title screen
+IF DEF(_RGTITLE)
+.TitleScreenPokemonLogoXScrolls:
+	db 4,28  ; y scroll amount, number of times to scroll
+ELSE
 .TitleScreenPokemonLogoYScrolls:
-; Controls the bouncing effect of the Pokemon logo on the title screen
 	db -4,16  ; y scroll amount, number of times to scroll
 	db 3,4
 	db -3,4
@@ -192,6 +213,7 @@ ENDC
 	db -2,2
 	db 1,2
 	db -1,2
+ENDC
 	db 0      ; terminate list with 0
 
 .ScrollTitleScreenPokemonLogo:
@@ -209,13 +231,20 @@ ENDC
 	call LoadScreenTilesFromBuffer1
 	ld c, 36
 	call DelayFrames
+IF DEF(_RGTITLE)
+	;do nothing
+ELSE
 	ld a, SFX_INTRO_WHOOSH
 	call PlaySound
+ENDC
 
 ; scroll game version in from the right
 	call PrintGameVersionOnTitleScreen
 	ld a, SCREEN_HEIGHT_PIXELS
 	ld [hWY], a
+IF DEF(_RGTITLE)
+	call Delay3
+ELSE
 	ld d, 144
 .scrollTitleScreenGameVersionLoop
 	ld h, d
@@ -229,6 +258,7 @@ ENDC
 	ld d, a
 	and a
 	jr nz, .scrollTitleScreenGameVersionLoop
+ENDC
 
 	ld a, vBGMap1 / $100
 	call TitleScreenCopyTileMapToVRAM
@@ -254,7 +284,14 @@ ENDC
 	
 ; Keep scrolling in new mons indefinitely until the user performs input.
 .awaitUserInterruptionLoop
+
+;credit Dracrius/pocketrgb-en/commit/04c4fc74344c35fcb5179a6509a73dd380a16d97
+IF DEF(_RGTITLE)	;Pokemon scroll fast in jp Red and Green
+	ld c, 255
+ELSE
 	ld c, 200
+ENDC
+
 	call CheckForUserInterruption
 	jr c, .finishedWaiting
 	call TitleScreenScrollInMon
@@ -350,17 +387,28 @@ ScrollTitleScreenGameVersion:
 	jr z, .wait2
 	ret
 
+;joenote - add support for female player
+IF DEF(_FPLAYER)
+DrawPlayerCharacter_F:
+	ld hl, FPlayerCharacterTitleGraphics
+	ld de, vSprites
+	ld bc, FPlayerCharacterTitleGraphicsEnd - FPlayerCharacterTitleGraphics
+	ld a, BANK(FPlayerCharacterTitleGraphics)
+	jr DrawPlayerCharacter.copy
+ENDC
+
 DrawPlayerCharacter:
 	ld hl, PlayerCharacterTitleGraphics
 	ld de, vSprites
 	ld bc, PlayerCharacterTitleGraphicsEnd - PlayerCharacterTitleGraphics
 	ld a, BANK(PlayerCharacterTitleGraphics)
+.copy
 	call FarCopyData2
 	call ClearSprites
 	xor a
 	ld [wPlayerCharacterOAMTile], a
 	ld hl, wOAMBuffer
-IF DEF(_REDGREENJP)
+IF DEF(_RGTITLE)
 	ld de, $6030
 ELSE
 	ld de, $605a
@@ -410,7 +458,7 @@ ClearBothBGMaps:
 LoadTitleMonSprite:
 	ld [wcf91], a
 	ld [wd0b5], a
-IF DEF(_REDGREENJP)
+IF DEF(_RGTITLE)
 	coord hl, 9, 10
 ELSE
 	coord hl, 5, 10
@@ -434,7 +482,7 @@ LoadCopyrightTiles:
 	lb bc, BANK(NintendoCopyrightLogoGraphics), (GamefreakLogoGraphicsEnd - NintendoCopyrightLogoGraphics) / $10
 	call CopyVideoData
 IF DEF(_REDGREENJP)
-	coord hl, 5, 7
+	coord hl, 4, 7
 ELSE
 	coord hl, 2, 7
 ENDC
@@ -461,7 +509,11 @@ INCLUDE "data/title_mons.asm"
 
 ; prints version text (red, blue)
 PrintGameVersionOnTitleScreen:
+IF DEF(_GREEN)
+	coord hl, 6, 8
+ELSE
 	coord hl, 7, 8
+ENDC
 	ld de, VersionOnTitleScreenText
 	jp PlaceString
 

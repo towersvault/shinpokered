@@ -1,6 +1,7 @@
 Route16Object:
-	db $f ; border block
-
+	;db $f ; border block
+	db $43 ; change to water to prevent graphical inconsistency with route 17
+	
 	db 9 ; warps
 	warp 17, 10, 0, ROUTE_16_GATE_1F
 	warp 17, 11, 1, ROUTE_16_GATE_1F

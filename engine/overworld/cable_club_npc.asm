@@ -58,6 +58,7 @@ CableClubNPC:
 	call WaitForSoundToFinish
 	ld a, SFX_SAVE
 	call PlaySoundWaitForCurrent
+	predef HealParty	;joenote - prevents exiting the cable club via poison blackout, but also convenient to have
 	ld hl, CableClubNPCPleaseWaitText
 	call PrintText
 	ld hl, wUnknownSerialCounter

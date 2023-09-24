@@ -1,6 +1,6 @@
 Route5Mons:;joenote - added meowth/mankey
 	db $0F
-	IF DEF(_RED)
+	IF DEF(_ENCRED)
 		db 13,ODDISH
 		db 13,PIDGEY
 		db 15,PIDGEY
@@ -11,7 +11,7 @@ Route5Mons:;joenote - added meowth/mankey
 		db 16,PIDGEY
 		db 14,MANKEY
 		db 16,MANKEY
-	ELIF DEF(_BLUEJP)
+	ELIF DEF(_ENCBLUEJP)
 		db 13, ODDISH
 		db 13, PIDGEY
 		db 15, PIDGEY
@@ -22,7 +22,7 @@ Route5Mons:;joenote - added meowth/mankey
 		db 16, PIDGEY
 		db 14, MEOWTH
 		db 16, MEOWTH
-	ELIF (DEF(_BLUE) || DEF(_GREEN))
+	ELIF DEF(_ENCBLUEGREEN)
 		db 13,BELLSPROUT
 		db 13,PIDGEY
 		db 15,PIDGEY

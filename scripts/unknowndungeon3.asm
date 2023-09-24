@@ -40,6 +40,12 @@ MewtwoTrainerHeader:
 MewtwoText:
 	TX_ASM
 	ld hl, MewtwoTrainerHeader
+	;make the shiny attract cheat work on static wild encounters
+	push hl
+	push bc
+	callba ShinyAttractFunction
+	pop bc
+	pop hl
 	call TalkToTrainer
 	jp TextScriptEnd
 

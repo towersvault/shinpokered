@@ -162,3 +162,19 @@ PredefPointers::
 	add_predef PlayerDisableHandler
 	add_predef EnemyDisableHandler
 	add_predef SetAttackAnimPal
+	add_predef EndOfBattle_NuzlockeHandler
+	add_predef HealParty_NuzlockeHandler
+	add_predef OverwoldDamage_NuzlockeHandler
+	add_predef EncounterLoad_NuzlockeHandler
+	add_predef BallCaught_NuzlockeHandler
+	add_predef ResetAreaFlag_NuzlockePredef
+	add_predef ReplaceWildMon
+	add_predef randomMonPrizes
+	add_predef LookupWildRandomMon
+	add_predef SetCPUSpeed
+	add_predef SingleCPUSpeed
+	add_predef PrintPlayTime
+	add_predef DVPunnettSquare
+	add_predef GetCriticalHitProbability
+	add_predef ShimmerTransformationPlayer
+	add_predef ShimmerTransformationEnemy

@@ -101,9 +101,27 @@ LavenderHouse1Text5:
 	jr .asm_da749
 .asm_15ac2
 ;;;;;;;;;;;;;;;;;;;;;;;;
-;joenote - fuji battle
+;joenote - fuji battle and MGENE item
 	CheckEvent EVENT_908	;has elite 4 been beaten?
 	jr z, .no_e4_beaten		;kick out if e4 not beaten
+	
+	CheckEvent EVENT_129	;got the MGENE from showing mewtwo to Fuji?
+	jr nz, .doBattle
+	ld a, [wPartyMon1Species]
+	cp MEWTWO	;is mewtwo at the top of the party?
+	jr nz, .doBattle
+	;if so, give MGENE item
+	ld hl, FujiTextMewtwo
+	call PrintText
+	lb bc, M_GENE, 1
+	call GiveItem
+	jr nc, .BagFull
+	ld hl, ReceivedMGENEText
+	call PrintText
+	SetEvent EVENT_129
+	jr .asm_da749
+	
+.doBattle
 	ld hl, FujiText_challenge	;else ask if you want to challenge
 	call PrintText	;print the challenge text
 	call YesNoChoice	;prompt a yes/no choice
@@ -167,4 +185,12 @@ FujiText_prebattle:
 	db "@"
 FujiTextVictorySpeech:
 	TX_FAR _FujiTextVictorySpeech
+	db "@"
+	
+FujiTextMewtwo:
+	TX_FAR _FujiTextMewtwo
+	db "@"
+ReceivedMGENEText:
+	TX_FAR _ReceivedFluteText
+	TX_SFX_ITEM_1
 	db "@"

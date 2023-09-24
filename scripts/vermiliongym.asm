@@ -158,12 +158,12 @@ VermilionGymText1:
 	ld hl, ReceivedThunderbadgeText
 	ld de, ReceivedThunderbadgeText
 	call SaveEndBattleTextPointers
+	ld a, $3
+	ld [wGymLeaderNo], a
 	ld a, [H_SPRITEINDEX]
 	ld [wSpriteIndex], a
 	call EngageMapTrainer
 	call InitBattleEnemyParameters
-	ld a, $3
-	ld [wGymLeaderNo], a
 	xor a
 	ld [hJoyHeld], a
 ;;;;joenote - added for rematch to skip gym leader tm

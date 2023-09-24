@@ -49,24 +49,6 @@ DrawHP_:
 	ld bc, SCREEN_WIDTH + 1 ; below bar
 .printFraction
 	add hl, bc
-
-;joenote - print stat exp if select is held
-	;parse dv stats here so they can be grabbed later
-	call DVParse
-	call Joypad
-	ld a, [hJoyHeld]
-	bit 2, a
-	jr z, .checkstart
-	ld de, wLoadedMonHPExp
-	lb bc, 2, 5
-	jr .printnum
-.checkstart	;print DVs if start is held
-	bit 3, a
-	jr z, .doregular
-	ld de, wUnusedD726  
-	lb bc, 1, 2
-	jr .printnum
-.doregular
 	ld de, wLoadedMonHP
 	lb bc, 2, 3
 	call PrintNumber
@@ -74,8 +56,6 @@ DrawHP_:
 	ld [hli], a
 	ld de, wLoadedMonMaxHP
 	lb bc, 2, 3
-	
-.printnum
 	call PrintNumber
 	pop hl
 	pop de
@@ -141,6 +121,46 @@ StatusScreen:
 	call PlaceString ; "TYPE1/"
 	coord hl, 11, 3
 	predef DrawHP
+	
+	;joenote - print stat exp if select is held
+	;parse dv stats here so they can be grabbed later
+	push de
+	ld bc, SCREEN_WIDTH + 1
+	add hl, bc
+	call DVParse
+	call Joypad
+	
+	ld a, [hJoyHeld]
+	and SELECT | START
+	jr z, .noblank
+	push hl
+	ld a, " "
+	ld [hli], a
+	ld [hli], a
+	ld [hli], a
+	ld [hli], a
+	ld [hli], a
+	ld [hli], a
+	ld [hli], a
+	pop hl
+.noblank
+	
+	ld a, [hJoyHeld]
+	bit BIT_SELECT, a
+	jr z, .checkstart
+	ld de, wLoadedMonHPExp
+	lb bc, 2, 5
+	jr .printnum
+.checkstart	;print DVs if start is held
+	bit BIT_START, a
+	jr z, .doregular
+	ld de, wUnusedD726  
+	lb bc, 1, 2
+.printnum
+	call PrintNumber
+.doregular
+	pop de
+	
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;joenote - print gender symbol here
 	CheckEvent EVENT_90E
@@ -461,16 +481,19 @@ StatusScreen2:
 	coord hl, 9, 3
 	ld de, StatusScreenExpText
 	call PlaceString
+	coord hl, 14, 6	;joenote - make things a little neater
+	ld [hl], $70 ; 1-tile "to"
 	ld a, [wLoadedMonLevel]
 	push af
 	cp MAX_LEVEL
 	jr z, .Level100
 	inc a
 	ld [wLoadedMonLevel], a ; Increase temporarily if not 100
-.Level100
-	coord hl, 14, 6
-	ld [hl], $70 ; 1-tile "to"
 	inc hl
+.Level100
+	;coord hl, 14, 6
+	;ld [hl], $70 ; 1-tile "to"
+	;inc hl
 	inc hl
 	call PrintLevel
 	pop af

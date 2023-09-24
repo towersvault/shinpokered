@@ -7,7 +7,7 @@ PowerPlantMons:	;joenote - added porygon to Red
 	db 23,VOLTORB
 	db 32,MAGNETON
 	db 35,MAGNETON
-	IF DEF(_RED)
+	IF DEF(_ENCRED)
 		db 34,ELECTABUZZ
 		db 37,ELECTABUZZ
 		db 21,PORYGON

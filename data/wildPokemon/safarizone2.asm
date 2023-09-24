@@ -2,7 +2,7 @@ ZoneMons2: ;Safari Zone North
 ;joenote - added jynx & tweaked encounter tables
 ;			-added tauros to bluejp
 	db $1E
-IF DEF(_RED)
+IF DEF(_ENCRED)
 	db 22, NIDORAN_M
 	db 26, RHYHORN
 	db 23, PARAS
@@ -13,7 +13,7 @@ IF DEF(_RED)
 	db 27,JYNX
 	db 26,CHANSEY
 	db 28,TAUROS
-ELIF DEF(_BLUEJP)
+ELIF DEF(_ENCBLUEJP)
 	db 22, NIDORAN_F
 	db 26, RHYHORN
 	db 23, PARAS
@@ -24,7 +24,7 @@ ELIF DEF(_BLUEJP)
 	db 27,TAUROS
 	db 26,CHANSEY
 	db 28,PINSIR
-ELIF (DEF(_BLUE) || DEF(_GREEN))
+ELIF DEF(_ENCBLUEGREEN)
 	db 22, NIDORAN_F
 	db 26, RHYHORN
 	db 23, PARAS

@@ -25,4 +25,7 @@ db 5 ; growth rate
 	tmlearn 33,34,38,39,40
 	tmlearn 44
 	tmlearn 50
-db 0 ; padding
+;	db 0 ; padding
+	db BANK(GrowlithePicFront)
+	assert BANK(GrowlithePicFront) == BANK(GrowlithePicBack)
+

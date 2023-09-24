@@ -1,6 +1,6 @@
 Route8Mons:;joenote - added growlithe/vulpix
 	db $0F
-	IF DEF(_RED)
+	IF DEF(_ENCRED)
 		db 18,PIDGEY
 		db 18,MANKEY
 		db 17,EKANS
@@ -11,7 +11,7 @@ Route8Mons:;joenote - added growlithe/vulpix
 		db 17,GROWLITHE
 		db 15,VULPIX
 		db 18,GROWLITHE
-	ELIF DEF(_BLUEJP)
+	ELIF DEF(_ENCBLUEJP)
 		db 18,PIDGEY
 		db 18, MEOWTH
 		db 17, SANDSHREW
@@ -22,7 +22,7 @@ Route8Mons:;joenote - added growlithe/vulpix
 		db 17, GROWLITHE
 		db 15, VULPIX
 		db 18, GROWLITHE
-	ELIF (DEF(_BLUE) || DEF(_GREEN))
+	ELIF DEF(_ENCBLUEGREEN)
 		db 18,PIDGEY
 		db 18,MEOWTH
 		db 17,SANDSHREW

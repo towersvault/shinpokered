@@ -179,13 +179,13 @@ SaffronGymText1:
 	ld hl, SaffronGymText_5d167
 	ld de, SaffronGymText_5d167
 	call SaveEndBattleTextPointers
+	ld a, $6
+	ld [wGymLeaderNo], a
 	ld a, [H_SPRITEINDEX]
 	ld [wSpriteIndex], a
 	call EngageMapTrainer
 	call InitBattleEnemyParameters
-	ld a, $6
-	ld [wGymLeaderNo], a
-	;;;;joenote - added for rematch to skip gym leader tm
+;;;;joenote - added for rematch to skip gym leader tm
 	CheckEvent EVENT_GOT_TM46
 	jp nz, TextScriptEnd
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

@@ -1,6 +1,6 @@
 Route7Mons:;joenote - added ponyta
 	db $0F
-	IF DEF(_RED)
+	IF DEF(_ENCRED)
 		db 19,PIDGEY
 		db 19,ODDISH
 		db 17,MANKEY
@@ -11,7 +11,7 @@ Route7Mons:;joenote - added ponyta
 		db 20,GROWLITHE
 		db 19,MANKEY
 		db 20,MANKEY
-	ELIF DEF(_BLUEJP)
+	ELIF DEF(_ENCBLUEJP)
 		db 19,PIDGEY
 		db 19, ODDISH
 		db 17, MEOWTH
@@ -22,7 +22,7 @@ Route7Mons:;joenote - added ponyta
 		db 20, GROWLITHE
 		db 19, MEOWTH
 		db 20, MEOWTH
-	ELIF (DEF(_BLUE) || DEF(_GREEN))
+	ELIF DEF(_ENCBLUEGREEN)
 		db 19,PIDGEY
 		db 19,BELLSPROUT
 		db 17,MEOWTH

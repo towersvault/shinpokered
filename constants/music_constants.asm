@@ -1,3 +1,19 @@
+;Notes
+;constants are lowercase notes while macros are uppercase
+	const_def
+	const c_ ; 0
+	const c# ; 1
+	const d_ ; 2
+	const d# ; 3
+	const e_ ; 4
+	const f_ ; 5
+	const f# ; 6
+	const g_ ; 7
+	const g# ; 8
+	const a_ ; 9
+	const a# ; A
+	const b_ ; B
+
 ; HW sound channel register base addresses
 HW_CH1_BASE EQU (rNR10 % $100)
 HW_CH2_BASE EQU ((rNR21 % $100) - 1)
@@ -39,7 +55,7 @@ BIT_EXECUTE_MUSIC EQU 0 ; if in execute music
 
 ; Song ids are calculated by address to save space.
 
-music_const: MACRO
+MACRO music_const
 \1 EQUS "((\2 - SFX_Headers_1) / 3)"
 ENDM
 

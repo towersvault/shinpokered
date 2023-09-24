@@ -95,6 +95,8 @@ hNPCSpriteOffset EQU $FF95
 
 ; temp value used when swapping bytes
 hSwapTemp EQU $FF95
+hSwapItemID EQU $FF95
+hSwapItemQuantity EQU $FF96
 
 hExperience EQU $FF96 ; 3 bytes, big endian
 
@@ -310,14 +312,16 @@ hCoordsInFrontOfPlayerMatch EQU $FFEA
 
 hSpriteAnimFrameCounter EQU $FFEA
 
+hRandomLast EQU $FFF0 ; FFF1	;2 bites for xor-shift rng
+
 H_WHOFIRST EQU $FFF2 ; joenote - 0 on player going first, 1 on enemy going first
 H_WHOSETURN EQU $FFF3 ; 0 on player’s turn, 1 on enemy’s turn
 
 hClearLetterPrintingDelayFlags EQU $FFF4
 
+hFlags_0xFFF6 EQU $FFF6	;has to do with a bunch of menu spacing and stuff
 ; bit 0: draw HP fraction to the right of bar instead of below (for party menu)
 ; bit 1: menu is double spaced
-hFlags_0xFFF6 EQU $FFF6
 
 hFieldMoveMonMenuTopMenuItemX EQU $FFF7
 
@@ -327,5 +331,8 @@ hJoyInput EQU $FFF8
 
 hFlagsFFFA EQU $FFFA	;joenote - added for various uses
 ;bit 0 - PrepareOAMData and DMARoutine will not run in Vblank while this bit is set
-hRGB EQU $FFFB	;3 bytes ;joenote - used to store color RGB color values for color correction
-hGBC EQU $FFFE ;gbcnote - 0 if DMG, != 0 if GBC, =2 for gamma shader
+;bit 1 - BGmap update functions will not run in Vblank while this bit is set
+;bit 2 - This gets set to indicate that a sfx is playing while printing text
+;bit 3 - When set, the CopyData function will only copy when safe to do so for VRAM
+hRGB EQU $FFFB	; FFFB=Red, FFFC=Green, FFFD=BLUE	;3 bytes ;joenote - used to store color RGB color values
+hGBC EQU $FFFE ;gbcnote - 0 if DMG or SGB, != 0 if GBC, =2 for gamma shader

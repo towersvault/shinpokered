@@ -8,12 +8,14 @@ Route20Script:
 	call nz, Route20Script_50cc6
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	call EnableAutoTextBoxDrawing
-	call MissingnoShore
 	ld hl, Route20TrainerHeader0
 	ld de, Route20ScriptPointers
 	ld a, [wRoute20CurScript]
 	call ExecuteCurMapScriptInTable
 	ld [wRoute20CurScript], a
+	
+	and a
+	call z, MissingnoShore
 	ret
 
 MissingnoShore:
@@ -27,10 +29,20 @@ MissingnoShore:
 	ld a, [hRandomAdd]
 	and a 
 	jr nz, .return
-	ld a, [hRandomSub]
-	cp $F0
-	jr c, .return
 	ResetEvent EVENT_8DA	;clear cinnabar shore activation
+
+	ld hl, wFlags_D733
+	set 4, [hl]
+	
+	ld a, 2	;get the right roster
+	ld [wTrainerNo], a
+	ld hl, MissingnoCoordsData2
+	call ArePlayerCoordsInArray
+	jr nc, .next
+	ld a, 3
+	ld [wTrainerNo], a
+.next
+
 	ld hl, wd72d;set the bits for triggering battle
 	set 6, [hl]	;
 	set 7, [hl]	;
@@ -41,10 +53,9 @@ MissingnoShore:
 	ld [wGymLeaderNo], a	;set bgm to champion music
 	ld a, OPP_CHIEF	;load the trainer type
 	ld [wCurOpponent], a	;set as the current opponent
-	ld a, 2	;get the right roster
-	ld [wTrainerNo], a
 	ld a, 3
 	ld [wRoute20CurScript], a
+	ld [wCurMapScript], a
 	xor a
 	ld [hJoyHeld], a
 	jp TextScriptEnd
@@ -55,10 +66,13 @@ MissingnoShore:
 EndMissingnoBattle:
 	xor a
 	ld [wRoute20CurScript], a
-	;return of battle was a loss or draw
+	ld [wCurMapScript], a
+	;return if battle was a loss or draw
 	ld a, [wBattleResult]
 	and a
 	ret nz
+	;set the event to indicate that the player won
+	SetEvent EVENT_8C6
 	;return if less than 6 items in bag
 	ld a, [wNumBagItems]
 	cp 6
@@ -90,6 +104,16 @@ MissingnoCoordsData:
 	db $0B,$00
 	db $0C,$00
 	db $0D,$00
+	;fall through
+MissingnoCoordsData2:
+	db $02,$3e
+	db $03,$3e
+	db $04,$3e
+	db $05,$3e
+	db $06,$3e
+	db $07,$3e
+	db $08,$3e
+	db $09,$3e
 	db $ff
 
 Route20Script_50cc6:

@@ -47,7 +47,7 @@ _ClauseBrother_SleepDesc::
 	done
 	
 _ClauseBrother_FreezeIntro::
-	text "Freeze CLAUSE BRO"
+	text "FREEZE CLAUSE BRO"
 	line "at your service."
 	prompt
 _ClauseBrother_FreezeDesc::
@@ -58,6 +58,33 @@ _ClauseBrother_FreezeDesc::
 	cont "trainer matches."
 	done
 	
+_ClauseBrother_TrapIntro::
+	text "TRAP CLAUSE BRO"
+	line "at your service."
+	prompt
+_ClauseBrother_TrapDesc::
+	text "With my stamp,"
+	line "trapping moves"
+	cont "like WRAP will"
+	cont "start going 2nd"
+	cont "if trying to use"
+	cont "them more than 2x"
+	cont "in a row."
+	done
+
+_ClauseBrother_HyperbeamIntro::
+	text "H.BEAM CLAUSE BRO"
+	line "at your service."
+	prompt
+_ClauseBrother_HyperbeamDesc::
+	text "With my stamp,"
+	line "the powerful move"
+	cont "HYPER BEAM need"
+	cont "not recharge if"
+	cont "it knocks-out the"
+	cont "opposing #MON!"
+	done
+
 _ClauseBrother_OFF::
 	text "Do you no longer"
 	line "want my stamp?"

@@ -3,14 +3,14 @@ DungeonMons1:;joenote - swapped sandslash/arbok
 	db 46,GOLBAT
 	db 46,HYPNO
 	db 46,MAGNETON
-IF DEF (_BLUEJP)
+IF DEF (_ENCBLUEJP)
 	db 49,RAPIDASH
 ELSE
 	db 49,DODRIO
 ENDC
 	db 49,VENOMOTH
 	db 49,KADABRA
-IF DEF(_RED)
+IF DEF(_ENCRED)
 	db 52,SANDSLASH
 ELSE
 	db 52,ARBOK

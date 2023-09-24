@@ -1,6 +1,6 @@
 Route23Mons:
 	db $0A
-	IF DEF(_RED)
+	IF DEF(_ENCRED)
 		db 26,EKANS
 		db 33,DITTO
 		db 26,SPEAROW
@@ -11,7 +11,7 @@ Route23Mons:
 		db 43,DITTO
 		db 41,FEAROW
 		db 43,FEAROW
-	ELIF DEF(_BLUEJP)
+	ELIF DEF(_ENCBLUEJP)
 		db 26, SANDSHREW
 		db 33,DITTO
 		db 26,SPEAROW
@@ -22,7 +22,7 @@ Route23Mons:
 		db 43,DITTO
 		db 41,FEAROW
 		db 43,FEAROW
-	ELIF (DEF(_BLUE) || DEF(_GREEN))
+	ELIF DEF(_ENCBLUEGREEN)
 		db 26,SANDSHREW
 		db 33,DITTO
 		db 26,SPEAROW

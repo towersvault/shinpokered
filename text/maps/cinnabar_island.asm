@@ -15,6 +15,12 @@ _CinnabarIslandText2::
 	line "experiments in"
 	cont "the burned out"
 	cont "building."
+
+;joenote - added text to hint at evolving graveler
+	para "Apparently they"
+	line "made a GRAVELER"
+	cont "evolve by using"
+	cont "volcanic FIRE."
 	done
 
 _CinnabarIslandText3::

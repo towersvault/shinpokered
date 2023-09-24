@@ -44,7 +44,7 @@ GBCGamma:
 	cp 4	
 	ret
 
-;get the RGB values out of color in de into a spots pointed to by hRGB
+;get the RGB values out of color in de into a spot pointed to by hRGB
 GetRGB:
 ;GetRed:	
 	;red bits in e are %00011111
@@ -56,18 +56,15 @@ GetRGB:
 	ld a, e
 	and %11100000
 	;a is now xxx00000
+	swap a
+	rrca
 	ld b, a
-	srl b
-	srl b
-	srl b
-	srl b
-	srl b
 	;b is now 00000xxx
 	ld a, d
 	and %00000011
-	sla a
-	sla a
-	sla a
+	add a
+	add a
+	add a
 	;a is now 000xx000
 	or b
 	;a is now 000xxxxx
@@ -119,12 +116,12 @@ WriteRGB:
 	or c
 	ld e, a
 ;writeBlue:
-	ld a, [hRGB + 2]
-	ld b, a	;blue bits are 00011111
+	ld a, [hRGB + 2]	;blue bits are 00011111
+	add a			;blue bits are 00111110
+	add a			;blue bits are 01111100
+	ld b, a
 	ld a, d
 	and %10000011
-	sla b	;blue bits are 00111110
-	sla b	;blue bits are 01111100
 	or b
 	ld d, a
 	ret
@@ -133,12 +130,12 @@ WriteRGB:
 GammaConv:
 	ld hl, hRGB
 	ld c, 3
+	ld b, 0
 .loop
 	ld a, [hl]
 	push hl
 	ld hl, GammaList
 	push bc
-	ld b, $00
 	ld c, a
 	add hl, bc
 	pop bc
@@ -186,144 +183,784 @@ GammaList:	;gamma=2 conversion
 ;Doing as few calculations as possible to increase speed because a matrix multiply causes lag
 MixColorMatrix:
 ;calculate red row and store it
-	ld hl, $0000
-	;multiply red value by 13 and add to hl
+	xor a
+	ld b, a	; b remains 0 for the entirety of this function
+	ld h, a
+	; multiply red value by 13 and add to hl
+	; uses shift and add
 	ld a, [hRGB + 0]
-	ld b, 0
-	ld c, a
-	push hl
-	ld hl, Table5Bx13
-	add hl, bc
-	add hl, bc
-	ld a, [hli]
-	ld c, a
-	ld a, [hl]
-	ld b, a
-	pop hl
-	add hl, bc
-	;multiply green value by 2 and add to hl
+	ld c, a		; bc = r * 1
+	add a		;  a = r * 2
+	add a		;  a = r * 4
+	ld l, a		; hl = a * 4
+	add c		;  a = r * 4 + r * 1 = r * 5
+	ld c, a		; bc = r * 5
+	add hl, hl	; hl = (r * 4) * 2 = r * 8
+	add hl, bc	; hl = r * 8 + r * 5 = r * 13
+	;multiply green value by 2, add to blue and hl
 	ld a, [hRGB + 1]
-	ld b, 0
+	add a
 	ld c, a
-	add hl, bc
-	add hl, bc
 	;multiply blue value by 1 and add to hl
 	ld a, [hRGB + 2]
-	ld b, 0
+	add c
 	ld c, a
 	add hl, bc
-	;shift 4 bits to the right
-	srl h
-	rr l
-	srl h
-	rr l
-	srl h
-	rr l
-	srl h
-	rr l
+	;shift 4 bits to the right, discarding upper bits
+	;actually does a nibble swap, mask, then bitwise or
+	swap h
+	swap l
 	ld a, l
-	push af
+	and $0F
+	ld l, a
+	ld a, h
+	and $F0
+	or l
+	;store now because red isn't used after this
+	ld [hRGB + 0], a
 	
 ;calculate green row and store it
-	ld hl, $0000
-	;multiply red value by 0 and add to hl
+;this only needs 8-bit math: 31 * 3 + 31 * 1 == 124 < 255
+	;multiply red value by 0 and add to c
 	;no actions for this
-	;multiply green value by 3 and add to hl
+	;multiply green value by 3 and add to c
 	ld a, [hRGB + 1]
-	ld b, 0
 	ld c, a
-	add hl, bc
-	add hl, bc
-	add hl, bc
-	;multiply blue value by 1 and add to hl
+	add a
+	add c
+	ld c, a
+	;multiply blue value by 1 and add to c
 	ld a, [hRGB + 2]
-	ld b, 0
-	ld c, a
-	add hl, bc
+	add c
 	;shift 2 bits to the right
-	srl h
-	rr l
-	srl h
-	rr l
-	ld a, l
+	srl a
+	srl a
+	;save for later
 	push af
 	
 ;calculate blue row and store it
-	ld hl, $0000
-	;multiply red value by 0 and add to hl
-	;no actions for this
-	;multiply green value by 2 and add to hl
-	ld a, [hRGB + 1]
-	ld b, 0
-	ld c, a
-	add hl, bc
-	add hl, bc
-	;multiply blue value by 14 and add to hl
+;while the formula is (r * 0 + g * 2 + b * 14) / 16, this instead does (r * 0 + g * 1 + b * 7) / 8
+;which will not require a 16-bit register and will have the same result
+	;while the math is for 8 bit 
+	;multiply blue value by 7 and add to c
 	ld a, [hRGB + 2]
-	ld b, 0
+	ld c, a	; c = b * 1
+	add a	; a = b * 2
+	add a	; a = b * 4
+	add a	; a = b * 8
+	sub c	; a = (b * 8) - (b * 1) = b * 7
 	ld c, a
-	add hl, bc
-	push hl
-	ld hl, Table5Bx13
-	add hl, bc
-	add hl, bc
-	ld a, [hli]
-	ld c, a
-	ld a, [hl]
-	ld b, a
-	pop hl
-	add hl, bc
-	;shift 4 bits to the right
-	srl h
-	rr l
-	srl h
-	rr l
-	srl h
-	rr l
-	srl h
-	rr l
-	ld a, l
-	
+	;multiply red value by 0 and add to c
+	;no actions for this
+	;multiply green value by 1 and add to c
+	ld a, [hRGB + 1]
+	add c
+	;shift 3 bits to the right
+	rrca
+	rrca
+	rrca
+	and $1F
 ;now store the color-mixed values
-	ld [hRGB + 2], a
+	ld [hRGB + 2], a	; blue
 	pop af
-	ld [hRGB + 1], a
+	ld [hRGB + 1], a	; green
+	; red was stored earlier
+	ret
+
+;This sets the GBC palette index for read/writes directly from the hardware
+;Uses A, HL, and B
+;Accepts settings which determine the color to work with using the value in wGBCColorControl	
+	;bits 0 & 1 --> a value from 0 to 3 to select color 0 through 3
+	;bits 2, 3, & 4 --> a value from 0 to 7 to select BGP/OBP 0 through 7
+	;bit 5 --> 0 = BGP | 1 = OBP
+	;bits 6 & 7 are unused
+;When it returns with the z flag cleared, HL points to the BGP or OBP data address and B holds the final color offset
+;Returns with the z flag set if not successful
+SetGBCPalIndex:	
+	;Check if playing on a GBC and return if not so
+	ld a, [hGBC]
+	and a
+	ret z
+	
+	ld a, [wGBCColorControl]	;copy the settings into A
+
+	ld hl, rBGPI	;point HL to the BGP index-setting address $ff68
+	bit 5, a	;check to see if BGP or OBP is desired
+	jr z, .next
+	ld hl, rOBPI	;point HL to the BGP index-setting address $ff6a
+.next
+
+	and %00011100	;mask the bits to leave A with just the index value
+	;rotate A two bits to the right so we can do math on it properly
+	rrca	
+	rrca
+	;each index step has four colors of two bytes each, so we need to multiply A by 8 to get the correct index offset
+	add a
+	add a
+	add a
+	ld b, a	;store the index into B for now
+	
+	ld a, [wGBCColorControl]	;copy the settings into A
+	and %00000011	;mask the bits to leave A with just the color number offset
+	add a	;each color is two bytes, so double the value to get the correct offset
+	
+	add b	;add the index offset in B to the color number offset
+	ld b, a		;save the final offset in B for later functions
+; Now load in order to point at the correct overall offset (for example, color 2 of BGP 3)
+	ld [hli], a		;we do a ld [hli] so that HL increments to the proper data address afterwards
+	;HL now points to either rBGPD or rOBPD
+	
+	;return with z flag cleared to signal success
+	ld a, 1
+	and a
+	ret
+	
+;Based on the settings used for SetGBCPalIndex, this function will read the desired color into DE
+;Like VRAM, the color data of the GBC can only be read/written during VBLANK, HBLANK, or OAM Scan
+ReadColorGBC:
+	call SetGBCPalIndex	;set the color index to read
+	ret z	;return if there was a problem
+	;HL should now point to either rBGPD or rOBPD
+	;The final offset should be in B
+	
+	call .read		;read the color's low byte from the data address then decrement back to the indexing address
+	
+	push af			;push the low byte on the stack for later
+	inc b			;increment the offset so that we can read the color's high byte
+	ld a, b
+	ld [hli], a		;update the indexing address with the high byte's offset and increment to the data address
+	
+	call .read		;read the color's high byte from the data address then decrement back to the indexing address
+	
+	ld d, a	;store the high byte in D
 	pop af
-	ld [hRGB + 0], a
+	ld e, a	;store the low byte in E
+	ret
+
+.read
+	ldh a, [rIE]
+	rrca	;see if vblank interrupt is already disabled (bit 0 of rIE)
+	jr c, .read_DI		;if enabled right now, jump to disable it while doing the read
+.waitVRAM
+	ldh a, [rSTAT]		
+	and %10		; mask for non-V-blank/non-H-blank STAT mode
+	jr nz, .waitVRAM
+	;we are now in a viable mode
+	ld a, [hld]	
+	ret	
+
+.read_DI
+	di	;disable interrupts so that the VBLANK functions don't mess up the timing
+	;wait for mode 0 or 1 (HBLANK or VBLANK)
+.waitVRAM2
+	ldh a, [rSTAT]		
+	and %10		; mask for non-V-blank/non-H-blank STAT mode
+	jr nz, .waitVRAM2
+	;we are now in a viable mode
+	ld a, [hld]		
+	ei	;re-enable interrupts
+	ret
+	
+;Based on the settings used for SetGBCPalIndex, this function will write the desired color from DE
+;Like VRAM, the color data of the GBC can only be read/written during VBLANK, HBLANK, or OAM Scan
+WriteColorGBC:
+	call SetGBCPalIndex	;set the color index to read
+	ret z	;return if there was a problem
+	;HL should now point to either rBGPD or rOBPD
+	;The final offset should be in B
+	
+	push de	;save the value in DE
+	
+	call .write		;write the color's low byte to the data address then decrement back to the indexing address
+	
+	inc b			;increment the offset so that we can write the color's high byte
+	ld a, b
+	ld [hli], a		;update the indexing address with the high byte's offset and increment to the data address
+	
+	ld e, d			
+	call .write		;write the color's high byte to the data address then decrement back to the indexing address
+	
+	pop de	;get the saved DE value back for preservation's sake
 	
 	ret
 
-;lookup table for multiplying a 5-bit number by 13
-Table5Bx13:
-	dw $0000
-	dw $000D
-	dw $001A
-	dw $0027
-	dw $0034
-	dw $0041
-	dw $004E
-	dw $005B
-	dw $0068
-	dw $0075
-	dw $0082
-	dw $008F
-	dw $009C
-	dw $00A9
-	dw $00B6
-	dw $00C3
-	dw $00D0
-	dw $00DD
-	dw $00EA
-	dw $00F7
-	dw $0104
-	dw $0111
-	dw $011E
-	dw $012B
-	dw $0138
-	dw $0145
-	dw $0152
-	dw $015F
-	dw $016C
-	dw $0179
-	dw $0186
-	dw $0193
+.write
+	ldh a, [rIE]
+	rrca	;see if vblank interrupt is already disabled (bit 0 of rIE)
+	jr c, .write_DI		;if enabled right now, jump to disable it while doing the read
+.waitVRAM
+	ldh a, [rSTAT]		
+	and %10		; mask for non-V-blank/non-H-blank STAT mode
+	jr nz, .waitVRAM
+	;we are now in a viable mode
+	ld a, e
+	ld [hld], a		
+	ret
+	
+.write_DI
+	di	;disable interrupts so that the VBLANK functions don't mess up the timing
+	;wait for mode 0 or 1 (HBLANK or VBLANK)
+.waitVRAM2
+	ldh a, [rSTAT]		
+	and %10		; mask for non-V-blank/non-H-blank STAT mode
+	jr nz, .waitVRAM2
+	;we are now in a viable mode
+	ld a, e
+	ld [hld], a		
+	ei	;re-enable interrupts
+	ret
+	
+	
+	
+	
+	
+;This function does a few decrements to all the colors of the GBC in BGP 0-3 and OBP 0-7.
+;It's used for fading to black or other things that need darkening.
+;Returns the z-flag state: set = invalid | cleared = successful
+;Reads all the relevant colors from wGBCFullPalBuffer, then decrements them C times, and writes to hardware.
+DecrementAllColorsGBC:	
+	;Check if playing on a GBC and return if not so
+	ld a, [hGBC]
+	and a
+	ret z
+
+	ld a, [rIE]		;manually disable interrupts and wait until the first scanline of vblank is reached
+	push af
+	xor a
+	ld [rIE], a
+.wait
+	ldh a, [rLY]		
+	cp $90
+	jr nz, .wait
+	
+	xor a	;load zero to start with the very first color of BGP 0 so we can loop through everything
+.mainLoop
+	ld [wGBCColorControl], a
+	and %00100011
+	cp 32
+	jr z, .skipTransparent	;color 0 of OBP 0 to 7 are always transparent, so skip these ones
+
+	push bc	;save the value in C, which is the number of times to iterate
+
+	call ReadBufferColorGBC	;get the color into DE
+	call GetRGB			;Split color in DE to RGB values in hRGB
+	
+	ld hl, hRGB
+	pop bc	;get the number of times to iterate
+	push bc	;then save it again
+	call .decrement		;reduce red
+	ld [hli], a
+	pop bc	;get the number of times to iterate
+	push bc	;then save it again
+	call .decrement		;reduce green
+	ld [hli], a
+	pop bc	;get the number of times to iterate
+	push bc	;then save it again
+	call .decrement		;reduce blue
+	ld [hl], a
+	
+	call WriteRGB		;combine RGB values back into DE
+	call WriteColorGBC	;write the color in DE back to the hardware address
+	
+	pop bc	;get the number of times to iterate
+
+.skipTransparent
+	ld a, [wGBCColorControl]
+	inc a
+	cp 64
+	jr nc, .return	;return if finished with OBP 7
+	cp 16
+	jr z, .unusedBGP	;increment past unused color locations and loop if at BGP 4
+	jr .next
+
+.unusedBGP
+	add a	;add 16 to the location so we skip to color 32 which is OBP 0
+	inc a	; color 0 of OBP 0 to 7 are always transparent, so increment to color 33
+.next
+	ld [wGBCColorControl], a
+	jr .mainLoop
+
+.decrement
+	ld a, [hl]	;get either R, G, or B value into A
+;c = max number of times to decrement per function call
+;b = [minimum number + 1] threshold to stop decrementing
+;	ld c, 3
+	ld b, 4
+.loopC
+	cp b
+	ret c	;return if value is below threshold
+	dec a	;if not, decrement the value
+	dec c	;and also decrement the counter
+	ret z	;return if the counter hit zero
+	jr .loopC
+
+.return
+	pop af		;re-enable interrupts
+	ld [rIE], a
+
+;If not in 2x CPU mode, everything updates in less than 144 scanlines
+;Therefore, normal mode needs an audio update but 60 fps mode does not
+	ld a, [rKEY1]
+	bit 7, a
+	push af
+	call nz, DelayFrame	;Delay a frame in 60 fps mode to get the timing down right for any fades
+	pop af
+	jr nz, .return_next
+	callba Audio1_UpdateMusic
+	
+.return_next
+	ld a, 1
+	and a
+	ret
+
+;This function does a few increments to all the colors of the GBC in BGP 0-3 and OBP 0-7.
+;It's used for fading to white or other things that need lightening.
+;Returns the z-flag state: set = invalid | cleared = successful
+;Uses the value in C to increment that number of times
+IncrementAllColorsGBC:	
+	;Check if playing on a GBC and return if not so
+	ld a, [hGBC]
+	and a
+	ret z
+
+	ld a, [rIE]		;manually disable interrupts and wait until the first scanline of vblank is reached
+	push af
+	xor a
+	ld [rIE], a
+
+.wait
+	ldh a, [rLY]		
+	cp $90
+	jr nz, .wait
+	
+	xor a	;load zero to start with the very first color of BGP 0 so we can loop through everything
+.mainLoop
+	ld [wGBCColorControl], a
+	and %00100011
+	cp 32
+	jr z, .skipTransparent	;color 0 of OBP 0 to 7 are always transparent, so skip these ones
+
+	push bc	;save the value in C, which is the number of times to iterate
+	
+	call ReadBufferColorGBC	;get the color into DE
+	call GetRGB			;Split color in DE to RGB values in hRGB
+	
+	ld hl, hRGB
+	pop bc	;get the number of times to iterate
+	push bc	;then save it again
+	call .increment		;increase red
+	ld [hli], a
+	pop bc	;get the number of times to iterate
+	push bc	;then save it again
+	call .increment		;increase green
+	ld [hli], a
+	pop bc	;get the number of times to iterate
+	push bc	;then save it again
+	call .increment		;increase blue
+	ld [hl], a
+	
+	call WriteRGB		;combine RGB values back into DE
+	call WriteColorGBC	;write the color in DE back to the hardware address
+	
+	pop bc	;get the number of times to iterate
+	
+.skipTransparent
+	ld a, [wGBCColorControl]
+	inc a
+	cp 64
+	jr nc, .return	;return if finished with OBP 7
+	cp 16
+	jr z, .unusedBGP	;increment past unused color locations and loop if at BGP 4
+	jr .next
+
+.unusedBGP
+	add a	;add 16 to the location so we skip to color 32 which is OBP 0
+	inc a	; color 0 of OBP 0 to 7 are always transparent, so increment to color 33
+.next
+	ld [wGBCColorControl], a
+	jr .mainLoop
+
+.increment
+	ld a, [hl]	;get either R, G, or B value into A
+;c = max number of times to increment per function call
+;b = [maximum number] threshold to stop decrementing
+;	ld c, 3
+	ld b, 31
+.loopC
+	cp b
+	ret nc	;return if value is at or above threshold
+	inc a	;if not, increment the value
+	dec c	;and also decrement the counter
+	ret z	;return if the counter hit zero
+	jr .loopC
+
+.return
+	pop af		;re-enable interrupts
+	ld [rIE], a
+
+;If not in 2x CPU mode, everything updates in less than 144 scanlines
+;Therefore, normal mode needs an audio update but 60 fps mode does not
+	ld a, [rKEY1]
+	bit 7, a
+	push af
+	call nz, DelayFrame	;Delay a frame in 60 fps mode to get the timing down right for any fades
+	pop af
+	jr nz, .return_next
+	callba Audio1_UpdateMusic
+	
+.return_next
+	ld a, 1
+	and a
+	ret
+	
+	
+	
+	
+	
+	
+;Functions for smooth fades utilizing the GBC's palette hardware
+;Returns the z-flag state: set = success | cleared = invalid
+GBCFadeOutToBlack:
+	;Check if playing on a GBC and return if not so
+	ld a, [hGBC]
+	and a
+	jr z, .notGBC
+	
+	;personal preference - only do smooth fade in 60fps mode
+	ld a, [wUnusedD721]
+	bit 4, a
+	jr z, .notGBC
+
+;	if 60fps option enabled but in 1x cpu mode, then enable 2x cpu mode just for this fade
+	ld a, [rKEY1]
+	bit 7, a
+	ld a, $ff
+	jr nz, .doublespeed	
+	predef SetCPUSpeed
+	xor a
+.doublespeed
+	push af
+	
+	push de
+	ld de, FadePal4
+	callba BufferAllPokeyellowColorsGBC		;back up all colors to a buffer space in wram
+	
+	ld a, [hFlagsFFFA]	;need to set a flag that skips the $FF80 OAM call in VBLANK
+	push af
+	set 0, a
+	ld [hFlagsFFFA], a
+
+	ld c, 3
+.loop
+	push bc
+	call DecrementAllColorsGBC	;read buffered colors, decrement them C times, and write them to hardware
+	pop bc
+	ld a, c
+	add 3	;step size of C
+	ld c, a
+	cp 32
+	jr c, .loop
+
+	pop af
+	ld [hFlagsFFFA], a
+	
+	pop de
+
+	pop af
+	inc a
+	ret z	;return now if 2x cpu mode was already active at the start of this function
+	;otherwise return to single cpu mode and return
+	predef SingleCPUSpeed
+	xor a
+	ret
+	
+.notGBC
+	ld a, 1
+	and a
+	ret
+	
+;Functions for smooth fades utilizing the GBC's palette hardware
+;Returns the z-flag state: set = success | cleared = invalid
+GBCFadeOutToWhite:
+	;Check if playing on a GBC and return if not so
+	ld a, [hGBC]
+	and a
+	jr z, .notGBC
+	
+	;personal preference - only do smooth fade in 60fps mode
+	ld a, [wUnusedD721]
+	bit 4, a
+	jr z, .notGBC
+
+;	if 60fps option enabled but in 1x cpu mode, then enable 2x cpu mode just for this fade
+	ld a, [rKEY1]
+	bit 7, a
+	ld a, $ff
+	jr nz, .doublespeed	
+	predef SetCPUSpeed
+	xor a
+.doublespeed
+	push af
+	
+	push de
+	ld de, FadePal4
+	callba BufferAllPokeyellowColorsGBC		;back up all colors to a buffer space in wram
+	
+	ld a, [hFlagsFFFA]	;need to set a flag that skips the $FF80 OAM call in VBLANK
+	push af
+	set 0, a
+	ld [hFlagsFFFA], a
+
+	ld c, 3
+.loop
+	push bc
+	call IncrementAllColorsGBC	;read buffered colors, increment them C times, and write them to hardware
+	pop bc
+	ld a, c
+	add 3	;step size of C
+	ld c, a
+	cp 32
+	jr c, .loop
+
+	pop af
+	ld [hFlagsFFFA], a
+
+	pop de
+
+	pop af
+	inc a
+	ret z	;return now if 2x cpu mode was already active at the start of this function
+	;otherwise return to single cpu mode and return
+	predef SingleCPUSpeed
+	xor a
+	ret
+	
+.notGBC
+	ld a, 1
+	and a
+	ret
+	
+	
+	
+GBCFadeInFromWhite:
+	;Check if playing on a GBC and return if not so
+	ld a, [hGBC]
+	and a
+	jr z, .notGBC
+	
+	;personal preference - only do smooth fade in 60fps mode
+	ld a, [wUnusedD721]
+	bit 4, a
+	jr z, .notGBC
+
+;	if 60fps option enabled but in 1x cpu mode, then enable 2x cpu mode just for this fade
+	ld a, [rKEY1]
+	bit 7, a
+	ld a, $ff
+	jr nz, .doublespeed	
+	predef SetCPUSpeed
+	xor a
+.doublespeed
+	push af
+	
+	push de
+	ld de, FadePal4
+	callba BufferAllPokeyellowColorsGBC		;back up all colors to a buffer space in wram
+	
+	ld a, [hFlagsFFFA]	;need to set a flag that skips the $FF80 OAM call in VBLANK
+	push af
+	set 0, a
+	ld [hFlagsFFFA], a
+
+	ld c, 28
+.loop
+	push bc
+	call IncrementAllColorsGBC	;read buffered colors, increment them C times, and write them to hardware
+	pop bc
+	ld a, c
+	sub 3	;step size of C
+	ld c, a
+	jr nc, .loop
+
+	pop af
+	ld [hFlagsFFFA], a
+
+	pop de
+
+	pop af
+	inc a
+	ret z	;return now if 2x cpu mode was already active at the start of this function
+	;otherwise return to single cpu mode and return
+	predef SingleCPUSpeed
+	xor a
+	ret
+	
+.notGBC
+	ld a, 1
+	and a
+	ret
+	
+	
+	
+GBCFadeInFromBlack:
+	;Check if playing on a GBC and return if not so
+	ld a, [hGBC]
+	and a
+	jr z, .notGBC
+	
+	;personal preference - only do smooth fade in 60fps mode
+	ld a, [wUnusedD721]
+	bit 4, a
+	jr z, .notGBC
+
+;	if 60fps option enabled but in 1x cpu mode, then enable 2x cpu mode just for this fade
+	ld a, [rKEY1]
+	bit 7, a
+	ld a, $ff
+	jr nz, .doublespeed	
+	predef SetCPUSpeed
+	xor a
+.doublespeed
+	push af
+	
+	push de
+	ld de, FadePal4
+	callba BufferAllPokeyellowColorsGBC		;back up all colors to a buffer space in wram
+	
+	ld a, [hFlagsFFFA]	;need to set a flag that skips the $FF80 OAM call in VBLANK
+	push af
+	set 0, a
+	ld [hFlagsFFFA], a
+
+	ld c, 28
+.loop
+	push bc
+	call DecrementAllColorsGBC	;read buffered colors, increment them C times, and write them to hardware
+	pop bc
+	ld a, c
+	sub 3	;step size of C
+	ld c, a
+	jr nc, .loop
+
+	pop af
+	ld [hFlagsFFFA], a
+
+	pop de
+
+	pop af
+	inc a
+	ret z	;return now if 2x cpu mode was already active at the start of this function
+	;otherwise return to single cpu mode and return
+	predef SingleCPUSpeed
+	xor a
+	ret
+	
+.notGBC
+	ld a, 1
+	and a
+	ret
+	
+	
+	
+;This function uses DE as a passthrough to buffer all the BGP 0-7 and OBP 0-7 colors at wGBCFullPalBuffer	
+; BufferAllColorsGBC:
+	; ld hl, wGBCFullPalBuffer
+	; xor a	;load zero to start with the very first color of BGP 0 so we can loop through everything
+; .mainLoop
+	; ld [wGBCColorControl], a
+	; push hl
+	; call ReadColorGBC	;get the color into DE
+	; pop hl
+	; ld a, d
+	; ld [hli], a		;buffer high byte
+	; ld a, e
+	; ld [hli], a		;buffer low byte
+	
+	; ld a, [wGBCColorControl]
+	; inc a
+	; cp 64
+	; jr c, .mainLoop
+	; ret
+
+;Read a specific color from the buffer into DE, similar to ReadColorGBC
+ReadBufferColorGBC:
+	ld de, $0000
+	ld a, [wGBCColorControl]
+	add a	;double A since each color is 2 bytes
+	ld e, a
+	ld hl, wGBCFullPalBuffer
+	add hl, de
+	ld a, [hli]		;read high byte
+	ld d, a
+	ld a, [hl]		;read low byte
+	ld e, a
+	ret
+	
+	
+	
+;Alternate version of this function that is more specific	
+; BufferAllColorsGBC:
+	; push de
+	
+	; call .BGP0to3Loop
+
+	; call .OBP0to3Loop
+	
+	; call .OBP4to7Loop
+
+	; pop de
+	; ret	
+	
+; .BGP0to3Loop
+	; ld hl, wGBCFullPalBuffer
+	; xor a
+; .BGP0to3Loop_back
+	; call .readwriteinc
+	; cp 16
+	; jr c, .BGP0to3Loop_back
+	; ret
+
+; .OBP0to3Loop
+	; ld hl, wGBCFullPalBuffer+64
+	; ld a, 32
+; .OBP0to3Loop_back
+	; call .readwriteinc
+	; cp 48
+	; jr c, .OBP0to3Loop_back
+	; ret
+
+; .OBP4to7Loop
+	; ld hl, wGBCFullPalBuffer+96
+	; ld a, 48
+; .OBP4to7Loop_back
+	; call .readwriteinc
+	; cp 64
+	; jr c, .OBP4to7Loop_back
+	; ret
+
+; .readwriteinc
+	; ld [wGBCColorControl], a
+	; push hl
+	; call ReadColorGBC	;get the color into DE
+	; pop hl
+	; ld a, d
+	; ld [hli], a		;buffer high byte
+	; ld a, e
+	; ld [hli], a		;buffer low byte	
+	; ld a, [wGBCColorControl]
+	; inc a
+	; ret	
+	
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

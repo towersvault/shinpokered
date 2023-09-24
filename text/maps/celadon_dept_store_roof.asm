@@ -52,10 +52,11 @@ _CeladonMartRoofText_4850f::
 	;TX_RAM wcf4b
 	;text " contains"	;joenote - don't dynamically call the name as it just messes up the text borders
 	text "TM48 contains"
-	line "ROCK SLIDE!"
-
-	para "It can spook the"
-	line "target sometimes!@@"
+;	line "ROCK SLIDE!"	;joenote - this is inaccurate in gen 1, and Yellow removes this text.
+;
+;	para "It can spook the"
+;	line "target sometimes!@@"
+	line "ROCK SLIDE!@@"
 
 _CeladonMartRoofText_48515::
 	text "Yay!"

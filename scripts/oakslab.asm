@@ -116,9 +116,10 @@ OaksLabScript4:
 	ld a, SPRITE_FACING_UP
 	ld [hSpriteFacingDirection], a
 	call SetSpriteFacingDirectionAndDelay
-	;call UpdateSprites
+	call UpdateSprites
 	ld hl, wFlags_D733
 	res 1, [hl]
+	call DelayFrame	;joenote - Added protection against oak's lab music cutting a channel off
 	call PlayDefaultMusic
 
 	ld a, $5
@@ -852,6 +853,11 @@ PlayerStarter3Label::
 
 OaksLabScript_1d133:
 	ld [wcf91], a
+	
+	;joenote - randomize the starter
+	predef ReplaceWildMon
+	ld a, [wcf91]
+	
 	ld [wd11e], a
 	ld a, b
 	ld [wSpriteIndex], a
@@ -994,12 +1000,16 @@ OaksLabText5:
 	TX_ASM
 	CheckEvent EVENT_PALLET_AFTER_GETTING_POKEBALLS
 	jr nz, .asm_1d266
-	ld hl, wPokedexOwned
-	ld b, wPokedexOwnedEnd - wPokedexOwned
-	call CountSetBits
-	ld a, [wNumSetBits]
-	cp 2
-	jp c, .asm_1d279
+;	ld hl, wPokedexOwned
+;	ld b, wPokedexOwnedEnd - wPokedexOwned
+;	call CountSetBits
+;	ld a, [wNumSetBits]
+;	cp 2
+;	jp c, .asm_1d279
+;joenote - check an event instead of checking the pokedex
+	CheckEvent EVENT_01B
+	jp nz, .asm_1d279
+	
 	CheckEvent EVENT_GOT_POKEDEX
 	jp z, .asm_1d279
 .asm_1d266
@@ -1101,6 +1111,11 @@ OaksLabText5:
 	CheckAndSetEvent EVENT_GOT_POKEBALLS_FROM_OAK
 	jr nz, .asm_1d2e7
 	lb bc, POKE_BALL, 5
+	;joenote - check to see if beaten on hard mode and give a different gift if true
+	CheckEvent EVENT_01C
+	jr z, .next
+	lb bc, GREAT_BALL, 5
+.next
 	call GiveItem
 	ld hl, OaksLabGivePokeballsText
 	call PrintText
@@ -1166,7 +1181,34 @@ OaksLabText9:
 	TX_ASM
 	ld hl, OaksLabText_1d340
 	call PrintText
+;	jp TextScriptEnd
+;joenote - dialogue for wild randomization
+	CheckEvent EVENT_8DE
+	jr z, .randOn
+	ld hl, OaksLabText_randwildOFF 
+	call PrintText
+	call .choose
+	ld hl, OaksLabText_AideQ_reject
+	jr z, .end
+	ResetEvent EVENT_8DE
+	jr .print_done
+.randOn
+	ld hl, OaksLabText_randwildON
+	call PrintText
+	call .choose
+	ld hl, OaksLabText_AideQ_reject
+	jr z, .end
+	SetEvent EVENT_8DE
+.print_done
+	ld hl, OaksLabText_AideQ_done
+.end
+	call PrintText
 	jp TextScriptEnd
+.choose
+	call NoYesChoice
+	ld a, [wCurrentMenuItem]
+	and a
+	ret
 
 OaksLabText_1d340:
 	TX_FAR _OaksLabText_1d340
@@ -1389,6 +1431,13 @@ OaksLabText_scalingOFF:
 	TX_FAR _OaksLabText_scalingOFF
 	db "@"
 	
+OaksLabText_randwildON:
+	TX_FAR _OaksLabText_randwildON
+	db "@"
+OaksLabText_randwildOFF:
+	TX_FAR _OaksLabText_randwildOFF
+	db "@"
+
 OaksLabText_symbolsON:
 	TX_FAR _OaksLabText_symbolsON
 	db "@"

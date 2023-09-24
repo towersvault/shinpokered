@@ -279,6 +279,7 @@ PlayAnimation:
 	call PlaySubanimation
 	pop af
 	ld [rOBP0], a
+	call DelayFrame	;joenote - delay one frame so the animation has time to clear the objects from the screen
 	call UpdateGBCPal_OBP0
 .nextAnimationCommand
 	pop hl
@@ -406,6 +407,7 @@ ENDC
 IF DEF(_GREEN)
 	INCBIN "gfx/green/slotmachine2.2bpp"
 ENDC
+SlotMachineTiles2END:
 
 MoveAnimation:
 	push hl
@@ -428,7 +430,7 @@ MoveAnimation:
 .moveAnimation
 	; check if battle animations are disabled in the options
 	ld a, [wOptions]
-	bit 7, a
+	bit BIT_BATTLE_ANIMATION, a
 	jr nz, .animationsDisabled
 	call ShareMoveAnimations
 	call PlayAnimation
@@ -552,36 +554,32 @@ AnimationShakeScreenHorizontallySlow:
 	ret
 
 SetAnimationPalette:
+	ld b, $e4
 	ld a, [wOnSGB]
 	and a
 	;ld a, $e4	;redundant
 	jr z, .notSGB
 	;ld a, $f0
-	;ld [wAnimPalette], a
-	predef SetAttackAnimPal	;joenote - new function to handle animation palettes
-	ld b, $e4
+	;ld [wAnimPalette], a	;will handle in a SetAttackAnimPal
+
+	;if animation is TRADE_BALL_DROP_ANIM to TRADE_BALL_POOF_ANIM, load f0 into rOBP0
 	ld a, [wAnimationID]
 	cp TRADE_BALL_DROP_ANIM
 	jr c, .next
 	cp TRADE_BALL_POOF_ANIM + 1
 	jr nc, .next
-	ld b, $f0
+	ld b, $f0	
 .next
-	ld a, b
-	ld [rOBP0], a
-	ld a, $6c
-	ld [rOBP1], a
-	call UpdateGBCPal_OBP0
-	call UpdateGBCPal_OBP1
-	ret
 .notSGB
-	ld a, $e4
-	ld [wAnimPalette], a
+	ld a, b
+;	ld a, $e4
+;	ld [wAnimPalette], a	;will handle in SetAttackAnimPal
 	ld [rOBP0], a
 	ld a, $6c
 	ld [rOBP1], a
 	call UpdateGBCPal_OBP0
 	call UpdateGBCPal_OBP1
+	predef SetAttackAnimPal	;joenote - new function to handle animation palettes
 	ret
 
 Func_78e98:
@@ -787,11 +785,16 @@ DoBallTossSpecialEffects:
 	ld a, [wcf91]
 	cp 3 ; is it a Master Ball or Ultra Ball?
 	jr nc, .skipFlashingEffect
+	;don't complement colors on the last frame
+	ld a, [wSubAnimCounter]
+	cp 1
+	jr z, .skipFlashingEffect
 .flashingEffect ; do a flashing effect if it's Master Ball or Ultra Ball
 	ld a, [rOBP0]
 	xor %00111100 ; complement colors 1 and 2
 	ld [rOBP0], a
-	call UpdateGBCPal_OBP0
+;	call UpdateGBCPal_OBP0
+	predef SetAttackAnimPal
 .skipFlashingEffect
 	ld a, [wSubAnimCounter]
 	cp 11 ; is it the beginning of the subanimation?
@@ -807,13 +810,17 @@ DoBallTossSpecialEffects:
 	cp $10 ; is the enemy pokemon the Ghost Marowak?
 	ret nz
 ; if the enemy pokemon is the Ghost Marowak, make it dodge during the last 3 frames
+;joenote - made this a take up a bit less space
+;	ld a, [wSubAnimCounter]
+;	cp 3
+;	jr z, .moveGhostMarowakLeft
+;	cp 2
+;	jr z, .moveGhostMarowakLeft
+;	cp 1
+;	ret nz
 	ld a, [wSubAnimCounter]
-	cp 3
-	jr z, .moveGhostMarowakLeft
-	cp 2
-	jr z, .moveGhostMarowakLeft
-	cp 1
-	ret nz
+	cp 4
+	ret nc
 .moveGhostMarowakLeft
 	coord hl, 17, 0
 	ld de, 20
@@ -832,7 +839,8 @@ DoBallTossSpecialEffects:
 	ret
 .isTrainerBattle ; if it's a trainer battle, shorten the animation by one frame
 	ld a, [wSubAnimCounter]
-	cp 3
+;	cp 3
+	cp 2
 	ret nz
 	dec a
 	ld [wSubAnimCounter], a
@@ -897,16 +905,29 @@ DoRockSlideSpecialEffects:
 
 FlashScreenEveryEightFrameBlocks:
 	ld a, [wSubAnimCounter]
+IF DEF(_JPFLASHING)
+;Japanese red & green had this flash every odd-numbered frame block.
+;The rate was reduce by 4x during localization
+	srl a
+	call c, AnimationFlashScreen
+ELSE
 	and 7 ; is the subanimation counter exactly 8?
 	call z, AnimationFlashScreen ; if so, flash the screen
+ENDC
 	ret
 
 ; flashes the screen if the subanimation counter is divisible by 4
 FlashScreenEveryFourFrameBlocks:
+IF DEF(_JPFLASHING)
+;Japanese red & green had this flash every frame block.
+;The rate was reduce by 4x during localization
+	jp AnimationFlashScreen
+ELSE
 	ld a, [wSubAnimCounter]
 	and 3
 	call z, AnimationFlashScreen
 	ret
+ENDC
 
 ; used for Explosion and Selfdestruct
 DoExplodeSpecialEffects:
@@ -1225,12 +1246,20 @@ AnimationFlashScreen:
 	ld a, %00011011 ; 0, 1, 2, 3 (inverted colors)
 	ld [rBGP], a
 	call UpdateGBCPal_BGP
+IF DEF(_JPFLASHING) 
 	ld c, 2
+ELSE
+	ld c, 2
+ENDC
 	call DelayFrames
 	xor a ; white out background
 	ld [rBGP], a
 	call UpdateGBCPal_BGP
+IF DEF(_JPFLASHING)
 	ld c, 2
+ELSE
+	ld c, 2
+ENDC
 	call DelayFrames
 	pop af
 	ld [rBGP], a ; restore initial palette
@@ -1492,13 +1521,17 @@ BattleAnimWriteOAMEntry:
 ; X coordinate = [wBaseCoordX]
 ; tile = d
 ; attributes = variable (dependant on coords)
+;How OBJ is handled:
+;	Start with OBJ1
+;	If wBaseCoordY is >= $40, increment to the next OBJ.
+;	If wBaseCoordX is >= $50, increment to the next OBJ twice.
 	ld a, $1
 	ld [wdeed], a
 	ld a, e
 	add 8
 	ld e, a
 	ld [hli], a
-	cp 40
+	cp 72	;is Y < ?
 	jr c, .asm_793d8
 	ld a, [wdeed]
 	inc a
@@ -1506,7 +1539,7 @@ BattleAnimWriteOAMEntry:
 .asm_793d8
 	ld a, [wBaseCoordX]
 	ld [hli], a
-	cp 88
+	cp 88	;is X < ?
 	jr c, .asm_793e8
 	ld a, [wdeed]
 	add $2
@@ -1555,8 +1588,9 @@ AdjustOAMBlockYPos2:
 	add b
 	cp 112
 	jr c, .skipSettingPreviousEntrysAttribute
-	dec hl
+;	dec hl		;joenote - comment this out to fix the mentioned bug
 	ld a, 160 ; bug, sets previous OAM entry's attribute
+				;it causes the dust cloud when pushing a boulder downward to not show up very well
 	ld [hli], a
 .skipSettingPreviousEntrysAttribute
 	ld [hl], a
@@ -1917,7 +1951,7 @@ AnimationShootManyBallsUpward:
 	ld a, $50 ; y coordinate for "energy" ball pillar
 	jr z, .player
 	ld hl, UpwardBallsAnimXCoordinatesEnemyTurn
-	ld a, $28 ; y coordinate for "energy" ball pillar
+	ld a, $27 ; y coordinate for "energy" ball pillar
 .player
 	ld [wSavedY], a
 .loop
@@ -2073,7 +2107,7 @@ _AnimationSlideMonOff:
 	sub 7
 ; This has the same problem as above, but it has no visible effect because
 ; the lower right tile is in the first column to slide off the screen.
-	cp $30
+	cp $31	;joenote - fixed
 	ret c
 	ld a, " "
 	ret
@@ -2111,6 +2145,10 @@ AnimationWavyScreen:
 	ld c, $ff
 	ld hl, WavyScreenLineOffsets
 .loop
+	;joenote - Sync hSCX to the first line. This avoids the top 3 pixels from being overridden by the vsync interrupt
+	;credit to easyaspi314 for finding this
+	ld a, [hl]
+	ld [hSCX], a
 	push hl
 .innerLoop
 	call WavyScreen_SetSCX
@@ -2127,6 +2165,7 @@ AnimationWavyScreen:
 	dec c
 	jr nz, .loop
 	xor a
+	ld [hSCX], a	;joenote - reset the X scroll
 	ld [hWY], a
 	call SaveScreenTilesToBuffer2
 	call ClearScreen
@@ -2203,6 +2242,14 @@ CopySlowbroSpriteData:
 	jp FarCopyData2
 
 HideSubstituteShowMonAnim:
+;joenote - if in the middle of a multi-attack move, only hide on the first attack (attaks left = 0)
+	callba TestMultiAttackMoveUse
+	jr nz, .next
+	callba TestMultiAttackMoveUse_firstAttack
+	ret nz ;don't hide substitute if attacks left >= 1
+	;will hide if substitute broken because attacks left should be zero
+.next
+
 	ld a, [H_WHOSETURN]
 	and a
 	ld hl, wPlayerMonMinimized
@@ -2228,6 +2275,14 @@ HideSubstituteShowMonAnim:
 	jp AnimationShowMonPic
 
 ReshowSubstituteAnim:
+;joenote - if in the middle of a multi-attack move, only reshow after the last attack
+;Note that ReshowSubstituteAnim is not called if a substitute gets broken
+	callba TestMultiAttackMoveUse
+	jr nz, .next
+	callba TestMultiAttackMoveUse_lastAttack
+	ret nz
+.next
+
 	call AnimationSlideMonOff
 	call AnimationSubstitute
 	jp AnimationShowMonPic

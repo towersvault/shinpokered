@@ -385,7 +385,7 @@ StaryuDexEntry:
 	db "@"
 	
 BlastoiseDexEntry:	
-	db "SHELLFISH@"
+	db "SHELL@"
 	db 1,60
 	dw 855
 	TX_FAR _BlastoiseDexEntry
@@ -707,14 +707,14 @@ DragonairDexEntry:
 	db "@"
 	
 KabutoDexEntry:	
-	db "SHELLFISH@"
+	db "SHELL@"
 	db 0,50
 	dw 115
 	TX_FAR _KabutoDexEntry
 	db "@"
 	
 KabutopsDexEntry:	
-	db "SHELLFISH@"
+	db "SHELL@"
 	db 1,30
 	dw 405
 	TX_FAR _KabutopsDexEntry
@@ -1120,14 +1120,14 @@ RapidashDexEntry:
 	db "@"
 	
 RattataDexEntry:	
-	db "RAT@"
+	db "MOUSE@"
 	db 0,30
 	dw 35
 	TX_FAR _RattataDexEntry
 	db "@"
 	
 RaticateDexEntry:	
-	db "RAT@"
+	db "MOUSE@"
 	db 0,70
 	dw 185
 	TX_FAR _RaticateDexEntry

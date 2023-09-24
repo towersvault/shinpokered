@@ -1,6 +1,6 @@
 IslandMonsB4:
 	db $0A
-	IF DEF(_RED)
+	IF DEF(_ENCRED)
 		db 31,HORSEA
 		db 31,SHELLDER
 		db 33,HORSEA
@@ -11,7 +11,7 @@ IslandMonsB4:
 		db 29,SEEL
 		db 39,SLOWBRO
 		db 32,GOLBAT
-	ELIF DEF(_BLUEJP)
+	ELIF DEF(_ENCBLUEJP)
 		db 31, KRABBY
 		db 31, STARYU
 		db 33, KRABBY
@@ -22,7 +22,7 @@ IslandMonsB4:
 		db 29, SEEL
 		db 39, JYNX
 		db 32,GOLBAT
-	ELIF (DEF(_BLUE) || DEF(_GREEN))
+	ELIF DEF(_ENCBLUEGREEN)
 		db 31,KRABBY
 		db 31,STARYU
 		db 33,KRABBY

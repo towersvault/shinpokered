@@ -17,7 +17,12 @@ ApplyOutOfBattlePoisonDamage:
 ;	callba ResetRandItemsOnInterval
 ;.no_item_respawn
 ;	pop bc
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;	
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;joenote - do not allow poison damage in the safari zone minigame
+;This prevents blacking out in the safari zone	
+	CheckEvent EVENT_IN_SAFARI_ZONE
+	jp nz, .skipPoisonEffectAndSound
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	ld a, [wStepCounter]
 	and $3 ; is the counter a multiple of 4?
 	;jp nz, .noBlackOut ; only apply poison damage every fourth step
@@ -67,6 +72,10 @@ ApplyOutOfBattlePoisonDamage:
 	ld a, TEXT_MON_FAINTED
 	ld [hSpriteIndexOrTextID], a
 	call DisplayTextID
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;	
+;joenote - update dead pokemon for nuzlocke mode
+	predef OverwoldDamage_NuzlockeHandler
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	pop de
 	pop hl
 .nextMon

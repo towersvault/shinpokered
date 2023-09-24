@@ -166,64 +166,82 @@ ReduceSpeed:
 	ret
 
 ;joenote - this function puts statexp per enemy pkmn level into de
-;requires a, b, de, and wCurEnemyLVL
+;requires a, b, hl, de, and wCurEnemyLVL
 CalcEnemyStatEXP:
 	ld a, [wOptions]	;load game options
-	bit 6, a			;check battle style
-	jr z, .loadzero		;load zero stat exp if on shift style
-	;This loads 648 stat exp per level. Note that 648 in hex is the two-byte $0288
-	ld a, $02
-	ld [H_MULTIPLICAND], a
-	ld a, $88
-	ld [H_MULTIPLICAND + 1], a
-	xor a
-	ld [H_MULTIPLICAND + 2], a
+	bit BIT_BATTLE_HARD, a			;check for hard mode
+	jr z, .loadzero		;load zero stat exp if not on hard mode
 	ld a, [wCurEnemyLVL]
-	ld [H_MULTIPLIER], a
-	call Multiply
-	ld a, [H_MULTIPLICAND]
-	ld d, a
-	ld a, [H_MULTIPLICAND+1]
-	ld e, a
+	cp 6
+	jr c, .loadzero	;no stat exp for levels 5 or lower
+	cp 100	;make it so lvl maxes out at lvl 100
+	jr c, .next
+	ld a, 100
+.next
+
+	ld b, a
+	inc b
+	ld a, 6
+	ld hl, $0000
+
+.loop
+	ld de, $0000
+	ld e, a	;load level into low nybble of de
+	sla e	;multiply de by 4
+	rl d
+	sla e	
+	rl d
+	add hl, de	;add 12[level] + 50 to hl
+	add hl, de
+	add hl, de
+	ld de, $0032
+	add hl, de
+
+	inc a
+	cp b
+	jr nz, .loop
+
+.done
+	ld d, h
+	ld e, l
 	ret
 .loadzero
 	xor a
 	ld d, a
 	ld e, a
 	ret
-	
-;	;Alternative algorithm: adds (12 stat exp * current level) per level.
-;	ld a, [wCurEnemyLVL]
-;	ld b, a	;put the enemy's level into b. it will be used as a loop counter
-;	xor a	;make a = 0
-;	ld d, a	;clear d (use for MSB)
-;	ld e, a ;clear e (use for LSB)
-;.loop
-;	ld a, d
-;	cp a, $FF	;see if the current value of de is 65280 or more
-;	jr z, .skipadder
-;	push hl
-;	push bc
-;	xor a
+
+;the old formula
+;CalcEnemyStatEXP2:
+;	ld a, [wOptions]	;load game options
+;	bit BIT_BATTLE_HARD, a			;check for hard mode
+;	jr z, .loadzero		;load zero stat exp if not on hard mode
+;	;This loads 648 stat exp per level. Note that 648 in hex is the two-byte $0288
+;	ld a, $02
 ;	ld [H_MULTIPLICAND], a
-;	ld a, [wCurEnemyLVL]
+;	ld a, $88
 ;	ld [H_MULTIPLICAND + 1], a
-;	ld a, $C
+;	xor a
+;	ld [H_MULTIPLICAND + 2], a
+;	ld a, [wCurEnemyLVL]
+;	cp 100	;make it so 648 xp / lvl maxes out at lvl 100
+;	jr c, .next
+;	ld a, 100
+;.next
 ;	ld [H_MULTIPLIER], a
 ;	call Multiply
-;	ld a, e
-;	add l
-;	ld e, a
-;	ld a, d
-;	adc h
+;	ld a, [H_MULTIPLICAND]
 ;	ld d, a
-;	pop bc
-;	pop hl
-;.skipadder
-;	dec b; decrement b 
-;	jr nz, .loop	;loop back if b is not zero
+;	ld a, [H_MULTIPLICAND+1]
+;	ld e, a
+;	ret
+;.loadzero
+;	xor a
+;	ld d, a
+;	ld e, a
 ;	ret
 	
+
 CalculateModifiedStats:
 	ld c, 0
 .loop
@@ -523,3 +541,95 @@ _BC999cap:
 	;now registers b & c together contain $03E7 for a capped stat value of 999
 .donecapping
 	ret
+
+	
+	
+
+;joenote - moved the critical hit formulas to this predef. 
+;	Consolidated the code so it can now do the Stadium 1 formulas.
+GetCriticalHitProbability:
+	call GetPredefRegisters
+;B is currently (base speed / 2)
+;HL points to move ID
+;DE points to byte with focus energy state
+
+	ld a, [hld]                  ; read base power from RAM
+;joenote - Also do not do a critical hit if a special damage move is being used (dragon rage, seismic toss, etc)
+;		- base power of 1 now signifies an expanded range to include moves like bide and counter 
+	cp 2
+	ret c	;do nothing if base power is 0 or 1
+	dec hl
+	
+	ld c, [hl]                   ; read move id
+	ld a, [de]
+	ld e, a
+	
+	ld a, [wLinkState]
+	cp LINK_STATE_BATTLING
+	jr z, .Original
+	
+	ld a, [wOptions]
+	bit BIT_BATTLE_HARD, a
+	jr nz, .Stadium
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+.Original
+;normal crit is (base speed) / 2
+;focus energy is 2*(base speed) for a 4x crit rate
+;high crit move is 4*(base speed) for a 8x crit rate
+	ld d, 0
+	bit GETTING_PUMPED, e        ; test for focus energy
+	jr z, .noFocusEnergyUsed	 ;if getting pumped bit not set, then focus energy not used
+	;else focus energy was used
+	sla b						 ;*2 for focus energy (effective +2x crit rate)
+	jr c, .capcritical
+	sla b						 ;*2 again for focus energy (effective +4x crit rate)
+	jr c, .capcritical
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+	jr .noFocusEnergyUsed
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+.Stadium
+;normal crit is (base speed / 4) + 19
+;focus energy is (base speed / 2) + 118
+;high crit move is 8x crit rate
+	srl b
+	ld d, 19	;now b = (base speed / 4) & d = 19
+	bit GETTING_PUMPED, e        ; test for focus energy
+	jr z, .noFocusEnergyUsed	 ;if getting pumped bit not set, then focus energy not used
+	;else focus energy was used
+	sla b						 
+	ld a, d
+	add 99
+	ld d, a		;now b = (base speed / 2) & d = 118
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+.noFocusEnergyUsed
+	ld a, d
+	add b
+	ld b, a
+	ld hl, HighCriticalMoves     ; table of high critical hit moves
+.Loop
+	ld a, [hli]                  ; read move from move table
+	cp c                         ; does it match the move about to be used?
+	jr z, .HighCritical          ; if so, the move about to be used is a high critical hit ratio move
+	inc a                        ; move on to the next move, FF terminates loop
+	jr nz, .Loop                 ; check the next move in HighCriticalMoves
+	jr .finishcalc         		 ; continue as a normal move
+.HighCritical
+	sla b                        ; *2 for high critical hit moves (effective +2x crit rate)
+	jr c, .capcritical
+	sla b                        ; *2 again for high critical hit moves (effective +4x crit rate)
+	jr c, .capcritical
+	sla b                        ; *2 again for high critical hit moves (effective +8x crit rate)
+	jr nc, .finishcalc
+.capcritical
+	ld b, $ff					 ; cap at 255/256
+.finishcalc
+	ret
+
+; high critical hit moves
+HighCriticalMoves:
+	db KARATE_CHOP
+	db RAZOR_LEAF
+	db CRABHAMMER
+	db SLASH
+	db $FF

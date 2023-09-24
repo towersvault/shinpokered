@@ -56,6 +56,7 @@ VermilionDockScriptAA:
 	ret
 	
 VermilionDock_1db9b:
+	predef SingleCPUSpeed	;joenote - needed for 60fps mode on GBC
 	SetEventForceReuseHL EVENT_SS_ANNE_LEFT
 	ld a, $ff
 	ld [wJoyIgnore], a
@@ -137,6 +138,7 @@ VermilionDock_1db9b:
 	dec hl
 	ld [hl], c
 	call LoadPlayerSpriteGraphics
+	predef SetCPUSpeed	;joenote - needed for 60fps mode on GBC
 	ld hl, wNumberOfWarps
 	dec [hl]
 	ret

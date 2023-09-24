@@ -85,3 +85,18 @@ _BillsHouseText_1e8da::
 	cont "some of my rare"
 	cont "#MON on my PC!"
 	done
+
+;joenote - textfor bill letting you into his garden	
+_BillGardenText::
+	text "BILL: Hey, bud!"
+	line "That really the"
+	cont "fabled MEW? Wow!!"
+	cont "It's truly a new"
+	cont "#MON species."
+	
+	para "As thanks for you"
+	line "showing it to me,"
+	cont "I'll let you into"
+	cont "a secret spot."
+	done
+	

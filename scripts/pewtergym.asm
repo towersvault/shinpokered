@@ -130,12 +130,12 @@ PewterGymText1:
 	ld hl, PewterGymText_5c4bc
 	ld de, PewterGymText_5c4bc
 	call SaveEndBattleTextPointers
+	ld a, $1
+	ld [wGymLeaderNo], a
 	ld a, [H_SPRITEINDEX]
 	ld [wSpriteIndex], a
 	call EngageMapTrainer
 	call InitBattleEnemyParameters
-	ld a, $1
-	ld [wGymLeaderNo], a
 	xor a
 	ld [hJoyHeld], a
 ;;;;joenote - added for rematch to skip gym leader tm

@@ -1,6 +1,6 @@
 Route22Mons:
 	db $19
-	IF DEF(_RED)
+	IF DEF(_ENCRED)
 		db 3,RATTATA
 		db 3,NIDORAN_M
 		db 4,RATTATA
@@ -11,7 +11,7 @@ Route22Mons:
 		db 5,SPEAROW
 		db 3,NIDORAN_F
 		db 4,NIDORAN_F
-	ELIF DEF(_BLUEJP)
+	ELIF DEF(_ENCBLUEJP)
 		db 3,RATTATA
 		db  3, NIDORAN_M
 		db  4, RATTATA
@@ -22,7 +22,7 @@ Route22Mons:
 		db  5, SPEAROW
 		db  3, NIDORAN_F
 		db  4, NIDORAN_F
-	ELIF (DEF(_BLUE) || DEF(_GREEN))
+	ELIF DEF(_ENCBLUEGREEN)
 		db 3,RATTATA
 		db 3,NIDORAN_F
 		db 4,RATTATA

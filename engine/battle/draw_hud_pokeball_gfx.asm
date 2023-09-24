@@ -136,7 +136,7 @@ PlacePlayerHUDTiles:
 	
 	coord hl, 18, 10
 	ld de, -1
-	jr PlaceHUDTiles
+	jp PlaceHUDTiles
 
 PlayerBattleHUDGraphicsTiles:
 ; The tile numbers for specific parts of the battle display for the player's pokemon
@@ -164,12 +164,16 @@ PlaceEnemyHUDTiles:
 	ld [hl], "<SHINY>"
 .noshiny
 
-;let's draw a pokeball to indicate an owned mon
-;also let's handle a gender symbol
+;don't draw any further special sybols if in a non-wild battle
 	ld a, [wIsInBattle]
 	cp 1
 	jr nz, .noDraw	;don't draw anything for non-wild battles
 	
+;while we're at it, let's also do some nuzelock mode stuff
+	predef EncounterLoad_NuzlockeHandler
+
+;let's draw a pokeball to indicate an owned mon
+;also let's handle a gender symbol	
 	CheckEvent EVENT_90E
 	jr z, .noDraw
 	
@@ -199,9 +203,7 @@ PlaceEnemyHUDTiles:
 	jr z, .noDraw
 	;load the indicator tiles to be drawn
 	coord hl, 1, 1
-	ld [hl], $79 
-	coord hl, 2, 1
-	ld [hl], $6C
+	ld [hl], "<BALL>"
 .noDraw
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	coord hl, 1, 2
@@ -229,8 +231,46 @@ PlaceHUDTiles:
 	add hl, de
 	ld a, [wHUDGraphicsTiles + 2] ; rightmost tile
 	ld [hl], a
+	
+	;joenote - show or clear the damage values
+	CheckEvent EVENT_910
+	jr z, .end_printdamage
+	coord hl, 6, 4
+	ld de, wBattleMonHP ; current player HP
+	call .isDEzero
+	jr z, .printwhite
+	ld de, wEnemyMonHP ; current enemy HP
+	call .isDEzero
+	jr z, .printwhite
+	ld de, wDamage ; current damage
+	call .isDEzero
+	jr nz, .printdamage
+.printwhite
+	;load white tiles
+	ld a, $7f
+	ld [hli], a
+	ld [hli], a
+	ld [hli], a
+	ld [hli], a
+	ld [hli], a
+	jr .end_printdamage
+.printdamage	
+	lb bc, LEADING_ZEROES | 2, 5 ; 2 bytes, 5 digits
+	call PrintNumber
+.end_printdamage	
+
 	ret
 
+.isDEzero
+	ld a, [de]
+	ld b, a
+	inc de
+	ld a, [de]
+	dec de
+	or b
+	ret
+
+	
 SetupPlayerAndEnemyPokeballs:
 	call LoadPartyPokeballGfx
 	ld hl, wPartyMons

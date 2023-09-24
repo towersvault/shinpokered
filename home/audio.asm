@@ -127,6 +127,16 @@ PlaySound::
 	push hl
 	push de
 	push bc
+	
+	;joenote - if a SFX is already playing while printing text, wait for it to finish first
+	push af
+	ld a, [hFlagsFFFA]
+	bit 2, a
+	res 2, a
+	ld [hFlagsFFFA], a
+	call nz, WaitForSoundToFinish
+	pop af
+	
 	ld b, a
 	ld a, [wNewSoundID]
 	and a

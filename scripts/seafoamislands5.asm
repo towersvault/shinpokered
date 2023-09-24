@@ -187,6 +187,12 @@ ArticunoTrainerHeader:
 ArticunoText:
 	TX_ASM
 	ld hl, ArticunoTrainerHeader
+	;make the shiny attract cheat work on static wild encounters
+	push hl
+	push bc
+	callba ShinyAttractFunction
+	pop bc
+	pop hl
 	call TalkToTrainer
 	ld a, $4
 	ld [wSeafoamIslands5CurScript], a

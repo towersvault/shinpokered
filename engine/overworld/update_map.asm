@@ -26,25 +26,45 @@ ReplaceTileBlock:
 .addX
 	add hl, bc ; add X
 	ld a, [wNewTileBlockID]
+	
+	;joenote - No point in wasting time if the new tile block is the same as the old one. 
+	cp [hl]
+	ret z
+	
 	ld [hl], a
-	ld a, [wCurrentTileBlockMapViewPointer]
-	ld c, a
-	ld a, [wCurrentTileBlockMapViewPointer + 1]
-	ld b, a
-	call CompareHLWithBC
-	ret c ; return if the replaced tile block is below the map view in memory
+
+;	ld a, [wCurrentTileBlockMapViewPointer]
+;	ld c, a
+;	ld a, [wCurrentTileBlockMapViewPointer + 1]
+;	ld b, a		;bc now points to the upper left tile block in the map view
+;	call CompareHLWithBC
+;	ret c ; return if the replaced tile block is below the map view in memory
+;	push hl
+;	ld l, e
+;	ld h, $0
+;;	ld e, $6	;BUG - The lower right tile block in the map view is 4 columns to the right, not 6
+;	ld e, $4	;joenote - let's fix that bug real quick
+;	ld d, h
+;	add hl, hl
+;	add hl, hl
+;	add hl, de
+;	add hl, bc	;hl now points to the lower right tile block in the map view
+;	pop bc
+;	call CompareHLWithBC
+;	ret c ; return if the replaced tile block is above the map view in memory
+	
+;joenote - check each row of tile blocks to see if the replaced block is even on screen, and only then do RedrawMapView
 	push hl
-	ld l, e
-	ld h, $0
-	ld e, $6
-	ld d, h
-	add hl, hl
-	add hl, hl
-	add hl, de
-	add hl, bc
 	pop bc
-	call CompareHLWithBC
-	ret c ; return if the replaced tile block is above the map view in memory
+	ld a, [wCurrentTileBlockMapViewPointer]
+	ld l, a
+	ld a, [wCurrentTileBlockMapViewPointer + 1]
+	ld h, a		
+	;hl now points to the upper left tile block in the map view
+	;bc points to the tile block that was replaced
+	;e is the number of bytes to add to get to the next row of the tile block map view
+	call IsBCInHLTileBlockMapView
+	ret c
 
 RedrawMapView:
 	ld a, [wIsInBattle]
@@ -117,10 +137,48 @@ RedrawMapView:
 	ld [H_AUTOBGTRANSFERENABLED], a
 	ret
 
-CompareHLWithBC:
+;CompareHLWithBC:
+;	ld a, h
+;	sub b
+;	ret nz
+;	ld a, l
+;	sub c
+;	ret
+
+;joenote - replace the previous function with one that checks blocks in the whole map view
+IsBCInHLTileBlockMapView:
+	ld d, 5
+.loop
+	call .CheckRow
+	ret nc
+	dec d
+	ret z
+	push de
+	ld d, 0
+	add hl, de
+	pop de
+	jr .loop
+
+.CheckRow
+	ld a, b
+	sub h
+	ret nz
+	ld a, c
+	sub l
+	ret c
+	
+	push hl
+	
+	push bc
+	ld bc, $0004
+	add hl, bc
+	pop bc
+	
 	ld a, h
 	sub b
-	ret nz
+	jr nz, .next
 	ld a, l
 	sub c
+.next
+	pop hl
 	ret

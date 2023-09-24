@@ -24,60 +24,29 @@ redF_fishing_tile_side.png
 
 
 
-Create a custom_functions/func_overworld.asm file. Then add to this file the following functions:
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;Overworld female trainer sprite functions
-LoadRedSpriteToDE:
-	ld de, RedFSprite
-	ld a, [wUnusedD721]
-	bit 0, a	;check if girl
-	jr nz, .donefemale
-	ld de, RedSprite
-.donefemale
-	res 2, a
-	ld [wUnusedD721], a
-	ret
+The master and lite branches have undergone an organizational change so that the female trainer can be added via tags in the makefile.
+
+Open the makefile in a text editor like notepad++ and scroll down to the assembler tags.
+You can tell you're in the right place because the lines start with "rgbasm -D".
+
+You'll notice that each rom has a list of assembler tags assigned. Usually _RED or _BLUE and some others.
+You can add the _FPLAYER tag to compile the rom with code that allows for a female trainer option.
+
+EXAMPLE: Say you wanted to compile red version with a female trainer selectable.
+You would modify the tags for red version from this
+
+	%_red.o: dep = $(shell tools/scan_includes $(@D)/$*.asm)
+	$(pokered_obj): %_red.o: %.asm $$(dep)
+		rgbasm -D _RED -h -o $@ $*.asm
+
+To this
+
+	%_red.o: dep = $(shell tools/scan_includes $(@D)/$*.asm)
+	$(pokered_obj): %_red.o: %.asm $$(dep)
+		rgbasm -D _RED -D _FPLAYER -h -o $@ $*.asm
+
+
+All code involving the female trainer is searchable via the _FPLAYER tag.
+This allows it to be easily diferentiated from the code around it.
+Utilize this if you wish to add the female trainer code to your own project.
 	
-LoadSeelSpriteToDE:
-	ld de, SeelSprite
-	ld a, [wUnusedD721]
-	set 2, a	;regardless if boy or girl, need to set override bit to use the regular sprite bank
-	ld [wUnusedD721], a
-	ret
-
-LoadRedCyclingSpriteToDE:
-	ld de, RedFCyclingSprite
-	ld a, [wUnusedD721]
-	bit 0, a	;check if girl
-	jr nz, .donefemale
-	ld de, RedCyclingSprite
-.donefemale
-	res 2, a
-	ld [wUnusedD721], a
-	ret
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-
-
-
-Add the following lines to main.asm in order to INCLUDE the new files.
-Add them to a rom bank with enough room.
-As an example, you can add them under SECTION "bank2D",ROMX,BANK[$2D] since it's mostly empty.
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-RedPicFBack::           INCBIN "pic/trainer/redb_f.pic"
-RedPicFFront:: 			INCBIN "pic/trainer/red_f.pic"
-RedFSprite:            INCBIN "gfx/sprites/redf.2bpp"
-RedFCyclingSprite:     INCBIN "gfx/sprites/cyclingf.2bpp"
-RedFishingTilesFront: INCBIN "gfx/red_fishing_tile_front.2bpp"
-RedFishingTilesBack:  INCBIN "gfx/red_fishing_tile_back.2bpp"
-RedFishingTilesSide:  INCBIN "gfx/red_fishing_tile_side.2bpp"
-RedFishingRodTiles:   INCBIN "gfx/red_fishingrod_tiles.2bpp"
-RedFFishingTilesFront: INCBIN "gfx/redF_fishing_tile_front.2bpp"
-RedFFishingTilesBack:  INCBIN "gfx/redF_fishing_tile_back.2bpp"
-RedFFishingTilesSide:  INCBIN "gfx/redF_fishing_tile_side.2bpp"
-INCLUDE "custom_functions/func_overworld.asm"
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-
-Finally, you must reference the "Female Trainer Diff report.html" file.
-This gives a report of all the code changes required in every file so as to get the female trainer working.

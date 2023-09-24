@@ -8,7 +8,11 @@ VermilionHouse3Object:
 	db 0 ; signs
 
 	db 1 ; objects
+IF DEF(_REDGREENJP)
+	object SPRITE_GENTLEMAN, 3, 5, STAY, UP, 1 ; person
+ELSE
 	object SPRITE_LITTLE_GIRL, 3, 5, STAY, UP, 1 ; person
+ENDC
 
 	; warp-to
 	warp_to 2, 7, VERMILION_HOUSE_3_WIDTH

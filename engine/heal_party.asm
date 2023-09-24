@@ -37,22 +37,42 @@ HealParty:
 	ld hl, Moves
 	ld bc, MoveEnd - Moves
 	call AddNTimes
+	
+	;joenotes...
+	;HL now points to the address of the move in the master moves characteristics list
+	;Check that the HL-pointed address itself does not fall outside of the starting or ending address of the list
+	;If it does, HL is pointing to a glitch move. Default the base pp to 0 instead of trying to read it.
+	ld de, Moves
+	ld a, l
+	sub e
+	ld a, h
+	sbc d
+	ld a, 0
+	jr c, .basePP_loaded	;if HL is < Moves, this is a glitch move and load 0 pp
+	ld de, MovesEndOfList
+	ld a, l
+	sub e
+	ld a, h
+	sbc d
+	ld a, 0
+	jr nc, .basePP_loaded	;if HL is >= MovesEndOfList, this is a glitch move and load 0 pp
+	
 	ld de, wcd6d
 	ld a, BANK(Moves)
 	call FarCopyData
 	ld a, [wcd6d + 5] ; PP is byte 5 of move data
-
+.basePP_loaded
 	pop bc
 	pop de
 	pop hl
 
 	inc de
 	push bc
-	ld b, a
-	ld a, [hl]
-	and $c0
-	add b
-	ld [hl], a
+	ld b, a	;the master PP characteristic is  loaded into B
+	ld a, [hl]	;HL points to the PP of the current party mon move, so get its PP info into A
+	and $c0	;mask out everything but the PP-up bits
+	add b	;add to it the master PP value
+	ld [hl], a	;store it back into the party mon struct
 	pop bc
 
 .nextmove
@@ -96,4 +116,8 @@ HealParty:
 	inc [hl]
 	dec b
 	jr nz, .ppup
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;	
+;joenote - handle dead pokemon for the nuzlocke mode
+	predef HealParty_NuzlockeHandler
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	ret

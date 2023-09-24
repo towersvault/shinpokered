@@ -5,16 +5,16 @@ Music_PkmnHealed_Ch0::
 	toggleperfectpitch
 	notetype 12, 8, 1
 	rest 2
-	pitchbend 0, 75
+	pitchbend 1, 4, b_
 	B_ 2
-	pitchbend 0, 84
+	pitchbend 1, 5, e_
 	B_ 2
-	pitchbend 0, 68
+	pitchbend 1, 4, e_
 	E_ 2
 	rest 4
-	pitchbend 0, 59
+	pitchbend 1, 3, b_
 	E_ 4
-	pitchbend 0, 75
+	pitchbend 1, 4, b_
 	B_ 4
 	endchannel
 

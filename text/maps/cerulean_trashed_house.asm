@@ -30,7 +30,14 @@ _CeruleanHouseTrashedText2::
 	cont "good!"
 	done
 
+IF DEF(_JPTXT)
+_CeruleanHouseTrashedText3::
+	text "You can exit via"
+	line "this wall breach!"
+	done
+ELSE
 _CeruleanHouseTrashedText3::
 	text "TEAM ROCKET left"
 	line "a way out!"
 	done
+ENDC

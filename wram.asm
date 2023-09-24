@@ -1,12 +1,12 @@
 
 INCLUDE "constants.asm"
 
-flag_array: MACRO
+MACRO flag_array
 	ds ((\1) + 7) / 8
 ENDM
 
 box_struct_length EQU 25 + NUM_MOVES * 2
-box_struct: MACRO
+MACRO box_struct
 \1Species::    db	;+$00
 \1HP::         dw	;+$01
 \1BoxLevel::   db	;+$03
@@ -30,7 +30,7 @@ ENDM
 ;		 - <stat>Exp is MSB while <stat>Exp+1 is LSB
 ;        - CalcStat function needs hl to point to LSB to take the stat experience into account
 
-party_struct: MACRO
+MACRO party_struct
 	box_struct \1
 \1Level::      db	;+$21
 \1Stats::
@@ -41,7 +41,7 @@ party_struct: MACRO
 \1Special::    dw	;+$2A
 ENDM
 
-battle_struct: MACRO
+MACRO battle_struct
 \1Species::    db
 \1HP::         dw
 \1PartyPos::	;party position is zero-indexed (first pkmn is position zero)
@@ -238,10 +238,10 @@ wSpriteStateData1:: ; c100
 ; C1xA: adjusted Y coordinate (read for collision)
 ; C1xB: adjusted X coordinate (read for collision)
 ; C1xC: facing during collision with another sprite
-; C1xD
-; C1xE
-; C1xF
-spritestatedata1: MACRO
+; C1xD	
+; C1xE	used for collision info
+; C1xF	used for collision info
+MACRO spritestatedata1
 \1SpriteStateData1::
 \1PictureID:: db
 \1MovementStatus:: db
@@ -298,7 +298,7 @@ wSpriteStateData2:: ; c200
 ; C2xD: picture ID
 ; C2xE: sprite image base offset (in video ram, player always has value 1, used to compute c1x2)
 ; C2xF
-spritestatedata2: MACRO
+MACRO spritestatedata2
 \1SpriteStateData2::
 \1WalkAnimationCounter:: db
 	ds 1
@@ -749,8 +749,16 @@ wEnemyNumHits:: ; cd05
 
 wEnemyBideAccumulatedDamage:: ; cd05
 ; the amount of damage accumulated by the enemy while biding (2 bytes)
+	ds 2
 
-	ds 10
+;joenote - block of data that holds a score for the switch desireability of each AI trainer mon
+;gets overwritten with zeroes at the end of battle 
+wAIPartyMonScores:: ;cd07
+	;8 bytes
+	;-->6 bytes for roster scores
+	;-->1 byte for storing the best score (wAIPartyMonScores + 6)
+	;-->1 byte for storing the zero-indexed position with the best score (wAIPartyMonScores + 7)	
+	ds 8
 
 wInGameTradeGiveMonSpecies:: ; cd0f
 
@@ -1127,11 +1135,6 @@ wSlotMachineWheel3BottomTile:: ; cd47
 
 wSlotMachineWheel3MiddleTile:: ; cd48
 
-; wispnote - PKMN Levels at the Begining of a Battle.
-; Required to correctly execute the level-up procedure.
-wStartBattleLevels:: 
-	;ds PARTY_LENGTH which is 6 bytes
-
 wFacingDirectionList:: ; cd48
 ; 4 bytes (also, the byte before the start of the list (cd47) is used a temp
 ;          variable when the list is rotated)
@@ -1193,14 +1196,6 @@ wSlotMachineBet:: ; cd50
 
 wSavedPlayerFacingDirection:: ; cd50
 
-;joenote - block of data that holds a score for the switch desireability of each AI trainer mon
-;gets overwritten with zeroes at the end of battle 
-wAIPartyMonScores:: ;cd50
-	;8 bytes
-	;-->6 bytes for roster scores
-	;-->1 byte for storing the best score (wAIPartyMonScores + 6)
-	;-->1 byte for storing the zero-indexed position with the best score (wAIPartyMonScores + 7)
-	
 wWhichAnimationOffsets:: ; cd50
 ; 0 = cut animation, 1 = boulder dust animation
 	ds 9
@@ -1237,9 +1232,11 @@ wFlags_0xcd60:: ; cd60
 ; bit 1: boulder dust animation (from using Strength) pending
 ; bit 2: used for unknown stuff
 ; bit 3: using generic PC
-; bit 4: withdrawing boxed item's from pc ;joenote - added this
+; bit 4: skip updating sprites when displaying a text ID
+;		joenote - also used to flag for when you are withdrawing boxed item's from the pc
 ; bit 5: don't play sound when A or B is pressed in menu
 ; bit 6: tried pushing against boulder once (you need to push twice before it will move)
+; bit 7: used for some kind of dungeon warp in maps where you fall down holes (debug feature?)
 	ds 1
 
 	ds 9
@@ -1254,6 +1251,7 @@ wActionResultOrTookBattleTurn:: ; cd6a
 ; something other than a move (e.g. using an item or switching pokemon).
 ; So, when an item is successfully used in battle, this value becomes non-zero
 ; and the player is not allowed to make a move and the two uses are compatible.
+;jooenote - in battle player switching makes this value $A
 	ds 1
 
 wJoyIgnore:: ; cd6b
@@ -1425,8 +1423,12 @@ wScriptedNPCWalkCounter:: ; cf18
 
 	ds 1
 
-;gbcnote - moved to hram
-;wGBC:: ; cf1a
+;joenote - used for temporary GBC color control settings
+wGBCColorControl:: ; cf1a
+	;bits 0 & 1 --> a value from 0 to 3 to select color 0 through 3
+	;bits 2, 3, & 4 --> a value from 0 to 7 to select BGP/OBP 0 through 7
+	;bit 5 --> 0 = BGP | 1 = OBP
+	;bits 6 & 7 are unused
 	ds 1
 
 wOnSGB:: ; cf1b
@@ -1454,11 +1456,12 @@ wPartyMenuHPBarColors:: ; cf1f
 wStatusScreenHPBarColor:: ; cf25
 	ds 1
 
-	;ds 7
-;joenote - implement RNG from Prism and Polished Crystal
-wRNGState:: ds 4
-wRNGCumulativeDividerPlus:: ds 2
-wRNGCumulativeDividerMinus:: ds 1
+; wispnote - PKMN Levels at the Begining of a Battle.
+; Required to correctly execute the level-up procedure.
+wStartBattleLevels:: 
+	ds PARTY_LENGTH ;which is 6 bytes
+;unused space
+	ds 1
 
 wCopyingSGBTileData:: ; cf2d
 
@@ -1778,6 +1781,8 @@ wPlayerBattleStatus3:: ; d064
 ; bit 1 - light screen
 ; bit 2 - reflect
 ; bit 3 - transformed
+; bit 4 & 5 - unused?
+; bit 6 & 7 - partial trapping spam counter
 	ds 1
 
 wEnemyStatsToDouble:: ; d065
@@ -2142,6 +2147,8 @@ wMonHGrowthRate:: ; d0cb
 wMonHLearnset:: ; d0cc
 ; bit field
 	flag_array 50 + 5
+
+wMonHPicBank::	;joenote - repurpose this filler byte to dynamically lookup the bank of font/back pics
 	ds 1
 
 wSavedTilesetType:: ; d0d4
@@ -2230,6 +2237,7 @@ wEvolutionOccurred:: ; d121
 wVBlankSavedROMBank:: ; d122
 	ds 1
 
+wDelayFrameBank:: ;d123		;joenote - added for bank backing-up
 	ds 1
 
 wIsKeyItem:: ; d124
@@ -2407,6 +2415,7 @@ wNumBagItems:: ; d31d
 wBagItems:: ; d31e
 ; item, quantity
 	ds BAG_ITEM_CAPACITY * 2
+wBagItemsTerminator::	;holds FF when the bag becomes full
 	ds 1 ; end
 
 wPlayerMoney:: ; d347
@@ -2427,7 +2436,8 @@ wOptions:: ; d355
 ; 1: earphone 1
 ; 2: earphone 2
 ; 3: earphone 3
-; bits 0-3 = text speed (number of frames to delay after printing a letter)
+; bit 3: = hard mode
+; bits 0-2 = text speed (number of frames to delay after printing a letter)
 ; 1: Fast
 ; 3: Medium
 ; 5: Slow
@@ -2490,6 +2500,11 @@ wXBlockCoord:: ; d364
 wLastMap:: ; d365
 	ds 1
 
+wItemFinderAttributes:: ; d366	;joenote - also use this byte for improved itemfinder functions
+;bit 0 - above
+;bit 1 - below
+;bit 2 - left
+;bit 3 - right
 wUnusedD366:: ; d366	;joenote - use this to track which ai pokemon have switched & shiny state
 	ds 1
 ;bit 0: set if player mon shiny
@@ -2650,6 +2665,7 @@ wDestinationWarpID:: ; d42f
 ; if $ff, the player's coordinates are not updated when entering the map
 	ds 1
 
+wGBCFullPalBuffer::	; d430	joenote - added for backing-up all GBC palettes
 	ds 128
 
 wNumSigns:: ; d4b0
@@ -2789,7 +2805,9 @@ wBluesHouseCurScript:: ; d5f3
 	ds 1
 wViridianCityCurScript:: ; d5f4
 	ds 1
-	ds 2
+	ds 1
+wRoute2HouseCurScript:: ; d5f6
+	ds 1
 wPewterCityCurScript:: ; d5f7
 	ds 1
 wRoute3CurScript:: ; d5f8
@@ -3047,7 +3065,7 @@ wFossilItem:: ; d70f
 wFossilMon:: ; d710
 ; mon that will result from the item
 	ds 1
-
+wFossilMonDVs::	;d711 (2 bytes)	;joenote - added to store some values
 	ds 2
 
 wEnemyMonOrTrainerClass:: ; d713
@@ -3106,15 +3124,15 @@ wSpinnerTileFrameCount::	;d720	;joenote - used as a counter for the spinner tile
 
 wUnusedD721:: ; d721	;joenote - use to set various wram flags
 	ds 1
-	;bit 0 - player is female trainer if set
-	;bit 1 - not used
-	;bit 2 - override bit 0 for specific bank switching instances
-	;bit 3 - not used
+	;bit 0 - player is female trainer if set (reserved for _FPLAYER tagged code)
+	;bit 1 - Gets set when forfeiting a battle
+	;bit 2 - override bit 0 for specific bank switching instances (usually reserved for _FPLAYER tagged code)
+	;bit 3 - if set, the enemy trainer AI will not use intelligent switching
 	;bit 4 - 60fps option flag
 	;bit 5 - obedience level cap
-	;bit 6 - not used
+	;bit 6 - nuzlocke mode activated
 	;bit 7 - not used
-;;;;;;;;;;;;;;joenote - use these unused locations for debugging and parkesing DV scores
+;;;;;;;;;;;;;;joenote - use these unused locations for debugging and parsing DV scores or holding temp values
 wUnusedD722:: 
 	ds 4
 wUnusedD726:: 
@@ -3130,8 +3148,8 @@ wd728:: ; d728
 ; bit 7: set by ItemUseCardKey, which is leftover code from a previous implementation of the Card Key
 			;joenote - repurposed for exp all message now
 	ds 1
-wLowHealthTonePairs::	;d729			;in battle, used as a counter for low hp alarm tone pairs
-	ds 1
+wLowHealthTonePairs::	;d729			;joenote - in battle, used as a counter for low hp alarm tone pairs
+	ds 1								; bit 7 gets set if tones are actively being played
 
 wBeatGymFlags:: ; d72a
 ; redundant because it matches wObtainedBadges
@@ -3208,6 +3226,8 @@ wFlags_D733:: ; d733
 ; bit 4: use variable [wCurMapScript] instead of the provided index for next frame's map script (used to start battle when talking to trainers)
 ; bit 5: joenote - set if final battle against rival
 ; bit 6: joenote - gets set if this is a pkmn tower ghost battle
+;					- also used to force a pokemon to learn skipped moves upon evolving
+;					- and makes object sprites update when choosing a move to forget
 ; bit 7: used fly out of battle
 	ds 1
 
@@ -3311,7 +3331,15 @@ wCurMapScript:: ; da39
 ; mostly copied from map-specific map script pointer and written back later
 	ds 1
 
-	ds 7
+wRomHackVersion:: ;da3A
+;joenote - starting with version 1.24, each major update increments this by 1
+	ds 1
+
+wRandomizerSeed:: 	;da3B
+;joenote - generate a random seed for fisher-yates randomizer functions
+	ds 1
+
+	ds 5
 
 wPlayTimeHours:: ; da41
 	ds 1
@@ -3360,11 +3388,15 @@ wBoxMonNicksEnd:: ; dee2
 wBoxDataEnd::
 
 ;joenote - exp bar wram values
+IF DEF(_EXPBAR)
 wEXPBarPixelLength::  ds 1
 wEXPBarBaseEXP::      ds 3
 wEXPBarCurEXP::       ds 3
 wEXPBarNeededEXP::    ds 3
 wEXPBarKeepFullFlag:: ds 1
+ELSE
+	ds 11
+ENDC
 
 wdeed::
 ds 1

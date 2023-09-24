@@ -12,8 +12,8 @@ INCBIN CUBONE_FR,0,1 ; 55, sprite dimensions
 dw CubonePicFront
 dw CubonePicBack
 ; attacks known at lvl 0
-db BONE_CLUB
 db GROWL
+db BONE_CLUB
 db 0
 db 0
 db 0 ; growth rate
@@ -25,4 +25,7 @@ db 0 ; growth rate
 	tmlearn 34,38,40
 	tmlearn 44
 	tmlearn 50,54
-db 0 ; padding
+;	db 0 ; padding
+	db BANK(CubonePicFront)
+	assert BANK(CubonePicFront) == BANK(CubonePicBack)
+

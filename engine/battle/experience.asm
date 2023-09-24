@@ -123,10 +123,10 @@ GainExperience:
 	dec a ; is it a trainer battle?
 	jr z, .nottrainerbattle
 	call BoostExp ; if so, boost exp
-;joenote - boost exp again in trainer battls if in SET mode
-	ld a, [wOptions]
-	bit 6, a
-	call nz, BoostExp
+;joenote - boost exp again in trainer battles if in hard mode
+;	ld a, [wOptions]
+;	bit BIT_BATTLE_HARD, a
+;	call nz, BoostExp
 .nottrainerbattle
 	call CatchUpBoost	;joenote - boost exp if underlevelled
 	inc hl
@@ -205,7 +205,9 @@ GainExperience:
 .noexpprint
 	xor a ; PLAYER_PARTY_DATA
 	ld [wMonDataLocation], a
+IF DEF(_EXPBAR)
 	callba AnimateEXPBar	;joenote - animate the exp bar
+ENDC
 	call LoadMonData
 	pop hl
 	ld bc, wPartyMon1Level - wPartyMon1Exp
@@ -218,9 +220,11 @@ GainExperience:
 	;wTempCoins1 was chosen because it's used only for slot machine and gets defaulted to 1 during the mini-game
 	cp d
 	jp z, .nextMon ; if level didn't change, go to next mon
+IF DEF(_EXPBAR)
 	push hl
 	callba KeepEXPBarFull	;joenote - animate the exp bar
 	pop hl
+ENDC
 	ld a, [wCurEnemyLVL]
 	push af
 	push hl
@@ -305,7 +309,9 @@ GainExperience:
 	call PrintText
 	xor a ; PLAYER_PARTY_DATA
 	ld [wMonDataLocation], a
+IF DEF(_EXPBAR)
 	callba AnimateEXPBarAgain	;joenote - animate exp bar
+ENDC
 	call LoadMonData
 	ld d, $1
 	callab PrintStatsBox

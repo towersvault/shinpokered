@@ -4,6 +4,7 @@ CinnabarIslandScript:
 	set 5, [hl]
 	ResetEvent EVENT_MANSION_SWITCH_ON
 	ResetEvent EVENT_LAB_STILL_REVIVING_FOSSIL
+	ResetEvent EVENT_2E4	;joenote - for pokemon cloning
 	ld hl, CinnabarIslandScriptPointers
 	ld a, [wCinnabarIslandCurScript]
 	jp CallFunctionInTable
@@ -22,6 +23,12 @@ CinnabarIslandScript0:
 	ld a, [wXCoord]
 	cp $12
 	ret nz
+
+	;This will make it so the player cannot get stuck in this coordinate by a blocking NPC.
+	ld a, [wSpriteStateData1 + 9]
+	cp SPRITE_FACING_DOWN
+	ret z
+
 	ld a, PLAYER_DIR_UP
 	ld [wPlayerMovingDirection], a
 	ld a, $8

@@ -30,6 +30,15 @@ TryPushingBoulder:
 	ld a, [hJoyHeld]
 	and D_RIGHT | D_LEFT | D_UP | D_DOWN
 	ret z
+	
+	;joenote - Brian Kernighan's algorithm states that doing A = A AND (A-1) will result in zero if only 1 bit is set
+	;use this to return if multiple directions are being pressed
+	;prevents turning to the side while pushing a boulder
+	ld b, a
+	dec b
+	and b
+	ret nz
+	
 	predef CheckForCollisionWhenPushingBoulder
 	ld a, [wTileInFrontOfBoulderAndBoulderCollisionResult]
 	and a ; was there a collision?

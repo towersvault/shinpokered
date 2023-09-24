@@ -68,7 +68,8 @@ ItemUsePtrTable:
 	dw UnusableItem      ; DOME_FOSSIL
 	dw UnusableItem      ; HELIX_FOSSIL
 	dw UnusableItem      ; SECRET_KEY
-	dw UnusableItem		 ; XXX
+;	dw UnusableItem		 ; XXX
+	dw ItemUseVitamin    ; MIST_STONE	;joenote - custom item
 	dw UnusableItem      ; BIKE_VOUCHER
 	dw ItemUseXAccuracy  ; X_ACCURACY
 	dw ItemUseEvoStone   ; LEAF_STONE
@@ -112,11 +113,17 @@ ItemUsePtrTable:
 
 ItemUseBall:
 
+;joenote - restrict throwing a ball for nuzlocke mode
+	push de
+	callba NoCatch_NuzlockeHandler
+	pop de
+	jp nz, ItemUseNotTime
+
 ; Balls can't be used out of battle.
 	ld a, [wIsInBattle]
 	and a
 	jp z, ItemUseNotTime
-
+	
 ; Balls can't catch trainers' Pokémon.
 	dec a
 	jp nz, ThrowBallAtTrainerMon
@@ -201,7 +208,7 @@ ItemUseBall:
 .loop
 	call Random
 	ld b, a
-
+	
 ; Get the item ID.
 	ld hl, wcf91
 	ld a, [hl]
@@ -210,12 +217,12 @@ ItemUseBall:
 ;joenote - Adding an exception for Mewtwo! This is now the ultimate test of the player's catching skills.
 ;		It will play its cry and keep the ball from having any effect.
 ;		The ball is not wasted. Mewtwo's mental might prevents you from throwing it.
-;		This added difficulty is only available in SET battle.
+;		This added difficulty is only available in hard mode.
 	cp MASTER_BALL
 	jr nz, .not_mball
 	ld a, [wOptions]
-	bit 6, a ;0=SHIFT and 1=SET battle style
-	jp z, .captured	;works as normal in shift battle
+	bit BIT_BATTLE_HARD, a ;check hard mode
+	jp z, .captured	;works as normal outside of hard mode
 	ld a, [wEnemyMon]
 	cp MEWTWO
 	jp nz, .captured ;works as normal if not mewtwo
@@ -255,6 +262,9 @@ ItemUseBall:
 	jr c, .loop
 
 .checkForAilments
+
+	call .ballcheat
+
 ; Pokémon can be caught more easily with a status ailment.
 ; Depending on the status ailment, a certain value will be subtracted from
 ; Rand1. Let this value be called Status.
@@ -295,8 +305,8 @@ ItemUseBall:
 	ld a, [wcf91]
 	;cp GREAT_BALL
 	cp SAFARI_BALL ;joenote - great balls now have factor of 12 and safari balls now have factor of 8
-	ld a, 12
-	jr nz, .skip1
+	ld a, 12		; This is because a lower ball factor helps catch pokemon that have fuller HP
+	jr nz, .skip1	; So this was probably intended for the safari zone since pokemon there can't be weakened
 	ld a, 8
 
 .skip1
@@ -353,11 +363,15 @@ ItemUseBall:
 
 ; If Rand2 > X, the ball fails to capture the Pokémon.
 	ld b, a
+	
+	call .ballcheat
+	
 	ld a, [H_QUOTIENT + 3]
 	cp b
 	jr c, .failedToCapture
 
 .captured
+	predef BallCaught_NuzlockeHandler	;joenote - set map flags for nuzlocke mode
 	jr .skipShakeCalculations
 
 .failedToCapture
@@ -539,6 +553,17 @@ ItemUseBall:
 .skip6
 	ld a, [wcf91]
 	push af
+	
+	;joenote - made a catch, so adjust the BG palette for the resting pokeball
+	push de
+	ld d, CONVERT_OBP0
+	ld e, 3
+	ld a, PAL_MEWMON
+	add VICTREEBEL+1
+	ld [wcf91], a
+	callba TransferMonPal
+	pop de
+	
 	ld a, [wEnemyMonSpecies2]
 	ld [wcf91], a
 	ld a, [wEnemyMonLevel]
@@ -637,6 +662,16 @@ ItemUseBall:
 	ld [wItemQuantity], a
 	jp RemoveItemFromInventory
 
+.ballcheat
+;joenote - let's add in an old urban legend as a cheat code
+	ld a, [hJoyHeld]
+	and B_BUTTON + D_DOWN
+	cp B_BUTTON + D_DOWN
+	ret nz
+	srl b	;halve the randomly generated number in order to double the ball's effectiveness
+	ret
+
+
 ItemUseBallText00:
 ;"It dodged the thrown ball!"
 ;"This pokemon can't be caught"
@@ -730,6 +765,8 @@ ItemUseSurfboard:
 	ld hl, TilePairCollisionsWater
 	call CheckForTilePairCollisions
 	jp c, SurfingAttemptFailed
+	call .checkSpriteCollision	;joenote - now checks for sprites hidden by menus
+	jp nz, SurfingAttemptFailed
 .surf
 	call .makePlayerMoveForward
 	ld hl, wd730
@@ -740,13 +777,7 @@ ItemUseSurfboard:
 	ld hl, SurfingGotOnText
 	jp PrintText
 .tryToStopSurfing
-	xor a
-	ld [hSpriteIndexOrTextID], a
-	ld d, 16 ; talking range in pixels (normal range)
-	call IsSpriteInFrontOfPlayer2
-	res 7, [hl]
-	ld a, [hSpriteIndexOrTextID]
-	and a ; is there a sprite in the way?
+	call .checkSpriteCollision	;joenote - now checks for sprites hidden by menus
 	jr nz, .cannotStopSurfing
 	ld hl, TilePairCollisionsWater
 	call CheckForTilePairCollisions
@@ -775,6 +806,7 @@ ItemUseSurfboard:
 	dec a
 	ld [wJoyIgnore], a
 	call PlayDefaultMusic ; play walking music
+	call GBPalWhiteOutWithDelay3 ;joenote - fix from pokeyellow that prevents garbled graphics when un-surfing from the menu
 	jp LoadWalkingPlayerSpriteGraphics
 ; uses a simulated button press to make the player move forward
 .makePlayerMoveForward
@@ -794,6 +826,21 @@ ItemUseSurfboard:
 	ld [wSimulatedJoypadStatesEnd], a
 	ld a, 1
 	ld [wSimulatedJoypadStatesIndex], a
+	ret
+.checkSpriteCollision	;joenote - return nz if sprite is in the way
+	xor a
+	ld [hSpriteIndexOrTextID], a
+	call IsSpriteInFrontOfPlayer	; check with talking range in pixels (normal range of $10)
+	res 7, [hl]
+	ld a, [hSpriteIndexOrTextID]
+	and a ; is there a sprite in the way?
+	ret nz
+	;joenote - this checks for sprites that cannot be seen due to the menu covering them
+	xor a
+	ld [hSpriteIndexOrTextID], a
+	callba IsOffScreenSpriteInFrontOfPlayer	; check with talking range in pixels (normal range of $10)
+	ld a, [hSpriteIndexOrTextID]
+	and a ; is there a sprite in the way?
 	ret
 
 SurfingGotOnText:
@@ -827,6 +874,13 @@ ItemUseEvoStone:
 	ld [wcf91], a
 	ld a, $01
 	ld [wForceEvolution], a
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;joenote - in nuzlocke mode, cannot use stones on dead pokemon
+	ld a, [wWhichPokemon]
+	ld [wUsedItemOnWhichPokemon], a
+	callba IsPartyMonDead
+	jr z, .noEffect
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	ld a, SFX_HEAL_AILMENT
 	call PlaySoundWaitForCurrent
 	call WaitForSoundToFinish
@@ -906,6 +960,13 @@ ItemUseMedicine:
 	cp d ; is the pokemon trying to use softboiled on itself?
 	jr z, ItemUseMedicine ; if so, force another choice
 .checkItemType
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;joenote - in nuzlocke mode, cannot use medicine on dead pokemon
+	push hl
+	callba IsPartyMonDead
+	pop hl
+	jp z, .healingItemNoEffect
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	ld a, [wcf91]
 	cp REVIVE
 	jr nc, .healHP ; if it's a Revive or Max Revive
@@ -993,9 +1054,14 @@ ItemUseMedicine:
 	and a
 	jr z, .compareCurrentHPToMaxHP
 ;joenote - at this point, trying to revive a fainted 'mon in battle
-;disallow this in SET battle style
+;disallow this in hard mode or in nuzlock mode
+	push bc
 	ld a, [wOptions]
-	bit 6, a
+	ld b, a
+	ld a, [wUnusedD721]
+	or b
+	pop bc
+	bit BIT_BATTLE_HARD, a
 	jr z, .can_revive
 	call ItemUseNotTime
 	jp .done
@@ -1355,11 +1421,17 @@ ItemUseMedicine:
 	pop de
 	pop hl
 	ld a, [wcf91]
-	cp M_GENE	;joenote - custom item
-	jp z, .useMGene
 	cp RARE_CANDY
 	jp z, .useRareCandy
-	push hl
+	push hl		;push wPartyMonX
+		
+	jp UseCustomMedicine	;joenote - custom medicine items (m_gene and mist_stone)
+.no_custom_medicine
+
+	call VitaminLevelCheck
+	push af
+	
+	ld a, [wcf91]	;joenote - 'A' might get clobbered by UseCustomMedicine, so reload wcf91
 	sub HP_UP
 	add a
 	ld bc, wPartyMon1HPExp - wPartyMon1
@@ -1369,16 +1441,25 @@ ItemUseMedicine:
 	jr nc, .noCarry2
 	inc h
 .noCarry2
+	pop af
+	jr c, .e4notbeaten		;apply vitamin limiter of less than the level threshold
 	CheckEvent EVENT_908	;joenote - has elite 4 been beaten?
-	jr z, .e4notbeaten 	;if not, do default compare
+	jr z, .e4notbeaten 	;if not, apply the vitamin limiter
+
 	;else remove the vitamin limiter
 	ld a, 10
 	ld b, a
+	call CheckMaxStatExp
+	jr c, .vitaminNoEffect ; if stat exp was already at 65535, then can't add any more
+
 	ld a, [hl] ; a = MSB of stat experience of the appropriate stat
-	cp $F5 ; is there already at least 62720 stat experience?
-	jr nc, .vitaminNoEffect ; if so, vitamins can't add any more
 	add b ; add 2560 (256 * 10) stat experience
-	jr .noCarry3	;carry should be impossible here
+	jr nc, .noCarry3	;if there is an overflow, load 65535 stat exp
+	ld a, $ff
+	inc hl
+	ld [hld], a
+	jr .noCarry3
+	
 .e4notbeaten
 	ld a, 10
 	ld b, a
@@ -1386,11 +1467,11 @@ ItemUseMedicine:
 	cp 100 ; is there already at least 25600 (256 * 100) stat experience?
 	jr nc, .vitaminNoEffect ; if so, vitamins can't add any more
 	add b ; add 2560 (256 * 10) stat experience
-	jr nc, .noCarry3 ; a carry should be impossible here, so this will always jump
-	ld a, 255
+;	jr nc, .noCarry3 ; a carry should be impossible here, so this will always jump
+;	ld a, 255
 .noCarry3
 	ld [hl], a
-	pop hl
+	pop hl		;pop wPartyMonX
 	call .recalculateStats
 	ld hl, VitaminText
 	ld a, [wcf91]
@@ -1415,12 +1496,24 @@ ItemUseMedicine:
 	ld hl, VitaminStatRoseText
 	call PrintText
 	jp RemoveUsedItem
+
 .vitaminNoEffect
-	pop hl
+	pop hl	;pop wPartyMonX
 	ld hl, VitaminNoEffectText
 	call PrintText
 	jp GBPalWhiteOut
+
 .recalculateStats
+	push hl		;push wPartyMonX
+	ld bc, wPartyMon1MaxHP - wPartyMon1
+	add hl, bc ; hl now points to MSB of max HP
+	ld a, [hli]
+	ld b, a
+	ld c, [hl]
+	pop hl		;pop wPartyMonX
+	push bc
+	push hl		;push wPartyMonX
+
 	ld bc, wPartyMon1Stats - wPartyMon1
 	add hl, bc
 	ld d, h
@@ -1428,9 +1521,31 @@ ItemUseMedicine:
 	ld bc, (wPartyMon1Exp + 2) - wPartyMon1Stats
 	add hl, bc ; hl now points to LSB of experience
 	ld b, 1
-	jp CalcStats ; recalculate stats
+	call CalcStats ; recalculate stats
+
+	pop hl		;pop wPartyMonX
+	ld bc, (wPartyMon1MaxHP + 1) - wPartyMon1
+	add hl, bc ; hl now points to LSB of max HP
+	pop bc
+	ld a, [hld]
+	sub c
+	ld c, a
+	ld a, [hl]
+	sbc b
+	ld b, a ; bc = the amount of max HP gained from leveling up
+; add the amount gained to the current HP
+	ld de, (wPartyMon1HP + 1) - wPartyMon1MaxHP
+	add hl, de ; hl now points to LSB of current HP
+	ld a, [hl]
+	add c
+	ld [hld], a
+	ld a, [hl]
+	adc b
+	ld [hl], a
+	ret
+
 .useRareCandy
-	push hl
+	push hl	;push wPartyMonX
 	ld bc, wPartyMon1Level - wPartyMon1
 	add hl, bc ; hl now points to level
 	ld a, [hl] ; a = level
@@ -1463,90 +1578,19 @@ ItemUseMedicine:
 	ld [hli], a
 	ld a, [hExperience + 2]
 	ld [hl], a
-	pop hl
-	ld a, [wWhichPokemon]
-	push af
-	ld a, [wcf91]
-	push af
-	push de
-	push hl
-	ld bc, wPartyMon1MaxHP - wPartyMon1
-	add hl, bc ; hl now points to MSB of max HP
-	ld a, [hli]
-	ld b, a
-	ld c, [hl]
-	pop hl
-	push bc
-	push hl
-	call .recalculateStats
-	pop hl
-	ld bc, (wPartyMon1MaxHP + 1) - wPartyMon1
-	add hl, bc ; hl now points to LSB of max HP
-	pop bc
-	ld a, [hld]
-	sub c
-	ld c, a
-	ld a, [hl]
-	sbc b
-	ld b, a ; bc = the amount of max HP gained from leveling up
-; add the amount gained to the current HP
-	ld de, (wPartyMon1HP + 1) - wPartyMon1MaxHP
-	add hl, de ; hl now points to LSB of current HP
-	ld a, [hl]
-	add c
-	ld [hld], a
-	ld a, [hl]
-	adc b
-	ld [hl], a
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-	jp .end_mgene
-;joenote - added code for the M_GENE
-.useMGene
-	push hl
-	ld bc, wPartyMon1DVs - wPartyMon1
-	add hl, bc ; hl now points to DVs
-;generate new random DVs and make sure they are at least 9,9,8,8
-	call Random
-	or $98
-	ld [hli], a
-	call Random
-	or $88
-	ld [hl], a
-	pop hl
 
-	ld a, [wWhichPokemon]
-	push af
-	ld a, [wcf91]
-	push af
-	push de
+.returnDVMedicine
 
-	push hl
-	ld bc, wPartyMon1MaxHP - wPartyMon1
-	add hl, bc ; hl now points to MSB of max HP
-	ld a, [hli]
-	ld b, a
-	ld c, [hl]
-	pop hl
-
-	push hl
-	call .recalculateStats
-	pop hl
-	ld bc, (wPartyMon1MaxHP) - wPartyMon1
-	add hl, bc ; hl now points to MSB of recalculated max HP
-	ld a, [hli]
-	ld b, a
-	ld a, [hld]
-	ld c, a
+	pop hl	;pop wPartyMonX
 	
-; set current hp to new max hp
-	ld de, (wPartyMon1HP) - wPartyMon1MaxHP
-	add hl, de ; hl now points to MSB of current HP
-	ld a, b
-	ld [hli], a
-	ld a, c
-	ld [hld], a
-.end_mgene
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+	ld a, [wWhichPokemon]
+	push af
+	ld a, [wcf91]
+	push af
+	push de
+
+	call .recalculateStats
+
 	ld a, RARE_CANDY_MSG
 	ld [wPartyMenuTypeOrMessageID], a
 	call RedrawPartyMenu
@@ -1626,6 +1670,13 @@ BaitRockCommon:
 	cp 5
 	jr nc, .randomLoop
 	inc a ; increment the random number, giving a range from 1 to 5 inclusive
+	
+;joenote - There is a bug here. 
+;		- The 1-to-5 number is always decremented when PrintSafariZoneBattleText runs.
+;		- So getting a number of 1 will decrement immediately to zero and do nothing to the eating/angry state.
+;		- To get an effective 1-to-5 turns, increment once more to bump the range to 2-to-6
+	inc a
+	
 	ld b, a
 	ld a, [hl]
 	add b ; increase bait factor (for bait), increase escape factor (for rock)
@@ -1715,56 +1766,58 @@ ItemUseXAccuracy:
 
 ; This function is bugged and never works. It always jumps to ItemUseNotTime.
 ; The Card Key is handled in a different way.
+;joenote - debugging this but it's still code that goes completely unused. Commenting it all out.
 ItemUseCardKey:
-	xor a
-	ld [wUnusedD71F], a
-	call GetTileAndCoordsInFrontOfPlayer
-	ld a, [GetTileAndCoordsInFrontOfPlayer]
-	cp $18
-	jr nz, .next0
-	ld hl, CardKeyTable1
-	jr .next1
-.next0
-	cp $24
-	jr nz, .next2
-	ld hl, CardKeyTable2
-	jr .next1
-.next2
-	cp $5e
-	jp nz, ItemUseNotTime
-	ld hl, CardKeyTable3
-.next1
-	ld a, [wCurMap]
-	ld b, a
-.loop
-	ld a, [hli]
-	cp $ff
-	jp z, ItemUseNotTime
-	cp b
-	jr nz, .nextEntry1
-	ld a, [hli]
-	cp d
-	jr nz, .nextEntry2
-	ld a, [hli]
-	cp e
-	jr nz, .nextEntry3
-	ld a, [hl]
-	ld [wUnusedD71F], a
-	jr .done
-.nextEntry1
-	inc hl
-.nextEntry2
-	inc hl
-.nextEntry3
-	inc hl
-	jr .loop
-.done
-	ld hl, ItemUseText00
-	call PrintText
-	;joenote - removed because this bit is never used by anything (old key card implementation)
-	;ld hl, wd728
-	;set 7, [hl]
-	ret
+	jp ItemUseNotTime
+;	xor a
+;	ld [wUnusedD71F], a
+;	call GetTileAndCoordsInFrontOfPlayer
+;	;ld a, [GetTileAndCoordsInFrontOfPlayer]
+;	ld a, [wTileInFrontOfPlayer]	;load from the correct ram address
+;	cp $18	;horizontal doors
+;	jr nz, .next0
+;	ld hl, CardKeyTable1
+;	jr .next1
+;.next0
+;	cp $24	;vertical doors
+;	jr nz, .next2
+;	ld hl, CardKeyTable2
+;	jr .next1
+;.next2
+;	cp $5e	;horizontal doors on silph co 11f
+;	jp nz, ItemUseNotTime
+;	ld hl, CardKeyTable3
+;.next1
+;	ld a, [wCurMap]
+;	ld b, a
+;.loop
+;	ld a, [hli]
+;	cp $ff
+;	jp z, ItemUseNotTime
+;	cp b
+;	jr nz, .nextEntry1
+;	ld a, [hli]
+;	cp d
+;	jr nz, .nextEntry2
+;	ld a, [hli]
+;	cp e
+;	jr nz, .nextEntry3
+;	ld a, [hl]
+;	ld [wUnusedD71F], a
+;	jr .done
+;.nextEntry1
+;	inc hl
+;.nextEntry2
+;	inc hl
+;.nextEntry3
+;	inc hl
+;	jr .loop
+;.done
+;	ld hl, ItemUseText00
+;	call PrintText
+;	ld hl, wd728
+;	set 7, [hl]
+;	ret
 
 ; These tables are probably supposed to be door locations in Silph Co.,
 ; but they are unused.
@@ -1776,36 +1829,36 @@ ItemUseCardKey:
 ; 02: X
 ; 03: ID?
 
-CardKeyTable1:
-	db  SILPH_CO_2F,$04,$04,$00
-	db  SILPH_CO_2F,$04,$05,$01
-	db  SILPH_CO_4F,$0C,$04,$02
-	db  SILPH_CO_4F,$0C,$05,$03
-	db  SILPH_CO_7F,$06,$0A,$04
-	db  SILPH_CO_7F,$06,$0B,$05
-	db  SILPH_CO_9F,$04,$12,$06
-	db  SILPH_CO_9F,$04,$13,$07
-	db SILPH_CO_10F,$08,$0A,$08
-	db SILPH_CO_10F,$08,$0B,$09
-	db $ff
+;CardKeyTable1:
+;	db  SILPH_CO_2F,$04,$04,$00
+;	db  SILPH_CO_2F,$04,$05,$01
+;	db  SILPH_CO_4F,$0C,$04,$02
+;	db  SILPH_CO_4F,$0C,$05,$03
+;	db  SILPH_CO_7F,$06,$0A,$04
+;	db  SILPH_CO_7F,$06,$0B,$05
+;	db  SILPH_CO_9F,$04,$12,$06
+;	db  SILPH_CO_9F,$04,$13,$07
+;	db SILPH_CO_10F,$08,$0A,$08
+;	db SILPH_CO_10F,$08,$0B,$09
+;	db $ff
 
-CardKeyTable2:
-	db SILPH_CO_3F,$08,$09,$0A
-	db SILPH_CO_3F,$09,$09,$0B
-	db SILPH_CO_5F,$04,$07,$0C
-	db SILPH_CO_5F,$05,$07,$0D
-	db SILPH_CO_6F,$0C,$05,$0E
-	db SILPH_CO_6F,$0D,$05,$0F
-	db SILPH_CO_8F,$08,$07,$10
-	db SILPH_CO_8F,$09,$07,$11
-	db SILPH_CO_9F,$08,$03,$12
-	db SILPH_CO_9F,$09,$03,$13
-	db $ff
+;CardKeyTable2:
+;	db SILPH_CO_3F,$08,$09,$0A
+;	db SILPH_CO_3F,$09,$09,$0B
+;	db SILPH_CO_5F,$04,$07,$0C
+;	db SILPH_CO_5F,$05,$07,$0D
+;	db SILPH_CO_6F,$0C,$05,$0E
+;	db SILPH_CO_6F,$0D,$05,$0F
+;	db SILPH_CO_8F,$08,$07,$10
+;	db SILPH_CO_8F,$09,$07,$11
+;	db SILPH_CO_9F,$08,$03,$12
+;	db SILPH_CO_9F,$09,$03,$13
+;	db $ff
 
-CardKeyTable3:
-	db SILPH_CO_11F,$08,$09,$14
-	db SILPH_CO_11F,$09,$09,$15
-	db $ff
+;CardKeyTable3:
+;	db SILPH_CO_11F,$08,$09,$14
+;	db SILPH_CO_11F,$09,$09,$15
+;	db $ff
 
 ItemUsePokedoll:
 	ld a, [wIsInBattle]
@@ -1860,9 +1913,9 @@ ItemUseXStat:
 	push af ; save [wPlayerMoveEffect]
 	push hl
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;joenote - ;double the effect if using SET battle
+;joenote - ;double the effect if using hard mode
 	ld a, [wOptions]	;load game options
-	bit 6, a			;check battle style (bit set if SET battle)
+	bit BIT_BATTLE_HARD, a			;check battle style (bit set if hard mode)
 	ld a, [wcf91]	;load item#
 	jr nz, .double_effect
 	
@@ -1943,6 +1996,19 @@ ItemUsePokeflute:
 	ld [hl], a
 	ld hl, wEnemyMonStatus
 	ld a, [hl]
+
+;joenote - There is an oversight here. 
+;wWereAnyMonsAsleep can never get set off of a wild pokemon.
+;As as result, the wrong message plays when only the wild pokemon is woken up.
+;Need to check and set wWereAnyMonsAsleep here in order to fix it.
+	push af
+	and SLP ; is pokemon asleep?
+	jr z, .notAsleep
+	ld a, 1
+	ld [wWereAnyMonsAsleep], a ; indicate that a pokemon had to be woken up
+.notAsleep
+	pop af
+
 	and b ; remove Sleep status
 	ld [hl], a
 	call LoadScreenTilesFromBuffer2 ; restore saved screen
@@ -1953,8 +2019,13 @@ ItemUsePokeflute:
 ; if some pokemon were asleep
 	ld hl, PlayedFluteHadEffectText
 	call PrintText
-	ld a, [wLowHealthAlarm]
-	and $80
+
+;	ld a, [wLowHealthAlarm]
+;	and $80
+;joenote - more adjustments for the modified low HP alarm
+	ld a, [wLowHealthTonePairs]
+	bit 7, a
+
 	jr nz, .skipMusic
 	call WaitForSoundToFinish ; wait for sound to end
 	callba Music_PokeFluteInBattle ; play in-battle pokeflute music
@@ -2051,13 +2122,20 @@ CoinCaseNumCoinsText:
 	db "@"
 
 ItemUseOldRod:
-	;joenote - give 50% chance to use the Good Rod functionality when using the Old Rod
-	call Random
-	srl a
-	jr c, ItemUseGoodRod
-	
+	;joenote - chooses 1 of the first 4 pokemon off the good rod list based on the current map constant
+	;		-but 50% chance to hook a lvl 5 to 12 magikarp
 	call FishingInit
 	jp c, ItemUseNotTime
+	ld a, [hJoyHeld]
+	bit BIT_B_BUTTON, a
+	jr nz, .magikarp
+	call Random
+	srl a
+	jr c, .magikarp
+	ld a, [wCurMap]
+	and %11
+	jr ItemUseGoodRod.goodRodList
+.magikarp
 	lb bc, 5, MAGIKARP
 	ld a, $1 ; set bite
 	jr RodResponse
@@ -2065,16 +2143,25 @@ ItemUseOldRod:
 ItemUseGoodRod:
 	call FishingInit
 	jp c, ItemUseNotTime
-.RandomLoop
+;.RandomLoop
 	call Random
 	srl a
 	jr c, .SetBite
 	;and %11
 	;cp 2
-	;joenote - use the expanded list
-	and %1111
-	cp 8
-	jr nc, .RandomLoop
+;	jr nc, .RandomLoop
+;joenote - use the expanded list
+	push af
+	and %100
+	ld b, a
+	pop af
+	and $1
+	ld c, a
+	ld a, [wCurMap]
+	and %11
+	or b
+	add c
+.goodRodList
 	; choose which monster appears
 	ld hl, GoodRodMons
 	add a
@@ -2123,7 +2210,13 @@ RodResponse:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	ld [wCurEnemyLVL], a
 	ld a, c ; species
+;	ld [wCurOpponent], a
+;joenote - generate a random wild pokemon based on a seed value
+	ld [wcf91], a
+	predef ReplaceWildMon
+	ld a, [wcf91]
 	ld [wCurOpponent], a
+
 
 .next
 	ld hl, wWalkBikeSurfState
@@ -2172,7 +2265,15 @@ ItemUseItemfinder:
 	and a
 	jp nz, ItemUseNotTime
 	call ItemUseReloadOverworldData
+	ld a, [hJoyHeld]	;joenote - if SELECT is held while USE was chosen, then the original itemfinder is used
+	bit BIT_SELECT, a
+	jr nz, .original_finder
+	callba HiddenItemNear_Improved	;joenote - wrote a better itemfinder with better functionality
+	jr c, .print_found
+	jr .print_nothing
+.original_finder
 	callba HiddenItemNear ; check for hidden items
+.print_nothing
 	ld hl, ItemfinderFoundNothingText
 	jr nc, .printText ; if no hidden items
 	ld c, 4
@@ -2183,6 +2284,7 @@ ItemUseItemfinder:
 	call PlaySoundWaitForCurrent
 	dec c
 	jr nz, .loop
+.print_found
 	ld hl, ItemfinderFoundItemText
 .printText
 	jp PrintText
@@ -2214,6 +2316,13 @@ ItemUsePPRestore:
 	jr nc, .chooseMove
 	jp .itemNotUsed
 .chooseMove
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;joenote - in nuzlocke mode, cannot use PP items on dead pokemon
+	ld a, [wWhichPokemon]
+	ld [wUsedItemOnWhichPokemon], a
+	callba IsPartyMonDead
+	jp z, .noEffect
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	ld a, [wPPRestoreItem]
 	cp ELIXER
 	jp nc, .useElixir ; if Elixir or Max Elixir
@@ -2500,6 +2609,9 @@ ItemUseTMHM:
 	ld a, b
 	and a
 	ret z
+	xor a
+	cp c
+	ret c	;treat learning a field move from a TM the same as a HM
 	ld a, [wcf91]
 	call IsItemHM
 	ret c
@@ -3191,11 +3303,15 @@ INCLUDE "data/super_rod.asm"
 ; for items that cause the overworld to be displayed
 ItemUseReloadOverworldData:
 	call LoadCurrentMapView
-	jp UpdateSprites
+	call UpdateSprites
+	jp DelayFrame	;joenote - need to make sure OAM data gets updated too
 
 ; creates a list at wBuffer of maps where the mon in [wd11e] can be found.
 ; this is used by the pokedex to display locations the mon can be found on the map.
 FindWildLocationsOfMon:
+	ld a, [wd11e]
+	push af
+	predef LookupWildRandomMon	;joenote - adjusted to show locations of randomized wild mons
 	ld hl, WildDataPointers
 	ld de, wBuffer
 	ld c, $0
@@ -3222,6 +3338,8 @@ FindWildLocationsOfMon:
 .done
 	ld a, $ff ; list terminator
 	ld [de], a
+	pop af
+	ld [wd11e], a
 	ret
 
 CheckMapForMon:
@@ -3241,3 +3359,125 @@ CheckMapForMon:
 	jr nz, .loop
 	dec hl
 	ret
+
+;joenote - custom medicine items
+;HL points to wPartyMonxSpecies on entry and exit
+;DE must be preserved
+UseCustomMedicine:	
+;	ld a, [wcf91]
+
+	cp M_GENE	
+	jr z, .useMGene
+
+	cp MIST_STONE	
+	jr z, .useMistStone
+
+	jr .exit_no_usage
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;added code for the MIST_STONE
+.useMistStone
+	call VitaminLevelCheck
+	jp c, ItemUseMedicine.vitaminNoEffect
+
+	push hl
+	ld bc, wPartyMon1HPExp - wPartyMon1
+	add hl, bc ; hl now points to stat experience
+	ld b, 5
+	ld c, 5
+.useMistStone_loop
+	call CheckMaxStatExp
+	call c, .decB
+	ld a , $ff
+	ld [hli], a
+	ld [hli], a
+	dec c
+	jr nz, .useMistStone_loop
+	ld a, b
+	sub 1
+	pop hl
+	
+	call c, .maxDVs	;if stat exp is all at max, try to max the DVs
+	jp c, ItemUseMedicine.vitaminNoEffect	;no effect if everything is already at max
+	jr .exit_used_meds
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;added code for the M_GENE
+.useMGene
+	push hl
+	ld bc, wPartyMon1DVs - wPartyMon1
+	add hl, bc ; hl now points to DVs
+;generate new random DVs and make sure they are biased to be more than average
+;make all the DVs at least 8
+	call Random_BiasDV
+	or $98
+	ld [hli], a
+	ld a, b
+	or $88
+	ld [hl], a
+	pop hl
+	;fall through
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;jump back to the original function after using an item
+.exit_used_meds
+	jp ItemUseMedicine.returnDVMedicine
+	
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;jump back to the original function after not using an item
+.exit_no_usage
+	jp ItemUseMedicine.no_custom_medicine
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;max out the DVs
+.maxDVs	
+	push hl
+	ld bc, wPartyMon1DVs - wPartyMon1
+	add hl, bc ; hl now points to DVs
+	ld b, 2
+	ld a, [hli]
+	add 1
+	call c, .decB
+	ld a, [hld]
+	add 1
+	call c, .decB
+	ld a, b
+	sub 1
+	pop hl
+	ret c	;return with carry bit set if DVs are already at max
+	
+	push hl
+	ld bc, wPartyMon1DVs - wPartyMon1
+	add hl, bc ; hl now points to DVs
+	ld a, $ff
+	ld [hli], a
+	ld [hl], a
+	pop hl
+	ret
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;general decrement for conditionals
+.decB
+	dec b
+	ret
+	
+VitaminLevelCheck:
+	push hl
+	ld bc, wPartyMon1Level - wPartyMon1
+	add hl, bc
+	ld a, [hl]
+	pop hl
+	cp 31
+	ret
+	
+CheckMaxStatExp:
+	push de
+	ld a, [hli] ; a = MSB of stat experience of the appropriate stat
+	ld d, a
+	ld a, [hld]	; a = LSB of stat experience of the appropriate stat
+	ld e, a
+	ld a, 1
+	add e
+	ld a, 0
+	adc a, d
+	pop de
+	ret		;carry bit is set if there is an overflow
+
+

@@ -57,4 +57,17 @@ HiddenItemCoords:
 	db VERMILION_DOCK,$00,$15	;joenote - added hidden surfboard and some other dock goodies
 	db VERMILION_DOCK,$01,$01
 	db VERMILION_DOCK,$0A,$1B
+;joenote - added some additional hidden items
+	db CELADON_CITY,7,48	
+	db CELADON_CITY,34,48
+	db DIGLETTS_CAVE,13,30			
+	db DIGLETTS_CAVE,19,20		
+	db ROUTE_22,2,35
+	db VIRIDIAN_CITY,4,6
+	db PEWTER_CITY,3,6
+	db PEWTER_CITY,2,24
+	db ROUTE_6,4,3
+	db ROUTE_6,4,17
+	db ROUTE_11,17,55
+	db ROUTE_8,4,51
 	db $ff

@@ -151,10 +151,12 @@ PlaceEnemyHUDTiles:
 	call CopyData
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;joenote - don't draw any special symbols for ghost battles
+;joenote - don't draw any special symbols for ghost battles, including ghost marowak
 	ld a, [wFlags_D733]
 	bit 6, a
 	jr nz, .noDraw 
+	CheckEvent EVENT_10E
+	jr nz, .noDraw
 
 ;joenote - let's draw a shiny symbol if applicable
 	ld a, [wUnusedD366]

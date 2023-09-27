@@ -85,9 +85,7 @@ EncounterLoad_NuzlockeHandler:
 	;...because this should only continue onward once per battle
 
 	;comming from its position in PlaceEnemyHUDTiles, the enemy should already be a wild non-tower_ghost
-	;need to check for ghost marowak
-	CheckEvent EVENT_10E
-	jr nz, .return	;return if this is the ghost marowak
+	;this includes not being ghost marowak
 	
 	;don't automatically flag the area if this the Old Man tutorial battle
 	ld a, [wBattleType]

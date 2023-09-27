@@ -213,6 +213,8 @@ DayCareMText1:
 	ld [wd11e], a
 	
 	call EvoMoveStuff
+	push af	;preserve z flag state to see if evolution happened or not
+	
 	ld a, [wWhichPokemon]
 	dec a
 	ld [wWhichPokemon], a
@@ -221,8 +223,16 @@ DayCareMText1:
 	call AddNTimes
 	ld a, [hl]
 	ld [wd11e], a
-	call EvoMoveStuff
+	
+	pop af	;did evolution happen with the last call to EvoMoveStuff
+	push hl	;preserve the partymon position of the pokemon in question
+	call nz, EvoMoveStuff	;If so, need to call it again to update for moves and the 2nd evolution
 
+	pop hl
+	ld a, [hl]
+	ld [wd11e], a
+	call nz, EvoMoveStuff	;if a second evolution happened, update one more time for moves
+	
 	ld hl, DayCareGotMonBackText
 	jr .done
 
@@ -236,6 +246,8 @@ DayCareMText1:
 
 
 EvoMoveStuff:
+;sets z flag if no evolution happened
+;clears z flag if evolution happened
 	xor a 
 	ld [wMonDataLocation], a	; PLAYER_PARTY_DATA
 	ld [wForceEvolution], a

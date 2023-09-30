@@ -15,7 +15,9 @@ The main purpose of the accompanying source code repository is to study, comment
 It is important to record, for posterity's sake, the methods used for restoring the game to an error-free state.
 Finally, the source code documents many differences and changes between the various Japanese and English releases.
 
-Read the ["Guide to New Player Functions"](/patches_and_info/Guide_to_New_Player_Functions.md) for instructions on all the new stuff the player can do.
+***********************************************************************************************************************************Read the ["Guide to New Player Functions"](/patches_and_info/Guide_to_New_Player_Functions.md) for instructions on all the new stuff the player can do.**
+No, really, there's a TON of new options and features. You are bound to miss many of them if you do not read this guide.
+*********************************************************************************************************************************
 
 Don't like the non-vanilla changes? Prefer only the bugfixes and AI improvements? Want a codebase from which to launch your own rom hack? Then the [Lite branch](https://github.com/jojobear13/shinpokered/tree/lite) is what you want. Head on over and start compiling.
 

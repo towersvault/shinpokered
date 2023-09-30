@@ -40,8 +40,7 @@ Overall, the only loss is that sleep has a maximum possible lost-turn number of 
 **Trapping Moves**  
 Switching out of trapping moves (Wrap, Clamp, Fire Spin, etc) ends the move and wastes the trapper's turn.  
 This matches what Pokemon Stadium enforces upon trapping moves.  
-Additional changes exist that are not found in the Lite patches:  
-- A 'poof' animation plays to signal the last turn of a trapping move.  
+Additionally,except for the Lite patches, a 'poof' animation plays to signal the last turn of a trapping move.  
 
 **Critical Hits**  
 If a critical hit would do less damage than its non-critical value, the non-critical value will be used instead.  
@@ -65,7 +64,7 @@ Of note, all wild pokemon DV combinations are now possible regardless of the cur
 - Throwing a Safari ball in the Safari Zone simplifies to the following process.  
   - Generate two random numbers: Rand1 in the range of [0, 125] and Rand2 in the range of [0, 255].  
   - A catch is made if (Rand1 <= pokemon's catch rate) and (Rand2 <= 127), effectively a chance of [catch rate / 252].  
-- Except for the Lite patches, pokemon fleeing in the Safari Zone now use [1.5x Level] instead of [current speed].  
+- Except for the Lite patches, fleeing chance in the Safari Zone now uses [1.5 x Level] instead of [current speed].  
   - This greatly reins in fleeing by fast pokemon and slightly boosts fleeing by slow pokemon.  
   - The "angry" state flees at about 26%-36% per turn.  
   - Likewise, the "eating" state flees at about 3%-5% percent per turn.  
@@ -76,7 +75,45 @@ Of note, all wild pokemon DV combinations are now possible regardless of the cur
     - Now throw Safari balls while enjoying a low flee chance with an increased catch rate.  
 
 
-#New Engine Functions
+#Debug Functions
+-----------------------------------------------
+**Softlock Warp**  
+This will instantly teleport you back to your mom's house in Pallet Town if you get stuck.  
+It also sets your money to at least 1000 if you have less than that.  
+Use this warp if you find yourself unable to move after updating to a new patch.  
+Instructions to perform:  
+1 - Go to the start menu and put the cursor on OPTION.  
+2 - Press and hold DOWN on the d-pad. The cursor will now be on EXIT.  
+3 - While continuing to hold DOWN, press and hold SELECT.  
+4 - While still continuing to hold the two aforementioned buttons, press B.  
+5 - The start menu should close and you will warp back to your mom's house.  
+
+**Vanilla Options Reset**  
+This will undo all of the special options in case you are updating to a new patch.  
+Instructions to perform:  
+1 - Go to the start menu and put the cursor on the top option (usually POKEDEX).  
+2 - Press and hold UP on the d-pad. The cursor will now be on EXIT.  
+3 - While continuing to hold UP, press and hold SELECT.  
+4 - While still continuing to hold the two aforementioned buttons, press B.  
+5 - The start menu should close and you will will hear a jingle.  
+
+**Debug Damage Display**  
+As a debugging cheat, damage values will be displayed in battle as the UI updates.  
+Toggled on/off via the following method:  
+1 - Go to the start menu and put the cursor on OPTION.  
+2 - Press and hold DOWN on the d-pad. The cursor will now be on EXIT.  
+3 - While continuing to hold DOWN, press and hold SELECT.  
+4 - While still continuing to hold the two aforementioned buttons, press A.  
+5 - The start menu should close. A PC "boot up" sfx will play to indicate ON, or "shutdown" sfx to indicate OFF.  
+Zero damage is not displayed.  
+Damage is not displayed if either pokemon has zero HP remaining.  
+
+**Debug RNG Seed Display**  
+At the title screen, press and hold A + SELECT until the main menu appears.  
+This will display the 4-byte RNG seed at the main menu for debugging purposes.  
+
+
+#Engine Functions
 -----------------------------------------------
 **Activate Color Correction**  
 This applies when playing or emulating as a Gameboy Color game.  
@@ -106,39 +143,52 @@ With the cursor over FAST text speed, press LEFT to toggle this feature on and o
 A "!" symbol appears next to FAST while this feature is active.  
 Please note that other text speed selections do nothing while this feature is active.  
 
-**Softlock Warp**  
-This will instantly teleport you back to your mom's house in Pallet Town if you get stuck.  
-It also sets your money to at least 1000 if you have less than that.  
-Use this warp if you find yourself unable to move after updating to a new patch.  
-Instructions to perform:  
-1 - Go to the start menu and put the cursor on OPTION.  
-2 - Press and hold DOWN on the d-pad. The cursor will now be on EXIT.  
-3 - While continuing to hold DOWN, press and hold SELECT.  
-4 - While still continuing to hold the two aforementioned buttons, press B.  
-5 - The start menu should close and you will warp back to your mom's house.  
 
-**Vanilla Options Reset**  
-This will undo all of the special options in case you are updating to a new patch.  
-Instructions to perform:  
-1 - Go to the start menu and put the cursor on the top option (usually POKEDEX).  
-2 - Press and hold UP on the d-pad. The cursor will now be on EXIT.  
-3 - While continuing to hold UP, press and hold SELECT.  
-4 - While still continuing to hold the two aforementioned buttons, press B.  
-5 - The start menu should close and you will will hear a jingle.  
+#Difficulty Settings
+-----------------------------------------------
+**Hard Mode**  
+A NEW GAME now defaults to the SET battle style and hard mode in the options menu, except for the Lite patches.  
+Pressing RIGHT while the cursor is in the BATTLE STYLE box will toggle the feature on/off.  
+Contrasting this, pressing LEFT will let you select a battle style without toggling difficulty.  
+Playing in hard mode imposes several changes to the game's systems that increase difficulty:  
+1 - Enemy trainer pokemon are assigned level-appropriate StatEXP whereas they previously had none.  
+2 - Enemy trainer pokemon have above-average DVs whereas they previously all had values of 8 or 9.  
+3 - Stat boosts granted by badges are disabled during trainer battles.  
+4 - X-stat items increase by two stages instead of one like in more recent generations.  
+5 - Revive items can only be used outside of battle.  
+6 - Wild Mewtwo uses trainer AI to choose its moves, and it also blocks you from using a Master Ball.  
+7 - Non-link battles in hard mode use the Stadium 1 formulas for critical hit probability.  
+8 - Wild pokemon DVs get 1 re-roll each if less than 4, biasing them upwards a little bit
 
-**Debug Damage Display**  
-As a debugging cheat, damage values will be displayed in battle as the UI updates.  
-Toggled on/off the same way as the softlock warp, but by using 'A' instead of 'B'.  
-Zero damage is not displayed.  
-Damage is not displayed if either pokemon has zero HP remaining.  
+**Deactivate Intelligent Trainer Switching**  
+- This feature disallows enemy trainers to switch intelligently, just like in the original retail games.
+- With the cursor in the TEXT SPEED section of the option menu, press A to toggle this feature on and off.
+- The letters "x sw" will appear in the corner of the option menu to indicate that trainer switching is inactive.
+- Note that Jugglers are unaffected because their official gimmick is that they switch randomly.
 
-**Debug RNG Seed Display**  
-At the title screen, press and hold A + SELECT.  
-This will display the 4-byte RNG seed at the main menu for debugging purposes.  
+**Obedience Level Cap**  
+Not available in the Lite patches.  
+There is now an obedience level cap that can be toggled in the options menu.  
+With the cursor in the BATTLE STYLE section, press A to toggle it on and off.  
+While active, the current maximum obedience level will display in the options menu.  
+All pokemon, not just trades, will start to disobey if over the displayed level cap.  
+The cap will change based on which badge you have.  
+This is intended as an alternative to, and not to be used with, the Scale Enemy Trainer Levels feature.  
+It provides a different challenge where one is forced to keep a team within the game's level curve.  
+Players should deactivate this feature for post-game adventuring past the level-cap.  
 
-**Regular Trainer Randomization**  
-One of Oak's Aides has been added to the Viridian Pokemon Center. Talk to him to toggle this feature.  
-This randomizes the teams of regular no-name trainers that do not have roster customization.  
+**Scale Enemy Trainer Levels**  
+Not available in the Lite patches.  
+Talk to the aide in the lower-right section of Oak's lab to toggle this feature.  
+While active, enemy trainer roster levels will scale upwards relative to the highest-level pokemon in your party.  
+Enemy pokemon will evolve by level if applicable (biased to higher levels).  
+Gym leaders and the Elite-4 scale slightly higher than normal trainers.  
+Warning - The difficulty will be compounded if both trainer scaling and hard mode are active.  
+
+
+#Battle Modifiers
+-----------------------------------------------
+Note: These are not available in the Lite patches.    
 
 **Wild & Starter Pokemon Randomization**  
 The girl in Oak's lab toggles on/off a built-in randomizer for wild pokemon.  
@@ -152,55 +202,10 @@ And a new random seed is generated upon each new game.
 Shuffling is done using three internal pokemon lists defined by base-stat-total: A, B, and C tiers.  
 Pokemon are only shuffled within their own tier list in order to maintain some modicum of balance.  
 
-**New Game Plus**  
-Still somewhat experimental.  
-Activated under these conditions:  
-1 - Must have an existing non-corrupt game save on-file.  
-2 - Must have beaten the Elite-4 in the on-file save.  
-3 - Press and hold SELECT while choosing the NEW GAME option.  
-4 - A jingle will play to indicate NG+ has activated and the SELECT button can now be released.  
-Preserves ONLY the following information (your current party will be lost):  
-- Boxed pokemon  
-- Play clock  
-- Pokedex seen/owned registry  
-- Hall of Fame (experimental)  
-- Option screen selections  
-- Trainer ID (boxed pokemon won't count as traded)  
-
-
-#Functions for Adjusting Difficulty
------------------------------------------------
-**Increase Difficulty**  
-A NEW GAME now defaults to the SET battle style and hard mode in the options menu.  
-Pressing RIGHT while the cursor is in the BATTLE STYLE box will toggle the feature on/off.  
-Contrasting this, pressing LEFT will let you select a battle style without toggling difficulty.  
-Playing in hard mode imposes several changes to the game's systems that increase difficulty:  
-1 - Enemy trainer pokemon are assigned level-appropriate StatEXP whereas they previously had none.  
-2 - Enemy trainer pokemon have above-average DVs whereas they previously all had values of 8 or 9.  
-3 - Stat boosts granted by badges are disabled during trainer battles.  
-4 - X-stat items increase by two stages instead of one like in more recent generations.  
-5 - Revive items can only be used outside of battle.  
-6 - Wild Mewtwo uses trainer AI to choose its moves, and it also blocks you from using a Master Ball.  
-7 - Non-link battles in hard mode use the Stadium 1 formulas for critical hit probability.  
-8 - Wild pokemon DVs get 1 re-roll each if less than 4, biasing them upwards a little bit
-
-Warning - The difficulty will be compounded if both trainer scaling and hard mode are active.  
-
-**Scale Enemy Trainer Levels**  
-Talk to the aide in the lower-right section of Oak's lab to toggle this feature.  
-While active, enemy trainer roster levels will scale upwards relative to the highest-level pokemon in your party.  
-Enemy pokemon will evolve by level if applicable (biased to higher levels).  
-Gym leaders and the Elite-4 scale slightly higher than normal trainers.  
-
-**Obedience Level Cap**  
-There is now an obedience level cap that can be toggled in the options menu.  
-With the cursor in the BATTLE STYLE section, press A to toggle it on and off.  
-While active, the current maximum obedience level will display in the options menu.  
-All pokemon, not just trades, will start to disobey if over the displayed level cap.  
-The cap will change based on which badge you have.  
-This is intended as an alternative to, and not to be used with, the Scale Enemy Trainer Levels feature.  
-It provides a different challenge where one is forced to keep a team within the game's level curve.  
-Players should deactivate this feature for post-game adventuring past the level-cap.  
+**Regular Trainer Randomization**  
+One of Oak's Aides has been added to the Viridian Pokemon Center. Talk to him to toggle this feature.  
+This randomizes the teams of regular no-name trainers that do not have roster customization.  
+The randomization method is the same as for the previously mentioned wild pokemon.  
 
 **Sleep, Freeze, and Item Clauses**  
 The house to the lower-left of Viridian Gym is home to three new NPCs named the Clause Brothers.  
@@ -222,47 +227,14 @@ The clauses apply to the player and AI equally, and they only apply during non-l
 - Added a fifth Clause Brother for the hyper beam clause.
 - Hyper beam will recharge if it KOs the opponent.
 
-**Deactivate Intelligent Trainer Switching**  
-- This feature disallows enemy trainers to switch intelligently, just like in the original retail games.
-- With the cursor in the TEXT SPEED section of the option menu, press A to toggle this feature on and off.
-- the letters "x sw" will appear in the corner of the option menu to indicate that trainer switching is inactive.
-- Note that Jugglers are unaffected because their official gimmick is that they switch randomly.
 
-
-#New Gameplay Features
+#Button-Activated Features
 -----------------------------------------------
-**Play as a Female Trainer**  
-When choosing NEW GAME, you will be asked if you are a girl.  
-Choose YES to play the game as a girl character, or choose NO to play as a boy character.  
+Note: These are not available in the Lite patches.    
 
 **Running Shoes**  
 Hold the B button to move at double your normal speed.  
 This also works when surfing or using your bike.  
-
-**Extra Bag Space**  
-The bag now supports an additional item list for an extra 20 slots of space.  
-Press START while in the bag menu to hot-swap the item list that populates the active bag.  
-This also works in battle or when depositing items into the PC.  
-In general, the non-active item list gets recognized by the game's systems.  
-For example, you can enter the Cinnabar Gym even if the Secret Key is in the non-active bag space.  
-For certain unique systems, like Pokemon Stadium compatibility, only the active bag list is detected.  
-
-**Bag Auto-Sort**  
-You can now automatically sort all the items in the active bag space or the PC item box.  
-Hold SELECT and press START while on the bag or box menu to auto-sort your items.  
-
-**Temporary Field Move Slots**  
-When teaching a pokemon a field move outside of battle, such as with a HM, this feature becomes apparent.  
-You will be asked if you would like to teach it as a temporary field move.  
-If so, it will be learned into a special field move slot that is separate from the normal list of four moves.  
-Such a temporary move cannot be used in battle, but it can be used in the overworld as normal.  
-Each pokemon on your team can have one temporary field move at a time.  
-Having one will display it on the status screen above the pokemon's other moves.  
-A temporary field move cannot be overwritten with another field move.  
-But it will be erased if its owning pokemon leaves the party (such as by being deposited in the PC).  
-If all four of a pokemon's regular moves are field moves, its temporary field move cannot be menu-selected.  
-But if a fifth field move in the temporary slot is a HM, it can still be activated via One-Button HM Usage.  
-Teaching a TM as a field move will not consume the TM.  
 
 **One-Button HM Usage**  
 You must still have the correct badge and move on one of your pokemon to use a HM in this way.  
@@ -284,10 +256,32 @@ Text for NPCs, signs, objects, etc, have priority, so do not face toward these t
 Press and hold A. While doing that, press SELECT. You can now release the two buttons.  
 This will tell the game to get on your bike. You can also get off your bike the same way.  
 
-**Rematch Enemy Trainers**  
-The gym leaders and most trainers can be rematched.  
-Simply talk to them once or twice. Select YES when prompted.  
-If Giovanni has disappeared from his gym, exit and re-enter the gym to bring him back.  
+**Extra Bag Pocket**  
+The bag now supports an additional item list for an extra 20 slots of space.  
+Press START while in the bag menu to hot-swap the item list that populates the active bag.  
+This also works in battle or when depositing items into the PC.  
+In general, the non-active item list gets recognized by the game's systems.  
+For example, you can enter the Cinnabar Gym even if the Secret Key is in the non-active bag space.  
+For certain unique systems, like Pokemon Stadium compatibility, only the active bag list is detected.  
+
+**Bag Auto-Sort**  
+You can now automatically sort all the items in the active bag space or the PC item box.  
+Hold SELECT and press START while on the bag or box menu to auto-sort your items.  
+
+**Display Pokemon DVs**  
+Determinant Values (DVs) are the predecessors to the Individual Values (IVs) used in Gen 3 and onwards.  
+Unlike IVs, DV are on a scale from 0 to 15.  
+On the pokemon menu, select a pokemon and place the cursor over STATS.  
+While holding the START button, press the A button to enter the pokemon's status screen.  
+In place of the pokemon's HP and stat values, it's corresponding DVs will be displayed instead.  
+
+**Display Pokemon StatEXP**  
+Stat Experience (StatEXP) is the predecessor to the Effort Values (EVs) used in Gen 3 and onwards.  
+Unlike EVs, StatEXP values are on a scale from 0 to 65535 and there is no sum total limit between stats.  
+At level 100, a pokemon gains extra points in a stat equal to 0.25 x SQRT(StatEXP) rounded down.  
+On the pokemon menu, select a pokemon and place the cursor over STATS.  
+While holding the SELECT button, press the A button to enter the pokemon's status screen.  
+In place of the pokemon's HP and stat values, it's corresponding StatEXP values will be displayed instead.  
 
 **Forfeit Trainer Battles**  
 You can now forfeit a trainer battle to force yourself to black out.  
@@ -295,6 +289,60 @@ This can be useful for escaping in-battle softlock scenarios or creating variant
 On the main battle menu, place the cursor over RUN.  
 While holding the SELECT button, press the A button.  
 You will be asked to confirm your decision. Choose YES to forfeit or NO to cancel.  
+
+**View a Shiny Palette**  
+This applies when playing or emulating as a Gameboy Color or Super Gameboy game.  
+Choose a pokemon in the pokedex and place the cursor over DATA.  
+While holding the SELECT button, press the A button to view it's pokedex entry.  
+The pokedex entry will display the pokemon with its shiny palette swap.  
+
+**Audio Cue for Owned Pokemon**  
+On the main battle menu, place the cursor over an option in the left column (FIGHT or ITEM).  
+Press the SELECT button.  
+The active enemy pokemon will play its cry if that species is registered as Owned in your pokedex.  
+
+**New Game Plus**  
+Still somewhat experimental.  
+Activated under these conditions:  
+1 - Must have an existing non-corrupt game save on-file.  
+2 - Must have beaten the Elite-4 in the on-file save.  
+3 - Press and hold SELECT while choosing the NEW GAME option.  
+4 - A jingle will play to indicate NG+ has activated and the SELECT button can now be released.  
+Preserves ONLY the following information (your current party will be lost):  
+- Boxed pokemon  
+- Play clock  
+- Pokedex seen/owned registry  
+- Hall of Fame (experimental)  
+- Option screen selections  
+- Trainer ID (boxed pokemon won't count as traded)  
+
+
+#Gameplay-Related Features
+-----------------------------------------------
+Note: These are not available in the Lite patches.    
+
+**Play as a Female Trainer**  
+When choosing NEW GAME, you will be asked if you are a boy or a girl.  
+Choose GIRL to play as the female trainer.  
+Choose BOY to play as the usual male trainer.  
+
+**Temporary Field Move Slots**  
+When teaching a pokemon a field move outside of battle, such as with a HM, this feature becomes apparent.  
+You will be asked if you would like to teach it as a temporary field move.  
+If so, it will be learned into a special field move slot that is separate from the normal list of four moves.  
+Such a temporary move cannot be used in battle, but it can be used in the overworld as normal.  
+Each pokemon on your team can have one temporary field move at a time.  
+Having one will display it on the status screen above the pokemon's other moves.  
+A temporary field move cannot be overwritten with another field move.  
+But it will be erased if its owning pokemon leaves the party (such as by being deposited in the PC).  
+If all four of a pokemon's regular moves are field moves, its temporary field move cannot be menu-selected.  
+But if a fifth field move in the temporary slot is a HM, it can still be activated via One-Button HM Usage.  
+Teaching a TM as a field move will not consume the TM.  
+
+**Rematch Enemy Trainers**  
+The gym leaders and most trainers can be rematched.  
+Simply talk to them once or twice. Select YES when prompted.  
+If Giovanni has disappeared from his gym, exit and re-enter the gym to bring him back.  
 
 **Reworked Fishing**  
 - The locations of the Good Rod and the Super Rod have been swapped.  
@@ -339,31 +387,7 @@ And yes, pokemon with HM moves are now allowed in the daycare.
 
 #Trainer-Aiding Features
 -----------------------------------------------
-**Display Pokemon DVs**  
-Determinant Values (DVs) are the predecessors to the Individual Values (IVs) used in Gen 3 and onwards.  
-Unlike IVs, DV are on a scale from 0 to 15.  
-On the pokemon menu, select a pokemon and place the cursor over STATS.  
-While holding the START button, press the A button to enter the pokemon's status screen.  
-In place of the pokemon's HP and stat values, it's corresponding DVs will be displayed instead.  
-
-**Display Pokemon StatEXP**  
-Stat Experience (StatEXP) is the predecessor to the Effort Values (EVs) used in Gen 3 and onwards.  
-Unlike EVs, StatEXP values are on a scale from 0 to 65535 and there is no sum total limit between stats.  
-At level 100, a pokemon gains extra points in a stat equal to 0.25 x SQRT(StatEXP) rounded down.  
-On the pokemon menu, select a pokemon and place the cursor over STATS.  
-While holding the SELECT button, press the A button to enter the pokemon's status screen.  
-In place of the pokemon's HP and stat values, it's corresponding StatEXP values will be displayed instead.  
-
-**View a Shiny Palette**  
-This applies when playing or emulating as a Gameboy Color or Super Gameboy game.  
-Choose a pokemon in the pokedex and place the cursor over DATA.  
-While holding the SELECT button, press the A button to view it's pokedex entry.  
-The pokedex entry will display the pokemon with its shiny palette swap.  
-
-**Audio Cue for Owned Pokemon**  
-On the main battle menu, place the cursor over an option in the left column (FIGHT or ITEM).  
-Press the SELECT button.  
-The active enemy pokemon will play its cry if that species is registered as Owned in your pokedex.  
+Note: These are not available in the Lite patches.    
 
 **Caught Symbol and Gender Symbol**  
 Talk to the aide in the lower-left section of Oak's lab to toggle this feature after obtaining the pokedex.  
@@ -387,8 +411,8 @@ Place his requested pokemon at the top of your team and speak to him to get your
 **Catch-Up EXP Booster**  
 Talk to the aide in the Celadon Diner to toggle this feature.  
 While active, EXP gained is boosted if the active pokemon's level is lower than that of the fainted enemy.  
-The boost is 1.5x multiplied by an additional 1.5x for every 3 levels of difference.  
-For example, a level gap of 10 results in an EXP multiplier of (1.5)^4 = 5.0625.  
+The boost is 1.5 multiplied by an additional 1.5 for every 3 levels of difference.  
+For example, a level difference of 9 results in an EXP multiplier of (1.5)^4 = 5.0625.  
 Use this feature to help you train-up new team members in the mid-to-late game.  
 
 **Get a Free Paras**  
@@ -448,6 +472,8 @@ Example of selecting for a shiny pokemon:
 
 #Additions to the Post-Game
 -----------------------------------------------
+Note: These are not available in the Lite patches.    
+
 **SS Anne Tournament**  
 You can return to the SS Anne after beating the Elite-4. Find the Gym Guy hanging out in the kitchen.  
 He is organizing a little tournament with the following rules:  
@@ -463,6 +489,9 @@ Winning the tournament rewards you with a Master Ball.
 **Rare Item Shop**  
 The 3rd floor of the Celadon Dept. Store has a shop open up after beating the Elite-4.  
 It sells things like Fossils, Rare Candy, and Moon Stones.  
+
+**Uncapped Vitamins**  
+After beating the Elite-4, vitamins have no limit placed upon them when used on pokemon of level > 30.  
 
 **Selling Pokemon**  
 Find the house with the game corner CHIEF in Celadon City.  
@@ -485,7 +514,7 @@ Win 5 matches in a row against him without leaving the area to get the new M.GEN
 The M.Gene can be used on a pokemon out of battle in order to re-randomize its DVs with above-average values.  
 
 **Mirror Match Battle Generator**  
-A pokemaniac with a flair for theatrics has been added to the north-south underground path.  
+Pagliacco, A pokemaniac with a flair for theatrics, has been added to the north-south underground path.  
 After the Elite-4 are beaten, he will offer to engage you in a mirror match against your own party.  
 
 **Special Trainer Battles**  
@@ -500,6 +529,8 @@ But this assumes you are able to find the secret room for obtaining it.
 
 #Pro-Tips
 -----------------------------------------------
+Note: These are not applicable to the Lite patches, except for increased trainer aggression. Really...buy healing items.  
+
 **Gift, Prize, and Trade Pokemon**  
 Pokemon that are given to you by NPCs have above-average DVs.  
 This applies whether it is a gift, in-game trade, or a purchase.  
@@ -511,12 +542,12 @@ Though still single-use, all TMs can be repurchased from pokemarts around the re
 So don't be shy about using TMs acquired from NPCs and exploration.  
 
 **Stock-Up on Items**  
-Enemy trainers are more agressive about attacking, so your team incurs more damage over time.  
+Enemy trainers are more aggressive about attacking, so your team incurs more damage over time.  
 Be sure to purchase a reasonable stock of healing items to counter the increased attrition.  
 
 **Big EXP Gains**  
 The Catch-Up Booster bonus compounds with other 1.5x EXP bonuses in the game.  
-With this is in mind, activate level-scaling and do trainer rematches to gain loads of EXP.  
+With this is in mind, activate level-scaling and do trainer rematches with a traded pokemon to gain loads of EXP.  
 
 **Training in Post-Game Without Battling**  
 Here is an alternative to grinding out battles in the post-game.  
@@ -528,31 +559,30 @@ Here is an alternative to grinding out battles in the post-game.
 
 **Secret Hints**  
 1 - Try winning the SS Anne tournament with a Pikachu in your party.  
-2 - After beating the Elite-4, vitamins are no longer limited on your lvl > 30 pokemon.  
+2 - Want your 1st-roster-slot Dragonite to be able to learn Fly? Maybe Lance can help you.  
 3 - The fourth special trainer hints at the method to find Mew. But Mew only appears once.  
 4 - There is a fifth special trainer outside Bill's house. Victory respawns the legendaries, Mew, and mist stone.  
 5 - The Vermilion Dock has three hidden items.  
 6 - Fish in the lowest level of Cerulean Cave for something strange.  
 7 - Place a level 100 Chansey at the top of your party and use a repel. You're bound to find something shiny.  
 8 - When going to the game corner, try having your 1st-slot pokemon know Pay Day. It may tip you off.  
-9 - Missingno can be activated in either Seafoam or Cinnabar with your pokedex diploma. Prepare your sixth item slot for victory. Beating the seafoam missingo battle will add an achievement to your diploma.  
+9 - After getting your 'dex diploma, Missingno can be activated on either Seafoam or Cinnabar. Prepare your sixth item slot for victory. Beating the seafoam Missingo battle will add an achievement to your diploma.  
 10 - Mercy is granted if you encounter an enemy trainer with a shiny pokemon.  
 11 - Put Mewtwo at the top of your party in the post-game. How will Mr. Fuji react?  
 12 - Bill's secret garden? He'll never tell! Could showing him a new species pokemon persuade him?  
-13 - Search all over the Kanto overworld to find a secret cave room, or else you'll never get a mist stone.  
-14 - Want your #1 Dragonite to fly? Maybe Lance can help you.  
+13 - Search all over the Kanto overworld to find a secret cave room, or else you'll never get a mist stone.   
 
 **Gameshark Codes**  
 Here are some freshly-baked cheat codes unique to Shin Pokemon.  
   - 010042DA: If your play-clock was maxed at 255 from a previous save file, this will unlock the expanded game clock.  
-
-These codes do not work on the Lite patches.  
   - 0180C4CF: The next encounter will be a shiny pokemon.
   - 01xx21D7: Resets the options and changes the player graphics to male (xx=00) or female (xx=01).
 
 
 #Built-In Nuzlocke Mode
 -----------------------------------------------
+Note: Not available in the Lite patches.    
+
 - Activation/Deactivation
   - Go to the OPTIONS screen.
   - Place the cursor in the BATTLE ANIMATION section.
@@ -567,8 +597,7 @@ These codes do not work on the Lite patches.
   
 - Rule 1: A pokemon that faints is considered dead and can no longer be used.
   - Revival items cannot be used in battle.
-  - If a battle ends with no forfeiture, all pokemon with 0 HP are marked dead.
-  - If a battle ends in a forfeit (via the Forfeit Trainer Battles feature), all pokemon with 0 HP before the forfeit are marked dead.
+  - At the end of a battle, all pokemon with 0 HP are marked dead.
   - Pokemon marked as dead have $05 written to their catch rate to permanently mark them.
   - Even if they are traded back and forth, dead pokemon remain marked as dead while in nuzlocke mode.
   - Medicinal items will not work on pokemon marked as dead, nor will Soft-boiled.
@@ -595,7 +624,7 @@ These codes do not work on the Lite patches.
   - Duplication Clause: Encountering a wild "owned" pokemon will not activate Rule 2.
   - Rule 2 resets for the Safari Zone area upon paying the entrance fee.
   - Catching a pokemon, even if owned, always activates Rule 2. Important for the Safari Zone and New Game+.
-  - Dead pokemon can still use overworld moves (HM moves, Teleport, etc).
+  - Dead pokemon can still use field moves (HM moves, Teleport, etc).
 
 - Visual Aides:
   - An Up-Down-Arrow symbol will display on the HUD of a wild pokemon if a ball is allowed to be tossed.

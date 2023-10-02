@@ -95,6 +95,17 @@ DetermineWildMonDVs:
 	ld a, [wFontLoaded]
 	bit 7, a
 	jr z, .do_random
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;exclude tower ghosts and old man tutorial
+	ld a, [wBattleType]
+	dec a
+	jr z, .do_random
+	ld a, [wFlags_D733]
+	bit 6, a
+	jr nz, .do_random 
+	CheckEvent EVENT_10E
+	jr nz, .do_random	
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	ld b, $AA
 	call Random	;get random number into a
 	or $20	;set only bit 5

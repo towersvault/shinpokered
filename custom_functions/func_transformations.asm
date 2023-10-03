@@ -79,12 +79,26 @@ CanGetShimmer:
 ;uses BC
 ;sets z flag if true
 CheckForShimmerVal:
+	jr .checkForBoss
+.back
 	ld bc, (wBattleMonCatchRate - wBattleMon)
 	add hl, bc
 	ld a, [hl]
 	cp $6D
 	ret
-
+.checkForBoss
+;if wGymLeaderNo = 8 or more (for the purposes of battle music), always make the AI trainer have shimmer if applicable
+	ld a, [wGymLeaderNo]
+	cp 8
+	jr c, .back
+	;check to make sure this is the enemy
+	ld bc, wEnemyMon
+	ld a, b
+	sub h
+	add c
+	sub l
+	jr nz, .back
+	ret
 
 ;Called if the eligible pokemon does not have the latent shimmer factor in its data struct
 ;This gives a chance to spontaneously modify its data to have the latent shimmer factor

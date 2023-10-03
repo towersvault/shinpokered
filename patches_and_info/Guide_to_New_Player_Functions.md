@@ -383,6 +383,8 @@ And yes, pokemon with HM moves are now allowed in the daycare.
   - The shimmer factor appears randomly and secretly, being more likely to occur by training and sending out eligible 'mons.
   - The shimmer only manifests in 'mons that are fully evolved, even if their pre-evos gained the secret shimmer factor.
   - When the shimmer manifests as a 'mon gets sent out, that 'mon gets a large boost to some stats that are low-to-poor.
+  - There is a slight chance that the shimmer will manifest on applicable enemy trainer pokemon.
+  - Certain select enemy trainers will always manifest the shimmer on their applicable pokemon.
 
 
 #Trainer-Aiding Features

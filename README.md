@@ -1,6 +1,6 @@
 # Shin Pokémon Red, Blue, Green, Red-JP, & Blue-JP
 
-Version 1.24.0
+Version 1.24.1 in-progress development
 
 *Shin (真) - The kanji for "true".  
 Used in Japanese media to denote a remastering, updated retelling , or a "true form" of something.*  
@@ -330,7 +330,14 @@ Cheats and Secrets!
 #Changelog From the Last Full Release
 -----------
 **Note: Changelogs may contain spoilers**  
-[View the Consolidated Changelog Document](/patches_and_info/changelog_from_v1.23.md)  
+[View the Consolidated Changelog Document from 1.23 to 1.24.0](/patches_and_info/changelog_from_v1.23.md)  
+
+v1.24.1  
+- If active, the shimmer will always manifest on the applicable pokemon of Bruno, Agatha, and the Karate Master
+- Karate Master's pokemon increased from level 37 to 38
+- Extended shiny mercy to tower ghosts, ghost marowak, and old man battle
+- Fixed daycare somtimes prompting to learn the same move twice
+- Fixed special HUD symbols displaying during the ghost marowak encounter
 
 
 #Bugfixes
@@ -1202,6 +1209,7 @@ Cheats and Secrets!
 - Shiny Mercy 
   - When a player encounters an AI trainer shiny pokemon, the next wild encounter will be shiny
   - AI trainers can only have shinies in hard mode, so it affords more chances to find wild shinies
+  - Also, shiny mercy extends to tower ghosts, ghost marowak, and the old man catching tutorial
 - Winning the SS Anne tournament with a pikachu in the party will set its catch rate to 168
   - In this rom hack, a pikachu with this catch rate can be taught Surf via HM
   - This catch rate makes it hold a gorgeous box if transferred to Gen 2
@@ -1257,7 +1265,9 @@ Cheats and Secrets!
   - The manifestation of the shimmer boosts one-to-four of a 'mons unmodified stats.
 	- If 3/8ths of an unmodified stat is less than the mon's level, then the level value is added to that stat.
     - Stats that can be boosted are: attack, defense, speed, or special.
-
+  - There is a 1-in-256 chance of shimmer manifesting on an applicable enemy trainer pokemon.
+  - Given their rosters, the shimmer will always manifest on the applicable pokemon of Bruno, Agatha, and the Karate Master.
+  
 </details>
 
 

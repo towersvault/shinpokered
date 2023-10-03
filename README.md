@@ -1265,7 +1265,7 @@ v1.24.1
   - The manifestation of the shimmer boosts one-to-four of a 'mons unmodified stats.
 	- If 3/8ths of an unmodified stat is less than the mon's level, then the level value is added to that stat.
     - Stats that can be boosted are: attack, defense, speed, or special.
-  - There is a 1-in-256 chance of shimmer manifesting on an applicable enemy trainer pokemon.
+  - There is the same chance of shimmer manifesting on applicable enemy trainer pokemon.
   - Given their rosters, the shimmer will always manifest on the applicable pokemon of Bruno, Agatha, and the Karate Master.
   
 </details>

@@ -599,7 +599,8 @@ Note: Not available in the Lite patches.
   
 - Rule 1: A pokemon that faints is considered dead and can no longer be used.
   - Revival items cannot be used in battle.
-  - At the end of a battle, all pokemon with 0 HP are marked dead.
+  - If a battle ends with no forfeiture, all pokemon with 0 HP are marked dead.
+  - If a battle ends in a forfeit, all pokemon with 0 HP before the forfeit are marked dead.
   - Pokemon marked as dead have $05 written to their catch rate to permanently mark them.
   - Even if they are traded back and forth, dead pokemon remain marked as dead while in nuzlocke mode.
   - Medicinal items will not work on pokemon marked as dead, nor will Soft-boiled.

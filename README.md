@@ -333,6 +333,10 @@ Cheats and Secrets!
 [View the Consolidated Changelog Document from 1.23 to 1.24.0](/patches_and_info/changelog_from_v1.23.md)  
 
 v1.24.1  
+- *Fixed a bug catcher on route 9 being able to walk onto a ledge
+- *The message for substitute taking damage now only displays after the first attack of a multi-attack move
+- *Multi-attack moves display effectivenes only on first attack instead of the last attack
+- *Twineedle does not print redundant messages like other multi-hit moves
 - If active, the shimmer will always manifest on the applicable pokemon of Bruno, Agatha, and the Karate Master
 - Karate Master's pokemon increased from level 37 to 38
 - Extended shiny mercy to tower ghosts, ghost marowak, and old man battle
@@ -509,6 +513,7 @@ v1.24.1
   - Fixed a bug where HP bar animation can print the wrong tile for 1 frame
   - Fixed junk tiles displaying for 1 frame when the game resets after displaying THE END
   - Fixed transitions when entering and exiting Rock Tunnel
+  - Fixed a bug catcher on route 9 being able to walk onto a ledge
 
 
 - Item Fixes  
@@ -674,10 +679,10 @@ v1.24.1
   - Corrected and clarified the quiz text in the cinnabar gym
   - Clarified the text for the super repel on 2F of the celadon dept store
 - Adjustments to multi-attack moves animation and messaging to improve battle flow
-  - Multi-attack moves only print the effectiveness message after the last attack
+  - Multi-attack moves only print the effectiveness message after the first attack
   - 2-attack moves do not print "hit 2 times" because its obvious that they always hit twice
   - Multi-attack moves hide the substitute sprite on the first attack and only restore it after the last attack
-  - Twineedle is unaffected by all this due to how it swaps out its effect on the fly to a poison side-effect
+  - The message for substitute taking damage now only displays after the first attack of a multi-attack move
 
 - Adjustments to moves  
   - Stat-down moves no longer have a 25% miss chance in AI matches

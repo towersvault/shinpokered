@@ -2368,6 +2368,8 @@ wUnusedD153:: ; d153	;joenote - use this to hold the pointer for trainerAI state
 
 wUnusedD155:: ; d155	;joenote - use this to as a backup for how many pokemon to split exp between (fixing exp all)
 	ds 1				;		-this is a base-1-indexed number (so between 1 and 6 pkmn)
+						;While in active combat:
+						;	bit 0 - setting this skips the text for a substitute taking damage
 
 wEvoStoneItemID:: ; d156
 	ds 1

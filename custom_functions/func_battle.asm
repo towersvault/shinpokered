@@ -240,16 +240,25 @@ TestMultiAttackMoveUse_lastAttack:
 TestMultiAttackMoveUse:
 	ld a, [H_WHOSETURN]
 	and a
+	push bc
+	ld a, [wPlayerMoveNum]
+	ld b, a
 	ld a, [wPlayerMoveEffect]
 	ld h, a
 	ld a, [wPlayerNumAttacksLeft]
 	ld l, a
 	jr z, .next1
+	ld a, [wEnemyMoveNum]
+	ld b, a
 	ld a, [wEnemyMoveEffect]
 	ld h, a
 	ld a, [wEnemyNumAttacksLeft]
 	ld l, a
 .next1
+	ld a, b
+	pop bc
+	cp TWINEEDLE
+	jr z, .multi_attack
 	ld a, h
 	cp ATTACK_TWICE_EFFECT
 	jr z, .multi_attack

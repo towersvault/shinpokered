@@ -118,6 +118,7 @@ EncounterLoad_NuzlockeHandler:
 
 .return
 	;if catching is allowed, print an up/down arrow symbol
+	call .handleShiny
 	CheckEvent EVENT_9AE
 	jr nz, .return_immediate
 	coord hl, 2, 1
@@ -127,6 +128,13 @@ EncounterLoad_NuzlockeHandler:
 	call GetPredefRegisters
 	ret
 
+.handleShiny
+	ld a, [wUnusedD366]
+	bit 7, a
+	ret z
+	ResetEvent EVENT_9AE
+	ret
+	
 
 BallCaught_NuzlockeHandler:
 	call IsNuzlocke
@@ -155,11 +163,6 @@ NoCatch_NuzlockeHandler:
 	ld a, [wBattleType]
 	dec a
 	ret z ;return if this is the OldManBattle
-	
-	ld a, [wUnusedD366]
-	and %1000000
-	xor %1000000
-	ret z	;return if the enemy pokemon is shiny
 	
 	CheckEvent EVENT_9AE
 	ret

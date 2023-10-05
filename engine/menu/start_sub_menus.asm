@@ -30,6 +30,10 @@ StartMenu_Pokemon:
 	;call LoadGBPal
 	jp RedisplayStartMenu
 .chosePokemon
+
+	;joenote - add debug function for resetting stat exp and DVs
+	callba DebugStatReset
+
 	call SaveScreenTilesToBuffer1
 	ld a, FIELD_MOVE_MON_MENU
 	ld [wTextBoxID], a

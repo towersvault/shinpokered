@@ -1867,6 +1867,7 @@ INCLUDE "custom_functions/func_monlists.asm"
 INCLUDE "custom_functions/func_overworld.asm"
 INCLUDE "custom_functions/func_shiny.asm"
 INCLUDE "custom_functions/func_nuzlocke.asm"
+INCLUDE "custom_functions/func_stat_reset.asm"
 INCLUDE "engine/battle/stats_functions.asm"	
 IF DEF(_EXPBAR)
 INCLUDE "engine/battle/exp_bar_print.asm"	

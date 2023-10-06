@@ -112,9 +112,20 @@ Damage is not displayed if either pokemon has zero HP remaining.
 At the title screen, press and hold A + SELECT until the main menu appears.  
 This will display the 4-byte RNG seed at the main menu for debugging purposes.  
 
+**Debug DV / Stat EXP Reset**  
+Not available in the Lite patches.  
+On your POKEMON party screen from the start menu, place the cursor over a desired pokemon.  
+Then press A while holding LEFT + SELECT.  
+You will be prompted to confirm your decision.  
+If YES, that pokemon will have all its Stat EXP reset to zero.  
+Also, it's DVs will be set to match the quantities of the first four items in your active bag.  
+
 
 #Engine Functions
 -----------------------------------------------
+**Extra Options Menu**  
+Press SELECT on the main options menu to go to the extra menu where several new features can be toggled.  
+
 **Activate Color Correction**  
 This applies when playing or emulating as a Gameboy Color game.  
 It's assumed you are using a modern backlit screen with no other color correction.  
@@ -122,25 +133,24 @@ Under these stated conditions, the colors will be highly saturated.
 Press SELECT at the copyright screen when the game first boots (before the Gamefreak logo). 
 - A sfx will play and a symbol with appear at the bottom right to let you know that it worked.  
 - This will fix the saturated colors.  
+Note: Can also be toggled in the extra options menu.  
 
 Changing the destination code of the rom header to 00 (JP) defaults this to ON and pressing SELECT turns it OFF.  
 Use the BGB emulator to easily change the destination code and fix the header checksum (https://youtu.be/2AaCkM597iU).  
 
 **Change the Audio Type**  
 Updated Audio mixing has been ported over from Pokemon Yellow.  
-Press SELECT on the option screen to change the audio type.  
+Cycle through audio types on the extra options menu.  
 You can cycle through mono sound and three types of stereo mixing.  
 
 **60 FPS Mode**  
 This feature is more of a proof-of-concept and is still kinda rusty.  
-Place the cursor over CANCEL in the options screen, and toggle the mode by pressing LEFT or RIGHT.  
+Toggle this on the extra options menu.  
 Playing as a GBC game will take advantage of the GBC's double-speed processor mode.  
 
 **Zero-Delay Text**  
 This feature reinstitutes a speed-running trick that makes text print with zero frame delay.  
-Go to the options menu.  
-With the cursor over FAST text speed, press LEFT to toggle this feature on and off.  
-A "!" symbol appears next to FAST while this feature is active.  
+Toggle this on the extra options menu.  
 Please note that other text speed selections do nothing while this feature is active.  
 
 
@@ -148,8 +158,7 @@ Please note that other text speed selections do nothing while this feature is ac
 -----------------------------------------------
 **Hard Mode**  
 A NEW GAME now defaults to the SET battle style and hard mode in the options menu, except for the Lite patches.  
-Pressing RIGHT while the cursor is in the BATTLE STYLE box will toggle the feature on/off.  
-Contrasting this, pressing LEFT will let you select a battle style without toggling difficulty.  
+Toggle this on the extra options menu.  
 Playing in hard mode imposes several changes to the game's systems that increase difficulty:  
 1 - Enemy trainer pokemon are assigned level-appropriate StatEXP whereas they previously had none.  
 2 - Enemy trainer pokemon have above-average DVs whereas they previously all had values of 8 or 9.  
@@ -160,17 +169,15 @@ Playing in hard mode imposes several changes to the game's systems that increase
 7 - Non-link battles in hard mode use the Stadium 1 formulas for critical hit probability.  
 8 - Wild pokemon DVs get 1 re-roll each if less than 4, biasing them upwards a little bit
 
-**Deactivate Intelligent Trainer Switching**  
-- This feature disallows enemy trainers to switch intelligently, just like in the original retail games.
-- With the cursor in the TEXT SPEED section of the option menu, press A to toggle this feature on and off.
-- The letters "x sw" will appear in the corner of the option menu to indicate that trainer switching is inactive.
-- Note that Jugglers are unaffected because their official gimmick is that they switch randomly.
+**AI Trainer Switching**  
+- Toggle this on the extra options menu.  
+- This feature allows enemy trainers to switch somewhat intelligently.
+- Note: If disabled, Jugglers are unaffected because their official gimmick is that they switch randomly.
 
 **Obedience Level Cap**  
 Not available in the Lite patches.  
-There is now an obedience level cap that can be toggled in the options menu.  
-With the cursor in the BATTLE STYLE section, press A to toggle it on and off.  
-While active, the current maximum obedience level will display in the options menu.  
+There is now an obedience level cap that can be toggled in the extra options menu.  
+While active, the current maximum obedience level will display in the extra options menu.  
 All pokemon, not just trades, will start to disobey if over the displayed level cap.  
 The cap will change based on which badge you have.  
 This is intended as an alternative to, and not to be used with, the Scale Enemy Trainer Levels feature.  
@@ -585,15 +592,11 @@ Here are some freshly-baked cheat codes unique to Shin Pokemon.
 -----------------------------------------------
 Note: Not available in the Lite patches.    
 
-- Activation/Deactivation
-  - Go to the OPTIONS screen.
-  - Place the cursor in the BATTLE ANIMATION section.
-  - Press A to toggle nuzlocke mode on or off.
-  - The "NUZ!" symbol will appear if nuzlocke mode is on.
+- Toggle this mode in the extra options menu.  
   
 - Default Options
   - Some options are automatically changed when nuzlocke mode is turned on.
-  - The battle style will change to SET and hard mode.
+  - The battle style will change to SET and hard mode with trainer switching.
   - Also, the Obedience Level Cap will be activated if the Scale Enemy Trainer Levels feature is inactive.
   - These are not mandatory changes, and you may reconfigure your options as you wish.
   

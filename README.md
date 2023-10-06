@@ -159,13 +159,15 @@ No more duochrome! Yellow's color scheme gets converted to display on the Gamebo
 Attack animations are colored according to type during Gameboy Color play.
 Yellow's audio engine is backported for stereo sound support. 
 
-New options that can be toggled!
-- Hit SELECT on the options screen to cycle through the audio output types.
-- Playing in GBC mode on a backlit LCD screen? Press SELECT at the copyright screen to activate color correction.
-- Experimental 60FPS Mode: Place the cursor over CANCEL in the options screen and toggle by pressing LEFT or RIGHT.
-- Zero-Delay Text: Text with zero frame delay can be toggled in the options menu; press LEFT with the cursor on FAST.
-- Hard Mode: With the cursor in BATTLE STYLE, press RIGHT to toggle hard mode on/off (LEFT will not toggle).
-- Deactivate Intelligent Trainer Switching: With the cursor in TEXT SPEED, press A to toggle this option.
+New options that can be toggled! Hit SELECT on the options screen to see an extra options menu.
+- Cycle through audio types.
+- Playing in GBC mode on a backlit LCD screen?
+  - Press SELECT at the copyright screen to activate color correction.
+  - Or activate it in the extra menu
+- Experimental 60FPS Mode
+- Zero-Delay Text
+- Hard Mode
+- AI Trainer Switching
 
 The hard mode option increases difficulty by making the stats of trainer pokemon more on your level.
 It also doubles the effect of the X-stat items that AI trainers are fond of.
@@ -174,7 +176,7 @@ Non-link battles will use the Stadium 1 critical hit chance formulas.
 Finally, it makes catching a wild Mewtwo more challenging.
 
 Trainer AI has been improved and greatly expanded.
-Some trainers will even try to switch pokemon intelligently if you haven't disabled it in the options.
+Some trainers will even try to switch pokemon intelligently if you haven't disabled it in the extra options menu.
 
 You get notified when a box is filled (either via catching or depositing a pokemon).
 
@@ -203,16 +205,15 @@ No more grinding wild pokemon. Nearly all trainers can be rematched just by talk
 
 You can choose RUN while holding SELECT in trainer battles to forfeit the match and black yourself out.
 
-There is a built-in nuzlocke mode that can be toggled from the options menu.
+There is a built-in nuzlocke mode that can be toggled from the extra options menu.
 
 The girl in Oak's lab toggles wild pokemon randomization.
 If activated early enough in the game, your starter pokemon choices are randomized as well.
 
 One of the aides in Oak's lab toggles scaling of trainer rosters to your level (evolving them if applicable).
 
-As an alternative to trainer scaling, there is now an obedience level-cap that can be toggled in the options menu.
-With the cursor in the BATTLE STYLE section, press A to toggle it on and off.
-While active, the current maximum obedience level will display in the options menu.
+As an alternative to trainer scaling, there is now an obedience level-cap that can be toggled in the extra options menu.
+While active, the current maximum obedience level will display in the extra options menu.
 All pokemon, not just trades, will start to disobey if over the displayed level cap.
 
 The other aide in Oak's lab toggles a pokeball-caught symbol in battle after obtaining the pokedex.
@@ -333,6 +334,10 @@ Cheats and Secrets!
 [View the Consolidated Changelog Document from 1.23 to 1.24.0](/patches_and_info/changelog_from_v1.23.md)  
 
 v1.24.1  
+- *Fixed typed effectiveness being applied the wrong way to static damage moves
+- All the extra options on the option menu have been moved to their own separate menu
+- Add Debug Stat Reset feature
+- Fixed shiny clause now working in nuzlocke mode
 - *Fixed a bug catcher on route 9 being able to walk onto a ledge
 - *The message for substitute taking damage now only displays after the first attack of a multi-attack move
 - *Multi-attack moves display effectivenes only on first attack instead of the last attack
@@ -544,7 +549,7 @@ v1.24.1
   - Audio engine has been back-ported from Yellow version
     - Fixes some channel conflicts between cries and the low-health alarm
     - Fixes some audio hiccups with Yellow's color palettes on the GBC
-    - Press SELECT on the option menu to change the audio mixing option
+    - Press SELECT on the option menu to go to the extra menu and change the audio mixing option under "AUDIO"
   - Fuschia gym plays the correct sfx when getting the TM from Koga
   - Vermilion gym plays the correct sfx when getting the TM from Surge
   - Restored sfx for getting a badge
@@ -800,10 +805,9 @@ v1.24.1
   -jr trainer M/F, pokemaniac, hiker, cueball, psychic, tamer, black belt, rocket, cooltrainer M/F, gentleman, channeler
   -all rival phases, all gym leaders, elite-4, prof.oak, chief
   
-- Trainer switching (ai routine #4)can now be deactivated
-  - This feature disallows enemy trainers to switch intelligently, just like in the original retail games.
-  - With the cursor in the TEXT SPEED section of the option menu, press A to toggle this feature on and off.
-  - the letters "x sw" will appear in the corner of the option menu to indicate that trainer switching is inactive.
+- Trainer switching (ai routine #4)can now toggled ON and OFF
+  - WHile OFF, trainers will not switch intelligently just like in the original retail games.
+  - Press SELECT on the option menu to go to the extra menu and toggle this option under "AI SWAPS"
   - Note that Jugglers are unaffected because their official gimmick is that they switch randomly.
 
 - Trainer stat DVs are now randomly generated to a degree (only in hard mode) to be above-average
@@ -983,8 +987,7 @@ v1.24.1
   - The counter only gets reset by switching or using a move that does not have the trapping effect 
   - Reseting the counter will restore normal priority to trapping effect moves.
 - Added a fifth Clause Brother for the hyper beam clause; hyper beam will recharge if it KOs the opponent
-- There is now an obedience level-cap that can be toggled in the options menu
-  - With the cursor in the BATTLE STYLE section, press A to toggle it on and off
+- There is now an obedience level-cap that can be toggled in the extra options menu under "LVL CAP"
   - While active, the current maximum obedience level will display in the options menu
   - All pokemon, not just trades, will start to disobey if over the displayed level cap
   - The cap will change based on which badge you have
@@ -993,17 +996,20 @@ v1.24.1
 
 
 #Quick Keys / Options / Menu-Related
-- Press SELECT on the option screen to change the audio type
+- Press SELECT on the option menu to go to the extra options menu where many new options can be toggled!
 - Added built-in gamma shader for backlit LCD screens (press SELECT at the copyright screen)
   - Gamma shader defaults ON if the destination code in the rom header is set to 00 (JP)
   - Pressing SELECT at the copyright info now switches the shader from its default state
+  - It can also be toggled in the extra menu under "Y SHADER" so you don't have to reset the game to change it
   - The default state of the gamma shader can be changed with any gameboy rom header editor
   - Alternately, remove the 'j' in 'cjsv' in the Makefile to compile with a JP destination code
 - Added an option to make the overworld run in 60fps
-  - Place the cursor over CANCEL in the options screen and toggle by pressing left or right
+  - Press SELECT on the opion menu to go to the extra menu, and there you can toggle 30 or 60 under "FPS"
   - This feature is more of a proof-of-concept and is still kinda rusty
   - Takes advantage of double-speed CPU mode when played as a GBC game
-- Text with zero frame delay can be toggled in the options menu; press LEFT with the cursor on FAST
+- Text with zero frame delay can be toggled from the extra menu under "INST. TXT"
+  - The regular text speed selecttion will be ignored while ON
+  - Turning this OFF will default the text speed to FAST
 - Softlock Warp 
   - Instantly teleport back to your mom's house if you get stuck or are unable to move after updating to a new patch
   - Sets money to at least 1000 if you have less than that
@@ -1025,6 +1031,12 @@ v1.24.1
   - Toggled on/off the same way as the softlock warp, but by using 'A' instead of 'B'
   - Zero damage is not displayed
   - Damage is not displayed if either pokemon has zero HP remaining
+- DV / Stat EXP Reset function
+  - On your POKEMON party screen from the start menu, place the cursor over a desired pokemon
+  - Then press A while holding LEFT + SELECT
+  - You will be prompted to confirm your decision
+  - If YES, that pokemon will have all its Stat EXP reset to zero
+  - Also, it's DVs will be set to match the quantities of the first four items in your active bag
 - Context-sensitive SELECT button for using HMs (must have the correct badge and the move on one of your pkmn)
   - press SELECT against a shore to surf
   - press SELECT when facing a shrub or grass tile to use cut
@@ -1352,15 +1364,13 @@ v1.24.1
 #Built-In Nuzlocke Mode
 ------------------------
 - Activation/Deactivation
-  - Go to the OPTIONS screen.
-  - Place the cursor in the BATTLE ANIMATION section.
-  - Press A to toggle nuzlocke mode on or off.
-  - The "NUZ!" symbol will appear if nuzlocke mode is on.
+  - Go to the OPTIONS screen and press SELECT to get to the extra menu.
+  - Toggle this mode under "NUZLOCKE".
   
 - Default Options
   - Some options are automatically changed when nuzlocke mode is turned on.
   - The Obedience Level Cap will be activated if the Scale Enemy Trainer Levels feature is inactive.
-  - Also, the battle style will change to SET with hard mode.
+  - Also, the battle style will change to SET with hard mode and trainer switching active.
   - These are not mandatory changes, and you may reconfigure your options as you wish.
   
 - Rule 1: A pokemon that faints is considered dead and can no longer be used.

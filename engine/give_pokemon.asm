@@ -27,10 +27,17 @@ _GivePokemon:
 	ld [hli], a
 	ld [hl], b
 	;joenote - make sure to heal up to the new HP value based on the new DVs
+	ld de, wEnemyMonMaxHP
 	ld hl, wEnemyMonHP
 	ld b, 0
+	push hl
 	call CalcStats
-	
+	pop hl
+	ld a, [wEnemyMonMaxHP]
+	ld [hli], a
+	ld a, [wEnemyMonMaxHP+1]
+	ld [hli], a
+
 	call SetPokedexOwnedFlag
 	callab SendNewMonToBox
 	ld hl, wcf4b

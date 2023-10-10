@@ -334,14 +334,15 @@ Cheats and Secrets!
 [View the Consolidated Changelog Document from 1.23 to 1.24.0](/patches_and_info/changelog_from_v1.23.md)  
 
 v1.24.1  
-- *Fixed typed effectiveness being applied the wrong way to static damage moves
+- Reworked the prize mon level function and synchronized DVs for gift pokemon added to party or box
+- Fixed typed effectiveness being applied the wrong way to static damage moves
 - All the extra options on the option menu have been moved to their own separate menu
 - Add Debug Stat Reset feature
 - Fixed shiny clause now working in nuzlocke mode
-- *Fixed a bug catcher on route 9 being able to walk onto a ledge
-- *The message for substitute taking damage now only displays after the first attack of a multi-attack move
-- *Multi-attack moves display effectivenes only on first attack instead of the last attack
-- *Twineedle does not print redundant messages like other multi-hit moves
+- Fixed a bug catcher on route 9 being able to walk onto a ledge
+- The message for substitute taking damage now only displays after the first attack of a multi-attack move
+- Multi-attack moves display effectivenes only on first attack instead of the last attack
+- Twineedle does not print redundant messages like other multi-hit moves
 - If active, the shimmer will always manifest on the applicable pokemon of Bruno, Agatha, and the Karate Master
 - Karate Master's pokemon increased from level 37 to 38
 - Extended shiny mercy to tower ghosts, ghost marowak, and old man battle

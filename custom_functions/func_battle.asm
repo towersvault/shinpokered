@@ -681,10 +681,11 @@ SetAttackAnimPal:
 	ld a, [hl]
 	ld b, a
 
+	;check if this animation is being played when hurting self from confusion
+	ld a, [wUnusedD119]
+	inc a
 	ld a, [wUnusedC000]
-
-	bit 7, a	;check the bit that is set when hurting self from confusion or crash damage
-	jr z, .noselfdamage
+	jr nz, .noselfdamage
 	;if hurting self, load default palette
 	ld b, PAL_BW
 	jr .starttransfer

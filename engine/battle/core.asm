@@ -4263,12 +4263,21 @@ HandleSelfConfusionDamage:
 	ld [hl], a
 	xor a
 	ld [wAnimationType], a
+	
+	dec a
+	;joenote - signal that this animation is for self-damage
+	ld [wUnusedD119], a
+	inc a
+	
 	inc a
 	ld [H_WHOSETURN], a
 	call PlayMoveAnimation
 	call DrawPlayerHUDAndHPBar
 	xor a
 	ld [H_WHOSETURN], a
+	
+	ld [wUnusedD119], a
+	
 	jp ApplyDamageToPlayerPokemon
 
 PrintMonName1Text:
@@ -6897,10 +6906,18 @@ CheckEnemyStatusConditions:
 	xor a
 	ld [wAnimationType], a
 	ld [H_WHOSETURN], a
+	
+	dec a
+	;joenote - signal that this animation is for self-damage
+	ld [wUnusedD119], a
+
 	ld a, POUND
 	call PlayMoveAnimation
 	ld a, $1
 	ld [H_WHOSETURN], a
+	
+	ld [wUnusedD119], a
+	
 	call ApplyDamageToEnemyPokemon
 	jr .monHurtItselfOrFullyParalysed
 .checkIfTriedToUseDisabledMove
@@ -7836,6 +7853,7 @@ InitBattle:
 	ld [wUnusedC000], a	;joenote - clear custom ai bits and battle flags at battle start
 	ld [wUnusedD155], a	;joenote - clear backup location for how many pkmn recieve exp
 	ld [wUnusedD366], a ;joenote - clear ai switch tracker bits
+	ld [wUnusedD119], a ;joenote - clear this for use as a backup location
 	;clear AI_Trainer switching bits
 	ld a, [wFontLoaded]
 	and $81	;clear bits 1 to 6 only by ANDing with 1000 0001

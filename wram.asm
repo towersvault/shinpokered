@@ -2177,6 +2177,7 @@ wMovesString:: ; d0e1
 	ds 56
 
 ;joenote - use this to backup which turn it is
+;		- if $FF in battle, signals that the animation to be played is for self-inflicted damage
 ;		- used out of battle for tracking speed of walking & bike
 wUnusedD119:: ; d119	
 	ds 1

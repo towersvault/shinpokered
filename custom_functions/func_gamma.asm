@@ -621,6 +621,7 @@ IncrementAllColorsGBC:
 ;Functions for smooth fades utilizing the GBC's palette hardware
 ;Returns the z-flag state: set = success | cleared = invalid
 GBCFadeOutToBlack:
+	call DelayFrame	;delay 1 frame to allow the player sprite to finish turning around when exiting a building
 	;Check if playing on a GBC and return if not so
 	ld a, [hGBC]
 	and a

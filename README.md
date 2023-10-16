@@ -308,7 +308,7 @@ Cheats and Secrets!
 
 - **Certain emulators are known to cause bugs due to inaccuracies in replicating the original hardware**
   - An accurate emulator, preferably a GBC-dedicated emulator, is required in order to avoid unexpected bugs
-  - Goomba and Pizza Boy in particular are known to be problematic
+  - Goomba and Visual Boy Advance in particular are known to be problematic
   - BGB is the supported standard due to its accuracy and debugging tools
 - Compatible with original Gameboy hardware (DMG, Super, Pocket, Color, Advance, SP)
 - Potentially compatible with Pokemon Stadium 1 & 2 (using original Nintendo hardware)

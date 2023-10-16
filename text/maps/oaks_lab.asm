@@ -335,6 +335,20 @@ _OaksLabText26::
 	para "This is a great"
 	line "undertaking in"
 	cont "#MON history!"
+	
+;joenote - add hotkey info
+	para "Also, do remember"
+	line "that you can swap"
+	cont "between extra bag"	
+	cont "space by pressing"
+	cont "START in the ITEM"
+	cont "menu."
+
+	para "And you can auto-"
+	line "sort an ITEM menu"
+	cont "by simply holding"
+	cont "SELECT while you"
+	cont "press START."
 	done
 
 _OaksLabText27::

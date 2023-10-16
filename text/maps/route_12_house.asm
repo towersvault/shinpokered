@@ -16,6 +16,11 @@ _Route12HouseText_564c5::
 	para "Take this and"
 	line "fish, young one!"
 
+;joenote - add hotkey info
+	para "Hold A and press"
+	line "SELECT to use the"
+	cont "rod quickly.@@"
+
 	para "<PLAYER> received"
 	line "a @"
 	TX_RAM wcf4b

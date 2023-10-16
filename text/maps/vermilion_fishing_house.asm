@@ -16,6 +16,11 @@ _VermilionHouse2Text_560b6::
 	para "Take this and"
 	line "fish, young one!"
 
+;joenote - add hotkey info
+	para "Hold A and press"
+	line "SELECT to use the"
+	cont "rod quickly.@@"
+
 	para "<PLAYER> received"
 	line "an @"
 	TX_RAM wcf4b

@@ -37,7 +37,13 @@ _BikeShopText_1d81f::
 _BikeShopText_1d824::
 	text "<PLAYER> exchanged"
 	line "the BIKE VOUCHER"
-	cont "for a BICYCLE.@@"
+;	cont "for a BICYCLE.@@"
+;joenote - add hotkey info
+	cont "for a BICYCLE."
+	para "Hold A and press"
+	line "SELECT to get on"
+	cont "or off quickly.@@"
+
 
 _BikeShopComeAgainText::
 	text "Come back again"

@@ -367,7 +367,7 @@ LoadSpinnerArrowTiles:
 	ld de, $18
 	add hl, de
 .asm_45001
-	ld a, $1	;joenote - only do one loop
+	ld a, $4	;update all four arrow tiles
 	ld bc, $0
 .asm_45006
 	push af
@@ -385,7 +385,11 @@ LoadSpinnerArrowTiles:
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
-	call CopyVideoData
+;	call CopyVideoData
+
+	;joenote - use a new function to update the tiles
+	call CopySpinnerTiles
+
 	pop bc
 	ld a, $6
 	add c
@@ -394,7 +398,65 @@ LoadSpinnerArrowTiles:
 	pop af
 	dec a
 	jr nz, .asm_45006
+	call DelayFrame	;Delay a frame because CopySpinnerTiles does not do this like CopyVideoData
 	ret
+
+	
+;DE = tile source address
+;C = data length (not used)
+;B = source bank (not used)
+;HL = tile destination address
+CopySpinnerTiles:
+	di	;prevent vblank functions from running
+	
+	;back up destination address
+	ld b, h
+	ld c, l
+	;back up stack pointer
+	ld hl, sp + 0
+	ld a, h
+	ld [H_SPTEMP], a
+	ld a, l
+	ld [H_SPTEMP + 1], a
+	;set stack pointer to source address
+	ld h, d
+	ld l, e
+	ld sp, hl
+	;restore destination address
+	ld h, b
+	ld l, c
+	
+	;Stack Pointer = tile source address
+	;HL = tile destination address
+
+	ld c, 8
+.loop
+	pop de ;copies the next 2 bytes of whatever the stack pointer is pointing to (the source address) to de
+;wait if in mode 2 or mode 3
+;HBLANK length (mode 0) is highly variable. Worst case scenario is 21 cycles.
+;Can also write VRAM during OAM scan (mode 2) which is always 20 cycles.
+;For more info about timing the HBLANK, see https://gbdev.io/guides/lyc_timing.html
+.waitVRAM
+	ldh a, [rSTAT]		;read from stat register to get the mode
+	and %10				
+	jr nz, .waitVRAM	
+	ld [hl], e
+	inc l
+	ld [hl], d
+	inc l
+	dec c
+	jr nz, .loop
+
+	;restore stack spointer
+	ld a, [H_SPTEMP]
+	ld h, a
+	ld a, [H_SPTEMP + 1]
+	ld l, a
+	ld sp, hl
+	
+	ei	;re-enable vblank functions
+	ret
+
 
 MACRO spinner
 ; \1: source
@@ -406,6 +468,8 @@ MACRO spinner
 	dw \4
 ENDM
 
+;joenote - modified these spinner data sets for CopySpinnerTiles
+
 FacilitySpinnerArrows:
 FACILITY_SPINNER EQU $20 * $10
 vFacilitySpinner EQU vTileset + FACILITY_SPINNER
@@ -414,10 +478,14 @@ vFacilitySpinner EQU vTileset + FACILITY_SPINNER
 	spinner SpinnerArrowAnimTiles, $10, 1, vFacilitySpinner + $10
 	spinner SpinnerArrowAnimTiles, $20, 1, vFacilitySpinner + $100
 	spinner SpinnerArrowAnimTiles, $30, 1, vFacilitySpinner + $110
-	spinner Facility_GFX, FACILITY_SPINNER + $000, 1, vFacilitySpinner
-	spinner Facility_GFX, FACILITY_SPINNER + $010, 1, vFacilitySpinner + $10
-	spinner Facility_GFX, FACILITY_SPINNER + $100, 1, vFacilitySpinner + $100
-	spinner Facility_GFX, FACILITY_SPINNER + $110, 1, vFacilitySpinner + $110
+;	spinner Facility_GFX, FACILITY_SPINNER + $000, 1, vFacilitySpinner
+;	spinner Facility_GFX, FACILITY_SPINNER + $010, 1, vFacilitySpinner + $10
+;	spinner Facility_GFX, FACILITY_SPINNER + $100, 1, vFacilitySpinner + $100
+;	spinner Facility_GFX, FACILITY_SPINNER + $110, 1, vFacilitySpinner + $110
+	spinner SpinnerArrowAnimTiles, $40, 1, vFacilitySpinner
+	spinner SpinnerArrowAnimTiles, $50, 1, vFacilitySpinner + $10
+	spinner SpinnerArrowAnimTiles, $60, 1, vFacilitySpinner + $100
+	spinner SpinnerArrowAnimTiles, $70, 1, vFacilitySpinner + $110
 
 GymSpinnerArrows:
 GYM_SPINNER EQU $3c * $10
@@ -427,10 +495,14 @@ vGymSpinner EQU vTileset + GYM_SPINNER
 	spinner SpinnerArrowAnimTiles, $30, 1, vGymSpinner + $10
 	spinner SpinnerArrowAnimTiles, $00, 1, vGymSpinner + $100
 	spinner SpinnerArrowAnimTiles, $20, 1, vGymSpinner + $110
-	spinner Gym_GFX, GYM_SPINNER + $000, 1, vGymSpinner
-	spinner Gym_GFX, GYM_SPINNER + $010, 1, vGymSpinner + $10
-	spinner Gym_GFX, GYM_SPINNER + $100, 1, vGymSpinner + $100
-	spinner Gym_GFX, GYM_SPINNER + $110, 1, vGymSpinner + $110
+;	spinner Gym_GFX, GYM_SPINNER + $000, 1, vGymSpinner
+;	spinner Gym_GFX, GYM_SPINNER + $010, 1, vGymSpinner + $10
+;	spinner Gym_GFX, GYM_SPINNER + $100, 1, vGymSpinner + $100
+;	spinner Gym_GFX, GYM_SPINNER + $110, 1, vGymSpinner + $110
+	spinner SpinnerArrowAnimTiles, $50, 1, vGymSpinner
+	spinner SpinnerArrowAnimTiles, $70, 1, vGymSpinner + $10
+	spinner SpinnerArrowAnimTiles, $40, 1, vGymSpinner + $100
+	spinner SpinnerArrowAnimTiles, $60, 1, vGymSpinner + $110
 
 SpinnerPlayerFacingDirections:
 ; This isn't the order of the facing directions.  Rather, it's a list of
@@ -442,6 +514,7 @@ SpinnerPlayerFacingDirections:
 	db $00 ; right -> down
 
 ; these tiles are the animation for the tiles that push the player in dungeons like Rocket HQ
+;joenote - the tiles from Gym_GFX have been added to this file to avoid needing to read from a different bank
 SpinnerArrowAnimTiles:
 	INCBIN "gfx/spinner_arrow.2bpp"
 

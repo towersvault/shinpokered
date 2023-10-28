@@ -30,6 +30,14 @@ Having your Raging pokemon tank a multi-hit move is a great way to setup for a p
 Each hit of a multi-hit move now adds to Bide's damage instead of just the first.  
 Needless to say, using Double Kick on a Bide-user has the potential to backfire horribly.  
 
+**Transform**  
+Move slots cannot be rearranged when transformed to prevent acquiring glitch moves.  
+When transforming into a pokemon and copying its Transform move, the PP of the copied move is set thusly.  
+- The PP of the Transform move getting copied is read at the current instant.
+- If > 5, then the copy Transform is set to 5 PP.
+- If <= 5, then the copy transform is set to the current instant PP - 1.
+This will prevent endless battles between two pokemon who can only transform.  
+
 **Sleep Status**  
 You can choose a move while asleep, and the move is used upon waking up.  
 Sleep starts with a counter of at least 2 in order to maintain the accuracy of sleep effect moves.  

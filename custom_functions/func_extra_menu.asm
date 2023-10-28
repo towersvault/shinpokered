@@ -361,7 +361,7 @@ OptionMenuNoSwitchOFF:
 ToggleGammaShader:
 	ld a, [hGBC]
 	and a
-	ret z	;do nothing if on dmg or gbc
+	ret z	;do nothing if on dmg or sgb
 	xor %00000011
 	ld [hGBC], a
 	;fall through

@@ -1117,6 +1117,9 @@ BufferAllPokeyellowColorsGBC:
 	push de
 	push hl
 	call .ReadMasterPals	;get the color into DE
+	push bc
+	predef GBCGamma
+	pop bc
 	pop hl
 	ld a, d
 	ld [hli], a		;buffer high byte

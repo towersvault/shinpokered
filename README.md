@@ -336,6 +336,8 @@ Cheats and Secrets!
 [View the Consolidated Changelog Document from 1.23 to 1.24.0](/patches_and_info/changelog_from_v1.23.md)  
 
 v1.24.1  
+- Trainers will not use non-healing items if they or the player are at low HP, making them more aggressive
+- AI will not switch if its HP is below 25% as it's ususally not worth it
 - Fades in or out to white in GBC mode with gamma shader enabled will no longer have a frame of incorrect color
 - The move Transform now decrements PP properly when used by the AI recursively
 - Spinner tiles animate properly without resorting to vblank-induced slowdown
@@ -782,7 +784,7 @@ v1.24.1
     - The AI might still favor a STAB move or a move that works better with its own stats
 
 - Trainer ai routine #4 is no longer unused. It now does rudimentary trainer switching.
-  - 25% chance to switch if active pkmn is below 1/3 HP and player also outspeeds AI
+  - AI will not switch if its HP is below 25% as it's ususally not worth it 
   - chance to switch based on power of incoming supereffective move
   - 12.5% chance to switch if a move is disabled
   - 12.5% chance to switch if afflicted with leech seed
@@ -838,6 +840,7 @@ v1.24.1
   - The Rival battles from the SS Anne through Pokemon Tower use super potions
   - The Rival battles after Pokemon Tower and up through Route 22 2nd-round use hyper potions
   - The Champion can use Full Heals in response to a status effect with a 25% chance
+  - Trainers will not use non-healing items if they or the player are at low HP, making them more aggressive
   - All trainers that use any kind of potion now use it with a 50% chance if their HP is low enough
     - Gym Leaders and mid-game Rival: below 1/5th total
     - Elite-4 and Champion: below 1/3th total

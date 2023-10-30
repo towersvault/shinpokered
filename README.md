@@ -336,6 +336,7 @@ Cheats and Secrets!
 [View the Consolidated Changelog Document from 1.23 to 1.24.0](/patches_and_info/changelog_from_v1.23.md)  
 
 v1.24.1  
+- Optimized smooth fades to eliminate graphical jank during battle black-outs
 - Trainers will not use non-healing items if they or the player are at low HP, making them more aggressive
 - AI will not switch if its HP is below 25% as it's ususally not worth it
 - Fades in or out to white in GBC mode with gamma shader enabled will no longer have a frame of incorrect color

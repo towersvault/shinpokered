@@ -1113,20 +1113,27 @@ IsTrainerBattlePPCheck:
 	pop bc
 	ret
 
-;if trainer uses transform, then write transform PP to party struct
+;if trainer uses Transform, then write its PP to party struct
 transformPPtasks:
+;	return if not a trainer battle since there is no need to update the party struct PP
 	ld a, [wIsInBattle]
 	cp 2
-	ret z
+	ret nz
 
 	ld c, b
 	ld b, 0
 	dec bc
 	
+;	return if the move being used is not Transform
 	ld hl, wEnemyMonMoves
 	add hl, bc
 	ld a, [hl]
 	cp TRANSFORM
+	ret nz
+	
+;	return if using the Transform move while already transformed into something
+	ld a, [wEnemyBattleStatus3]
+	bit 3, a
 	ret nz
 	
 	ld hl, wEnemyMonPP

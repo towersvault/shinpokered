@@ -95,6 +95,17 @@ DetermineWildMonDVs:
 	ld a, [wFontLoaded]
 	bit 7, a
 	jr z, .do_random
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;exclude tower ghosts and old man tutorial
+	ld a, [wBattleType]
+	dec a
+	jr z, .do_random
+	ld a, [wFlags_D733]
+	bit 6, a
+	jr nz, .do_random 
+	CheckEvent EVENT_10E
+	jr nz, .do_random	
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	ld b, $AA
 	call Random	;get random number into a
 	or $20	;set only bit 5
@@ -144,6 +155,8 @@ UndoDivision4ExpAll:
 	dec b
 	
 	jr nz, .exp_stat_loop
+	xor a
+	ld [wUnusedD155], a		;clear backup location for how many pkmn recieve exp	
 	ret
 
 ;joenote - fixes issues where exp all counts fainted pkmn for dividing exp
@@ -229,16 +242,25 @@ TestMultiAttackMoveUse_lastAttack:
 TestMultiAttackMoveUse:
 	ld a, [H_WHOSETURN]
 	and a
+	push bc
+	ld a, [wPlayerMoveNum]
+	ld b, a
 	ld a, [wPlayerMoveEffect]
 	ld h, a
 	ld a, [wPlayerNumAttacksLeft]
 	ld l, a
 	jr z, .next1
+	ld a, [wEnemyMoveNum]
+	ld b, a
 	ld a, [wEnemyMoveEffect]
 	ld h, a
 	ld a, [wEnemyNumAttacksLeft]
 	ld l, a
 .next1
+	ld a, b
+	pop bc
+	cp TWINEEDLE
+	jr z, .multi_attack
 	ld a, h
 	cp ATTACK_TWICE_EFFECT
 	jr z, .multi_attack
@@ -659,10 +681,11 @@ SetAttackAnimPal:
 	ld a, [hl]
 	ld b, a
 
+	;check if this animation is being played when hurting self from confusion
+	ld a, [wUnusedD119]
+	inc a
 	ld a, [wUnusedC000]
-
-	bit 7, a	;check the bit that is set when hurting self from confusion or crash damage
-	jr z, .noselfdamage
+	jr nz, .noselfdamage
 	;if hurting self, load default palette
 	ld b, PAL_BW
 	jr .starttransfer

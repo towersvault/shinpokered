@@ -289,17 +289,50 @@ OhFineThenTextPtr:
 	TX_WAIT
 	db "@"
 
+;GetPrizeMonLevel:
+;	ld a, [wcf91]
+;	ld b, a
+;	ld hl, PrizeMonLevelDictionary
+;.loop
+;	ld a, [hli]
+;	cp b
+;	jr z, .matchFound
+;	inc hl
+;	jr .loop
+;.matchFound
+;	ld a, [hl]
+;	ld [wCurEnemyLVL], a
+;	ret
+
+;joenote - re-wrote this so it works based on pointer position instead of searching for a pokemon name
+;Plays nicer with features like a randomizer or something else that changes the prize pokemon
 GetPrizeMonLevel:
 	ld a, [wcf91]
 	ld b, a
-	ld hl, PrizeMonLevelDictionary
-.loop
+	ld c, 0
+	ld hl, wPrize1
+.loop1
+	inc c
 	ld a, [hli]
 	cp b
-	jr z, .matchFound
+	jr nz, .loop1
+.matchFound1
+	ld hl, PrizeMonLevelDictionary
+	ld a, [wWhichPrizeWindow]
+	and a
+	jr z, .loop2
+	push bc
+	ld bc, $0006
+	add hl, bc
+	pop bc
+.loop2
+	dec c
+	jr z, .next
 	inc hl
-	jr .loop
-.matchFound
+	inc hl
+	jr .loop2
+.next
+	inc hl
 	ld a, [hl]
 	ld [wCurEnemyLVL], a
 	ret

@@ -1,6 +1,6 @@
 # Shin Pokémon Red, Blue, Green, Red-JP, & Blue-JP
 
-Version 1.24.0
+Version 1.24.1
 
 *Shin (真) - The kanji for "true".  
 Used in Japanese media to denote a remastering, updated retelling , or a "true form" of something.*  
@@ -14,6 +14,8 @@ Specifically, that being what the 2016 Nintendo Virtual Console re-release of Ge
 The main purpose of the accompanying source code repository is to study, comment upon, and repair functional errors.
 It is important to record, for posterity's sake, the methods used for restoring the game to an error-free state.
 Finally, the source code documents many differences and changes between the various Japanese and English releases.
+
+![Box Art](/boxart/animfadeboxsmall.gif?raw=true)
 
 *********************************************************************************************************************************
 **Read the ["Guide to New Player Functions"](/patches_and_info/Guide_to_New_Player_Functions.md) for instructions on all the new stuff the player can do.**
@@ -127,10 +129,10 @@ Standard wild pokemon DVs
 ![Standard](/screenshots/standard_wild_DVs.PNG?raw=true)
 
 Hard mode wild pokemon DVs  
-![Standard](/screenshots/hard_mode_wild_DVs.PNG?raw=true)
+![Hard Wild](/screenshots/hard_mode_wild_DVs.PNG?raw=true)
 
 Hard mode trainer DVs  
-![Standard](/screenshots/hard_mode_trainer_DVs.PNG?raw=true)
+![Hard Trainer](/screenshots/hard_mode_trainer_DVs.PNG?raw=true)
 
 </details>
 
@@ -159,13 +161,15 @@ No more duochrome! Yellow's color scheme gets converted to display on the Gamebo
 Attack animations are colored according to type during Gameboy Color play.
 Yellow's audio engine is backported for stereo sound support. 
 
-New options that can be toggled!
-- Hit SELECT on the options screen to cycle through the audio output types.
-- Playing in GBC mode on a backlit LCD screen? Press SELECT at the copyright screen to activate color correction.
-- Experimental 60FPS Mode: Place the cursor over CANCEL in the options screen and toggle by pressing LEFT or RIGHT.
-- Zero-Delay Text: Text with zero frame delay can be toggled in the options menu; press LEFT with the cursor on FAST.
-- Hard Mode: With the cursor in BATTLE STYLE, press RIGHT to toggle hard mode on/off (LEFT will not toggle).
-- Deactivate Intelligent Trainer Switching: With the cursor in TEXT SPEED, press A to toggle this option.
+New options that can be toggled! Hit SELECT on the options screen to see an extra options menu.
+- Cycle through audio types.
+- Playing in GBC mode on a backlit LCD screen?
+  - Press SELECT at the copyright screen to activate color correction.
+  - Or activate it in the extra menu
+- Experimental 60FPS Mode
+- Zero-Delay Text
+- Hard Mode
+- AI Trainer Switching
 
 The hard mode option increases difficulty by making the stats of trainer pokemon more on your level.
 It also doubles the effect of the X-stat items that AI trainers are fond of.
@@ -174,7 +178,7 @@ Non-link battles will use the Stadium 1 critical hit chance formulas.
 Finally, it makes catching a wild Mewtwo more challenging.
 
 Trainer AI has been improved and greatly expanded.
-Some trainers will even try to switch pokemon intelligently if you haven't disabled it in the options.
+Some trainers will even try to switch pokemon intelligently if you haven't disabled it in the extra options menu.
 
 You get notified when a box is filled (either via catching or depositing a pokemon).
 
@@ -203,16 +207,15 @@ No more grinding wild pokemon. Nearly all trainers can be rematched just by talk
 
 You can choose RUN while holding SELECT in trainer battles to forfeit the match and black yourself out.
 
-There is a built-in nuzlocke mode that can be toggled from the options menu.
+There is a built-in nuzlocke mode that can be toggled from the extra options menu.
 
 The girl in Oak's lab toggles wild pokemon randomization.
 If activated early enough in the game, your starter pokemon choices are randomized as well.
 
 One of the aides in Oak's lab toggles scaling of trainer rosters to your level (evolving them if applicable).
 
-As an alternative to trainer scaling, there is now an obedience level-cap that can be toggled in the options menu.
-With the cursor in the BATTLE STYLE section, press A to toggle it on and off.
-While active, the current maximum obedience level will display in the options menu.
+As an alternative to trainer scaling, there is now an obedience level-cap that can be toggled in the extra options menu.
+While active, the current maximum obedience level will display in the extra options menu.
 All pokemon, not just trades, will start to disobey if over the displayed level cap.
 
 The other aide in Oak's lab toggles a pokeball-caught symbol in battle after obtaining the pokedex.
@@ -305,7 +308,7 @@ Cheats and Secrets!
 
 - **Certain emulators are known to cause bugs due to inaccuracies in replicating the original hardware**
   - An accurate emulator, preferably a GBC-dedicated emulator, is required in order to avoid unexpected bugs
-  - Goomba and Pizza Boy in particular are known to be problematic
+  - Goomba and Visual Boy Advance in particular are known to be problematic
   - BGB is the supported standard due to its accuracy and debugging tools
 - Compatible with original Gameboy hardware (DMG, Super, Pocket, Color, Advance, SP)
 - Potentially compatible with Pokemon Stadium 1 & 2 (using original Nintendo hardware)
@@ -330,7 +333,30 @@ Cheats and Secrets!
 #Changelog From the Last Full Release
 -----------
 **Note: Changelogs may contain spoilers**  
-[View the Consolidated Changelog Document](/patches_and_info/changelog_from_v1.23.md)  
+[View the Consolidated Changelog Document from 1.23 to 1.24.0](/patches_and_info/changelog_from_v1.23.md)  
+
+v1.24.1  
+- Optimized smooth fades to eliminate graphical jank during battle black-outs
+- Trainers will not use non-healing items if they or the player are at low HP, making them more aggressive
+- AI will not switch if its HP is below 25% as it's ususally not worth it
+- Fades in or out to white in GBC mode with gamma shader enabled will no longer have a frame of incorrect color
+- The move Transform now decrements PP properly when used by the AI recursively
+- Spinner tiles animate properly without resorting to vblank-induced slowdown
+- Fixed wrong color for move animation when it comes after self-inflicted confusion damage
+- Reworked the prize mon level function and synchronized DVs for gift pokemon added to party or box
+- Fixed typed effectiveness being applied the wrong way to static damage moves
+- All the extra options on the option menu have been moved to their own separate menu
+- Add Debug Stat Reset feature
+- Fixed shiny clause now working in nuzlocke mode
+- Fixed a bug catcher on route 9 being able to walk onto a ledge
+- The message for substitute taking damage now only displays after the first attack of a multi-attack move
+- Multi-attack moves display effectivenes only on first attack instead of the last attack
+- Twineedle does not print redundant messages like other multi-hit moves
+- If active, the shimmer will always manifest on the applicable pokemon of Bruno, Agatha, and the Karate Master
+- Karate Master's pokemon increased from level 37 to 38
+- Extended shiny mercy to tower ghosts, ghost marowak, and old man battle
+- Fixed daycare somtimes prompting to learn the same move twice
+- Fixed special HUD symbols displaying during the ghost marowak encounter
 
 
 #Bugfixes
@@ -383,8 +409,8 @@ Cheats and Secrets!
       - Move slots cannot be rearranged when transformed (prevents acquiring glitch moves)
       - Fixing Transformation loops
         - If Transform copies an opponent's Transform move,
-        - and the the PP of that move is < 6,
-          - it will copy that move's instantaneous PP less 1.
+        - And if the PP of that move is < 6,
+          - It will copy that move's instantaneous PP less 1.
           - This limits the PP of using transform repeatedly between two pokemon
       - Enemy DVs can no longer be manipulated by having it use transform multiple times
 	  - Fixed a conflict where transforming while disabled can leave the new moves disabled
@@ -502,6 +528,7 @@ Cheats and Secrets!
   - Fixed a bug where HP bar animation can print the wrong tile for 1 frame
   - Fixed junk tiles displaying for 1 frame when the game resets after displaying THE END
   - Fixed transitions when entering and exiting Rock Tunnel
+  - Fixed a bug catcher on route 9 being able to walk onto a ledge
 
 
 - Item Fixes  
@@ -532,7 +559,7 @@ Cheats and Secrets!
   - Audio engine has been back-ported from Yellow version
     - Fixes some channel conflicts between cries and the low-health alarm
     - Fixes some audio hiccups with Yellow's color palettes on the GBC
-    - Press SELECT on the option menu to change the audio mixing option
+    - Press SELECT on the option menu to go to the extra menu and change the audio mixing option under "AUDIO"
   - Fuschia gym plays the correct sfx when getting the TM from Koga
   - Vermilion gym plays the correct sfx when getting the TM from Surge
   - Restored sfx for getting a badge
@@ -667,10 +694,10 @@ Cheats and Secrets!
   - Corrected and clarified the quiz text in the cinnabar gym
   - Clarified the text for the super repel on 2F of the celadon dept store
 - Adjustments to multi-attack moves animation and messaging to improve battle flow
-  - Multi-attack moves only print the effectiveness message after the last attack
+  - Multi-attack moves only print the effectiveness message after the first attack
   - 2-attack moves do not print "hit 2 times" because its obvious that they always hit twice
   - Multi-attack moves hide the substitute sprite on the first attack and only restore it after the last attack
-  - Twineedle is unaffected by all this due to how it swaps out its effect on the fly to a poison side-effect
+  - The message for substitute taking damage now only displays after the first attack of a multi-attack move
 
 - Adjustments to moves  
   - Stat-down moves no longer have a 25% miss chance in AI matches
@@ -758,7 +785,7 @@ Cheats and Secrets!
     - The AI might still favor a STAB move or a move that works better with its own stats
 
 - Trainer ai routine #4 is no longer unused. It now does rudimentary trainer switching.
-  - 25% chance to switch if active pkmn is below 1/3 HP and player also outspeeds AI
+  - AI will not switch if its HP is below 25% as it's ususally not worth it 
   - chance to switch based on power of incoming supereffective move
   - 12.5% chance to switch if a move is disabled
   - 12.5% chance to switch if afflicted with leech seed
@@ -788,10 +815,9 @@ Cheats and Secrets!
   -jr trainer M/F, pokemaniac, hiker, cueball, psychic, tamer, black belt, rocket, cooltrainer M/F, gentleman, channeler
   -all rival phases, all gym leaders, elite-4, prof.oak, chief
   
-- Trainer switching (ai routine #4)can now be deactivated
-  - This feature disallows enemy trainers to switch intelligently, just like in the original retail games.
-  - With the cursor in the TEXT SPEED section of the option menu, press A to toggle this feature on and off.
-  - the letters "x sw" will appear in the corner of the option menu to indicate that trainer switching is inactive.
+- Trainer switching (ai routine #4)can now toggled ON and OFF
+  - WHile OFF, trainers will not switch intelligently just like in the original retail games.
+  - Press SELECT on the option menu to go to the extra menu and toggle this option under "AI SWAPS"
   - Note that Jugglers are unaffected because their official gimmick is that they switch randomly.
 
 - Trainer stat DVs are now randomly generated to a degree (only in hard mode) to be above-average
@@ -815,6 +841,7 @@ Cheats and Secrets!
   - The Rival battles from the SS Anne through Pokemon Tower use super potions
   - The Rival battles after Pokemon Tower and up through Route 22 2nd-round use hyper potions
   - The Champion can use Full Heals in response to a status effect with a 25% chance
+  - Trainers will not use non-healing items if they or the player are at low HP, making them more aggressive
   - All trainers that use any kind of potion now use it with a 50% chance if their HP is low enough
     - Gym Leaders and mid-game Rival: below 1/5th total
     - Elite-4 and Champion: below 1/3th total
@@ -971,8 +998,7 @@ Cheats and Secrets!
   - The counter only gets reset by switching or using a move that does not have the trapping effect 
   - Reseting the counter will restore normal priority to trapping effect moves.
 - Added a fifth Clause Brother for the hyper beam clause; hyper beam will recharge if it KOs the opponent
-- There is now an obedience level-cap that can be toggled in the options menu
-  - With the cursor in the BATTLE STYLE section, press A to toggle it on and off
+- There is now an obedience level-cap that can be toggled in the extra options menu under "LVL CAP"
   - While active, the current maximum obedience level will display in the options menu
   - All pokemon, not just trades, will start to disobey if over the displayed level cap
   - The cap will change based on which badge you have
@@ -981,17 +1007,20 @@ Cheats and Secrets!
 
 
 #Quick Keys / Options / Menu-Related
-- Press SELECT on the option screen to change the audio type
+- Press SELECT on the option menu to go to the extra options menu where many new options can be toggled!
 - Added built-in gamma shader for backlit LCD screens (press SELECT at the copyright screen)
   - Gamma shader defaults ON if the destination code in the rom header is set to 00 (JP)
   - Pressing SELECT at the copyright info now switches the shader from its default state
+  - It can also be toggled in the extra menu under "Y SHADER" so you don't have to reset the game to change it
   - The default state of the gamma shader can be changed with any gameboy rom header editor
   - Alternately, remove the 'j' in 'cjsv' in the Makefile to compile with a JP destination code
 - Added an option to make the overworld run in 60fps
-  - Place the cursor over CANCEL in the options screen and toggle by pressing left or right
+  - Press SELECT on the opion menu to go to the extra menu, and there you can toggle 30 or 60 under "FPS"
   - This feature is more of a proof-of-concept and is still kinda rusty
   - Takes advantage of double-speed CPU mode when played as a GBC game
-- Text with zero frame delay can be toggled in the options menu; press LEFT with the cursor on FAST
+- Text with zero frame delay can be toggled from the extra menu under "INST. TXT"
+  - The regular text speed selecttion will be ignored while ON
+  - Turning this OFF will default the text speed to FAST
 - Softlock Warp 
   - Instantly teleport back to your mom's house if you get stuck or are unable to move after updating to a new patch
   - Sets money to at least 1000 if you have less than that
@@ -1013,6 +1042,12 @@ Cheats and Secrets!
   - Toggled on/off the same way as the softlock warp, but by using 'A' instead of 'B'
   - Zero damage is not displayed
   - Damage is not displayed if either pokemon has zero HP remaining
+- DV / Stat EXP Reset function
+  - On your POKEMON party screen from the start menu, place the cursor over a desired pokemon
+  - Then press A while holding LEFT + SELECT
+  - You will be prompted to confirm your decision
+  - If YES, that pokemon will have all its Stat EXP reset to zero
+  - Also, it's DVs will be set to match the quantities of the first four items in your active bag
 - Context-sensitive SELECT button for using HMs (must have the correct badge and the move on one of your pkmn)
   - press SELECT against a shore to surf
   - press SELECT when facing a shrub or grass tile to use cut
@@ -1202,6 +1237,7 @@ Cheats and Secrets!
 - Shiny Mercy 
   - When a player encounters an AI trainer shiny pokemon, the next wild encounter will be shiny
   - AI trainers can only have shinies in hard mode, so it affords more chances to find wild shinies
+  - Also, shiny mercy extends to tower ghosts, ghost marowak, and the old man catching tutorial
 - Winning the SS Anne tournament with a pikachu in the party will set its catch rate to 168
   - In this rom hack, a pikachu with this catch rate can be taught Surf via HM
   - This catch rate makes it hold a gorgeous box if transferred to Gen 2
@@ -1257,7 +1293,9 @@ Cheats and Secrets!
   - The manifestation of the shimmer boosts one-to-four of a 'mons unmodified stats.
 	- If 3/8ths of an unmodified stat is less than the mon's level, then the level value is added to that stat.
     - Stats that can be boosted are: attack, defense, speed, or special.
-
+  - There is the same chance of shimmer manifesting on applicable enemy trainer pokemon.
+  - Given their rosters, the shimmer will always manifest on the applicable pokemon of Bruno, Agatha, and the Karate Master.
+  
 </details>
 
 
@@ -1337,15 +1375,13 @@ Cheats and Secrets!
 #Built-In Nuzlocke Mode
 ------------------------
 - Activation/Deactivation
-  - Go to the OPTIONS screen.
-  - Place the cursor in the BATTLE ANIMATION section.
-  - Press A to toggle nuzlocke mode on or off.
-  - The "NUZ!" symbol will appear if nuzlocke mode is on.
+  - Go to the OPTIONS screen and press SELECT to get to the extra menu.
+  - Toggle this mode under "NUZLOCKE".
   
 - Default Options
   - Some options are automatically changed when nuzlocke mode is turned on.
   - The Obedience Level Cap will be activated if the Scale Enemy Trainer Levels feature is inactive.
-  - Also, the battle style will change to SET with hard mode.
+  - Also, the battle style will change to SET with hard mode and trainer switching active.
   - These are not mandatory changes, and you may reconfigure your options as you wish.
   
 - Rule 1: A pokemon that faints is considered dead and can no longer be used.
@@ -1495,6 +1531,7 @@ EDIT: I believe I've found a workaround by writing to VRAM during the HBLANK and
 - easyaspi314 for optimizations to the gamma shader and wavy-line animation bugfix
 - Dracrius' pocketrgb-en project for finding corrections to jp-build inaccuracies
 - devolov for the bag-sorting feature
+- powderpup for box covers using Sugimori cardass art
 
 The following folks for their great tutorials, glitch videos, and explanations across the internet
 - TheFakeMateo 

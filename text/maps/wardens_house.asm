@@ -39,6 +39,11 @@ _WardenThankYouText::
 	cont "Let me give you"
 	cont "something for"
 	cont "your trouble."
+
+;joenote - add hotkey info
+	para "Press SELECT when"
+	line "facing a boulder"
+	cont "to activate it."	
 	prompt
 
 _ReceivedHM04Text::

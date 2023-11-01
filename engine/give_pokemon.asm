@@ -15,7 +15,7 @@ _GivePokemon:
 	ld [wEnemyBattleStatus3], a
 	ld a, [wcf91]
 	ld [wEnemyMonSpecies2], a
-	callab LoadEnemyMonData
+	callab LoadEnemyMonData	;when sent to box, generates DVs as if it is a wild pokemon
 
 	;joenote - makes pkmn given to player (being sent to the box) have average IVs at minimum
 	ld hl, wEnemyMonDVs+1
@@ -26,7 +26,18 @@ _GivePokemon:
 	or $98
 	ld [hli], a
 	ld [hl], b
-	
+	;joenote - make sure to heal up to the new HP value based on the new DVs
+	ld de, wEnemyMonMaxHP
+	ld hl, wEnemyMonHP
+	ld b, 0
+	push hl
+	call CalcStats
+	pop hl
+	ld a, [wEnemyMonMaxHP]
+	ld [hli], a
+	ld a, [wEnemyMonMaxHP+1]
+	ld [hli], a
+
 	call SetPokedexOwnedFlag
 	callab SendNewMonToBox
 	ld hl, wcf4b
@@ -55,7 +66,7 @@ _GivePokemon:
 	ret
 .addToParty
 	call SetPokedexOwnedFlag
-	call AddPartyMon
+	call AddPartyMon	;if adding it directly to party, use a different function
 	ld a, 1
 	ld [wDoNotWaitForButtonPressAfterDisplayingText], a
 	ld [wAddedToParty], a

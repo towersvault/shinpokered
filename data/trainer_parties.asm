@@ -442,7 +442,7 @@ BirdKeeperData:
 	;db 42,FARFETCHD,FEAROW,0
 BlackbeltData:
 ; Fighting Dojo
-	db 37,HITMONLEE,HITMONCHAN,0
+	db 38,HITMONLEE,HITMONCHAN,0	;joenote - dojo master raised 1 level to get some extra moves
 	db 31,MANKEY,MANKEY,PRIMEAPE,0
 	db 32,MACHOP,MACHOKE,0
 	db 36,POLIWRATH,0

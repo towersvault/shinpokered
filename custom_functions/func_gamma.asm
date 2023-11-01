@@ -443,6 +443,28 @@ DecrementAllColorsGBC:
 	push bc	;save the value in C, which is the number of times to iterate
 
 	call ReadBufferColorGBC	;get the color into DE
+	
+	ld a, [wGBCColorControl]
+	and a
+	jr z, .backup_color
+	ldh a, [hSwapTemp]
+	cp d
+	jr nz, .backup_color
+	ldh a, [hSwapTemp+1]
+	cp e
+	jr nz, .backup_color
+	ldh a, [hSwapTemp+2]
+	ld d, a
+	ldh a, [hSwapTemp+3]
+	ld e, a
+	jr .write_color
+	
+.backup_color
+	ld a, d
+	ldh [hSwapTemp], a
+	ld a, e
+	ldh [hSwapTemp+1], a
+
 	call GetRGB			;Split color in DE to RGB values in hRGB
 	
 	ld hl, hRGB
@@ -460,6 +482,13 @@ DecrementAllColorsGBC:
 	ld [hl], a
 	
 	call WriteRGB		;combine RGB values back into DE
+	
+	ld a, d
+	ldh [hSwapTemp+2], a
+	ld a, e
+	ldh [hSwapTemp+3], a
+
+.write_color
 	call WriteColorGBC	;write the color in DE back to the hardware address
 	
 	pop bc	;get the number of times to iterate
@@ -471,6 +500,7 @@ DecrementAllColorsGBC:
 	jr nc, .return	;return if finished with OBP 7
 	cp 16
 	jr z, .unusedBGP	;increment past unused color locations and loop if at BGP 4
+	call GBCBackgroundBlock
 	jr .next
 
 .unusedBGP
@@ -512,6 +542,34 @@ DecrementAllColorsGBC:
 	ld a, 1
 	and a
 	ret
+	
+GBCBackgroundBlock:
+	cp 1
+	jr z, .add3
+	cp 5
+	jr z, .add3
+	cp 9
+	jr z, .add3
+
+	cp 13
+	jr z, .sub12
+	cp 4
+	jr z, .add1
+	cp 8
+	jr z, .add1
+	cp 12
+	jr z, .add1
+	
+	jr .return	
+.sub12
+	sub 12
+	jr .return
+.add3
+	add 2
+.add1
+	inc a
+.return
+	ret
 
 ;This function does a few increments to all the colors of the GBC in BGP 0-3 and OBP 0-7.
 ;It's used for fading to white or other things that need lightening.
@@ -543,6 +601,28 @@ IncrementAllColorsGBC:
 	push bc	;save the value in C, which is the number of times to iterate
 	
 	call ReadBufferColorGBC	;get the color into DE
+	
+	ld a, [wGBCColorControl]
+	and a
+	jr z, .backup_color
+	ldh a, [hSwapTemp]
+	cp d
+	jr nz, .backup_color
+	ldh a, [hSwapTemp+1]
+	cp e
+	jr nz, .backup_color
+	ldh a, [hSwapTemp+2]
+	ld d, a
+	ldh a, [hSwapTemp+3]
+	ld e, a
+	jr .write_color
+	
+.backup_color
+	ld a, d
+	ldh [hSwapTemp], a
+	ld a, e
+	ldh [hSwapTemp+1], a
+
 	call GetRGB			;Split color in DE to RGB values in hRGB
 	
 	ld hl, hRGB
@@ -560,6 +640,13 @@ IncrementAllColorsGBC:
 	ld [hl], a
 	
 	call WriteRGB		;combine RGB values back into DE
+	
+	ld a, d
+	ldh [hSwapTemp+2], a
+	ld a, e
+	ldh [hSwapTemp+3], a
+
+.write_color
 	call WriteColorGBC	;write the color in DE back to the hardware address
 	
 	pop bc	;get the number of times to iterate
@@ -571,6 +658,7 @@ IncrementAllColorsGBC:
 	jr nc, .return	;return if finished with OBP 7
 	cp 16
 	jr z, .unusedBGP	;increment past unused color locations and loop if at BGP 4
+	call GBCBackgroundBlock
 	jr .next
 
 .unusedBGP
@@ -621,6 +709,7 @@ IncrementAllColorsGBC:
 ;Functions for smooth fades utilizing the GBC's palette hardware
 ;Returns the z-flag state: set = success | cleared = invalid
 GBCFadeOutToBlack:
+	call DelayFrame	;delay 1 frame to allow the player sprite to finish turning around when exiting a building
 	;Check if playing on a GBC and return if not so
 	ld a, [hGBC]
 	and a

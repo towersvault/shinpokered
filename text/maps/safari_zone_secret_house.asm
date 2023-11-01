@@ -12,6 +12,11 @@ _SecretHouseText_4a350::
 
 	para "Congratulations!"
 	line "You have won!"
+
+;joenote - add hotkey info
+	para "Press SELECT when"
+	line "you are facing a"
+	cont "shore to use it."	
 	prompt
 
 _ReceivedHM03Text::

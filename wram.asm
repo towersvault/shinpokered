@@ -2177,6 +2177,7 @@ wMovesString:: ; d0e1
 	ds 56
 
 ;joenote - use this to backup which turn it is
+;		- if $FF in battle, signals that the animation to be played is for self-inflicted damage
 ;		- used out of battle for tracking speed of walking & bike
 wUnusedD119:: ; d119	
 	ds 1
@@ -2368,6 +2369,8 @@ wUnusedD153:: ; d153	;joenote - use this to hold the pointer for trainerAI state
 
 wUnusedD155:: ; d155	;joenote - use this to as a backup for how many pokemon to split exp between (fixing exp all)
 	ds 1				;		-this is a base-1-indexed number (so between 1 and 6 pkmn)
+						;While in active combat:
+						;	bit 0 - setting this skips the text for a substitute taking damage
 
 wEvoStoneItemID:: ; d156
 	ds 1

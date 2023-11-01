@@ -85,9 +85,7 @@ EncounterLoad_NuzlockeHandler:
 	;...because this should only continue onward once per battle
 
 	;comming from its position in PlaceEnemyHUDTiles, the enemy should already be a wild non-tower_ghost
-	;need to check for ghost marowak
-	CheckEvent EVENT_10E
-	jr nz, .return	;return if this is the ghost marowak
+	;this includes not being ghost marowak
 	
 	;don't automatically flag the area if this the Old Man tutorial battle
 	ld a, [wBattleType]
@@ -120,6 +118,7 @@ EncounterLoad_NuzlockeHandler:
 
 .return
 	;if catching is allowed, print an up/down arrow symbol
+	call .handleShiny
 	CheckEvent EVENT_9AE
 	jr nz, .return_immediate
 	coord hl, 2, 1
@@ -129,6 +128,13 @@ EncounterLoad_NuzlockeHandler:
 	call GetPredefRegisters
 	ret
 
+.handleShiny
+	ld a, [wUnusedD366]
+	bit 7, a
+	ret z
+	ResetEvent EVENT_9AE
+	ret
+	
 
 BallCaught_NuzlockeHandler:
 	call IsNuzlocke
@@ -157,11 +163,6 @@ NoCatch_NuzlockeHandler:
 	ld a, [wBattleType]
 	dec a
 	ret z ;return if this is the OldManBattle
-	
-	ld a, [wUnusedD366]
-	and %1000000
-	xor %1000000
-	ret z	;return if the enemy pokemon is shiny
 	
 	CheckEvent EVENT_9AE
 	ret

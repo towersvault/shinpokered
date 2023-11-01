@@ -1867,6 +1867,7 @@ INCLUDE "custom_functions/func_monlists.asm"
 INCLUDE "custom_functions/func_overworld.asm"
 INCLUDE "custom_functions/func_shiny.asm"
 INCLUDE "custom_functions/func_nuzlocke.asm"
+INCLUDE "custom_functions/func_stat_reset.asm"
 INCLUDE "engine/battle/stats_functions.asm"	
 IF DEF(_EXPBAR)
 INCLUDE "engine/battle/exp_bar_print.asm"	
@@ -1930,6 +1931,7 @@ INCLUDE "engine/learn_move.asm"	;joenote - moved in order to have more space
 INCLUDE "engine/overworld/elevator.asm"	;joenote - moving this to make space
 
 INCLUDE "custom_functions/func_gamma.asm"
+INCLUDE "custom_functions/func_extra_menu.asm"
 
 SECTION "Pics 1", ROMX, BANK[PICS_1]
 INCLUDE "constants/pic_banks/pic1.asm"

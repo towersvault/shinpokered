@@ -376,7 +376,7 @@ If Giovanni has disappeared from his gym, exit and re-enter the gym to bring him
 **Improved itemfinder function**  
 - If an item is detected, it will play 1 to 3 chimes depending on how close it is (more chimes means closer to the item).
 - Lines will point in the direction of the item and flash with the chimes.
-- If the player is right on top of the item, no lines will show and the chime till play four times.
+- If the player is right on top of the item, no lines will show and the chime will play four times.
 - If the SELECT button is held while selecting to USE the itemfinder, then the original itemfinder function is used.
 	
 **Reworked Daycare**  

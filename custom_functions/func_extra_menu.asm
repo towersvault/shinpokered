@@ -364,6 +364,7 @@ ToggleGammaShader:
 	ret z	;do nothing if on dmg or sgb
 	xor %00000011
 	ld [hGBC], a
+	call RunDefaultPaletteCommand
 	;fall through
 ShowGammaSetting:
 	ld hl, OptionMenuOnOffText

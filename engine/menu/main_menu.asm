@@ -783,7 +783,7 @@ OptionMenuCancelText:
 	db "CANCEL@"
 
 OptionMenuSelectText:	;joenote - text for getting to extra options screen
-	db "SEL",$ED,"NEXT@"
+	db "SELECT",$E3,$ED,"@"
 
 ; sets the options variable according to the current placement of the menu cursors in the options menu
 SetOptionsFromCursorPositions:

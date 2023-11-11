@@ -15,9 +15,9 @@ DontAbandonLearning:
 	call AddNTimes
 	
 	;joenote - for field move slot
-	call LearnToFieldSlot
-	jp nz, PrintLearnedFieldMove
-	
+	jp LearnToFieldSlot
+.back
+
 	ld d, h
 	ld e, l
 	ld b, NUM_MOVES
@@ -297,7 +297,7 @@ LearnToFieldSlot:
 	jr z, .next
 	ld hl, LearnTempFieldMoveTextDenied
 	call PrintText
-	jr .return_fail
+	jr .return_occupied
 .next
 	
 	;fill the slot with the move
@@ -308,11 +308,15 @@ LearnToFieldSlot:
 	xor a
 	add 1
 	pop hl
-	ret
+	jp PrintLearnedFieldMove
 .return_fail
 	xor a
 	pop hl
-	ret
+	jp DontAbandonLearning.back
+.return_occupied
+	xor a
+	pop hl
+	jp AbandonLearning
 
 LearnTempFieldMoveText:
 	TX_FAR _LearnTempFieldMoveText

@@ -4,9 +4,10 @@ Route9Object:
 	db 0 ; warps
 
 	db 1 ; signs
-	sign 25, 7, 11 ; Route9Text11
+	sign 25, 7, 12 ; Route9Text11
 
-	db 10 ; objects
+	db 11 ; objects
+	;joenote - added a construction worker to replace the blocking cut shrub
 	object SPRITE_LASS, 13, 10, STAY, LEFT, 1, OPP_JR_TRAINER_F, 4
 	object SPRITE_BLACK_HAIR_BOY_1, 24, 7, STAY, LEFT, 2, OPP_JR_TRAINER_M, 6
 	object SPRITE_BLACK_HAIR_BOY_1, 31, 7, STAY, RIGHT, 3, OPP_JR_TRAINER_M, 7
@@ -17,3 +18,4 @@ Route9Object:
 	object SPRITE_HIKER, 45, 15, STAY, RIGHT, 8, OPP_HIKER, 5
 	object SPRITE_BUG_CATCHER, 40, 8, STAY, RIGHT, 9, OPP_BUG_CATCHER, 13
 	object SPRITE_BALL, 10, 15, STAY, NONE, 10, TM_30
+	object SPRITE_HIKER,  5,  8, STAY, NONE, 11	;non-trainer person

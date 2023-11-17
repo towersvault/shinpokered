@@ -1,4 +1,5 @@
 Route9Script:
+	call Route9PathBlock		;joenote - added a construction worker to replace the blocking cut shrub
 	call EnableAutoTextBoxDrawing
 	ld hl, Route9TrainerHeader0
 	ld de, Route9ScriptPointers
@@ -23,6 +24,7 @@ Route9TextPointers:
 	dw Route9Text8
 	dw Route9Text9
 	dw PickUpItemText
+	dw Route9PathBlockNPC
 	dw Route9Text11
 
 Route9TrainerHeader0:
@@ -265,4 +267,39 @@ Route9AfterBattleText9:
 
 Route9Text11:
 	TX_FAR _Route9Text11
+	db "@"
+
+	
+Route9PathBlock:
+	CheckEvent EVENT_SS_ANNE_LEFT
+	ret nz
+	ld a, $77
+	ld [wNewTileBlockID], a
+	lb bc, 4, 3
+	predef_jump ReplaceTileBlock
+	
+Route9PathBlockNPC:
+	TX_ASM
+	CheckEvent EVENT_SS_ANNE_LEFT
+	ld hl, _Route9PathBlockNPC_Pass
+	jr nz, .next
+	ld hl, _Route9PathBlockNPC_Block
+.next
+	call PrintText
+	jp TextScriptEnd
+_Route9PathBlockNPC_Block:
+	text "ROUTE 9 is closed"
+	line "for construction."
+
+	para "My foreman hopes"
+	line "we'll be done in"
+	cont "time for his"
+	cont "cruise on the"
+	cont "S.S.ANNE."
+	done
+	db "@"
+_Route9PathBlockNPC_Pass:
+	text "ROUTE 9 is clear"
+	line "for travel."
+	done
 	db "@"

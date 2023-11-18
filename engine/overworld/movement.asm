@@ -600,22 +600,15 @@ CheckSpriteAvailability:
 .skipXVisibilityTest
 ; make the sprite invisible if a text box is in front of it
 ; $5F is the maximum number for map tiles
+
+;joenote - have to check for both rounding down and up for standing on a tile or else moving NPCs may overlap windows
 	call GetTileSpriteStandsOn
-	ld d, $60
-	ld a, [hli]
-	cp d
-	jr nc, .spriteInvisible ; standing on tile with ID >=$60 (bottom left tile)
-	ld a, [hld]
-	cp d
-	jr nc, .spriteInvisible ; standing on tile with ID >=$60 (bottom right tile)
-	ld bc, -20
-	add hl, bc              ; go back one row of tiles
-	ld a, [hli]
-	cp d
-	jr nc, .spriteInvisible ; standing on tile with ID >=$60 (top left tile)
-	ld a, [hl]
-	cp d
-	jr c, .spriteVisible    ; standing on tile with ID >=$60 (top right tile)
+	call .VisibilityTest
+	jr nc, .spriteInvisible
+	call GetTileSpriteStandsOn_roundUP
+	call .VisibilityTest
+	jr c, .spriteVisible
+
 .spriteInvisible
 	ld h, wSpriteStateData1 / $100
 	ld a, [H_CURRENTSPRITEOFFSET]
@@ -646,6 +639,23 @@ CheckSpriteAvailability:
 	and a
 .done
 	ret
+.VisibilityTest	;clear the carry flag if invisible, or set the flag if visible
+	ld d, $60
+	ld a, [hli]
+	cp d
+	ret nc ; standing on tile with ID >=$60 (bottom left tile)
+	ld a, [hld]
+	cp d
+	ret nc ; standing on tile with ID >=$60 (bottom right tile)
+	ld bc, -20
+	add hl, bc              ; go back one row of tiles
+	ld a, [hli]
+	cp d
+	ret nc ; standing on tile with ID >=$60 (top left tile)
+	ld a, [hl]
+	cp d
+	ret    ; nc if standing on tile with ID >=$60 (top right tile)
+
 
 UpdateSpriteImage:
 	ld h, $c1
@@ -799,6 +809,15 @@ CanWalkOntoTile:
 ; calculates the tile pointer pointing to the tile the current sprite stands on
 ; this is always the lower left tile of the 2x2 tile blocks all sprites are snapped to
 ; hl: output pointer
+GetTileSpriteStandsOn_roundUP:
+	ld h, wSpriteStateData1 / $100
+	ld a, [H_CURRENTSPRITEOFFSET]
+	add $4
+	ld l, a
+	ld a, [hli]     ; c1x4: screen Y position
+	add $4          ; align to 2*2 tile blocks (Y position is always off 4 pixels to the top)
+	jr GetTileSpriteStandsOn.round_up
+	
 GetTileSpriteStandsOn:
 	ld h, wSpriteStateData1 / $100
 	ld a, [H_CURRENTSPRITEOFFSET]
@@ -806,11 +825,14 @@ GetTileSpriteStandsOn:
 	ld l, a
 	ld a, [hli]     ; c1x4: screen Y position
 	add $4          ; align to 2*2 tile blocks (Y position is always off 4 pixels to the top)
-;	and $f0         ; in case object is currently moving
+	and $f0         ; in case object is currently moving
+	jr .done_rounding
+	
 ;joenote - Simply ANDing with F0 rounds-down the pixel positioning to the starting Y-position of the previous movement space.
 ;		- This treats the sprite as standing in a higher position on the screen than where it actually is.
 ;		- It allows for downward-moving sprites to stand over text boxes.
 ;		- Correct this behavior by rounding-up instead.
+.round_up
 	ld c, a
 	and $F0
 	ld b, a
@@ -820,7 +842,8 @@ GetTileSpriteStandsOn:
 	ld a, $10
 .next
 	add b
-	
+
+.done_rounding
 	srl a           ; screen Y tile * 4
 	ld c, a
 	ld b, $0

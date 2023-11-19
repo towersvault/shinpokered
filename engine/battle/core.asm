@@ -3742,11 +3742,11 @@ MirrorMoveCheck:
 .moveDidNotMiss
 	call ApplyAttackToEnemyPokemon
 	ld a, [wPlayerMovePower]
-	and a
-	jr z, .zeropowermove
+	cp 2
+	jr c, .zeropower_or_staticmove
 	call PrintCriticalOHKOText
 	callab DisplayEffectiveness
-.zeropowermove
+.zeropower_or_staticmove
 	ld a, 1
 	ld [wMoveDidntMiss], a
 	callab EnemyBideAccum	;joedebug - accumulating bide damage here now
@@ -6692,14 +6692,14 @@ EnemyCheckIfMirrorMoveEffect:
 .moveDidNotMiss
 	call ApplyAttackToPlayerPokemon
 	ld a, [wEnemyMovePower]
-	and a
-	jr z, .zeropowermove
+	cp 2
+	jr c, .zeropower_or_staticmove
 	call PrintCriticalOHKOText
 	callab DisplayEffectiveness
-.zeropowermove
-	callab PlayerBideAccum
+.zeropower_or_staticmove
 	ld a, 1
 	ld [wMoveDidntMiss], a
+	callab PlayerBideAccum
 .handleExplosionMiss
 	ld a, [wEnemyMoveEffect]
 	ld hl, AlwaysHappenSideEffects

@@ -1,6 +1,6 @@
 # Shin Pokémon Red, Blue, Green, Red-JP, & Blue-JP
 
-Version 1.24.2
+Version 1.24.3
 
 *Shin (真) - The kanji for "true".  
 Used in Japanese media to denote a remastering, updated retelling , or a "true form" of something.*  
@@ -335,6 +335,17 @@ Cheats and Secrets!
 **Note: Changelogs may contain spoilers**  
 [View the Consolidated Changelog Document from 1.23 to 1.24.0](/patches_and_info/changelog_from_v1.23.md)  
 
+v1.24.3  
+- Failure to teach a temp field move will now prompt the player to abandon learning it
+- The bush that blocks route 9 has been replaced by a blocking event
+- Disable and static damage moves will not crit or show super/not very effectiveness
+- Fixed an issue with NPCs overlapping menu and text boxes
+- Adjusted the parity of in-game trades across versions
+- Option menu graphics tweak
+- Toggling the gamma shader in the extra options menu now automatically updates the palette
+- Moved NPC in celadon prize house two spaces to the right
+- Optimized the GBC smooth fading a little bit
+
 v1.24.2  
 - Fixed a text bug on multi-hit moves
 
@@ -419,6 +430,7 @@ v1.24.1
 	  - Fixed a conflict where transforming while disabled can leave the new moves disabled
 	  - Fixed transformed 'mons reseting their moves when learning a level-up move
 	  - Fixed a typo so now transformed 'mons retain their original palette
+  - disable cannot critically hit nor print effectiveness message
   - dire hit/focus energy now quadruples crit rate instead of quarters
   - sleep now normal-chance hits a pkmn recharging from hyperbeam, but has no effect if it's already status-effected
   - the fly/dig invulnerability bit is cleared when a pkmn hurts itself from confusion or is fully paralyzed
@@ -945,6 +957,7 @@ v1.24.1
 - Interaction of slot reel modes tweaked for better gameplay
 - Bushes moved around so Erika can be battled without CUT
 - The bush blocking the Vermilion gym has been replaced with a blocking pkmn that goes away after the ss anne leaves
+- The bush that blocks route 9 has been replaced by a blocking event
 - Gym leaders and elite 4 have their rosters, levels, & movesets slightly tweaked for gradual difficulty
 - Blaine has a touched-up battle sprite so he doesn't look like an alien
   - Snagged this off reddit, but original artist unknown (let me know if this is yours)
@@ -961,7 +974,8 @@ v1.24.1
 - Initiating the Pokemon Tower rival battle will deactivate the following skippable rival battles
   - The Cerulean encounter
   - The SS Anne encounter
-
+- Adjusted the parity of in-game trades across versions
+  
   
 #Additions
 -----------

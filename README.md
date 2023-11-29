@@ -336,6 +336,7 @@ Cheats and Secrets!
 [View the Consolidated Changelog Document from 1.23 to 1.24.0](/patches_and_info/changelog_from_v1.23.md)  
 
 v1.24.3  
+- Girl trainer on route 8 has text adjusted to reflect having a Clefable
 - Failure to teach a temp field move will now prompt the player to abandon learning it
 - The bush that blocks route 9 has been replaced by a blocking event
 - Disable and static damage moves will not crit or show super/not very effectiveness
@@ -708,6 +709,7 @@ v1.24.1
   - Restored unused text in the vermilion gym puzzle for finding the 2nd switch
   - Corrected and clarified the quiz text in the cinnabar gym
   - Clarified the text for the super repel on 2F of the celadon dept store
+  - Girl trainer on route 8 has text adjusted to reflect having a Clefable
 - Adjustments to multi-attack moves animation and messaging to improve battle flow
   - Multi-attack moves only print the effectiveness message after the first attack
   - 2-attack moves do not print "hit 2 times" because its obvious that they always hit twice

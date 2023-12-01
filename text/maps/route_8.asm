@@ -138,11 +138,11 @@ _Route8EndBattleText9::
 	text "Stop!"
 
 	para "Don't be so mean"
-	line "to my CLEFAIRY!"
+	line "to my CLEFABLE!"	;joenote - changed to reflect roster update
 	prompt
 
 _Route8AfterBattleText9::
-	text "I heard that"
+	text "I found out that"		;joenote - changed to reflect roster update
 	line "CLEFAIRY evolves"
 	cont "when it's exposed"
 	cont "to a MOON STONE."

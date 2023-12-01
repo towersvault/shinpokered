@@ -542,8 +542,17 @@ DecrementAllColorsGBC:
 	ld a, 1
 	and a
 	ret
-	
+
+;optimize updating the colors for the battle background layer
 GBCBackgroundBlock:
+	push bc
+	ld b, a
+	ld a, [wIsInBattle]
+	and a
+	ld a, b
+	pop bc
+	ret z
+
 	cp 1
 	jr z, .add3
 	cp 5

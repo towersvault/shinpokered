@@ -79,12 +79,13 @@ _ReplaceMon:
 .no_update
 	ld [wUnusedD722], a
 	
-	;stack pointer needs to be greater than or equal to $DF40
-	ld hl, $0000
-	add hl, sp
-	ld a, l
-	cp $40
-	ret c
+;	;stack pointer needs to be greater than or equal to $DF40
+;	ld hl, $0000
+;	add hl, sp
+;	ld a, l
+;	cp $40
+;	ret c
+;Not using stack anymore
 	
 	ld hl, MonListC
 	CheckEvent EVENT_GOT_STARTER
@@ -135,7 +136,15 @@ _ReplaceMon:
 
 	;C now holds the number of mons in the list
 	
-	ld hl, $DF00
+	;enable the sram and control sram bank 0
+	ld a, SRAM_ENABLE
+	ld [MBC1SRamEnable], a
+	xor a
+	ld [MBC1SRamBank], a
+	
+;instead of the stack, use sprite buffer 0 in the sram	
+;	ld hl, $DF00
+	ld hl, sSpriteBuffer0
 .loop2
 	ld a, [de]
 	cp $FF
@@ -145,9 +154,10 @@ _ReplaceMon:
 	jr .loop2 
 .next2
 	
-	;the mon list is now loaded into $DF00 of the stack and upward
+	;the mon list is now loaded into sSpriteBuffer0 ($A000)
 	
-	ld hl, $DF00
+;	ld hl, $DF00
+	ld hl, sSpriteBuffer0
 .loop3
 	ld a, [wUnusedD722]
 .loop_remainder
@@ -183,9 +193,13 @@ _ReplaceMon:
 	dec c
 	jr .loop3
 .next3
+
 	ld a, [de]
 	ld [wcf91], a
 	ld [wEnemyMonSpecies2], a
+
+	xor a
+	ld [MBC1SRamEnable], a	;disable the sram
 	ret
 
 

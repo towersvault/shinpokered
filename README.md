@@ -335,6 +335,11 @@ Cheats and Secrets!
 **Note: Changelogs may contain spoilers**  
 [View the Consolidated Changelog Document from 1.23 to 1.24.0](/patches_and_info/changelog_from_v1.23.md)  
 
+v1.24.x
+- Cubone rarity in rock tunnel 2nd floor increased from 1.2% to 6.3%
+- Farfetchd rarity on route 12 increased from 4.3% to 6.3%.
+- Farfetchd rarity on route 13 increased from 1.2% to 4.3%.
+
 v1.24.3  
 - Girl trainer on route 8 has text adjusted to reflect having a Clefable
 - Failure to teach a temp field move will now prompt the player to abandon learning it
@@ -1331,8 +1336,8 @@ v1.24.1
 - vulpix (4.3%: red, blue-jp) or growlithe (4.3%: blue, green) on route 8
 - bellsprout (4.3%: red, blue-jp) or oddish (4.3%: blue, green) on route 24
 - meowth (9.8%: red) or mankey (9.8%: blue, green, blue-jp) on route 5
-- farfetchd on route 12 (4.3%) and route 13 (1.2%)
-- cubone added to rock tunnel (5.1% floor 1 and 1.2% floor 2)
+- farfetchd on route 12 (6.3%) and route 13 (4.3%)
+- cubone added to rock tunnel (5.1% floor 1 and 6.3% floor 2)
 - dodrio on route 17 (5.1%)
 - porygon in the power plant in red version (1.2%)
 - electabuzz in power plant in all versions (9.4% red and 5.1% all others)

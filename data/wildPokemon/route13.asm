@@ -9,8 +9,8 @@ Route13Mons:;joenote - added farfetchd
 		db 26,ODDISH
 		db 25,DITTO
 		db 28,GLOOM
-		db 30,GLOOM
 		db 27,FARFETCHD
+		db 30,GLOOM
 	ELIF DEF(_ENCBLUEJP)
 		db 24, ODDISH
 		db 25, PIDGEY
@@ -20,8 +20,8 @@ Route13Mons:;joenote - added farfetchd
 		db 26, ODDISH
 		db 25, DITTO
 		db 28, GLOOM
-		db 30, GLOOM
 		db 27,FARFETCHD
+		db 30, GLOOM
 	ELIF DEF(_ENCBLUEGREEN)
 		db 24,BELLSPROUT
 		db 25,PIDGEY
@@ -31,8 +31,8 @@ Route13Mons:;joenote - added farfetchd
 		db 26,BELLSPROUT
 		db 25,DITTO
 		db 28,WEEPINBELL
-		db 30,WEEPINBELL
 		db 27,FARFETCHD
+		db 30,WEEPINBELL
 	ENDC
 	db $00
  

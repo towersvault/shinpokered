@@ -336,9 +336,11 @@ Cheats and Secrets!
 [View the Consolidated Changelog Document from 1.23 to 1.24.0](/patches_and_info/changelog_from_v1.23.md)  
 
 v1.24.x
-- Cubone rarity in rock tunnel 2nd floor increased from 1.2% to 6.3%
+- Cubone rarity in rock tunnel 2nd floor increased from 1.2% to 6.3%.
 - Farfetchd rarity on route 12 increased from 4.3% to 6.3%.
 - Farfetchd rarity on route 13 increased from 1.2% to 4.3%.
+- The player can now choose whether or not to generate a new Trainer ID when selecting New Game Plus.
+- Wild pokemon randomizer lists have been slightly adjusted.
 
 v1.24.3  
 - Girl trainer on route 8 has text adjusted to reflect having a Clefable
@@ -1235,6 +1237,7 @@ v1.24.1
 	- Option screen selections
 	- Trainer ID (boxed pokemon won't count as traded)
 	- Wild pokemon randomizer seed
+  - The player can now choose whether or not to generate a new Trainer ID when selecting New Game Plus
 
 
 #Cheats and Secrets

@@ -331,6 +331,7 @@ Preserves ONLY the following information (your current party will be lost):
 - Option screen selections  
 - Trainer ID (boxed pokemon won't count as traded)  
 - Wild pokemon randomizer seed
+The player can now choose whether or not to generate a new Trainer ID when selecting New Game Plus.  
 
 
 #Gameplay-Related Features

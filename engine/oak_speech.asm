@@ -59,6 +59,16 @@ OakSpeech:
 	ld a, SFX_GET_ITEM_1
 	call PlaySound
 	call WaitForSoundToFinish
+	ld hl, _PromptNewID
+	call PrintText
+	call YesNoChoice
+	ld a, [wCurrentMenuItem]
+	and a
+	jr nz, .newgamedone
+	call Random
+	ld [wPlayerID], a
+	call Random
+	ld [wPlayerID + 1], a
 	jr .newgamedone
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 .normalnewgame
@@ -394,3 +404,8 @@ BoyGirlChoice::	;joenote - added this
 	jp DisplayYesNoChoice
 ENDC
 
+_PromptNewID:
+	text "Generate a new"
+	line "TRAINER ID?"
+	done
+	db "@"

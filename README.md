@@ -341,6 +341,7 @@ v1.24.x
 - Farfetchd rarity on route 13 increased from 1.2% to 4.3%.
 - The player can now choose whether or not to generate a new Trainer ID when selecting New Game Plus.
 - Wild pokemon randomizer lists have been slightly adjusted.
+- Talking to the girl in Oak's lab allows the player to generate a new randomization seed value.  
 
 v1.24.3  
 - Girl trainer on route 8 has text adjusted to reflect having a Clefable
@@ -1150,6 +1151,7 @@ v1.24.1
   - Scripted events are unaffected (gifts, in-game trades, static encounters, etc)
   - The game's five legendary pokemon are excluded from randomization
   - The AREA feature of the pokedex automatically adjusts to show the new pokemon locations
+  - Talking to the girl in Oak's lab allows the player to generate a new randomization seed value.  
 - There is an Aide NPC in the viridian pokemon center that can toggle regular trainer randomization
   - Only affects regular trainers that use one level for all 'mons and have no custom movesets
   - Will replace their roster 'mons with random non-evolved 'mons (legendaries are excluded)

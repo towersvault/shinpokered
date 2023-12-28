@@ -1199,6 +1199,12 @@ OaksLabText9:
 	ld hl, OaksLabText_AideQ_reject
 	jr z, .end
 	SetEvent EVENT_8DE
+	ld hl, OaksLabText_randwildRegen
+	call PrintText
+	call .choose 
+	jr z, .print_done
+	call Random
+	ld [wRandomizerSeed], a
 .print_done
 	ld hl, OaksLabText_AideQ_done
 .end
@@ -1436,6 +1442,9 @@ OaksLabText_randwildON:
 	db "@"
 OaksLabText_randwildOFF:
 	TX_FAR _OaksLabText_randwildOFF
+	db "@"
+OaksLabText_randwildRegen:
+	TX_FAR _OaksLabText_randwildRegen
 	db "@"
 
 OaksLabText_symbolsON:

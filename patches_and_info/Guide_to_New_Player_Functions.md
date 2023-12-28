@@ -214,6 +214,7 @@ The game's five legendary pokemon are also excluded from randomization.
 A saved seed value is used, so the shuffled order is always preserved between play sessions.  
 This lets the AREA feature of the pokedex automatically adjust for the new pokemon locations.  
 And a new random seed is generated upon each new game.  
+Talking to the girl in Oak's lab allows the player to generate a new randomization seed value.  
 Shuffling is done using three internal pokemon lists defined by base-stat-total: A, B, and C tiers.  
 Pokemon are only shuffled within their own tier list in order to maintain some modicum of balance.  
 

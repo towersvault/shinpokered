@@ -565,6 +565,12 @@ _OaksLabText_randwildOFF::
 	cont "it back?"
 	done
 
+_OaksLabText_randwildRegen::
+	text "Want to generate"
+	line "a new pattern for"
+	cont "randomization?"
+	done
+
 _OaksLabText_symbolsON::
 	text "I study #MON as"
 	line "PROF.OAK's AIDE."

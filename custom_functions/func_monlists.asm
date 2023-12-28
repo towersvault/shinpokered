@@ -163,151 +163,164 @@ ListMostEvolvedPkmn:
 ;leave out pokemon with a set gender or are genderless
 ListByGenderRatio:
 ;0 to 5 are male only --> atk dv >= 0 is male
-	db NIDORAN_M
-	db NIDORINO
-	db NIDOKING
-	db HITMONCHAN
-	db HITMONLEE
-	db TAUROS
+	db NIDORAN_M    ; $03
+	db NIDORINO     ; $A7
+	db NIDOKING     ; $07
+	db HITMONLEE    ; $2B
+	db HITMONCHAN   ; $2C
+	db TAUROS       ; $3C
 ;6 to 24 are 1-7 ratio --> atk dv >= 2 is male
-	db AERODACTYL   ; $AB
-	db BLASTOISE    ; $1C
 	db BULBASAUR    ; $99
-	db CHARIZARD    ; $B4
+	db IVYSAUR      ; $09
+	db VENUSAUR     ; $9A
 	db CHARMANDER   ; $B0
 	db CHARMELEON   ; $B2
+	db CHARIZARD    ; $B4
+	db SQUIRTLE     ; $B1
+	db WARTORTLE    ; $B3
+	db BLASTOISE    ; $1C
 	db EEVEE        ; $66
-	db FLAREON      ; $67
-	db IVYSAUR      ; $09
+	db VAPOREON     ; $69
 	db JOLTEON      ; $68
-	db KABUTO       ; $5A
-	db KABUTOPS     ; $5B
+	db FLAREON      ; $67
 	db OMANYTE      ; $62
 	db OMASTAR      ; $63
+	db KABUTO       ; $5A
+	db KABUTOPS     ; $5B
+	db AERODACTYL   ; $AB
 	db SNORLAX      ; $84
-	db SQUIRTLE     ; $B1
-	db VAPOREON     ; $69
-	db VENUSAUR     ; $9A
-	db WARTORTLE    ; $B3
 ;25 to 34 are 1-3 ratio  --> atk dv >= 4 is male
-	db ABRA         ; $94
-	db ALAKAZAM     ; $95
-	db ARCANINE     ; $14
-	db ELECTABUZZ   ; $35
 	db GROWLITHE    ; $21
+	db ARCANINE     ; $14
+	db ABRA         ; $94
 	db KADABRA      ; $26
-	db MACHAMP      ; $7E
-	db MACHOKE      ; $29
+	db ALAKAZAM     ; $95
 	db MACHOP       ; $6A
+	db MACHOKE      ; $29
+	db MACHAMP      ; $7E
+	db ELECTABUZZ   ; $35
 	db MAGMAR       ; $33
 ;35 to 125 are 1-1 ratio --> atk dv >= 8 is male
-	db ARBOK        ; $2D
-	db BEEDRILL     ; $72
-	db BELLSPROUT   ; $BC
-	db BUTTERFREE   ; $7D
 	db CATERPIE     ; $7B
-	db CLOYSTER     ; $8B
-	db CUBONE       ; $11
-	db DEWGONG      ; $78
-	db DIGLETT      ; $3B
-	db DODRIO       ; $74
-	db DODUO        ; $46
-	db DRAGONAIR    ; $59
-	db DRAGONITE    ; $42
-	db DRATINI      ; $58
-	db DROWZEE      ; $30
-	db DUGTRIO      ; $76
-	db EKANS        ; $6C
-	db EXEGGCUTE    ; $0C
-	db EXEGGUTOR    ; $0A
-	db FARFETCHD    ; $40
-	db FEAROW       ; $23
-	db GASTLY       ; $19
-	db GENGAR       ; $0E
-	db GEODUDE      ; $A9
-	db GLOOM        ; $BA
-	db GOLBAT       ; $82
-	db GOLDEEN      ; $9D
-	db GOLDUCK      ; $80
-	db GOLEM        ; $31
-	db GRAVELER     ; $27
-	db GRIMER       ; $0D
-	db GYARADOS     ; $16
-	db HAUNTER      ; $93
-	db HORSEA       ; $5C
-	db HYPNO        ; $81
-	db KAKUNA       ; $71
-	db KINGLER      ; $8A
-	db KOFFING      ; $37
-	db KRABBY       ; $4E
-	db LAPRAS       ; $13
-	db LICKITUNG    ; $0B
-	db MAGIKARP     ; $85
-	db MANKEY       ; $39
-	db MAROWAK      ; $91
-	db MEOWTH       ; $4D
 	db METAPOD      ; $7C
-	db MR_MIME      ; $2A
-	db MUK          ; $88
+	db BUTTERFREE   ; $7D
+	db WEEDLE       ; $70
+	db KAKUNA       ; $71
+	db BEEDRILL     ; $72
+	db PIDGEY       ; $24
+	db PIDGEOTTO    ; $96
+	db PIDGEOT      ; $97
+	db RATTATA      ; $A5
+	db RATICATE     ; $A6
+	db SPEAROW      ; $05
+	db FEAROW       ; $23
+	db EKANS        ; $6C
+	db ARBOK        ; $2D
+	db PIKACHU      ; $54
+	db RAICHU       ; $55
+	db SANDSHREW    ; $60
+	db SANDSLASH    ; $61
+	db ZUBAT        ; $6B
+	db GOLBAT       ; $82
 	db ODDISH       ; $B9
-	db ONIX         ; $22
+	db GLOOM        ; $BA
+	db VILEPLUME    ; $BB
 	db PARAS        ; $6D
 	db PARASECT     ; $2E
+	db VENONAT      ; $41
+	db VENOMOTH     ; $77
+	db DIGLETT      ; $3B
+	db DUGTRIO      ; $76
+	db MEOWTH       ; $4D
 	db PERSIAN      ; $90
-	db PIDGEOT      ; $97
-	db PIDGEOTTO    ; $96
-	db PIDGEY       ; $24
-	db PIKACHU      ; $54
-	db PINSIR       ; $1D
+	db PSYDUCK      ; $2F
+	db GOLDUCK      ; $80
+	db MANKEY       ; $39
+	db PRIMEAPE     ; $75
 	db POLIWAG      ; $47
 	db POLIWHIRL    ; $6E
 	db POLIWRATH    ; $6F
-	db PONYTA       ; $A3
-	db PRIMEAPE     ; $75
-	db PSYDUCK      ; $2F
-	db RAICHU       ; $55
-	db RAPIDASH     ; $A4
-	db RATICATE     ; $A6
-	db RATTATA      ; $A5
-	db RHYDON       ; $01
-	db RHYHORN      ; $12
-	db SANDSHREW    ; $60
-	db SANDSLASH    ; $61
-	db SCYTHER      ; $1A
-	db SEADRA       ; $5D
-	db SEAKING      ; $9E
-	db SEEL         ; $3A
-	db SHELLDER     ; $17
-	db SLOWBRO      ; $08
-	db SLOWPOKE     ; $25
-	db SPEAROW      ; $05
-	db TANGELA      ; $1E
+	db BELLSPROUT   ; $BC
+	db WEEPINBELL   ; $BD
+	db VICTREEBEL   ; $BE
 	db TENTACOOL    ; $18
 	db TENTACRUEL   ; $9B
-	db VENOMOTH     ; $77
-	db VENONAT      ; $41
-	db VICTREEBEL   ; $BE
-	db VILEPLUME    ; $BB
-	db WEEDLE       ; $70
-	db WEEPINBELL   ; $BD
+	db GEODUDE      ; $A9
+	db GRAVELER     ; $27
+	db GOLEM        ; $31
+	db PONYTA       ; $A3
+	db RAPIDASH     ; $A4
+	db SLOWPOKE     ; $25
+	db SLOWBRO      ; $08
+	db FARFETCHD    ; $40
+	db DODUO        ; $46
+	db DODRIO       ; $74
+	db SEEL         ; $3A
+	db DEWGONG      ; $78
+	db GRIMER       ; $0D
+	db MUK          ; $88
+	db SHELLDER     ; $17
+	db CLOYSTER     ; $8B
+	db GASTLY       ; $19
+	db HAUNTER      ; $93
+	db GENGAR       ; $0E
+	db ONIX         ; $22
+	db DROWZEE      ; $30
+	db HYPNO        ; $81
+	db KRABBY       ; $4E
+	db KINGLER      ; $8A
+	db EXEGGCUTE    ; $0C
+	db EXEGGUTOR    ; $0A
+	db CUBONE       ; $11
+	db MAROWAK      ; $91
+	db LICKITUNG    ; $0B
+	db KOFFING      ; $37
 	db WEEZING      ; $8F
-	db ZUBAT        ; $6B
+	db RHYHORN      ; $12
+	db RHYDON       ; $01
+	db TANGELA      ; $1E
+	db HORSEA       ; $5C
+	db SEADRA       ; $5D
+	db GOLDEEN      ; $9D
+	db SEAKING      ; $9E
+	db MR_MIME      ; $2A
+	db SCYTHER      ; $1A
+	db PINSIR       ; $1D
+	db MAGIKARP     ; $85
+	db GYARADOS     ; $16
+	db LAPRAS       ; $13
+	db DRATINI      ; $58
+	db DRAGONAIR    ; $59
+	db DRAGONITE    ; $42
 ;126 to 131 are 3-1 ratio --> atk dv >= 12 is male
-	db CLEFABLE     ; $8E
 	db CLEFAIRY     ; $04
-	db JIGGLYPUFF   ; $64
-	db NINETALES    ; $53
+	db CLEFABLE     ; $8E
 	db VULPIX       ; $52
+	db NINETALES    ; $53
+	db JIGGLYPUFF   ; $64
 	db WIGGLYTUFF   ; $65
 ;132 to 137 are female only --> atk dv >= 16 (not possible) is male
-	db NIDORAN_F
-	db NIDORINA
-	db NIDOQUEEN
-	db JYNX
-	db CHANSEY
-	db KANGASKHAN
-;otherwise a pokemon not on this list is unsexed
+	db NIDORAN_F    ; $0F
+	db NIDORINA     ; $A8
+	db NIDOQUEEN    ; $10
+	db CHANSEY      ; $28
+	db KANGASKHAN   ; $02
+	db JYNX         ; $48
+;otherwise a pokemon not on this list are unsexed
 	db $00
+; db MAGNEMITE    ; $AD
+; db MAGNETON     ; $36
+; db VOLTORB      ; $06
+; db ELECTRODE    ; $8D
+; db STARYU       ; $1B
+; db STARMIE      ; $98
+; db DITTO        ; $4C
+; db PORYGON      ; $AA
+; db ARTICUNO     ; $4A
+; db ZAPDOS       ; $4B
+; db MOLTRES      ; $49
+; db MEWTWO       ; $83
+; db MEW          ; $15
 
 GetGenderRatioTarget:
 	cp 6

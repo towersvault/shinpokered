@@ -330,6 +330,7 @@ Preserves ONLY the following information (your current party will be lost):
 - Hall of Fame (experimental)  
 - Option screen selections  
 - Trainer ID (boxed pokemon won't count as traded)  
+- Wild pokemon randomizer seed
 
 
 #Gameplay-Related Features

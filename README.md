@@ -1233,7 +1233,8 @@ v1.24.1
 	- Pokedex seen/owned registry
 	- Hall of Fame (experimental)
 	- Option screen selections
-  - A new trainer ID and hash is generated, so boxed pokemon are permanently treated as traded pokemon
+	- Trainer ID (boxed pokemon won't count as traded)
+	- Wild pokemon randomizer seed
 
 
 #Cheats and Secrets

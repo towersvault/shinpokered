@@ -1191,6 +1191,7 @@ OaksLabText9:
 	ld hl, OaksLabText_AideQ_reject
 	jr z, .end
 	ResetEvent EVENT_8DE
+	ResetEvent EVENT_8D7
 	jr .print_done
 .randOn
 	ld hl, OaksLabText_randwildON

@@ -342,6 +342,7 @@ v1.24.x
 - The player can now choose whether or not to generate a new Trainer ID when selecting New Game Plus.
 - Wild pokemon randomizer lists have been slightly adjusted.
 - Talking to the girl in Oak's lab allows the player to generate a new randomization seed value.  
+- Talking to the girl in Oak's lab prompts the player if full randomization is preferred.  
 
 v1.24.3  
 - Girl trainer on route 8 has text adjusted to reflect having a Clefable
@@ -1152,6 +1153,7 @@ v1.24.1
   - The game's five legendary pokemon are excluded from randomization
   - The AREA feature of the pokedex automatically adjusts to show the new pokemon locations
   - Talking to the girl in Oak's lab allows the player to generate a new randomization seed value.  
+  - The girl will also ask if full randomization is preferred, which will combine the tiers into one big list.  
 - There is an Aide NPC in the viridian pokemon center that can toggle regular trainer randomization
   - Only affects regular trainers that use one level for all 'mons and have no custom movesets
   - Will replace their roster 'mons with random non-evolved 'mons (legendaries are excluded)

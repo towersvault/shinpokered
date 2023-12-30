@@ -217,6 +217,7 @@ And a new random seed is generated upon each new game.
 Talking to the girl in Oak's lab allows the player to generate a new randomization seed value.  
 Shuffling is done using three internal pokemon lists defined by base-stat-total: A, B, and C tiers.  
 Pokemon are only shuffled within their own tier list in order to maintain some modicum of balance.  
+The girl will also ask if full randomization is preferred, which will combine the tiers into one big list.  
 
 **Regular Trainer Randomization**  
 One of Oak's Aides has been added to the Viridian Pokemon Center. Talk to him to toggle this feature.  

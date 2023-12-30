@@ -2263,7 +2263,7 @@ const_value = 0
 	const EVENT_8D4                                  ; 8D4, (D861, bit 4)
 	const EVENT_8D5                                  ; 8D5, (D861, bit 5)
 	const EVENT_8D6                                  ; 8D6, (D861, bit 6)
-	const EVENT_8D7                                  ; 8D7, (D861, bit 7)
+	const EVENT_8D7     ;true wild randomization     ; 8D7, (D861, bit 7)
 	const EVENT_8D8     ;randomize normal trainers   ; 8D8, (D862, bit 0)	;joenote
 	const EVENT_8D9     ;catch-up exp boost          ; 8D9, (D862, bit 1)
 	const EVENT_8DA     ;cinnabar shore missingno    ; 8DA, (D862, bit 2)

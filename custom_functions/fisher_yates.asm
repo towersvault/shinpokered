@@ -86,7 +86,22 @@ _ReplaceMon:
 ;	cp $40
 ;	ret c
 ;Not using stack anymore
-	
+
+	CheckEvent EVENT_8D7
+	jr z, .tieredRandom
+	ld hl, MonListTrueRandom
+	CheckEvent EVENT_GOT_STARTER
+	jr nz, .notstarter_trueRandom
+	ld hl, MonListTrueRandom_Starter
+.notstarter_trueRandom
+	ld a, [wcf91]
+	ld de, $0001
+	push hl
+	call IsInArray
+	pop hl
+	jr c, .listfound
+
+.tieredRandom
 	ld hl, MonListC
 	CheckEvent EVENT_GOT_STARTER
 	jr nz, .notstarter

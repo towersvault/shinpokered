@@ -90,8 +90,8 @@ _Route6AfterBattleText6::
 	cont "just bad?"
 	done
 
-_Route6Text7::
+_Route6Text7::	;joenote - swapped city order
 	text "UNDERGROUND PATH"
-	line "CERULEAN CITY -"
-	cont "VERMILION CITY"
+	line "VERMILION CITY -"
+	cont "CERULEAN CITY"
 	done

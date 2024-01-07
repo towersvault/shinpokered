@@ -148,8 +148,8 @@ _Route8AfterBattleText9::
 	cont "to a MOON STONE."
 	done
 
-_Route8Text10::
+_Route8Text10::	;joenote - swapped city order
 	text "UNDERGROUND PATH"
-	line "CELADON CITY -"
-	cont "LAVENDER TOWN"
+	line "LAVENDER TOWN -"
+	cont "CELADON CITY"
 	done

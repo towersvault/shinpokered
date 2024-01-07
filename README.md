@@ -344,6 +344,7 @@ v1.24.x
 - Wild pokemon randomizer lists have been slightly adjusted.
 - Talking to the girl in Oak's lab allows the player to generate a new randomization seed value.  
 - Talking to the girl in Oak's lab prompts the player if full randomization is preferred.  
+- Adjusted some text for post-game world state.
 
 v1.24.3  
 - Girl trainer on route 8 has text adjusted to reflect having a Clefable

@@ -40,6 +40,16 @@ SSAnne5TrainerHeader1:
 	db $ff
 
 SSAnne5Text1:
+	TX_ASM
+	CheckEvent EVENT_908 ;joenote - add text for SS ANNE returning
+	ld hl, SSAnne5Text1_normal
+	jr z, .print
+	ld hl, _SSAnne5Text1_ALT
+.print	
+	call PrintText
+	jp TextScriptEnd
+
+SSAnne5Text1_normal:
 	TX_FAR _SSAnne5Text1
 	db "@"
 
@@ -86,3 +96,13 @@ SSAnne5EndBattleText2:
 SSAnne5AfterBattleText2:
 	TX_FAR _SSAnne5AfterBattleText2
 	db "@"
+
+_SSAnne5Text1_ALT:
+	text "Party's back on!"
+	line "The ship will be"
+	cont "moored until the"
+	cont "TENTACOOL blooms"
+	cont "begin dispersing."
+	done
+	db "@"
+	

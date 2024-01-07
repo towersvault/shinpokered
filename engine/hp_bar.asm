@@ -151,7 +151,8 @@ UpdateHPBar_AnimateHPBar:
 	ld a, 1
 	ld [H_AUTOBGTRANSFERENABLED], a	
 
-	ld c, 2
+	;ld c, 2
+	ld c, 1		;joenote - speed up HP bar animation
 	call DelayFrames
 	pop de
 	ld a, [wHPBarDelta] ; +1 or -1

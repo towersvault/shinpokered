@@ -336,6 +336,7 @@ Cheats and Secrets!
 [View the Consolidated Changelog Document from 1.23 to 1.24.0](/patches_and_info/changelog_from_v1.23.md)  
 
 v1.24.x
+- Lance and the player will face each other when speaking.
 - Increased the speed of the HP bar animation
 - Cubone rarity in rock tunnel 2nd floor increased from 1.2% to 6.3%.
 - Farfetchd rarity on route 12 increased from 4.3% to 6.3%.
@@ -670,6 +671,7 @@ v1.24.1
   - Fixed the tiles in Mt. Moon floor 3 that prevent encounters
   - Fixed picking a fossil causing all trainers on Mt. Moon floor 3 to lose line of sight
   - Fixed an underflow issue which caused trainers above the player to not see beyond 3 spaces downward
+  - Lance and the player will face each other when speaking.
  
  
 #Tweaks

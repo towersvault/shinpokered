@@ -336,6 +336,7 @@ Cheats and Secrets!
 [View the Consolidated Changelog Document from 1.23 to 1.24.0](/patches_and_info/changelog_from_v1.23.md)  
 
 v1.24.x
+- Fixed incorrect sign text in safari area 1
 - Adjusted some city names on signs
 - Lance and the player will face each other when speaking.
 - Increased the speed of the HP bar animation
@@ -706,6 +707,7 @@ v1.24.1
   - Viridian gym statue will not spoil the gym leader's name reveal
   - Fixed inaccurate text when getting the rock slide TM
   - Adjusted some city names on signs
+  - Fixed incorrect sign text in safari area 1
 - Made adjustments to the game text
   - When a pkmn is caught and fills the box, a reminder is printed that the box is full
   - PC has a text prompt to tell you if its full after depositing

@@ -9,7 +9,7 @@ MtMoon3Script:
 	CheckEvent EVENT_BEAT_MT_MOON_EXIT_SUPER_NERD
 	ret z
 	CheckEitherEventSet EVENT_GOT_DOME_FOSSIL, EVENT_GOT_HELIX_FOSSIL
-	ret z	;let's turn encounters back on once the big moment is over
+	ret nz	;let's keep encounters on once the big moment is over
 	ld hl, CoordsData_49d37
 	call ArePlayerCoordsInArray
 	jr nc, .asm_49d31

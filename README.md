@@ -336,6 +336,7 @@ Cheats and Secrets!
 [View the Consolidated Changelog Document from 1.23 to 1.24.0](/patches_and_info/changelog_from_v1.23.md)  
 
 v1.24.x
+- Can no longer fish or surf using the right wall corner tile on the SS Anne.
 - Fixed incorrect sign text in safari area 1
 - Adjusted some city names on signs
 - Lance and the player will face each other when speaking.
@@ -628,6 +629,7 @@ v1.24.1
   - Can't use surf/teleport/escape rope to escape from trainer encounters
   - Fixed trainer escape glitch via blacking out from a wild battle
   - Can't fish or surf in the bases of statues
+  - Can no longer fish or surf using the right wall corner tile on the SS Anne
   - Seafoam islands fast current applied to the right steps on floor B3
   - Each of the two boulder puzzles in seafoam islands will fully reset until completed
   - The boulder switches never reset while inside victory road and they will always reset upon leaving

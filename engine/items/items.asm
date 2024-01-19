@@ -3227,6 +3227,8 @@ IsNextTileShoreOrWater:
 	jr z, .skipShoreTiles
 	cp DOJO ; usual eastern shore tile
 	jr z, .skipShoreTiles
+	cp SHIP ; SS Anne tileset
+	jr z, .skipShoreTiles
 	ld hl, ShoreTiles
 .skipShoreTiles
 	ld a, [wTileInFrontOfPlayer]

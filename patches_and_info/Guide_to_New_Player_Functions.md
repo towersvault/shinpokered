@@ -214,8 +214,10 @@ The game's five legendary pokemon are also excluded from randomization.
 A saved seed value is used, so the shuffled order is always preserved between play sessions.  
 This lets the AREA feature of the pokedex automatically adjust for the new pokemon locations.  
 And a new random seed is generated upon each new game.  
+Talking to the girl in Oak's lab allows the player to generate a new randomization seed value.  
 Shuffling is done using three internal pokemon lists defined by base-stat-total: A, B, and C tiers.  
 Pokemon are only shuffled within their own tier list in order to maintain some modicum of balance.  
+The girl will also ask if full randomization is preferred, which will combine the tiers into one big list.  
 
 **Regular Trainer Randomization**  
 One of Oak's Aides has been added to the Viridian Pokemon Center. Talk to him to toggle this feature.  
@@ -330,6 +332,8 @@ Preserves ONLY the following information (your current party will be lost):
 - Hall of Fame (experimental)  
 - Option screen selections  
 - Trainer ID (boxed pokemon won't count as traded)  
+- Wild pokemon randomizer seed
+The player can now choose whether or not to generate a new Trainer ID when selecting New Game Plus.  
 
 
 #Gameplay-Related Features

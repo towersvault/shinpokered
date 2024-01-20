@@ -32,7 +32,6 @@ InitPlayerData2:
 	ld hl, wNumInBox
 	call InitializeEmptyList
 .newgameplus
-	ld [wPlayerID+1], a
 	
 	ld a, $ff
 	ld [wUnusedD71B], a

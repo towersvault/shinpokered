@@ -74,6 +74,7 @@ ResetAllOptions: ;joenote - reset all the special options (like for patching-up)
 	and %10000111
 	ld [wUnusedD721], a
 	
+	ResetEvent EVENT_8D7
 	ResetEvent EVENT_8D8
 	ResetEvent EVENT_8D9
 	ResetEvent EVENT_8DA

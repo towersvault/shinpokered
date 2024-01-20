@@ -1,6 +1,6 @@
 # Shin Pokémon Red, Blue, Green, Red-JP, & Blue-JP
 
-Version 1.24.3
+Version 1.24.4
 
 *Shin (真) - The kanji for "true".  
 Used in Japanese media to denote a remastering, updated retelling , or a "true form" of something.*  
@@ -335,6 +335,21 @@ Cheats and Secrets!
 **Note: Changelogs may contain spoilers**  
 [View the Consolidated Changelog Document from 1.23 to 1.24.0](/patches_and_info/changelog_from_v1.23.md)  
 
+v1.24.4
+- Can no longer fish or surf using the right wall corner tile on the SS Anne.
+- Fixed incorrect sign text in safari area 1
+- Adjusted some city names on signs
+- Lance and the player will face each other when speaking.
+- Increased the speed of the HP bar animation
+- Cubone rarity in rock tunnel 2nd floor increased from 1.2% to 6.3%.
+- Farfetchd rarity on route 12 increased from 4.3% to 6.3%.
+- Farfetchd rarity on route 13 increased from 1.2% to 4.3%.
+- The player can now choose whether or not to generate a new Trainer ID when selecting New Game Plus.
+- Wild pokemon randomizer lists have been slightly adjusted.
+- Talking to the girl in Oak's lab allows the player to generate a new randomization seed value.  
+- Talking to the girl in Oak's lab prompts the player if full randomization is preferred.  
+- Adjusted some text for post-game world state.
+
 v1.24.3  
 - Girl trainer on route 8 has text adjusted to reflect having a Clefable
 - Failure to teach a temp field move will now prompt the player to abandon learning it
@@ -614,6 +629,7 @@ v1.24.1
   - Can't use surf/teleport/escape rope to escape from trainer encounters
   - Fixed trainer escape glitch via blacking out from a wild battle
   - Can't fish or surf in the bases of statues
+  - Can no longer fish or surf using the right wall corner tile on the SS Anne
   - Seafoam islands fast current applied to the right steps on floor B3
   - Each of the two boulder puzzles in seafoam islands will fully reset until completed
   - The boulder switches never reset while inside victory road and they will always reset upon leaving
@@ -659,6 +675,7 @@ v1.24.1
   - Fixed the tiles in Mt. Moon floor 3 that prevent encounters
   - Fixed picking a fossil causing all trainers on Mt. Moon floor 3 to lose line of sight
   - Fixed an underflow issue which caused trainers above the player to not see beyond 3 spaces downward
+  - Lance and the player will face each other when speaking.
  
  
 #Tweaks
@@ -691,6 +708,8 @@ v1.24.1
   - Fixed woman on silph co 10F having a blank line in her text 
   - Viridian gym statue will not spoil the gym leader's name reveal
   - Fixed inaccurate text when getting the rock slide TM
+  - Adjusted some city names on signs
+  - Fixed incorrect sign text in safari area 1
 - Made adjustments to the game text
   - When a pkmn is caught and fills the box, a reminder is printed that the box is full
   - PC has a text prompt to tell you if its full after depositing
@@ -977,6 +996,7 @@ v1.24.1
   - The Cerulean encounter
   - The SS Anne encounter
 - Adjusted the parity of in-game trades across versions
+- Increased the speed of the HP bar animation
   
   
 #Additions
@@ -1143,6 +1163,8 @@ v1.24.1
   - Scripted events are unaffected (gifts, in-game trades, static encounters, etc)
   - The game's five legendary pokemon are excluded from randomization
   - The AREA feature of the pokedex automatically adjusts to show the new pokemon locations
+  - Talking to the girl in Oak's lab allows the player to generate a new randomization seed value.  
+  - The girl will also ask if full randomization is preferred, which will combine the tiers into one big list.  
 - There is an Aide NPC in the viridian pokemon center that can toggle regular trainer randomization
   - Only affects regular trainers that use one level for all 'mons and have no custom movesets
   - Will replace their roster 'mons with random non-evolved 'mons (legendaries are excluded)
@@ -1228,7 +1250,9 @@ v1.24.1
 	- Pokedex seen/owned registry
 	- Hall of Fame (experimental)
 	- Option screen selections
-  - A new trainer ID and hash is generated, so boxed pokemon are permanently treated as traded pokemon
+	- Trainer ID (boxed pokemon won't count as traded)
+	- Wild pokemon randomizer seed
+  - The player can now choose whether or not to generate a new Trainer ID when selecting New Game Plus
 
 
 #Cheats and Secrets
@@ -1331,8 +1355,8 @@ v1.24.1
 - vulpix (4.3%: red, blue-jp) or growlithe (4.3%: blue, green) on route 8
 - bellsprout (4.3%: red, blue-jp) or oddish (4.3%: blue, green) on route 24
 - meowth (9.8%: red) or mankey (9.8%: blue, green, blue-jp) on route 5
-- farfetchd on route 12 (4.3%) and route 13 (1.2%)
-- cubone added to rock tunnel (5.1% floor 1 and 1.2% floor 2)
+- farfetchd on route 12 (6.3%) and route 13 (4.3%)
+- cubone added to rock tunnel (5.1% floor 1 and 6.3% floor 2)
 - dodrio on route 17 (5.1%)
 - porygon in the power plant in red version (1.2%)
 - electabuzz in power plant in all versions (9.4% red and 5.1% all others)

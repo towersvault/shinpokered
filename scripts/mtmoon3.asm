@@ -5,38 +5,40 @@ MtMoon3Script:
 	ld a, [wMtMoon3CurScript]
 	call ExecuteCurMapScriptInTable
 	ld [wMtMoon3CurScript], a
-;joenote - There is no need to do this because the Fossil Nerd is a script-only trainer like the Rival.
-;	CheckEvent EVENT_BEAT_MT_MOON_EXIT_SUPER_NERD
-;	ret z
-;	ld hl, CoordsData_49d37
-;	call ArePlayerCoordsInArray
-;	jr nc, .asm_49d31
-;	ld hl, wd72e
-;	set 4, [hl]
-;	ret
-;.asm_49d31
-;	ld hl, wd72e
-;	res 4, [hl]
+;joenote - Intent here is probably to keep encounters from ruining the moment of choosing your fossil prize
+	CheckEvent EVENT_BEAT_MT_MOON_EXIT_SUPER_NERD
+	ret z
+	ld hl, CoordsData_49d37
+	call ArePlayerCoordsInArray
+	jr nc, .asm_49d31
+	CheckEitherEventSet EVENT_GOT_DOME_FOSSIL, EVENT_GOT_HELIX_FOSSIL
+	jr nz, .asm_49d31	;let's keep encounters on once the big moment is over
+	ld hl, wd72e
+	set 4, [hl]
+	ret
+.asm_49d31
+	ld hl, wd72e
+	res 4, [hl]
 	ret
 
-;CoordsData_49d37:
-;	db $05,$0B
-;	db $05,$0C
-;	db $05,$0D
-;	db $05,$0E
-;	db $06,$0B
-;	db $06,$0C
-;	db $06,$0D
-;	db $06,$0E
-;	db $07,$0B
-;	db $07,$0C
-;	db $07,$0D
-;	db $07,$0E
-;	db $08,$0B
-;	db $08,$0C
-;	db $08,$0D
-;	db $08,$0E
-;	db $FF
+CoordsData_49d37:
+	db $05,$0B
+	db $05,$0C
+	db $05,$0D
+	db $05,$0E
+	db $06,$0B
+	db $06,$0C
+	db $06,$0D
+	db $06,$0E
+	db $07,$0B
+	db $07,$0C
+	db $07,$0D
+	db $07,$0E
+	db $08,$0B
+	db $08,$0C
+	db $08,$0D
+	db $08,$0E
+	db $FF
 
 MtMoon3Script_49d58:
 	xor a
@@ -69,7 +71,7 @@ MtMoon3Script0:
 	jp DisplayTextID
 
 MtMoon3Script_49d91:
-;joenote - There is no need to do this because the Fossil Nerd is a script-only trainer like the Rival.
+;joenote - Half-baked idea to make the rocket grunts turn off like trainers in a gym. Remove for dungeon consistency.
 ;	CheckEitherEventSet EVENT_GOT_DOME_FOSSIL, EVENT_GOT_HELIX_FOSSIL
 ;	jp z, CheckFightingMapTrainers
 ;	ret

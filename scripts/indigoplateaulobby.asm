@@ -26,6 +26,16 @@ IndigoHealNurseText:
 	TX_POKECENTER_NURSE
 
 IndigoPlateauLobbyText2:
+	TX_ASM
+	CheckEvent EVENT_908 ;joenote - add text for after beating the elite 4
+	ld hl, IndigoPlateauLobbyText2_normal
+	jr z, .print
+	ld hl, IndigoPlateauLobbyText2_ALT
+.print	
+	call PrintText
+	jp TextScriptEnd
+	
+IndigoPlateauLobbyText2_normal:
 	TX_FAR _IndigoPlateauLobbyText2
 	db "@"
 
@@ -35,3 +45,20 @@ IndigoPlateauLobbyText3:
 
 IndigoTradeNurseText:
 	TX_CABLE_CLUB_RECEPTIONIST
+
+IndigoPlateauLobbyText2_ALT:
+	text "Yo! Once and"
+	line "future CHAMP!"
+
+	para "At #MON LEAGUE,"
+	line "you have to face"
+	cont "the ELITE FOUR in"
+	cont "succession."
+
+	para "If you lose, you"
+	line "have to start all"
+	cont "over again! You"
+	cont "know the drill by"
+	cont "now! Go for it!"
+	done
+	db "@"

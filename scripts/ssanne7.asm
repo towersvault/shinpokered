@@ -36,7 +36,11 @@ SSAnne7Text1:
 	set 5, [hl]
 	jr .asm_0faf5
 .asm_797c4
+	CheckEvent EVENT_908 ;joenote - add text for SS ANNE returning
 	ld hl, SSAnne7Text_61932
+	jr z, .print
+	ld hl, _SSAnne7Text_61932_ALT
+.print
 	call PrintText
 .asm_0faf5
 	jp TextScriptEnd
@@ -90,4 +94,16 @@ SSAnne7Text2:
 
 SSAnne7Text3:
 	TX_FAR _SSAnne7Text3
+	db "@"
+
+_SSAnne7Text_61932_ALT:
+	text "CAPTAIN: Whew!"
+
+	para "I'm glad I'm not"
+	line "sick any more..."
+
+	para "Too bad I had to"
+	line "turn back the"
+	cont "ship for safety."
+	done
 	db "@"

@@ -79,13 +79,29 @@ _ReplaceMon:
 .no_update
 	ld [wUnusedD722], a
 	
-	;stack pointer needs to be greater than or equal to $DF40
-	ld hl, $0000
-	add hl, sp
-	ld a, l
-	cp $40
-	ret c
-	
+;	;stack pointer needs to be greater than or equal to $DF40
+;	ld hl, $0000
+;	add hl, sp
+;	ld a, l
+;	cp $40
+;	ret c
+;Not using stack anymore
+
+	CheckEvent EVENT_8D7
+	jr z, .tieredRandom
+	ld hl, MonListTrueRandom
+	CheckEvent EVENT_GOT_STARTER
+	jr nz, .notstarter_trueRandom
+	ld hl, MonListTrueRandom_Starter
+.notstarter_trueRandom
+	ld a, [wcf91]
+	ld de, $0001
+	push hl
+	call IsInArray
+	pop hl
+	jr c, .listfound
+
+.tieredRandom
 	ld hl, MonListC
 	CheckEvent EVENT_GOT_STARTER
 	jr nz, .notstarter
@@ -135,7 +151,15 @@ _ReplaceMon:
 
 	;C now holds the number of mons in the list
 	
-	ld hl, $DF00
+	;enable the sram and control sram bank 0
+	ld a, SRAM_ENABLE
+	ld [MBC1SRamEnable], a
+	xor a
+	ld [MBC1SRamBank], a
+	
+;instead of the stack, use sprite buffer 0 in the sram	
+;	ld hl, $DF00
+	ld hl, sSpriteBuffer0
 .loop2
 	ld a, [de]
 	cp $FF
@@ -145,9 +169,10 @@ _ReplaceMon:
 	jr .loop2 
 .next2
 	
-	;the mon list is now loaded into $DF00 of the stack and upward
+	;the mon list is now loaded into sSpriteBuffer0 ($A000)
 	
-	ld hl, $DF00
+;	ld hl, $DF00
+	ld hl, sSpriteBuffer0
 .loop3
 	ld a, [wUnusedD722]
 .loop_remainder
@@ -183,124 +208,242 @@ _ReplaceMon:
 	dec c
 	jr .loop3
 .next3
+
 	ld a, [de]
 	ld [wcf91], a
 	ld [wEnemyMonSpecies2], a
+
+	xor a
+	ld [MBC1SRamEnable], a	;disable the sram
 	ret
 
 
 MonListC:
-	db	MAGIKARP	 ;85
-	db	METAPOD	 ;7C
-	db	KAKUNA	 ;71
-	db	ABRA	 ;94
-	db	JIGGLYPUFF	 ;64
+	db METAPOD      ; $7C
+	db KAKUNA       ; $71
+	db PIDGEOTTO    ; $96
+	db JIGGLYPUFF   ; $64
+	db ABRA         ; $94
+	db MAGIKARP     ; $85
 	;fall through
-MonListStarter:	;because not all mons in c-tier are viable as a starter pokemon
-	db	KOFFING	 ;37
-	db	FARFETCHD	 ;40
-	db	TENTACOOL	 ;18
-	db	DROWZEE	 ;30
-	db	STARYU	 ;1B
-	db	SANDSHREW	 ;60
-	db	GROWLITHE	 ;21
-	db	SEEL	 ;3A
-	db	SHELLDER	 ;17
-	db	EXEGGCUTE	 ;0C
-	db	EEVEE	 ;66
-	db	SLOWPOKE	 ;25
-	db	DODUO	 ;46
-	db	GRIMER	 ;0D
-	db	GASTLY	 ;19
-	db	VOLTORB	 ;06
-	db	MACHOP	 ;6A
-	db	BELLSPROUT	 ;BC
-	db	GEODUDE	 ;A9
-	db	MAGNEMITE	 ;AD
-	db	CUBONE	 ;11
-	db	HORSEA	 ;5C
-	db	PIKACHU	 ;54
-	db	MANKEY	 ;39
-	db	CLEFAIRY	 ;04
-	db	ODDISH	 ;B9
-	db	PSYDUCK	 ;2F
-	db	BULBASAUR	 ;99
-	db	SQUIRTLE	 ;B1
-	db	VENONAT	 ;41
-	db	MEOWTH	 ;4D
-	db	CHARMANDER	 ;B0
-	db	VULPIX	 ;52
-	db	PARAS	 ;6D
-	db	DITTO	 ;4C
-	db	NIDORAN_F	 ;0F
-	db	EKANS	 ;6C
-	db	NIDORAN_M	 ;03
-	db	SPEAROW	 ;05
-	db	DIGLETT	 ;3B
-	db	RATTATA	 ;A5
-	db	PIDGEY	 ;24
-	db	ZUBAT	 ;6B
-	db	CATERPIE	 ;7B
-	db	WEEDLE	 ;70
-	db	GOLDEEN	 ;9D
-	db	POLIWAG	 ;47
-	db	DRATINI	 ;58
+MonListStarter:	;because not all mons in c-tier should be allowed as starter pokemon
+	db BULBASAUR    ; $99
+	db CHARMANDER   ; $B0
+	db SQUIRTLE     ; $B1
+	db CATERPIE     ; $7B
+	db WEEDLE       ; $70
+	db PIDGEY       ; $24
+	db RATTATA      ; $A5
+	db SPEAROW      ; $05
+	db EKANS        ; $6C
+	db PIKACHU      ; $54
+	db SANDSHREW    ; $60
+	db NIDORAN_F    ; $0F
+	db NIDORAN_M    ; $03
+	db CLEFAIRY     ; $04
+	db VULPIX       ; $52
+	db ZUBAT        ; $6B
+	db ODDISH       ; $B9
+	db PARAS        ; $6D
+	db VENONAT      ; $41
+	db DIGLETT      ; $3B
+	db MEOWTH       ; $4D
+	db PSYDUCK      ; $2F
+	db MANKEY       ; $39
+	db GROWLITHE    ; $21
+	db POLIWAG      ; $47
+	db MACHOP       ; $6A
+	db BELLSPROUT   ; $BC
+	db TENTACOOL    ; $18
+	db GEODUDE      ; $A9
+	db SLOWPOKE     ; $25
+	db MAGNEMITE    ; $AD
+	db FARFETCHD    ; $40
+	db DODUO        ; $46
+	db SEEL         ; $3A
+	db GRIMER       ; $0D
+	db SHELLDER     ; $17
+	db GASTLY       ; $19
+	db ONIX         ; $22
+	db DROWZEE      ; $30
+	db KRABBY       ; $4E
+	db VOLTORB      ; $06
+	db EXEGGCUTE    ; $0C
+	db CUBONE       ; $11
+	db LICKITUNG    ; $0B
+	db KOFFING      ; $37
+	db HORSEA       ; $5C
+	db GOLDEEN      ; $9D
+	db STARYU       ; $1B
+	db DITTO        ; $4C
+	db EEVEE        ; $66
+	db PORYGON      ; $AA
+	db DRATINI      ; $58
 	db $FF
 MonListB:
-	db	RAICHU	 ;55
-	db	MAGNETON	 ;36
-	db	TANGELA	 ;1E
-	db	SEADRA	 ;5D
-	db	ELECTABUZZ	 ;35
-	db	MAGMAR	 ;33
-	db	GOLBAT	 ;82
-	db	SLOWBRO	 ;08
-	db	SEAKING	 ;9E
-	db	FEAROW	 ;23
-	db	VENOMOTH	 ;77
-	db	ARBOK	 ;2D
-	db	DUGTRIO	 ;76
-	db	HAUNTER	 ;93
-	db	PARASECT	 ;2E
-	db	MACHOKE	 ;29
-	db	WEEPINBELL	 ;BD
-	db	GRAVELER	 ;27
-	db	PONYTA	 ;A3
-	db	MAROWAK	 ;91
-	db	HITMONLEE	 ;2B
-	db	HITMONCHAN	 ;2C
-	db	RATICATE	 ;A6
-	db	ONIX	 ;22
-	db	MR_MIME	 ;2A
-	db	JYNX	 ;48
-	db	KADABRA	 ;26
-	db	GLOOM	 ;BA
-	db	RHYHORN	 ;12
-	db	NIDORINA	 ;A8
-	db	NIDORINO	 ;A7
-	db	LICKITUNG	 ;0B
-	db	KRABBY	 ;4E
-	db	PIDGEOTTO	 ;96
-	db	POLIWHIRL	 ;6E
-	db	PORYGON	 ;AA
+	db RATICATE     ; $A6
+	db FEAROW       ; $23
+	db ARBOK        ; $2D
+	db RAICHU       ; $55
+	db NIDORINA     ; $A8
+	db NIDORINO     ; $A7
+	db WIGGLYTUFF   ; $65
+	db GOLBAT       ; $82
+	db GLOOM        ; $BA
+	db PARASECT     ; $2E
+	db VENOMOTH     ; $77
+	db POLIWHIRL    ; $6E
+	db KADABRA      ; $26
+	db MACHOKE      ; $29
+	db WEEPINBELL   ; $BD
+	db GRAVELER     ; $27
+	db PONYTA       ; $A3
+	db MAGNETON     ; $36
+	db HAUNTER      ; $93
+	db MAROWAK      ; $91
+	db HITMONLEE    ; $2B
+	db HITMONCHAN   ; $2C
+	db RHYHORN      ; $12
+	db TANGELA      ; $1E
+	db SEADRA       ; $5D
+	db SEAKING      ; $9E
+	db MR_MIME      ; $2A
+	db JYNX         ; $48
+	db ELECTABUZZ   ; $35
+	db MAGMAR       ; $33
 	db $FF
 MonListA:
-	db	TAUROS	 ;3C
-	db	TENTACRUEL	 ;9B
-	db	PINSIR	 ;1D
-	db	SNORLAX	 ;84
-	db	KINGLER	 ;8A
-	db	WEEZING	 ;8F
-	db	SCYTHER	 ;1A
-	db	CHANSEY	 ;28
-	db	HYPNO	 ;81
-	db	KANGASKHAN	 ;02
-	db	SANDSLASH	 ;61
-	db	GOLDUCK	 ;80
-	db	DEWGONG	 ;78
-	db	DODRIO	 ;74
-	db	MUK	 ;88
-	db	ELECTRODE	 ;8D
-	db	LAPRAS	 ;13
+	db SANDSLASH    ; $61
+	db DUGTRIO      ; $76
+	db GOLDUCK      ; $80
+	db TENTACRUEL   ; $9B
+	db SLOWBRO      ; $08
+	db DODRIO       ; $74
+	db DEWGONG      ; $78
+	db MUK          ; $88
+	db HYPNO        ; $81
+	db KINGLER      ; $8A
+	db ELECTRODE    ; $8D
+	db WEEZING      ; $8F
+	db RHYDON       ; $01
+	db CHANSEY      ; $28
+	db KANGASKHAN   ; $02
+	db SCYTHER      ; $1A
+	db PINSIR       ; $1D
+	db TAUROS       ; $3C
+	db LAPRAS       ; $13
+	db SNORLAX      ; $84
 	db $FF
 	
+MonListTrueRandom:
+	db METAPOD      ; $7C
+	db KAKUNA       ; $71
+	db PIDGEOTTO    ; $96
+	db JIGGLYPUFF   ; $64
+	db ABRA         ; $94
+	db MAGIKARP     ; $85
+	db RATICATE     ; $A6
+	db FEAROW       ; $23
+	db ARBOK        ; $2D
+	db RAICHU       ; $55
+	db SANDSLASH    ; $61
+	db NIDORINA     ; $A8
+	db NIDORINO     ; $A7
+	db WIGGLYTUFF   ; $65
+	db GOLBAT       ; $82
+	db GLOOM        ; $BA
+	db PARASECT     ; $2E
+	db VENOMOTH     ; $77
+	db DUGTRIO      ; $76
+	db GOLDUCK      ; $80
+	db POLIWHIRL    ; $6E
+	db KADABRA      ; $26
+	db MACHOKE      ; $29
+	db WEEPINBELL   ; $BD
+	db TENTACRUEL   ; $9B
+	db GRAVELER     ; $27
+	db SLOWBRO      ; $08
+	db MAGNETON     ; $36
+	db DODRIO       ; $74
+	db DEWGONG      ; $78
+	db MUK          ; $88
+	db HAUNTER      ; $93
+	db HYPNO        ; $81
+	db KINGLER      ; $8A
+	db ELECTRODE    ; $8D
+	db MAROWAK      ; $91
+	db WEEZING      ; $8F
+	db RHYDON       ; $01
+	db SEADRA       ; $5D
+	db SEAKING      ; $9E
+	;fall through
+MonListTrueRandom_Starter:	;because not all mons should be allowed as starter pokemon
+	db BULBASAUR    ; $99
+	db CHARMANDER   ; $B0
+	db SQUIRTLE     ; $B1
+	db CATERPIE     ; $7B
+	db WEEDLE       ; $70
+	db PIDGEY       ; $24
+	db RATTATA      ; $A5
+	db SPEAROW      ; $05
+	db EKANS        ; $6C
+	db PIKACHU      ; $54
+	db SANDSHREW    ; $60
+	db NIDORAN_F    ; $0F
+	db NIDORAN_M    ; $03
+	db CLEFAIRY     ; $04
+	db VULPIX       ; $52
+	db ZUBAT        ; $6B
+	db ODDISH       ; $B9
+	db PARAS        ; $6D
+	db VENONAT      ; $41
+	db DIGLETT      ; $3B
+	db MEOWTH       ; $4D
+	db PSYDUCK      ; $2F
+	db MANKEY       ; $39
+	db GROWLITHE    ; $21
+	db POLIWAG      ; $47
+	db MACHOP       ; $6A
+	db BELLSPROUT   ; $BC
+	db TENTACOOL    ; $18
+	db GEODUDE      ; $A9
+	db PONYTA       ; $A3
+	db SLOWPOKE     ; $25
+	db MAGNEMITE    ; $AD
+	db FARFETCHD    ; $40
+	db DODUO        ; $46
+	db SEEL         ; $3A
+	db GRIMER       ; $0D
+	db SHELLDER     ; $17
+	db GASTLY       ; $19
+	db ONIX         ; $22
+	db DROWZEE      ; $30
+	db KRABBY       ; $4E
+	db VOLTORB      ; $06
+	db EXEGGCUTE    ; $0C
+	db CUBONE       ; $11
+	db HITMONLEE    ; $2B
+	db HITMONCHAN   ; $2C
+	db LICKITUNG    ; $0B
+	db KOFFING      ; $37
+	db RHYHORN      ; $12
+	db CHANSEY      ; $28
+	db TANGELA      ; $1E
+	db KANGASKHAN   ; $02
+	db HORSEA       ; $5C
+	db GOLDEEN      ; $9D
+	db STARYU       ; $1B
+	db MR_MIME      ; $2A
+	db SCYTHER      ; $1A
+	db JYNX         ; $48
+	db ELECTABUZZ   ; $35
+	db MAGMAR       ; $33
+	db PINSIR       ; $1D
+	db TAUROS       ; $3C
+	db LAPRAS       ; $13
+	db DITTO        ; $4C
+	db EEVEE        ; $66
+	db PORYGON      ; $AA
+	db SNORLAX      ; $84
+	db DRATINI      ; $58
+	db $FF

@@ -5446,34 +5446,8 @@ ApplyAttackToEnemyPokemon:
 	ld c, DRAGON_RAGE_DAMAGE ; 40
 	cp DRAGON_RAGE
 	jr z, .storeDamage
-; Psywave	;joenote - adjusted to account for underflow/overflow
-	ld a, [hl]
-	ld c, a
-	srl a
-	add c
-	ld c, a 
-	ld a, b	
-	adc $00
-	ld b, a; bc = level * 1.5
-	;joenote - make the level at least 1 for psywave
-	or c
-	jr nz, .loop
-	inc c
-; loop until a random number in the range [1, b) is found
-;joenote - adjusted for 2 bytes bc
-.loop
-	call BattleRandom
-	;and a
-	;jr z, .loop
-	;cp b
-	;jr nc, .loop
-	;ld b, a
-	and b
-	ld b, a
-	call BattleRandom
-	cp c
-	jr nc, .loop
-	ld c, a
+; Psywave	
+	call PsywaveDamage	;joenote - fixes all sorts of problems
 .storeDamage ; store damage value at b ;joenote - changed to bc
 	ld hl, wDamage
 	ld a, b ;xor a
@@ -5569,45 +5543,32 @@ ApplyAttackToPlayerPokemon:
 	ld [de], a
 	jr ApplyDamageToPlayerPokemon
 .specialDamage
+	push bc	;joenote - set up special damage to use 2 bytes BC in order to account for psywave
+	ld bc, $0000
 	ld hl, wEnemyMonLevel
 	ld a, [hl]
-	ld b, a
+	ld c, a ; Seismic Toss deals damage equal to the user's level
 	ld a, [wEnemyMoveNum]
 	cp SEISMIC_TOSS
 	jr z, .storeDamage
 	cp NIGHT_SHADE
 	jr z, .storeDamage
-	ld b, SONICBOOM_DAMAGE
+	ld c, SONICBOOM_DAMAGE ; 20
 	cp SONICBOOM
 	jr z, .storeDamage
-	ld b, DRAGON_RAGE_DAMAGE
+	ld c, DRAGON_RAGE_DAMAGE ; 40
 	cp DRAGON_RAGE
 	jr z, .storeDamage
-; Psywave
-	ld a, [hl]
-	ld b, a
-	srl a
-	add b
-	ld b, a ; b = attacker's level * 1.5
-; loop until a random number in the range [0, b) is found
-; this differs from the range when the player attacks, which is [1, b)
-; it's possible for the enemy to do 0 damage with Psywave, but the player always does at least 1 damage
-.loop
-	call BattleRandom
-;;;joenote - add these two lines to make enemy psywave match [1, b)
-	and a
-	jr z, .loop
-;;;
-	cp b
-	jr nc, .loop
-	ld b, a
-.storeDamage
+; Psywave	
+	call PsywaveDamage	;joenote - fixes all sorts of problems
+.storeDamage ; store damage value at b ;joenote - changed to bc
 	ld hl, wDamage
-	xor a
+	ld a, b ;xor a
 	ld [hli], a
-	ld a, b
+	ld a, c
 	ld [hl], a
-
+	pop bc
+	
 ApplyDamageToPlayerPokemon:
 	ld hl, wDamage
 	ld a, [hli]
@@ -9979,4 +9940,42 @@ SpriteScalingAndInterlacing:
 	predef ScaleSpriteByTwo
 	ld de, vBackPic
 	call InterlaceMergeSpriteBuffers ; combine the two buffers to a single 2bpp sprite
+	ret
+	
+PsywaveDamage:
+;adjusted to account for underflow/overflow
+;adjusted for 2 bytes bc
+;loop until a random number in the range [1, bc] is found
+;take heed that the min/max possible bc value for psywave is [$0001, $017E]
+;bc starts with value $0000
+	ld a, [hl]	;load level from HL
+	ld c, a
+	srl a	;halve the level
+	add c	;add that half to the full level
+	ld c, a
+	rl b	;roll any carry bit form the addition over into b so that bc = level * 1.5
+	or b	;a = c, so OR it with b to make sure that bc is not zero
+	jr nz, .loop
+	inc c	;otherwise make bc a value of $0001
+.loop
+	;roll for damage and keep it in HL for comparison against BC
+	call BattleRandom
+	and b
+	ld h, a		;hi byte of the damage will always be 00 or 01
+	call BattleRandom
+	ld l, a
+	or h
+	jr z, .loop	;do not generate zero damage
+	ld a, h
+	cp b
+	jr c, .store	;damage is [1 <= HL < BC] if H < B ; this is a valid damage number
+	;else H = B
+	ld a, l
+	cp c
+	jr z, .store 	;damage is valid if HL = BC
+	jr nc, .loop		;damage is not valid if H = B and L > C
+	;else H=B and L < C
+.store
+	ld b, h
+	ld c, l
 	ret

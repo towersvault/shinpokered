@@ -165,6 +165,8 @@ HiddenItemNear_Improved:
 	
 .popHLloop
 	pop hl
+	xor a
+	ld [wItemFinderAttributes ], a	;reset the attributes because the item is off the screen
 	jp .loop
 	
 .item_detected

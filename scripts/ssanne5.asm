@@ -98,7 +98,7 @@ SSAnne5AfterBattleText2:
 	db "@"
 
 _SSAnne5Text1_ALT:
-	text "Party's back on!"
+	text "Ahoy after-party!"
 	line "The ship will be"
 	cont "moored until the"
 	cont "TENTACOOL blooms"

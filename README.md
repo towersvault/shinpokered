@@ -338,6 +338,7 @@ Cheats and Secrets!
 v1.24.5
 - Minor text edit for SS Anne npc in post-game.
 - Minor fix for Itemfinder when there are multiple hidden items on screen.
+- Fix Psywave symmetry
 
 v1.24.4
 - Can no longer fish or surf using the right wall corner tile on the SS Anne.

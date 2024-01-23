@@ -9947,7 +9947,6 @@ PsywaveDamage:
 ;adjusted for 2 bytes bc
 ;loop until a random number in the range [1, bc] is found
 ;take heed that the min/max possible bc value for psywave is [$0001, $017E]
-;bc starts with value $0000
 	ld a, [hl]	;load level from HL
 	ld c, a
 	srl a	;halve the level

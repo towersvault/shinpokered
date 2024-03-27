@@ -1513,10 +1513,15 @@ These are things that are commonly requested but fall outside the scope of the p
 - Gen 2 color / graphics - The goal is to keep art direction and assets within the purview of a pre-1998 direction.
 - Battle mechanics from later generations - Gen 1's gameplay must be generally be preserved, so no special defense, physical-special split, critical hits untied from speed, updated move pools, etc.
 - Later-gen evolutions/forms/variants - I'm keeping this strictly to the original 151.
+- Translations - This is best handled by other teams using their own project repositories.
 
 
 #Frequently Asked Questions
 ---------------------------
+> **Will you do a special request just for me or make some specific patches or a ROM file for me?**
+
+No. Such requests will be politely declined. If you think you have a good recommendation, please fill out a suggestion ticket in the Issues tab of this project's github repository.
+
 > **I love your work! How can I donate to you?**
 
 The gesture is appreciated and highly flattering, but donations of any sort are politely declined.

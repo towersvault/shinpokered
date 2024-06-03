@@ -22,3 +22,4 @@
 *.dll binary
 *.jpg binary
 *.psd binary
+*.pdf binary

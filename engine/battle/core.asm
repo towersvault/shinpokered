@@ -8117,6 +8117,8 @@ LoadMonBackPic:
 ;joenote - needed for loading the 48x48 spaceworld back sprites
 IF DEF(_SWBACKS)
 	callba LoadUncompressedBackPics
+ELIF DEF(_GSBACKS)
+	callba LoadUncompressedBackPics
 ELSE
 	call SpriteScalingAndInterlacing
 ENDC

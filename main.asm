@@ -34,7 +34,7 @@ ENDC
 
 IF DEF(_SWBACKS)
 	INCLUDE "constants/monbackpic_constants_sw.asm"
-ELIF DEF(_GSSPRITES)
+ELIF DEF(_GSBACKS)
 	INCLUDE "constants/monbackpic_constants_gs.asm"
 ELSE
 	INCLUDE "constants/monbackpic_constants.asm"
@@ -1901,6 +1901,8 @@ IF DEF(_FPLAYER)
 	FPlayerCharacterTitleGraphicsEnd:
 	IF DEF(_SWBACKS)
 	RedPicFBack::           INCBIN "pic/swtrainerback/redb_f.pic"
+	ELIF DEF(_GSBACKS)
+	RedPicFBack::           INCBIN "pic/swtrainerback/redb_f.pic"
 	ELSE
 	RedPicFBack::           INCBIN "pic/trainerback/redb_f.pic"
 	ENDC
@@ -1959,6 +1961,9 @@ SECTION "Pics 7", ROMX, BANK[PICS_7]
 INCLUDE "constants/pic_banks/pic7.asm"
 MissingnoPic::         INCBIN "pic/other/missingno.pic"
 IF DEF(_SWBACKS)
+	RedPicBack::           INCBIN "pic/swtrainerback/redb.pic"
+	OldManPic::            INCBIN "pic/swtrainerback/oldman.pic"
+ELIF DEF(_GSBACKS)
 	RedPicBack::           INCBIN "pic/swtrainerback/redb.pic"
 	OldManPic::            INCBIN "pic/swtrainerback/oldman.pic"
 ELSE

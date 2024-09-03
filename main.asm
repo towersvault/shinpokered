@@ -26,12 +26,16 @@ ELIF DEF(_YSPRITES)
 	INCLUDE "constants/monfrontpic_constants_yellow.asm"
 ELIF DEF(_SWSPRITES)
 	INCLUDE "constants/monfrontpic_constants_sw.asm"
+ELIF DEF(_GSSPRITES)
+	INCLUDE "constants/monfrontpic_constants_gs.asm"
 ELSE
 	INCLUDE "constants/monfrontpic_constants.asm"
 ENDC
 
 IF DEF(_SWBACKS)
 	INCLUDE "constants/monbackpic_constants_sw.asm"
+ELIF DEF(_GSSPRITES)
+	INCLUDE "constants/monbackpic_constants_gs.asm"
 ELSE
 	INCLUDE "constants/monbackpic_constants.asm"
 ENDC

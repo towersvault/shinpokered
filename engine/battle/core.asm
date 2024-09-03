@@ -7434,6 +7434,8 @@ ENDC
 	call UncompressSpriteFromDE
 IF DEF(_SWBACKS)
 	callba LoadUncompressedBackPics
+ELIF DEF(_GSBACKS)
+	callba LoadUncompressedBackPics
 ELSE
 	call SpriteScalingAndInterlacing
 ENDC

@@ -186,6 +186,9 @@ ENDC
 IF DEF(_YSPRITES)	;Use Yellow's version of gray if using yellow sprites
 	RGB 20, 23, 10
 	RGB 11, 11,  5
+ELIF DEF(_GSSPRITES)	;Use Yellow's version of gray if using yellow sprites
+	RGB 20, 23, 10
+	RGB 11, 11,  5
 ELSE				;Else use the converted R/B stye of gray
 	RGB 21, 14, 16	
 	RGB 10,  9, 12

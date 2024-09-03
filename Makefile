@@ -83,6 +83,7 @@ endif
 
 # _RED, _BLUE, and _GREEN are the base rom tags. You can only have one of these.
 # _SWBACKS modifies any base rom. It uses spaceworld 48x48 back sprites.
+# _GSBACKS modifies any base rom. It uses Gold/Silver Gen 2 48x48 back sprites.
 
 # You must have one, and only one, of the following tags to set the encounter tables, trades, and game corner prizes:
 # _ENCRED for the data used by japanese and international red version.
@@ -92,6 +93,7 @@ endif
 # _SWSPRITES modifies any base rom but cannot be used with other _*SPRITES tags. It uses spaceworld front 'mon sprites.
 # _YSPRITES modifies any base rom but cannot be used with other _*SPRITES tags. It uses yellow front 'mon sprites.
 # _RGSPRITES modifies any base rom but cannot be used with other _*SPRITES tags. It uses redjp/green front 'mon sprites.
+# _GSSPRITES modifies any base rom but cannot be used with other _*SPRITES tags. It uses Gold/Silver Gen 2 front 'mon sprites.
 
 # _REDGREENJP modifies _RED or _GREEN. It reverts back many audio-visual presentation aspects of japanese red & green.
 # _BLUEJP modifies _BLUE. It reverts back certain aspects that were unique to japanese blue.
@@ -113,7 +115,7 @@ endif
 # Please act responsibly should you choose to compile using this tag.
 # Dev Note: The added flashing can become quite displeasing regardless. Leaving it out makes for a better experience.
 
-$(pokered_obj): 			RGBASMFLAGS += -D _RED -D _ENCRED -D _SWBACKS -D _FPLAYER -D _MOVENPCS -D _RUNSHOES -D _EXPBAR 
+$(pokered_obj): 			RGBASMFLAGS += -D _RED -D _ENCRED -D _SWBACKS -D _FPLAYER -D _MOVENPCS -D _RUNSHOES -D _EXPBAR -D _SWSPRITES
 $(pokeblue_obj): 			RGBASMFLAGS += -D _BLUE -D _ENCBLUEGREEN -D _SWBACKS -D _FPLAYER -D _MOVENPCS -D _RUNSHOES -D _EXPBAR 
 $(pokegreen_obj): 			RGBASMFLAGS += -D _GREEN -D _ENCBLUEGREEN -D _RGSPRITES -D _REDGREENJP -D _JPTXT -D _JPLOGO -D _RGTITLE -D _METRIC -D _FPLAYER -D _MOVENPCS -D _RUNSHOES -D _EXPBAR 
 $(pokered_origback_obj): 	RGBASMFLAGS += -D _RED -D _ENCRED -D _FPLAYER -D _MOVENPCS -D _RUNSHOES -D _EXPBAR 

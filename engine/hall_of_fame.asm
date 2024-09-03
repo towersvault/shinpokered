@@ -222,6 +222,8 @@ ENDC
 	call UncompressSpriteFromDE
 IF DEF(_SWBACKS)
 	callba LoadUncompressedBackPics
+ELIF DEF(_GSBACKS)
+	callba LoadUncompressedBackPics
 ELSE
 	predef ScaleSpriteByTwo
 	ld de, vBackPic

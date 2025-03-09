@@ -1205,7 +1205,7 @@ OaksLabText9:
 	call PrintText
 	call .choose 
 	jr z, .randRegen
-	SetEvent EVENT_8DE
+	SetEvent EVENT_8D7
 .randRegen
 	ld hl, OaksLabText_randwildRegen
 	call PrintText

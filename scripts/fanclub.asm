@@ -77,6 +77,7 @@ FanClubText3:
 	ld a, PIKACHU
 	call PlayCry
 	call WaitForSoundToFinish
+	call PikachuTutor
 	jp TextScriptEnd
 
 .text
@@ -171,3 +172,53 @@ FanClubText7:
 FanClubText8:
 	TX_FAR _FanClubText8
 	db "@"
+
+	
+;joenote - place a hitmonlee at top of the party
+;then talk to the pikachu
+;your pokemon will learn agility and quick attack
+PikachuTutor:
+	ld a, [wPartyMon1Species]
+	cp HITMONLEE
+	jr z, .next
+	ret
+.next
+	xor a
+	ld [wWhichPokemon], a
+	ld a, QUICK_ATTACK
+	call .learnmove
+	ld a, AGILITY
+	call .learnmove
+.finish
+	ld hl, .Text1
+	call PrintText
+	ret
+.Text1
+	text "PIKACHU zooms"
+	line "around happily."
+	done
+	db "@"
+.learnmove
+	ld [wMoveNum], a
+	ld [wd11e],a
+	call GetMoveName
+	call CopyStringToCF4B ; copy name to wcf4b
+
+	ld a, [wd11e]
+	push af
+	ld a, [wPartyMon1Species]
+	ld [wd11e], a
+	call GetMonName
+	pop af
+	ld [wd11e], a
+	
+	callba CheckIfMoveIsKnown
+	ret c	;carry set of move known already
+
+	ld hl, wFlags_D733
+	set 6, [hl]
+	push hl		;make it so the move-forget list covers up sprites
+	predef LearnMove
+	pop hl
+	res 6, [hl]
+	ret

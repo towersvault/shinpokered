@@ -1,6 +1,6 @@
 # Shin Pokémon Red, Blue, Green, Red-JP, & Blue-JP
 
-Version 1.24.5
+Version 1.24.6
 
 *Shin (真) - The kanji for "true".  
 Used in Japanese media to denote a remastering, updated retelling , or a "true form" of something.*  
@@ -28,10 +28,20 @@ Discuss Shin Pokemon in its dedicated [PokéCommunity Showcase](https://www.poke
 
 Follow media related to Shin Pokemon on [YouTube](https://www.youtube.com/@13jojobear).
 
+Leave a review for Shin Pokemon over at [Rom Hack Plaza](https://romhackplaza.org/romhacks/shin-pokemon-game-boy/).
+
+Find other rom hacks at [The PokeRom Codex](https://pokeromcodex.notion.site/8f188f1761b9430f9adb68833c44e5b8?v=bb31503a729442f798b4233509dacab8)
+
+Other Social Links:
+[Discord server where I lurk](https://discord.com/invite/bGksMvxqgv).
+[Twitter](https://twitter.com/13JoJoBear)
+[Bluesky](https://jojobear13.bsky.social)
+
+
 
 #Patch Info  
 -----------
-BPS patches are provided for entry into your preferred emulator, patching tool, or other accessory that supports the BPS format.  
+BPS patches are provided for entry into your preferred emulator, patching tool, or other accessory that supports the BPS format. 
 Download and enter a patch which corresponds to the ROM of which you own a lawful copy.  
 - **Red patches (Shin Pokemon Red, Red_origback, and Red-JP) are intended for USA Red.**
   - File/ROM SHA-1: EA9BCAE617FDF159B045185467AE58B2E4A48B9A
@@ -40,6 +50,8 @@ Download and enter a patch which corresponds to the ROM of which you own a lawfu
   - File/ROM SHA-1: D7037C83E1AE5B39BDE3C30787637BA1D4C48CE2
   - File/ROM CRC32: D6DA8A1A
 - The "_origback" patches are alternatives that keep the original back sprites. 
+
+Note: The BPS format looks for a matching SHA-1 or CRC32 ROM checksum such that it will not allow you to patch over an incorrect or corrupted ROM file. If you are having patching problems, verify your ROM file has the correct checksum using an online tool such as the one found at https://www.toolsley.com/crcmulti.html
 
 ***Includes Pokemon Green and Japanese Red!***
 - The compiler primarily builds the graphics and cerulean cave layout back to the original japanese release.
@@ -115,6 +127,12 @@ Many new NPCs to toggle features
 Gamma Shader for LCD Screens (Left image is Off / Right image is On)  
 ![Shader Off](/screenshots/bgb00035.bmp?raw=true)
 ![Shader On](/screenshots/bgb00036.bmp?raw=true)
+
+Enhanced Area Function  
+![Area Function](/screenshots/z_areadisplay.gif?raw=true)
+
+Status Screen updates with the Active Pokemon in battle  
+![Status Screen](/screenshots/z_statdisplay.gif?raw=true)
 
 **Stats for Nerds**  
 <details>
@@ -211,6 +229,10 @@ There is a built-in nuzlocke mode that can be toggled from the extra options men
 
 The girl in Oak's lab toggles wild pokemon randomization.
 If activated early enough in the game, your starter pokemon choices are randomized as well.
+
+The AREA function of the PokeDex now takes the Super Rod into account.
+It will also notify you if the Pokemon you are referencing is available in the immediate vicinity.
+It even works with the randomizer active.
 
 One of the aides in Oak's lab toggles scaling of trainer rosters to your level (evolving them if applicable).
 
@@ -310,6 +332,7 @@ Cheats and Secrets!
   - An accurate emulator, preferably a GBC-dedicated emulator, is required in order to avoid unexpected bugs
   - Goomba and Visual Boy Advance in particular are known to be problematic
   - BGB is the supported standard due to its accuracy and debugging tools
+  - There are error messages that may display on the initial menu if there is an emulator error detected
 - Compatible with original Gameboy hardware (DMG, Super, Pocket, Color, Advance, SP)
 - Potentially compatible with Pokemon Stadium 1 & 2 (using original Nintendo hardware)
   - Simpler flash carts (like cheap bootlegs) are recognized, but products with firmware like the EZ Flash JR. will not work.
@@ -335,6 +358,107 @@ Cheats and Secrets!
 **Note: Changelogs may contain spoilers**  
 [View the Consolidated Changelog Document from 1.23 to 1.24.0](/patches_and_info/changelog_from_v1.23.md)  
 
+v1.24.6(hotfix 3)
+- Fixed a problem from 1.24.6hotfix where status screen type was not loading correctly from the PC box
+
+v1.24.6(hotfix 2)
+- Fixed the wrong tiles for the border of the pokedex diploma
+
+v1.24.6(hotfix)
+- Worked on emulator tests a bit more
+- Moved CalcStat function out of home bank to free up space
+- Status Screen now prints types from party struct data instead of species header
+- Undocumented secret move tutors; these are considered cheats and are just for fun
+  - Lickitung can learn Lick via the move-relearner in Saffron City
+  - Flareon can learn Agility and Low Kick from the Karate Master
+  - Hitmonlee can learn Agility and Quick Attack from the Pikachu in the Vermilion Fan Club
+  - Moltres can learn Flamethrower from Blaine
+  - Pidgeot and Pidgeotto can learn Drill Peck from the Fearow in the Route 16 house
+  - Ninetales can learn Hypnosis from Mr. Psychic in Saffron City
+  - Vileplume, Gloom, and Oddish can learn Leech Seed from Bill
+  - Examine the Omanyte sign in Fuschia city with one of these pokemon at the top of your party
+    - Omastar will learn Rock Slide
+	- Kabutops will learn Mega Drain
+	- Aerodactyl will learn Earthquake
+  - Ninja Scyther: Scyther can get a "ninja form" by defeating Koga as your sole party member
+    - Will exchange its Flying type for Ghost type
+	- Koga becomes a move tutor and can teach it a selection of new moves:
+	  - Confuse Ray
+	  - Hypnosis
+	  - Light Screen
+	  - Pin Missile
+	  - Rolling Kick
+
+v1.24.6
+- Bugfixes:
+- Fixed an issue with the title menu becoming dark when saving in rock tunnel
+- Fixed rock tunnel darkness affecting option menu
+- Fixed desync problem during link battles with Rage, Thrash, and trapping moves
+- The 'bwoop' sfx now plays when registering pokemon with short names like "Onix"
+- Fixed wrong color palette being loaded for player back sprite tiles during screen shake animation
+- Fixed an oversight where the player does not face the Viridian Gym door during the message saying it's locked
+- Fixed missing punctuation in Oak's pokedex evaluation
+- Corrected the text in green & red-jp pokedex entries
+- Fixed a bug in the AI that caused trainers to use poison-effect moves inaccurately
+- Fixed full randomization option not activating
+- Fixed debug damage display not updating properly for some static damage moves
+- Fixed a minor bug when blacking out of the SS Anne post-game tournament
+- Fixed some oversights with the joke dittos that can be fished in unknown dungeon 3
+  - Cannot toss balls if the wild pokemon is above the level cap
+  - Made ReadSuperRodData a predef and made it so the Unknown Dungeon 3 fishing data reverts if the randomizer is on
+- Fixed a problem with undergoing multiple evolutions when taking a pokemon out of the daycare
+- Fixed a problem where the Trapping Move Clause reads the move effect from the previous round instead of the current round
+- Wild pokemon randomizer will no longer swap a species with itself
+- Sprites will not cover the move list when forgetting moves at the daycare
+- Fixed Full Restores undoing burn/paralysis stat changes when healing a non-active pokemon
+- The rocket grunt in Cerulean city has a minor fix to the timing of when its sprite disappears
+- Fixed the cloning feature in Cinnabar Lab handling the charging of money incorrectly
+
+- Features:
+- PokeDex Area enhancements
+  - The AREA function of the PokeDex now takes the Super Rod into account
+  - It will also notify you if the Pokemon you are referencing is available on the currently loaded map
+  - If available on the current map, it will notify you if it can be found by walking, surfing, or by super rod
+  - The Cerulean Cave is an "unknown dungeon" so...
+    - Nest icons will not display for this location
+    - But the notification for the current map will still function
+- Psywave has been enhanced with a hidden mechanic
+  - Psywave will now roll for damage multiple times and use the best roll
+  - The number of times that damage is rolled is based on the target's current HP with more HP causing more re-rolls
+- Certain moves now affect catching mechanics if known by your active pokemon in battle
+  - Razor Wind & Skull Bash - additive +10 to catch rate per toss of a non-safari ball
+  - Roar & Whirlwind - additive +20 to catch rate per toss of a non-safari ball
+  - Take Down - improves the ball factor of non-safari balls by 2
+  - Egg Bomb - improves the ball factor of non-safari balls by 2 and additive +10 to catch rate per toss of a non-safari ball
+- Shiny pokemon gain a 4x multiplier for the coin guy in celadon hotel and selling to the game corner chief
+- The battle clauses between link players now sync and are applied during battles
+- The stat displays of the active pokemon in battle will display its current-time stats instead of its unmodified stats
+- After buying the Magikarp from the man in the Mt. Moon pokemon center, he will serve as a move tutor
+  - This is a throwback to certain Japan-only event pokemon giveaways
+  - Talk to him with Magikarp at the top of your party, and he will offer to teach it Dragon Rage for 5000 yen.
+  - Talk to him with Fearow or Rapidash at the top of your party, and he will offer to teach it Pay Day for 1000 yen.
+  - Talk to him with Pikachu at the top of your party that has an empty move slot, and he can teach it Fly for 2000 yen.
+- Psyduck Learning Amnesia  
+  - You must first have 151 pokemon registered as owned in your pokedex.  
+  - Place a Psyduck in your 1st party slot then go talk to the Psyduck in Mr. Fuji's house.  
+  - It will now try to learn the Amnesia move.  
+
+- Adjustments:
+- Trainer level scaling has been dampened outside of hard mode
+  - It is now based on a weighted average for regular trainers in normal difficulty
+  - Gym leaders always use the absolute level scaling regardless of difficulty
+- Rebalanced a few TMs across pokemart inventories
+- Water Gun TM has been replaced by a super repel in Mt. Moon, and it is now found in the Pewter Museum
+- Starting a new game will keep the hard mode off, but now default to fast text speed
+- Turning the nuzlocke mode on will not reset your difficulty options
+- Boosted Eevee encounter rate to 5.5%
+- Giovanni gym battle exchanges rhyhorn for kangaskhan
+- Champion Rival's charizard swaps out swords dance for fly
+- The shimmer transformation's text box no longer requires a button prompt to scroll through
+- The shimmer adds double level to the special stat exclusively for Hitmonchan
+- Tweaked NPC text for extra options
+- Made the karate dojo master act like a special trainer
+ 
 v1.24.5
 - Minor text edit for SS Anne npc in post-game.
 - Minor fix for Itemfinder when there are multiple hidden items on screen.
@@ -373,24 +497,24 @@ v1.24.2
 v1.24.1  
 - Optimized smooth fades to eliminate graphical jank during battle black-outs
 - Trainers will not use non-healing items if they or the player are at low HP, making them more aggressive
-- AI will not switch if its HP is below 25% as it's ususally not worth it
+- AI will not switch if its HP is below 25% as it's usually not worth it
 - Fades in or out to white in GBC mode with gamma shader enabled will no longer have a frame of incorrect color
 - The move Transform now decrements PP properly when used by the AI recursively
 - Spinner tiles animate properly without resorting to vblank-induced slowdown
 - Fixed wrong color for move animation when it comes after self-inflicted confusion damage
-- Reworked the prize mon level function and synchronized DVs for gift pokemon added to party or box
+- Reworked the prize mon level function and also synchronized the DVs for gift pokemon that are added to party or box
 - Fixed typed effectiveness being applied the wrong way to static damage moves
 - All the extra options on the option menu have been moved to their own separate menu
 - Add Debug Stat Reset feature
-- Fixed shiny clause now working in nuzlocke mode
+- Fixed shiny clause so that it is now working in nuzlocke mode
 - Fixed a bug catcher on route 9 being able to walk onto a ledge
 - The message for substitute taking damage now only displays after the first attack of a multi-attack move
-- Multi-attack moves display effectivenes only on first attack instead of the last attack
+- Multi-attack moves display effectiveness only on first attack instead of the last attack
 - Twineedle does not print redundant messages like other multi-hit moves
 - If active, the shimmer will always manifest on the applicable pokemon of Bruno, Agatha, and the Karate Master
 - Karate Master's pokemon increased from level 37 to 38
 - Extended shiny mercy to tower ghosts, ghost marowak, and old man battle
-- Fixed daycare somtimes prompting to learn the same move twice
+- Fixed daycare sometimes prompting to learn the same move twice
 - Fixed special HUD symbols displaying during the ghost marowak encounter
 
 
@@ -565,12 +689,16 @@ v1.24.1
   - Fixed junk tiles displaying for 1 frame when the game resets after displaying THE END
   - Fixed transitions when entering and exiting Rock Tunnel
   - Fixed a bug catcher on route 9 being able to walk onto a ledge
+  - The rocket grunt in Cerulean city has a minor fix to the timing of when its sprite disappears
+  - Fixed wrong color palette being loaded for player back sprite tiles during screen shake animation
+  - Fixed an issue with the title menu becoming dark when saving in rock tunnel
+  - Fixed rock tunnel darkness affecting option menu
 
 
 - Item Fixes  
   - Great ball has a ball factor of 12 now
   - Stone evolutions cannot be triggered via level-up anymore
-  - Ether and elixer now account for PP-ups used when determining if move is at full PP
+  - Ether and elixir now account for PP-ups used when determining if move is at full PP
   - PP-restoring items no longer affect transformed moves and only restore the original moves
   - EXP ALL fixes
     - should now dispense the correct exp if multiple pokemon take place in a battle
@@ -596,7 +724,7 @@ v1.24.1
     - Fixes some channel conflicts between cries and the low-health alarm
     - Fixes some audio hiccups with Yellow's color palettes on the GBC
     - Press SELECT on the option menu to go to the extra menu and change the audio mixing option under "AUDIO"
-  - Fuschia gym plays the correct sfx when getting the TM from Koga
+  - Fuchsia gym plays the correct sfx when getting the TM from Koga
   - Vermilion gym plays the correct sfx when getting the TM from Surge
   - Restored sfx for getting a badge
     - A sfx is supposed to play when getting a badge, but not for all gym leaders and the sfx used is inconsistent
@@ -616,6 +744,7 @@ v1.24.1
   - Fixed certain text sfx not playing when using zero-delay text
   - Meet Trainer jingle should not play before loading into the gym leader battle music
   - AI using dire hit item now plays a SFX
+  - The 'bwoop' sfx now plays when registering pokemon with short names like "Onix"
   
 
 - Misc. fixes
@@ -681,6 +810,7 @@ v1.24.1
   - Fixed picking a fossil causing all trainers on Mt. Moon floor 3 to lose line of sight
   - Fixed an underflow issue which caused trainers above the player to not see beyond 3 spaces downward
   - Lance and the player will face each other when speaking.
+  - Fixed an oversight where the player does not face the Viridian Gym door during the message saying it's locked
  
  
 #Tweaks
@@ -715,6 +845,7 @@ v1.24.1
   - Fixed inaccurate text when getting the rock slide TM
   - Adjusted some city names on signs
   - Fixed incorrect sign text in safari area 1
+  - Fixed missing punctuation in Oak's pokedex evaluation
 - Made adjustments to the game text
   - When a pkmn is caught and fills the box, a reminder is printed that the box is full
   - PC has a text prompt to tell you if its full after depositing
@@ -760,6 +891,15 @@ v1.24.1
     - Now only lasts 2 to 3 moves like Bide in order to prevent an infinite loop
     - As a tradeoff, attack boosts from rage are kept when it ends
   - Minor code correction to Twineedle to prevent future errors, but this has no effect on gameplay
+  - Psywave has been enhanced with a hidden mechanic
+    - Psywave will now roll for damage multiple times and use the best roll
+    - The number of times that damage is rolled is based on the target's current HP with more HP causing more re-rolls
+
+- Certain moves now affect catching mechanics if known by your active pokemon in battle
+  - Razor Wind & Skull Bash - additive +10 to catch rate per toss of a non-safari ball
+  - Roar & Whirlwind - additive +20 to catch rate per toss of a non-safari ball
+  - Take Down - improves the ball factor of non-safari balls by 2
+  - Egg Bomb - improves the ball factor of non-safari balls by 2 and additive +10 to catch rate per toss of a non-safari ball
 
 - Adjustment to stat mods, conditions, and items
   - Sleep does not prevent choosing a move
@@ -775,6 +915,7 @@ v1.24.1
   - In hard mode, X-stat items have double the effect
   - HP-UP item now preserves your HP ratio
   - Non-link battles in hard mode use the Stadium 1 formulas for critical hit probability
+  - Balls cannot be used against wild pokemon that exceed the level cap
   
 - Trainer ai routine #1 (recognition of stats, hp, and conditions) has been modified
   - using a move with a dream eater effect is heavily discouraged against non-sleeping opponents
@@ -908,7 +1049,7 @@ v1.24.1
   - Butterfree and Beedrill have their prior evolutions' moves added to their level-0 move list
   - Clefable and Wigglytuff get some moves back via level-up
   - Diglett & Dugtrio can learn cut like in yellow version
-  
+
 - Engine changes just for developers
   - The trainer move engine has been backported from Yellow version; trainer movesets can now be fully customized
   - Improved exp calculation for developers who want a level cap between 101 and 255
@@ -939,6 +1080,15 @@ v1.24.1
   - Withdrawing or depositing a key item from/to the player's PC will default its quantity to 1
   - Item evolutions having a level requirement is now supported
   - DelayFrame now manualy calls VBlank if it runs while the LCD is disabled
+  - Status Screen now prints types from party struct data instead of species header
+
+- PokeDex Area enhancements
+  - The AREA function of the PokeDex now takes the Super Rod into account
+  - It will also notify you if the Pokemon you are referencing is available on the currently loaded map
+  - If available on the current map, it will notify you if it can be found by walking, surfing, or by super rod
+  - The Cerulean Cave is an "unknown dungeon" so...
+    - Nest icons will not display for this location
+    - But the notification for the current map will still function
 
 - Improved itemfinder function
   - If an item is detected, it will play 1 to 3 chimes depending on how close it is (more chimes means closer to the item).
@@ -973,7 +1123,7 @@ v1.24.1
   - Added a PC to the daycare
   - Daycare allows HM moves on entered pokemon
 
-- A regular New Game will default the battle style to SET and hard mode
+- A regular New Game will default the battle style to SET and text speed to FAST 
 - Starting a New Game while in GBC-mode will default 60FPS mode to ON
 - Yes/No prompt for flute use has been added to blocking snorlax
 - Game corner prize costs re-balanced
@@ -1002,6 +1152,7 @@ v1.24.1
   - The SS Anne encounter
 - Adjusted the parity of in-game trades across versions
 - Increased the speed of the HP bar animation
+- The stat displays of the active pokemon in battle will display its current-time stats instead of its unmodified stats
   
   
 #Additions
@@ -1015,6 +1166,8 @@ v1.24.1
     - Pokemon that evolve >= level 30 will evolve at 8/7x the original level 
   - Gym leaders and the E4 scale slightly higher than normal trainers
   - If trainer scaling is on, you do not need to beat the 1st route 22 rival solo to get oak's pokeballs
+  - In hard mode, or against gym leaders, the scaling is based on the absolute highest level of your team
+  - In normal difficulty against regular trainers, the scaling is based on a weighted average of your team's levels
 - Playing on hard mode provides increased difficulty
   - Pressing RIGHT while the cursor is in the BATTLE STYLE box will toggle the feature on/off
   - Contrasting this, pressing LEFT will let you select a battle style without toggling difficulty
@@ -1031,7 +1184,7 @@ v1.24.1
   - Oak's pokeballs will be upgraded to great balls if you beat the route 22 rival in hard mode
 - Added the Clause Brothers to Viridian City
   - They toggle enforcement of the item, sleep, and/or freeze clauses
-  - The clauses apply to the player and AI equally, and only apply during non-link trainer battles
+  - The clauses apply to the player and AI equally
   - Sleep and freeze clauses work like they do in Pokemon Stadium
 - Added a fourth brother for the Trapping Move Clause
   - A counter tracks if the player or the opponent use trapping moves like Wrap multiple times in a row 
@@ -1042,6 +1195,11 @@ v1.24.1
   - The counter only gets reset by switching or using a move that does not have the trapping effect 
   - Reseting the counter will restore normal priority to trapping effect moves.
 - Added a fifth Clause Brother for the hyper beam clause; hyper beam will recharge if it KOs the opponent
+- Link battles in the Colosseum now synchronize battle clauses between both players
+  - The item clause is not applicable because items are not usable in link battles by default
+  - There is a clipboard in the Colosseum that is used to reset and re-select your battle clauses
+  - Any active clauses between your opponent and yourself are applied to both players
+  - A splash screen before battle will desplay the enforced clauses
 - There is now an obedience level-cap that can be toggled in the extra options menu under "LVL CAP"
   - While active, the current maximum obedience level will display in the options menu
   - All pokemon, not just trades, will start to disobey if over the displayed level cap
@@ -1261,9 +1419,19 @@ v1.24.1
 
 
 #Cheats and Secrets
+---------------------
 <details>
   <summary>Click to Reveal Spoilers!</summary>
 
+- After buying the Magikarp from the man in the Mt. Moon pokemon center, he will serve as a move tutor
+  - This is a throwback to certain Japan-only event pokemon giveaways
+  - Talk to him with Magikarp at the top of your party, and he will offer to teach it Dragon Rage for 5000 yen.
+  - Talk to him with Fearow or Rapidash at the top of your party, and he will offer to teach it Pay Day for 1000 yen.
+  - Talk to him with Pikachu at the top of your party that has an empty move slot, and he can teach it Fly for 2000 yen.
+- Psyduck Learning Amnesia  
+  - You must first have 151 pokemon registered as owned in your pokedex.  
+  - Place a Psyduck in your 1st party slot then go talk to the Psyduck in Mr. Fuji's house.  
+  - It will now try to learn the Amnesia move.  
 - The surfboard, a nugget, and TM 15 are hidden items added to the vermilion dock
 - Mew is on the basement level of the unknown dungeon
   - it is the rarest encounter in the game
@@ -1341,8 +1509,30 @@ v1.24.1
   - The manifestation of the shimmer boosts one-to-four of a 'mons unmodified stats.
 	- If 3/8ths of an unmodified stat is less than the mon's level, then the level value is added to that stat.
     - Stats that can be boosted are: attack, defense, speed, or special.
+	- Exclusively for Hitmonchan, the shimmer adds the level twice to its special stat so it can use its elemental punches.
   - There is the same chance of shimmer manifesting on applicable enemy trainer pokemon.
   - Given their rosters, the shimmer will always manifest on the applicable pokemon of Bruno, Agatha, and the Karate Master.
+
+- Undocumented secret move tutors; these are considered cheats and are just for fun
+  - Lickitung can learn Lick via the move-relearner in Saffron City
+  - Flareon can learn Agility and Low Kick from the Karate Master
+  - Hitmonlee can learn Agility and Quick Attack from the Pikachu in the Vermilion Fan Club
+  - Moltres can learn Flamethrower from Blaine
+  - Pidgeot and Pidgeotto can learn Drill Peck from the Fearow in the Route 16 house
+  - Ninetales can learn Hypnosis from Mr. Psychic in Saffron City
+  - Vileplume, Gloom, and Oddish can learn Leech Seed from Bill
+  - Examine the Omanyte sign in Fuschia city with one of these pokemon at the top of your party
+    - Omastar will learn Rock Slide
+	- Kabutops will learn Mega Drain
+	- Aerodactyl will learn Earthquake
+  - Ninja Scyther: Scyther can get a "ninja form" by defeating Koga as your sole party member
+    - Will exchange its Flying type for Ghost type
+	- Koga becomes a move tutor and can teach it a selection of new moves:
+	  - Confuse Ray
+	  - Hypnosis
+	  - Light Screen
+	  - Pin Missile
+	  - Rolling Kick
   
 </details>
 
@@ -1367,14 +1557,14 @@ v1.24.1
 - electabuzz in power plant in all versions (9.4% red and 5.1% all others)
 - magmar in pokemon mansion basement in all versions (4.3%)
 - snorlax in digletts cave (5.1%)
-- eevee on route 21 grass (4.3%)
+- eevee on route 21 grass (5.5%)
 - hitmonchan (5.1%) & hitmonlee (5.1%) in victory road 3f
 - version-swapped pinser/scyther in safari zone central-area
-- lickitung (5.1% red, blue, green) in safari zone 1
-- kangaskhan (5.1% blue-jp) in safari zone 1
-- tauros (5.1% blue-jp) in safari zone 2
-- jynx (5.1% red, blue, green) in safari zone 2
-- mr mime in safari zone 3 (5.1%) 
+- lickitung (5.1% red, blue, green) in safari zone east
+- kangaskhan (5.1% blue-jp) in safari zone east
+- tauros (5.1% blue-jp) in safari zone north
+- jynx (5.1% red, blue, green) in safari zone north
+- mr mime in safari zone west (5.1%) 
 - lapras replaces krabby when using super rod in safari zone
 - magnemite on route 10 (5.1%)
 - ponyta on route 7 (9.8%)
@@ -1396,26 +1586,27 @@ v1.24.1
 
 	
 #Changes to pokemart inventories:
-- TMs of all kinds at all stores. All TMs are now re-purchaseable at various stages of the game.
+- TMs of all kinds at all stores (Prize Corner included). All TMs are now re-purchaseable at various stages of the game.
 - Pewter city has ethers
 - Lavender town has max ethers
-- Saffron city has elixers
-- Cinnabar island has max elixers
+- Saffron city has elixirs
+- Cinnabar island has max elixirs
 - Cerulean mart sells escape rope per Yellow version
-- Fuschia mart sells hyper potions per Yellow version
+- Fuchsia mart sells hyper potions per Yellow version
 
 
-#Added hidden items:
+#Changes to item locations:
 - Added a hidden max revive in celadon city
 - Added a hidden super potion in celadon city
 - Added a hidden moon stone in diglett's cave
 - Added a hidden nugget in diglett's cave
-- Added hidden potion on route 22
+- Added a hidden potion on route 22
 - Additional hidden potion in viridian city
 - Added two hidden repels to pewter city
 - Added a hidden great ball and pokedoll on route 6
 - Added hidden max revive on route 11
 - Added hidden ultra ball on route 8
+- Water Gun TM has been replaced by a super repel in Mt. Moon, and it is now found in the Pewter Museum
 
 </details>
 
@@ -1426,11 +1617,7 @@ v1.24.1
   - Go to the OPTIONS screen and press SELECT to get to the extra menu.
   - Toggle this mode under "NUZLOCKE".
   
-- Default Options
-  - Some options are automatically changed when nuzlocke mode is turned on.
-  - The Obedience Level Cap will be activated if the Scale Enemy Trainer Levels feature is inactive.
-  - Also, the battle style will change to SET with hard mode and trainer switching active.
-  - These are not mandatory changes, and you may reconfigure your options as you wish.
+- This mode **DOES NOT** check if you have obtained pokeballs yet. It is in full effect when toggled to ON.  
   
 - Rule 1: A pokemon that faints is considered dead and can no longer be used.
   - Revival items cannot be used in battle.
@@ -1518,6 +1705,12 @@ These are things that are commonly requested but fall outside the scope of the p
 
 #Frequently Asked Questions
 ---------------------------
+> **I'm getting an Emulator Error message at the main title menu. What does this mean?**
+
+There are a couple checks performed in the background under the assumption that some form of emulation is being used. One or more messages may be displayed to indicate failures of these checks. For example, emulators like Visual Boy Advance and Goomba allow data read/writes to VRAM during mode 3 wherein the LCD controller is utilizing it; this is not possible on a real Game Boy and may cause issues with Shin Pokemon. Another example, one where Visual Boy Advance-M fails, is in the cpu cycles required to initiate an OAM Interrupt after the LCD goes from being disabled to enabled.
+
+These messages are informative in nature and do not impede play. That said, it is encouraged to switch to a more accurate emulator to avoid things like graphical glitches and other weirdness. See "Compatibility Notes" for more info.
+
 > **Will you do a special request just for me or make some specific patches or a ROM file for me?**
 
 No. Such requests will be politely declined. If you think you have a good recommendation, please fill out a suggestion ticket in the Issues tab of this project's github repository.
@@ -1592,7 +1785,7 @@ The following folks for their great tutorials, glitch videos, and explanations a
 - ChickasaurusGL
 - v0id19
 
-The following folks for bugfix collaberation
+The following folks for bugfix collaboration
 - kadetPirx
 - JOBOalthor1992
 - krazsen

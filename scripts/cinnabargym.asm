@@ -532,6 +532,8 @@ CinnabarGymText8:
 	jr nz, .cinnabar_rematch6
 .rematch6_end
 ;;;;;;;
+	call BlaineTutor
+;;;;;;;
 	ld hl, CinnabarGymText_75aa7
 	call PrintText
 	jp TextScriptEnd
@@ -567,3 +569,59 @@ CinnabarGymText_75ac2:
 CinnabarGymText_75ac7:
 	TX_FAR _CinnabarGymText_75ac7
 	db "@"
+
+	
+;joenote - place a moltres at top of the party.
+;Then talk to blaine after beating him.
+;Decline the rematch.
+;Your pokemon will learn a move.
+BlaineTutor:
+	ld a, [wPartyMon1Species]
+	cp MOLTRES
+	jr z, .next
+	ret
+.next
+	ld hl, .Text1
+	call PrintText
+	call YesNoChoice
+	ld a, [wCurrentMenuItem]
+	and a
+	jr nz, .finish
+	xor a
+	ld [wWhichPokemon], a
+	ld a, FLAMETHROWER
+	call .learnmove
+.finish
+	ret
+.Text1
+	text "That fiery bird!"
+	line "Is it the same as"
+	cont "the one who saved"
+	cont "me? Allow me to"
+	cont "return the favor."
+	done
+	db "@"
+.learnmove
+	ld [wMoveNum], a
+	ld [wd11e],a
+	call GetMoveName
+	call CopyStringToCF4B ; copy name to wcf4b
+
+	ld a, [wd11e]
+	push af
+	ld a, [wPartyMon1Species]
+	ld [wd11e], a
+	call GetMonName
+	pop af
+	ld [wd11e], a
+	
+	callba CheckIfMoveIsKnown
+	ret c	;carry set of move known already
+
+	ld hl, wFlags_D733
+	set 6, [hl]
+	push hl		;make it so the move-forget list covers up sprites
+	predef LearnMove
+	pop hl
+	res 6, [hl]
+	ret

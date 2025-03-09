@@ -78,7 +78,10 @@ CheckLoadedShinyDVs:
 	pop hl
 	ret
 
-ShinyDVsChecker:
+ShinyDVsChecker2:	;uses DE instead of HL to better call across banks
+	ld h, d
+	ld l, e
+ShinyDVsChecker:	;return z flag set if not shiny or cleared z flag if shiny
 	ld a, [hl]	;load MSB
 	bit 5, a	;bit 5 of the MSB need to be a 1 for shininess
 	jr z, .end_zero

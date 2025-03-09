@@ -9,7 +9,7 @@ Route21Mons:;joenote - added eevee and made adjustments to surfing encounters
 	db 28,TANGELA
 	db 30,TANGELA
 	db 21,EEVEE
-	db 32,TANGELA
+	db 23,EEVEE
 	db $05
 	db 5,TENTACOOL
 	db 10,TENTACOOL

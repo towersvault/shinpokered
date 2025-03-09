@@ -161,6 +161,148 @@ GetRandRosterLoop:
 	ret	
 
 
+
+GetWeightedLevel:
+	ld a, [wPartyCount]
+	dec a
+	jp z, GetHighestLevel
+
+	push hl
+	push bc
+	push de
+	
+	ld hl, wBoxDataEnd+5	;need 6 bytes of working space
+	
+	ld de, wStartBattleLevels
+	ld a, [wPartyCount]
+	ld c, a
+.loop
+	ld a, [de]
+	ld [hld], a
+	inc de
+	dec c
+	jr nz, .loop
+
+	ld a, [wPartyCount]
+	ld c, a
+.loop2
+	inc hl
+	dec c
+	jr nz, .loop2
+	
+	ld d, h
+	ld e, l
+	
+.sortingpass
+	ld h, d
+	ld l, e
+	ld a, [wPartyCount]	;if in this sorting pass loop, then this number is 2 to 6
+	dec a
+	ld c, a
+.loop3A
+	ld a, [hld]
+	cp [hl]
+	jr c, .swapping
+	dec c
+	jr z, .weight	;if an entire pass was made with no swapping, then the bytes are sorted
+	jr .loop3A
+.swapping
+	;current [HL] is greater than [HL+1] which is in A
+	;need to swap them
+	ld b, a
+	ld a, [hli]
+	ld [hld], a
+	ld a, b
+	ld [hl], a
+	;did the swap
+	;if this is the end of the pass, do another pass
+	dec c
+	jr z, .sortingpass
+	;else keep looping through this pass
+.loop3B
+	ld a, [hld]
+	cp [hl]
+	jr c, .swapping
+	dec c
+	jr z, .sortingpass	;if the pass is complete, then then do another pass because a swap was done
+	jr .loop3B
+	
+.weight
+	ld h, d
+	ld l, e
+	ld a, [wPartyCount]
+	ld c, a
+	dec c	
+	ld d, 1
+	ld e, 1
+.loop4
+	dec hl
+	ld a, [hl]
+.loop4sub1
+	srl a
+	dec e
+	jr nz, .loop4sub1
+	ld [hl], a
+	inc d
+	ld e, d
+	dec c
+	jr nz, .loop4
+
+.summation
+	ld de, $0000
+	ld a, [wPartyCount]
+	ld c, a
+.loop5
+	ld a, [hli]
+	add e
+	ld e, a
+	ld a, d
+	adc d
+	ld d, a
+	dec c
+	jr nz, .loop5	
+
+.multiplication	;do x32
+	ld c, 5
+.loop6
+	sla e
+	rl d
+	dec c
+	jr nz, .loop6
+
+.prepareDividend
+	ld a, d
+	ld [H_DIVIDEND+0], a
+	ld a, e
+	ld [H_DIVIDEND+1], a
+	xor a
+	ld [H_DIVIDEND+2], a
+	ld [H_DIVIDEND+3], a
+
+.getdivisor
+	ld a, [wPartyCount]
+	ld c, a
+	dec c
+	ld a, 32
+	ld b, 32
+.loop7
+	srl b
+	add b
+	dec c
+	jr nz, .loop7
+	ld [H_DIVISOR], a
+
+	ld b, 2
+	call Divide
+	ld a, [H_QUOTIENT+3]
+	
+	pop de
+	pop bc
+	pop hl
+	ret
+	
+
+	
 GetHighestLevel:	;gets the highest party level into A
 	push hl
 	push bc
@@ -193,14 +335,24 @@ ScaleTrainer_level:
 	ret z
 	push bc
 
+	ld a, [wGymLeaderNo]
+	and a
+	jr nz, .hard	;if fighting a boss like a gym leader, use the harder level scaling
+	ld a, [wOptions]
+	bit BIT_BATTLE_HARD, a
+	jr z, .normal	;if it's a regular trainer but playing on hard mode, use the harder level scaling
+.hard
 	call GetHighestLevel
-
+	jr .got_level
+.normal
+	call GetWeightedLevel
+.got_level
 	push af
 	ld a, [wCurEnemyLVL]
 	ld b, a
 	pop af
 	
-	;at this line, B holds current enemy level and A holds highest party level
+	;at this line, B holds current enemy level and A holds highest/weighted party level
 	cp b
 	pop bc
 	ret c

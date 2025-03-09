@@ -442,7 +442,7 @@ BirdKeeperData:
 	;db 42,FARFETCHD,FEAROW,0
 BlackbeltData:
 ; Fighting Dojo
-	db 38,HITMONLEE,HITMONCHAN,0	;joenote - dojo master raised 1 level to get some extra moves
+	db $FF,38,HITMONLEE,38,HITMONCHAN,0	;joenote - dojo master raised 1 level to get some extra moves
 	db 31,MANKEY,MANKEY,PRIMEAPE,0
 	db 32,MACHOP,MACHOKE,0
 	db 36,POLIWRATH,0
@@ -508,7 +508,7 @@ GiovanniData:
 ; Silph Co. 11F
 	db $FF,37,NIDORINO,35,KANGASKHAN,37,RHYHORN,41,NIDOQUEEN,0
 ; Viridian Gym
-	db $FF,45,RHYHORN,45,DUGTRIO,46,NIDOQUEEN,47,NIDOKING,52,RHYDON,0
+	db $FF,46,KANGASKHAN,45,DUGTRIO,46,NIDOQUEEN,47,NIDOKING,52,RHYDON,0
 RocketData:
 ; Mt. Moon B2F
 	db 13,RATTATA,ZUBAT,0

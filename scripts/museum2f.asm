@@ -7,6 +7,7 @@ Museum2FTextPointers:
 	dw Museum2FText3
 	dw Museum2FText4
 	dw Museum2FText5
+	dw PickUpItemText	;joenote - moved tm12 here
 	dw Museum2FText6
 	dw Museum2FText7
 

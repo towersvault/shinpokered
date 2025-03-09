@@ -4,7 +4,9 @@ SSAnne6Script:
 ;joenote - set up tournament
 	CheckEvent EVENT_90D
 	jr z, .mainreturn
-	call ContinueTournament
+	ld a, [wIsInBattle]
+	cp $ff	;don't continue the tournament if you lost
+	call nz, ContinueTournament
 .mainreturn
 	ret
 

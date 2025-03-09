@@ -1,3 +1,85 @@
+ReadSuperRodData:
+	call GetPredefRegisters
+
+;joenote - takes the value in D as an argument
+;D = 0 as argument --> super rod functionality
+;D = 'mon hex ID as argument --> If the 'mon in D is fishable with the super rod on this map, return D = 0
+	
+; return e = 2 if no fish on this map
+; return e = 1 if a bite, bc = level,species
+; return e = 0 if no bite
+	ld a, [wCurMap]
+	push de
+	ld de, 3 ; each fishing group is three bytes wide
+	ld hl, SuperRodData
+	call IsInArray
+	pop de
+	jr c, .ReadFishingGroup
+	ld e, $2 ; $2 if no fishing groups found
+	ret
+
+.ReadFishingGroup
+; hl points to the fishing group entry in the index
+
+	;joenote - if wild pokemon are randomized, then don't do the joke dittos
+	ld a, [hl]
+	cp UNKNOWN_DUNGEON_3
+	jr nz, .skipmapID
+	CheckEvent EVENT_8DE
+	jr z, .skipmapID
+	inc hl
+	inc hl
+	inc hl
+	
+.skipmapID
+	inc hl ; skip map id
+
+	; read fishing group address
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+
+	ld b, [hl] ; how many mons in group
+	inc hl ; point to data
+	ld e, $0 ; no bite yet
+
+;joenote - added functionality where we can now check of a 'mon in D is in the fishing group.
+	ld a, d
+	and a
+	jr nz, .CheckIfInGroup
+	
+.RandomLoop
+	call Random
+	srl a
+	ret c ; 50% chance of no battle
+
+	and %11 ; 2-bit random number
+	cp b
+	jr nc, .RandomLoop ; if a is greater than the number of mons, regenerate
+
+	; get the mon
+	add a
+	ld c, a
+	ld b, $0
+	add hl, bc
+	ld b, [hl] ; level
+	inc hl
+	ld c, [hl] ; species
+	ld e, $1 ; $1 if there's a bite
+	ret
+
+.CheckIfInGroup
+	inc hl
+	ld a, [hli]
+	sub d
+	jr z, .found
+	dec b
+	jr nz, .CheckIfInGroup
+	ret
+.found
+	ld d, a
+	ret
+
 ; super rod data
 ; format: map, pointer to fishing group
 ;joenote - Ditto encounters set in fishing group 2 (route 22 set to group 1)

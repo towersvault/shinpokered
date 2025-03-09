@@ -237,3 +237,4 @@ const_value = 0
 	const HS_CELADON_MART_3_BLOCKER       ; E4 ;joenote - added this to turn on/off the blocking sprite
 	const HS_VERMILION_PKMN	      		  ; E5 ;joenote - a lazy pokemon replaces the bush blocking the gym
 	const HS_UNDPATHWE_MGENE			  ; E6 ;joenote - mgene pickup item
+	const HS_MUSEUM_TM12				  ; E7 ;joenote - moving water gun here

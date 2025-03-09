@@ -272,6 +272,24 @@ CableClub_DoBattleOrTradeAgain:
 	ld a, LINK_STATE_TRADING
 	ld [wLinkState], a
 	jr nz, .trading
+
+;joenote - sync battle clauses
+	callba SyncBattleClauses
+	jr z, .initOpp
+	ld a, LINK_STATE_IN_CABLE_CLUB
+	ld [wLinkState], a
+	coord hl, 0, 12
+	ld b, 4
+	ld c, 18
+	call CableClub_TextBoxBorder
+	coord hl, 1, 14
+	ld de, SyncError
+	call PlaceString
+	ld c, 50
+	call DelayFrames
+	jr .back2room
+.initOpp
+
 	ld a, LINK_STATE_BATTLING
 	ld [wLinkState], a
 	ld a, OPP_SONY1
@@ -284,6 +302,7 @@ CableClub_DoBattleOrTradeAgain:
 	res BIT_BATTLE_ANIMATION, [hl]
 	predef InitOpponent
 	predef HealParty
+.back2room
 	jp ReturnToCableClubRoom
 .trading
 	ld c, BANK(Music_GameCorner)
@@ -897,6 +916,10 @@ TradeCenterPointerTable:
 	dw TradeCenter_SelectMon
 	dw TradeCenter_Trade
 
+;joenote - adding an error message
+SyncError:
+	db "Sync Error!@"
+
 CableClub_Run:
 	ld a, [wLinkState]
 	cp LINK_STATE_START_TRADE
@@ -939,10 +962,20 @@ EmptyFunc3:
 
 Diploma_TextBoxBorder:
 	call GetPredefRegisters
+	jr CableClub_TextBoxBorder.next	;joenote - fixes a wrong tiles with the diploma border due to cable club map check
 
 ; b = height
 ; c = width
+;joenote - use different tiles if called outside cable club maps
 CableClub_TextBoxBorder:
+	ld a, [wCurMap]
+	cp COLOSSEUM
+	jr z, .next
+	cp TRADE_CENTER
+	jr z, .next
+	jp CableClub_TextBoxBorder2
+.next	
+
 	push hl
 	ld a, $78 ; border upper left corner tile
 	ld [hli], a
@@ -970,6 +1003,35 @@ CableClub_TextBoxBorder:
 	ld a, $76 ; border bottom horizontal line tile
 	call CableClub_DrawHorizontalLine
 	ld [hl], $7d ; border lower right corner tile
+	ret
+CableClub_TextBoxBorder2:
+	push hl
+	ld a, $79 ; border upper left corner tile
+	ld [hli], a
+	inc a ; border top horizontal line tile
+	call CableClub_DrawHorizontalLine
+	inc a ; border upper right corner tile
+	ld [hl], a
+	pop hl
+	ld de, 20
+	add hl, de
+.loop
+	push hl
+	ld a, $7c ; border left vertical line tile
+	ld [hli], a
+	ld a, " "
+	call CableClub_DrawHorizontalLine
+	ld [hl], $7c ; border right vertical line tile
+	pop hl
+	ld de, 20
+	add hl, de
+	dec b
+	jr nz, .loop
+	ld a, $7d ; border lower left corner tile
+	ld [hli], a
+	ld a, $7a ; border bottom horizontal line tile
+	call CableClub_DrawHorizontalLine
+	ld [hl], $7e ; border lower right corner tile
 	ret
 
 ; c = width

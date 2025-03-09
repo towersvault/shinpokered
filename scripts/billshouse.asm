@@ -216,6 +216,7 @@ BillsHouseText3:
 	jr .done
 	
 .next
+	call BillTutor
 	ld hl, BillsHouseText_1e8da
 .done
 	call PrintText
@@ -240,3 +241,63 @@ BillsHouseText_1e8da:
 BillGardenText:
 	TX_FAR _BillGardenText
 	db "@"
+
+	
+	
+;joenote - place an oddish, gloom, or vileplume at top of the party.
+;Then talk to Bill after doing his event
+;Your pokemon will learn a move.
+BillTutor:
+	ld a, [wPartyMon1Species]
+	cp ODDISH
+	jr z, .next
+	cp GLOOM
+	jr z, .next
+	cp VILEPLUME
+	jr z, .next
+	ret
+.next
+	ld hl, .Text1
+	call PrintText
+	call YesNoChoice
+	ld a, [wCurrentMenuItem]
+	and a
+	jr nz, .finish
+	xor a
+	ld [wWhichPokemon], a
+	ld a, LEECH_SEED
+	call .learnmove
+.finish
+	ret
+.Text1
+	text "Oh! What a leafy"
+	line "#MON! Might it"
+	cont "enjoy some plant"
+	cont "fertilizer from"
+	cont "CELADON CITY?"
+	done
+	db "@"
+.learnmove
+	ld [wMoveNum], a
+	ld [wd11e],a
+	call GetMoveName
+	call CopyStringToCF4B ; copy name to wcf4b
+
+	ld a, [wd11e]
+	push af
+	ld a, [wPartyMon1Species]
+	ld [wd11e], a
+	call GetMonName
+	pop af
+	ld [wd11e], a
+	
+	callba CheckIfMoveIsKnown
+	ret c	;carry set of move known already
+
+	ld hl, wFlags_D733
+	set 6, [hl]
+	push hl		;make it so the move-forget list covers up sprites
+	predef LearnMove
+	pop hl
+	res 6, [hl]
+	ret

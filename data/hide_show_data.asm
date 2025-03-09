@@ -58,7 +58,7 @@ MapHSPointers:
 	dw MapHSXX
 	dw MapHS33
 	dw MapHS34
-	dw MapHSXX
+	dw MapHS35	;joenote - added museum 2f
 	dw MapHSXX
 	dw MapHSXX
 	dw MapHSXX
@@ -264,6 +264,8 @@ MapHSPointers:
 ; b) Map_ID ≠ currentMapID
 ;
 ; This Data is loaded into RAM at wd5ce-$D5F?. (wMissableObjectList)
+
+;THESE FUNCTIONS MUST FOLLOW THE ORDER LAID OUT IN "hide_show_constants.asm"!!!
 
 ; These constants come from the bytes for Predef functions:
 Hide equ $11
@@ -579,5 +581,7 @@ MapHS05:
 	db VERMILION_CITY,$07,Show	;joenote - replaces bush outside vermilion gym with a lazy pokemon
 MapHS79: 
 	db UNDERGROUND_PATH_WE,$02,Hide	;joenote - m_gene pokeball
+MapHS35:
+	db MUSEUM_2F,$06,Show	;joenote - added water gun tm to museum 2f
 	
 	db $FF,$01,Show

@@ -24,7 +24,7 @@ db 0 ; growth rate
 	tmlearn 26,27,28,31,32
 	tmlearn 34
 	tmlearn 44,48
-	tmlearn 50,51
+	tmlearn 50,51	;joenote - can learn CUT from Yellow
 ;	db 0 ; padding
 	db BANK(DiglettPicFront)
 	assert BANK(DiglettPicFront) == BANK(DiglettPicBack)

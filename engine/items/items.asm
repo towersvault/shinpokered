@@ -119,11 +119,15 @@ ItemUseBall:
 	pop de
 	jp nz, ItemUseNotTime
 
+;joenote - Disallow balls against wild pokemon above the level cap
+	ld a, [wEnemyMonLevel]
+	cp MAX_LEVEL+1
+	jp nc, ItemUseNoEffect
+	
 ; Balls can't be used out of battle.
 	ld a, [wIsInBattle]
 	and a
-	jp z, ItemUseNotTime
-	
+	jp z, ItemUseNotTime	
 ; Balls can't catch trainers' Pokémon.
 	dec a
 	jp nz, ThrowBallAtTrainerMon
@@ -314,6 +318,7 @@ ItemUseBall:
 
 ; Calculate (MaxHP * 255) / BallFactor.
 	ld [H_DIVISOR], a
+	callba ImproveBallFactor	;joenote - for secret move effects
 	ld b, 4 ; number of bytes in dividend
 	call Divide
 
@@ -347,6 +352,7 @@ ItemUseBall:
 	ld [H_QUOTIENT + 3], a
 
 .skip3
+	callba ImproveCatchRate		;joenote - for secret move effects
 	pop bc ; b = Rand1 - Status
 
 ; If Rand1 - Status > CatchRate, the ball fails to capture the Pokémon.
@@ -585,7 +591,7 @@ ItemUseBall:
 	ld [wd11e], a
 	ld a, [wBattleType]
 	dec a ; is this the old man battle?
-	jr z, .oldManCaughtMon ; if so, don't give the player the caught Pokémon
+	jp z, .oldManCaughtMon ; if so, don't give the player the caught Pokémon
 
 	ld hl, ItemUseBallText05
 	call PrintText
@@ -610,8 +616,15 @@ ItemUseBall:
 	and a ; was the Pokémon already in the Pokédex?
 	jr nz, .skipShowingPokedexData ; if so, don't show the Pokédex data
 
-	ld hl, ItemUseBallText06
+	
+	;joenote - BUG: some pokemon names are short (like Onix) which causes the page-added sfx to not play
+	;Splitting ItemUseBallText06 up with some wait time to fix it
+	ld hl, ItemUseBallText06_A
 	call PrintText
+	call WaitForSoundToFinish
+	ld hl, ItemUseBallText06_B
+	call TextCommandProcessor
+
 	call ClearSprites
 	ld a, [wEnemyMonSpecies]
 	ld [wd11e], a
@@ -709,10 +722,13 @@ ItemUseBallText08:
 	TX_FAR _ItemUseBallText08
 	db "@"
 
-ItemUseBallText06:
+;joenote - splitting ItemUseBallText06 into two so the sound plays properly
+ItemUseBallText06_A:
 ;"New DEX data will be added..."
-;play sound
 	TX_FAR _ItemUseBallText06
+	db "@"
+ItemUseBallText06_B:
+;play sound
 	TX_SFX_DEX_PAGE_ADDED
 	TX_BLINK
 	db "@"
@@ -1291,9 +1307,11 @@ ItemUseMedicine:
 	add hl, bc
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;joenote - undo brn/par stat changes for Full Restore after restoring HP in battle
-	ld a, [wIsInBattle]
-	and a
-	jr z, .clearParBrn	;do not adjust the stats if not currently in battle
+	ld a, [wUsedItemOnWhichPokemon]
+	ld b, a
+	ld a, [wPlayerMonNumber]
+	cp b ; is pokemon the item was used on active in battle?
+	jr nz, .clearParBrn	;do not adjust the stats if not healing the active pokemon in battle
 	push hl
 	push de
 	ld a, [H_WHOSETURN]
@@ -2183,7 +2201,8 @@ INCLUDE "data/good_rod.asm"
 ItemUseSuperRod:
 	call FishingInit
 	jp c, ItemUseNotTime
-	call ReadSuperRodData
+	ld d, 0	;joenote - specify super rod function since ReadSuperRodData has been enhanced a bit
+	predef ReadSuperRodData
 	ld a, e
 RodResponse:
 	ld [wRodResponse], a
@@ -3254,53 +3273,6 @@ WaterTilesets:
 	db OVERWORLD, FOREST, DOJO, GYM, SHIP, SHIP_PORT, CAVERN, FACILITY, PLATEAU
 	db $ff ; terminator
 
-ReadSuperRodData:
-; return e = 2 if no fish on this map
-; return e = 1 if a bite, bc = level,species
-; return e = 0 if no bite
-	ld a, [wCurMap]
-	ld de, 3 ; each fishing group is three bytes wide
-	ld hl, SuperRodData
-	call IsInArray
-	jr c, .ReadFishingGroup
-	ld e, $2 ; $2 if no fishing groups found
-	ret
-
-.ReadFishingGroup
-; hl points to the fishing group entry in the index
-	inc hl ; skip map id
-
-	; read fishing group address
-	ld a, [hli]
-	ld h, [hl]
-	ld l, a
-
-	ld b, [hl] ; how many mons in group
-	inc hl ; point to data
-	ld e, $0 ; no bite yet
-
-.RandomLoop
-	call Random
-	srl a
-	ret c ; 50% chance of no battle
-
-	and %11 ; 2-bit random number
-	cp b
-	jr nc, .RandomLoop ; if a is greater than the number of mons, regenerate
-
-	; get the mon
-	add a
-	ld c, a
-	ld b, $0
-	add hl, bc
-	ld b, [hl] ; level
-	inc hl
-	ld c, [hl] ; species
-	ld e, $1 ; $1 if there's a bite
-	ret
-
-INCLUDE "data/super_rod.asm"
-
 ; reloads map view and processes sprite data
 ; for items that cause the overworld to be displayed
 ItemUseReloadOverworldData:
@@ -3311,6 +3283,9 @@ ItemUseReloadOverworldData:
 ; creates a list at wBuffer of maps where the mon in [wd11e] can be found.
 ; this is used by the pokedex to display locations the mon can be found on the map.
 FindWildLocationsOfMon:
+	ld a, 0
+	ld [wActionResultOrTookBattleTurn], a	;joenote - used to differentiate between land, water, and super rod finding
+
 	ld a, [wd11e]
 	push af
 	predef LookupWildRandomMon	;joenote - adjusted to show locations of randomized wild mons
@@ -3328,13 +3303,62 @@ FindWildLocationsOfMon:
 	ld l, a
 	ld a, [hli]
 	and a
+
+	ld a, [wActionResultOrTookBattleTurn]
+	set 0, a
+	ld [wActionResultOrTookBattleTurn], a
+
 	call nz, CheckMapForMon ; land
 	ld a, [hli]
 	and a
+
+	ld a, [wActionResultOrTookBattleTurn]
+	res 0, a
+	set 2, a
+	ld [wActionResultOrTookBattleTurn], a
+
 	call nz, CheckMapForMon ; water
+	
+	ld a, [wActionResultOrTookBattleTurn]
+	res 2, a
+	ld [wActionResultOrTookBattleTurn], a
+
 	pop hl
 	inc hl
 	inc hl
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;	
+	;joenote - check the map for this loop to see if the 'mon is fishable with the super rod
+	ld a, [wCurMap]
+	push af
+	ld a, c
+	ld [wCurMap], a
+
+	push de
+	ld a, [wd11e]
+	ld d, a
+	push bc
+	push hl
+	predef ReadSuperRodData
+	pop hl
+	pop bc
+	ld a, d
+	and a
+	pop de
+	jr nz, .doneSuperRod
+	ld a, c
+	ld [de], a
+	inc de
+	pop af
+	cp c
+	push af
+	jr nz, .doneSuperRod
+	ld a, [wActionResultOrTookBattleTurn]
+	set 4, a
+	ld [wActionResultOrTookBattleTurn], a
+.doneSuperRod		
+	pop af
+	ld [wCurMap], a
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;		
 	inc c
 	jr .loop
 .done
@@ -3351,14 +3375,45 @@ CheckMapForMon:
 	ld a, [wd11e]
 	cp [hl]
 	jr nz, .nextEntry
+	cp MEW
+	jr z, .nextEntry	;joenote - don't reveal MEW on accident
+
 	ld a, c
 	ld [de], a
 	inc de
+
+	ld a, [wCurMap]
+	cp c
+	jr nz, .foundMon
+	ld a, [wActionResultOrTookBattleTurn]
+	bit 0, a
+	jr nz, .handleLand
+	bit 2, a
+	jr z, .foundMon
+.handleSurf
+	set 3, a	
+	ld [wActionResultOrTookBattleTurn], a
+	jr .foundMon
+.handleLand
+	set 1, a
+	ld [wActionResultOrTookBattleTurn], a
+	jr .foundMon
+	
 .nextEntry
 	inc hl
 	inc hl
 	dec b
 	jr nz, .loop
+	dec hl
+	ret
+
+;joenote - if the mon was found on the encounter table, 
+;skip through the rest of the table so as to not flood wBuffer with redundant entries
+.foundMon
+	inc hl
+	inc hl
+	dec b
+	jr nz, .foundMon
 	dec hl
 	ret
 

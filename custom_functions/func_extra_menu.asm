@@ -357,7 +357,7 @@ OptionMenuNoSwitchOFF:
 	db "SMART@"
 
 	
-;joenote - for deactivating intelligent trainer switching
+;joenote - for toggling the color correction
 ToggleGammaShader:
 	ld a, [hGBC]
 	and a
@@ -427,7 +427,7 @@ ToggleNuzlocke:
 	xor %01000000
 	ld [wUnusedD721], a
 	bit 6, a
-	call nz, NuzlockeSettings
+;	call nz, NuzlockeSettings
 	;fall through
 ShowNuzlocke:
 	ld de, OptionMenuTextOFF

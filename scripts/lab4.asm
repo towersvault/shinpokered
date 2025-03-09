@@ -133,7 +133,7 @@ Lab4Text3:
 	jp nz, .done
 	CheckEvent EVENT_LAB_HANDING_OVER_FOSSIL_MON
 	jp nz, .done
-	CheckEvent EVENT_2E4
+	CheckEvent EVENT_2E4	;still gestating pokemon
 	jp nz, .done
 	
 	ld hl, Lab4Text_Party
@@ -143,7 +143,7 @@ Lab4Text3:
 	cp 6
 	jp nc, .done
 	
-	CheckEvent EVENT_2E3
+	CheckEvent EVENT_2E3	;gave gene sample to lab
 	jp nz, .getMon
 	
 ;do not allow cloning of legendary pokemon
@@ -168,9 +168,9 @@ Lab4Text3:
 	ld a, [wCurrentMenuItem]
 	and a
 	jp nz, .done
-	xor a
 	
 	;charge 200 money
+	xor a
 	ld [hMoney], a	
 	ld [hMoney + 2], a	
 	ld a, $02
@@ -241,6 +241,7 @@ Lab4Text3:
 	jr nz, .done
 	
 	;charge 10000 money
+	xor a
 	ld [hMoney], a	
 	ld [hMoney + 1], a	
 	ld a, $01
@@ -252,10 +253,10 @@ Lab4Text3:
 	jr .done
 .enoughMoney2
 	; Charge 10000 money
-	ld a, $01
-	ld [wPriceTemp], a
 	xor a
+	ld [wPriceTemp], a
 	ld [wPriceTemp + 1], a	
+	ld a, $01
 	ld [wPriceTemp + 2], a	
 	ld hl, wPriceTemp + 2
 	ld de, wPlayerMoney + 2

@@ -55,7 +55,7 @@ SpecialTrainerMoves:
 	db 2,2,COUNTER
 	db 2,3,TRI_ATTACK
 	;rattata - tackle, tail whip, quick attack, hyper fang
-	;squirtle
+	;squirtle - tackle, tail whip, bubble, water gun
 	db 0
 
 	db SONY1, $8
@@ -64,7 +64,7 @@ SpecialTrainerMoves:
 	db 2,2,COUNTER
 	db 2,3,TRI_ATTACK
 	;rattata - tackle, tail whip, quick attack, hyper fang
-	;bulbasaur
+	;bulbasaur - tackle, growl, leech seed, vine whip
 	db 0
 
 	db SONY1, $9
@@ -73,7 +73,7 @@ SpecialTrainerMoves:
 	db 2,2,COUNTER
 	db 2,3,TRI_ATTACK
 	;rattata - tackle, tail whip, quick attack, hyper fang
-	;charmander
+	;charmander - scratch, growl, ember, leer
 	db 0
 	
 	db MISTY,$1
@@ -144,7 +144,10 @@ SpecialTrainerMoves:
 	db 0
 	
 	db GIOVANNI,$3
-	;rhyhorn - stomp, tail whip, fury attack, horn drill
+	;kangaskhan - earthquake, hyper beam, fissure, dizzy punch
+	db 1,1,EARTHQUAKE
+	db 1,2,HYPER_BEAM
+	db 1,3,FISSURE
 	;dugtrio - fissure, dig, sand attack, slash
 	db 2,1,FISSURE
 	;nidoqueen - earthquake, double kick, thunder, body slam
@@ -161,7 +164,7 @@ SpecialTrainerMoves:
 	db 0
 	
 	db LORELEI,$1
-	;dewgong -  bubblebeam, aurora beam, rest, takedown
+	;dewgong - bubblebeam, aurora beam, rest, takedown
 	db 1,1,BUBBLEBEAM
 	;cloyster - clamp, supersonic, aurora beam, spike cannon
 	db 2,2,SUPERSONIC
@@ -296,8 +299,8 @@ SpecialTrainerMoves:
 	;gyarados - ice beam, body slam, hydro pump, hyperbeam
 	db 5,1,ICE_BEAM
 	db 5,2,BODY_SLAM
-	;charizard - swords dance, slash, fire blast, fire spin
-	db 6,1,SWORDS_DANCE
+	;charizard - fly, slash, fire blast, fire spin
+	db 6,1,FLY
 	db 6,3,FIRE_BLAST
 	db 0
 
@@ -349,22 +352,27 @@ SpecialTrainerMoves:
 	
 	;mr fuji battle
 	db GENTLEMAN,$5
+	;marowak
 	db 1,1,BONEMERANG
 	db 1,2,BODY_SLAM
 	db 1,3,SEISMIC_TOSS
 	db 1,4,BLIZZARD
+	;omastar
 	db 2,1,HYDRO_PUMP
 	db 2,2,ICE_BEAM
 	db 2,3,REFLECT
 	db 2,4,TOXIC
+	;kabutops
 	db 3,1,SWORDS_DANCE
 	db 3,2,SURF
 	db 3,3,SLASH
 	db 3,4,DOUBLE_EDGE
+	;aerodactyl
 	db 4,1,SKY_ATTACK
 	db 4,2,REFLECT
 	db 4,3,HYPER_BEAM
 	db 4,4,SUPERSONIC
+	;arcanine
 	db 5,1,FIRE_BLAST
 	db 5,2,BODY_SLAM
 	db 5,3,MIMIC
@@ -373,26 +381,32 @@ SpecialTrainerMoves:
 	
 	;Chief battle
 	db CHIEF,$1
+	;kangaskhan
 	db 1,1,BODY_SLAM
 	db 1,2,SUBMISSION
 	db 1,3,FIRE_BLAST
 	db 1,4,HYPER_BEAM
+	;rhydon
 	db 2,1,THUNDERBOLT
 	db 2,2,ROCK_SLIDE
 	db 2,3,SUBSTITUTE
 	db 2,4,EARTHQUAKE
+	;golduck
 	db 3,1,AMNESIA
 	db 3,2,BLIZZARD
 	db 3,3,SURF
 	db 3,4,MIMIC
+	;pinsir
 	db 4,1,SLASH
 	db 4,2,SWORDS_DANCE
 	db 4,3,SEISMIC_TOSS
 	db 4,4,BODY_SLAM
+	;scyther
 	db 5,1,SWORDS_DANCE
 	db 5,2,SLASH
 	db 5,3,AGILITY
 	db 5,4,DOUBLE_EDGE
+	;tauros
 	db 6,1,HYPER_BEAM
 	db 6,2,DOUBLE_EDGE
 	db 6,3,STOMP
@@ -401,26 +415,32 @@ SpecialTrainerMoves:
 	
 	;Seiga battle
 	db JR_TRAINER_F,$18
+	;clefable
 	db 1,1,PSYCHIC_M
 	db 1,2,SING
 	db 1,3,METRONOME
 	db 1,4,DOUBLE_EDGE
+	;gengar
 	db 2,1,THUNDERBOLT
 	db 2,2,HYPNOSIS
 	db 2,3,MEGA_DRAIN
 	db 2,4,CONFUSE_RAY
+	;victreebel
 	db 3,1,SWORDS_DANCE
 	db 3,2,RAZOR_LEAF
 	db 3,3,SLEEP_POWDER
 	db 3,4,BODY_SLAM
+	;ninetales
 	db 4,1,FIRE_BLAST
 	db 4,2,REFLECT
 	db 4,3,HYPER_BEAM
 	db 4,4,CONFUSE_RAY
+	;kangaskhan
 	db 5,1,EARTHQUAKE
 	db 5,2,ROCK_SLIDE
 	db 5,3,SUBMISSION
 	db 5,4,HYPER_BEAM
+	;blastoise
 	db 6,1,SURF
 	db 6,2,BLIZZARD
 	db 6,3,SEISMIC_TOSS
@@ -429,26 +449,32 @@ SpecialTrainerMoves:
 	
 	;Red battle
 	db JR_TRAINER_M,$9
+	;lapras
 	db 1,1,BLIZZARD
 	db 1,2,THUNDERBOLT
 	db 1,3,BODY_SLAM
 	db 1,4,CONFUSE_RAY
+	;venusaur
 	db 2,1,RAZOR_LEAF
 	db 2,2,SLEEP_POWDER
 	db 2,3,BODY_SLAM
 	db 2,4,SWORDS_DANCE
+	;charizard
 	db 3,1,FIRE_BLAST
 	db 3,2,EARTHQUAKE
 	db 3,3,SWORDS_DANCE
 	db 3,4,HYPER_BEAM
+	;blastoise
 	db 4,1,HYDRO_PUMP
 	db 4,2,BLIZZARD
 	db 4,3,BODY_SLAM
 	db 4,4,EARTHQUAKE
+	;snorlax
 	db 5,1,HYPER_BEAM
 	db 5,2,REST
 	db 5,3,BODY_SLAM
 	db 5,4,EARTHQUAKE
+	;pikachu
 	db 6,1,THUNDER
 	db 6,2,THUNDER_WAVE
 	db 6,3,SURF

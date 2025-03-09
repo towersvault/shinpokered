@@ -1,6 +1,11 @@
 ; [wd0b5] = pokemon ID
 ; hl = dest addr
 PrintMonType:
+	;joenote - if wd0b5 holds zero, then assume printing from the status screen
+	ld a, [wd0b5]
+	and a
+	jp z, PrintMonType_StatusScreen
+
 	call GetPredefRegisters
 	push hl
 	call GetMonHeader
@@ -49,4 +54,43 @@ PrintType_:
 	pop hl
 	jp PlaceString
 
+;joenote - if printing on the status screen, pull the types right from the party/box data structures
+;This allows for pokemon to have "forms" where the species is the same but the type is different.
+PrintMonType_StatusScreen:
+	call GetPredefRegisters
+	push de
+	push hl
+	
+	ld hl, wPartyMon1Type1
+	ld bc, wPartyMon2 - wPartyMon1
+	ld a, [wMonDataLocation]
+	cp BOX_DATA
+	jr nz, .whichMon
+	ld hl, wBoxMon1Type1
+	ld bc, wBoxMon2 - wBoxMon1
+.whichMon
+	ld a, [wWhichPokemon]
+	call AddNTimes
+	
+	ld d, h
+	ld e, l
+	pop hl
+
+
+	ld a, [de]
+	push de
+	call PrintType
+	pop de
+	ld a, [de]
+	ld b, a
+	inc de
+	ld a, [de]
+	cp b
+
+	pop de
+	jr z, EraseType2Text
+	ld bc, SCREEN_WIDTH * 2
+	add hl, bc
+	jp PrintType
+	
 INCLUDE "text/type_names.asm"

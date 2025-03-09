@@ -31,23 +31,23 @@ EvolutionAfterBattle:
 
 Evolution_PartyMonLoop: ; loop over party mons
 	ld hl, wWhichPokemon
-	inc [hl]
-	pop hl
+	inc [hl]	;increment to current wWhichPokemon
+	pop hl	;point HL to wPartyCount
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; wispnote - We store current PKMN' Level at the Beginning of the Battle
 ; to a chosen memory address in order to be compaired later with the evolution requirements.
-	pop de
+	pop de	;point DE to wStartBattleLevels
 	ld a, [de]
 	ld [wTempCoins1], a
-	inc de
+	inc de	; increment to next wStartBattleLevels position
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-	inc hl
+	inc hl	; point HL to wPartySpecies
 	ld a, [hl]
 	cp $ff ; have we reached the end of the party?
 	jp z, .done
 	ld [wEvoOldSpecies], a
-	push de; wispnote - If we are not done we need to push the pointer for the next iteration.
-	push hl
+	push de; wispnote - If we are not done we need to push the wStartBattleLevels pointer for the next iteration.
+	push hl	; as well as the wPartySpecies pointer
 	ld a, [wWhichPokemon]
 	ld c, a
 	ld hl, wCanEvolveFlags
@@ -134,7 +134,7 @@ Evolution_PartyMonLoop: ; loop over party mons
 	ld [wCurEnemyLVL], a
 	pop hl
 
-	.checkLevel
+.checkLevel
 	ld a, [hli] ; level requirement
 	ld b, a
 	ld a, [wLoadedMonLevel]
@@ -144,9 +144,9 @@ Evolution_PartyMonLoop: ; loop over party mons
 	ld [wCurEnemyLVL], a
 	ld a, 1
 	ld [wEvolutionOccurred], a
-;a has 'mon current level. b has 'mon evo level requirement
+;b has 'mon evo level requirement
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;joenote - fixing an oversigt where gaining multiple levels in battle then evolving can cause 
+;joenote - fixing an oversight where gaining multiple levels in battle then evolving can cause 
 ;			learning moves of the new evolution to be skipped.
 			;need to store the evo level requirement somewhere.
 	;wTempCoins1 was chosen because it's used only for slot machine and gets defaulted to 1 during the mini-game
@@ -373,6 +373,8 @@ RenameEvolvedMon:
 	jp CopyData
 
 CancelledEvolution:
+	ld a, 2	;joenote - set something to recognize a cancelled evolution later
+	ld [wEvolutionOccurred], a
 	ld hl, StoppedEvolvingText
 	call PrintText
 	call ClearScreen

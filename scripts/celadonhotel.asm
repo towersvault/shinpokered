@@ -54,6 +54,21 @@ CeladonHotelCoinGuy:
 	ld c, $2	;make the addition 2 bytes long
 	predef AddBCDPredef	;add value in hl location to value in de location
 	
+	;is the pokemon shiny?
+	ld de, wPartyMon1DVs
+	callba ShinyDVsChecker2
+	jr z, .payout
+	;if so, apply a 4x multiplier
+	ld de, hCoins + 1
+	ld hl, hCoins + 1
+	ld c, $2	;make the addition 2 bytes long
+	predef AddBCDPredef	;add value in hl location to value in de location
+	ld de, hCoins + 1
+	ld hl, hCoins + 1
+	ld c, $2	;make the addition 2 bytes long
+	predef AddBCDPredef	;add value in hl location to value in de location
+
+.payout	
 	ld de, wPlayerCoins + 1
 	ld hl, hCoins + 1
 	ld c, $2	;make the addition 2 bytes long

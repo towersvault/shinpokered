@@ -205,7 +205,16 @@ StatusScreen:
 	lb bc, LEADING_ZEROES | 1, 3
 	call PrintNumber ; Pokémon no.
 	coord hl, 11, 10
+	
+	;joenote - get mon types directly from party data for status screen
+	ld a, [wd0b5]
+	push af
+	xor a
+	ld [wd0b5], a
 	predef PrintMonType
+	pop af
+	ld [wd0b5], a
+
 	ld hl, NamePointers2
 	call .GetStringPointer
 	ld d, h
@@ -306,6 +315,9 @@ PTileEnd:
 PrintStatsBox:
 	ld a, d
 	and a ; a is 0 from the status screen
+	
+	push af	;joenote - going to use this later
+	
 	jr nz, .DifferentBox
 	coord hl, 0, 8
 	ld b, 8
@@ -329,7 +341,9 @@ PrintStatsBox:
 	pop hl
 	pop bc
 	add hl, bc
-;joenote - print stat exp if select is held
+;joenote - print stat exp if select is held and on the status screen
+	pop af
+	jr nz, .doregular
 	call Joypad
 	ld a, [hJoyHeld]
 	bit 2, a

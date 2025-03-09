@@ -40,7 +40,8 @@ _ViridianPokeCenter_AideQ_done::
 	done
 	
 _ViridianPokeCenter_AideQ_reject::
-	text "See me again if"
-	line "you change your"
+	text "No? Very well."
+	line "See me again if"
+	cont "you change your"
 	cont "mind later."
 	done

@@ -55,6 +55,9 @@ MainMenu:
 	ld de, VersionText
 	call PlaceString
 	
+;joenote - check for emulator issues
+	call EmuCheckWriteMode3
+	call EmuCheck_OAM_Timing
 	
 ;joenote - detect a random seed of 01 01 01 01 and do something to help correct it
 	callba RNG_Correction
@@ -182,6 +185,8 @@ MainMenu:
 	ResetEvent EVENT_8DA	;cinnabar shore missingno
 	ResetEvent EVENT_90A	;random trainer flag
 	ResetEvent EVENT_90D	;random 3-mon trainer for tournament
+	ld hl, wFlags_D733
+	res 1, [hl]
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	ld c, 10
 	call DelayFrames
@@ -221,9 +226,9 @@ InitOptions:
 	ld [wUnusedD721], a	;joenote - reset any extra optioins
 	ld a, 1 ; no delay
 	ld [wLetterPrintingDelayFlags], a
-	ld a, TEXT_DELAY_MEDIUM ; medium speed
+	ld a, TEXT_DELAY_FAST ; medium speed
 	set BIT_BATTLE_SHIFT, a ;joenote - SET battle style
-	set BIT_BATTLE_HARD, a ;joenote - hard mode
+;	set BIT_BATTLE_HARD, a ;joenote - hard mode
 	ld [wOptions], a
 	ld a, [hGBC]
 	and a
@@ -454,11 +459,11 @@ HandshakeList:
 	db $1
 	db $2
 	db $4
-	db $5
+	db $6
 	db $a
 	db $ff
 VersionText:
-	db "v1.24.5M@"
+	db "v1.24.6-h3-M@"
 
 WhereWouldYouLikeText:
 	TX_FAR _WhereWouldYouLikeText
@@ -603,6 +608,7 @@ SaveScreenInfoText:
 	next "TIME@"
 
 DisplayOptionMenu:
+	call GBPalNormal	;joenote - fixes rock tunnel darkness affecting option menu
 	coord hl, 0, 0
 	ld b, 3
 	ld c, 18
@@ -928,3 +934,107 @@ ClearHackVersion:
 	xor a
 	ld [wRomHackVersion], a
 	ret
+
+
+	
+;joenote - This function attempts to write and read values to VRAM during STAT mode 3.
+;On real hardware, this is not allowed because the LCD controller is accessing VRAM.
+;However, not all emulation implements this which will cause problems.
+;If the values are allowed to be written and read, an error message will display.
+;Will fail on VisualBoyAdvance-1.8.0-beta3 as well as Goomba Emulator
+;Passes on BGB, MGBA, and Delta
+EmuCheckWriteMode3:
+	ld b, 3	;give it some extra chances to pass
+.test
+	ld hl, $8000
+	ld de, $BEEF
+	call .waitMode3
+	ld a, $BE
+	cp d
+	jr nz, .pass
+	ld a, $EF
+	cp e
+	jr nz, .pass
+.fail
+	dec b
+	jr nz, .test
+	ld de, EmuFailText1
+	coord hl, $00, $09
+	call PlaceString
+	ld a, 1
+	and a
+	ret
+.pass
+	xor a
+	ret
+.waitMode3
+	di
+.waitMode3_loop
+	ldh a, [rSTAT]		;read from stat register to get the mode
+	and %11				;4 cycles
+	cp 3				;4 cycles
+	jr nz, .waitMode3_loop	;6 cycles to pass or 10 to loop
+	ld a, d
+	ld [hli], a
+	ld a, e
+	ld [hld], a
+	ld a, [hli]
+	ld d, a
+	ld a, [hld]
+	ld e, a
+	ei
+	ret
+EmuFailText1:
+	db "Emulator ERROR! Mode-3 access violation.@"
+	
+	
+;Will fail on VisualBoyAdvance-M-2.1.11 as well as VisualBoyAdvance-1.8.0-beta3
+;Passes on BGB, MGBA, and Delta
+EmuCheck_OAM_Timing:
+	di
+	call DisableLCD
+	
+	ld a, [rSTAT]
+	push af
+	ld a, %00100000	;enable Mode 2 OAM interrupt for LCDC
+	ldh [rSTAT], a
+	
+	ld a, [rIE]
+	push af
+	ld a, %00000010	;enable LCDC STAT control interrupts
+	ldh [rIE], a
+	
+	xor a
+	ldh [rIF], a
+
+	ei
+	
+	;Enable the LCD
+	ld a, [rLCDC]
+	set rLCDC_ENABLE, a
+	ld [rLCDC], a
+	
+	xor a
+REPT 200
+	inc a
+ENDR	
+	
+	di
+	pop af
+	ldh [rIE], a
+	pop af
+	ldh [rSTAT], a
+	ei
+	
+	ld a, [$FFF5]
+	cp 111
+	ret z	;pass
+	ld de, EmuFailText2	;fail
+	coord hl, $00, $0B
+	call PlaceString
+	ld a, 1
+	and a
+	ret
+EmuFailText2:
+	db "Emulator ERROR! Incorrect OAMint timing.@"
+	

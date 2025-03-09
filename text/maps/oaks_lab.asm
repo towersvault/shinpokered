@@ -494,7 +494,7 @@ _OaksLabText_44247::
 _OaksLabText_4424c::
 	text "Your #DEX is"
 	line "entirely complete!"
-	cont "Congratulations!"
+	autocont "Congratulations!"	;joenote - auto-scroll so the previous exclamation point does not get cut off
 	done
 
 ;;;;;;;;;;;;;;;;;;;;;;joenote - adding text for oak battle
@@ -615,7 +615,8 @@ _OaksLabText_AideQ_done::
 	done
 	
 _OaksLabText_AideQ_reject::
-	text "See me again if"
-	line "you change your"
+	text "No? Very well."
+	line "See me again if"
+	cont "you change your"
 	cont "mind later."
 	done

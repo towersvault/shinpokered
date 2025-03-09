@@ -40,8 +40,27 @@ FuchsiaGymScript3:
 	ld a, [wIsInBattle]
 	cp $ff
 	jp z, FuchsiaGymScript_75477
+
+	ld a, [wPartyCount]
+	dec a
+	jr nz, .notutor	;party count must be 1
+	ld a, [wPartyMon1Species]
+	cp SCYTHER
+	jr nz, .notutor	;must have a solo scyther
+	ld a, [wPartyMon1Type2]
+	cp GHOST
+	jr z, .notutor	;can't aready have a ghost scyther
+	ld a, 12
+	ld [hSpriteIndexOrTextID], a
+	call DisplayTextID
+.notutor
+
 	ld a, $f0
 	ld [wJoyIgnore], a
+;;;;joenote - added for rematch to skip gym leader tm
+	CheckEvent EVENT_GOT_TM06
+	jp nz, FuchsiaGymScript_75477
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 FuchsiaGymScript3_75497:
 	ld a, $9
 	ld [hSpriteIndexOrTextID], a
@@ -82,6 +101,7 @@ FuchsiaGymTextPointers:
 	dw FuchsiaGymText9
 	dw FuchsiaGymText10
 	dw FuchsiaGymText11
+	dw KogaScytherNinjaTraining
 
 FuchsiaGymTrainerHeader0:
 	dbEventFlagBit EVENT_BEAT_FUCHSIA_GYM_TRAINER_0
@@ -149,6 +169,8 @@ FuchsiaGymText1:
 	call DisableWaitingAfterTextDisplay
 	jr .asm_e84c6
 .asm_adc3b
+	call KogaScytherTutor
+	jp z, KogaScytherTutorEndScript
 ;;;;;;;joenote - have a rematch with gym leader?
 	ld hl, RematchTrainerText
 	call PrintText
@@ -177,10 +199,6 @@ FuchsiaGymText1:
 	call InitBattleEnemyParameters
 	xor a
 	ld [hJoyHeld], a
-;;;;joenote - added for rematch to skip gym leader tm
-	CheckEvent EVENT_GOT_TM06
-	jp nz, TextScriptEnd
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	ld a, $3
 	ld [wFuchsiaGymCurScript], a
 .asm_e84c6
@@ -340,4 +358,169 @@ FuchsiaGymText_7564e:
 
 FuchsiaGymText_75653:
 	TX_FAR _FuchsiaGymText_75653
+	db "@"
+
+	
+
+	
+;joenote - allow Scyther to be trained as a ninja if Koga was beaten solo	
+;Gives it bug/ghost typing and allows it to be tutored in a number of ninja-like moves	
+	
+KogaScytherNinjaTraining:
+	TX_ASM
+	ld hl, _KogaTutorOffer
+	call PrintText
+	call YesNoChoice
+	ld a, [wCurrentMenuItem]
+	and a
+	jp nz, KogaScytherTutorEndScript
+.yes
+	call GBFadeOutToBlack
+	ld a, GHOST
+	ld [wPartyMon1Type2], a
+	ld a, SFX_GET_ITEM_2
+	call PlaySound 
+	call WaitForSoundToFinish
+	call GBFadeInFromBlack	
+	ld hl, _KogaTutorOffer2
+	call PrintText
+.end
+	jp TextScriptEnd
+
+KogaScytherTutorEndScript:
+	ld hl, _KogaTutorBye
+	call PrintText
+	jp TextScriptEnd
+	
+KogaScytherTutor:
+	ld a, [wPartyMon1Species]
+	cp SCYTHER
+	jp nz, .ret_cont
+	ld a, [wPartyMon1Type2]
+	cp GHOST
+	jr nz, .ret_cont
+	ld hl, _KogaTutorIntro
+	call PrintText
+	call YesNoChoice
+	ld a, [wCurrentMenuItem]
+	and a
+	jr nz, .ret_cont
+	
+	ld hl, wMoveBuffer+1
+	push hl
+	
+
+	ld b, 0
+	ld de, KogaTutorMoves
+.loop2
+	ld a, [de]
+	and a
+	jr z, .endloop2
+
+	ld hl, wPartyMon1Moves
+	ld c, 4
+.loop1
+	cp [hl]
+	jr z, .endloop1
+	inc hl
+	dec c
+	jr nz, .loop1
+	pop hl
+	ld [hli], a
+	inc b
+	push hl
+.endloop1
+
+	inc de
+	jr .loop2
+.endloop2
+	
+	
+	pop hl
+	ld a, $ff
+	ld [hl], a
+	ld a, b
+	ld [wMoveBuffer], a
+	
+	xor a
+	ld [wListScrollOffset], a
+	ld [wCurrentMenuItem], a
+	ld [wLastMenuItem], a
+	ld a, MOVESLISTMENU
+	ld [wListMenuID], a
+	ld de, wMoveBuffer
+	ld hl, wListPointer
+	ld [hl], e
+	inc hl
+	ld [hl], d
+	xor a
+	ld [wPrintItemPrices], a ; don't print prices
+	call DisplayListMenuID
+	jr c, .ret_close	;return if cancel selected	
+	; Save the selected move id.
+	ld a, [wcf91]
+	ld [wMoveNum], a
+	ld [wd11e],a
+	call GetMoveName
+	call CopyStringToCF4B ; copy name to wcf4b
+	xor a	;working with first party pokemon
+	ld [wWhichPokemon], a
+	ld a, [wLetterPrintingDelayFlags]
+	push af
+	xor a
+	ld [wLetterPrintingDelayFlags], a
+	predef LearnMove
+	pop af
+	ld [wLetterPrintingDelayFlags], a	
+	ret
+.ret_close
+	xor a
+	ret
+.ret_cont
+	ld a, 1
+	and a
+	ret
+
+KogaTutorMoves:
+	db CONFUSE_RAY	;"erie lights" in japanese, scyther reflects light off its blades
+	db HYPNOSIS		;genjutsu
+	db PIN_MISSILE	;shuriken
+	db ROLLING_KICK	;martial arts
+	db LIGHT_SCREEN	;invisible walls
+	db $00
+	
+_KogaTutorOffer:
+	text "You have a highly"
+	line "talented SCYTHER."
+	cont "I could teach it"
+	cont "the secret way of"
+	cont "becoming a ninja."
+
+	para "Its motions will"
+	line "be so fast that"
+	cont "attacks may pass"
+	cont "through it as if"
+	cont "it were a GHOST."
+	done
+	db "@"
+
+_KogaTutorOffer2:
+	text "The training is"
+	line "complete. See me"
+	cont "again if you want"
+	cont "me to tutor it in"
+	cont "the way of moves."
+	done
+	db "@"
+
+_KogaTutorIntro:
+	text "Your SCYTHER is a"
+	line "fine ninja. Shall"
+	cont "I tutor it more?"
+	done
+	db "@"
+
+_KogaTutorBye:
+	text "I wish you well."
+	done
 	db "@"

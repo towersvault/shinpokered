@@ -178,3 +178,5 @@ PredefPointers::
 	add_predef GetCriticalHitProbability
 	add_predef ShimmerTransformationPlayer
 	add_predef ShimmerTransformationEnemy
+	add_predef ReadSuperRodData
+	add_predef _CalcStat

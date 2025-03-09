@@ -187,9 +187,41 @@ DayCareMText1:
 	pop bc
 	pop af
 
-	push af
+	ld [wWhichPokemon], a	;joenote - update wWhichPokemon
+	push af	;back up wWhichPokemon for the end
 	
-; set mon's HP to max
+	ld a, [wcf91]
+	call PlayCry
+	
+;joenote - prompt move learning and evolution if possible
+	ld a, [wDayCareMonSpecies]
+	ld [wd11e], a
+	call DaycareMoveLearning
+	call DaycareEvolution	;returns with z flag set if evolution did not happen
+	jr z, .doneEvos
+	ld a, [wEvolutionOccurred]
+	cp 2
+	jr z, .doneEvos
+	
+	;if an evolution completed, check if another one needs to happen
+	ld a, [wWhichPokemon]
+	dec a	;wWhichPokemon is +1 too many from DaycareEvolution routines, so decrement
+	ld [wWhichPokemon], a
+	ld hl, wPartyMon1Species
+	ld bc, wPartyMon2 - wPartyMon1
+	call AddNTimes
+	ld a, [hl]
+	ld [wd11e], a	;update the species to the new evolution
+	call DaycareEvolution	;See if a 2nd evolution is needed
+
+.doneEvos
+	ld a, 0
+	ld [wEvolutionOccurred], a
+	
+	pop af	;get back wWhichPokemon
+
+	; set mon's HP to max
+	ld bc, wPartyMon2HP - wPartyMon1HP
 	ld hl, wPartyMon1HP
 	call AddNTimes
 	ld d, h
@@ -202,37 +234,6 @@ DayCareMText1:
 	ld a, [hl]
 	ld [de], a
 
-	ld a, [wcf91]
-	call PlayCry
-	
-	;joenote - prompt evolution and move learning if possible
-	pop af
-	ld [wWhichPokemon], a
-	
-	ld a, [wDayCareMonSpecies]
-	ld [wd11e], a
-	
-	call EvoMoveStuff
-	push af	;preserve z flag state to see if evolution happened or not
-	
-	ld a, [wWhichPokemon]
-	dec a
-	ld [wWhichPokemon], a
-	ld hl, wPartyMon1Species
-	ld bc, wPartyMon2 - wPartyMon1
-	call AddNTimes
-	ld a, [hl]
-	ld [wd11e], a
-	
-	pop af	;did evolution happen with the last call to EvoMoveStuff
-	push hl	;preserve the partymon position of the pokemon in question
-	call nz, EvoMoveStuff	;If so, need to call it again to update for moves and the 2nd evolution
-
-	pop hl
-	ld a, [hl]
-	ld [wd11e], a
-	call nz, EvoMoveStuff	;if a second evolution happened, update one more time for moves
-	
 	ld hl, DayCareGotMonBackText
 	jr .done
 
@@ -245,7 +246,7 @@ DayCareMText1:
 	jp TextScriptEnd
 
 
-EvoMoveStuff:
+DaycareEvolution:
 ;sets z flag if no evolution happened
 ;clears z flag if evolution happened
 	xor a 
@@ -257,10 +258,53 @@ EvoMoveStuff:
 	xor a
 	ld [wLetterPrintingDelayFlags], a
 
+	;Evolution will be done as if it was happening after a battle.
+	;So wStartBattleLevels needs to be updated or else the move learning will be wonky.
+	ld hl, wStartBattleLevels
+	ld a, [wWhichPokemon]
+	push bc
+	ld c, a
+	ld b, 0
+	add hl, bc
+	pop bc
+	ld a, [wDayCareStartLevel]
+	ld [hl], a
+	
+	;make it so evolution is treated as if it were happening at the end of a battle
 	ld hl, wFlags_D733
 	set 6, [hl]
 	push hl
 
+	callab TryEvolvingMon
+
+	pop hl
+	res 6, [hl]
+	
+	pop af
+	ld [wLetterPrintingDelayFlags], a
+
+	ld a, [wEvolutionOccurred]	;check to see if any evolution started (even if cancelled with the B button)
+	and a
+	jr z, .no_evolve
+	call WaitForSoundToFinish
+	call GBPalWhiteOutWithDelay3
+	call RestoreScreenTilesAndReloadTilePatterns
+	call LoadGBPal
+	ld a, 1
+	and a
+.no_evolve
+	ret
+
+DaycareMoveLearning:
+	xor a 
+	ld [wMonDataLocation], a	; PLAYER_PARTY_DATA
+	ld [wForceEvolution], a
+
+	ld a, [wLetterPrintingDelayFlags]
+	push af
+	xor a
+	ld [wLetterPrintingDelayFlags], a
+	
 	push bc
 	ld a, [wCurEnemyLVL]	; load the final level into a.
 	ld c, a	; load the final level to over to c
@@ -270,35 +314,27 @@ EvoMoveStuff:
 .inc_level	; marker for looping back 
 	inc b	;increment the current level
 	ld a, b	;put the current level in a
-	ld [wCurEnemyLVL], a	;and reset the final level to the evolution level
-	push bc	;save b & c on the stack as they hold the currently tracked evolution level a true final level
+	ld [wCurEnemyLVL], a	;and set the final level to the current level in the loop
+	push bc	;save b & c on the stack as they hold the currently tracked loop level a true final level
+	ld a, [wFlags_D733]
+	set 6, a
+	ld [wFlags_D733], a		;make it so the move-forget list covers up sprites
 	predef LearnMoveFromLevelUp
-	pop bc	;get the current evolution and final level values back from the stack
-	ld a, b	;load the current evolution level into a
+	ld a, [wFlags_D733]
+	res 6, a
+	ld [wFlags_D733], a
+	pop bc	;get the current loop level and final level values back from the stack
+	ld a, b	;load the current loop level into a
 	cp c	;compare it with the final level
-	jr nz, .inc_level	;loop back again if final level has not been reached
+	jr c, .inc_level	;loop back again if final level has not been reached
 	pop bc
-	
-	callab TryEvolvingMon
-
-	pop hl
-	res 6, [hl]
 	
 	pop af
 	ld [wLetterPrintingDelayFlags], a
-
-	ld a, [wEvolutionOccurred]
-	and a
-	ld a, 0
-	ld [wEvolutionOccurred], a
-	jr z, .no_evolve
-	call WaitForSoundToFinish
-	call GBPalWhiteOutWithDelay3
-	call RestoreScreenTilesAndReloadTilePatterns
-	call LoadGBPal
-.no_evolve
 	ret
 
+	
+	
 DayCareIntroText:
 	TX_FAR _DayCareIntroText
 	db "@"

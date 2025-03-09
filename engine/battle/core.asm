@@ -1092,67 +1092,56 @@ FaintEnemyPokemon:
 	call SaveScreenTilesToBuffer1
 	xor a
 	ld [wBattleResult], a
-	ld b, EXP_ALL
-	call IsItemInBag
-	push af
-	jr z, .giveExpToMonsThatFought ; if no exp all, then jump
-
-;joedebug - EXP ALL is handled here
-
-
-; wispnote - If all participated PKMN fainted, only apply the Exp.All effect
-;			- Half the exp will be split among all non-fainted party mons
-	ld a, [wPartyGainExpFlags]
-	or a
-	jr nz, .noZeroParticipants
-	pop af
-	jp .expallfix_end	;all your battle participants are toast. don't even bother giving them exp
-.noZeroParticipants
-
-
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;joenote - This is the vanilla code for dealing with all the exp gain stuff. Commenting this all out.
+;	ld b, EXP_ALL
+;	call IsItemInBag
+;	push af
+;	jr z, .giveExpToMonsThatFought ; if no exp all, then jump
+;
 ; the player has exp all
 ; first, we halve the values that determine exp gain
 ; the enemy mon base stats are added to stat exp, so they are halved
 ; the base exp (which determines normal exp) is also halved
-	ld hl, wEnemyMonBaseStats
-	ld b, $7
-.halveExpDataLoop
-	srl [hl]
-	inc hl
-	dec b
-	jr nz, .halveExpDataLoop
-
-; give exp (divided evenly) to the mons that actually fought in battle against the enemy mon that has fainted
-; if exp all is in the bag, this will be only be half of the stat exp and normal exp, due to the above loop
-.giveExpToMonsThatFought
+;	ld hl, wEnemyMonBaseStats
+;	ld b, $7
+;.halveExpDataLoop
+;	srl [hl]
+;	inc hl
+;	dec b
+;	jr nz, .halveExpDataLoop
+;
+;; give exp (divided evenly) to the mons that actually fought in battle against the enemy mon that has fainted
+;; if exp all is in the bag, this will be only be half of the stat exp and normal exp, due to the above loop
+;.giveExpToMonsThatFought
+;	xor a
+;	ld [wBoostExpByExpAll], a
+;	callab GainExperience
+;	pop af
+;	ret z ; return if no exp all
+;
+;; the player has exp all
+;; now, set the gain exp flag for every party member
+;; half of the total stat exp and normal exp will divided evenly amongst every party member
+;	ld a, $1
+;	ld [wBoostExpByExpAll], a
+;	ld a, [wPartyCount]
+;	ld b, 0
+;.gainExpFlagsLoop
+;	scf
+;	rl b
+;	dec a
+;	jr nz, .gainExpFlagsLoop
+;	ld a, b
+;	ld [wPartyGainExpFlags], a
+;	jpab GainExperience
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;joenote - GainExperience now handles everything including EXP All
 	xor a
 	ld [wBoostExpByExpAll], a
 	callab GainExperience
-	pop af
-	ret z ; return if no exp all
-;joenote - the GainExperience function will divide the stored exp further if multiple pkmn took part in battle
-;therefore there is a need to undo the previous division
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-	;skip all this if only a single battle participant
-	ld a, [wUnusedD155]	
-	dec a
-	jr z, .expallfix_end
-	;else continue on
-	push hl
-	push bc
-	callba UndoDivision4ExpAll
-	pop bc
-	pop hl
-.expallfix_end
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+	ret
 
-
-
-; the player has exp all
-; now, set the gain exp flag for every party member
-; half of the total stat exp and normal exp will divided evenly amongst every party member	
-	callba SetExpAllFlags
-	jpab GainExperience
 
 EnemyMonFaintedText:
 	TX_FAR _EnemyMonFaintedText
@@ -2811,6 +2800,7 @@ SwitchPlayerMon:	;joedebug - this is where the player switches
 	callba DoPlayerShinybit ;joenote - reset shiny checker bits
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;joenote - if enemy using trapping move, then end their move
+;Note that SelectEnemyMove has not been run yet.
 	ld a, [wEnemyBattleStatus1]
 	bit USING_TRAPPING_MOVE, a
 	jr z, .preparewithdraw
@@ -2818,7 +2808,7 @@ SwitchPlayerMon:	;joedebug - this is where the player switches
 	res USING_TRAPPING_MOVE, [hl] 
 	xor a
 	ld [wEnemyNumAttacksLeft], a
-	ld a, $FF
+	ld a, $FF	; FF is a Do Nothing move
 	ld [wEnemySelectedMove], a
 	;don't let enemy change the selected move during the next picking function
 	ld a, [wUnusedC000]
@@ -3349,28 +3339,6 @@ TypeText:
 	db "TYPE@"
 
 SelectEnemyMove:
-	ld a, [wLinkState]
-	sub LINK_STATE_BATTLING
-	jr nz, .noLinkBattle
-; link battle
-	call SaveScreenTilesToBuffer1
-	call LinkBattleExchangeData
-	call LoadScreenTilesFromBuffer1
-	ld a, [wSerialExchangeNybbleReceiveData]
-	cp LINKBATTLE_STRUGGLE
-	jp z, .linkedOpponentUsedStruggle
-	cp LINKBATTLE_NO_ACTION
-	jr z, .unableToSelectMove
-	cp 4
-	ret nc
-	ld [wEnemyMoveListIndex], a
-	ld c, a
-	ld hl, wEnemyMonMoves
-	ld b, 0
-	add hl, bc
-	ld a, [hl]
-	jp .done
-.noLinkBattle
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;joenote - if raging, reset rage's accuracy here to prevent degradation
 ;	and also decrement the rage counter
@@ -3393,6 +3361,35 @@ SelectEnemyMove:
 	ld [wEnemyMoveAccuracy], a
 .not_enemy_thrashing
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+	ld a, [wLinkState]
+	sub LINK_STATE_BATTLING
+	jr nz, .noLinkBattle
+; link battle
+	call SaveScreenTilesToBuffer1
+	call LinkBattleExchangeData
+	call LoadScreenTilesFromBuffer1
+	ld a, [wSerialExchangeNybbleReceiveData]
+	cp LINKBATTLE_STRUGGLE
+	jp z, .linkedOpponentUsedStruggle
+	cp LINKBATTLE_NO_ACTION
+	jr z, .unableToSelectMove_general
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;joenote - check and reset flag for being unable to select a move
+	ld hl, wUnusedC000
+	bit 2, [hl]
+	res 2, [hl]
+	jr nz, .unableToSelectMove_general
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+	cp 4
+	ret nc
+	ld [wEnemyMoveListIndex], a
+	ld c, a
+	ld hl, wEnemyMonMoves
+	ld b, 0
+	add hl, bc
+	ld a, [hl]
+	jp .done
+.noLinkBattle	;the following handles selection stuff for an AI opponent
 	ld a, [wEnemyBattleStatus2]
 	and (1 << NEEDS_TO_RECHARGE) | (1 << USING_RAGE) ; need to recharge or using rage
 	ret nz
@@ -3416,16 +3413,17 @@ SelectEnemyMove:
 	ld hl, wUnusedC000
 	bit 2, [hl]
 	res 2, [hl]
-	jr nz, .unableToSelectMove
+	jr nz, .unableToSelectMove_AI
 	
 	ld a, [wPlayerBattleStatus1]
 	bit USING_TRAPPING_MOVE, a ; caught in player's trapping move (e.g. wrap)
 	jr z, .canSelectMove
 	
-.unableToSelectMove
+.unableToSelectMove_AI
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	call nz, NoAttackAICall	;joenote - get ai routines. flag register is preserved
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+.unableToSelectMove_general
 	ld a, $ff
 	jr .done
 .canSelectMove
@@ -5448,12 +5446,15 @@ ApplyAttackToEnemyPokemon:
 	jr z, .storeDamage
 ; Psywave	
 	call PsywaveDamage	;joenote - fixes all sorts of problems
+	jr .damage_stored
 .storeDamage ; store damage value at b ;joenote - changed to bc
 	ld hl, wDamage
 	ld a, b ;xor a
 	ld [hli], a
 	ld a, c
 	ld [hl], a
+.damage_stored
+	call DrawHUDsAndHPBars
 	pop bc
 
 ApplyDamageToEnemyPokemon:
@@ -5561,12 +5562,15 @@ ApplyAttackToPlayerPokemon:
 	jr z, .storeDamage
 ; Psywave	
 	call PsywaveDamage	;joenote - fixes all sorts of problems
+	jr .damage_stored
 .storeDamage ; store damage value at b ;joenote - changed to bc
 	ld hl, wDamage
 	ld a, b ;xor a
 	ld [hli], a
 	ld a, c
 	ld [hl], a
+.damage_stored
+	call DrawHUDsAndHPBars
 	pop bc
 	
 ApplyDamageToPlayerPokemon:
@@ -6467,7 +6471,7 @@ RandomizeDamage:
 ExecuteEnemyMove:
 	ld a, [wEnemySelectedMove]
 	inc a
-	jp z, ExecuteEnemyMoveDone
+	jp z, ExecuteEnemyMoveDone	;joenote - FF is a Do Nothing move
 	call PrintGhostText
 	jp z, ExecuteEnemyMoveDone
 	ld a, [wLinkState]
@@ -9951,34 +9955,35 @@ PsywaveDamage:
 ;adjusted for 2 bytes bc
 ;loop until a random number in the range [1, bc] is found
 ;take heed that the min/max possible bc value for psywave is [$0001, $017E]
+;can use BC and HL freely
+	push de
 	ld a, [hl]	;load level from HL
-	ld c, a
-	srl a	;halve the level
-	add c	;add that half to the full level
-	ld c, a
-	rl b	;roll any carry bit form the addition over into b so that bc = level * 1.5
-	or b	;a = c, so OR it with b to make sure that bc is not zero
-	jr nz, .loop
-	inc c	;otherwise make bc a value of $0001
+	ld e, a
+
+	xor a
+	ld [wDamage], a
+	ld [wDamage+1], a
+	
+	ld a, [H_WHOSETURN]
+	and a
+	ld hl, wEnemyMonHP
+	jr z, .got_turn
+	ld hl, wBattleMonHP
+.got_turn
+	ld a, [hli]
+	ld [wcf4b], a
+	ld a, [hl]
+	ld [wcf4b+1], a
+
 .loop
-	;roll for damage and keep it in HL for comparison against BC
 	call BattleRandom
-	and b
-	ld h, a		;hi byte of the damage will always be 00 or 01
-	call BattleRandom
-	ld l, a
-	or h
-	jr z, .loop	;do not generate zero damage
-	ld a, h
-	cp b
-	jr c, .store	;damage is [1 <= HL < BC] if H < B ; this is a valid damage number
-	;else H = B
-	ld a, l
-	cp c
-	jr z, .store 	;damage is valid if HL = BC
-	jr nc, .loop		;damage is not valid if H = B and L > C
-	;else H=B and L < C
-.store
-	ld b, h
-	ld c, l
+	cp e
+	jr z, .next
+	jr nc, .loop
+.next
+	ld d, a
+	callba PsywaveEnhanced
+	jr c, .loop
+
+	pop de
 	ret

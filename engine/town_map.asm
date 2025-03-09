@@ -424,17 +424,67 @@ DrawPlayerOrBirdSprite:
 	ld bc, $a0
 	jp CopyData
 
+;joenote - added messages for immediate map check with the dex area function
+_DexAreaLand::
+	text "Detected nearby!"
+	line "Try WALKING."
+	done
+	db "@"
+_DexAreaSurf::
+	text "Detected nearby!"
+	line "Try SURFING."
+	done
+	db "@"
+_DexAreaSuperRod::
+	text "Detected nearby!"
+	line "Try a SUPER ROD."
+	done
+	db "@"
+
 DisplayWildLocations:
 	callba FindWildLocationsOfMon
-	call ZeroOutDuplicatesInList
+	
+	call Delay3
+	ld a, [wActionResultOrTookBattleTurn]
+	bit 1, a
+	jr z, .nexttext1
+	ld hl, _DexAreaLand
+	call PrintText
+	ld c, 30
+	call DelayFrames
+.nexttext1
+	ld a, [wActionResultOrTookBattleTurn]
+	bit 3, a
+	jr z, .nexttext2
+	ld hl, _DexAreaSurf
+	call PrintText
+	ld c, 30
+	call DelayFrames
+.nexttext2
+	ld a, [wActionResultOrTookBattleTurn]
+	bit 4, a
+	jr z, .nexttext3
+	ld hl, _DexAreaSuperRod
+	call PrintText
+	ld c, 30
+	call DelayFrames
+.nexttext3
+	ld a, [wActionResultOrTookBattleTurn]
+	and a
+	call nz, LoadTownMap
+	xor a
+	ld [wActionResultOrTookBattleTurn], a
+	
+	;call ZeroOutDuplicatesInList
+	call RemoveDuplicatesInList	;joenote - much better to consolidate the list
 	ld hl, wOAMBuffer
 	ld de, wTownMapCoords
 .loop
 	ld a, [de]
 	cp $ff
 	jr z, .exitLoop
-	and a
-	jr z, .nextEntry
+;	and a
+;	jr z, .nextEntry	;joenote - this would have skipped Pallet Town. Removed since super rod is now detected
 	push hl
 	call LoadTownMapEntry
 	pop hl
@@ -609,6 +659,37 @@ ZeroOutDuplicatesInList:
 .skipZeroing
 	inc hl
 	jr .zeroDuplicatesLoop
+	
+RemoveDuplicatesInList:
+;joenote - like ZeroOutDuplicatesInList, but removes duplicate entries entirely
+	ld hl, wBuffer
+.loop
+	ld a, [hli]
+	cp $ff
+	ret z
+	ld c, a
+	ld a, [hld]
+	cp c
+	jr nz, .skipRemoving
+	push hl
+	call RemoveEntryInList
+	pop hl
+	jr .loop
+.skipRemoving
+	inc hl
+	jr .loop
+
+;joenote - this removes the first entry in a list that begins at address HL+0 and terminates the list with a FF value
+;All the entries in the list are shifted towards the removed entry and FF is backfilled
+RemoveEntryInList:
+	inc hl
+	ld a, [hld]
+	ld [hli], a
+	cp $ff
+	jr nz, RemoveEntryInList
+	ret
+	
+
 
 LoadTownMapEntryFromD:	;joenote - for more versatility, like with using callba
 	ld a, d

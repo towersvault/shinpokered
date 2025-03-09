@@ -162,7 +162,7 @@ DivideBCD_getNextDigit:
 AddBCDPredef::
 	call GetPredefRegisters
 
-AddBCD::
+AddBCD::	;note - Has overflow protection. Will fill each bytes with 99
 	and a
 	ld b, c
 .add

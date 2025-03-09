@@ -44,7 +44,22 @@ CeladonHouseText1:	;joenote - adding offer to buy pokemon
 	ld c, $3
 	predef AddBCDPredef	;add value in hl location to value in de location
 	
+	;is the pokemon shiny?
+	ld de, wPartyMon1DVs
+	callba ShinyDVsChecker2
+	jr z, .levelmultiplier
+	;if so, apply a 4x multiplier
+	ld de, hItemPrice + 2
+	ld hl, hItemPrice + 2
+	ld c, $3
+	predef AddBCDPredef	;add value in hl location to value in de location
+	ld de, hItemPrice + 2
+	ld hl, hItemPrice + 2
+	ld c, $3
+	predef AddBCDPredef	;add value in hl location to value in de location
+
 	
+.levelmultiplier	
 ;multiply the amount paid by the 'mons level
 	ld a, [hItemPrice + 2]
 	ld [wcd6d + 2], a

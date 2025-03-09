@@ -70,23 +70,14 @@ _ReplaceMon:
 	ld a, [wRandomizerSeed]
 	and a 
 	jr nz, .no_update
-	ld a, [wPlayerID]
-	ld [wRandomizerSeed], a
-	and a 
-	jr nz, .no_update 
+.callRand	;do not allow a seed value of zero
 	call Random	
+	and a
+	jr z, .callRand
 	ld [wRandomizerSeed], a
 .no_update
 	ld [wUnusedD722], a
 	
-;	;stack pointer needs to be greater than or equal to $DF40
-;	ld hl, $0000
-;	add hl, sp
-;	ld a, l
-;	cp $40
-;	ret c
-;Not using stack anymore
-
 	CheckEvent EVENT_8D7
 	jr z, .tieredRandom
 	ld hl, MonListTrueRandom
@@ -157,8 +148,7 @@ _ReplaceMon:
 	xor a
 	ld [MBC1SRamBank], a
 	
-;instead of the stack, use sprite buffer 0 in the sram	
-;	ld hl, $DF00
+;use sprite buffer 0 in the sram	
 	ld hl, sSpriteBuffer0
 .loop2
 	ld a, [de]
@@ -171,21 +161,72 @@ _ReplaceMon:
 	
 	;the mon list is now loaded into sSpriteBuffer0 ($A000)
 	
-;	ld hl, $DF00
+;Here we are going to do a twist on Durstenfeld's in-place version of the Fisher–Yates shuffle
+;We have a mon value in wcf91.
+;We want to swap this out with a randomized mon using a random seed. 
+;But we also want this to be deterministically replicable so that the playthrough stays consistent.
+;Here's how this is going to work. 
+;The list of all mons to be randomized with each other is copied into sram at address A000.
+;HL and DE will be used as pointers to this list.
+;C holds the size of this list.
+;[wUnusedD722 + 1] holds the offset within that list at which our mon in question is located.
+;wUnusedD722 is the working address for a random number between 1 and 255.
+	
 	ld hl, sSpriteBuffer0
 .loop3
+;DE will point to the "origin position" of the list (not necessarily the begining depending on where we are in the loop)	
+	ld d, h
+	ld e, l
+
+;If C=1, then there is nothing left to randomize.
+	dec c
+	jr z, .next3
+	inc c
+
+;Now to update the random number with some deterministic variation. There's multiple ways to do this.
+;One way is to do a basic [1,1,3] Marsaglia XOR Shift.
+;Note that this never produces a zero.
 	ld a, [wUnusedD722]
+	ld b, a
+	sla a
+	xor b
+	ld b, a
+	srl a
+	xor b
+	ld b, a
+	sla a
+	sla a
+	sla a
+	xor b
+	ld [wUnusedD722], a
+;A is now a random number from 1 to 255.
+
+;The plan is to use the value of A as an offset for pointing to a later section of the mon list.
+;If A < C, then there is no problem because there is no risk of blowing past the end of the mon list.
+;But it is a problem if A >= C.
+;So to adjust for this, subtract C-1 from A until A underflows, then add C-1 back to it one time.
+;This should make the value of A from 0 to C-2
+	dec c
 .loop_remainder
 	sub c
 	jr nc, .loop_remainder
 	add c
-	
-	ld d, h
-	ld e, l
-	
+	inc c
+;This essentially treats the mon list as a "wheel of fortune" wheel with C-1 number of equal-sized wedges.
+;And A is how much the wheel has been spun from its starting position.
+;Note that if A is zero, it means that the wheel spun right back around to the position it started at.
+
+;Now increment A.
+;This will make the value of A from 1 to C-1
+;This makes it so that mons are not swapped with themselves and every mon should be different.
+	inc a
+
+;HL is going to point 'A' positions further in the list to the "destination position"
 	add l
 	ld l, a
+;Note that you can straight add to L like this because the mon list starts at $A000. No risk of L overflowing.
 	
+;Now take the mon from the destination position and swap it with the mon at the origin position
 	ld a, [hl]
 	ld b, a
 	ld a, [de]
@@ -193,22 +234,25 @@ _ReplaceMon:
 	ld a, b
 	ld [de], a
 	
+;consequently, if our mon's offset position in the list is equal to the origin position, then we can stop looping.
 	ld a, [wUnusedD722 + 1]
 	cp e
 	jr z, .next3
 	
-	
+;Otherwise, reset HL to the origin position.
 	ld h, d
 	ld l, e
 	
-	ld a, [wUnusedD722]
-	add b
-	ld [wUnusedD722], a
+;Now increment the origin position and decrement the size of the mon list. 
+;This is effectively the same as removing a "wedge" from the mon list "wheel"
 	inc hl
 	dec c
+;Now spin again.
 	jr .loop3
-.next3
 
+.next3
+;The mon in wcf91 has now been swapped out for a different one at the origin position of the list.
+;Load the new one into wcf91 and also wEnemyMonSpecies2 for good measure.
 	ld a, [de]
 	ld [wcf91], a
 	ld [wEnemyMonSpecies2], a
@@ -216,8 +260,7 @@ _ReplaceMon:
 	xor a
 	ld [MBC1SRamEnable], a	;disable the sram
 	ret
-
-
+	
 MonListC:
 	db METAPOD      ; $7C
 	db KAKUNA       ; $71

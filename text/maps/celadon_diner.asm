@@ -84,7 +84,8 @@ _CeladonDiner_AideQ_done::
 	done
 	
 _CeladonDiner_AideQ_reject::
-	text "See me again if"
-	line "you change your"
+	text "No? Very well."
+	line "See me again if"
+	cont "you change your"
 	cont "mind later."
 	done

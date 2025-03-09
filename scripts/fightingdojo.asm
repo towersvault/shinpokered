@@ -172,6 +172,8 @@ FightingDojoText1:
 	and a
 	jr nz, .fightkaratemaster
 ;;;;;;;
+	call KarateMasterTutor
+;;;;;;;
 	ld hl, FightingDojoText_5ce9d
 	call PrintText
 	jr .asm_9dba4
@@ -342,3 +344,61 @@ WantHitmonchanText:
 OtherHitmonText:
 	TX_FAR _OtherHitmonText
 	db "@"
+
+	
+;joenote - place a Flareon at top of the party.
+;Then talk to the Karate Master after completing the dojo questline.
+;Decline the rematch.
+;Your pokemon will learn a couple moves
+KarateMasterTutor:
+	ld a, [wPartyMon1Species]
+	cp FLAREON
+	jr z, .next
+	ret
+.next
+	ld hl, .Text1
+	call PrintText
+	call YesNoChoice
+	ld a, [wCurrentMenuItem]
+	and a
+	jr nz, .finish
+	xor a
+	ld [wWhichPokemon], a
+	ld a, LOW_KICK
+	call .learnmove
+	ld a, AGILITY
+	call .learnmove
+.finish
+	ret
+.Text1
+	text "Your FLAREON has"
+	line "the burning heart"
+	cont "of a warrior. I"
+	cont "could teach it a"
+	cont "thing or two."
+	done
+	db "@"
+.learnmove
+	ld [wMoveNum], a
+	ld [wd11e],a
+	call GetMoveName
+	call CopyStringToCF4B ; copy name to wcf4b
+
+	ld a, [wd11e]
+	push af
+	ld a, [wPartyMon1Species]
+	ld [wd11e], a
+	call GetMonName
+	pop af
+	ld [wd11e], a
+	
+	callba CheckIfMoveIsKnown
+	ret c	;carry set of move known already
+
+	ld hl, wFlags_D733
+	set 6, [hl]
+	push hl		;make it so the move-forget list covers up sprites
+	predef LearnMove
+	pop hl
+	res 6, [hl]
+	ret

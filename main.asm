@@ -36,6 +36,8 @@ IF DEF(_SWBACKS)
 	INCLUDE "constants/monbackpic_constants_sw.asm"
 ELIF DEF(_GSBACKS)
 	INCLUDE "constants/monbackpic_constants_gs.asm"
+ELIF DEF (_YLEGACYBACKS)
+	INCLUDE "constants/monbackpic_constants_yellowlegacy.asm"
 ELSE
 	INCLUDE "constants/monbackpic_constants.asm"
 ENDC
